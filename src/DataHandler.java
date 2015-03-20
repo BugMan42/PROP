@@ -22,7 +22,7 @@ public class DataHandler {
         System.out.println(sal1);
         System.out.println(sal2);
         String dni = user_input.next();
-        if (dni.equals(null)) {
+        if (dni.equals("")) {
             System.out.println("Error: Dni no puede ser vacio");
             return -1;
         }

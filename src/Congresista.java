@@ -14,8 +14,8 @@ public class Congresista {
     public static void main(String[] args) {
         System.out.println("Hola.....");
     }
-    Congresista() { }
 
+    public Congresista() { }
     public Congresista (String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido ) {
         //dni no modificable
         this.dni = dni;
@@ -26,6 +26,7 @@ public class Congresista {
         this.estado = estado;
         this.partido = partido;
     }
+
     public String obt_dni() {
         return this.dni;
     }
@@ -47,6 +48,7 @@ public class Congresista {
     public String obt_partido() {
         return this .partido;
     }
+
     public void mod_dni(String dni) {
         this.dni = dni;
     }
