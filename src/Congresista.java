@@ -69,7 +69,4 @@ public class Congresista {
         this.partido = partido;
     }
 
-
-
-
 }
