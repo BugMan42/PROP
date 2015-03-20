@@ -21,6 +21,12 @@ public abstract class Evento {
         this.fecha = fecha;
     }
 
+    public void mod_nombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public void mod_fecha (Date fecha) {
+        this.fecha = fecha;
+    }
     public void mod_importancia(int importancia) {
         this.importancia = importancia;
     }

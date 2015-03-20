@@ -4,6 +4,7 @@ public class Main {
         System.out.println("Hello World!");
         DataHandler Data = new DataHandler();
         Congresista a = new Congresista();
+        Evento e = new Votacion();
         Data.Crear(a);
         Data.print_congr(a);
 

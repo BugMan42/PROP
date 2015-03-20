@@ -1,6 +1,10 @@
 /**
  * Created by bug on 20/03/15.
  */
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class DataHandler {
@@ -32,8 +36,30 @@ public class DataHandler {
         System.out.println(sal3);
         return 1;
     }
+
+    int Crear(Evento e) {
+        String sal1 = "********Introduce los parametros del Evento********";
+        String sal2 = "Formato : nombre fecha subtipo importancia";
+        String sal3 = "FIN Introducción datos";
+        System.out.println(sal1);
+        System.out.println(sal2);
+        e.mod_nombre(user_input.next());
+        String sdate = user_input.next();
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        e.mod_fecha(format.parse(sdate));
+        e.mod_subtipo(user_input.next());
+        e.mod_importancia(Integer.valueOf(user_input.next()));
+        System.out.println(sal3);
+        return 1;
+    }
+
     void print_congr(Congresista c) {
         String salida = c.obt_dni() + " " + c.obt_apellido() + " " + c.obt_edad() + " " + c.obt_ciudad() + " " + c.obt_estado() + " " + c.obt_partido();
         System.out.println(salida);
+    }
+
+    void print_evento(Evento e) {
+        String output = e.obt_nombre() + " " + e.obt_fecha() + " " + e.obt_subtipo() + " " + e.obt_importancia();
+        System.out.println(output);
     }
 }
