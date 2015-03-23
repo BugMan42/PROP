@@ -1,4 +1,4 @@
-package domini;
+package Domini;
 
 /**
  * Created by falc on 23/03/15.
