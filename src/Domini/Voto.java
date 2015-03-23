@@ -18,4 +18,9 @@ public abstract class Voto {
 
     public abstract String obt_tipo();
 
+    //Modificable a necesidad
+    public String toString() {
+        return dni+" ha votado ";
+    }
+
 }
