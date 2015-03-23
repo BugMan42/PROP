@@ -1,3 +1,7 @@
+package domini;
+
+import domini.Voto;
+
 import java.util.ArrayList;
 import java.util.Date;
 
