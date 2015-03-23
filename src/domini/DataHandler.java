@@ -39,14 +39,14 @@ public class DataHandler {
 
     int Crear(Evento e) throws ParseException {
         String sal1 = "********Introduce los parametros del Evento********";
-        String sal2 = "Formato : nombre fecha subtipo importancia";
+        String sal2 = "Formato : nombre fecha(dd/mm/aaaa) subtipo importancia";
         String sal3 = "FIN Introducción datos";
         System.out.println(sal1);
         System.out.println(sal2);
         e.mod_nombre(user_input.next());
         String sdate = user_input.next();
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        e.mod_fecha(format.parse(sdate)); //----> no debería petar, según la documentación de JAVA.
+        e.mod_fecha(format.parse(sdate));
         e.mod_subtipo(user_input.next());
         e.mod_importancia(Integer.valueOf(user_input.next()));
         System.out.println(sal3);
