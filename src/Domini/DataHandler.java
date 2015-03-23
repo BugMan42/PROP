@@ -1,5 +1,6 @@
 package Domini; /**
  * Created by bug on 20/03/15.
+ * Clase DataHandler
  */
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,16 +36,16 @@ public class DataHandler {
         return 1;
     }
 
-    int Crear(Evento e) {
+    int Crear(Evento e) throws ParseException {
         String sal1 = "********Introduce los parametros del Evento********";
-        String sal2 = "Formato : nombre fecha subtipo importancia";
+        String sal2 = "Formato : nombre fecha(dd/mm/aaaa) subtipo importancia";
         String sal3 = "FIN Introducción datos";
         System.out.println(sal1);
         System.out.println(sal2);
         e.mod_nombre(user_input.next());
         String sdate = user_input.next();
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        //e.mod_fecha(format.parse(sdate)); ----> esto peta no se porque
+        e.mod_fecha(format.parse(sdate));
         e.mod_subtipo(user_input.next());
         e.mod_importancia(Integer.valueOf(user_input.next()));
         System.out.println(sal3);
