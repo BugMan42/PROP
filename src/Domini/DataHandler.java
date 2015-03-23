@@ -1,10 +1,8 @@
-package domini; /**
+package Domini; /**
  * Created by bug on 20/03/15.
  */
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
 
 public class DataHandler {

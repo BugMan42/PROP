@@ -1,4 +1,4 @@
-package domini;
+package Domini;
 
 import java.util.ArrayList;
 

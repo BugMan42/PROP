@@ -1,9 +1,4 @@
-package domini;
-
-import domini.Congresista;
-import domini.DataHandler;
-import domini.Evento;
-import domini.Votacion;
+package Domini;
 
 import java.util.Date;
 

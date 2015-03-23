@@ -1,6 +1,4 @@
-package domini;
-
-import domini.Voto;
+package Domini;
 
 /**
  * Created by falc on 20/03/15.

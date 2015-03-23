@@ -1,12 +1,10 @@
-package domini;
-
-import domini.Congresista;
+package Domini;
 
 /**
  * Created by bug on 20/03/15.
  */
 public class Relacion {
-    private domini.Congresista Congresista;
+    private Domini.Congresista Congresista;
     //private Evento E;
     Relacion() {};
 
