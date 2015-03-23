@@ -7,4 +7,9 @@ public class Nulo extends Voto {
     public Nulo (String dni) {
         super(dni);
     }
+
+    @Override
+    public String obt_tipo() {
+        return "Nulo";
+    }
 }

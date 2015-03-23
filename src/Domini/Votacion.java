@@ -27,5 +27,7 @@ public class Votacion extends Evento {
         votos.remove(id);
     }
 
-
+    public String consultar_voto(int id) {
+        return votos.get(id).getClass().getSimpleName();
+    }
 }
