@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * Created by falc on 20/03/15.
+ * Clase Votación
  */
 public class Votacion extends Evento {
 
@@ -13,6 +14,8 @@ public class Votacion extends Evento {
         super(nombre, fecha);
         votos = new ArrayList<Voto>();
     }
+
+    public Votacion() {}
 
     public void añadir_voto(Voto v) {
         votos.add(v);

@@ -2,6 +2,7 @@ import java.util.Date;
 
 /**
  * Created by falc on 20/03/15.
+ * Clase Evento
  */
 public abstract class Evento {
     private String nombre;
@@ -20,6 +21,8 @@ public abstract class Evento {
         this.nombre = nombre;
         this.fecha = fecha;
     }
+
+    public Evento() {}
 
     public void mod_nombre(String nombre) {
         this.nombre = nombre;
