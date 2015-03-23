@@ -4,28 +4,36 @@ package Domini;
  * Created by bug on 20/03/15.
  */
 public class Relacion {
-    private Domini.Congresista Congresista;
-    //private Evento E;
-    Relacion() {};
 
-    Relacion(Congresista C) {
-        this.Congresista = C;
-    }
-    void mod_congresista(Congresista C) {
-        this.Congresista = C;
-    }
-    /*
-    void mod_evento(Evento E) {
-        this.Evento = E;
-    }
-     */
-    Congresista obt_congresista() {
-        return this.Congresista;
-    }
+    private Congresista C;
+    private Evento E;
 
-    /*
-    Evento obt_evento() {
-    return this.Evento;
-     */
-
+    Relacion(Congresista C, Evento E) {
+        this.C = C;
+        this.E = E;
+    }
+    public void mod_relacion(Congresista C, Evento E) {
+        this.C = C;
+        this.E = E;
+    }
+    public void mod_relacion(Congresista C) {
+        this.C = C;
+    }
+    public void mod_relacion(Evento E) {
+        this.E = E;
+    }
+    public Congresista obt_congresista() {
+        return C;
+    }
+    public Evento obt_Evento() {
+        return E;
+    }
+    public String toString() {
+        return C.obt_dni()+E.obt_nombre();
+    }
+    //destructora o almenos cleaner
+    public void clean() {
+        E = null;
+        C = null;
+    }
 }

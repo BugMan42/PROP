@@ -50,6 +50,9 @@ public class Congresista {
     public String obt_partido() {
         return this .partido;
     }
+    public String toString() {
+        return dni+nombre+apellido+Integer.toString(edad)+ciudad+estado+partido;
+    }
 
     public void mod_dni(String dni) {
         this.dni = dni;
@@ -73,7 +76,5 @@ public class Congresista {
         this.partido = partido;
     }
 
-
-
-
+    //destructora ---> eliminar?
 }
