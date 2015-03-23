@@ -1,3 +1,5 @@
+package domini;
+
 import java.util.ArrayList;
 
 /**
@@ -14,5 +16,6 @@ public class Congreso {
     public void eliminar_Congresista(Congresista C) {
         Lista.remove(C);
     }
+
     
 }

@@ -1,4 +1,4 @@
-/**
+package domini; /**
  * Created by bug on 20/03/15.
  * Clase DataHandler
  */
@@ -45,7 +45,7 @@ public class DataHandler {
         e.mod_nombre(user_input.next());
         String sdate = user_input.next();
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        e.mod_fecha(format.parse(sdate));
+        //e.mod_fecha(format.parse(sdate)); ----> esto peta no se porque
         e.mod_subtipo(user_input.next());
         e.mod_importancia(Integer.valueOf(user_input.next()));
         System.out.println(sal3);
