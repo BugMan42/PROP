@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 /**
  * Created by bug on 23/03/15.
+ * Clase PROP
  */
 public class Prop {
     final static String text1 = "***BIENVENIDO AL PROYECTO DE PROP***";
@@ -24,7 +25,7 @@ public class Prop {
             print_menu();
             opcion = Integer.parseInt(user_input.next());
             decide(opcion,args);
-        } while (opcion >= 1 && opcion <= 6 );
+        } while (opcion != 7);
     }
     private static void decide(int opcion, String[] args) {
         switch (opcion) {
@@ -46,8 +47,14 @@ public class Prop {
             case 6:
                 //Domini.DriverCongreso.main(args);
                 break;
-            default:
+
+            case 7:
                 print("FIN DEL PROGRAMA");
+                break;
+
+            default:
+                print("\nOpción incorrecta, vuelve a introducir un número.\n");
+                break;
         }
 
     }
