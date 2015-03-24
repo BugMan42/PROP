@@ -13,10 +13,6 @@ public class Congresista {
     private String estado;
     private String partido;
 
-    public static void main(String[] args) {
-        System.out.println("Hola.....");
-    }
-
     public Congresista() { }
     public Congresista (String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido ) {
         //dni no modificable
