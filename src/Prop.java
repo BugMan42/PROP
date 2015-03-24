@@ -68,7 +68,6 @@ public class Prop {
         print(opcion7);
         print("Escribe la opcion");
     }
-
     private static void print(String S) {
         System.out.println(S);
     }
