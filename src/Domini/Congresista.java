@@ -14,6 +14,17 @@ public class Congresista {
     private String partido;
 
     public Congresista() { }
+    public Congresista(String S) {
+        String[] aux = S.split("\\s");
+        this.dni = aux[0];
+        this.nombre = aux[1];
+        this.apellido = aux[2];
+        this.edad = Integer.valueOf(aux[3]);
+        this.ciudad = aux[4];
+        this.estado = aux[5];
+        this.partido = aux[6];
+    }
+
     public Congresista (String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido ) {
         //dni no modificable
         this.dni = dni;
