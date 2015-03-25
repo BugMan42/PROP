@@ -8,8 +8,13 @@ public abstract class Algoritmo {
 
     public Algoritmo() {}
 
-    public void ejecutar_algoritmo() {}
+    public Grafo ejecutar_algoritmo(Grafo g) {
 
-    public void ejecutar_iteración() {}
+        return g; //PD: No.
+    };
+
+    public Grafo ejecutar_iteración(Grafo g) {
+        return g; //PD: No.
+    };
 
 }
