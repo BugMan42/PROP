@@ -12,9 +12,9 @@ public class Relacion {
         this.C = C;
         this.E = E;
     }
-    public void mod_relacion(Congresista C, Evento E) {
-        C = C;
-        E = E;
+    public void mod_relacion(Congresista Congr, Evento Ev) {
+        C = Congr;
+        E = Ev;
     }
     public void mod_relacion(Congresista Congr) {
         C = Congr;
