@@ -16,71 +16,71 @@ public class Congresista {
     public Congresista() { }
     public Congresista(String S) {
         String[] aux = S.split("\\s");
-        this.dni = aux[0];
-        this.nombre = aux[1];
-        this.apellido = aux[2];
-        this.edad = Integer.valueOf(aux[3]);
-        this.ciudad = aux[4];
-        this.estado = aux[5];
-        this.partido = aux[6];
+        dni = aux[0];
+        nombre = aux[1];
+        apellido = aux[2];
+        edad = Integer.valueOf(aux[3]);
+        ciudad = aux[4];
+        estado = aux[5];
+        partido = aux[6];
     }
 
-    public Congresista (String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido ) {
+    public Congresista (String d, String n, String a, int e, String c, String es, String p) {
         //dni no modificable
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
-        this.ciudad = ciudad;
-        this.estado = estado;
-        this.partido = partido;
+        dni = d;
+        nombre = n;
+        apellido = a;
+        edad = e;
+        ciudad = c;
+        estado = es;
+        partido = p;
     }
 
     public String obt_dni() {
-        return this.dni;
+        return dni;
     }
     public String obt_nombre() {
-        return this.nombre;
+        return nombre;
     }
     public String obt_apellido() {
-        return this.apellido;
+        return apellido;
     }
     public int obt_edad() {
-        return this.edad;
+        return edad;
     }
     public String obt_ciudad() {
-        return this.ciudad;
+        return ciudad;
     }
     public String obt_estado() {
-        return this.estado;
+        return estado;
     }
     public String obt_partido() {
-        return this .partido;
+        return partido;
     }
     public String toString() {
         return dni+nombre+apellido+Integer.toString(edad)+ciudad+estado+partido;
     }
 
-    public void mod_dni(String dni) {
-        this.dni = dni;
+    public void mod_dni(String dninuevo) {
+        dni = dninuevo;
     }
-    public void mod_nombre(String nombre) {
-        this.nombre = nombre;
+    public void mod_nombre(String nombrenuevo) {
+        nombre = nombrenuevo;
     }
-    public void mod_apellido(String apellido) {
-        this.apellido = apellido;
+    public void mod_apellido(String apellidonuevo) {
+        apellido = apellidonuevo;
     }
-    public void mod_edad(int edad) {
-        this.edad = edad;
+    public void mod_edad(int edadnueva) {
+        edad = edadnueva;
     }
-    public void mod_ciudad(String ciudad) {
-        this.ciudad = ciudad;
+    public void mod_ciudad(String ciudadnuevo) {
+        ciudad = ciudadnuevo;
     }
-    public void mod_estado(String estado) {
-        this.estado = estado;
+    public void mod_estado(String estadonuevo) {
+        estado = estadonuevo;
     }
-    public void mod_partido(String partido) {
-        this.partido = partido;
+    public void mod_partido(String partidonuevo) {
+        partido = partidonuevo;
     }
 
     //destructora ---> eliminar?
