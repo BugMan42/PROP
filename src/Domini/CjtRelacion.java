@@ -25,8 +25,5 @@ public class CjtRelacion {
     public boolean contiene(Relacion R) {
         return Lista.contains(R);
     }
-    public void print_relaciones() {
-
-    }
 
 }

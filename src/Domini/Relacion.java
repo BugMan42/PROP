@@ -13,14 +13,14 @@ public class Relacion {
         this.E = E;
     }
     public void mod_relacion(Congresista C, Evento E) {
-        this.C = C;
-        this.E = E;
+        C = C;
+        E = E;
     }
-    public void mod_relacion(Congresista C) {
-        this.C = C;
+    public void mod_relacion(Congresista Congr) {
+        C = Congr;
     }
-    public void mod_relacion(Evento E) {
-        this.E = E;
+    public void mod_relacion(Evento Ev) {
+        E = Ev;
     }
     public Congresista obt_congresista() {
         return C;
