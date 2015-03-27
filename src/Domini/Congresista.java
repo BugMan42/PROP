@@ -16,7 +16,7 @@ public class Congresista {
     //Creadoras
     public Congresista() { }
     public Congresista(String S) {
-        if (!S.equals(null)) {
+        if (!S.equals("")) {
             String[] aux = S.split("\\s");
             if (validar(aux)) {
                 Dni = aux[0];
@@ -28,6 +28,7 @@ public class Congresista {
                 Partido = aux[6];
             }
         }
+        else throw new IllegalArgumentException("0"); //String pasada es null("")
     }
     public Congresista (String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
         //dni no modificable
@@ -42,7 +43,7 @@ public class Congresista {
     }
     private boolean validar (String[] aux) {
         //if (aux.equals(null)) throw new IllegalArgumentException(Integer.toString(0));
-        if (aux.length != 7) throw new IllegalArgumentException(Integer.toString(0));
+        if (aux.length == 0) throw new IllegalArgumentException(Integer.toString(0));
         for (int i = 0; i < aux.length; ++i) {
             if (!valido(aux[i]))  throw new IllegalArgumentException(Integer.toString(i+1));
         }
