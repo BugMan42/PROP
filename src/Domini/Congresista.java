@@ -1,5 +1,7 @@
 package Domini;
 
+import java.util.regex.Pattern;
+
 /**
  * Created by bug on 20/03/15.
  */
@@ -28,7 +30,7 @@ public class Congresista {
                 Partido = aux[6];
             }
         }
-        else throw new IllegalArgumentException("0"); //String pasada es null("")
+        else throw new IllegalArgumentException("8"); //String pasada es null("")
     }
     public Congresista (String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
         //dni no modificable
@@ -41,22 +43,31 @@ public class Congresista {
         Estado = estado;
         Partido = partido;
     }
+
+    /** TODO: dni tiene que ser de un formato especifico?
+     *  TODO: NOMBRE Y APELLIDO CIUDAD ESTADO PARTIDO NO PUEDEN CONTENER NUMEROS */
     private boolean validar (String[] aux) {
         //if (aux.equals(null)) throw new IllegalArgumentException(Integer.toString(0));
-        if (aux.length == 0) throw new IllegalArgumentException(Integer.toString(0));
+        if (aux.length == 0) throw new IllegalArgumentException(Integer.toString(7));
+        if (aux.length != 7) throw new IllegalArgumentException(Integer.toString(8));
         for (int i = 0; i < aux.length; ++i) {
-            if (!valido(aux[i]))  throw new IllegalArgumentException(Integer.toString(i+1));
+            if (i == 3) {
+                if (!isNumeric(aux[i])) throw new IllegalArgumentException(Integer.toString(i));
+            }
+            else {
+                if (!valido(aux[i]))  throw new IllegalArgumentException(Integer.toString(i));
+            }
         }
         return true;
     };
     private boolean valido(String string) {
         return (!string.equals(""));
     }
+
     //Modificadoras
     public void mod_dni(String dni) {
         Dni = dni;
     }
-
     public void mod_nombre(String nombre) {
         Nombre = nombre;
     }
@@ -75,11 +86,11 @@ public class Congresista {
     public void mod_partido(String partido) {
         Partido = partido;
     }
+
     //Consultoras
     public String obt_dni() {
         return Dni;
     }
-
     public String obt_nombre() {
         return Nombre;
     }
@@ -101,8 +112,14 @@ public class Congresista {
     public String toString() {
         return Dni+" "+Nombre+" "+Apellido+" "+Integer.toString(Edad)+" "+Ciudad+" "+Estado+" "+Partido;
     }
-    //destructora ---> eliminar?
 
+    //destructora ---> eliminar?
+    public void clean() {
+
+    }
+    public static boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
     private static void print(String S) {
         System.out.println(S);
     }
