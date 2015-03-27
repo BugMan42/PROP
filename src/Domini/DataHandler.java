@@ -54,8 +54,8 @@ public class DataHandler {
     }
 
     void print_congr(Congresista c) {
-        String salida = c.obt_dni() + " " + c.obt_apellido() + " " + c.obt_edad() + " " + c.obt_ciudad() + " " + c.obt_estado() + " " + c.obt_partido();
-        System.out.println(salida);
+        //String salida = c.obt_dni() + " "+c.obt_nombre() " " + c.obt_apellido() + " " + c.obt_edad() + " " + c.obt_ciudad() + " " + c.obt_estado() + " " + c.obt_partido();
+        System.out.println(c.toString());
     }
 
     void print_evento(Evento e) {

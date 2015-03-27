@@ -5,83 +5,104 @@ package Domini;
  */
 public class Congresista {
     //Atributos para congresistas
-    private String dni;
-    private String nombre;
-    private String apellido;
-    private int edad;
-    private String ciudad;
-    private String estado;
-    private String partido;
+    private String Dni;
+    private String Nombre;
+    private String Apellido;
+    private int Edad;
+    private String Ciudad;
+    private String Estado;
+    private String Partido;
 
+    //Creadoras
     public Congresista() { }
     public Congresista(String S) {
-        String[] aux = S.split("\\s");
-        dni = aux[0];
-        nombre = aux[1];
-        apellido = aux[2];
-        edad = Integer.valueOf(aux[3]);
-        ciudad = aux[4];
-        estado = aux[5];
-        partido = aux[6];
+        if (!S.equals(null)) {
+            String[] aux = S.split("\\s");
+            if (validar(aux)) {
+                Dni = aux[0];
+                Nombre = aux[1];
+                Apellido = aux[2];
+                Edad = Integer.valueOf(aux[3]);
+                Ciudad = aux[4];
+                Estado = aux[5];
+                Partido = aux[6];
+            }
+        }
     }
-
-    public Congresista (String d, String n, String a, int e, String c, String es, String p) {
+    public Congresista (String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
         //dni no modificable
-        dni = d;
-        nombre = n;
-        apellido = a;
-        edad = e;
-        ciudad = c;
-        estado = es;
-        partido = p;
+        if (!valido(dni)) throw new IllegalArgumentException("DNI NO VALIDO");
+        Dni = dni;
+        Nombre = nombre;
+        Apellido = apellido;
+        Edad = edad;
+        Ciudad = ciudad;
+        Estado = estado;
+        Partido = partido;
+    }
+    private boolean validar (String[] aux) {
+        //if (aux.equals(null)) throw new IllegalArgumentException(Integer.toString(0));
+        if (aux.length != 7) throw new IllegalArgumentException(Integer.toString(0));
+        for (int i = 0; i < aux.length; ++i) {
+            if (!valido(aux[i]))  throw new IllegalArgumentException(Integer.toString(i+1));
+        }
+        return true;
+    };
+    private boolean valido(String string) {
+        return (!string.equals(""));
+    }
+    //Modificadoras
+    public void mod_dni(String dni) {
+        Dni = dni;
     }
 
-    public String obt_dni() {
-        return dni;
+    public void mod_nombre(String nombre) {
+        Nombre = nombre;
     }
+    public void mod_apellido(String apellido) {
+        Apellido = apellido;
+    }
+    public void mod_edad(int edad) {
+        Edad = edad;
+    }
+    public void mod_ciudad(String ciudad) {
+        Ciudad = ciudad;
+    }
+    public void mod_estado(String estado) {
+        Estado = estado;
+    }
+    public void mod_partido(String partido) {
+        Partido = partido;
+    }
+    //Consultoras
+    public String obt_dni() {
+        return Dni;
+    }
+
     public String obt_nombre() {
-        return nombre;
+        return Nombre;
     }
     public String obt_apellido() {
-        return apellido;
+        return Apellido;
     }
     public int obt_edad() {
-        return edad;
+        return Edad;
     }
     public String obt_ciudad() {
-        return ciudad;
+        return Ciudad;
     }
     public String obt_estado() {
-        return estado;
+        return Estado;
     }
     public String obt_partido() {
-        return partido;
+        return Partido;
     }
     public String toString() {
-        return dni+nombre+apellido+Integer.toString(edad)+ciudad+estado+partido;
+        return Dni+" "+Nombre+" "+Apellido+" "+Integer.toString(Edad)+" "+Ciudad+" "+Estado+" "+Partido;
     }
-
-    public void mod_dni(String dninuevo) {
-        dni = dninuevo;
-    }
-    public void mod_nombre(String nombrenuevo) {
-        nombre = nombrenuevo;
-    }
-    public void mod_apellido(String apellidonuevo) {
-        apellido = apellidonuevo;
-    }
-    public void mod_edad(int edadnueva) {
-        edad = edadnueva;
-    }
-    public void mod_ciudad(String ciudadnuevo) {
-        ciudad = ciudadnuevo;
-    }
-    public void mod_estado(String estadonuevo) {
-        estado = estadonuevo;
-    }
-    public void mod_partido(String partidonuevo) {
-        partido = partidonuevo;
-    }
-
     //destructora ---> eliminar?
+
+    private static void print(String S) {
+        System.out.println(S);
+    }
 }
