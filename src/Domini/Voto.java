@@ -7,6 +7,8 @@ package Domini;
 public abstract class Voto {
     private String dni;
 
+    public Voto() {}
+
     public Voto (String dni)
     {
         this.dni = dni;
@@ -16,11 +18,15 @@ public abstract class Voto {
         return this.dni;
     }
 
+    public void mod_dni(String s) {
+        dni = s;
+    }
+
     public abstract String obt_tipo();
 
     //Modificable a necesidad
     public String toString() {
-        return dni+" ha votado ";
+        return "El congresista con DNI "+dni+" ha votado ";
     }
 
 }

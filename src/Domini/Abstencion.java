@@ -5,6 +5,9 @@ package Domini;
  */
 public class Abstencion extends Voto {
 
+    public Abstencion () {
+    }
+
     public Abstencion (String dni) {
         super(dni);
     }
