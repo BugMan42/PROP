@@ -10,3 +10,4 @@ CLS= $(SRC:.java=.class)
 
 .SUFFIXES : .class .java
 .java.class : $(JAVAC) $(JAVACFLAGS) $<
+
