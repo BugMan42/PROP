@@ -17,6 +17,7 @@ public class DriverVotacion {
         System.out.println("Introduce el DNI");
         v.mod_dni(user_input.next());
         vt.añadir_voto(v);
-        System.out.println(v.toString());
+        String v2 = vt.consultar_voto(0);
+        System.out.println(v2);
     }
 }
