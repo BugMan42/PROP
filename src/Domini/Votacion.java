@@ -1,7 +1,7 @@
 package Domini;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Hashtable;
 
 
 /**
@@ -10,24 +10,33 @@ import java.util.Date;
  */
 public class Votacion extends Evento {
 
-    private ArrayList<Voto> votos;
+    private Hashtable<String, Voto> votos = new Hashtable<String, Voto>();
 
     public Votacion(String nombre, Date fecha) {
         super(nombre, fecha);
-        votos = new ArrayList<Voto>();
     }
 
     public Votacion() {}
 
-    public void añadir_voto(Voto v) {
-        votos.add(v);
+
+    // Métodos de inserción de votos
+    public void añadir_voto(String id, Voto v) {
+        votos.put(id, v);
     }
 
-    public void eliminar_voto(int id) {
+    public void añadir_voto(Voto v) {
+        votos.put(v.obt_dni(), v);
+    }
+
+    public void eliminar_voto(String id) {
         votos.remove(id);
     }
 
-    public String consultar_voto(int id) {
+    public String consultar_voto(String id) {
         return votos.get(id).getClass().getSimpleName();
+    }
+
+    public Voto obt_voto(String id) {
+        return votos.get(id);
     }
 }

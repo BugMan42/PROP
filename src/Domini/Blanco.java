@@ -6,6 +6,7 @@ package Domini;
  */
 public class Blanco extends Voto {
 
+    public Blanco() {}
     public Blanco(String dni) {
         super(dni);
     }
