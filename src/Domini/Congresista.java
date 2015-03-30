@@ -1,7 +1,5 @@
 package Domini;
 
-import java.util.regex.Pattern;
-
 /**
  * Created by bug on 20/03/15.
  */
@@ -33,8 +31,13 @@ public class Congresista {
         else throw new IllegalArgumentException("8"); //String pasada es null("")
     }
     public Congresista (String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
-        //dni no modificable
-        if (!valido(dni)) throw new IllegalArgumentException("DNI NO VALIDO");
+        if (!valido_dni(dni)) throw new IllegalArgumentException("0");
+        if (!valido(nombre)) throw new IllegalArgumentException("1");
+        if (!valido(apellido)) throw new IllegalArgumentException("2");
+        if (!valido_num(String.valueOf(edad))) throw new IllegalArgumentException("3");
+        if (!valido(ciudad)) throw new IllegalArgumentException("4");
+        if (!valido(estado)) throw new IllegalArgumentException("5");
+        if (!valido(partido)) throw new IllegalArgumentException("6");
         Dni = dni;
         Nombre = nombre;
         Apellido = apellido;
@@ -42,49 +45,50 @@ public class Congresista {
         Ciudad = ciudad;
         Estado = estado;
         Partido = partido;
-    }
-
-    /** TODO: dni tiene que ser de un formato especifico?
-     *  TODO: NOMBRE Y APELLIDO CIUDAD ESTADO PARTIDO NO PUEDEN CONTENER NUMEROS */
-    private boolean validar (String[] aux) {
-        //if (aux.equals(null)) throw new IllegalArgumentException(Integer.toString(0));
-        if (aux.length == 0) throw new IllegalArgumentException(Integer.toString(7));
-        if (aux.length != 7) throw new IllegalArgumentException(Integer.toString(8));
-        for (int i = 0; i < aux.length; ++i) {
-            if (i == 3) {
-                if (!isNumeric(aux[i])) throw new IllegalArgumentException(Integer.toString(i));
-            }
-            else {
-                if (!valido(aux[i]))  throw new IllegalArgumentException(Integer.toString(i));
-            }
-        }
-        return true;
-    };
-    private boolean valido(String string) {
-        return (!string.equals(""));
     }
 
     //Modificadoras
     public void mod_dni(String dni) {
-        Dni = dni;
+        if (valido_dni(dni)) {
+            Dni = dni;
+        }
+        else throw new IllegalArgumentException("0");
     }
     public void mod_nombre(String nombre) {
-        Nombre = nombre;
+        if (valido(nombre)) {
+            Nombre = nombre;
+        }
+        else throw new IllegalArgumentException("1");
     }
     public void mod_apellido(String apellido) {
-        Apellido = apellido;
+        if (valido(apellido)) {
+            Apellido = apellido;
+        }
+        else throw new IllegalArgumentException("2");
     }
     public void mod_edad(int edad) {
-        Edad = edad;
+        if (valido_num(String.valueOf(edad))) {
+            Edad = edad;
+        }
+        else throw new IllegalArgumentException("3");
     }
     public void mod_ciudad(String ciudad) {
-        Ciudad = ciudad;
+        if (valido(ciudad)) {
+            Ciudad = ciudad;
+        }
+        else throw new IllegalArgumentException("4");
     }
     public void mod_estado(String estado) {
-        Estado = estado;
+        if (valido(estado)) {
+            Estado = estado;
+        }
+        else throw new IllegalArgumentException("5");
     }
     public void mod_partido(String partido) {
-        Partido = partido;
+        if (valido(partido)) {
+            Partido = partido;
+        }
+        else throw new IllegalArgumentException("6");
     }
 
     //Consultoras
@@ -117,10 +121,52 @@ public class Congresista {
     public void clean() {
 
     }
-    public static boolean isNumeric(String str) {
-        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+
+    /** TODO: dni tiene que ser de un formato especifico?**/
+    //Funciones estáticas de la clase
+    private static boolean validar (String[] aux) {
+        //if (aux.equals(null)) throw new IllegalArgumentException(Integer.toString(0));
+        if (aux.length == 0) throw new IllegalArgumentException(Integer.toString(7));
+        if (aux.length != 7) throw new IllegalArgumentException(Integer.toString(8));
+        for (int i = 0; i < aux.length; ++i) {
+            if (i == 0) {
+                if (!valido_dni(aux[i]))  throw new IllegalArgumentException(Integer.toString(0));
+            }
+            else if (i == 3) {
+                if (!valido_num(aux[i])) throw new IllegalArgumentException(Integer.toString(3));
+            }
+            else {
+                if (!valido(aux[i]))  throw new IllegalArgumentException(Integer.toString(i));
+            }
+        }
+        return true;
     }
-    private static void print(String S) {
-        System.out.println(S);
+    //validar si contiene solo letras, no caracteres especiales
+    private static boolean valido(String string) {
+        for (char c : string.toCharArray()) {
+            if(!Character.isLetter(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    //validar si contiene solo letras y numeros
+    //dni es valido si contiene letras y/o numeros
+    private static boolean valido_dni(String string) {
+        for (char c : string.toCharArray()) {
+            if(!Character.isLetterOrDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    //valida si es numero
+    private static boolean valido_num(String string) {
+        for (char c : string.toCharArray()) {
+            if(!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

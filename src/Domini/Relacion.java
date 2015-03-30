@@ -7,11 +7,13 @@ public class Relacion {
 
     private Congresista C;
     private Evento E;
-
-    Relacion(Congresista C, Evento E) {
-        this.C = C;
-        this.E = E;
+    //TODO: creadora no puede petar devolver error
+    Relacion(Congresista C1, Evento E1) {
+        C = C1;
+        E = E1;
     }
+    //Modificadoras
+    //TODO: igual que en creadora
     public void mod_relacion(Congresista Congr, Evento Ev) {
         C = Congr;
         E = Ev;
@@ -22,6 +24,8 @@ public class Relacion {
     public void mod_relacion(Evento Ev) {
         E = Ev;
     }
+    //Consultoras
+    //TODO: siempre que no sea null
     public Congresista obt_congresista() {
         return C;
     }
@@ -29,8 +33,9 @@ public class Relacion {
         return E;
     }
     public String toString() {
-        return C.obt_dni()+E.obt_nombre();
+        return C.obt_dni()+" "+E.obt_nombre();
     }
+
     //destructora o almenos cleaner
     public void clean() {
         E = null;
