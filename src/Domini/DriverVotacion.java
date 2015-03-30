@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * Created by falc on 27/03/15.
+ * Clase DriverVotación
  */
 public class DriverVotacion {
 
@@ -29,18 +30,22 @@ public class DriverVotacion {
         while (opcion != 6);
     }
 
-    public static void alta() throws IllegalAccessException, InstantiationException {
+    public static void alta(){
         System.out.println("Escribe el tipo de voto a introducir:");
+        System.out.println("(Nulo, Blanco, Abstencion, Positivo o Negativo)");
         String s1 = user_input.next();
         Class c;
+        Voto v;
+
         try {
             c = Class.forName("Domini." + s1);
+            v = (Voto) c.newInstance();
         } catch (Exception e) {
             //e.printStackTrace();
             System.out.println("Tipo de voto no válido, operación cancelada.");
             return;
         }
-        Voto v = (Voto) c.newInstance();
+
         System.out.println("Escribe el DNI del congresista votante:");
         v.mod_dni(user_input.next());
         vt.añadir_voto(v);
@@ -49,8 +54,23 @@ public class DriverVotacion {
     public static void consulta()
     {
         System.out.println("Introduce el DNI del voto a buscar:");
-        String v2 = vt.consultar_voto(user_input.next());
-        System.out.println(v2);
+        String v2 = null;
+        try {
+            v2 = vt.consultar_voto(user_input.next());
+            System.out.println(v2);
+        } catch (Exception e) {
+            System.out.println("DNI introducido es incorrecto, operación cancelada.");
+        }
+    }
+
+    public static void baja()
+    {
+        System.out.println("Introduce el DNI del voto a borrar:");
+        try {
+            vt.eliminar_voto(user_input.next());
+        } catch (Exception e) {
+            System.out.println("DNI introducido es incorrecto, operación cancelada.");
+        }
     }
 
     public static void print_menu()
@@ -73,6 +93,9 @@ public class DriverVotacion {
                 break;
             case 2:
                 consulta();
+                break;
+            case 4:
+                baja();
                 break;
 
             default:
