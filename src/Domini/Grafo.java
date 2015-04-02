@@ -14,15 +14,15 @@ public class Grafo {
 
     public Grafo(Grafo G) {} //CrearGrafo()
 
-    public double[][] obt_lista_adj() {
-        double[][] lista_adj = new double[nodos.size()][nodos.size()];
+    public double[][] obt_lista_ady() {
+        double[][] lista_ady = new double[nodos.size()][nodos.size()];
 
         for(int i = 0; i < nodos.size(); i++)
             for(int j = 0; j < nodos.size(); j++)
                 if(i == j)
-                    lista_adj[i][j] = 0;
+                    lista_ady[i][j] = 0;
                 else
-                    lista_adj[i][j] = Double.POSITIVE_INFINITY;
+                    lista_ady[i][j] = Double.POSITIVE_INFINITY;
 
         for(int i = 0; i < nodos.size(); i++) {
             Nodo nodo = nodos.elementAt(i);
@@ -33,12 +33,12 @@ public class Grafo {
                 if(arista.obt_origen() == nodo) {
                     int indexFin = nodos.indexOf(arista.obt_fin());
 
-                    lista_adj[i][indexFin] = arista.obt_peso();
+                    lista_ady[i][indexFin] = arista.obt_peso();
                 }
             }
         }
 
-        return lista_adj;
+        return lista_ady;
     }
 
     // Devuelve el número de nodos después de añadir.
