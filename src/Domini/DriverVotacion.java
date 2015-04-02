@@ -73,6 +73,39 @@ public class DriverVotacion {
         }
     }
 
+    public static void modificacion()
+    {
+        System.out.println("Introduce el DNI del voto a modificar:");
+        String s1 = user_input.next();
+        try {
+            vt.eliminar_voto(s1);
+        } catch (Exception e) {
+            System.out.println("DNI introducido es incorrecto, operación cancelada.");
+            return;
+        }
+
+        System.out.println("Introduce el tipo de voto:");
+        System.out.println("(Nulo, Blanco, Abstencion, Positivo o Negativo)");
+        String s2 = user_input.next();
+        Class c;
+        Voto v;
+        try {
+            c = Class.forName("Domini." + s2);
+            v = (Voto) c.newInstance();
+        } catch (Exception e) {
+            //e.printStackTrace();
+            System.out.println("Tipo de voto no válido, operación cancelada.");
+            return;
+        }
+        vt.añadir_voto(s1,v);
+
+    }
+
+    public static void ayuda() {
+        System.out.println("Driver del sistema de votaciones");
+        System.out.println("En el menú, seleccione la opción que desee. Para salir, utilice la opción 6.");
+    }
+
     public static void print_menu()
     {
         System.out.println("\n"+text1);
@@ -94,10 +127,15 @@ public class DriverVotacion {
             case 2:
                 consulta();
                 break;
+            case 3:
+                modificacion();
+                break;
             case 4:
                 baja();
                 break;
-
+            case 5:
+                ayuda();
+                break;
             default:
                 break;
         }
