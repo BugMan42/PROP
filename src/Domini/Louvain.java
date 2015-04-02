@@ -1,41 +1,34 @@
 package Domini;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
- * Created by falc on 30/03/15.
+ * Created by Jose on 02/04/15.
  */
 public class Louvain extends Algoritmo {
 
-    //Clase Comunidad, solo para el algoritmo Louvain
-    class Community {
-        public int in_weigth; // Suma de los pesos internos
-    }
-
-    ArrayList<Integer> vc; //Integer será sustituido por Vertice. Indica la comunidad a la que pertenece el vértice
-    ArrayList<Community> comm;
-
-    public Louvain () {
+    public Louvain(){
 
     }
 
-    @Override
-    public Grafo ejecutar_algoritmo(Grafo g) {
-        //Primera fase
+    private boolean one_level(){
+        boolean improvement = true;
+        return improvement;
+    }
 
-        //community = new ArrayList<Integer> (g.obt_num_vertices());
-        for (int i = 0; i < vc.size(); ++i) vc.set(i, i);
+    public void ejecutar_algoritmo(){
+        Date begin, end;
+        begin = new Date();
+        display_time("Begin");
+        boolean improvement = true;
+        double mod, new_mod;
+        int level=0;
+    }
 
-        //x = g.obt_lista_adj();
-        int max_Q = 0;
-        int max_id = -1;
-
-        /*
-        for (Vertice vrt : x) {
-            diffQ = comm.get(vrt.comm).in_weigth;
-            sum_ic =
-        }
-        */
-        return super.ejecutar_algoritmo(g);
+    private void display_time(String s){
+        Date d = new Date();
+        s += ": " + d.toString();
+        System.out.println(s);
     }
 }
