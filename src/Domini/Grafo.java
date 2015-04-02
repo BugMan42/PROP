@@ -41,13 +41,33 @@ public class Grafo {
         return lista_adj;
     }
 
-    public void add_vertice() {}//Añadirvertice(vértice a) /*aqui falta el vertice si es generico etc*/
-    public void add_arista() {}//AñadirArista(vértice a, vértice b, int peso)
+    // Devuelve el número de nodos después de añadir.
+    public int add_nodo(Nodo a){
+        nodos.add(a);
+        return nodos.size()-1;
+    }
+
+    public void add_arista(Arista a){
+        aristas.add(a);
+        // Esto tal vez hay que cambiarlo.
+        // Cuando añades una arista tambien se añade la de vuelta (de fin a origen)
+        // ya que no es un grafo dirigido.
+        aristas.add(new Arista(a.obt_fin(), a.obt_origen(), a.obt_peso()));
+    }
+
     public void mod_arista() {}//ModificarArista(vértice a, vértice b, int nuevo_peso)
     public void add_peso() {}//Añadirpeso(vértice a, vértice b, int peso)
     public void eliminar_arista() {} //Eliminararista(vértice a, vértice b)
     public void eliminar_vertice() {}//(vértice a)
     public void eliminar() {}
+
+    public void printNodos() {
+        System.out.println(nodos);
+    }
+
+    public void printAristas() {
+        System.out.println(aristas);
+    }
 
 
 }

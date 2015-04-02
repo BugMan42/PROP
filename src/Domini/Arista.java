@@ -35,4 +35,8 @@ public class Arista {
     public void mod_peso(double p) {
         peso = p;
     }
+
+    public String toString() {
+        return origen + " ==> " + fin;
+    }
 }

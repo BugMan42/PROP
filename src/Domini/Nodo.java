@@ -16,4 +16,8 @@ public class Nodo {
     public void mod_Congresista(Congresista A) {
         C = A;
     }
+
+    public String toString() {
+        return C.obt_dni();
+    }
 }
