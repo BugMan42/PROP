@@ -96,7 +96,7 @@ public class ControladorEvento {
             if (fechaNueva != null) {
                 int i = BuscarIndice(nombre, fechaVieja);
                 if (i != -1) {
-                    if (BuscarIndice(nombre, fechaNueva) != -1) Listado.get(i).ModFecha(nuevo);
+                    if (BuscarIndice(nombre, fechaNueva) != -1) Listado.get(i).ModFecha(fechaNueva);
                     else throw new IllegalArgumentException(error5);
                 }
                 else throw new IllegalArgumentException(error1);
@@ -145,6 +145,7 @@ public class ControladorEvento {
             if (i != -1) return Listado.get(i);
             else throw new IllegalArgumentException(error1);
         }
+        else throw new IllegalArgumentException();
     }
 
 

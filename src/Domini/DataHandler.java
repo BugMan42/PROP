@@ -43,10 +43,10 @@ public class DataHandler {
         String sal3 = "FIN Introducción datos";
         System.out.println(sal1);
         System.out.println(sal2);
-        e.mod_nombre(user_input.next());
+        e.ModNombre(user_input.next());
         String sdate = user_input.next();
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        e.mod_fecha(format.parse(sdate));
+        e.ModFecha(format.parse(sdate));
         e.mod_subtipo(user_input.next());
         e.mod_importancia(Integer.valueOf(user_input.next()));
         System.out.println(sal3);
