@@ -4,7 +4,6 @@ package Domini;
 import java.text.*;
 import java.util.ArrayList;
 import java.util.Date;
-import Domini.Evento;
 
 public class ControladorEvento {
     private ArrayList<Evento> Listado;
@@ -191,11 +190,5 @@ public class ControladorEvento {
         }
         else throw new IllegalArgumentException();
     }
-
-
-    /*: Evento
-    ConsultarEventosAsociadosCongresista(nombre : string)
-    ModificarEvento(nom : string, fecha : DateTime)
-    EliminarCjtEventos()  */
 
 }

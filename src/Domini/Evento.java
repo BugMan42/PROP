@@ -82,6 +82,7 @@ public abstract class Evento {
         if (importance <= 0) throw new IllegalArgumentException(error4);
         importancia = importance;
     }
+
     //Consultoras
 
     boolean igual(String name, Date date) {
@@ -111,6 +112,7 @@ public abstract class Evento {
      * Post: Devuelve el subtipo del evento
      */
     public String obt_subtipo() {
+
         return this.subtipo;
     }
 
