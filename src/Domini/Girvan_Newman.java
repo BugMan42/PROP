@@ -15,15 +15,26 @@ public class Girvan_Newman extends Algoritmo{
         boolean done = false;
         while (!done) {
 
-            for (int i = 0; i < N; ++i) {
+            double[][] bfsmatrix = new double[N][N];
+
+            for (int i = 0; i < N; ++i)
+            {
 
                 boolean[] visited = new boolean[N];
-                double[][] bfsmatrix = new double[N][N];
+                double[] node_parent = new double[N];
                 double[] node_weigth = new double[N];
                 double[] node_distance = new double[N];
                 LinkedList<Integer> q = new LinkedList<Integer>();
 
+                for(int j = 0; j < N; ++j)
+                {
+                    visited[j] = false;
+                    node_distance[j] = Double.POSITIVE_INFINITY;
+                    node_parent[j] = Double.parseDouble(null);
+                }
+
                 q.addLast(i);
+                visited[i] = true;
                 node_distance[i] = 0;
                 node_weigth[i] = 1;
 
@@ -31,6 +42,7 @@ public class Girvan_Newman extends Algoritmo{
                 {
                     int v = q.removeFirst();
                     //para nodos adyacentes a v
+
                 }
 
             }
