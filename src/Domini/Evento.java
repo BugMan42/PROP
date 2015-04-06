@@ -25,6 +25,8 @@ public abstract class Evento {
      * Post: Se crea un evento solo con los atributos nombre y fecha
      */
     public Evento(String name, Date date) {
+        if (name.equals("")) throw new IllegalArgumentException(error1);
+        if (date == null) throw new IllegalArgumentException(error2);
         nombre = name;
         fecha = date;
     }
@@ -68,7 +70,7 @@ public abstract class Evento {
      * Pre: subtype tiene que ser un string no vacío
      * Post: Al subtipo del evento se le ha asignado subtype
      */
-    public void mod_subtipo(String subtype) {
+    public void ModSubtipo(String subtype) {
         if (subtype.equals("")) throw new IllegalArgumentException(error3);
         subtipo = subtype;
     }
@@ -76,7 +78,7 @@ public abstract class Evento {
      * Pre: importancia > 0
      * Post: A la importancia del evento se le ha asignado importance
      */
-    public void mod_importancia(int importance) {
+    public void ModImportancia(int importance) {
         if (importance <= 0) throw new IllegalArgumentException(error4);
         importancia = importance;
     }

@@ -1,6 +1,7 @@
 package Domini;
 
 
+import java.text.*;
 import java.util.ArrayList;
 import java.util.Date;
 import Domini.Evento;
@@ -12,6 +13,8 @@ public class ControladorEvento {
     static final String error3 = "Fecha no puede ser null";
     static final String error4 = "El nuevo nombre no puede ser vacio";
     static final String error5 = "Ya existe un evento con ese nombre y esa fecha";
+    static final String error6 = "Subtipo no puede ser vacio";
+    static final String error7 = "La importancia no puede ser igual o menor que 0";
 
     /**Comprueba si los parámetros son válidos
      * Pre: Cierto
@@ -48,6 +51,28 @@ public class ControladorEvento {
         Listado = new ArrayList<Evento>();
     }
 
+    //Destructoras
+
+    /**Elimina un evento del conjunto de eventos
+     * Pre: nombre no puede ser vacío y fecha no puede ser null
+     * Post: El evento e ha sido añadido al conjunto de eventos
+     */
+    public void EliminarEvento(String nombre, Date fecha) {
+        if (Valido(nombre, fecha)) {
+            int i = BuscarIndice(nombre, fecha);
+            if (i != -1) Listado.remove(i);
+            else throw new IllegalArgumentException(error1);
+        }
+    }
+
+    /**Elinina todos los eventos
+     * Pre: Cierto
+     * Post: Todos los eventos serán eliminados
+     */
+    public void EliminarCjtEventos() {
+        Listado.clear();
+    }
+
     //Modificadoras
 
     /**Añade un evento al conjunto de eventos
@@ -59,10 +84,9 @@ public class ControladorEvento {
         Listado.add(e);
     }
 
-    public void CrearEvento(String nombre, Date fecha, String subtipo, int importancia) {
-        /////HACER
-
-        /////////
+    public void CrearEvento(String nombre, String fecha, String subtipo, int importancia) throws ParseException {
+        DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date d = formato.parse(fecha);
     }
 
     /** Modificadora del nombre de un evento
@@ -105,15 +129,35 @@ public class ControladorEvento {
         }
     }
 
-    /**Elimina un evento del conjunto de eventos
-     * Pre: nombre no puede ser vacío y fecha no puede ser null
-     * Post: El evento e ha sido añadido al conjunto de eventos
+    /** Modificadora del subtipo de un evento
+     * Pre: nombre y subtipo no pueden ser vacíos, fecha no puede ser null,
+     * el evento específicado por nombre y fecha tiene que existir
+     * Post: Al evento específicado por nombre y fecha se le ha cambiado el subtipo por subtype
      */
-    public void EliminarEvento(String nombre, Date fecha) {
+    public void ModificarSubtipoEvento(String nombre, Date fecha, String subtype) {
         if (Valido(nombre, fecha)) {
-            int i = BuscarIndice(nombre, fecha);
-            if (i != -1) Listado.remove(i);
-            else throw new IllegalArgumentException(error1);
+            if (!subtype.equals("")) {
+                int i = BuscarIndice(nombre, fecha);
+                if (i != -1) Listado.get(i).ModSubtipo(subtype);
+                else throw new IllegalArgumentException(error1);
+            }
+            else throw new IllegalArgumentException(error6);
+        }
+    }
+
+    /** Modificadora de la importancia de un evento
+     * Pre: nombre no puede ser vacío, fecha no puede ser null, importance > 0
+     * el evento específicado por nombre y fecha tiene que existir
+     * Post: Al evento específicado por nombre y fecha se le ha cambiado la importancia por importance
+     */
+    public void ModificarImpEvento(String nombre, Date fecha, int importance) {
+        if (Valido(nombre, fecha)) {
+            if (importance > 0) {
+                int i = BuscarIndice(nombre, fecha);
+                if (i != -1) Listado.get(i).ModImportancia(importance);
+                else throw new IllegalArgumentException(error1);
+            }
+            else throw new IllegalArgumentException(error7);
         }
     }
 
