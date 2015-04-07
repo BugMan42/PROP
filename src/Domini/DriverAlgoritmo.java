@@ -51,8 +51,8 @@ public class DriverAlgoritmo {
 
     public static void crear_grafo()
     {
-        DriverGrafo dg = new DriverGrafo();
-        dg.main();
+        graf = new Grafo(); //TODO: Obtener un grafo
+
     }
 
     public static void consulta()
@@ -126,7 +126,7 @@ public class DriverAlgoritmo {
         switch (opt)
         {
             case 1:
-                alta();
+                crear_grafo();
                 break;
             case 2:
                 consulta();
