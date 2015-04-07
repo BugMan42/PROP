@@ -1,12 +1,13 @@
 package Domini;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * Created by bug on 23/03/15.
  */
+
+
+
 public class Grafo {
 
     private Vector<Nodo> nodos = new Vector<Nodo>();
@@ -82,3 +83,66 @@ public class Grafo {
 
 
 }
+/**
+public class Grafo {
+    private final int V;
+    private int E;
+    private List<Congresista> C;
+    private List<Arista>[] ady;
+
+    public Grafo(int Vertices) {
+        if (V < 0) throw new IllegalArgumentException("Numero de vertices");
+        V = Vertices;
+        E = 0;
+        ady = (List<Arista>[]) new List[V];
+        for (int v = 0; v < V; v++) {
+            ady[v] = new LinkedList<Arista>();
+        }
+    }
+    //TODO
+    public Grafo(Grafo G) {
+        this(G.V());
+        E = G.E();
+        for (int v = 0; v < G.V(); v++) {
+            // reverse so that adyacency list is in same order as original
+            Stack<Arista> reverse = new Stack<Arista>();
+            for (Arista w : G.ady[v]) {
+                reverse.push(w);
+            }
+            for (Arista w : reverse) {
+                ady[v].add(w);
+            }
+        }
+    }
+    public int V() {
+        return V;
+    }
+    public int E() {
+        return E;
+    }
+    public void addEdge(Arista A) {
+        E++;
+        //ady[A.obt_origen()].add(A);
+        //ady[A.obt_fin()].add(A);
+    }
+    public List<Arista> ady(int v) {
+        return ady[v];
+    }
+    public int degree(int v) {
+        return ady[v].size();
+    }
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        String NEWLINE = System.getProperty("line.separator");
+        s.append(V + " vertices, " + E + " edges " + NEWLINE);
+        for (int v = 0; v < V; v++) {
+            s.append(v + ": ");
+            for (int w : ady[v]) {
+                s.append(w + " ");
+            }
+            s.append(NEWLINE);
+        }
+        return s.toString();
+    }
+
+}**/
