@@ -25,8 +25,8 @@ public abstract class Evento {
      * Post: Se crea un evento solo con los atributos nombre y fecha
      */
     public Evento(String name, Date date) {
-        if (name.equals("")) throw new IllegalArgumentException(error1);
-        if (date == null) throw new IllegalArgumentException(error2);
+        if (name.equals("")) throw new IllegalArgumentException("1");
+        if (date == null) throw new IllegalArgumentException("2");
         nombre = name;
         fecha = date;
     }

@@ -15,9 +15,9 @@ public class ControladorEvento {
     static final String error6 = "Subtipo no puede ser vacio";
     static final String error7 = "La importancia no puede ser igual o menor que 0";
 
-    /**Comprueba si los parámetros son válidos
+    /**Comprueba si los parï¿½metros son vï¿½lidos
      * Pre: Cierto
-     *Post: Devuleve true en caso de que nombre no sea vacío
+     *Post: Devuleve true en caso de que nombre no sea vacï¿½o
      * y fecha no sea null
      */
     private boolean Valido(String nombre, Date fecha) {
@@ -53,8 +53,8 @@ public class ControladorEvento {
     //Destructoras
 
     /**Elimina un evento del conjunto de eventos
-     * Pre: nombre no puede ser vacío y fecha no puede ser null
-     * Post: El evento e ha sido añadido al conjunto de eventos
+     * Pre: nombre no puede ser vacï¿½o y fecha no puede ser null
+     * Post: El evento e ha sido aï¿½adido al conjunto de eventos
      */
     public void EliminarEvento(String nombre, Date fecha) {
         if (Valido(nombre, fecha)) {
@@ -66,7 +66,7 @@ public class ControladorEvento {
 
     /**Elinina todos los eventos
      * Pre: Cierto
-     * Post: Todos los eventos serán eliminados
+     * Post: Todos los eventos serï¿½n eliminados
      */
     public void EliminarCjtEventos() {
         Listado.clear();
@@ -74,9 +74,9 @@ public class ControladorEvento {
 
     //Modificadoras
 
-    /**Añade un evento al conjunto de eventos
+    /**Aï¿½ade un evento al conjunto de eventos
      * Pre: Evento e no puede ser nulo
-     * Post: El evento e ha sido añadido al conjunto de eventos
+     * Post: El evento e ha sido aï¿½adido al conjunto de eventos
      */
     public void AgregarEvento(Evento e) {
         if (e == null) throw new IllegalArgumentException(error1);
@@ -89,10 +89,10 @@ public class ControladorEvento {
     }
 
     /** Modificadora del nombre de un evento
-     * Pre: nomViejo y nomNuevo no pueden ser vacíos, fecha no puede ser null,
-     * el evento específicado por nomViejo y fecha tiene que existir y el
+     * Pre: nomViejo y nomNuevo no pueden ser vacï¿½os, fecha no puede ser null,
+     * el evento especï¿½ficado por nomViejo y fecha tiene que existir y el
      * evento identificado por nomNuevo y fecha no puede existir
-     * Post: Al evento específicado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
+     * Post: Al evento especï¿½ficado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
      */
     public void ModificarNombreEvento(String nomViejo, Date fecha, String nomNuevo) {
         if (Valido(nomViejo, fecha)) {
@@ -109,10 +109,10 @@ public class ControladorEvento {
     }
 
     /** Modificadora de la fecha de un evento
-     * Pre: nombre no puede ser vacío, fechaVieja y fechaNueva no pueden ser nulls,
-     * el evento específicado por nombre y fechaVieja tiene que existir y el
+     * Pre: nombre no puede ser vacï¿½o, fechaVieja y fechaNueva no pueden ser nulls,
+     * el evento especï¿½ficado por nombre y fechaVieja tiene que existir y el
      * evento identificado por nombre y fechaNueva no puede existir
-     * Post: Al evento específicado por nombre y fechaVieja se le ha cambiado la fecha por fechaNueva
+     * Post: Al evento especï¿½ficado por nombre y fechaVieja se le ha cambiado la fecha por fechaNueva
      */
     public void ModificarFechaEvento(String nombre, Date fechaVieja, Date fechaNueva) {
         if (Valido(nombre, fechaVieja)) {
@@ -129,9 +129,9 @@ public class ControladorEvento {
     }
 
     /** Modificadora del subtipo de un evento
-     * Pre: nombre y subtipo no pueden ser vacíos, fecha no puede ser null,
-     * el evento específicado por nombre y fecha tiene que existir
-     * Post: Al evento específicado por nombre y fecha se le ha cambiado el subtipo por subtype
+     * Pre: nombre y subtipo no pueden ser vacï¿½os, fecha no puede ser null,
+     * el evento especï¿½ficado por nombre y fecha tiene que existir
+     * Post: Al evento especï¿½ficado por nombre y fecha se le ha cambiado el subtipo por subtype
      */
     public void ModificarSubtipoEvento(String nombre, Date fecha, String subtype) {
         if (Valido(nombre, fecha)) {
@@ -145,9 +145,9 @@ public class ControladorEvento {
     }
 
     /** Modificadora de la importancia de un evento
-     * Pre: nombre no puede ser vacío, fecha no puede ser null, importance > 0
-     * el evento específicado por nombre y fecha tiene que existir
-     * Post: Al evento específicado por nombre y fecha se le ha cambiado la importancia por importance
+     * Pre: nombre no puede ser vacï¿½o, fecha no puede ser null, importance > 0
+     * el evento especï¿½ficado por nombre y fecha tiene que existir
+     * Post: Al evento especï¿½ficado por nombre y fecha se le ha cambiado la importancia por importance
      */
     public void ModificarImpEvento(String nombre, Date fecha, int importance) {
         if (Valido(nombre, fecha)) {
@@ -160,10 +160,10 @@ public class ControladorEvento {
         }
     }
 
-    /**Agrega un evento con parámetros random
+    /**Agrega un evento con parï¿½metros random
      * Pre: Cierto
      * Post: Se ha agregado al conjunto un evento nuevo con
-     * parámetros random
+     * parï¿½metros random
      */
     public void AgregarEventoRandom() {}
 
@@ -179,8 +179,8 @@ public class ControladorEvento {
 
     /**Consultora de un evento
      * Pre: nombre no puede ser vacio, fecha no puede ser null y
-     * el evento específicado por nombre y fecha tiene que existir
-     * Post: Devuelve el evento específicado por nombre y fecha
+     * el evento especï¿½ficado por nombre y fecha tiene que existir
+     * Post: Devuelve el evento especï¿½ficado por nombre y fecha
      */
     public Evento ConsultarEvento(String nombre, Date fecha) {
         if (Valido(nombre, fecha)) {
@@ -191,4 +191,16 @@ public class ControladorEvento {
         else throw new IllegalArgumentException();
     }
 
+    /**Existe el evento?
+     * Pre: nombre no puede ser vacio, fecha no puede ser null
+     * Post: Devuelve si el evento especï¿½ficado por nombre y fecha existe
+     */
+    public boolean ExisteEvento(String nombre, Date fecha) {
+        boolean existe = false;
+        if (Valido(nombre, fecha)) {
+            int i = BuscarIndice(nombre, fecha);
+            if (i != -1) existe = true;
+        }
+        return existe;
+    }
 }
