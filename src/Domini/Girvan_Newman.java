@@ -41,7 +41,17 @@ public class Girvan_Newman extends Algoritmo{
                 while(!q.isEmpty())
                 {
                     int v = q.removeFirst();
-                    //para nodos adyacentes a v
+                    for (int aux : g.nodosAdyacentes(v)) {
+                        if (!visited[aux])
+                        {
+                            visited[aux] = true;
+                            node_distance[aux] = node_distance[v] + 1;
+                            node_weigth[aux] = node_weigth[v];
+                            node_parent[aux] = v;
+                            q.addLast(aux);
+                        }
+                    }
+
 
                 }
 
