@@ -6,10 +6,10 @@ package Domini;
 public class ControladorDomini {
 
     Congreso congreso;
-    CjtEvento cjteventos;
+    ControladorEvento cjteventos;
     public ControladorDomini() {
         congreso = new Congreso();
-        cjteventos = new CjtEvento();
+        cjteventos = new ControladorEvento();
     }
 
     public void crear_congresista(String S) {

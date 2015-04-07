@@ -65,23 +65,57 @@ public class DriverEvento {
     private static void alta(Scanner entrada) throws ParseException {
         System.out.println("Bienvenido a alta de un evento");
         System.out.println("Para dar de alta un evento se tienen que introducir");
-        System.out.println("El nombre, fecha, subtipo e importancia");
-        System.out.println("Introduzca los campos separados por espacios");
+        System.out.println("El tipo, nombre, fecha, subtipo e importancia");
+        System.out.println("Introduzca el tipo del evento(Votacion, acto, reunion");
+        String tipo = entrada.next();
+        while (!tipo.equals("Votacion") && !tipo.equals("Acto") && !tipo.equals("Reunion")) {
+            System.out.println("Tiene que ser o Votacion o Acto o Reunion");
+            tipo = entrada.next();
+        }
+        System.out.println("Introduzca el nombre del evento");
         String nombre = entrada.next();
-        if (nombre.equals("")) throw new IllegalArgumentException("Nombre no puede ser vacío");
         System.out.println("Introduzca la fecha del evento en formato dd/MM/yyyy");
         String data = entrada.next();
-        if (data.equals("") || data.equals("\n")) throw new IllegalArgumentException("Fecha no puede ser vacío");
         DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date d = formato.parse(data);
         System.out.println("Introduzca el subtipo del evento");
         String subtipo = entrada.next();
-        if (data.equals("") || data.equals("\n")) throw new IllegalArgumentException("Subtipo no puede ser vacío");
         System.out.println("Introduzca la importancia del evento");
         String importancia = entrada.next();
-        if (data.equals("") || data.equals("\n")) throw new IllegalArgumentException("Importancia no puede ser vacío");
         Integer importance = Integer.valueOf(importancia);
-        if (importance <= 0) throw new IllegalArgumentException("Importancia tiene que ser mayor que 0");
+        try {
+            if (tipo.equals("Votacion")) {
+                Votacion v = new Votacion(nombre, d, subtipo, importance);
+            }
+            else if (tipo.equals("Acto")) {
+                Acto a = new Acto(nombre, d, subtipo, importance);
+            }
+            else {
+                Reunion r = new Reunion(nombre, d, subtipo, importance);
+            }
+        }
+        catch (IllegalArgumentException e) {
+            switch (Integer.parseInt(e.getMessage())) {
+                case 1:
+                    System.out.println("Nombre no puede ser vacÃ­o");
+                    break;
+                case 2:
+                    System.out.println("Fecha no puede ser null");
+                    break;
+                case 3:
+                    System.out.println();
+                    break;
+                case 4:
+                    System.out.println();
+                    break;
+                case 5:
+                    System.out.println();
+                    break;
+                case 6:
+                    System.out.println();
+                    break;
+            }
+        }
         //Crear evento
         System.out.println("La creacion ha sido un exito :D");
     }

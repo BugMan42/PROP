@@ -16,6 +16,10 @@ public class Votacion extends Evento {
         super(nombre, fecha);
     }
 
+    public Votacion(String name, Date date, String subtype, int importance) {
+        super(name, date, subtype, importance);
+    }
+
     public Votacion() {}
 
 
