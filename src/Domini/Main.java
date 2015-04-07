@@ -9,12 +9,10 @@ public class Main {
         //System.out.println("Hello World!");
         DataHandler Data = new DataHandler();
         Congresista a = new Congresista();
-        Congresista b = new Congresista("12345 Fulgencio Jones 25 Dallas Texas Republicano");
         Date data = new Date();
 
         Evento e = new Votacion("Anteproyecto Golf", data);
         Evento e2 = new Votacion();
-        Data.print_congr(b);
         Data.Crear(a);
         Data.print_congr(a);
         Data.Crear(e2);

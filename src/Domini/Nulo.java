@@ -5,6 +5,10 @@ package Domini;
  * Clase Nulo
  */
 public class Nulo extends Voto {
+
+    public Nulo () {
+    }
+
     public Nulo (String dni) {
         super(dni);
     }

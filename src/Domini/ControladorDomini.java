@@ -16,5 +16,7 @@ public class ControladorDomini {
         Congresista c = new Congresista(S);
         congreso.add_Congresista(c);
     }
+
+
 }
 
