@@ -32,8 +32,8 @@ public abstract class Evento {
     }
 
     /**Creadora completa
-     * Pre: name, subtype tienen que ser strings no vacíos, ¿¿¿¿date tiene que ser válida???? importance tiene que ser mayor que 0
-     *Post: Se crea un evento con todos que serán name, date, subtype y importance.
+     * Pre: name, subtype tienen que ser strings no vacï¿½os, ï¿½ï¿½ï¿½ï¿½date tiene que ser vï¿½lida???? importance tiene que ser mayor que 0
+     *Post: Se crea un evento con todos que serï¿½n name, date, subtype y importance.
      */
     public Evento(String name, Date date, String subtype, int importance) {
         if (name.equals("")) throw new IllegalArgumentException(error1);
@@ -49,16 +49,16 @@ public abstract class Evento {
     //Modificadoras
 
     /**Modificadora de nombre
-     * Pre: name tiene que ser un string no vacío
+     * Pre: name tiene que ser un string no vacï¿½o
      * Post: Al nombre del evento se le ha asignado name
      */
     public void ModNombre(String name) {
         if (name.equals("")) throw new IllegalArgumentException(error1);
-        this.nombre = name;
+        nombre = name;
     }
 
     /**Modificadora de fecha
-     * Pre: date tiene que ser válido
+     * Pre: date tiene que ser vï¿½lido
      * Post: A la fecha del evento se le ha asignado date
      */
     public void ModFecha (Date date) {
@@ -67,7 +67,7 @@ public abstract class Evento {
     }
 
     /**Modificadora de subtipo
-     * Pre: subtype tiene que ser un string no vacío
+     * Pre: subtype tiene que ser un string no vacï¿½o
      * Post: Al subtipo del evento se le ha asignado subtype
      */
     public void ModSubtipo(String subtype) {
@@ -113,7 +113,7 @@ public abstract class Evento {
      */
     public String obt_subtipo() {
 
-        return this.subtipo;
+        return subtipo;
     }
 
     /**Consultora de importancia
@@ -121,6 +121,6 @@ public abstract class Evento {
      * Post: Devuelve la importancia del evento
      */
     public int obt_importancia() {
-        return this.importancia;
+        return importancia;
     }
 }

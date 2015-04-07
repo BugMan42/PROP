@@ -1,5 +1,7 @@
 package Domini;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -40,6 +42,10 @@ public class Grafo {
 
         return lista_ady;
     }
+
+    public ArrayList<Integer> nodosAdyacentes(int a) {
+        return new ArrayList<Integer>();
+    } //Devuelve los nodos (o aristas) adyacentes a un determinado nodo
 
     // Devuelve el número de nodos después de añadir.
     public int add_nodo(Nodo a){

@@ -19,4 +19,7 @@ public class DriverGrafo {
         g.printNodos();
         g.printAristas();
     }
+
+    public void main() {
+    }
 }

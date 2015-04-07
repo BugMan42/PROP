@@ -68,18 +68,18 @@ public class DriverEvento {
         System.out.println("El nombre, fecha, subtipo e importancia");
         System.out.println("Introduzca los campos separados por espacios");
         String nombre = entrada.next();
-        if (nombre.equals("")) throw new IllegalArgumentException("Nombre no puede ser vacío");
+        if (nombre.equals("")) throw new IllegalArgumentException("Nombre no puede ser vacÃ­o");
         System.out.println("Introduzca la fecha del evento en formato dd/MM/yyyy");
         String data = entrada.next();
-        if (data.equals("") || data.equals("\n")) throw new IllegalArgumentException("Fecha no puede ser vacío");
+        if (data.equals("") || data.equals("\n")) throw new IllegalArgumentException("Fecha no puede ser vacÃ­o");
         DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date d = formato.parse(data);
         System.out.println("Introduzca el subtipo del evento");
         String subtipo = entrada.next();
-        if (data.equals("") || data.equals("\n")) throw new IllegalArgumentException("Subtipo no puede ser vacío");
+        if (data.equals("") || data.equals("\n")) throw new IllegalArgumentException("Subtipo no puede ser vacÃ­o");
         System.out.println("Introduzca la importancia del evento");
         String importancia = entrada.next();
-        if (data.equals("") || data.equals("\n")) throw new IllegalArgumentException("Importancia no puede ser vacío");
+        if (data.equals("") || data.equals("\n")) throw new IllegalArgumentException("Importancia no puede ser vacÃ­o");
         Integer importance = Integer.valueOf(importancia);
         if (importance <= 0) throw new IllegalArgumentException("Importancia tiene que ser mayor que 0");
         //Crear evento
