@@ -20,6 +20,6 @@ public class Parámetro {
     }
 
     public void mod_numero_iteraciones(int n) {
-        this.num_iter = n;
+        num_iter = n;
     }
 }
