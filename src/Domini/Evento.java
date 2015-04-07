@@ -36,10 +36,10 @@ public abstract class Evento {
      *Post: Se crea un evento con todos que ser�n name, date, subtype y importance.
      */
     public Evento(String name, Date date, String subtype, int importance) {
-        if (name.equals("")) throw new IllegalArgumentException(error1);
-        if (date == null) throw new IllegalArgumentException(error2);
-        if (subtype.equals("")) throw new IllegalArgumentException(error3);
-        if (importance <= 0) throw new IllegalArgumentException(error4);
+        if (name.equals("")) throw new IllegalArgumentException("1");
+        if (date == null) throw new IllegalArgumentException("2");
+        if (subtype.equals("")) throw new IllegalArgumentException("3");
+        if (importance <= 0) throw new IllegalArgumentException("4");
         nombre = name;
         fecha = date;
         subtipo = subtype;
@@ -53,7 +53,7 @@ public abstract class Evento {
      * Post: Al nombre del evento se le ha asignado name
      */
     public void ModNombre(String name) {
-        if (name.equals("")) throw new IllegalArgumentException(error1);
+        if (name.equals("")) throw new IllegalArgumentException("1");
         nombre = name;
     }
 
@@ -62,7 +62,7 @@ public abstract class Evento {
      * Post: A la fecha del evento se le ha asignado date
      */
     public void ModFecha (Date date) {
-        if (date == null) throw new IllegalArgumentException(error2);
+        if (date == null) throw new IllegalArgumentException("2");
         fecha = date;
     }
 
@@ -71,7 +71,7 @@ public abstract class Evento {
      * Post: Al subtipo del evento se le ha asignado subtype
      */
     public void ModSubtipo(String subtype) {
-        if (subtype.equals("")) throw new IllegalArgumentException(error3);
+        if (subtype.equals("")) throw new IllegalArgumentException("3");
         subtipo = subtype;
     }
     /**Modificadora de importancia
@@ -79,15 +79,15 @@ public abstract class Evento {
      * Post: A la importancia del evento se le ha asignado importance
      */
     public void ModImportancia(int importance) {
-        if (importance <= 0) throw new IllegalArgumentException(error4);
+        if (importance <= 0) throw new IllegalArgumentException("4");
         importancia = importance;
     }
 
     //Consultoras
 
     boolean igual(String name, Date date) {
-        if (name.equals("")) throw new IllegalArgumentException(error1);
-        if (date == null) throw new IllegalArgumentException(error2);
+        if (name.equals("")) throw new IllegalArgumentException("1");
+        if (date == null) throw new IllegalArgumentException("2");
         return name.equals(nombre) && date.equals(fecha);
     }
 
@@ -112,7 +112,6 @@ public abstract class Evento {
      * Post: Devuelve el subtipo del evento
      */
     public String obt_subtipo() {
-
         return subtipo;
     }
 

@@ -20,7 +20,7 @@ public class DriverEvento {
     final static String error = "Introduzca un numero del 1 al 6";
     final static String nueva = "Introduzca una nueva opcion del 1 al 5. 6 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
-    private Evento e;
+    private static Evento e;
 
     public static void main(String[] args) throws ParseException {
         ImprimirMenu();
@@ -34,10 +34,10 @@ public class DriverEvento {
                case 2:
                     baja(entrada);
                     break;
-                 /*case 3:
+                 case 3:
                     modificar(entrada);
                     break;
-                case 4:
+                /*case 4:
                     consulta(entrada);
                     break;
                 case 5:
@@ -84,20 +84,50 @@ public class DriverEvento {
         String importancia = entrada.next();
         Integer importance = Integer.valueOf(importancia);
         try {
-            if (tipo.equals("Votacion")) {
-                Votacion v = new Votacion(nombre, d, subtipo, importance);
-            }
-            else if (tipo.equals("Acto")) {
-                Acto a = new Acto(nombre, d, subtipo, importance);
-            }
-            else {
-                Reunion r = new Reunion(nombre, d, subtipo, importance);
-            }
+            if (tipo.equals("Votacion")) e = new Votacion(nombre, d, subtipo, importance);
+            else if (tipo.equals("Acto")) e = new Acto(nombre, d, subtipo, importance);
+            else e = new Reunion(nombre, d, subtipo, importance);
+            System.out.println("La creacion ha sido un exito :D");
         }
         catch (IllegalArgumentException e) {
             switch (Integer.parseInt(e.getMessage())) {
                 case 1:
-                    System.out.println("Nombre no puede ser vacío");
+                    System.out.println("Nombre no puede ser vacÃ­o");
+                    break;
+                case 2:
+                    System.out.println("Fecha no puede ser null");
+                    break;
+                case 3:
+                    System.out.println("Subtipo no puede ser vacio");
+                    break;
+                case 4:
+                    System.out.println("Importancia tiene que ser mayor que 0");
+                    break;
+                case 5:
+                    System.out.println();
+                    break;
+                case 6:
+                    System.out.println();
+                    break;
+            }
+        }
+    }
+
+    private static void baja(Scanner entrada) {
+        System.out.println("Bienvenido a baja de un evento");
+        System.out.println("Para dar de baja un evento se tienen que introducir");
+        System.out.println("El nombre y la fecha");
+        System.out.println("Introduzca el nombre del evento");
+        String nombre = entrada.next();
+        System.out.println("Introduzca el fecha del evento");
+        String fecha = entrada.next();
+        try {
+            e = null;
+        }
+        catch (IllegalArgumentException e) {
+            switch (Integer.parseInt(e.getMessage())) {
+                case 1:
+                    System.out.println("Nombre no puede ser vacio");
                     break;
                 case 2:
                     System.out.println("Fecha no puede ser null");
@@ -116,15 +146,66 @@ public class DriverEvento {
                     break;
             }
         }
-        //Crear evento
-        System.out.println("La creacion ha sido un exito :D");
     }
 
-    private static void baja(Scanner entrada) {
-        System.out.println("Bienvenido a baja de un evento");
-        System.out.println("Para dar de baja un evento se tienen que introducir");
-        System.out.println("El nombre y la fecha");
-        System.out.println("Introduzca el nombre del evento");
-        String datos = entrada.next();
+    private static void modificar(Scanner entrada) throws ParseException {
+        System.out.println("Bienvenido a modificacion de un evento");
+        System.out.println("Elige el atributo que deseas modificar");
+        System.out.println("1-Nombre, 2-fecha, 3-subtipo, 4-importancia, 5- salir");
+        int opcion = Integer.parseInt(entrada.next());
+        try {
+            while (opcion != 5) {
+                switch (opcion) {
+                    case 1:
+                        System.out.println("Introduzca el nuevo nombre");
+                        e.ModNombre(entrada.next());
+                        break;
+                    case 2:
+                        System.out.println("Introduzca la nueva fecha");
+                        DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                        Date d = formato.parse(entrada.next());
+                        e.ModFecha(d);
+                        break;
+                    case 3:
+                        System.out.println("Introduzca el nuevo subtipo");
+                        e.ModSubtipo(entrada.next());
+                        break;
+                    case 4:
+                        System.out.println("Introduzca la nueva importancia");
+                        e.ModImportancia(Integer.parseInt(entrada.next()));
+                        break;
+                    default:
+                        System.out.println("Introduzca un numero del 1 al 5");
+                        break;
+                }
+            }
+        }
+        catch (IllegalArgumentException e) {
+            switch (Integer.parseInt(e.getMessage())) {
+                case 1:
+                    System.out.println("Nombre no puede ser vacio");
+                    break;
+                case 2:
+                    System.out.println("Fecha no puede ser null");
+                    break;
+                case 3:
+                    System.out.println();
+                    break;
+                case 4:
+                    System.out.println();
+                    break;
+                case 5:
+                    System.out.println();
+                    break;
+                case 6:
+                    System.out.println();
+                    break;
+            }
+        }
+    }
+
+    private static void consulta(Scanner entrada) {
+        System.out.println("Bienvenido a consulta de un evento");
+        System.out.println(e.obt_nombre() + " " + e.obt_fecha().toString() + " " + e.obt_subtipo() + " " + Integer.toString(e.obt_importancia()));
     }
 }
