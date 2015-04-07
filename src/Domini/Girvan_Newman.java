@@ -1,7 +1,6 @@
 package Domini;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * Created by falc on 2/04/15.
@@ -17,10 +16,12 @@ public class Girvan_Newman extends Algoritmo{
 
             double[][] bfsmatrix = new double[N][N];
 
+            //BFS por cada nodo del grafo
             for (int i = 0; i < N; ++i)
             {
-
+                LinkedList<Integer> route = new LinkedList<Integer>();
                 boolean[] visited = new boolean[N];
+                boolean[] leaf = new boolean[N];
                 double[] node_parent = new double[N];
                 double[] node_weigth = new double[N];
                 double[] node_distance = new double[N];
@@ -41,7 +42,12 @@ public class Girvan_Newman extends Algoritmo{
                 while(!q.isEmpty())
                 {
                     int v = q.removeFirst();
+                    route.add(v);
+                    int num_ady = 0;
                     for (int aux : g.nodosAdyacentes(v)) {
+
+                        ++num_ady;
+
                         if (!visited[aux])
                         {
                             visited[aux] = true;
@@ -50,10 +56,18 @@ public class Girvan_Newman extends Algoritmo{
                             node_parent[aux] = v;
                             q.addLast(aux);
                         }
+
                     }
 
-
+                    if (num_ady == 0) leaf[v] = true;
                 }
+
+                //Pesos en grafo
+                for (int p : route)
+                {
+                    System.out.println(p);
+                }
+
 
             }
 
