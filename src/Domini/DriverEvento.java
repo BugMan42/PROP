@@ -37,10 +37,10 @@ public class DriverEvento {
                  case 3:
                     modificar(entrada);
                     break;
-                /*case 4:
+                case 4:
                     consulta(entrada);
                     break;
-                case 5:
+                /*case 5:
                     ayuda(entrada);
                     break;*/
                 default:
