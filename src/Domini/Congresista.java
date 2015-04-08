@@ -15,6 +15,7 @@ public class Congresista {
 
     //Creadoras
     public Congresista() { }
+
     public Congresista(String S) {
         if (!S.equals("")) {
             String[] aux = S.split("\\s");
@@ -30,6 +31,7 @@ public class Congresista {
         }
         else throw new IllegalArgumentException("8"); //String pasada es null("")
     }
+
     public Congresista (String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
         if (!valido_dni(dni)) throw new IllegalArgumentException("0");
         if (!valido(nombre)) throw new IllegalArgumentException("1");
