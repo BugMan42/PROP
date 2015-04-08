@@ -11,6 +11,7 @@ public class Girvan_Newman extends Algoritmo{
 
     class Node {
         boolean visited;
+        boolean queued;
         boolean leaf;
         double parent;
         double weight;
@@ -40,6 +41,7 @@ public class Girvan_Newman extends Algoritmo{
                 {
                     Node n = it.next();
                     n.visited = false;
+                    n.queued = false;
                     n.leaf = false;
                     n.distance = Double.POSITIVE_INFINITY;
                     n.parent = Double.parseDouble(null);
@@ -56,11 +58,9 @@ public class Girvan_Newman extends Algoritmo{
                     int v = q.removeFirst();
                     route.add(v);
                     Node ref_v = node.get(v);
-                    int num_ady = 0;
                     for (int aux : g.nodosAdyacentes(v)) {
 
                         Node ref_aux = node.get(aux);
-                        ++num_ady;
 
                         if (!ref_aux.visited)
                         {
@@ -68,18 +68,22 @@ public class Girvan_Newman extends Algoritmo{
                             ref_aux.distance = ref_v.distance + 1;
                             ref_aux.weight = ref_v.weight;
                             ref_aux.parent = v;
-                            q.addLast(aux);
+
+                            if (!ref_aux.queued)
+                            {
+                                q.addLast(aux);
+                                ref_aux.queued = true;
+                            }
                         }
 
                     }
 
-                    if (num_ady == 0) ref_v.leaf = true;
                 }
 
                 //Pesos en grafo
                 for (int p : route)
                 {
-                    System.out.println(p);
+                    System.out.println(p + " " + node.get(p).leaf);
                 }
 
 

@@ -32,7 +32,6 @@ public class DriverAlgoritmo {
     {
         graf = new Grafo(); //TODO: Obtener un grafo
 
-
     }
 
     public static void consulta()
