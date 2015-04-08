@@ -28,30 +28,10 @@ public class DriverAlgoritmo {
         while (opcion != 6);
     }
 
-    public static void alta(){
-        System.out.println("Escribe el tipo de voto a introducir:");
-        System.out.println("(Nulo, Blanco, Abstencion, Positivo o Negativo)");
-        String s1 = user_input.next();
-        Class c;
-        Voto v;
-
-        try {
-            c = Class.forName("Domini." + s1);
-            v = (Voto) c.newInstance();
-        } catch (Exception e) {
-            //e.printStackTrace();
-            System.out.println("Tipo de voto no válido, operación cancelada.");
-            return;
-        }
-
-        System.out.println("Escribe el DNI del congresista votante:");
-        v.mod_dni(user_input.next());
-        //vt.añadir_voto(v);
-    }
-
     public static void crear_grafo()
     {
         graf = new Grafo(); //TODO: Obtener un grafo
+
 
     }
 
