@@ -13,8 +13,8 @@ public class ControladorDomini {
     }
 
     public void crear_congresista(String S) {
-        Congresista c = new Congresista(S);
-        congreso.add_Congresista(c);
+        //Congresista c = new Congresista(S);
+       // congreso.add_Congresista(c);
     }
 
 

@@ -14,24 +14,7 @@ public class Congresista {
     private String Partido;
 
     //Creadoras
-    public Congresista() { }
-
-    public Congresista(String S) {
-        if (!S.equals("")) {
-            String[] aux = S.split("\\s");
-            if (validar(aux)) {
-                Dni = aux[0];
-                Nombre = aux[1];
-                Apellido = aux[2];
-                Edad = Integer.valueOf(aux[3]);
-                Ciudad = aux[4];
-                Estado = aux[5];
-                Partido = aux[6];
-            }
-        }
-        else throw new IllegalArgumentException("8"); //String pasada es null("")
-    }
-
+    //public Congresista() { }
     public Congresista (String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
         if (!valido_dni(dni)) throw new IllegalArgumentException("0");
         if (!valido(nombre)) throw new IllegalArgumentException("1");
@@ -119,12 +102,6 @@ public class Congresista {
         return Dni+" "+Nombre+" "+Apellido+" "+Integer.toString(Edad)+" "+Ciudad+" "+Estado+" "+Partido;
     }
 
-    //destructora ---> eliminar?
-    public void clean() {
-
-    }
-
-    /** TODO: dni tiene que ser de un formato especifico?**/
     //Funciones estáticas de la clase
     private static boolean validar (String[] aux) {
         //if (aux.equals(null)) throw new IllegalArgumentException(Integer.toString(0));
