@@ -2,30 +2,37 @@ package Domini;
 
 /**
  * Created by bug on 20/03/15.
+ * Relacion simple TODO hacer relacion simple y compuesta (or  not)
  */
 public class Relacion {
-
+    //atributos no pueden ser null
     private Congresista C;
     private Evento E;
     //TODO: creadora no puede petar devolver error
     Relacion(Congresista C1, Evento E1) {
+        if (!CongresistaValido(C1)) throw new IllegalArgumentException();
+        if (!EventoValido(E1)) throw new IllegalArgumentException();
         C = C1;
         E = E1;
     }
     //Modificadoras
     //TODO: igual que en creadora
-    public void mod_relacion(Congresista Congr, Evento Ev) {
-        C = Congr;
+    public void mod_relacion(Congresista C1, Evento Ev) {
+        if (!CongresistaValido(C1)) throw new IllegalArgumentException();
+        if (!EventoValido(Ev)) throw new IllegalArgumentException();
+        C = C1;
         E = Ev;
     }
-    public void mod_relacion(Congresista Congr) {
-        C = Congr;
+    public void mod_relacion(Congresista C1) {
+        if (!CongresistaValido(C1)) throw new IllegalArgumentException();
+        C = C1;
     }
     public void mod_relacion(Evento Ev) {
+        if (!EventoValido(E)) throw new IllegalArgumentException();
         E = Ev;
     }
     //Consultoras
-    //TODO: siempre que no sea null
+    //TODO: siempre que no sea null ----> de momento no no puede ser null
     public Congresista obt_congresista() {
         return C;
     }
@@ -33,12 +40,12 @@ public class Relacion {
         return E;
     }
     public String toString() {
-        return C.obt_dni()+" "+E.obt_nombre();
+        return C.obtDni()+" "+E.obt_nombre()+" "+E.obt_fecha();
     }
-
-    //destructora o almenos cleaner
-    public void clean() {
-        E = null;
-        C = null;
+    private static boolean CongresistaValido(Congresista C) {
+        return (C != null);//TODO hacer funciona congresista valido en Congresista
+    }
+    private static boolean EventoValido(Evento E) {
+        return (E != null);//TODO hacer funcion valido en evento
     }
 }

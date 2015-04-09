@@ -1,7 +1,6 @@
 package Domini;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created by bug on 20/03/15.
@@ -17,7 +16,7 @@ public class Congreso {
         boolean found = false;
         int i = 0;
         while (!found && i < n) {
-            if (Lista.get(i).obt_dni().equals(dni)) found = true;
+            if (Lista.get(i).obtDni().equals(dni)) found = true;
             else ++i;
         }
         if (!found) i = -1;

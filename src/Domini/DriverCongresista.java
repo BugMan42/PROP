@@ -44,16 +44,13 @@ public class DriverCongresista {
                 modificacion();
                 break;
             case 4:
-                baja();
+                //Domini.DriverCongreso.main(args);
                 break;
             case 5:
                 //Domini.DriverCongreso.main(args);
                 break;
-            case 6:
-                //Domini.DriverCongreso.main(args);
-                break;
 
-            case 7:
+            case 6:
                 print(fin);
                 break;
 
@@ -71,7 +68,7 @@ public class DriverCongresista {
         Scanner user_input = new Scanner(System.in);
         String entrada = user_input.nextLine();
         try {
-            C = new Congresista(entrada);
+            //C = new Congresista(entrada);
             //print(C.toString());
         }
         catch (IllegalArgumentException e){
@@ -134,7 +131,7 @@ public class DriverCongresista {
         Scanner user_input = new Scanner(System.in);
         String entrada = user_input.nextLine();
         try {
-            C = new Congresista(entrada);
+            //C = new Congresista(entrada);
             //print(C.toString());
         }
         catch (IllegalArgumentException e){
@@ -182,13 +179,6 @@ public class DriverCongresista {
         print(opcion5);
         print(opcion6);
         print("Escribe la opcion");
-    }
-    private static void baja() {
-        print("Has seleccionado Baja de un Congresista");
-        print("Los atributos del Congresista serán asignados a null");
-        print("El propio sistema de java(Garbage Collector) se encargará de liberar espacio");
-        C.clean();
-        C = null;
     }
     private static void print(String S) {
         System.out.println(S);

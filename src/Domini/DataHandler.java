@@ -15,7 +15,7 @@ public class DataHandler {
     //Si no se introduce el dni (dni == null) Error, retorn -1
     // Si se introduce el dni bien se retorna 1
     //Post: Devuelve un Congresista
-    int Crear(Congresista c) {
+    /*int Crear(Congresista c) {
         String sal1 = "********Introduce los parametros del Congresista********";
         String sal2 = "Formato : dni nombre apellido edad ciudad estado partido";
         String sal3 = "FIN Introduccion datos";
@@ -26,7 +26,7 @@ public class DataHandler {
             System.out.println("Error: Dni no puede ser vacio");
             return -1;
         }
-        c.mod_dni(dni);
+        c.modDni(dni);
         c.mod_nombre(user_input.next());
         c.mod_apellido(user_input.next());
         c.mod_edad(Integer.valueOf(user_input.next()));
@@ -35,7 +35,7 @@ public class DataHandler {
         c.mod_partido(user_input.next());
         System.out.println(sal3);
         return 1;
-    }
+    }*/
 
     int Crear(Evento e) throws ParseException {
         String sal1 = "********Introduce los parametros del Evento********";
