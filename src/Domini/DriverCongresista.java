@@ -11,8 +11,6 @@ public class DriverCongresista {
     final static String opcion1 = "***1.-ALTA DE CONGRESISTA";
     final static String opcion2 = "***2.-CONSULTA CONGRESISTA";
     final static String opcion3 = "***3.-MODIFICACIÓN DE CONGRESISTA";
-    final static String opcion4 = "***4.-BAJA DE CONGRESISTA";
-    final static String opcion5 = "***5.-AYUDA";
     final static String opcion6 = "***6.-SALIR";
     final static String Usage = "###USAGE###\n" +
                                 "###LOS CAMPOS NO PUEDEN ESTAR VACIOS\n" +
@@ -23,15 +21,122 @@ public class DriverCongresista {
     private static Congresista C;
 
     public static void main(String[] args) throws ParseException {
-        //print(text1);
         Scanner user_input = new Scanner(System.in);
-        int opcion;
+        boolean seguir = true;
         do {
-            print_menu();
-            opcion = Integer.parseInt(user_input.next());
-            decide(opcion,args);
-        } while (opcion != 7);
+            PresentaMenu();
+            try {
+                seguir = ProcesarLinea(LeerLinea(user_input));
+            }catch (Exception a) {
+                print(a.getMessage());
+            }
+        } while (seguir);
     }
+
+    private static void PresentaMenu() {
+        print("\nDRIVER DE CONGRESISTA");
+        print("0 Salir");
+        print("1 Congresista (String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido)");
+        print("2 modDni(String dni)");
+        print("3 modNombre(String nombre)");
+        print("4 modApellido(String apellido)");
+        print("5 modEdad(int edad) ");
+        print("6 modCiudad(String ciudad)");
+        print("7 modEstado(String estado) ");
+        print("8 modPartido(String partido)");
+        //print("9 mod(String nombre, String apellido, int edad, String ciudad, String estado, String partido)");
+        print("9 Consultar");
+        print("Escribe la opcion");
+    }
+    private static String LeerLinea(Scanner Input) {
+        return Input.nextLine();
+    }
+    //TODO error si no argumentos o null
+    private static boolean ProcesarLinea(String str) {
+        String aux[] = str.split("\\s");
+        if (str.length() == 0) throw new IllegalArgumentException("Pocs arguments pre");
+        switch (str.charAt(0)) {
+            case '1':
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (aux.length == 8) {
+                    C = new Congresista(aux[1], aux[2], aux[3], Integer.parseInt(aux[4]), aux[5], aux[6], aux[7]);
+                }
+                else throw new IllegalArgumentException("Pocos argumentos");
+                break;
+            case '2':
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (C != null) {
+                    C.modDni(aux[1]);
+                }
+                else throw new IllegalArgumentException("Congresista no ini");
+                break;
+            case '3':
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (C != null) {
+                    C.modNombre(aux[1]);
+                }
+                else throw new IllegalArgumentException("Congresista no ini");
+                break;
+            case '4':
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (C != null) {
+                    C.modApellido(aux[1]);
+                }
+                else throw new IllegalArgumentException("Congresista no ini");
+                break;
+            case '5':
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (C != null) {
+                    C.modEdad(Integer.parseInt(aux[1]));
+                }
+                else throw new IllegalArgumentException("Congresista no ini");
+                break;
+            case '6':
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (C != null) {
+                    C.modCiudad(aux[1]);
+                }
+                else throw new IllegalArgumentException("Congresista no ini");
+                break;
+            case '7':
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (C != null) {
+                    C.modEstado(aux[1]);
+                }
+                else throw new IllegalArgumentException("Congresista no ini");
+                break;
+            case '8':
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (C != null) {
+                    C.modPartido(aux[1]);
+                }
+                else throw new IllegalArgumentException("Congresista no ini");
+                break;
+            case '9':
+                if (C != null) {
+                    print(C.toString());
+                }
+                else throw new IllegalArgumentException("Congresista no ini");
+                break;
+            case '0':
+                return false;
+            default:
+                //respuesta no valida Print()?
+                break;
+        }
+        return true;
+    }
+    private static void print(String S) {
+        System.out.println(S);
+    }
+}
+
+
+
+
+
+
+/*
     private static void decide(int opcion, String[] args) {
         switch (opcion) {
             case 1:
@@ -58,7 +163,8 @@ public class DriverCongresista {
                 print(inc);
                 break;
         }
-
+                //opcion = Integer.parseInt(user_input.next());
+        //decide(opcion,args);
     }
     private static void alta() {
         print("Has Seleccionado Alta de un Congresista");
@@ -113,13 +219,6 @@ public class DriverCongresista {
     private static void consulta() {
         print("Has Seleccionado: Consulta de un Congresista");
         print("FORMATO: dni nombre apellido edad ciudad estado partido");
-        //print(aux[0]+": "+C.obt_dni());
-        //print(aux[1]+": "+C.obt_nombre());
-        //print(aux[2]+": "+C.obt_apellido());
-        //print(aux[3]+": "+C.obt_edad());
-        //print(aux[4]+": "+C.obt_ciudad());
-        //print(aux[5]+": "+C.obt_estado());
-        //print(aux[6]+": "+C.obt_partido());
         if (C != null) print(C.toString());
         else print("Congresista es null");
     }
@@ -170,17 +269,4 @@ public class DriverCongresista {
             //print("DNI no puede ser vacío\n");
         }
     }
-    private static void print_menu() {
-        print("\n"+text1);
-        print(opcion1);
-        print(opcion2);
-        print(opcion3);
-        print(opcion4);
-        print(opcion5);
-        print(opcion6);
-        print("Escribe la opcion");
-    }
-    private static void print(String S) {
-        System.out.println(S);
-    }
-}
+ */
