@@ -76,17 +76,15 @@ public class DriverEvento {
         String nombre = entrada.next();
         System.out.println("Introduzca la fecha del evento en formato dd/MM/yyyy");
         String data = entrada.next();
-        DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date d = formato.parse(data);
         System.out.println("Introduzca el subtipo del evento");
         String subtipo = entrada.next();
         System.out.println("Introduzca la importancia del evento");
         String importancia = entrada.next();
-        Integer importance = Integer.valueOf(importancia);
+        Integer importance = Integer.parseInt(importancia);
         try {
-            if (tipo.equals("Votacion")) e = new Votacion(nombre, d, subtipo, importance);
-            else if (tipo.equals("Acto")) e = new Acto(nombre, d, subtipo, importance);
-            else e = new Reunion(nombre, d, subtipo, importance);
+            if (tipo.equals("Votacion")) e = new Votacion(nombre, data, subtipo, importance);
+            else if (tipo.equals("Acto")) e = new Acto(nombre, data, subtipo, importance);
+            else e = new Reunion(nombre, data, subtipo, importance);
             System.out.println("La creacion ha sido un exito :D");
         }
         catch (IllegalArgumentException e) {
@@ -115,12 +113,6 @@ public class DriverEvento {
 
     private static void baja(Scanner entrada) {
         System.out.println("Bienvenido a baja de un evento");
-        System.out.println("Para dar de baja un evento se tienen que introducir");
-        System.out.println("El nombre y la fecha");
-        System.out.println("Introduzca el nombre del evento");
-        String nombre = entrada.next();
-        System.out.println("Introduzca el fecha del evento");
-        String fecha = entrada.next();
         try {
             e = null;
         }
@@ -163,8 +155,7 @@ public class DriverEvento {
                     case 2:
                         System.out.println("Introduzca la nueva fecha");
                         DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                        Date d = formato.parse(entrada.next());
-                        e.ModFecha(d);
+                        e.ModFecha(entrada.next());
                         break;
                     case 3:
                         System.out.println("Introduzca el nuevo subtipo");
@@ -206,6 +197,6 @@ public class DriverEvento {
 
     private static void consulta(Scanner entrada) {
         System.out.println("Bienvenido a consulta de un evento");
-        System.out.println(e.obt_nombre() + " " + e.obt_fecha().toString() + " " + e.obt_subtipo() + " " + Integer.toString(e.obt_importancia()));
+        System.out.println(e.obt_nombre() + " " + e.obt_fecha() + " " + e.obt_subtipo() + " " + Integer.toString(e.obt_importancia()));
     }
 }

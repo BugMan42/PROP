@@ -3,7 +3,6 @@ package Domini;
 
 import java.text.*;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ControladorEvento {
     private ArrayList<Evento> Listado;
@@ -20,17 +19,18 @@ public class ControladorEvento {
      *Post: Devuleve true en caso de que nombre no sea vac�o
      * y fecha no sea null
      */
-    private boolean Valido(String nombre, Date fecha) {
+    private boolean Valido(String nombre, String fecha) {
         if (nombre.equals("")) throw new IllegalArgumentException(error2);
-        if (fecha == null) throw new IllegalArgumentException(error3);
+        if (!Fecha.valido(fecha)) throw new IllegalArgumentException(error3);
         return true;
     }
+
     /**Buscadora de eventos
      * Pre: nombre no puede ser vacio y date no puede ser null
      * Post: Devuelve el indice del evento especificado por el nombre
      * y por la fecha si existe. En caso contrario devuelve -1
      */
-    private int BuscarIndice(String nombre, Date fecha) {
+    private int BuscarIndice(String nombre,String fecha) {
         int n = Listado.size();
         boolean found = false;
         int i = 0;
@@ -50,13 +50,11 @@ public class ControladorEvento {
         Listado = new ArrayList<Evento>();
     }
 
-    //Destructoras
-
     /**Elimina un evento del conjunto de eventos
-     * Pre: nombre no puede ser vac�o y fecha no puede ser null
-     * Post: El evento e ha sido a�adido al conjunto de eventos
+     * Pre: nombre no puede ser vacio y fecha no puede ser null
+     * Post: El evento e ha sido añadido al conjunto de eventos
      */
-    public void EliminarEvento(String nombre, Date fecha) {
+    public void EliminarEvento(String nombre, String fecha) {
         if (Valido(nombre, fecha)) {
             int i = BuscarIndice(nombre, fecha);
             if (i != -1) Listado.remove(i);
@@ -84,8 +82,7 @@ public class ControladorEvento {
     }
 
     public void CrearEvento(String nombre, String fecha, String subtipo, int importancia) throws ParseException {
-        DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        Date d = formato.parse(fecha);
+
     }
 
     /** Modificadora del nombre de un evento
@@ -94,7 +91,7 @@ public class ControladorEvento {
      * evento identificado por nomNuevo y fecha no puede existir
      * Post: Al evento espec�ficado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
      */
-    public void ModificarNombreEvento(String nomViejo, Date fecha, String nomNuevo) {
+    public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo) {
         if (Valido(nomViejo, fecha)) {
             if (!nomNuevo.equals("")) {
                 int i = BuscarIndice(nomViejo, fecha);
@@ -114,9 +111,9 @@ public class ControladorEvento {
      * evento identificado por nombre y fechaNueva no puede existir
      * Post: Al evento espec�ficado por nombre y fechaVieja se le ha cambiado la fecha por fechaNueva
      */
-    public void ModificarFechaEvento(String nombre, Date fechaVieja, Date fechaNueva) {
+    public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) {
         if (Valido(nombre, fechaVieja)) {
-            if (fechaNueva != null) {
+            if (Fecha.valido(fechaNueva)) {
                 int i = BuscarIndice(nombre, fechaVieja);
                 if (i != -1) {
                     if (BuscarIndice(nombre, fechaNueva) != -1) Listado.get(i).ModFecha(fechaNueva);
@@ -133,7 +130,7 @@ public class ControladorEvento {
      * el evento espec�ficado por nombre y fecha tiene que existir
      * Post: Al evento espec�ficado por nombre y fecha se le ha cambiado el subtipo por subtype
      */
-    public void ModificarSubtipoEvento(String nombre, Date fecha, String subtype) {
+    public void ModificarSubtipoEvento(String nombre, String fecha, String subtype) {
         if (Valido(nombre, fecha)) {
             if (!subtype.equals("")) {
                 int i = BuscarIndice(nombre, fecha);
@@ -149,7 +146,7 @@ public class ControladorEvento {
      * el evento espec�ficado por nombre y fecha tiene que existir
      * Post: Al evento espec�ficado por nombre y fecha se le ha cambiado la importancia por importance
      */
-    public void ModificarImpEvento(String nombre, Date fecha, int importance) {
+    public void ModificarImpEvento(String nombre, String fecha, int importance) {
         if (Valido(nombre, fecha)) {
             if (importance > 0) {
                 int i = BuscarIndice(nombre, fecha);
@@ -182,7 +179,7 @@ public class ControladorEvento {
      * el evento espec�ficado por nombre y fecha tiene que existir
      * Post: Devuelve el evento espec�ficado por nombre y fecha
      */
-    public Evento ConsultarEvento(String nombre, Date fecha) {
+    public Evento ConsultarEvento(String nombre, String fecha) {
         if (Valido(nombre, fecha)) {
             int i = BuscarIndice(nombre, fecha);
             if (i != -1) return Listado.get(i);
@@ -195,7 +192,7 @@ public class ControladorEvento {
      * Pre: nombre no puede ser vacio, fecha no puede ser null
      * Post: Devuelve si el evento espec�ficado por nombre y fecha existe
      */
-    public boolean ExisteEvento(String nombre, Date fecha) {
+    public boolean ExisteEvento(String nombre, String fecha) {
         boolean existe = false;
         if (Valido(nombre, fecha)) {
             int i = BuscarIndice(nombre, fecha);
