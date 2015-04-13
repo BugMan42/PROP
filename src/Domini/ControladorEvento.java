@@ -6,28 +6,28 @@ import java.util.ArrayList;
 
 public class ControladorEvento {
     private ArrayList<Evento> Listado;
-    static final String error1 = "El evento no exite";
+    /*static final String error1 = "El evento no exite";
     static final String error2 = "Nombre no puede ser vacio";
     static final String error3 = "Fecha no puede ser null";
-    static final String error4 = "El nuevo nombre no puede ser vacio";
+    static final String error4 = "El nuevo nombre no puede ser vacío";
     static final String error5 = "Ya existe un evento con ese nombre y esa fecha";
     static final String error6 = "Subtipo no puede ser vacio";
     static final String error7 = "La importancia no puede ser igual o menor que 0";
-
-    /**Comprueba si los par�metros son v�lidos
+*/
+    /**Comprueba si los parámetros son válidos
      * Pre: Cierto
-     *Post: Devuleve true en caso de que nombre no sea vac�o
+     *Post: Devuleve true en caso de que nombre no sea vacío
      * y fecha no sea null
      */
     private boolean Valido(String nombre, String fecha) {
-        if (nombre.equals("")) throw new IllegalArgumentException(error2);
-        if (!Fecha.valido(fecha)) throw new IllegalArgumentException(error3);
+        if (nombre.equals("")) throw new IllegalArgumentException();
+        if (!Fecha.valido(fecha)) throw new IllegalArgumentException();
         return true;
     }
 
     /**Buscadora de eventos
-     * Pre: nombre no puede ser vacio y date no puede ser null
-     * Post: Devuelve el indice del evento especificado por el nombre
+     * Pre: nombre no puede ser vacío y date no puede ser null
+     * Post: Devuelve el índice del evento especificado por el nombre
      * y por la fecha si existe. En caso contrario devuelve -1
      */
     private int BuscarIndice(String nombre,String fecha) {
@@ -58,13 +58,13 @@ public class ControladorEvento {
         if (Valido(nombre, fecha)) {
             int i = BuscarIndice(nombre, fecha);
             if (i != -1) Listado.remove(i);
-            else throw new IllegalArgumentException(error1);
+            else throw new IllegalArgumentException();
         }
     }
 
     /**Elinina todos los eventos
      * Pre: Cierto
-     * Post: Todos los eventos ser�n eliminados
+     * Post: Todos los eventos serán eliminados
      */
     public void EliminarCjtEventos() {
         Listado.clear();
@@ -72,12 +72,12 @@ public class ControladorEvento {
 
     //Modificadoras
 
-    /**A�ade un evento al conjunto de eventos
+    /**Añade un evento al conjunto de eventos
      * Pre: Evento e no puede ser nulo
-     * Post: El evento e ha sido a�adido al conjunto de eventos
+     * Post: El evento e ha sido añadido al conjunto de eventos
      */
     public void AgregarEvento(Evento e) {
-        if (e == null) throw new IllegalArgumentException(error1);
+        if (e == null) throw new IllegalArgumentException();
         Listado.add(e);
     }
 
@@ -86,10 +86,10 @@ public class ControladorEvento {
     }
 
     /** Modificadora del nombre de un evento
-     * Pre: nomViejo y nomNuevo no pueden ser vac�os, fecha no puede ser null,
-     * el evento espec�ficado por nomViejo y fecha tiene que existir y el
+     * Pre: nomViejo y nomNuevo no pueden ser vacíos, fecha no puede ser null,
+     * el evento especificado por nomViejo y fecha tiene que existir y el
      * evento identificado por nomNuevo y fecha no puede existir
-     * Post: Al evento espec�ficado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
+     * Post: Al evento especificado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
      */
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo) {
         if (Valido(nomViejo, fecha)) {
@@ -97,19 +97,19 @@ public class ControladorEvento {
                 int i = BuscarIndice(nomViejo, fecha);
                 if (i != -1) {
                     if (BuscarIndice(nomNuevo, fecha) != -1) Listado.get(i).ModNombre(nomNuevo);
-                    else throw new IllegalArgumentException(error5);
+                    else throw new IllegalArgumentException();
                 }
-                else throw new IllegalArgumentException(error1);
+                else throw new IllegalArgumentException();
             }
-            else throw new IllegalArgumentException(error4);
+            else throw new IllegalArgumentException();
         }
     }
 
     /** Modificadora de la fecha de un evento
-     * Pre: nombre no puede ser vac�o, fechaVieja y fechaNueva no pueden ser nulls,
-     * el evento espec�ficado por nombre y fechaVieja tiene que existir y el
+     * Pre: nombre no puede ser vacóo, fechaVieja y fechaNueva no pueden ser nulls,
+     * el evento especificado por nombre y fechaVieja tiene que existir y el
      * evento identificado por nombre y fechaNueva no puede existir
-     * Post: Al evento espec�ficado por nombre y fechaVieja se le ha cambiado la fecha por fechaNueva
+     * Post: Al evento especificado por nombre y fechaVieja se le ha cambiado la fecha por fechaNueva
      */
     public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) {
         if (Valido(nombre, fechaVieja)) {
@@ -117,50 +117,50 @@ public class ControladorEvento {
                 int i = BuscarIndice(nombre, fechaVieja);
                 if (i != -1) {
                     if (BuscarIndice(nombre, fechaNueva) != -1) Listado.get(i).ModFecha(fechaNueva);
-                    else throw new IllegalArgumentException(error5);
+                    else throw new IllegalArgumentException();
                 }
-                else throw new IllegalArgumentException(error1);
+                else throw new IllegalArgumentException();
             }
-            else throw new IllegalArgumentException(error4);
+            else throw new IllegalArgumentException();
         }
     }
 
     /** Modificadora del subtipo de un evento
-     * Pre: nombre y subtipo no pueden ser vac�os, fecha no puede ser null,
-     * el evento espec�ficado por nombre y fecha tiene que existir
-     * Post: Al evento espec�ficado por nombre y fecha se le ha cambiado el subtipo por subtype
+     * Pre: nombre y subtipo no pueden ser vacíos, fecha no puede ser null,
+     * el evento especificado por nombre y fecha tiene que existir
+     * Post: Al evento especificado por nombre y fecha se le ha cambiado el subtipo por subtype
      */
     public void ModificarSubtipoEvento(String nombre, String fecha, String subtype) {
         if (Valido(nombre, fecha)) {
             if (!subtype.equals("")) {
                 int i = BuscarIndice(nombre, fecha);
                 if (i != -1) Listado.get(i).ModSubtipo(subtype);
-                else throw new IllegalArgumentException(error1);
+                else throw new IllegalArgumentException();
             }
-            else throw new IllegalArgumentException(error6);
+            else throw new IllegalArgumentException();
         }
     }
 
     /** Modificadora de la importancia de un evento
-     * Pre: nombre no puede ser vac�o, fecha no puede ser null, importance > 0
-     * el evento espec�ficado por nombre y fecha tiene que existir
-     * Post: Al evento espec�ficado por nombre y fecha se le ha cambiado la importancia por importance
+     * Pre: nombre no puede ser vacío, fecha no puede ser null, importance > 0
+     * el evento especificado por nombre y fecha tiene que existir
+     * Post: Al evento especificado por nombre y fecha se le ha cambiado la importancia por importance
      */
     public void ModificarImpEvento(String nombre, String fecha, int importance) {
         if (Valido(nombre, fecha)) {
             if (importance > 0) {
                 int i = BuscarIndice(nombre, fecha);
                 if (i != -1) Listado.get(i).ModImportancia(importance);
-                else throw new IllegalArgumentException(error1);
+                else throw new IllegalArgumentException();
             }
-            else throw new IllegalArgumentException(error7);
+            else throw new IllegalArgumentException();
         }
     }
 
-    /**Agrega un evento con par�metros random
+    /**Agrega un evento con parámetros random
      * Pre: Cierto
      * Post: Se ha agregado al conjunto un evento nuevo con
-     * par�metros random
+     * parámetros random
      */
     public void AgregarEventoRandom() {}
 
@@ -176,21 +176,21 @@ public class ControladorEvento {
 
     /**Consultora de un evento
      * Pre: nombre no puede ser vacio, fecha no puede ser null y
-     * el evento espec�ficado por nombre y fecha tiene que existir
-     * Post: Devuelve el evento espec�ficado por nombre y fecha
+     * el evento especificado por nombre y fecha tiene que existir
+     * Post: Devuelve el evento especificado por nombre y fecha
      */
     public Evento ConsultarEvento(String nombre, String fecha) {
         if (Valido(nombre, fecha)) {
             int i = BuscarIndice(nombre, fecha);
             if (i != -1) return Listado.get(i);
-            else throw new IllegalArgumentException(error1);
+            else throw new IllegalArgumentException();
         }
         else throw new IllegalArgumentException();
     }
 
     /**Existe el evento?
      * Pre: nombre no puede ser vacio, fecha no puede ser null
-     * Post: Devuelve si el evento espec�ficado por nombre y fecha existe
+     * Post: Devuelve si el evento especificado por nombre y fecha existe
      */
     public boolean ExisteEvento(String nombre, String fecha) {
         boolean existe = false;
