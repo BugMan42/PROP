@@ -26,7 +26,7 @@ public class ControladorEvento {
     }
 
     /**Buscadora de eventos
-     * Pre: nombre no puede ser vacío y date no puede ser null
+     * Pre: nombre y fecha no pueden ser vacios
      * Post: Devuelve el índice del evento especificado por el nombre
      * y por la fecha si existe. En caso contrario devuelve -1
      */
@@ -51,7 +51,7 @@ public class ControladorEvento {
     }
 
     /**Elimina un evento del conjunto de eventos
-     * Pre: nombre no puede ser vacio y fecha no puede ser null
+     * Pre: nombre y fecha no pueden ser vacios
      * Post: El evento e ha sido añadido al conjunto de eventos
      */
     public void EliminarEvento(String nombre, String fecha) {
@@ -86,7 +86,7 @@ public class ControladorEvento {
     }
 
     /** Modificadora del nombre de un evento
-     * Pre: nomViejo y nomNuevo no pueden ser vacíos, fecha no puede ser null,
+     * Pre: nomViejo, fecha y nomNuevo no pueden ser vacíos,
      * el evento especificado por nomViejo y fecha tiene que existir y el
      * evento identificado por nomNuevo y fecha no puede existir
      * Post: Al evento especificado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
@@ -106,9 +106,9 @@ public class ControladorEvento {
     }
 
     /** Modificadora de la fecha de un evento
-     * Pre: nombre no puede ser vacóo, fechaVieja y fechaNueva no pueden ser nulls,
-     * el evento especificado por nombre y fechaVieja tiene que existir y el
-     * evento identificado por nombre y fechaNueva no puede existir
+     * Pre: nombre, fechaVieja y fechaNueva no puede ser vacíos, el evento especificado
+     *  por nombre y fechaVieja tiene que existir y el evento identificado
+     *  por nombre y fechaNueva no puede existir
      * Post: Al evento especificado por nombre y fechaVieja se le ha cambiado la fecha por fechaNueva
      */
     public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) {
@@ -126,7 +126,7 @@ public class ControladorEvento {
     }
 
     /** Modificadora del subtipo de un evento
-     * Pre: nombre y subtipo no pueden ser vacíos, fecha no puede ser null,
+     * Pre: nombre, fecha y subtipo no pueden ser vacíos,
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Al evento especificado por nombre y fecha se le ha cambiado el subtipo por subtype
      */
@@ -142,7 +142,7 @@ public class ControladorEvento {
     }
 
     /** Modificadora de la importancia de un evento
-     * Pre: nombre no puede ser vacío, fecha no puede ser null, importance > 0
+     * Pre: nombre y fecha no pueden ser vacios, importance > 0
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Al evento especificado por nombre y fecha se le ha cambiado la importancia por importance
      */
@@ -175,7 +175,7 @@ public class ControladorEvento {
     }
 
     /**Consultora de un evento
-     * Pre: nombre no puede ser vacio, fecha no puede ser null y
+     * Pre: nombre y fecha no pueden ser vacíos y
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Devuelve el evento especificado por nombre y fecha
      */
@@ -188,8 +188,8 @@ public class ControladorEvento {
         else throw new IllegalArgumentException();
     }
 
-    /**Existe el evento?
-     * Pre: nombre no puede ser vacio, fecha no puede ser null
+    /**
+     * Pre: nombre y fecha no pueden ser vacíos
      * Post: Devuelve si el evento especificado por nombre y fecha existe
      */
     public boolean ExisteEvento(String nombre, String fecha) {
