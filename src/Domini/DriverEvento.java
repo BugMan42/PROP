@@ -25,7 +25,7 @@ public class DriverEvento {
     public static void main(String[] args) throws ParseException {
         ImprimirMenu();
         Scanner entrada = new Scanner(System.in);
-        int opcion = Integer.parseInt(entrada.next());
+        int opcion = entrada.nextInt();
         while (opcion != 6) {
             switch(opcion) {
                 case 1:
@@ -47,7 +47,7 @@ public class DriverEvento {
                     System.out.println(error);
             }
             System.out.println(nueva);
-            opcion = Integer.parseInt(entrada.next());
+            opcion = entrada.nextInt();
         }
         System.out.println(fin);
     }
@@ -79,13 +79,11 @@ public class DriverEvento {
         System.out.println("Introduzca el subtipo del evento");
         String subtipo = entrada.next();
         System.out.println("Introduzca la importancia del evento");
-        String importancia = entrada.next();
-        Integer importance = Integer.parseInt(importancia);
+        int importance = entrada.nextInt();
         try {
             if (tipo.equals("Votacion")) e = new Votacion(nombre, data, subtipo, importance);
             else if (tipo.equals("Acto")) e = new Acto(nombre, data, subtipo, importance);
             else e = new Reunion(nombre, data, subtipo, importance);
-            System.out.println("La creacion ha sido un exito :D");
         }
         catch (IllegalArgumentException e) {
             switch (Integer.parseInt(e.getMessage())) {
