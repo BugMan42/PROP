@@ -17,6 +17,6 @@ public class Negativo extends Voto{
     }
 
     public String toString() {
-        return super.toString()+"Negativo";
+        return super.toString()+"en contra.";
     }
 }

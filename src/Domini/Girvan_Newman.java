@@ -13,7 +13,7 @@ public class Girvan_Newman extends Algoritmo{
         boolean visited;
         boolean queued;
         boolean leaf;
-        double parent;
+        int parent[];
         double weight;
         double distance;
     }
@@ -39,7 +39,7 @@ public class Girvan_Newman extends Algoritmo{
                 n.visited = false;
                 n.leaf = false;
                 n.distance = Double.POSITIVE_INFINITY;
-                n.parent = -1;
+                n.parent[0] = -1;
                 n.weight = 0;
             }
 
@@ -71,7 +71,8 @@ public class Girvan_Newman extends Algoritmo{
                         }
 
                         leaf_index += 1;
-                        ref_aux.parent = v;
+                        int parent_length = ref_aux.parent.length;
+                        ref_aux.parent[parent_length]= v;
 
                         if (!ref_aux.queued) {
                             q.addLast(aux);
@@ -127,7 +128,7 @@ public class Girvan_Newman extends Algoritmo{
                 n.visited = false;
                 n.leaf = false;
                 n.distance = Double.POSITIVE_INFINITY;
-                n.parent = -1;
+                n.parent[0] = -1;
                 n.weight = 0;
             }
 
@@ -159,7 +160,8 @@ public class Girvan_Newman extends Algoritmo{
                         }
 
                         leaf_index += 1;
-                        ref_aux.parent = v;
+                        int parent_length = ref_aux.parent.length;
+                        ref_aux.parent[parent_length] = v;
 
                         if (!ref_aux.queued) {
                             q.addLast(aux);
@@ -178,7 +180,11 @@ public class Girvan_Newman extends Algoritmo{
             //Pesos en grafo
             for (int p : leaf_node)
             {
-                System.out.println(p);
+                Node golf = node.get(p);
+                for (int inode : golf.parent) {
+                    System.out.println(p);
+
+                }
 
             }
 
