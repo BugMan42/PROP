@@ -22,7 +22,7 @@ public class Girvan_Newman extends Algoritmo{
 
     @Override
     public Grafo ejecutar_algoritmo(Grafo g) {
-        int N = g.obt_num_nodos();
+        int N = g.V();
         node = new ArrayList<Node> (N);
 
         double[][] bfsmatrix = new double[N][N];
@@ -54,6 +54,9 @@ public class Girvan_Newman extends Algoritmo{
                 Node ref_v = node.get(v);
                 ref_v.visited = true;
                 int leaf_index = 0;
+                //esta funcion de nodosadyacentes
+                //en el nuevo grafo utilizo aristas
+                //arraylist de arista, ya me diras
                 for (int aux : g.nodosAdyacentes(v)) {
 
                     Node ref_aux = node.get(aux);
@@ -111,7 +114,7 @@ public class Girvan_Newman extends Algoritmo{
 
     @Override
     public Grafo ejecutar_iteración(Grafo g) {
-        int N = g.obt_num_nodos();
+        int N = g.V();
         node = new ArrayList<Node> (N);
 
         double[][] bfsmatrix = new double[N][N];

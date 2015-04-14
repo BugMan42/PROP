@@ -15,24 +15,24 @@ public class Arista {
     }
 
     //Consultoras
-    public Nodo obt_origen() {
+    public Nodo origen() {
         return origen;
     }
-    public Nodo obt_fin() {
+    public Nodo fin() {
         return fin;
     }
-    public double obt_peso() {
+    public double peso() {
         return peso;
     }
 
     //Modificadoras
-    public void mod_origen(Nodo A) {
+    public void modOrigen(Nodo A) {
         origen = A;
     }
-    public void mod_fin(Nodo A) {
+    public void modFin(Nodo A) {
         fin = A;
     }
-    public void mod_peso(double p) {
+    public void modPeso(double p) {
         peso = p;
     }
 

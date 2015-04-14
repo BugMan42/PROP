@@ -35,7 +35,7 @@ public class Louvain extends Algoritmo {
 
         // -----------------------------
         gc = new Grafo(g);
-        tam = gc.obt_num_nodos();
+        tam = gc.V();
 
         peso_ady = new double[tam];
         Arrays.fill(peso_ady, -1);
@@ -53,7 +53,7 @@ public class Louvain extends Algoritmo {
 
         // -----------------------------
 
-        Grafo gf = new Grafo();
+        Grafo gf = new Grafo();//no me la lieis, cuidado que esto no estara, esta constructuras se eliminara :)
         boolean improvement = true;
         double mod, new_mod;
         int level=0;
