@@ -1,8 +1,7 @@
 package Domini;
 
 /**
- * Created by Jose on 11/04/2015.
+ * Created by jose on 15/04/15.
  */
 public class Salida {
-
 }
