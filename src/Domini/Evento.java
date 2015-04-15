@@ -37,17 +37,10 @@ public abstract class Evento {
         if (date.equals("")) throw new IllegalArgumentException("2");
         if (subtype.equals("")) throw new IllegalArgumentException("3");
         if (importance <= 0) throw new IllegalArgumentException("4");
-        try {
-            fecha = new Fecha(date);
-            nombre = name;
-            subtipo = subtype;
-            importancia = importance;
-        }
-        catch (IllegalArgumentException e) {
-            ///////////////HACER
-
-            ///////////////HACER
-        };
+        fecha = new Fecha(date);
+        nombre = name;
+        subtipo = subtype;
+        importancia = importance;
     }
 
     //Modificadoras
