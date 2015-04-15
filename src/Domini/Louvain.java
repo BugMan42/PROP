@@ -23,23 +23,23 @@ public class Louvain extends Algoritmo {
         return g;
     }
 
-    // METER ESTA FUNCIÓN EN GRAFO? (Por lo que dijo Rosa)
+    // METER ESTA FUNCIÃ“N EN GRAFO? (Por lo que dijo Rosa)
     private boolean primera_fase(){
         // Calcular modularidad grafo.
         // Mover nodos a la mejor comunidad. (1)
         // Elegir nodo (mejor en orden aleatorio).
         // Consultar comunidades adyacentes al nodo.
         // Quitar nodo de su comunidad.
-        // Para cada comunidad comprobar la ganancia de modularidad al añadir el nodo.
-        // Añadir el nodo a la comunidad con mayor ganancia.
+        // Para cada comunidad comprobar la ganancia de modularidad al aÃ±adir el nodo.
+        // AÃ±adir el nodo a la comunidad con mayor ganancia.
         // Recalcular modularidad.
         // Repetir desde (1) mientras "modularidad nueva - modularidad antigua > minimo establecido"
-        // y se haya movido algún nodo a otra comunidad en la iteración.
+        // y se haya movido algÃºn nodo a otra comunidad en la iteraciÃ³n.
         // Devuelve true si se ha realizado alguna mejora.
         return true;
     }
 
-    // METER ESTA FUNCIÓN EN GRAFO? (Por lo que dijo Rosa)
+    // METER ESTA FUNCIÃ“N EN GRAFO? (Por lo que dijo Rosa)
     private void segunda_fase(){
         // Crear nuevo grafo:
         // Comunidades pasan a ser nodos.
