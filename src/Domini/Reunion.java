@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Reunion extends Evento {
 
-    public Reunion(String nombre, Date fecha, String subtipo, int importancia) {
+    public Reunion(String nombre, String fecha, String subtipo, int importancia) {
         super(nombre, fecha, subtipo, importancia);
     }
 }

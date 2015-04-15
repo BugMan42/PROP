@@ -44,9 +44,7 @@ public class DataHandler {
         System.out.println(sal1);
         System.out.println(sal2);
         e.ModNombre(user_input.next());
-        String sdate = user_input.next();
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        e.ModFecha(format.parse(sdate));
+        e.ModFecha(user_input.next());
         e.ModSubtipo(user_input.next());
         e.ModImportancia(Integer.valueOf(user_input.next()));
         System.out.println(sal3);

@@ -10,25 +10,25 @@ public class Relacion {
     private Evento E;
     //TODO: creadora no puede petar devolver error
     Relacion(Congresista C1, Evento E1) {
-        if (!CongresistaValido(C1)) throw new IllegalArgumentException();
-        if (!EventoValido(E1)) throw new IllegalArgumentException();
+        if (!CongresistaValido(C1)) throw new IllegalArgumentException("Congresista null");
+        if (!EventoValido(E1)) throw new IllegalArgumentException("Evento null");
         C = C1;
         E = E1;
     }
     //Modificadoras
     //TODO: igual que en creadora
     public void mod_relacion(Congresista C1, Evento Ev) {
-        if (!CongresistaValido(C1)) throw new IllegalArgumentException();
-        if (!EventoValido(Ev)) throw new IllegalArgumentException();
+        if (!CongresistaValido(C1)) throw new IllegalArgumentException("Congresista null");
+        if (!EventoValido(Ev)) throw new IllegalArgumentException("Evento null");
         C = C1;
         E = Ev;
     }
     public void mod_relacion(Congresista C1) {
-        if (!CongresistaValido(C1)) throw new IllegalArgumentException();
+        if (!CongresistaValido(C1)) throw new IllegalArgumentException("Congresista null");
         C = C1;
     }
     public void mod_relacion(Evento Ev) {
-        if (!EventoValido(E)) throw new IllegalArgumentException();
+        if (!EventoValido(E)) throw new IllegalArgumentException("Evento null");
         E = Ev;
     }
     //Consultoras

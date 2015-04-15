@@ -12,12 +12,11 @@ public class DriverGrafo {
         Arista a = new Arista(n1, n2, 3);
 
         Grafo g = new Grafo();
-        g.add_nodo(n1);
-        g.add_nodo(n2);
-        g.add_arista(a);
-
-        g.printNodos();
-        g.printAristas();
+        //g.add_nodo(n1);
+        //g.add_nodo(n2);
+        //g.add_arista(a);
+        //g.printNodos();
+        //g.printAristas();
     }
 
     public void main() {

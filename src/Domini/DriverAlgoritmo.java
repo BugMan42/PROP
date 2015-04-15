@@ -30,62 +30,39 @@ public class DriverAlgoritmo {
 
     public static void crear_grafo()
     {
-        graf = new Grafo(); //TODO: Obtener un grafo
+        /*graf = new Grafo(7);
+        Arista a = new Arista(1,2,0);
+        graf.addEdge(a);
+         */
+
+
 
     }
 
-    public static void consulta()
+    public static void clique()
     {
-        System.out.println("Introduce el DNI del voto a buscar:");
-        String v2 = null;
-        try {
-            //v2 = vt.consultar_voto(user_input.next());
-            System.out.println(v2);
-        } catch (Exception e) {
-            System.out.println("DNI introducido es incorrecto, operación cancelada.");
-        }
+        alg = new Clique();
+        alg.ejecutar_algoritmo(graf);
+        //Mostrar grafo resultante
     }
 
-    public static void baja()
+    public static void louvain()
     {
-        System.out.println("Introduce el DNI del voto a borrar:");
-        try {
-            //vt.eliminar_voto(user_input.next());
-        } catch (Exception e) {
-            System.out.println("DNI introducido es incorrecto, operación cancelada.");
-        }
+        alg = new Louvain();
+        alg.ejecutar_algoritmo(graf);
+        //Mostrar grafo resultante
     }
 
-    public static void modificacion()
+    public static void girvan_newman()
     {
-        System.out.println("Introduce el DNI del voto a modificar:");
-        String s1 = user_input.next();
-        try {
-            //vt.eliminar_voto(s1);
-        } catch (Exception e) {
-            System.out.println("DNI introducido es incorrecto, operación cancelada.");
-            return;
-        }
-
-        System.out.println("Introduce el tipo de voto:");
-        System.out.println("(Nulo, Blanco, Abstencion, Positivo o Negativo)");
-        String s2 = user_input.next();
-        Class c;
-        Voto v;
-        try {
-            c = Class.forName("Domini." + s2);
-            v = (Voto) c.newInstance();
-        } catch (Exception e) {
-            //e.printStackTrace();
-            System.out.println("Tipo de voto no válido, operación cancelada.");
-            return;
-        }
-        //vt.añadir_voto(s1,v);
+        alg = new Girvan_Newman();
+        alg.ejecutar_algoritmo(graf);
+        //Mostrar grafo resultante
 
     }
 
     public static void ayuda() {
-        System.out.println("Driver del sistema de votaciones");
+        System.out.println("Driver de los algorismos");
         System.out.println("En el menú, seleccione la opción que desee. Para salir, utilice la opción 6.");
     }
 
@@ -101,20 +78,20 @@ public class DriverAlgoritmo {
         System.out.println("\nEscribe el número de la opción que quieras:");
     }
 
-    public static void decide(int opt) throws InstantiationException, IllegalAccessException {
+    public static void decide(int opt) {
         switch (opt)
         {
             case 1:
                 crear_grafo();
                 break;
             case 2:
-                consulta();
+                clique();
                 break;
             case 3:
-                modificacion();
+                louvain();
                 break;
             case 4:
-                baja();
+                girvan_newman();
                 break;
             case 5:
                 ayuda();

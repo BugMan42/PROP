@@ -1,6 +1,5 @@
 package Domini;
 
-import java.util.Date;
 import java.util.Hashtable;
 
 
@@ -12,11 +11,11 @@ public class Votacion extends Evento {
 
     private Hashtable<String, Voto> votos = new Hashtable<String, Voto>();
 
-    public Votacion(String nombre, Date fecha) {
+    public Votacion(String nombre, String fecha) {
         super(nombre, fecha);
     }
 
-    public Votacion(String name, Date date, String subtype, int importance) {
+    public Votacion(String name, String date, String subtype, int importance) {
         super(name, date, subtype, importance);
     }
 

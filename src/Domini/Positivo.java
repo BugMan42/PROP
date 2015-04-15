@@ -18,6 +18,6 @@ public class Positivo extends Voto {
     }
 
     public String toString() {
-        return super.toString()+"Positivo";
+        return super.toString()+"a favor.";
     }
 }

@@ -11,13 +11,13 @@ public class Main {
         //Congresista a = new Congresista();
         Date data = new Date();
 
-        Evento e = new Votacion("Anteproyecto Golf", data);
+        //Evento e = new Votacion("Anteproyecto Golf", data);
         Evento e2 = new Votacion();
-        /*Data.Crear(a);
-        Data.print_congr(a);
-        Data.Crear(e2);
-        Data.print_evento(e);
-        Data.print_evento(e2);*/
+        /*Fecha.Crear(a);
+        Fecha.print_congr(a);
+        Fecha.Crear(e2);
+        Fecha.print_evento(e);
+        Fecha.print_evento(e2);*/
 
         Voto v1 = new Nulo("12");
         System.out.println(v1.getClass().getSimpleName());
