@@ -67,6 +67,8 @@ public class Grafo {
         //ady[A.obt_fin()].add(A);
     }
 
+
+
     //retorna lista de ady de un vettice con numero v
     public List<Arista> ady(int v) {
         return ady[v];
