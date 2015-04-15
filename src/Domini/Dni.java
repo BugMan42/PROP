@@ -34,4 +34,7 @@ public class Dni  {
     public String toString() {
         return dni;
     }
+    public boolean equals(Dni D) {
+        return D.dni.equals(dni);
+    }
 }
