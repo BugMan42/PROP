@@ -63,51 +63,54 @@ public class Congreso {
     public void EliminarCongreso() {
         Lista.clear();
     }
-    //NOOOOOOO
+
+    //####################################
+    //########MODIFICADORAS###############
+    //####################################
     public void ModificarDniCongresista(Dni dni,int edad) {
-            int i = BuscarIndice(dni);
-            if (i != -1) Lista.get(i).modEdad(edad);
-            else throw new IllegalArgumentException(error1);
+        int i = BuscarIndice(dni);
+        if (i != -1) Lista.get(i).modEdad(edad);
+        else throw new IllegalArgumentException(error1);
     }
     public void ModificarNombreCongresista(Dni dni,int nombre) {
-            int i = BuscarIndice(dni);
-            if (i != -1) Lista.get(i).modEdad(nombre);
-            else throw new IllegalArgumentException(error1);
+        int i = BuscarIndice(dni);
+        if (i != -1) Lista.get(i).modEdad(nombre);
+        else throw new IllegalArgumentException(error1);
     }
     public void ModificarApellidoCongresista(Dni dni,int apellido) {
-            int i = BuscarIndice(dni);
-            if (i != -1) Lista.get(i).modEdad(apellido);
-            else throw new IllegalArgumentException(error1);
+        int i = BuscarIndice(dni);
+        if (i != -1) Lista.get(i).modEdad(apellido);
+        else throw new IllegalArgumentException(error1);
     }
     public void ModificarEdadCongresista(Dni dni,int edad) {
-            int i = BuscarIndice(dni);
-            if (i != -1) Lista.get(i).modEdad(edad);
-            else throw new IllegalArgumentException(error1);
+        int i = BuscarIndice(dni);
+        if (i != -1) Lista.get(i).modEdad(edad);
+        else throw new IllegalArgumentException(error1);
     }
     public void ModificarCiudadCongresista(Dni dni,int ciudad) {
-            int i = BuscarIndice(dni);
-            if (i != -1) Lista.get(i).modEdad(ciudad);
-            else throw new IllegalArgumentException(error1);
+        int i = BuscarIndice(dni);
+        if (i != -1) Lista.get(i).modEdad(ciudad);
+        else throw new IllegalArgumentException(error1);
     }
     public void ModificarEstadoCongresista(Dni dni,int estado) {
-            int i = BuscarIndice(dni);
-            if (i != -1) Lista.get(i).modEdad(estado);
-            else throw new IllegalArgumentException(error1);
+        int i = BuscarIndice(dni);
+        if (i != -1) Lista.get(i).modEdad(estado);
+        else throw new IllegalArgumentException(error1);
     }
     public void ModificarPartidoCongresista(Dni dni,int partido) {
-            int i = BuscarIndice(dni);
-            if (i != -1) Lista.get(i).modEdad(partido);
-            else throw new IllegalArgumentException(error1);
+        int i = BuscarIndice(dni);
+        if (i != -1) Lista.get(i).modEdad(partido);
+        else throw new IllegalArgumentException(error1);
     }
     public void ModificarCongresista(Dni dni,Dni dni2 , String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
-            int i = BuscarIndice(dni);
-            if (i != -1) Lista.get(i).modEdad(edad);
-            else throw new IllegalArgumentException(error1);
+        int i = BuscarIndice(dni);
+        if (i != -1) Lista.get(i).modEdad(edad);
+        else throw new IllegalArgumentException(error1);
     }
     public Congresista ConsultarCongresista(Dni dni) {
-            int i = BuscarIndice(dni);
-            if (i != -1) return Lista.get(i);
-            else throw new IllegalArgumentException(error1);
+        int i = BuscarIndice(dni);
+        if (i != -1) return Lista.get(i);
+        else throw new IllegalArgumentException(error1);
     }
 
 
