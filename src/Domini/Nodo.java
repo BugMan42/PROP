@@ -18,6 +18,6 @@ public class Nodo {
     }
 
     public String toString() {
-        return C.obtDni();
+        return C.obtDni().toString();
     }
 }

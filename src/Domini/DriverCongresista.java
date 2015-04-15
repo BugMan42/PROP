@@ -59,14 +59,23 @@ public class DriverCongresista {
             case '1':
                 if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
                 if (aux.length == 8) {
-                    C = new Congresista(aux[1], aux[2], aux[3], Integer.parseInt(aux[4]), aux[5], aux[6], aux[7]);
+                    try {
+                        Dni a = new Dni(aux[1]);
+                        C = new Congresista(a, aux[2], aux[3], Integer.parseInt(aux[4]), aux[5], aux[6], aux[7]);
+                    }catch (Exception e) {
+
+                    }
                 }
                 else throw new IllegalArgumentException("Pocos argumentos");
                 break;
             case '2':
                 if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
                 if (C != null) {
-                    C.modDni(aux[1]);
+                    try {
+                        Dni a = new  Dni(aux[1]);
+                        C.modDni(a);
+                    }catch (Exception e) {
+                    }
                 }
                 else throw new IllegalArgumentException("Congresista no ini");
                 break;

@@ -5,6 +5,7 @@ package Domini;
  */
 public class DriverGrafo {
     public static void main(String[] args) {
+        /*
         Congresista c1 = new Congresista("12345678A","Paco","Sobaco",8,"Springfield","Massachusets","Republicano");
         Congresista c2 = new Congresista("12345678B", "Barack","Obama",53,"Springfield","Massachusets", "Republicano");
         Nodo n1 = new Nodo(c1);
@@ -16,7 +17,7 @@ public class DriverGrafo {
         //g.add_nodo(n2);
         //g.add_arista(a);
         //g.printNodos();
-        //g.printAristas();
+        //g.printAristas();*/
     }
 
     public void main() {

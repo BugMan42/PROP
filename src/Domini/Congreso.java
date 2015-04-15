@@ -61,7 +61,7 @@ public class Congreso {
         return false;
     }
     private static boolean Valido(String dni) {
-        return Congresista.DniValido(dni);
+        return Dni.valido(dni);
     }
     public void EliminarCongresista(String dni) {
         if (Valido(dni)) {

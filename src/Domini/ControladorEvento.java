@@ -35,7 +35,7 @@ public class ControladorEvento {
         boolean found = false;
         int i = 0;
         while (!found && i < n) {
-            if (Listado.get(i).igual(nombre, fecha)) found = true;
+            if (Listado.get(i).obt_nombre().equals(nombre) && Listado.get(i).obt_fecha().equals(fecha)) found = true;
             else ++i;
         }
         if (!found) i = -1;

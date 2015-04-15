@@ -88,10 +88,11 @@ public abstract class Evento {
 
     //Consultoras
 
+    /*traer nombre y fecha y comparar strings
     boolean igual(String name, String date) {
         if (name.equals("")) throw new IllegalArgumentException("1");
         return name.equals(nombre) && fecha.igual(date);
-    }
+    }*/
 
     /**Consultora de nombre
      * Pre: Cierto
