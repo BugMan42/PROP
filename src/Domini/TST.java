@@ -4,6 +4,35 @@ package Domini;
  * Created by falc on 14/04/15.
  */
 public class TST<X>{
+    //Nodos
+    class TSTNodo {
+        TSTNodo left, middle, right;
+        public TSTNodo() {
+            left = null;
+            middle = null;
+            right = null;
+        }
+    }
+    class TSTNodoChar extends TSTNodo {
+        char valor;
+        public TSTNodoChar(char Valor) {
+            super();
+            valor = Valor;
+        }
+    }
+    class TSTNodoFinal extends TSTNodo {
+        X valor;
+        public TSTNodoFinal(X Valor) {
+            super();
+            valor = Valor;
+        }
+        //Puede faltar una modificadora ---> ya veremos
+    }
+
+    //Atributos clase
+    private static char fin = '#'; // marca
+    private TSTNodoChar raiz;
+
 
     private TST<X> low = null;
     private TST<X> equal = null;
