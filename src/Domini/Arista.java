@@ -4,6 +4,36 @@ package Domini;
  * Created by bug on 1/04/15.
  */
 public class Arista {
+    private int fin;
+    private double peso;
+
+    public Arista(int f, int p) {
+        fin = f;
+        peso = p;
+    }
+
+    //Consultoras
+    public int fin() {
+        return fin;
+    }
+    public double peso() {
+        return peso;
+    }
+    //Modificadoras
+    public void modFin(int f) {
+        fin = f;
+    }
+    public void modPeso(double p) {
+        peso = p;
+    }
+    public String toString() {
+        return fin+":"+peso;
+    }
+
+
+
+}
+    /*
     private Nodo origen;
     private Nodo fin;
     private double peso;
@@ -39,4 +69,4 @@ public class Arista {
     public String toString() {
         return origen + " ==> " + fin;
     }
-}
+}*/

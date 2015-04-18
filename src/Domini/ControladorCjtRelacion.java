@@ -7,10 +7,10 @@ import java.util.ArrayList;
  */
 public class ControladorCjtRelacion {
 
-    private CjtRelacion c;
+    private Relaciones c;
 
     public ControladorCjtRelacion(){
-        c = new CjtRelacion();
+        c = new Relaciones();
     }
 
     private ArrayList<Relacion> obt_lista(){

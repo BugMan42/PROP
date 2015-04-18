@@ -1,18 +1,21 @@
 package Domini;
+import java.util.*;
 
 /**
  * Created by falc on 14/04/15.
  */
-public class TST<X>{
+public class TST<X> {
     //Nodos
     class TSTNodo {
         TSTNodo left, middle, right;
+
         public TSTNodo() {
             left = null;
             middle = null;
             right = null;
         }
     }
+
     class TSTNodoChar extends TSTNodo {
         char valor;
         public TSTNodoChar(char Valor) {
@@ -20,26 +23,120 @@ public class TST<X>{
             valor = Valor;
         }
     }
+
     class TSTNodoFinal extends TSTNodo {
         X valor;
-        public TSTNodoFinal(X Valor) {
+        public TSTNodoFinal(X x) {
             super();
-            valor = Valor;
+            valor = x;
+        }
+        public void mod(X x) {
+            valor = x;
         }
         //Puede faltar una modificadora ---> ya veremos
     }
 
     //Atributos clase
     private static char fin = '#'; // marca
-    private TSTNodoChar raiz;
+    private TSTNodoChar root;
+    private int N;
+
+    public TST() {
+        root = null;
+    }
+
+    public void insertar(String key, X x) {
+        root = (TSTNodoChar) insertar(root, key.toCharArray(), x, 0);
+
+    }
+    public void insertar(X x) {
+        String k = x.toString();
+        root = (TSTNodoChar) insertar(root,k.toCharArray(),x,0);
+    }
+    private TSTNodo insertar(TSTNodo t, char[] key, X x, int l) {
+        //if (key.length() == 0) throw new Exception("key vacia");
+        char c;
+        if (l < key.length) c = key[l];
+        else c = fin;
+
+        if (t == null) {
+            t = new TSTNodoChar(c);
+            if (c == fin) t.middle = new TSTNodoFinal(x);
+            else t.middle = insertar(t.middle,key,x,l+1);
+        }
+        else {
+            TSTNodoChar tChar = (TSTNodoChar) t;
+            if (tChar.valor > c) t.left = insertar(t.left,key,x,l);
+            else if (tChar.valor < c) t.right = insertar(t.right,key,x,l);
+            else t.middle = insertar(t.middle,key,x,l+1);
+        }
+        return t;
+    }
+
+    public X obtener(String key) {
+        return obtener(root,key.toCharArray(),0);
+    }
+
+    private X obtener(TSTNodo t,char[] key,int d) {
+        if (t == null) return null;
+
+        char c;
+        if (d < key.length) c = key[d];
+        else c = fin;
+
+        TSTNodoChar tChar = (TSTNodoChar) t;
+        if (tChar.valor > c) return obtener(t.left,key,d);
+        else if (tChar.valor < c) return obtener(t.right,key,d);
+        else {
+            if (key.length > d) return obtener(t.middle,key,d+1);
+            else if (tChar.valor==c) {
+                TSTNodoFinal f = (TSTNodoFinal) t.middle;
+                return f.valor;
+            }
+            else return null;
+        }
+    }
+
+    public boolean existe(String key) {
+        return existe(root,key.toCharArray(),0);
+    }
+    private boolean existe(TSTNodo t,char[] key,int d) {
+        if (t == null) return false;
+
+        char c;
+        if (d < key.length) c = key[d];
+        else c = fin;
+
+        TSTNodoChar tChar = (TSTNodoChar) t;
+        if (tChar.valor > c) return existe(t.left,key,d);
+        else if (tChar.valor < c) return existe(t.right,key,d);
+        else {
+            if (key.length > d) return existe(t.middle,key,d+1);
+            else return tChar.valor==c;
+        }
+    }
+    void print() {
+        print(root);
+    }
+    void print(TSTNodoChar t) {
+        if (t.valor != fin) {
+            System.out.println(t.valor);
+            print((TSTNodoChar)t.middle);
+        }
+    }
+    private void print(String str) {
+        System.out.println(str);
+    }
+
+}
+    /*
+    private char key = '\0';
+    private X objeto = null;
 
 
     private TST<X> low = null;
     private TST<X> equal = null;
     private TST<X> high = null;
-
-    private char key = '\0';
-    private X objeto = null;
 
     public TST()
     {
@@ -127,4 +224,4 @@ public class TST<X>{
 
     }
 
-}
+}*/
