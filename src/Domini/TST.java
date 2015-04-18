@@ -1,9 +1,7 @@
 package Domini;
 import java.util.*;
 
-/**
- * Created by falc on 14/04/15.
- */
+
 public class TST<X> {
     //Nodos
     class TSTNodo {

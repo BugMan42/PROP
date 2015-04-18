@@ -58,12 +58,12 @@ public class Girvan_Newman extends Algoritmo{
 
             while(!q.isEmpty())
             {
-                int v = q.removeFirst();
+                int v =(Integer) q.removeFirst();
                 route.add(v);
                 Node ref_v = node.get(v);
                 ref_v.visited = true;
                 int leaf_index = 0;
-                for (int aux : g.nodosAdyacentes(v)) {
+                /*for (int aux : g.nodosAdyacentes(v)) {
 
                     Node ref_aux = node.get(aux);
 
@@ -89,7 +89,7 @@ public class Girvan_Newman extends Algoritmo{
                         }
                     }
 
-                }
+                }*/
 
                 if (leaf_index == 0) {
                     ref_v.leaf = true;
