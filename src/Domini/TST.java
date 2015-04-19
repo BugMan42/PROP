@@ -28,7 +28,7 @@ public class TST<X> {
             super();
             valor = x;
         }
-        public void mod(X x) {
+        public void modificar(X x) {
             valor = x;
         }
         //Puede faltar una modificadora ---> ya veremos
@@ -123,31 +123,65 @@ public class TST<X> {
             print((TSTNodoChar)t.middle);
         }
     }
-    private void print(String str) {
-        System.out.println(str);
-    }
-
     public void borrar(String key) {
 
     }
+
     private TSTNodo borrar(TSTNodo t,char[] key,int d) {
         return new TSTNodo();
     }
+    //Modificación Simple
     public void modificar(String key, X x) {
-
+        root = (TSTNodoChar) modificar(root,x,key,0);
     }
     public void modificar(X x) {
         String k = x.toString();
         root = (TSTNodoChar) modificar(root,null,x,k,0);
     }
+    //Modificación comp --> Modificamos el key pero mantenemos el objeto
     public void modificar(String NewKey, String OldKey) {
         root = (TSTNodoChar) modificar(root,NewKey,null,OldKey,0);
     }
+    //Modificación comp ---> Modificamos el key y canviamos el objeto
     public void modificar(String OldKey, String NewKey, X x) {
         root = (TSTNodoChar) modificar(root,NewKey,x,OldKey,0);
     }
+
+    //Modificación Simple
+    private TSTNodo modificar(TSTNodo t, X x,String key, int d) {
+        if (t == null) {
+            print("no esta");
+            return null;
+        }
+
+        char c;
+        if (d < key.length()) c = key.charAt(d);
+        else c = fin;
+        //print(String.valueOf(c));
+
+        TSTNodoChar tChar = (TSTNodoChar) t;
+        if (c < tChar.valor) t.left =  modificar(t.left,x,key,d);
+        else if (c > tChar.valor ) t.right = modificar(t.right,x,key,d);
+        else {
+            if (d < key.length()) t.middle = modificar(t.middle,x,key,d+1);
+            else if (tChar.valor==c) {
+                TSTNodoFinal f = (TSTNodoFinal) t.middle;
+                f.modificar(x);
+                t.middle = f;
+            }
+            else {
+                print("No esta");
+                //NO esta//return null;
+            }
+        }
+        return t;
+    }
+    //Modificación Compuesta
     private TSTNodo modificar(TSTNodo t, String NewKey, X x, String OldKey,int d) {
         return new TSTNodo();
+    }
+    private void print(String str) {
+        System.out.println(str);
     }
 }
     /*
