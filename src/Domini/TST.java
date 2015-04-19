@@ -44,17 +44,17 @@ public class TST<X> {
     }
 
     public void insertar(String key, X x) {
-        root = (TSTNodoChar) insertar(root, key.toCharArray(), x, 0);
+        root = (TSTNodoChar) insertar(root, key, x, 0);
 
     }
     public void insertar(X x) {
         String k = x.toString();
-        root = (TSTNodoChar) insertar(root,k.toCharArray(),x,0);
+        root = (TSTNodoChar) insertar(root,k,x,0);
     }
-    private TSTNodo insertar(TSTNodo t, char[] key, X x, int l) {
+    private TSTNodo insertar(TSTNodo t, String key, X x, int l) {
         //if (key.length() == 0) throw new Exception("key vacia");
         char c;
-        if (l < key.length) c = key[l];
+        if (l < key.length()) c = key.charAt(l);
         else c = fin;
 
         if (t == null) {
@@ -72,21 +72,21 @@ public class TST<X> {
     }
 
     public X obtener(String key) {
-        return obtener(root,key.toCharArray(),0);
+        return obtener(root,key,0);
     }
 
-    private X obtener(TSTNodo t,char[] key,int d) {
+    private X obtener(TSTNodo t,String key,int d) {
         if (t == null) return null;
 
         char c;
-        if (d < key.length) c = key[d];
+        if (d < key.length()) c = key.charAt(d);
         else c = fin;
 
         TSTNodoChar tChar = (TSTNodoChar) t;
         if (tChar.valor > c) return obtener(t.left,key,d);
         else if (tChar.valor < c) return obtener(t.right,key,d);
         else {
-            if (key.length > d) return obtener(t.middle,key,d+1);
+            if (key.length() > d) return obtener(t.middle,key,d+1);
             else if (tChar.valor==c) {
                 TSTNodoFinal f = (TSTNodoFinal) t.middle;
                 return f.valor;
@@ -96,20 +96,21 @@ public class TST<X> {
     }
 
     public boolean existe(String key) {
-        return existe(root,key.toCharArray(),0);
+        return existe(root,key,0);
     }
-    private boolean existe(TSTNodo t,char[] key,int d) {
+
+    private boolean existe(TSTNodo t,String key,int d) {
         if (t == null) return false;
 
         char c;
-        if (d < key.length) c = key[d];
+        if (d < key.length()) c = key.charAt(d);
         else c = fin;
 
         TSTNodoChar tChar = (TSTNodoChar) t;
         if (tChar.valor > c) return existe(t.left,key,d);
         else if (tChar.valor < c) return existe(t.right,key,d);
         else {
-            if (key.length > d) return existe(t.middle,key,d+1);
+            if (key.length() > d) return existe(t.middle,key,d+1);
             else return tChar.valor==c;
         }
     }
@@ -126,77 +127,30 @@ public class TST<X> {
         System.out.println(str);
     }
 
+    public void borrar(String key) {
+
+    }
+    private TSTNodo borrar(TSTNodo t,char[] key,int d) {
+        return new TSTNodo();
+    }
+    public void modificar(String key, X x) {
+
+    }
+    public void modificar(X x) {
+        String k = x.toString();
+        root = (TSTNodoChar) modificar(root,null,x,k,0);
+    }
+    public void modificar(String NewKey, String OldKey) {
+        root = (TSTNodoChar) modificar(root,NewKey,null,OldKey,0);
+    }
+    public void modificar(String OldKey, String NewKey, X x) {
+        root = (TSTNodoChar) modificar(root,NewKey,x,OldKey,0);
+    }
+    private TSTNodo modificar(TSTNodo t, String NewKey, X x, String OldKey,int d) {
+        return new TSTNodo();
+    }
 }
     /*
-    private char key = '\0';
-    private X objeto = null;
-
-
-    private TST<X> low = null;
-    private TST<X> equal = null;
-    private TST<X> high = null;
-
-    public TST()
-    {
-
-    }
-
-    public void insertar(String k, X o)
-    {
-        char c_k = k.charAt(0);
-        String aux_k = k.substring(1);
-
-        if (key == '\0') //Si el carácter es nulo...
-        {
-            key = c_k;
-            if (aux_k.equals("")) //Si no quedan más letras...
-            {
-                objeto = o;
-                //System.out.println("Valor insertado en "+key);
-                return;
-            }
-            else
-            {
-                equal = new TST<X>();
-                equal.insertar(aux_k, o);
-            }
-        }
-        else if (c_k < key)
-        {
-            if (low == null) low = new TST<X>();
-            low.insertar(k, o);
-        }
-        else if (c_k == key)
-        {
-            if (equal == null) equal = new TST<X>();
-            equal.insertar(aux_k, o);
-        }
-        else if (c_k > key)
-        {
-            if (high == null) high = new TST<X>();
-            high.insertar(k, o);
-        }
-    }
-
-    public X obtObjeto(String k)
-    {
-        X aux = null;
-        char c_k = k.charAt(0);
-        String aux_k = k.substring(1);
-        //System.out.println("Nodo: "+key+", "+c_k+", "+aux_k);
-        //if (aux_k.equals("")) System.out.println("aux_k is empty");
-
-        if (c_k < key && low != null) aux = low.obtObjeto(k);
-        else if (c_k > key && high != null) aux = high.obtObjeto(k);
-        else if (c_k == key)
-        {
-            if (aux_k.equals("")) return objeto;
-            else if (equal != null) aux = equal.obtObjeto(aux_k);
-        }
-
-        return aux;
-    }
-
     public void borrar(String k)
     {
         char c_k = k.charAt(0);

@@ -1,8 +1,5 @@
 package Domini;
 
-/**
- * Created by bug on 15/04/15.
- */
 public class Dni  {
     ////formato: 9 caracteres (8 numeros y 1 letra)
     private String dni;

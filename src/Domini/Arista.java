@@ -1,8 +1,5 @@
 package Domini;
 
-/**
- * Created by bug on 1/04/15.
- */
 public class Arista {
     private int fin;
     private double peso;

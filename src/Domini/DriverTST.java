@@ -3,9 +3,7 @@ package Domini;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Created by falc on 14/04/15.
- */
+
 public class DriverTST {
 
     private static Scanner user_input = new Scanner(System.in);

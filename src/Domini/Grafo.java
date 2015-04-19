@@ -2,9 +2,6 @@ package Domini;
 
 import java.util.*;
 
-/**
- * Created by bug on 23/03/15.
- */
 
 //Grafo algoritmo
 public class Grafo<V, E extends Arista> {
@@ -17,9 +14,27 @@ public class Grafo<V, E extends Arista> {
             entrada = new ArrayList<E>();
             salida = new ArrayList<E>();
         }
+        boolean entradaVacia() {
+            return entrada.isEmpty();
+        }
+        boolean salidaVacia() {
+            return salida.isEmpty();
+        }
+        void añadirEntrada(E e) {
+            //entrada.add(e);
+        }
+        void añadirSalida(E e) {
+            //salida.add(e);
+        }
+        void eliminarEntrada(E e) {
+
+        }
+        void EliminarSalida(E e) {
+
+        }
     }
 
-    private int Vt;
+    private int Vt; // ---- > No fa falta
     private int Et;
     private double total;
     private ArrayList<AristasNodo> ady;
@@ -41,6 +56,14 @@ public class Grafo<V, E extends Arista> {
 
     }
 
+    public void añadirArista(int origen, E e) {
+        ++Et;
+
+    }
+    public void añadirVertice(V v) {
+        ++Vt;
+    }
+
     //retorna num de vertices
     public int V() {
         return Vt;
@@ -53,6 +76,13 @@ public class Grafo<V, E extends Arista> {
 
     public double total() {
         return total;
+    }
+
+    public double pesoAristasVertice(int nodo) {
+        return 0.0;
+    }
+    public double pesoAristaVertices(int origen, int fin) {
+        return 0.0;
     }
 
     public int degree(int v) {
