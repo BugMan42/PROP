@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class DriverPositivo {
 
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    public static void main(String[] args){
         Scanner user_input = new Scanner( System.in );
         Positivo v = new Positivo();
         System.out.println("Escribe el DNI del congresista votante:");

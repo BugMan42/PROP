@@ -8,9 +8,10 @@ public abstract class Algoritmo {
 
     public Algoritmo() {}
 
-    public Grafo ejecutar_algoritmo(Grafo g) {
+    public Grafo ejecutar_algoritmo(Entrada in, Salida out) {
 
-        return g; //PD: No.
+         //PD: No
+        return in.obtGrafo();
     };
 
     public Grafo ejecutar_iteración(Grafo g) {

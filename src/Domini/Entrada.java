@@ -5,6 +5,26 @@ package Domini;
  */
 public class Entrada {
 
-    public Entrada()
-    {}
+    private Grafo graph;
+    private int param;
+
+    public Entrada(Grafo g)
+    {
+        graph = g;
+    }
+
+    public void modParam1(String s)
+    {
+        param = Integer.parseInt(s);
+    }
+
+    public int obtParam1()
+    {
+        return param;
+    }
+
+    public Grafo obtGrafo()
+    {
+        return graph;
+    }
 }

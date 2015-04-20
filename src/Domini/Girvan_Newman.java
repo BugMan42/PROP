@@ -22,9 +22,9 @@ public class Girvan_Newman extends Algoritmo{
     ArrayList<Node> node;
 
     @Override
-    public Grafo ejecutar_algoritmo(Grafo g) {
+    public Grafo ejecutar_algoritmo(Entrada in, Salida out) {
 
-        return super.ejecutar_algoritmo(g);
+        return super.ejecutar_algoritmo(in, out);
     }
 
 
