@@ -84,6 +84,7 @@ public class Grafo<V, E extends Arista> {
     public double pesoAristaVertices(int origen, int fin) {
         return 0.0;
     }
+    public void modPesoAristaVertices(int origen, int fin, double peso) {}
 
     public int degree(int v) {
         //return ady[v].size();

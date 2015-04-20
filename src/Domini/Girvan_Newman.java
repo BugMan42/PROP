@@ -2,7 +2,6 @@ package Domini;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -35,7 +34,7 @@ public class Girvan_Newman extends Algoritmo{
         Grafo gaux = new Grafo(g);
 
         node = new ArrayList<Node> (N);
-        Arista victim; // La arista que se irá
+        Arista victim = new Arista(-1, 0); // La arista que se irá
 
         //BFS por cada nodo del grafo
         for (int i = 0; i < N; ++i)
@@ -64,7 +63,8 @@ public class Girvan_Newman extends Algoritmo{
                 Node ref_v = node.get(v);
                 ref_v.visited = true;
                 int leaf_index = 0;
-                /*for (int aux : g.nodosAdyacentes(v)) {
+                ArrayList<Integer> al = g.nodosAdyacentes(v);
+                for (int aux : al) {
 
                     Node ref_aux = node.get(aux);
 
@@ -90,7 +90,7 @@ public class Girvan_Newman extends Algoritmo{
                         }
                     }
 
-                }*/
+                }
 
                 if (leaf_index == 0) {
                     ref_v.leaf = true;
@@ -102,17 +102,22 @@ public class Girvan_Newman extends Algoritmo{
             //Pesos en grafo
             for (int p : route)
             {
+
                 Node golf = node.get(p);
-                System.out.println(p+": "+ Arrays.toString(golf.parent));
-                for (int inode : golf.parent) {
+                if (golf.parent[0] != -1) {
+                    System.out.println(p + ": " + Arrays.toString(golf.parent));
+                    for (int inode : golf.parent) {
 
-                    //double multiplier = V(inode).weigth/V(golf).weigth
-                    //double myWeight = (1 + inode.down_total) * multiplier;
-                    // A(inode,golf) += myWeight;
-                    // down_total += myWeight;
+                        Node up = node.get(inode);
+                        double multiplier = up.weight/golf.weight;
+                        double myWeight = (1 + golf.down_total) * multiplier;
+                        double rel = gaux.pesoAristaVertices(inode, p) + myWeight;
+                        gaux.modPesoAristaVertices(inode, p, rel);
+                        up.down_total += myWeight;
 
-                    //Si victim.peso < a myWeight, victim = A(inode, golf);
+                        //if (victim.peso() < myWeight) victim = A(inode, golf);
 
+                    }
                 }
 
             }
