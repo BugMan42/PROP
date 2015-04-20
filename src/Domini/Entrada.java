@@ -1,7 +1,10 @@
 package Domini;
 
 /**
- * Created by jose on 15/04/15.
+ * Created on 15/04/15.
  */
 public class Entrada {
+
+    public Entrada()
+    {}
 }

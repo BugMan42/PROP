@@ -1,6 +1,7 @@
 package Domini;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -58,7 +59,7 @@ public class Girvan_Newman extends Algoritmo{
 
             while(!q.isEmpty())
             {
-                int v =(Integer) q.removeFirst();
+                int v = q.removeFirst();
                 route.add(v);
                 Node ref_v = node.get(v);
                 ref_v.visited = true;
@@ -102,7 +103,7 @@ public class Girvan_Newman extends Algoritmo{
             for (int p : route)
             {
                 Node golf = node.get(p);
-                System.out.println(p+": "+golf.parent);
+                System.out.println(p+": "+ Arrays.toString(golf.parent));
                 for (int inode : golf.parent) {
 
                     //double multiplier = V(inode).weigth/V(golf).weigth
