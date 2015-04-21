@@ -16,4 +16,6 @@ public class Abstencion extends Voto {
     public String obt_tipo() {
         return "Abstención";
     }
+
+    public String toString() {return super.toString()+"'abstención'."; }
 }

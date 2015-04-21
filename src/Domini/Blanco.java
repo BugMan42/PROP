@@ -15,4 +15,8 @@ public class Blanco extends Voto {
     public String obt_tipo() {
         return "Blanco";
     }
+
+    public String toString() {
+        return super.toString()+"en blanco.";
+    }
 }

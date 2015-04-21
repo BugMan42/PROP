@@ -15,8 +15,11 @@ public class DriverAlgoritmo {
     final static String opcion6 = "***6.-Salir";
 
     private static Scanner user_input = new Scanner( System.in );
+
     private static Grafo graf;
+    private static Entrada in;
     private static Algoritmo alg;
+    private static Salida out;
 
     public static void main(String[] args) throws ReflectiveOperationException {
         int opcion;
@@ -42,21 +45,21 @@ public class DriverAlgoritmo {
     public static void clique()
     {
         alg = new Clique();
-        alg.ejecutar_algoritmo(graf);
+        alg.ejecutar_algoritmo(in, out);
         //Mostrar grafo resultante
     }
 
     public static void louvain()
     {
         alg = new Louvain();
-        alg.ejecutar_algoritmo(graf);
+        alg.ejecutar_algoritmo(in, out);
         //Mostrar grafo resultante
     }
 
     public static void girvan_newman()
     {
         alg = new Girvan_Newman();
-        alg.ejecutar_algoritmo(graf);
+        alg.ejecutar_algoritmo(in, out);
         //Mostrar grafo resultante
 
     }
