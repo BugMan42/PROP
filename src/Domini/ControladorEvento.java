@@ -19,7 +19,7 @@ public class ControladorEvento {
      *Post: Devuleve true en caso de que nombre no sea vacío
      * y fecha no sea null
      */
-    private boolean Valido(String nombre, String fecha) {
+    private boolean Valido(String nombre, String fecha) throws NoValido{
         if (nombre.equals("")) throw new IllegalArgumentException();
         if (!Fecha.valido(fecha)) throw new IllegalArgumentException();
         return true;
@@ -54,7 +54,7 @@ public class ControladorEvento {
      * Pre: nombre y fecha no pueden ser vacios
      * Post: El evento e ha sido añadido al conjunto de eventos
      */
-    public void EliminarEvento(String nombre, String fecha) {
+    public void EliminarEvento(String nombre, String fecha) throws NoValido{
         if (Valido(nombre, fecha)) {
             int i = BuscarIndice(nombre, fecha);
             if (i != -1) Listado.remove(i);
@@ -91,7 +91,7 @@ public class ControladorEvento {
      * evento identificado por nomNuevo y fecha no puede existir
      * Post: Al evento especificado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
      */
-    public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo) {
+    public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo) throws NoValido{
         if (Valido(nomViejo, fecha)) {
             if (!nomNuevo.equals("")) {
                 int i = BuscarIndice(nomViejo, fecha);
@@ -111,7 +111,7 @@ public class ControladorEvento {
      *  por nombre y fechaNueva no puede existir
      * Post: Al evento especificado por nombre y fechaVieja se le ha cambiado la fecha por fechaNueva
      */
-    public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) {
+    public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) throws NoValido{
         if (Valido(nombre, fechaVieja)) {
             if (Fecha.valido(fechaNueva)) {
                 int i = BuscarIndice(nombre, fechaVieja);
@@ -130,7 +130,7 @@ public class ControladorEvento {
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Al evento especificado por nombre y fecha se le ha cambiado el subtipo por subtype
      */
-    public void ModificarSubtipoEvento(String nombre, String fecha, String subtype) {
+    /*public void ModificarSubtipoEvento(String nombre, String fecha, String subtype) {
         if (Valido(nombre, fecha)) {
             if (!subtype.equals("")) {
                 int i = BuscarIndice(nombre, fecha);
@@ -139,14 +139,14 @@ public class ControladorEvento {
             }
             else throw new IllegalArgumentException();
         }
-    }
+    }*/
 
     /** Modificadora de la importancia de un evento
      * Pre: nombre y fecha no pueden ser vacios, importance > 0
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Al evento especificado por nombre y fecha se le ha cambiado la importancia por importance
      */
-    public void ModificarImpEvento(String nombre, String fecha, int importance) {
+    public void ModificarImpEvento(String nombre, String fecha, int importance) throws NoValido{
         if (Valido(nombre, fecha)) {
             if (importance > 0) {
                 int i = BuscarIndice(nombre, fecha);
@@ -179,7 +179,7 @@ public class ControladorEvento {
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Devuelve el evento especificado por nombre y fecha
      */
-    public Evento ConsultarEvento(String nombre, String fecha) {
+    public Evento ConsultarEvento(String nombre, String fecha) throws NoValido{
         if (Valido(nombre, fecha)) {
             int i = BuscarIndice(nombre, fecha);
             if (i != -1) return Listado.get(i);
@@ -192,7 +192,7 @@ public class ControladorEvento {
      * Pre: nombre y fecha no pueden ser vacíos
      * Post: Devuelve si el evento especificado por nombre y fecha existe
      */
-    public boolean ExisteEvento(String nombre, String fecha) {
+    public boolean ExisteEvento(String nombre, String fecha) throws NoValido{
         boolean existe = false;
         if (Valido(nombre, fecha)) {
             int i = BuscarIndice(nombre, fecha);

@@ -11,12 +11,12 @@ public class Votacion extends Evento {
 
     private Hashtable<String, Voto> votos = new Hashtable<String, Voto>();
 
-    public Votacion(String nombre, String fecha) {
+    public Votacion(String nombre, String fecha) throws Exception{
         super(nombre, fecha);
     }
 
-    public Votacion(String name, String date, String subtype, int importance) {
-        super(name, date, subtype, importance);
+    public Votacion(String name, String date, int importance) throws Exception{
+        super(name, date, importance);
     }
 
     public Votacion() {}

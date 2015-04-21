@@ -27,14 +27,14 @@ public class DriverEvento {
         Scanner entrada = new Scanner(System.in);
         int opcion = entrada.nextInt();
         while (opcion != 6) {
-            switch(opcion) {
+            switch (opcion) {
                 case 1:
                     alta(entrada);
                     break;
-               case 2:
+                /*case 2:
                     baja(entrada);
-                    break;
-                 case 3:
+                    break;*/
+                case 3:
                     modificar(entrada);
                     break;
                 case 4:
@@ -62,7 +62,7 @@ public class DriverEvento {
         System.out.println(opcion6);
     }
 
-    private static void alta(Scanner entrada) throws ParseException {
+    private static void alta(Scanner entrada) {
         System.out.println("Bienvenido a alta de un evento");
         System.out.println("Para dar de alta un evento se tienen que introducir");
         System.out.println("El tipo, nombre, fecha, subtipo e importancia");
@@ -81,12 +81,13 @@ public class DriverEvento {
         System.out.println("Introduzca la importancia del evento");
         int importance = entrada.nextInt();
         try {
-            if (tipo.equals("Votacion")) e = new Votacion(nombre, data, subtipo, importance);
+            if (tipo.equals("Votacion")) e = new Votacion(nombre, data, importance);
             else if (tipo.equals("Acto")) e = new Acto(nombre, data, subtipo, importance);
             else e = new Reunion(nombre, data, subtipo, importance);
         }
-        catch (IllegalArgumentException e) {
-            switch (Integer.parseInt(e.getMessage())) {
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            /*switch (Integer.parseInt(e.getMessage())) {
                 case 1:
                     System.out.println("Nombre no puede ser vacÃ­o");
                     break;
@@ -105,16 +106,17 @@ public class DriverEvento {
                 case 6:
                     System.out.println();
                     break;
-            }
+            }*/
         }
     }
 
-    private static void baja(Scanner entrada) {
+    /*private static void baja(Scanner entrada) {
         System.out.println("Bienvenido a baja de un evento");
         try {
             e = null;
         }
         catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
             switch (Integer.parseInt(e.getMessage())) {
                 case 1:
                     System.out.println("Nombre no puede ser vacio");
@@ -136,7 +138,7 @@ public class DriverEvento {
                     break;
             }
         }
-    }
+    }*/
 
     private static void modificar(Scanner entrada) throws ParseException {
         System.out.println("Bienvenido a modificacion de un evento");
@@ -157,7 +159,7 @@ public class DriverEvento {
                         break;
                     case 3:
                         System.out.println("Introduzca el nuevo subtipo");
-                        e.ModSubtipo(entrada.next());
+                        //e.ModSubtipo(entrada.next());
                         break;
                     case 4:
                         System.out.println("Introduzca la nueva importancia");
@@ -169,8 +171,9 @@ public class DriverEvento {
                 }
             }
         }
-        catch (IllegalArgumentException e) {
-            switch (Integer.parseInt(e.getMessage())) {
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            /*switch (Integer.parseInt(e.getMessage())) {
                 case 1:
                     System.out.println("Nombre no puede ser vacio");
                     break;
@@ -189,12 +192,12 @@ public class DriverEvento {
                 case 6:
                     System.out.println();
                     break;
-            }
+            }*/
         }
     }
 
     private static void consulta(Scanner entrada) {
         System.out.println("Bienvenido a consulta de un evento");
-        System.out.println(e.obt_nombre() + " " + e.obt_fecha() + " " + e.obt_subtipo() + " " + Integer.toString(e.obt_importancia()));
+        System.out.println(e.obt_nombre() + " " + e.obt_fecha() + " " + Integer.toString(e.obt_importancia()));
     }
 }

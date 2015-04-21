@@ -7,31 +7,36 @@ import java.util.regex.PatternSyntaxException;
  */
 public class Fecha {
     private String[] fecha;
+    final static String error1 = "Dia no puede ser inferior a 1 ni mayor que 31";
+    final static String error2 = "Mes no puede ser inferior a 1 ni mayor que 12";
+    final static String error3 = "Año no puede ser inferior a 1";
+    final static String error4 = "Febrero no tiene dia 30 ni 31";
+    final static String error5 = "Dia 29 de febrero solo en años bisiestos";
+    final static String error6 = "El mes no tiene dia 31";
 
-    private static boolean Correcto(int dia, int mes, int any) {
-        if (dia < 1 || dia > 31) throw new IllegalArgumentException("Dia no puede ser inferior a 1 ni mayor que 31");
-        if (mes <= 0 || mes >= 13) throw new IllegalArgumentException("Mes no puede ser inferior a 1 ni mayor que 31");
-        if (any < 1) throw new IllegalArgumentException("Año no puede ser inferior a 1");
+    private static boolean Correcto(int dia, int mes, int any) throws NoValido{
+        if (dia < 1 || dia > 31) throw new NoValido("Dia");
+        if (mes <= 0 || mes >= 13) throw new NoValido("Mes");
+        if (any < 1) throw new NoValido("Año");
         if (mes == 2) {
-            if ((dia == 30 || dia == 31)) throw new IllegalArgumentException("Febrero no tiene dia 30 ni 31");
-            if (dia == 29 && ((any % 4 != 0 || any % 100 == 0) && any % 400 != 0))
-                throw new IllegalArgumentException("Dia 29 de febrero solo en a�os bisiestos");
+            if ((dia == 30 || dia == 31)) throw new NoValido("Dia");
+            if (dia == 29 && ((any % 4 != 0 || any % 100 == 0) && any % 400 != 0)) throw new NoValido("Dia");
         }
-        else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31 ) throw new IllegalArgumentException("El mes no tiene dia 31");
+        else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31 ) throw new NoValido("Dia");
         return true;
     }
 
-    public static boolean valido(String data) {
+    public static boolean valido(String data) throws NoValido {
         if (data.equals("")) return false;
         String[] aux = data.split("/");
-        if (aux.length > 3) return false;
+        if (aux.length != 3) return false;
         return Correcto(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
     }
 
-    public Fecha(String data) throws PatternSyntaxException {
-        if (data.equals("")) throw new IllegalArgumentException("La fecha no puede ser vac�a");
+    public Fecha(String data) throws NoValido {
+        if (data.equals("")) throw new NoValido("La fecha no puede ser vacia");
         String[] aux = data.split("/");
-        if (aux.length > 3) throw new IllegalArgumentException("El formato es dd/mm/yyyy");
+        if (aux.length > 3) throw new NoValido("El formato es dd/mm/yyyy");
         Correcto(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
         fecha = aux;
     }

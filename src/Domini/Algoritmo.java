@@ -8,6 +8,8 @@ public abstract class Algoritmo {
 
     public Algoritmo() {}
 
+    public Algoritmo(Entrada in, Salida out) {}
+
     public Grafo ejecutar_algoritmo(Entrada in, Salida out) {
 
          //PD: No

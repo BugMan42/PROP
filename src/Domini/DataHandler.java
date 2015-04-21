@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class DataHandler {
-    Scanner user_input = new Scanner( System.in );
+    /*Scanner user_input = new Scanner( System.in );
 
     //Introduccion datos congresista
     //Pre: Se introduciran los parametros del congresista
@@ -35,9 +35,9 @@ public class DataHandler {
         c.mod_partido(user_input.next());
         System.out.println(sal3);
         return 1;
-    }*/
+    }
 
-    int Crear(Evento e) throws ParseException {
+    int Crear(Evento e) {
         String sal1 = "********Introduce los parametros del Evento********";
         String sal2 = "Formato : nombre fecha(dd/mm/aaaa) subtipo importancia";
         String sal3 = "FIN Introducción datos";
@@ -45,7 +45,7 @@ public class DataHandler {
         System.out.println(sal2);
         e.ModNombre(user_input.next());
         e.ModFecha(user_input.next());
-        e.ModSubtipo(user_input.next());
+        //e.ModSubtipo(user_input.next());
         e.ModImportancia(Integer.valueOf(user_input.next()));
         System.out.println(sal3);
         return 1;
@@ -57,7 +57,7 @@ public class DataHandler {
     }
 
     void print_evento(Evento e) {
-        String output = e.obt_nombre() + " " + e.obt_fecha() + " " + e.obt_subtipo() + " " + e.obt_importancia();
+        String output = e.obt_nombre() + " " + e.obt_fecha() + " " + " " + e.obt_importancia();
         System.out.println(output);
-    }
+    }*/
 }
