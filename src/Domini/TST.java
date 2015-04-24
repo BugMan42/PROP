@@ -123,12 +123,40 @@ public class TST<X> {
             print((TSTNodoChar)t.middle);
         }
     }
-    public void borrar(String key) {
+    public void eliminar(String key) {
+        root = (TSTNodoChar) borrar(root, null, key, 0);
 
     }
 
-    private TSTNodo borrar(TSTNodo t,char[] key,int d) {
-        return new TSTNodo();
+    private TSTNodo borrar(TSTNodo t,TSTNodo padre,String key,int d) {
+        if (t == null) {
+            print("no esta");
+            return null;
+        }
+
+        char c;
+        if (d < key.length()) c = key.charAt(d);
+        else c = fin;
+        //print(String.valueOf(c));
+
+        TSTNodoChar tChar = (TSTNodoChar) t;
+        if (c < tChar.valor) t.left =  borrar(t.left,t,key,d);
+        else if (c > tChar.valor ) t.right = borrar(t.right,t,key,d);
+        else {
+            if (d < key.length()) t.middle = borrar(t.middle,t,key,d+1);
+            else if (tChar.valor==c) {
+                //Eliminar
+                print(String.valueOf(c));
+                //TSTNodoFinal f = (TSTNodoFinal) t.middle;
+                //f.modificar(x);
+                //t.middle = f;
+            }
+            else {
+                print("No esta");
+                //NO esta//return null;
+            }
+        }
+        return t;
     }
     //Modificación Simple
     public void modificar(String key, X x) {

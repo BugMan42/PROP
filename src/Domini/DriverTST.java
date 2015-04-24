@@ -21,10 +21,11 @@ public class DriverTST {
         // Integer entero = Integer.parseInt(user_input.next());
         //tst.insertar("1234", 12);
         tst.insertar("12", 12);
+        tst.eliminar("12");
         //tst.insertar("12345", 12);
-        print(String.valueOf(tst.obtener("12")));
-        tst.modificar("13", 13);
-        print(String.valueOf(tst.obtener("12")));
+        //print(String.valueOf(tst.obtener("12")));
+        //tst.("13", 13);
+        //print(String.valueOf(tst.obtener("12")));
         //System.out.println(tst.existe("1"));
         //System.out.println(tst.existe("1234"));
         //System.out.println(tst.existe("12"));
