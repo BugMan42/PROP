@@ -29,7 +29,7 @@ public abstract class Evento {
      */
     public Evento(String name, String date, int importance) throws Exception {
         if (name.equals("")) throw new NoValido("nombre");
-        if (date.equals("")) throw new NoValido("fecha");;
+        if (date.equals("")) throw new NoValido("fecha");
         if (importance <= 0) throw new NoValido("importancia");
         fecha = new Fecha(date);
         nombre = name;
