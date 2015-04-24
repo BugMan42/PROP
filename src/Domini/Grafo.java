@@ -94,4 +94,6 @@ public class Grafo<V, E extends Arista> {
     public ArrayList<Integer> nodosAdyacentes(int a) {
         return new ArrayList<Integer>();
     }
+
+    public ArrayList<E> aristasAdyacentes(int a) { return ady.get(a).salida; }
 }
