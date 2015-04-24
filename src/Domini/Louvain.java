@@ -5,8 +5,9 @@ import java.util.*;
 /**
  * Created by Jose on 02/04/15.
  */
-public class Louvain extends Algoritmo {
 
+public class Louvain extends Algoritmo {
+/*
     private Grafo g;
     private double lim_Q;
 
@@ -137,4 +138,6 @@ public class Louvain extends Algoritmo {
         s += ": " + d.toString();
         System.out.println(s);
     }
+    */
 }
+
