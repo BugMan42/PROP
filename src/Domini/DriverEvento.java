@@ -17,13 +17,6 @@ public class DriverEvento {
     final static String fin = "Gracias por usar este driver. THE END";
     private static Evento1 e;
 
-    private static boolean numero(String s){
-        for (int i = 0; i < s.length(); ++i) {
-            if (!Character.isDigit((s.charAt(i)))) return false;
-        }
-        return true;
-    }
-
     public static void main(String[] args) {
         ImprimirMenu();
         Scanner entrada = new Scanner(System.in);
@@ -161,9 +154,11 @@ public class DriverEvento {
                         e.ModImportancia(Integer.parseInt(entrada.next()));
                         break;
                     default:
-                        System.out.println("Introduzca un numero del 1 al 5");
+                        System.out.println("Introduzca un numero del 1 al 4");
                         break;
                 }
+                System.out.println("Introduzca una nueva opcion del 1 al 3. 4 para salir");
+                opcion = entrada.nextInt();
             }
         }
         catch (Exception e) {

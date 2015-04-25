@@ -29,8 +29,7 @@ public class Fecha {
     public static boolean valido(String data) throws NoValido {
         if (data.equals("")) return false;
         String[] aux = data.split("/");
-        if (aux.length != 3) return false;
-        return Correcto(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
+        return aux.length == 3 && Correcto(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
     }
 
     public Fecha(String data) throws NoValido {
