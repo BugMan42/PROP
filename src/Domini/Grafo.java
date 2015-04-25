@@ -213,15 +213,15 @@ public class Grafo<V, E extends Arista> {
     }
 
     private ArrayList<AristasNodo> aristas;//
-    private TST<Integer> T;            //String to number
-    private ArrayList<String> A;       //Int to String
+    private TST<Integer> vertices;            //String to number
+    private ArrayList<String> fPrima;       //Int to String
     private PriorityQueue<Integer> vacios; //espacios vacios eficiencia aumentar
 
     public Grafo() {
         aristas = new ArrayList<AristasNodo>();
-        T = new TST<Integer>();       //String to number
-        A = new ArrayList<String>();  //Int to String
-        vacios = new PriorityQueue<Integer>(0,Collections.reverseOrder()); //espacios vacios eficiencia aumentar
+        vertices = new TST<Integer>();       //String to number
+        fPrima = new ArrayList<String>();  //Int to String
+        vacios = new PriorityQueue<Integer>(1 ,Collections.reverseOrder()); //espacios vacios eficiencia aumentar
     }
     public Grafo(Grafo g) {
 
@@ -262,31 +262,24 @@ public class Grafo<V, E extends Arista> {
         ArrayList<Integer> aux = aristas.get(A).obtenerNodosAntecesores();
         return aux;
     }
+    public ArrayList<Integer> nodosAdyacentes(int A) {
+        ArrayList<Integer> aux = aristas.get(A).obtenerNodosAntecesores();
+        return aux;
+    }
 //##############################################################
 //##############################################################
 //##############################################################
     public boolean vacio() {
         return aristas.size() > 0;
     }
-    public int numVertices() {
-        return aristas.size();
-    }
-
-    //retorna num de vertices
-    public int V() {
-        return aristas.size();
-    }
-
     //retorna num de aristas
     public int E() {
         return 0;
     }
-
     public double total() {
         //calcular total
         return 0.0;
     }
-
     public double pesoAristasVertice(int nodo) {
         return 0.0;
     }
@@ -294,7 +287,6 @@ public class Grafo<V, E extends Arista> {
         return 0.0;
     }
     public void modPesoAristaVertices(int origen, int fin, double peso) {}
-
     public int degree(int v) {
         //return aristas[v].size();
         return 1;
@@ -308,35 +300,86 @@ public class Grafo<V, E extends Arista> {
         if(vacios.isEmpty()) return aristas.size();
         else return vacios.peek();
     }
+    public int traducir(String v) {
+        return f(v);
+    }
     private int f(String v) {
-        return T.obtener(v);
+        return vertices.obtener(v);
+    }
+    private String traducir(int index) {
+        return fPrima.get(index);
     }
 //##################################################################
 //############################VERTICES##############################
 //##################################################################
     /** añadir vertice*/
     public void añadirVertice(String v) {
-        T.insertar(v,nextIndice());
-        if (T.obtener(v) == nextIndice()) {
-            aristas.add(nextIndice(), new AristasNodo());
-            vacios.poll();
+        int aux = nextIndice();
+        vertices.insertar(v, aux);
+        if (vertices.obtener(v) == aux) {
+            fPrima.add(aux,v);
+            aristas.add(aux, new AristasNodo());
+            if (!vacios.isEmpty()) vacios.poll();
         }
     }
+    public void eliminarVertice(String v) {
+        //print("first"+" "+v);
+       // printStrings();
+        int aux = vertices.obtener(v);
+        vacios.add(aux);
+        vertices.eliminar(v);
+        fPrima.set(aux, null);
+        eliminarvertices(aux);
+        //printStrings();
 
-    //public void añadirVertice(V v, int index) {
-    //public void eliminarVertice(V v) {
-    //public  ArrayList<> consultarVertices() {
-    //public ArrayList<String> consultarVerticesID() {
-    //public E1 consultarVertice() {
-    //public boolean existeVertice() {}
-    //public void modificarVertice(String id, E1 e) {
-
-    /*public boolean esVacio() {
-        return (aristas.size() > 0);
-    }*/
-    public int consultarNumVertices() {
-        return aristas.size();
     }
+    void printVertices() {
+        //for (i = 0; i < f)
+    }
+    void printStrings() {
+        print(fPrima.toString());
+    }
+    private void eliminarvertices(int index) {
+        aristas.set(index, new AristasNodo());
+    }
+    private void print(String v) {
+        System.out.println(v);
+    }
+    public  ArrayList<Integer> consultarVertices() {
+
+        ArrayList<Integer> Array = new ArrayList<Integer>();
+        for(int i = 0; i < fPrima.size(); ++i) {
+            //print(fPrima.get(i));
+            if (fPrima.get(i) != null) Array.add(i);
+        }
+        return Array;
+    }
+    public ArrayList<String> consultarVerticesID() {
+        ArrayList<String> Array = new ArrayList<String>();
+        for(int i = 0; i < fPrima.size(); ++i) {
+            String aux = fPrima.get(i);
+            if (aux != null) Array.add(aux);
+        }
+        return Array;
+    }
+    public int V() {
+        return aristas.size()-vacios.size();
+    }
+    public boolean existeVertice(String v) {
+        return vertices.existe(v);
+    }
+    public String consultarVertice(int index) {
+        return traducir(index);
+    }
+    public Integer consultarVertice(String v) {
+        return f(v);
+    }
+    public void modificarVertice(String idVieja, String idNueva) {
+        vertices.modificar(idVieja,idNueva);
+    }
+
+
+
 
 
 

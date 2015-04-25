@@ -74,6 +74,30 @@ public class TST<X> {
     public X obtener(String key) {
         return obtener(root,key,0);
     }
+    public int size() {
+        return quantity(root);
+    }
+    private int quantity(TSTNodo t) {
+        if(t != null) {
+            TSTNodoChar tChar = (TSTNodoChar)t;
+            //System.out.print("letra: " + tChar.data + "\n");
+            if(tChar.valor == '$') {
+                int fl = quantity(t.left);
+                int fr = quantity(t.right);
+                return fl+fr+1;
+            }
+            else {
+                int f1 = quantity(t.left);
+                //System.out.print("f1: " + f1 + "\n");
+                int f2 = quantity(t.middle);
+                //System.out.print("f2: " + f2 + "\n");
+                int f3 = quantity(t.right);
+                //System.out.print("f3: " + f3 + "\n");
+                return f1+f2+f3;
+            }
+        }
+        return 0;
+    }
 
     private X obtener(TSTNodo t,String key,int d) {
         if (t == null) return null;
@@ -167,8 +191,8 @@ public class TST<X> {
         root = (TSTNodoChar) modificar(root,null,x,k,0);
     }
     //Modificación comp --> Modificamos el key pero mantenemos el objeto
-    public void modificar(String NewKey, String OldKey) {
-        root = (TSTNodoChar) modificar(root,NewKey,null,OldKey,0);
+    public void modificar(String OldKey, String NewKey) {
+        root = (TSTNodoChar) modificar(root,OldKey,null,NewKey,0);
     }
     //Modificación comp ---> Modificamos el key y canviamos el objeto
     public void modificar(String OldKey, String NewKey, X x) {
@@ -205,7 +229,7 @@ public class TST<X> {
         return t;
     }
     //Modificación Compuesta
-    private TSTNodo modificar(TSTNodo t, String NewKey, X x, String OldKey,int d) {
+    private TSTNodo modificar(TSTNodo t, String OldKey, X x, String NewKey,int d) {
         return new TSTNodo();
     }
     private void print(String str) {
