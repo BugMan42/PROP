@@ -63,7 +63,7 @@ public class Girvan_Newman extends Algoritmo{
                 Node ref_v = node.get(v);
                 ref_v.visited = true;
                 int leaf_index = 0;
-                ArrayList<Integer> al = g.nodosAdyacentes(v);
+                ArrayList<Integer> al = g.nodosSucesores(v);
                 for (int aux : al) {
 
                     Node ref_aux = node.get(aux);

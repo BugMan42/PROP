@@ -19,9 +19,9 @@ public class ControladorEvento {
      *Post: Devuleve true en caso de que nombre no sea vacío
      * y fecha no sea null
      */
-    private boolean Valido(String nombre, String fecha) throws NoValido{
-        if (nombre.equals("")) throw new IllegalArgumentException();
-        if (!Fecha.valido(fecha)) throw new IllegalArgumentException();
+    private boolean Valido(String nombre, String fecha) throws NoValido {
+        if (nombre.equals("")) throw new NoValido("Nombre");
+        if (!Fecha.valido(fecha)) throw new NoValido("Fecha");
         return true;
     }
 
@@ -111,7 +111,7 @@ public class ControladorEvento {
      *  por nombre y fechaNueva no puede existir
      * Post: Al evento especificado por nombre y fechaVieja se le ha cambiado la fecha por fechaNueva
      */
-    public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) throws NoValido{
+    public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) throws Exception{
         if (Valido(nombre, fechaVieja)) {
             if (Fecha.valido(fechaNueva)) {
                 int i = BuscarIndice(nombre, fechaVieja);

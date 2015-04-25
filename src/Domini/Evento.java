@@ -17,17 +17,17 @@ public abstract class Evento {
      * Pre: name tiene que ser un string no vacio y Fecha debe contener una fecha no vacia
      * Post: Se crea un evento solo con los atributos nombre y fecha
      */
-    public Evento(String name, String date) throws Exception{
+    public Evento(String name, String date) throws NoValido {
         if (name.equals("")) throw new NoValido("nombre");
         if (date.equals("")) throw new NoValido("fecha");
         nombre = name;
-        fecha = new Fecha(date);//Se creará una excepción que tiene que subir hasta el driver en teoria
+        fecha = new Fecha(date);
     }
     /**Creadora completa
-     * Pre: name, subtype tienen que ser strings no vac�os, ����date tiene que ser v�lida???? importance tiene que ser mayor que 0
-     *Post: Se crea un evento con todos que ser�n name, date, subtype y importance.
+     * Pre: name, subtype tienen que ser strings no vacios, date tiene que ser v�lida???? importance tiene que ser mayor que 0
+     *Post: Se crea un evento con todos que seran name, date, subtype y importance.
      */
-    public Evento(String name, String date, int importance) throws Exception {
+    public Evento(String name, String date, int importance) throws NoValido {
         if (name.equals("")) throw new NoValido("nombre");
         if (date.equals("")) throw new NoValido("fecha");
         if (importance <= 0) throw new NoValido("importancia");
@@ -51,7 +51,7 @@ public abstract class Evento {
      * Pre: date tiene que ser v�lido
      * Post: A la fecha del evento se le ha asignado date
      */
-    public void ModFecha (String date) throws NoValido{
+    public void ModFecha (String date) throws NoValido {
         fecha = new Fecha(date);
     }
 

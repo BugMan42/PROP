@@ -15,14 +15,14 @@ public class Fecha {
     final static String error6 = "El mes no tiene dia 31";
 
     private static boolean Correcto(int dia, int mes, int any) throws NoValido{
-        if (dia < 1 || dia > 31) throw new NoValido("Dia");
-        if (mes <= 0 || mes >= 13) throw new NoValido("Mes");
-        if (any < 1) throw new NoValido("Año");
+        if (dia < 1 || dia > 31) throw new NoValido(error1 + " Dia");
+        if (mes <= 0 || mes >= 13) throw new NoValido(error2 + " Mes");
+        if (any < 1) throw new NoValido(error3 + " Año");
         if (mes == 2) {
-            if ((dia == 30 || dia == 31)) throw new NoValido("Dia");
-            if (dia == 29 && ((any % 4 != 0 || any % 100 == 0) && any % 400 != 0)) throw new NoValido("Dia");
+            if ((dia == 30 || dia == 31)) throw new NoValido(error4 + " Dia");
+            if (dia == 29 && ((any % 4 != 0 || any % 100 == 0) && any % 400 != 0)) throw new NoValido(error5 + " Dia");
         }
-        else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31 ) throw new NoValido("Dia");
+        else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31 ) throw new NoValido(error6 + " Dia");
         return true;
     }
 
@@ -34,9 +34,9 @@ public class Fecha {
     }
 
     public Fecha(String data) throws NoValido {
-        if (data.equals("")) throw new NoValido("La fecha no puede ser vacia");
+        if (data.equals("")) throw new NoValido("La fecha no puede ser vacia. Fecha");
         String[] aux = data.split("/");
-        if (aux.length > 3) throw new NoValido("El formato es dd/mm/yyyy");
+        if (aux.length != 3) throw new NoValido("El formato es dd/mm/yyyy. Fecha");
         Correcto(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
         fecha = aux;
     }
