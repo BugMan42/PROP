@@ -49,183 +49,237 @@ public class Grafo<V, E extends Arista> {
     class AristasNodo {
         //predecesores
         //sucesores
-        private ArrayList<NodoInterno> entrada;
-        private ArrayList<NodoInterno> salida;
+        private ArrayList<NodoInterno> antecesores;
+        private ArrayList<NodoInterno> sucesores;
 
         AristasNodo() {
-            entrada = new ArrayList<NodoInterno>();
-            salida = new ArrayList<NodoInterno>();
+            antecesores = new ArrayList<NodoInterno>();
+            sucesores = new ArrayList<NodoInterno>();
         }
         boolean existeAristaEntrada(int origen) {
-            for(int i = 0; i < entrada.size(); ++i) {
-                if(entrada.get(i).equals(origen)) {
+            for(int i = 0; i < antecesores.size(); ++i) {
+                if(antecesores.get(i).equals(origen)) {
                     return true;
                 }
             }
             return false;
         }
         boolean existeAristaEntrada(int origen, double peso) {
-            for(int i = 0; i < entrada.size(); ++i) {
-                if(entrada.get(i).equals(origen)) {
-                    return entrada.get(i).existePeso(peso);
+            for(int i = 0; i < antecesores.size(); ++i) {
+                if(antecesores.get(i).equals(origen)) {
+                    return antecesores.get(i).existePeso(peso);
                 }
             }
             return false;
         }
         boolean existeAristaSalida(int dest) {
-            for(int i = 0; i < salida.size(); ++i) {
-                if(salida.get(i).equals(dest)) {
+            for(int i = 0; i < sucesores.size(); ++i) {
+                if(sucesores.get(i).equals(dest)) {
                     return true;
                 }
             }
             return false;
         }
         boolean existeAristaSalida(int dest, double peso) {
-            for(int i = 0; i < salida.size(); ++i) {
-                if(salida.get(i).equals(dest)) {
-                    return salida.get(i).existePeso(peso);
+            for(int i = 0; i < sucesores.size(); ++i) {
+                if(sucesores.get(i).equals(dest)) {
+                    return sucesores.get(i).existePeso(peso);
                 }
             }
             return false;
         }
         boolean entradaVacia() {
-            return entrada.isEmpty();
+            return antecesores.isEmpty();
         }
         boolean salidaVacia() {
-            return salida.isEmpty();
+            return sucesores.isEmpty();
         }
         //falta eficiencia
         void añadirEntrada(int dest,double peso) {
-            entrada.add(new NodoInterno(dest,peso));
+            antecesores.add(new NodoInterno(dest,peso));
         }
         //falta eficiencia
         void añadirSalida(int dest,double peso) {
-            entrada.add(new NodoInterno(dest,peso));
+            sucesores.add(new NodoInterno(dest,peso));
         }
         void añadirAristaEntrada(int dest,double peso) {
-            for(int i = 0; i < entrada.size(); ++i) {
-                if(entrada.get(i).equals(dest)) {
-                    entrada.remove(i);
+            for(int i = 0; i < antecesores.size(); ++i) {
+                if(antecesores.get(i).equals(dest)) {
+                    antecesores.remove(i);
                     return;
                 }
             }
         }
         void añadirAristaSalida(int dest,double peso) {
-            for(int i = 0; i < salida.size(); ++i) {
-                if(salida.get(i).equals(dest)) {
-                    salida.remove(i);
+            for(int i = 0; i < sucesores.size(); ++i) {
+                if(sucesores.get(i).equals(dest)) {
+                    sucesores.remove(i);
                     return;
                 }
             }
         }
         void eliminarEntrada(int dest) {
-            for(int i = 0; i < entrada.size(); ++i) {
-                if(entrada.get(i).equals(dest)) {
-                    entrada.remove(i);
+            for(int i = 0; i < antecesores.size(); ++i) {
+                if(antecesores.get(i).equals(dest)) {
+                    antecesores.remove(i);
                     return;
                 }
             }
 
         }
         void eliminarSalida(int dest) {
-            for(int i = 0; i < salida.size(); ++i) {
-                if(salida.get(i).equals(dest)) {
-                    salida.remove(i);
+            for(int i = 0; i < sucesores.size(); ++i) {
+                if(sucesores.get(i).equals(dest)) {
+                    sucesores.remove(i);
                     return;
                 }
             }
         }
         void eliminarAristaEntrada(int dest,double peso) {
-            for(int i = 0; i < entrada.size(); ++i) {
-                if(entrada.get(i).equals(dest)) {
-                    entrada.get(i).eliminarArista(peso);
+            for(int i = 0; i < antecesores.size(); ++i) {
+                if(antecesores.get(i).equals(dest)) {
+                    antecesores.get(i).eliminarArista(peso);
                     return;
                 }
             }
 
         }
         void eliminarAristaSalida(int dest,double peso) {
-            for(int i = 0; i < salida.size(); ++i) {
-                if(salida.get(i).equals(dest)) {
-                    salida.get(i).eliminarArista(peso);
+            for(int i = 0; i < sucesores.size(); ++i) {
+                if(sucesores.get(i).equals(dest)) {
+                    sucesores.get(i).eliminarArista(peso);
                     return;
                 }
             }
         }
+        double totalPesoSucesores() {
+            double a = 0.0;
+            for(int i = 0; i < sucesores.size(); ++i) {
+                a+=sucesores.get(i).total();
+            }
+            return a;
+        }
+        double totalPesoAntecesores() {
+            double a = 0.0;
+            for(int i = 0; i < antecesores.size(); ++i) {
+                a+=antecesores.get(i).total();
+            }
+            return a;
+        }
+        ArrayList<Integer> obtenerNodosSucesores(){
+            ArrayList<Integer> aux = new ArrayList<Integer>();
+            for(int i = 0; i < sucesores.size(); ++i) {
+                aux.add(sucesores.get(i).ady);
+            }
+            return aux;
+        }
+        ArrayList<Integer> obtenerNodosAntecesores(){
+            ArrayList<Integer> aux = new ArrayList<Integer>();
+            for(int i = 0; i < sucesores.size(); ++i) {
+                aux.add(sucesores.get(i).ady);
+            }
+            return aux;
+        }
+        List<Double> obtenerPesosAdyacente(int dest) {
+            List<Double> aux = new LinkedList<Double>();
+            for(int i = 0; i < sucesores.size(); ++i) {
+                if(sucesores.get(i).equals(dest)) {
+                    return sucesores.get(i).listaPesos();
+                }
+            }
+            return aux;
+        }
+
+
 
         /*
         public void modificarEntrada(int nodoDest,double peso) {
-            for(int i = 0; i < entrada.size(); ++i) {
-                if(entrada.get(i).equals(nodoDest)) {
-                    entrada.set(i,peso());
+            for(int i = 0; i < antecesores.size(); ++i) {
+                if(antecesores.get(i).equals(nodoDest)) {
+                    antecesores.set(i,peso());
                     return;
                 }
             }
         }
 
         public void modificarSalida(E e) {
-            for(int i = 0; i < salida.size(); ++i) {
-                if(salida.get(i).equals(e)) {
-                    salida.set(i,e);
+            for(int i = 0; i < sucesores.size(); ++i) {
+                if(sucesores.get(i).equals(e)) {
+                    sucesores.set(i,e);
                     return;
                 }
             }
         }*/
-
-
-
     }
 
-    private int Vt; // ---- > No fa falta
-    private int Et;
-    private double total;
-    private ArrayList<AristasNodo> ady;
-    private TST<Integer> T;      //String to number
-    private ArrayList<String> A; //Int to String
-    private ArrayList<Integer> vacios; //espacios vacios eficiencia aumentar
+    private ArrayList<AristasNodo> aristas;//
+    private TST<Integer> T;            //String to number
+    private ArrayList<String> A;       //Int to String
+    private PriorityQueue<Integer> vacios; //espacios vacios eficiencia aumentar
 
     public Grafo() {
-        ady = new ArrayList<AristasNodo>();
+        aristas = new ArrayList<AristasNodo>();
         T = new TST<Integer>();       //String to number
         A = new ArrayList<String>();  //Int to String
-        vacios = new ArrayList<Integer>(); //espacios vacios eficiencia aumentar
-        Vt = 0;
-        Et = 0;
+        vacios = new PriorityQueue<Integer>(0,Collections.reverseOrder()); //espacios vacios eficiencia aumentar
     }
-
     public Grafo(Grafo g) {
 
     }
-    public void añadirVertice(V v) {
-        ++Vt;
-    }
-    public void eliminarVertice() {
 
+//##############################################################
+//##############################################################
+//##############################################################
+    public List<Double> pesosAdyacentes(String A, String B) {
+        return pesosAdyacentes(f(A),f(B));
     }
-    public ArrayList<E> consultarVertices() {
-        return new ArrayList<E>();
+    public List<Double> pesosAdyacentes(int A, int B) {
+        return aristas.get(A).obtenerPesosAdyacente(B);
     }
-    /*public ArrayList<String> consultarVerticesID() {
-
+    public double totalPesoSucesores(String A) {
+        return totalPesoSucesores(f(A));
     }
-    public E consultarVertice(String id) {
-        //return ady.get(id);
-    }*/
+    public double totalPesoSucesores(int A) {
+        return aristas.get(A).totalPesoSucesores();
+    }
+    public double totalPesoAntecesores(String A) {
+        return totalPesoAntecesores(f(A));
+    }
+    public double totalPesoAntecesores(int A) {
+        return aristas.get(A).totalPesoSucesores();
+    }
+    public ArrayList<Integer> nodosSucesores(String A) {
+        return nodosSucesores(f(A));
+    }
+    public ArrayList<Integer> nodosSucesores(int A) {
+        ArrayList<Integer> aux = aristas.get(A).obtenerNodosSucesores();
+        return aux;
+    }
+    public ArrayList<Integer> nodosAntecesores(String A) {
+        return nodosAntecesores(f(A));
+    }
+    public ArrayList<Integer> nodosAntecesores(int A) {
+        ArrayList<Integer> aux = aristas.get(A).obtenerNodosAntecesores();
+        return aux;
+    }
+//##############################################################
+//##############################################################
+//##############################################################
     public boolean vacio() {
-        return ady.size() > 0;
+        return aristas.size() > 0;
     }
     public int numVertices() {
-        return ady.size();
+        return aristas.size();
     }
 
     //retorna num de vertices
     public int V() {
-        return Vt;
+        return aristas.size();
     }
 
     //retorna num de aristas
     public int E() {
-        return Et;
+        return 0;
     }
 
     public double total() {
@@ -242,118 +296,161 @@ public class Grafo<V, E extends Arista> {
     public void modPesoAristaVertices(int origen, int fin, double peso) {}
 
     public int degree(int v) {
-        //return ady[v].size();
+        //return aristas[v].size();
         return 1;
     }
 
-    public ArrayList<Integer> nodosAdyacentes(int a) {
-        return new ArrayList<Integer>();
+
+//##################################################################
+//############################PRIVADAs##############################
+//##################################################################
+    private int nextIndice() {
+        if(vacios.isEmpty()) return aristas.size();
+        else return vacios.peek();
+    }
+    private int f(String v) {
+        return T.obtener(v);
+    }
+//##################################################################
+//############################VERTICES##############################
+//##################################################################
+    /** añadir vertice*/
+    public void añadirVertice(String v) {
+        T.insertar(v,nextIndice());
+        if (T.obtener(v) == nextIndice()) {
+            aristas.add(nextIndice(), new AristasNodo());
+            vacios.poll();
+        }
     }
 
-    private int trad(V v) {
-        return T.obtener(v.toString());
+    //public void añadirVertice(V v, int index) {
+    //public void eliminarVertice(V v) {
+    //public  ArrayList<> consultarVertices() {
+    //public ArrayList<String> consultarVerticesID() {
+    //public E1 consultarVertice() {
+    //public boolean existeVertice() {}
+    //public void modificarVertice(String id, E1 e) {
+
+    /*public boolean esVacio() {
+        return (aristas.size() > 0);
+    }*/
+    public int consultarNumVertices() {
+        return aristas.size();
     }
 
 
 
+//##################################################################
+//#############################ARISTAS##############################
+//##################################################################
 
-    //////////////////////////////////////////////////////////////////////
-    //////////////////////AAAAristassss///////////////////////////////////
-    /////////////////////////////////////////////////////////////////////
-
-    private void añadirArista(V origen,E e) {
-        añadirArista(trad(origen), e);
+    /*private void añadirArista(String origen,String fin, double peso) {
+        añadirArista(f(origen), e);
 
     }
-    private void añadirArista(int origen,E e) {
-        int aux2 = trad((V)e.fin());
-        AristasNodo ent = ady.get(origen);
+
+    private void añadirArista(int origen,int fin, double peso) {
+        int aux2 = f((V)e.fin());
+        AristasNodo ent = aristas.get(origen);
         ent.añadirAristaEntrada(aux2, e.peso());
-        ady.set(origen, ent);
-        AristasNodo sal = ady.get(aux2);
+        aristas.set(origen, ent);
+        AristasNodo sal = aristas.get(aux2);
         sal.añadirSalida(origen,e.peso());
-        ady.set(aux2, sal);
+        aristas.set(aux2, sal);
     }
 
-    /*private void modificarArista(E2 e, int in, int out) {
+    private void modificarArista(E2 e, int in, int out) {
         AristasNodo ent = aristas.get(in);
         ent.modificarEntrada(e);
         aristas.set(in, ent);
         AristasNodo sal = aristas.get(out);
         sal.modificarSalida(e);
         aristas.set(out, sal);
-    }*/
+    }
 
     //eliminara todas las aristas desde origen a fin y fin a a origen
-    public void eliminarAristas(V origen,E e) {
-        eliminarAristas(trad(origen), e);
+    public void eliminarAristas(String origen,E e) {
+        eliminarAristas(f(origen), e);
     }
     public void eliminarAristas(int origen,E e) {
-        int fin = trad((V)e.fin());
-        AristasNodo ent = ady.get(origen);
+        int fin = f((V)e.fin());
+        AristasNodo ent = aristas.get(origen);
         ent.eliminarEntrada(fin);
-        ady.set(origen, ent);
-        AristasNodo sal = ady.get(fin);
+        aristas.set(origen, ent);
+        AristasNodo sal = aristas.get(fin);
         sal.eliminarSalida(origen);
-        ady.set(fin, sal);
+        aristas.set(fin, sal);
     }
 
     //elimina una sola arista con peso especifico
-    public void eliminarArista(V origen, E e) {
+    public void eliminarArista(String origen, E e) {
         eliminarArista(trad(origen), e);
     }
     public void eliminarArista(int origen, E e) {
         int fin = trad((V)e.fin());
-        AristasNodo ent = ady.get(origen);
+        AristasNodo ent = aristas.get(origen);
         ent.eliminarAristaEntrada(fin, e.peso());
-        ady.set(origen, ent);
-        AristasNodo sal = ady.get(fin);
+        aristas.set(origen, ent);
+        AristasNodo sal = aristas.get(fin);
         sal.eliminarAristaSalida(origen, e.peso());
-        ady.set(fin, sal);
+        aristas.set(fin, sal);
     }
-    public void eliminarAristaEntrada(V origen,E e) {
+    public void eliminarAristaEntrada(String origen,E e) {
         eliminarAristaEntrada(trad(origen), e);
     }
 
     public void eliminarAristaEntrada(int origen,E e) {
         int fin = trad((V)e.fin());
-        AristasNodo ent = ady.get(origen);
+        AristasNodo ent = aristas.get(origen);
         ent.eliminarAristaEntrada(fin,e.peso());
-        ady.set(origen, ent);
+        aristas.set(origen, ent);
     }
-    public void eliminarAristaSalida(V origen, E e) {
+    public void eliminarAristaSalida(String origen, E e) {
         eliminarAristaSalida(trad(origen),e);
     }
 
     public void eliminarAristaSalida(int origen,E e) {
         int fin = trad((V)e.fin());
-        AristasNodo sal = ady.get(origen);
+        AristasNodo sal = aristas.get(origen);
         sal.eliminarAristaSalida(fin,e.peso());
-        ady.set(origen, sal);
-    }
-    public boolean existeArista(V origen, E e) {
-        return existeArista(trad(origen),e);
+        aristas.set(origen, sal);
+    }*/
+
+//########################################################################
+//##########################CONSULTORAS###################################
+//########################################################################
+
+    /*TODO:::: COMPROBACION EXISTENCIA ARISTAS*/
+
+    public int size() {
+        return aristas.size();
     }
 
-    public boolean existeArista(int origen, E e) {
+    /*public boolean existeArista(String origen, E e) {
+        return existeArista(trad(origen),e);
+    }*/
+
+   /* public boolean existeArista(int origen, E e) {
         int aux = trad((V)e.fin());
-        AristasNodo ent = ady.get(aux);
-        AristasNodo sal = ady.get(origen);
+        AristasNodo ent = aristas.get(aux);
+        AristasNodo sal = aristas.get(origen);
         return ent.existeAristaEntrada(origen,e.peso()) && sal.existeAristaSalida(aux,e.peso());
     }
-    public boolean existeAristas(V A, V B) {
+    public boolean existeAristas(String A, String B) {
         return existeAristas(trad(A),trad(B));
     }
     public boolean existeAristas(int A, int B) {
-        AristasNodo ent = ady.get(A);
-        AristasNodo sal = ady.get(B);
+        AristasNodo ent = aristas.get(A);
+        AristasNodo sal = aristas.get(B);
         return ent.existeAristaEntrada(B) && sal.existeAristaSalida(A);
     }
     /*public ArrayList<E> consultarAristasSalida(int indice){
         return ady.get(indice).salida;
     }
     public ArrayList<E> consultarAristasEntrada(int indice){
-        return ady.get(indice).entrada;
+        return ady.get(indice).antecesores;
     }*/
+
+
 
 }
