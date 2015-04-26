@@ -12,8 +12,7 @@ public class ControladorAlgoritmo {
     {
         out = new Salida();
     }
-
-    public void crearEntrada(Grafo g, float p)
+    public void crearEntrada(Grafo g, float p) // Serán Strings
     {
         in = new Entrada(g, p);
     }
@@ -31,4 +30,6 @@ public class ControladorAlgoritmo {
         return alg.ejecutar_algoritmo(in, out);
 
     }
+
+
 }

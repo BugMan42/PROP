@@ -5,7 +5,7 @@ public class Arista<T> {
     private T vfin;
     private double peso;
 
-    public Arista(T f, int p) {
+    public Arista(T f, double p) {
         vfin = f;
         peso = p;
     }

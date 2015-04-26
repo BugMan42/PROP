@@ -16,7 +16,7 @@ public class ControladorEvento {
 */
     /**Comprueba si los parámetros son válidos
      * Pre: Cierto
-     *Post: Devuleve true en caso de que nombre no sea vacío
+     *Post: Devuelve true en caso de que nombre no sea vacío
      * y fecha no sea null
      */
     private boolean Valido(String nombre, String fecha) throws NoValido {
