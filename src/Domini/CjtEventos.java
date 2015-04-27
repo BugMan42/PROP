@@ -9,7 +9,7 @@ public class CjtEventos {
     private TST<Evento> cjt;
     private ArrayList<Evento> Listado;
 
-    /**Comprueba si los par�metros son v�lidos
+    /**Comprueba si los parámetros son válidos
      * Pre: Cierto
      *Post: Devuelve true en caso de que nombre no sea vac�o
      * y fecha no sea null
@@ -22,7 +22,7 @@ public class CjtEventos {
 
     /**Buscadora de eventos
      * Pre: nombre y fecha no pueden ser vacios
-     * Post: Devuelve el �ndice del evento especificado por el nombre
+     * Post: Devuelve el índice del evento especificado por el nombre
      * y por la fecha si existe. En caso contrario devuelve -1
      */
     /*private int BuscarIndice(String nombre,String fecha) {
@@ -76,7 +76,7 @@ public class CjtEventos {
     }
 
     /** Modificadora del nombre de un evento
-     * Pre: nomViejo, fecha y nomNuevo no pueden ser vac�os,
+     * Pre: nomViejo, fecha y nomNuevo no pueden ser vacíos,
      * el evento especificado por nomViejo y fecha tiene que existir y el
      * evento identificado por nomNuevo y fecha no puede existir
      * Post: Al evento especificado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
@@ -120,7 +120,7 @@ public class CjtEventos {
     }
 
     /** Modificadora del subtipo de un evento
-     * Pre: nombre, fecha y subtipo no pueden ser vac�os,
+     * Pre: nombre, fecha y subtipo no pueden ser vacíos,
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Al evento especificado por nombre y fecha se le ha cambiado el subtipo por subtype
      */
@@ -152,7 +152,7 @@ public class CjtEventos {
         }*/
     }
 
-    /**Agrega un evento con par�metros random
+    /**Agrega un evento con parámetros random
      * Pre: Cierto
      * Post: Se ha agregado al conjunto un evento nuevo con
      * par�metros random
@@ -170,7 +170,7 @@ public class CjtEventos {
     }
 
     /**Consultora de un evento
-     * Pre: nombre y fecha no pueden ser vac�os y
+     * Pre: nombre y fecha no pueden ser vacíos y
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Devuelve el evento especificado por nombre y fecha
      */
@@ -180,7 +180,7 @@ public class CjtEventos {
     }
 
     /**
-     * Pre: nombre y fecha no pueden ser vac�os
+     * Pre: nombre y fecha no pueden ser vacíos
      * Post: Devuelve si el evento especificado por nombre y fecha existe
      */
     public boolean ExisteEvento(String nombre, String fecha) throws NoValido {
