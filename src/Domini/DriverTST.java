@@ -20,8 +20,15 @@ public class DriverTST {
         //System.out.println("Escriba el valor numérico:");
         // Integer entero = Integer.parseInt(user_input.next());
         //tst.insertar("1234", 12);
-        tst.insertar("12", 12);
-        tst.eliminar("12");
+
+        tst.insertar("ab", 12);
+        tst.insertar("abc", 13);
+        //tst.borrar("ab");
+        tst.insertar("ab", 13);
+        print(String.valueOf(tst.obtener("ab")));
+        //print(tst.toString());
+        //print(String.valueOf(tst.total()));
+        //tst.eliminar("12");
         //tst.insertar("12345", 12);
         //print(String.valueOf(tst.obtener("12")));
         //tst.("13", 13);

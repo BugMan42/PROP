@@ -327,7 +327,7 @@ public class Grafo<V, E extends Arista> {
        // printStrings();
         int aux = vertices.obtener(v);
         vacios.add(aux);
-        vertices.eliminar(v);
+        //vertices.eliminar(v);
         fPrima.set(aux, null);
         eliminarvertices(aux);
         //printStrings();

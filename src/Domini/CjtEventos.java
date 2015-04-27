@@ -9,9 +9,9 @@ public class CjtEventos {
     private TST<Evento> cjt;
     private ArrayList<Evento> Listado;
 
-    /**Comprueba si los parámetros son válidos
+    /**Comprueba si los parï¿½metros son vï¿½lidos
      * Pre: Cierto
-     *Post: Devuelve true en caso de que nombre no sea vacío
+     *Post: Devuelve true en caso de que nombre no sea vacï¿½o
      * y fecha no sea null
      */
     private boolean Valido(String nombre, String fecha) throws NoValido {
@@ -22,7 +22,7 @@ public class CjtEventos {
 
     /**Buscadora de eventos
      * Pre: nombre y fecha no pueden ser vacios
-     * Post: Devuelve el índice del evento especificado por el nombre
+     * Post: Devuelve el ï¿½ndice del evento especificado por el nombre
      * y por la fecha si existe. En caso contrario devuelve -1
      */
     /*private int BuscarIndice(String nombre,String fecha) {
@@ -48,17 +48,17 @@ public class CjtEventos {
 
     /**Elimina un evento del conjunto de eventos
      * Pre: nombre y fecha no pueden ser vacios
-     * Post: El evento e ha sido añadido al conjunto de eventos
+     * Post: El evento e ha sido aï¿½adido al conjunto de eventos
      */
     public void EliminarEvento(String nombre, String fecha) throws NoValido{
         if (Valido(nombre, fecha)) {
-            cjt.eliminar(nombre+fecha);
+            cjt.borrar(nombre+fecha);
         }
     }
 
     /**Elinina todos los eventos
      * Pre: Cierto
-     * Post: Todos los eventos serán eliminados
+     * Post: Todos los eventos serï¿½n eliminados
      */
     public void EliminarCjtEventos() {
         cjt = null;
@@ -66,9 +66,9 @@ public class CjtEventos {
 
     //Modificadoras
 
-    /**Añade un evento al conjunto de eventos
+    /**Aï¿½ade un evento al conjunto de eventos
      * Pre: Evento e no puede ser nulo
-     * Post: El evento e ha sido añadido al conjunto de eventos
+     * Post: El evento e ha sido aï¿½adido al conjunto de eventos
      */
     public void AgregarEvento(Evento e) throws NoValido{
         if (e == null) throw new NoValido("Evento");
@@ -76,7 +76,7 @@ public class CjtEventos {
     }
 
     /** Modificadora del nombre de un evento
-     * Pre: nomViejo, fecha y nomNuevo no pueden ser vacíos,
+     * Pre: nomViejo, fecha y nomNuevo no pueden ser vacï¿½os,
      * el evento especificado por nomViejo y fecha tiene que existir y el
      * evento identificado por nomNuevo y fecha no puede existir
      * Post: Al evento especificado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
@@ -98,7 +98,7 @@ public class CjtEventos {
     }
 
     /** Modificadora de la fecha de un evento
-     * Pre: nombre, fechaVieja y fechaNueva no puede ser vacíos, el evento especificado
+     * Pre: nombre, fechaVieja y fechaNueva no puede ser vacï¿½os, el evento especificado
      *  por nombre y fechaVieja tiene que existir y el evento identificado
      *  por nombre y fechaNueva no puede existir
      * Post: Al evento especificado por nombre y fechaVieja se le ha cambiado la fecha por fechaNueva
@@ -120,7 +120,7 @@ public class CjtEventos {
     }
 
     /** Modificadora del subtipo de un evento
-     * Pre: nombre, fecha y subtipo no pueden ser vacíos,
+     * Pre: nombre, fecha y subtipo no pueden ser vacï¿½os,
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Al evento especificado por nombre y fecha se le ha cambiado el subtipo por subtype
      */
@@ -152,10 +152,10 @@ public class CjtEventos {
         }*/
     }
 
-    /**Agrega un evento con parámetros random
+    /**Agrega un evento con parï¿½metros random
      * Pre: Cierto
      * Post: Se ha agregado al conjunto un evento nuevo con
-     * parámetros random
+     * parï¿½metros random
      */
     public void AgregarEventoRandom() {}
 
@@ -170,7 +170,7 @@ public class CjtEventos {
     }
 
     /**Consultora de un evento
-     * Pre: nombre y fecha no pueden ser vacíos y
+     * Pre: nombre y fecha no pueden ser vacï¿½os y
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Devuelve el evento especificado por nombre y fecha
      */
@@ -180,7 +180,7 @@ public class CjtEventos {
     }
 
     /**
-     * Pre: nombre y fecha no pueden ser vacíos
+     * Pre: nombre y fecha no pueden ser vacï¿½os
      * Post: Devuelve si el evento especificado por nombre y fecha existe
      */
     public boolean ExisteEvento(String nombre, String fecha) throws NoValido {

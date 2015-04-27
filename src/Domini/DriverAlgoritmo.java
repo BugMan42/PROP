@@ -44,22 +44,22 @@ public class DriverAlgoritmo {
 
     public static void clique()
     {
-        alg = new Clique();
-        alg.ejecutar_algoritmo(in, out);
+       // alg = new Clique();
+        //alg.ejecutar_algoritmo(in, out);
         //Mostrar grafo resultante
     }
 
     public static void louvain()
     {
-        alg = new Louvain();
-        alg.ejecutar_algoritmo(in, out);
+       // alg = new Louvain();
+       // alg.ejecutar_algoritmo(in, out);
         //Mostrar grafo resultante
     }
 
     public static void girvan_newman()
     {
-        alg = new Girvan_Newman();
-        alg.ejecutar_algoritmo(in, out);
+        //alg = new Girvan_Newman();
+        //alg.ejecutar_algoritmo(in, out);
         //Mostrar grafo resultante
 
     }

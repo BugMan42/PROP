@@ -3,15 +3,7 @@ package Domini;
 import java.text.ParseException;
 import java.util.Scanner;
 
-/**
- * Created by bug on 23/03/15.
- */
 public class DriverCongresista {
-    final static String text1 = "***DRIVER DE CONGRESISTA***";
-    final static String opcion1 = "***1.-ALTA DE CONGRESISTA";
-    final static String opcion2 = "***2.-CONSULTA CONGRESISTA";
-    final static String opcion3 = "***3.-MODIFICACIÓN DE CONGRESISTA";
-    final static String opcion6 = "***6.-SALIR";
     final static String Usage = "###USAGE###\n" +
                                 "###LOS CAMPOS NO PUEDEN ESTAR VACIOS\n" +
                                 "###EDAD TIENE QUE SER >= 18 AÑOS##";
