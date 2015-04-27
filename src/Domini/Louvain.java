@@ -16,8 +16,8 @@ public class Louvain extends Algoritmo {
     private double m2; // Peso de todas las aristas del grafo.
     private double[] k; // Suma de los pesos de las aristas adyacentes a cada nodo.
 
-    public Louvain(){
-
+    public Louvain(Entrada i, Salida o){
+        super(i, o);
     }
 
     public Grafo ejecutar_algoritmo(Entrada in, Salida out){

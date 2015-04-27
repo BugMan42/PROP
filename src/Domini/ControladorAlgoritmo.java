@@ -11,24 +11,30 @@ public class ControladorAlgoritmo {
     public ControladorAlgoritmo()
     {
         out = new Salida();
+        in = new Entrada();
     }
-    public void crearEntrada(Grafo g, float p) // Serán Strings
+    public void modEntrada(Grafo g, String p) // Serán Strings
     {
-        in = new Entrada(g, p);
+        in.modGrafo(g);
+        in.modParam1(p);
     }
 
+    /*Selección de algoritmo
+    * Pre:  s contiene una de las 3 opciones disponibles.
+    *       Suponemos que los controladores se encargan de enviar la información correcta
+    * Post: alg es el tipo de algoritmo
+    */
     public void seleccionAlgoritmo(String s)
     {
-        if (s.equals("gn")) alg = new Girvan_Newman();
-        else if (s.equals("lv")) alg = new Louvain();
-        else if (s.equals("cl")) alg = new Clique();
+        if (s.equals("g")) alg = new Girvan_Newman(in, out);
+        //else if (s.equals("l")) alg = new Louvain(in, out); //falta descomentar en Louvain
+        else if (s.equals("c")) alg = new Clique(in, out);
     }
 
 
     public Grafo ejecutar()
     {
-        return alg.ejecutar_algoritmo(in, out);
-
+        return alg.ejecutar_algoritmo();
     }
 
 

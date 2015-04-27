@@ -6,11 +6,18 @@ package Domini;
  */
 public abstract class Algoritmo {
 
+    // Punteros a las clases inicializadas en el Controlador del Algoritmo
+    protected Entrada in;
+    protected Salida out;
+
     public Algoritmo() {}
 
-    public Algoritmo(Entrada in, Salida out) {}
+    public Algoritmo(Entrada i, Salida o) {
+        in = i;
+        out = o;
+    }
 
-    public Grafo ejecutar_algoritmo(Entrada in, Salida out) {
+    public Grafo ejecutar_algoritmo() {
 
          //PD: No
         return in.obtGrafo();

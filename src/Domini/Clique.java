@@ -8,9 +8,10 @@ import java.util.ArrayList;
 public class Clique extends Algoritmo {
 
     public Clique() {}
-    /*public Clique(Entrada in, Salida out) {
+    public Clique(Entrada in, Salida out) {
         super(in, out);
-    }*/
+    }
+    /*
     class comunidades {
         private ArrayList<k_clique> com;
         comunidades() {
@@ -19,10 +20,10 @@ public class Clique extends Algoritmo {
         void agregar_clique(k_clique k) {
             com.add(k);
         }
-        /*void fusionar(int i, int j) {
+        void fusionar(int i, int j) {
             com.get(i).addAll(com.get(j));
-        }*/
-    }
+        }
+    }*/
 
     class k_clique {
         private ArrayList<Integer> c;

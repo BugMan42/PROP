@@ -8,6 +8,8 @@ public class Entrada {
     private Grafo graph;
     private float param;
 
+    public Entrada() {}
+
     public Entrada(Grafo g, float p)
     {
         graph = g;
