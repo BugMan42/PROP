@@ -269,7 +269,7 @@ public class TST<X> {
         imprimir(root, "",v);
         return "TST_KEYS: "+v;
     }*/
-    public ArrayList<String> ConsultarClaves() {
+    public ArrayList<String> consultarClaves() {
         ArrayList<String> v = new ArrayList<String>();
         imprimir(root, "",v);
         return v;
@@ -285,6 +285,28 @@ public class TST<X> {
             else imprimir(r.middle, word+rChar.valor,v);
             //imprimimos hijo derecho
             imprimir(r.right, word,v);
+        }
+    }
+    public List<X> consultarObjetos() {
+        ArrayList<X> v = new ArrayList<X>();
+        imprimir2(root, "", v);
+        List<X> aux = Collections.unmodifiableList(v);
+        return aux;
+    }
+    private void imprimir2(TSTNodo t, String word, ArrayList<X> v) {
+        if (t != null) {
+            //imprimimos hijo izquierdo
+            imprimir2(t.left, word, v);
+            //si hemos llegado a Nodo con marca añadimos palabra
+            TSTNodoChar rChar = (TSTNodoChar)t;
+            //Si fin añadimos palabra si no imprimimos medio
+            if (rChar.valor == fin) {
+                TSTNodoFinal f = (TSTNodoFinal) t.middle;
+                v.add(f.valor);
+            }
+            else imprimir2(t.middle, word+rChar.valor, v);
+            //imprimimos hijo derecho
+            imprimir2(t.right, word,v);
         }
     }
 

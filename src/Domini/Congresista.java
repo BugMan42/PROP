@@ -38,6 +38,15 @@ public class Congresista {
         Estado = estado;
         Partido = partido;
     }
+    public Congresista(Congresista c) {
+        Dni = c.obtDni();
+        Nombre = c.obtNombre();
+        Apellido = c.obtApellido();
+        Edad = c.obtEdad();
+        Ciudad = c.obtCiudad();
+        Estado = c.obtEstado();
+        Partido = c.obtPartido();
+    }
 
     //Modificadoras
     public void modDni(Dni dni) {
@@ -64,9 +73,6 @@ public class Congresista {
     public void modPartido(String partido) {
         Partido = partido;
     }
-    //public void mod(String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
-        //this.modDni();
-    //}
 
     //Consultoras
     public Dni obtDni() {
