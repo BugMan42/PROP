@@ -70,7 +70,7 @@ public class CjtEventos {
      * Pre: Evento e no puede ser nulo
      * Post: El evento e ha sido a�adido al conjunto de eventos
      */
-    public void AgregarEvento(Evento e) throws NoValido{
+    public void AgregarEvento(Evento e) throws Exception{
         if (e == null) throw new NoValido("Evento");
         cjt.insertar(e.obt_nombre()+e.obt_fecha(), e);
     }
@@ -174,7 +174,7 @@ public class CjtEventos {
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Devuelve el evento especificado por nombre y fecha
      */
-    public Evento ConsultarEvento(String nombre, String fecha) throws NoValido{
+    public Evento ConsultarEvento(String nombre, String fecha) throws Exception{
         if (Valido(nombre, fecha)) return cjt.obtener(nombre+fecha);
         else throw new IllegalArgumentException();
     }

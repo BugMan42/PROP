@@ -7,7 +7,6 @@ public class DriverCongresista {
     final static String Usage = "###USAGE###\n" +
                                 "###LOS CAMPOS NO PUEDEN ESTAR VACIOS\n" +
                                 "###EDAD TIENE QUE SER >= 18 AÑOS##";
-    final static String[] aux = new String[]{"Dni", "Nombre", "Apellido", "Edad", "Ciudad", "Estado", "Partido", " NO VALIDO"};
     final static String fin = "\"FIN DEL DRIVER\"";
     final static String inc = "\nOpción incorrecta, vuelve a introducir un número.\n";
     private static Congresista C;
@@ -120,7 +119,7 @@ public class DriverCongresista {
                 else throw new IllegalArgumentException("Congresista no ini");
                 break;
             case '0':
-                return false;
+                return false; //System.exit()
             default:
                 //respuesta no valida Print()?
                 break;

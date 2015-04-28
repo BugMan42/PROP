@@ -44,12 +44,20 @@ public class Grafo<V, E extends Arista> {
             return (d == ady);
         }
 
+        public void modificarPeso(double oldPeso, double newPeso) {
+            ListIterator<Double> i = pesos.listIterator();
+            while (i.hasNext()) {
+                if (i.next() == oldPeso) i.set(newPeso);
+
+            }
+        }
+
     }
 
     class AristasNodo {
         //predecesores
         //sucesores
-        private ArrayList<NodoInterno> antecesores;
+        private ArrayList<NodoInterno> antecesores; //Set?????
         private ArrayList<NodoInterno> sucesores;
 
         AristasNodo() {
@@ -96,6 +104,7 @@ public class Grafo<V, E extends Arista> {
         }
         //falta eficiencia
         void añadirEntrada(int dest,double peso) {
+
             antecesores.add(new NodoInterno(dest,peso));
         }
         //falta eficiencia
@@ -118,7 +127,7 @@ public class Grafo<V, E extends Arista> {
                 }
             }
         }
-        void eliminarEntrada(int dest) {
+        void eliminarAristasPredecesoras(int dest) {
             for(int i = 0; i < antecesores.size(); ++i) {
                 if(antecesores.get(i).equals(dest)) {
                     antecesores.remove(i);
@@ -127,7 +136,7 @@ public class Grafo<V, E extends Arista> {
             }
 
         }
-        void eliminarSalida(int dest) {
+        void eliminarAristasSucesoras(int dest) {
             for(int i = 0; i < sucesores.size(); ++i) {
                 if(sucesores.get(i).equals(dest)) {
                     sucesores.remove(i);
@@ -135,7 +144,7 @@ public class Grafo<V, E extends Arista> {
                 }
             }
         }
-        void eliminarAristaEntrada(int dest,double peso) {
+        void eliminarAristaPredecesora(int dest,double peso) {
             for(int i = 0; i < antecesores.size(); ++i) {
                 if(antecesores.get(i).equals(dest)) {
                     antecesores.get(i).eliminarArista(peso);
@@ -144,7 +153,7 @@ public class Grafo<V, E extends Arista> {
             }
 
         }
-        void eliminarAristaSalida(int dest,double peso) {
+        void eliminarAristaSucesora(int dest,double peso) {
             for(int i = 0; i < sucesores.size(); ++i) {
                 if(sucesores.get(i).equals(dest)) {
                     sucesores.get(i).eliminarArista(peso);
@@ -192,24 +201,24 @@ public class Grafo<V, E extends Arista> {
 
 
 
-        /*
-        public void modificarEntrada(int nodoDest,double peso) {
+        /** TODO FALTA MODIFICAR BIEN*/
+        public void modificarPredecesores(int nodoDest,double oldPeso, double newPeso) {
             for(int i = 0; i < antecesores.size(); ++i) {
                 if(antecesores.get(i).equals(nodoDest)) {
-                    antecesores.set(i,peso());
+                    //antecesores.set(i)
                     return;
                 }
             }
         }
 
-        public void modificarSalida(E e) {
+        public void modificarSucesores(int nodoDest,double oldPeso, double newPeso) {
             for(int i = 0; i < sucesores.size(); ++i) {
-                if(sucesores.get(i).equals(e)) {
-                    sucesores.set(i,e);
+                if(sucesores.get(i).equals(nodoDest)) {
+                    //sucesores.set(i,e);
                     return;
                 }
             }
-        }*/
+        }
     }
 
     private ArrayList<AristasNodo> aristas;//
@@ -230,32 +239,32 @@ public class Grafo<V, E extends Arista> {
 //##############################################################
 //##############################################################
 //##############################################################
-    public List<Double> pesosAdyacentes(String A, String B) {
+    public List<Double> pesosAdyacentes(String A, String B) throws Exception{
         return pesosAdyacentes(f(A),f(B));
     }
     public List<Double> pesosAdyacentes(int A, int B) {
         return aristas.get(A).obtenerPesosAdyacente(B);
     }
-    public double totalPesoSucesores(String A) {
+    public double totalPesoSucesores(String A) throws Exception{
         return totalPesoSucesores(f(A));
     }
     public double totalPesoSucesores(int A) {
         return aristas.get(A).totalPesoSucesores();
     }
-    public double totalPesoAntecesores(String A) {
+    public double totalPesoAntecesores(String A) throws Exception {
         return totalPesoAntecesores(f(A));
     }
     public double totalPesoAntecesores(int A) {
         return aristas.get(A).totalPesoSucesores();
     }
-    public ArrayList<Integer> nodosSucesores(String A) {
+    public ArrayList<Integer> nodosSucesores(String A) throws Exception{
         return nodosSucesores(f(A));
     }
     public ArrayList<Integer> nodosSucesores(int A) {
         ArrayList<Integer> aux = aristas.get(A).obtenerNodosSucesores();
         return aux;
     }
-    public ArrayList<Integer> nodosAntecesores(String A) {
+    public ArrayList<Integer> nodosAntecesores(String A) throws Exception {
         return nodosAntecesores(f(A));
     }
     public ArrayList<Integer> nodosAntecesores(int A) {
@@ -300,10 +309,10 @@ public class Grafo<V, E extends Arista> {
         if(vacios.isEmpty()) return aristas.size();
         else return vacios.peek();
     }
-    public int traducir(String v) {
+    public int traducir(String v)throws Exception {
         return f(v);
     }
-    private int f(String v) {
+    private int f(String v) throws Exception {
         return vertices.obtener(v);
     }
     private String traducir(int index) {
@@ -313,7 +322,7 @@ public class Grafo<V, E extends Arista> {
 //############################VERTICES##############################
 //##################################################################
     /** añadir vertice*/
-    public void añadirVertice(String v) {
+    public void añadirVertice(String v) throws Exception{
         int aux = nextIndice();
         vertices.insertar(v, aux);
         if (vertices.obtener(v) == aux) {
@@ -322,7 +331,7 @@ public class Grafo<V, E extends Arista> {
             if (!vacios.isEmpty()) vacios.poll();
         }
     }
-    public void eliminarVertice(String v) {
+    public void eliminarVertice(String v) throws Exception{
         //print("first"+" "+v);
        // printStrings();
         int aux = vertices.obtener(v);
@@ -371,10 +380,10 @@ public class Grafo<V, E extends Arista> {
     public String consultarVertice(int index) {
         return traducir(index);
     }
-    public Integer consultarVertice(String v) {
+    public Integer consultarVertice(String v) throws Exception {
         return f(v);
     }
-    public void modificarVertice(String idVieja, String idNueva) {
+    public void modificarVertice(String idVieja, String idNueva) throws Exception {
         vertices.modificar(idVieja,idNueva);
     }
 
@@ -386,78 +395,43 @@ public class Grafo<V, E extends Arista> {
 //##################################################################
 //#############################ARISTAS##############################
 //##################################################################
-
-    /*private void añadirArista(String origen,String fin, double peso) {
-        añadirArista(f(origen), e);
-
+/**Falta poner añadir arista sin sentido */
+    public void añadirArista(String origen,String fin, double peso) throws Exception{
+        añadirArista(f(origen),f(fin), peso);
     }
 
     private void añadirArista(int origen,int fin, double peso) {
-        int aux2 = f((V)e.fin());
+        //int aux2 = f((V)e.fin());
         AristasNodo ent = aristas.get(origen);
-        ent.añadirAristaEntrada(aux2, e.peso());
+        ent.añadirAristaEntrada(fin, peso);
         aristas.set(origen, ent);
-        AristasNodo sal = aristas.get(aux2);
-        sal.añadirSalida(origen,e.peso());
-        aristas.set(aux2, sal);
+        AristasNodo sal = aristas.get(fin);
+        sal.añadirSalida(origen,peso);
+        aristas.set(fin, sal);
     }
 
-    private void modificarArista(E2 e, int in, int out) {
-        AristasNodo ent = aristas.get(in);
-        ent.modificarEntrada(e);
-        aristas.set(in, ent);
-        AristasNodo sal = aristas.get(out);
-        sal.modificarSalida(e);
-        aristas.set(out, sal);
+    private void modificarArista(int A, int B,double oldPeso, double newPeso) {
+        aristas.get(A).modificarSucesores(B, oldPeso, newPeso);
+        aristas.get(B).modificarPredecesores(A, oldPeso, newPeso);
     }
 
     //eliminara todas las aristas desde origen a fin y fin a a origen
-    public void eliminarAristas(String origen,E e) {
-        eliminarAristas(f(origen), e);
+    public void eliminarAristas(String origen,String fin) throws Exception{
+        eliminarAristas(f(origen), f(fin));
     }
-    public void eliminarAristas(int origen,E e) {
-        int fin = f((V)e.fin());
-        AristasNodo ent = aristas.get(origen);
-        ent.eliminarEntrada(fin);
-        aristas.set(origen, ent);
-        AristasNodo sal = aristas.get(fin);
-        sal.eliminarSalida(origen);
-        aristas.set(fin, sal);
+    public void eliminarAristas(int A,int B) {
+        aristas.get(A).eliminarAristasSucesoras(B);
+        aristas.get(B).eliminarAristasPredecesoras(A);
     }
 
     //elimina una sola arista con peso especifico
-    public void eliminarArista(String origen, E e) {
-        eliminarArista(trad(origen), e);
+    public void eliminarArista(String origen, String fin, double peso) throws Exception{
+        eliminarArista(f(origen),f(fin), peso);
     }
-    public void eliminarArista(int origen, E e) {
-        int fin = trad((V)e.fin());
-        AristasNodo ent = aristas.get(origen);
-        ent.eliminarAristaEntrada(fin, e.peso());
-        aristas.set(origen, ent);
-        AristasNodo sal = aristas.get(fin);
-        sal.eliminarAristaSalida(origen, e.peso());
-        aristas.set(fin, sal);
+    public void eliminarArista(int origen,int fin,double peso) {
+        aristas.get(fin).eliminarAristaPredecesora(origen, peso);
+        aristas.get(origen).eliminarAristaSucesora(fin, peso);
     }
-    public void eliminarAristaEntrada(String origen,E e) {
-        eliminarAristaEntrada(trad(origen), e);
-    }
-
-    public void eliminarAristaEntrada(int origen,E e) {
-        int fin = trad((V)e.fin());
-        AristasNodo ent = aristas.get(origen);
-        ent.eliminarAristaEntrada(fin,e.peso());
-        aristas.set(origen, ent);
-    }
-    public void eliminarAristaSalida(String origen, E e) {
-        eliminarAristaSalida(trad(origen),e);
-    }
-
-    public void eliminarAristaSalida(int origen,E e) {
-        int fin = trad((V)e.fin());
-        AristasNodo sal = aristas.get(origen);
-        sal.eliminarAristaSalida(fin,e.peso());
-        aristas.set(origen, sal);
-    }*/
 
 //########################################################################
 //##########################CONSULTORAS###################################

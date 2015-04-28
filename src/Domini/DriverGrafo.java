@@ -18,11 +18,16 @@ public class DriverGrafo {
         String c = "22";
         String d = "33";
         Grafo g = new Grafo();
-        g.añadirVertice(a);
-        g.añadirVertice(b);
-        g.añadirVertice(c);
-        g.añadirVertice(d);
-        g.eliminarVertice(a);
+        try {
+            g.añadirVertice(a);
+            g.añadirVertice(b);
+            g.añadirVertice(c);
+            g.añadirVertice(d);
+            g.eliminarVertice(a);
+        }
+        catch (Exception e) {
+            print(e.getMessage());
+        }
         ArrayList<Integer> aux;
         //aux = g.consultarVertices();
         print("Lista Enteros:");

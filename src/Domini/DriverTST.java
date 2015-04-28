@@ -1,5 +1,6 @@
 package Domini;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,40 +14,83 @@ public class DriverTST {
         System.out.println(str);
     }
 
-    public static void main(String[] args) {
-        tst = new TST<Integer>();
-        //System.out.println("Escriba la clave:");
-        //String key = user_input.next();
-        //System.out.println("Escriba el valor numérico:");
-        // Integer entero = Integer.parseInt(user_input.next());
-        //tst.insertar("1234", 12);
+    private static void PresentaMenu() {
+        print("\nDRIVER DE TST<X>  X:Integer");
+        print("0 insertar(String key, X x)");
+        print("1 X obtener(String key)");
+        print("2 boolean existe(String key)");
+        print("3 borrar(String key)");
+        print("4 modificar(String key, X x) ");
+        print("5 modificar(String OldKey, String NewKey");
+        print("7 String toString()");
+        print("8 ArrayList<String> consultarClaves()");
+        print("9 Boolean esVacio()");
+        print("10 vaciar");
+        print("11 int size()");
+        print("12 Salir");
+        print("Escribe la opcion");
+    }
+    private static String LeerLinea(Scanner Input) {
+        return Input.nextLine();
+    }
+    public static void main(String[] args) throws Exception {
+        Scanner userInput = new Scanner(System.in);
+        boolean seguir = true;
+        do {
+            PresentaMenu();
+            try {
+                ProcesarLinea(LeerLinea(userInput));
+            } catch (Exception a) {
+                print(a.getMessage());
+            }
+        } while(userInput.hasNextLine());
+    }
 
-        tst.insertar("ab", 12);
-        tst.insertar("abc", 13);
-        //tst.borrar("ab");
-        tst.insertar("ab", 13);
-        print(String.valueOf(tst.obtener("ab")));
-        //print(tst.toString());
-        //print(String.valueOf(tst.total()));
-        //tst.eliminar("12");
-        //tst.insertar("12345", 12);
-        //print(String.valueOf(tst.obtener("12")));
-        //tst.("13", 13);
-        //print(String.valueOf(tst.obtener("12")));
-        //System.out.println(tst.existe("1"));
-        //System.out.println(tst.existe("1234"));
-        //System.out.println(tst.existe("12"));
-        //print(String.valueOf(tst.obtener("12")));
-        //tst.print();
-        // ArrayList<String> st = tst.consultar();
-       /* System.out.println("Elementos:");
-        for(int i = 0; i < st.size(); ++i) {
-            System.out.println(st.get(i));
+    //TODO error si no argumentos o null
+    private static void ProcesarLinea(String str) throws Exception {
+        String aux[] = str.split("\\s");
+        if (str.length() == 0) throw new IllegalArgumentException("Pocs arguments pre");
+        switch (Integer.parseInt(aux[0])) {
+            case 1:
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (aux.length == 8) {
+
+                }
+                else throw new IllegalArgumentException("Pocos argumentos");
+                break;
+            case 2:
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                break;
+            case 3:
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                break;
+            case 4:
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                break;
+            case 5:
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                break;
+            case 6:
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                break;
+            case 7:
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                break;
+            case 8:
+                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                break;
+            case 9:
+                break;
+            case 10:
+                break;
+            case 11:
+                break;
+            case 12:
+                System.exit(0);
+            default:
+                //respuesta no valida Print()?
+                break;
         }
-       // String outp = "El valor con la clave " + key + " es " + tst.obtObjeto(key);
-        //System.out.println(outp);
-    }*/
-
-
     }
 }
+

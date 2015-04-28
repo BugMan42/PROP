@@ -28,7 +28,9 @@ public class Arista<T> {
     public String toString() {
         return vfin+":"+peso;
     }
-
-
-
 }
+/**     public List<Double> pesos() {
+ LinkedList<Double> lista;
+ lista = (LinkedList) pesos.clone();
+ return lista;
+ }*/

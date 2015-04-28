@@ -65,13 +65,8 @@ public class TST<X> {
         root = (TSTNodoChar) insertar(root,k,x,0);
     }
     */
-    public void insertar(String key, X x) {
-        try {
-            root = (TSTNodoChar) insertar(root, key, x, 0);
-        }
-        catch (Exception e) {
-            print(e.getMessage());
-        }
+    public void insertar(String key, X x) throws Exception {
+        root = (TSTNodoChar) insertar(root, key, x, 0);
 
     }
 
@@ -100,12 +95,12 @@ public class TST<X> {
 //#######################################################################################
 
 
-    public X obtener(String key) {
+    public X obtener(String key) throws Exception{
         return obtener(root,key,0);
     }
 
-    private X obtener(TSTNodo t,String key,int d) {
-        if (t == null) return null;
+    private X obtener(TSTNodo t,String key,int d) throws Exception{
+        if (t == null) throw new Exception("no existe la clave");
 
         char c;
         if (d < key.length()) c = key.charAt(d);
@@ -235,17 +230,17 @@ public class TST<X> {
 //#######################################################################################
 
     //Modificación comp --> Modificamos el key pero mantenemos el objeto
-    public void modificar(String OldKey, String NewKey) {
+    public void modificar(String OldKey, String NewKey) throws Exception{
         root = (TSTNodoChar) modificar(root,OldKey,null,NewKey,0);
     }
     //Modificación comp ---> Modificamos el key y canviamos el objeto
-    public void modificar(String OldKey, String NewKey, X x) {
+    public void modificar(String OldKey, String NewKey, X x) throws Exception{
         root = (TSTNodoChar) modificar(root,NewKey,x,OldKey,0);
     }
 
     //Modificación Compuesta
     /** FALTA HACER EFICIENTE*/
-    private TSTNodo modificar(TSTNodo t, String OldKey, X x, String NewKey,int d) {
+    private TSTNodo modificar(TSTNodo t, String OldKey, X x, String NewKey,int d) throws Exception{
         if (x == null) {
             x = obtener(OldKey);
         }
@@ -267,13 +262,13 @@ public class TST<X> {
     public String toString() {
         ArrayList<String> v = new ArrayList<String>();
         imprimir(root, "", v);
-        return "TST_KEYS: "+v;
+        return v+"";
     }
-    public String ConsultarClavesString() {
+    /*public String ConsultarClavesString() {
         ArrayList<String> v = new ArrayList<String>();
         imprimir(root, "",v);
-        return ""+v;
-    }
+        return "TST_KEYS: "+v;
+    }*/
     public ArrayList<String> ConsultarClaves() {
         ArrayList<String> v = new ArrayList<String>();
         imprimir(root, "",v);
