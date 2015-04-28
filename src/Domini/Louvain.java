@@ -7,65 +7,88 @@ import java.util.*;
  */
 
 public class Louvain extends Algoritmo {
-/*
-    private Grafo g;
-    private double lim_Q;
 
-    private int[] n2c;
-    private double[] in, tot;
+    private Grafo g;
+    private double lim_Q; // Incremento mínimo de modularidad.
+
+    private int[] n2c; // Comunidad de cada nodo.
     private double m2; // Peso de todas las aristas del grafo.
     private double[] k; // Suma de los pesos de las aristas adyacentes a cada nodo.
+    private double[] ins, tot;
+    private int ncoms;
 
     public Louvain(Entrada i, Salida o){
         super(i, o);
     }
 
-    public Grafo ejecutar_algoritmo(Entrada in, Salida out){
+    public Grafo ejecutar_algoritmo(){
         g = new Grafo(in.obtGrafo());
         lim_Q = in.obtParam1();
+        ncoms = g.V();
 
         // Inicializar comunidades.
         n2c = new int[g.V()];
         for(int i=0; i<g.V(); ++i) n2c[i] = i;
 
-        // Guardar peso total del grafo.
-        m2 = g.total();
+        ins = new double[g.V()];
+        tot = new double[g.V()];
+        // Calcular pesos aristas comunidades.
+        calcular_pesos_comunidades();
 
+        /*
+        boolean mejora;
+        do {
+            mejora = primera_fase();
+            if (mejora) segunda_fase();
+        }
+        while (mejora);*/
 
-
-
+        primera_fase();
 
         return g;
     }
 
     private boolean primera_fase(){
+        boolean mejora = false;
+        int nodos_movidos;
+        int pasadas = 0;
+
         // k[i] = Suma de pesos de las aristas adyacentes a i.
-        for (int i=0; i<g.V(); ++i) k[i] = g.pesoAristasVertice(i);
+        k = new double[g.V()];
+        for (int i=0; i<g.V(); ++i) k[i] = g.totalPesoSucesores(i)*2;
 
         // Calcular modularidad grafo.
         double old_Q = modularidad();
         double new_Q = old_Q;
 
+        // Preparar orden aleatorio.
+        Random r = new Random();
+        int[] rand = new int[g.V()];
+        for (int i = 0; i < g.V(); ++i) rand[i] = i;
+        for (int i = 0; i < g.V(); ++i) {
+            int x = r.nextInt(g.V());
+            int aux = rand[x];
+            rand[x] = rand[i];
+            rand[i] = aux;
+        }
+
         do {
-            // Preparar orden aleatorio.
-            Random r = new Random();
-            int[] rand = new int[g.V()];
-            for (int i = 0; i < g.V(); ++i) rand[i] = i;
-            for (int i = 0; i < g.V(); ++i) {
-                int x = r.nextInt(g.V());
-                int aux = rand[x];
-                rand[x] = rand[i];
-                rand[i] = aux;
-            }
+            old_Q = new_Q;
+            nodos_movidos = 0;
+            ++pasadas;
 
             // Mover nodos a la mejor comunidad.
             // Elegir nodo (mejor en orden aleatorio).
             for (int i=0; i<g.V(); ++i){
+                int nodo = rand[i];
+                int com_nodo = n2c[nodo];
+                double peso_nodo = k[nodo];
+
                 // Consultar comunidades adyacentes al nodo.
-                Set<Integer> coms = comunidades_ady(rand[i]);
+                Set<Integer> coms = comunidades_ady(nodo);
 
                 // Quitar nodo de su comunidad.
-
+                quitar_nodo_comunidad(nodo);
 
                 // Para cada comunidad comprobar la ganancia de modularidad al añadir el nodo.
                 // Añadir el nodo a la comunidad con mayor ganancia.
@@ -76,9 +99,10 @@ public class Louvain extends Algoritmo {
             new_Q = modularidad();
 
         }
-        while (new_Q - old_Q > lim_Q);
+        while (new_Q - old_Q > lim_Q && nodos_movidos > 0);
         // Repetir mientras "modularidad nueva - modularidad antigua > minimo establecido"
         // y se haya movido algún nodo a otra comunidad en la iteración.
+
 
         // Devuelve true si se ha realizado alguna mejora.
         return true;
@@ -95,21 +119,31 @@ public class Louvain extends Algoritmo {
     }
 
     private double modularidad(){
+        // Guardar peso total del grafo.
+        m2 = .0;
+        for(int i=0; i<g.V(); ++i) m2 += g.totalPesoSucesores(i);
+        m2 *= 2;
+        //mostrar_hora("Peso total: "+String.valueOf(m2));
+
         double sum = .0;
         for (int i=0; i<g.V(); ++i){
-            ArrayList<Arista> ady = g.aristasAdyacentes(i);
-            int l = 0;
             for (int j=0; j<g.V(); ++j){ // Para cada nodo i,j.
-                if (n2c[i] == n2c[j]) { // Si son de la misma comunidad.
+                if (n2c[i] == n2c[j]){ // Si son de la misma comunidad.
                     double Aij = .0;
-                    if (!ady.isEmpty() && ady.get(l).fin() == j){ // Si existe arista entre i y j.
-                        Aij = ady.get(l).peso();
-                        ++l;
+                    List<Double> pesosAij = g.pesosAdyacentes(i,j);
+                    if (!pesosAij.isEmpty()){ // Si existe arista entre i y j.
+                        //if (pesosAij.size() > 1) throw new Exception("Más de una arista entre i y j.");
+                        Aij = pesosAij.get(0);
+                        //mostrar_hora("Aij: "+String.valueOf(Aij));
                     }
                     sum += Aij - ((k[i]*k[j])/m2);
+                    //mostrar_hora("k[i]: "+String.valueOf(k[i]+" | k[j]: "+String.valueOf(k[j])));
+                    //mostrar_hora("it sum: "+String.valueOf(Aij - ((k[i]*k[j])/m2)));
+                    //mostrar_hora("total sum: "+String.valueOf(sum));
                 }
             }
         }
+        mostrar_hora("Modularidad: "+String.valueOf(sum/m2));
         return sum/m2;
     }
 
@@ -119,10 +153,31 @@ public class Louvain extends Algoritmo {
     }
 
     private Set<Integer> comunidades_ady(int nodo){
-        ArrayList<Arista> nodos = g.aristasAdyacentes(nodo);
+        ArrayList<Integer> nodos = g.nodosSucesores(nodo);
         Set<Integer> coms = new HashSet<Integer>();
-        for(Arista a : nodos) coms.add(n2c[a.fin()]);
+        for(Integer x : nodos) coms.add(n2c[x]);
         return coms;
+    }
+
+    private void calcular_pesos_comunidades(){
+        for(int i=0; i<ncoms; ++i){
+            ins[i] = .0;
+            tot[i] = .0;
+        }
+        for(int i=0; i<g.V(); ++i){
+            ArrayList<Integer> n = g.nodosSucesores(i);
+            for(int j : n){
+                List<Double> p = g.pesosAdyacentes(i,j);
+                // p nunca vacío porque estamos consultando nodos adyacentes.
+                if(n2c[i] == n2c[j]) ins[n2c[i]] += p.get(0)*2;
+                else tot[n2c[j]] += p.get(0)*2;
+            }
+        }
+
+        for(int i=0; i<ncoms; ++i)
+            print("tot["+String.valueOf(i)+"] = "+String.valueOf(tot[i])+"\tins["+String.valueOf(i)+"] = "
+                    +String.valueOf(ins[i]));
+
     }
 
     private void insertar_nodo_comunidad(int nodo, int com){
@@ -130,7 +185,7 @@ public class Louvain extends Algoritmo {
     }
 
     private void quitar_nodo_comunidad(int nodo){
-
+        tot[n2c[nodo]] -= g.pesoAristasVertice(nodo)*2;
     }
 
     private void mostrar_hora(String s){
@@ -138,6 +193,9 @@ public class Louvain extends Algoritmo {
         s += ": " + d.toString();
         System.out.println(s);
     }
-    */
+
+    private void print(String s){
+        System.out.println(s);
+    }
 }
 

@@ -233,7 +233,10 @@ public class Grafo<V, E extends Arista> {
         vacios = new PriorityQueue<Integer>(1 ,Collections.reverseOrder()); //espacios vacios eficiencia aumentar
     }
     public Grafo(Grafo g) {
-
+        aristas = g.aristas;
+        vertices = g.vertices;
+        fPrima = g.fPrima;
+        vacios = g.vacios;
     }
 
 //##############################################################
