@@ -184,8 +184,8 @@ public class Grafo<V, E extends Arista> {
         }
         ArrayList<Integer> obtenerNodosAntecesores(){
             ArrayList<Integer> aux = new ArrayList<Integer>();
-            for(int i = 0; i < sucesores.size(); ++i) {
-                aux.add(sucesores.get(i).ady);
+            for(int i = 0; i < antecesores.size(); ++i) {
+                aux.add(antecesores.get(i).ady);
             }
             return aux;
         }
@@ -434,7 +434,7 @@ public class Grafo<V, E extends Arista> {
     }
 
 //########################################################################
-//##########################CONSULTORAS###################################
+/**##########################CONSULTORAS################################*/
 //########################################################################
 
     /*TODO:::: COMPROBACION EXISTENCIA ARISTAS*/
