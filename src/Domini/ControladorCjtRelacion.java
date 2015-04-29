@@ -19,6 +19,46 @@ public class ControladorCjtRelacion {
 
     public Grafo generar_grafo_relaciones(){
         Grafo g = new Grafo();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         return g;
     }
 
