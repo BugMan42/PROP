@@ -5,28 +5,31 @@ package Domini;
  * Clase Voto
  */
 public abstract class Voto {
-    private String dni;
+    private Dni dni;
 
     public Voto() {}
 
-    public Voto (String dni)
-    {
-        this.dni = dni;
+    public Voto (String d) throws Exception {
+        dni = new Dni(d);
     }
 
     public String obt_dni() {
-        return this.dni;
+        return dni.DNI();
     }
 
-    public void mod_dni(String s) {
-        dni = s;
+    public void mod_dni(String s) throws Exception {
+        dni.modDni(s);
     }
 
     public abstract String obt_tipo();
 
+    public String mostrarInfo() {
+        return "El congresista con DNI "+dni;
+    }
+
     //Modificable a necesidad
     public String toString() {
-        return "El congresista con DNI "+dni+" ha votado ";
+        return dni.toString();
     }
 
 }

@@ -36,7 +36,7 @@ public class Votacion extends Evento {
     }
 
     public String consultar_voto(String id) {
-        return votos.get(id).getClass().getSimpleName();
+        return votos.get(id).mostrarInfo();
     }
 
     public Voto obt_voto(String id) {

@@ -34,7 +34,18 @@ public class DriverVotacion {
         System.out.println("Escribe el tipo de voto a introducir:");
         System.out.println("(1: Blanco, 2: Abstencion, 3: Positivo, 4: Negativo o 5: Nulo)");
         String s1 = user_input.next();
-        int opt = Integer.parseInt(s1);
+        Class c;
+        Voto v;
+        try {
+            c = Class.forName("Domini." + s1);
+            v = (Voto) c.newInstance();
+        } catch (Exception e) {
+            //e.printStackTrace();
+            System.out.println("Tipo de voto no válido, operación cancelada.");
+            return;
+        }
+
+        /*int opt = Integer.parseInt(s1);
         Voto v;
         switch (opt)
         {
@@ -57,9 +68,16 @@ public class DriverVotacion {
                 System.out.println("Opción incorrecta, operación cancelada");
                 return;
 
-        }
+        }*/
         System.out.println("Escribe el DNI del congresista votante:");
-        v.mod_dni(user_input.next());
+
+        try {
+            v.mod_dni(s1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("DNI incorrecto");
+        }
+
         vt.añadir_voto(v);
     }
 

@@ -7,7 +7,7 @@ public class Negativo extends Voto{
     public Negativo () {
     }
 
-    public Negativo (String dni) {
+    public Negativo (String dni) throws Exception {
         super(dni);
     }
 
@@ -16,7 +16,7 @@ public class Negativo extends Voto{
         return "Negativo";
     }
 
-    public String toString() {
-        return super.toString()+"en contra.";
+    public String mostrarInfo() {
+        return super.mostrarInfo()+"ha votado en contra.";
     }
 }

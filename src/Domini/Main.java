@@ -19,8 +19,8 @@ public class Main {
         Fecha.print_evento(e);
         Fecha.print_evento(e2);*/
 
-        Voto v1 = new Nulo("12");
+        /*Voto v1 = new Nulo("12");
         System.out.println(v1.getClass().getSimpleName());
-        System.out.println(v1.obt_tipo());
+        System.out.println(v1.obt_tipo());*/
     }
 }

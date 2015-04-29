@@ -7,7 +7,7 @@ package Domini;
 public class Blanco extends Voto {
 
     public Blanco() {}
-    public Blanco(String dni) {
+    public Blanco(String dni) throws Exception {
         super(dni);
     }
 
@@ -16,7 +16,9 @@ public class Blanco extends Voto {
         return "Blanco";
     }
 
-    public String toString() {
-        return super.toString()+"en blanco.";
+    @Override
+    public String mostrarInfo() {
+        return super.mostrarInfo()+"ha votado en blanco.";
     }
+
 }
