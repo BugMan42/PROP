@@ -6,11 +6,11 @@ package Domini;
 public class Entrada {
 
     private Grafo graph;
-    private float param;
+    private double param;
 
     public Entrada() {}
 
-    public Entrada(Grafo g, float p)
+    public Entrada(Grafo g, double p)
     {
         graph = g;
         param = p;
@@ -21,7 +21,7 @@ public class Entrada {
         param = Integer.parseInt(s);
     }
 
-    public float obtParam1()
+    public double obtParam1()
     {
         return param;
     }
