@@ -37,9 +37,9 @@ public class DriverEvento {
                 case 3:
                     consulta(entrada);
                     break;
-                /*case 4:
+                case 4:
                 ayuda(entrada);
-                    break;*/
+                    break;
                 default:
                     System.out.println(error);
             }
@@ -194,5 +194,9 @@ public class DriverEvento {
         catch (Exception e) {
             System.out.println("El evento no existe");
         }
+    }
+
+    private static void ayuda(Scanner entrada) {
+
     }
 }
