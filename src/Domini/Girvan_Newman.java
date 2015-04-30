@@ -79,6 +79,18 @@ public class Girvan_Newman extends Algoritmo{
         int cc = 0; //Número componentes conexos
         int cc2 = 0;
         node = new ArrayList<Node> (N);
+        for (int ii = 0; ii < N; ++ii) {
+            Node n = new Node();
+            n.visited = false;
+            n.component = -1;
+            n.leaf = false;
+            n.distance = Double.POSITIVE_INFINITY;
+            n.parent.clear();
+            n.weight = 0;
+            n.down_total = 0;
+            node.add(n);
+        }
+
 
         Eix victim = new Eix(); // La arista que se irá
         victim.weight = -1;
@@ -94,9 +106,9 @@ public class Girvan_Newman extends Algoritmo{
             PriorityQueue<Arista<Integer>> Q = new PriorityQueue<Arista<Integer>>(N, comp);
 
             //Inicializar los nodos
-            node.clear();
-            for (int ii = 0; ii < N; ++ii) {
-                Node n = new Node();
+            //node.clear();
+            for (int j = 0; j < N; ++j) {
+                Node n = node.get(j);
                 n.visited = false;
                 n.component = -1;
                 n.leaf = false;
@@ -179,9 +191,11 @@ public class Girvan_Newman extends Algoritmo{
 
                         Node up = node.get(inode);
                         double multiplier = up.weight/golf.weight;
-                        double myWeight = (1 + golf.down_total) * multiplier / data_graph.pesoAristasVertices(inode, p);
-                        double rel = g.pesoAristasVertices(inode, p) + myWeight;
-                        //g.modPesoAristaVertices(inode, p, rel);
+                        double myWeight = (1 + golf.down_total) * multiplier; // data_graph.pesoAristasVertices(inode, p);
+                        double dependency = g.pesoAristasVertices(inode, p);
+                        double rel = dependency + myWeight; //TODO revisar función
+                        g.modificarArista(inode, p, dependency, rel);
+                        System.out.println(g.fPrima(inode)+"--"+g.fPrima(p)+": "+rel);
                         up.down_total += myWeight;
 
                         if (victim.weight < myWeight) {
@@ -203,7 +217,7 @@ public class Girvan_Newman extends Algoritmo{
         alg_graph.eliminarAristas(victim.dest, victim.orig);//, data_graph.pesoAristaVertices(victim.dest, victim.orig));
 
         //Segundo pase del algoritmo de Girvan-Newman
-        for (int i = 0; i < N; ++i)
+        for (int iii = 0; iii < N; ++iii)
         {
             //Lista para mantener guardada la ruta realizada durante Dijkstra
             LinkedList<Integer> route = new LinkedList<Integer>();
@@ -211,8 +225,8 @@ public class Girvan_Newman extends Algoritmo{
             PriorityQueue<Arista<Integer>> Q = new PriorityQueue<Arista<Integer>>(N, comp);
 
             //Inicializar los nodos
-            for (int ii = 0; ii < N; ++ii) {
-                Node n = node.get(i);
+            for (int k = 0; k < N; ++k) {
+                Node n = node.get(k);
                 n.visited = false;
                 n.component = -1;
                 n.leaf = false;
@@ -222,9 +236,9 @@ public class Girvan_Newman extends Algoritmo{
                 n.down_total = 0;
             }
 
-            Q.add(new Arista<Integer>(i, 0));
+            Q.add(new Arista<Integer>(iii, 0));
 
-            Node uno = node.get(i);
+            Node uno = node.get(iii);
             uno.distance = 0;
             uno.weight = 1;
             //Si no pertanece el nodo a un componente conexo, sumamos 1 a cc y le asignamos un componente al nodo
