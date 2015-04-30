@@ -9,7 +9,28 @@ public class DriverGrafo {
     }
 
     public static void main(String[] args)throws Exception {
+        /*
+        TST<Integer> a = new TST<Integer>();
+        a.insertar("a",1);
+        a.insertar("b", 2);
+        print(a.consultarClaves()+"");
+        TST<Integer> b = new TST<Integer>(a);
+        print(b.consultarClaves()+"");
+        print(a.consultarObjetos() + "");
+        print(b.consultarObjetos() + "");
+        b.modificar("a", 3);
+        print(a.consultarObjetos()+"");
+        print(b.consultarObjetos()+"");
+        */
+        PriorityQueue<Integer> a = new PriorityQueue<Integer>();
+        a.add(3);
+        a.add(2);
+        a.add(1);
+        print(a.poll() + "");
+        print(a.poll()+"");
+        print(a.poll()+"");
 
+        /*
         Grafo a = new Grafo();
         a.agregarVertice("abc");
         a.agregarVertice("abd");

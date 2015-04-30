@@ -14,10 +14,15 @@ public class Grafo {
     class NodoInterno {
         private LinkedList<Double> pesos;
         public int ady;
+
         public NodoInterno(int nodoDest,double peso) {
             pesos = new LinkedList<Double>();
             pesos.add(peso);
             ady = nodoDest;
+        }
+        public NodoInterno(NodoInterno N) {
+            pesos = (LinkedList) N.pesos.clone();
+            ady = N.ady;
         }
         public int obtenerAdy() {
             return ady;
@@ -80,6 +85,15 @@ public class Grafo {
             entrada = new ArrayList<NodoInterno>();
             salida = new ArrayList<NodoInterno>();
             clave = key;
+        }
+        AristasNodo(AristasNodo A) {
+            clave = A.clave;
+            for (int i = 0; i < entrada.size(); ++i) {
+                entrada.add(i,new NodoInterno(A.entrada.get(i)));
+            }
+            for (int i = 0; i < salida.size(); ++i) {
+                salida.add(i, new NodoInterno(A.salida.get(i)));
+            }
         }
 
         /** Modificadoras */
@@ -301,12 +315,16 @@ public class Grafo {
     public Grafo() {
         aristas = new ArrayList<AristasNodo>();
         vertices = new TST<Integer>();       //String to number
-        vacios = new PriorityQueue<Integer>(1 ,Collections.reverseOrder()); //espacios vacios eficiencia aumentar
+        vacios = new PriorityQueue<Integer>(); //espacios vacios eficiencia aumentar
     }
     //TODO COMO SE HACE
-    public Grafo(Grafo g) {
-        //aristas = (List) g.aristas.clone();
-
+    public Grafo(Grafo g) throws Exception {
+        for (int i = 0; i < aristas.size(); ++i) {
+            aristas.add(i, new AristasNodo(g.aristas.get(i)));
+        }
+        vertices = new TST(g.vertices);
+        if (g.vacios.isEmpty()) vacios = new PriorityQueue<Integer>();
+        else vacios = new PriorityQueue<Integer>(g.vacios);
     }
     public int V() {
         return aristas.size()-vacios.size();

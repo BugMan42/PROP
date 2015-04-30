@@ -1,12 +1,27 @@
 package Domini;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.ArrayList;
 
 
-public class TST<X extends Object>  {
+public class TST<X>  {
+
+    private X X_clone(X x) throws Exception, InvocationTargetException {
+        for (Class i : x.getClass().getInterfaces())
+            if (i.getName().equals("java.lang.Cloneable")) // Be sure E implements Cloneable.
+                for (Method m : x.getClass().getMethods())
+                    if (m.getName().equals("clone") && // Be sure E has an appropriate clone(),
+                            m.getParameterTypes().length == 0 && // takes no parameters, anx returns
+                            m.getReturnType().getName().equals("java.lang.Object")) // type Object.
+                        return (X) m.invoke(x); // Invoke x.clone(), typecast, and return it.
+        return x;
+    }
+
+
     //Nodos
-    class TSTNodo {
+    private class TSTNodo {
         TSTNodo left, middle, right;
 
         public TSTNodo() {
@@ -16,7 +31,7 @@ public class TST<X extends Object>  {
         }
     }
 
-    class TSTNodoChar extends TSTNodo {
+    private class TSTNodoChar extends TSTNodo {
         char valor;
         public TSTNodoChar(char Valor) {
             super();
@@ -24,7 +39,7 @@ public class TST<X extends Object>  {
         }
     }
 
-    class TSTNodoFinal extends TSTNodo {
+    private class TSTNodoFinal extends TSTNodo {
         X valor;
         public TSTNodoFinal(X x) {
             super();
@@ -56,6 +71,29 @@ public class TST<X extends Object>  {
     public int size() {
         return N;
     }
+
+//#######################################################################################
+/**#################################CREADORA COPIADORA##################################*/
+//#######################################################################################
+    public TST(TST t) throws Exception {
+        root = (TSTNodoChar) clonar(t.root, root);
+    }
+    private TSTNodo clonar(TSTNodo t, TSTNodo c) throws Exception {
+        if (t == null) return null;
+        TSTNodoChar auxt = (TSTNodoChar) t;
+        c =  new TSTNodoChar(auxt.valor);
+        c.left = clonar(t.left, c.left);
+        if (auxt.valor == fin) {
+            TSTNodoFinal auxt2 = (TSTNodoFinal) t.middle;
+            c.middle = new TSTNodoFinal(X_clone(auxt2.valor));
+        }
+        else c.middle = clonar(t.middle, c.middle);
+        c.right = clonar(t.right, c.right);
+        return c;
+    }
+
+
+
 //#######################################################################################
 /**###################################INSERTAR##########################################*/
 //#######################################################################################
@@ -184,40 +222,7 @@ public class TST<X extends Object>  {
         }
         return t;
     }
-    private TSTNodo eliminarNodo(TSTNodo r, int a) {
-        if(r != null) {
-            if(r.right == null) {
-                r = r.left;
-            }
-            else if (r.left == null) {
-                r = r.right;
-            }
-            else {
-                TSTNodo aux = r.left;
-            }
-        }
-        return r;
-    }
 
-    private TSTNodo eliminarNodo(TSTNodo r) {
-        if(r != null) {
-            if(r.right == null) {
-                r = r.left;
-            }
-            else {
-                    TSTNodo aux = r;
-                    r = r.right;
-                    TSTNodo aux2 = r.right;
-                    r.right = aux;
-                    aux.right = aux2;
-                    aux2 = r.left;
-                    r.left = aux.left;
-                    aux.left = aux2;
-                    r.right = eliminarNodo(r.right);
-            }
-        }
-        return r;
-    }
 //#######################################################################################
 /**#################################MODIFICAR############################################*/
 //#######################################################################################
