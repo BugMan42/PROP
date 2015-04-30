@@ -84,28 +84,41 @@ public class Grafo {
 
         /** Modificadoras */
         void agregarEntrada(int origen,double peso) {
-            for(int i = 0; i < entrada.size(); ++i) {
-                if(entrada.get(i).equals(origen)) {
-                    entrada.get(i).agregarPeso(peso);
-                    return;
+            //print("Agregar Entrada "+origen);
+            if (entrada.isEmpty()) entrada.add(0,new NodoInterno(origen,peso));
+            else {
+                int i;
+                for(i = 0; i < entrada.size(); ++i) {
+                    if(entrada.get(i).equals(origen)) {
+                        entrada.get(i).agregarPeso(peso);
+                        return;
+                    }
+                    else if (entrada.get(i).obtenerAdy() > origen) {
+                        entrada.add(i,new NodoInterno(origen,peso));
+                        return;
+                    }
                 }
-                else if (entrada.get(i).obtenerAdy() > origen) {
-                    entrada.add(i,new NodoInterno(origen,peso));
-                    return;
-                }
+                entrada.add(i,new NodoInterno(origen,peso));
             }
         }
         void agregarSalida(int dest,double peso) {
-            for(int i = 0; i < salida.size(); ++i) {
-                if(salida.get(i).equals(dest)) {
-                    salida.get(i).agregarPeso(peso);
-                    return;
+            //print("Agregar Salida "+dest);
+            if (salida.isEmpty()) salida.add(0,new NodoInterno(dest,peso));
+            else {
+                int i;
+                for(i = 0; i < salida.size(); ++i) {
+                    if(salida.get(i).equals(dest)) {
+                        salida.get(i).agregarPeso(peso);
+                        return;
+                    }
+                    else if (salida.get(i).obtenerAdy() > dest) {
+                        salida.add(i,new NodoInterno(dest,peso));
+                        return;
+                    }
                 }
-                else if (salida.get(i).obtenerAdy() > dest) {
-                    salida.add(i,new NodoInterno(dest,peso));
-                    return;
-                }
+                salida.add(i,new NodoInterno(dest,peso));
             }
+
         }
 
         void eliminarAristasEntrada(int origen) throws Exception {
@@ -220,6 +233,7 @@ public class Grafo {
 
         double pesoAristasVertice(int dest) throws Exception {
             for(int i = 0; i < salida.size(); ++i) {
+                //print(salida.get(i).total()+" "+i);
                 if(salida.get(i).equals(dest)) {
                     return salida.get(i).total();
                 }
@@ -352,6 +366,76 @@ public class Grafo {
         vertices.modificar(idVieja,idNueva);
     }
 
+//######################################################################
+//######################################################################
+    private boolean indexValido(int index) {
+        if (aristas.size()-1 < index) return false;
+        return !(aristas.get(index) == null);
+    }
+
+/**##################################################################
+//#############################ARISTAS##############################
+//##################################################################*/
+    /**Falta poner agregar arista sin sentido */
+    public void agregarArista(String origen,String fin, double peso) throws Exception{
+        agregarArista(f(origen), f(fin), peso);
+    }
+
+    public void agregarArista(int origen,int fin, double peso) throws Exception {
+        if (!indexValido(origen)) throw new Exception("Index No valido");
+        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        //print(origen+" Agregar Salida "+fin);
+        aristas.get(origen).agregarSalida(fin,peso);
+        //print(fin+" Agregar Entrada "+origen);
+        aristas.get(fin).agregarEntrada(origen,peso);
+        /*AristasNodo ent = aristas.get(origen);
+        ent.agregarEntrada(fin, peso);
+        aristas.set(origen, ent);
+        AristasNodo sal = aristas.get(fin);
+        sal.agregarSalida(origen, peso);
+        aristas.set(fin, sal);*/
+    }
+
+    public void modificarArista(int origen, int fin,double oldPeso, double newPeso) throws Exception {
+        if (!indexValido(origen)) throw new Exception("Index No valido");
+        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        aristas.get(origen).modificarSalida(fin, oldPeso, newPeso);
+        aristas.get(fin).modificarEntrada(origen, oldPeso, newPeso);
+    }
+    //eliminara todas las aristas desde origen a fin y fin a a origen
+    public void eliminarAristas(String origen,String fin) throws Exception{
+        eliminarAristas(f(origen), f(fin));
+    }
+    public void eliminarAristas(int origen,int fin) throws Exception {
+        if (!indexValido(origen)) throw new Exception("Index No valido");
+        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        aristas.get(origen).eliminarAristasSalida(fin);
+        aristas.get(fin).eliminarAristasEntrada(origen);
+    }
+    //elimina una sola arista con peso especifico
+    public void eliminarArista(String origen, String fin, double peso) throws Exception{
+        eliminarArista(f(origen), f(fin), peso);
+    }
+    public void eliminarArista(int origen,int fin,double peso) throws Exception {
+        if (!indexValido(origen)) throw new Exception("Index No valido");
+        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        aristas.get(fin).eliminarAristaEntrada(origen, peso);
+        aristas.get(origen).eliminarAristaSalida(fin, peso);
+    }
+    public boolean existeArista(String A, String B) throws Exception {
+        return existeArista(f(A), f(B));
+    }
+    public boolean existeArista(int origen, int fin) throws Exception {
+        if (!indexValido(origen)) throw new Exception("Index No valido");
+        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        return aristas.get(origen).existeAristaSalida(fin) && aristas.get(fin).existeAristaEntrada(origen);
+    }
+    public boolean existeAristaPeso(int origen, int fin, double peso) throws Exception {
+        if (!indexValido(origen)) throw new Exception("Index No valido");
+        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        return aristas.get(origen).existeAristaSalida(fin,peso) && aristas.get(fin).existeAristaEntrada(origen,peso);
+    }
+
 //##############################################################
 //##############################################################
 //##############################################################
@@ -428,71 +512,12 @@ public class Grafo {
         if(vacios.isEmpty()) return aristas.size();
         else return vacios.peek();
     }
-    private boolean indexValido(int index) {
-        return aristas.size() < index;// || aristas.get(index).equals(null);
-    }
+
     private void print(String v) {
         System.out.println(v);
     }
 
-//##################################################################
-//#############################ARISTAS##############################
-//##################################################################
-/**Falta poner agregar arista sin sentido */
-    public void agregarArista(String origen,String fin, double peso) throws Exception{
-        agregarArista(f(origen), f(fin), peso);
-    }
 
-    public void agregarArista(int origen,int fin, double peso) throws Exception {
-        //if (!indexValido(origen)) throw new Exception("Index No valido");
-        //if (!indexValido(fin)) throw new Exception("Index No Valido");
-        AristasNodo ent = aristas.get(origen);
-        ent.agregarEntrada(fin, peso);
-        aristas.set(origen, ent);
-        AristasNodo sal = aristas.get(fin);
-        sal.agregarSalida(origen, peso);
-        aristas.set(fin, sal);
-    }
-
-    public void modificarArista(int origen, int fin,double oldPeso, double newPeso) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
-        aristas.get(origen).modificarSalida(fin, oldPeso, newPeso);
-        aristas.get(fin).modificarEntrada(origen, oldPeso, newPeso);
-    }
-    //eliminara todas las aristas desde origen a fin y fin a a origen
-    public void eliminarAristas(String origen,String fin) throws Exception{
-        eliminarAristas(f(origen), f(fin));
-    }
-    public void eliminarAristas(int origen,int fin) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
-        aristas.get(origen).eliminarAristasSalida(fin);
-        aristas.get(fin).eliminarAristasEntrada(origen);
-    }
-    //elimina una sola arista con peso especifico
-    public void eliminarArista(String origen, String fin, double peso) throws Exception{
-        eliminarArista(f(origen), f(fin), peso);
-    }
-    public void eliminarArista(int origen,int fin,double peso) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
-        aristas.get(fin).eliminarAristaEntrada(origen, peso);
-        aristas.get(origen).eliminarAristaSalida(fin, peso);
-    }
-    public boolean existeArista(String A, String B) throws Exception {
-        return existeArista(f(A), f(B));
-    }
-    public boolean existeArista(int origen, int fin) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
-        return aristas.get(origen).existeAristaSalida(fin) && aristas.get(fin).existeAristaEntrada(origen);
-    }
-    public boolean existeAristaPeso(int origen, int fin, double peso) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
-        return aristas.get(origen).existeAristaSalida(fin,peso) && aristas.get(fin).existeAristaEntrada(origen,peso);
-    }
 
 //########################################################################
 /**##########################CONSULTORAS################################*/
