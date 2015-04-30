@@ -15,7 +15,7 @@ public class Salida {
     public Salida()
     {
         mensajes = new ArrayList<String>();
-        comunidades = new HashSet<Integer>();
+        comunidades = new ArrayList<Set<Integer>>();
     }
 
 
