@@ -31,32 +31,32 @@ public class DriverGirvanNewman {
     private static Grafo crearGrafo() throws Exception {
         Grafo g = new Grafo();
         System.out.println(g.V());
-        g.añadirVertice("a");
+        g.agregarVertice("a");
 
         System.out.println("'a' added");
-        g.añadirVertice("b");
-        g.añadirVertice("c");
-        g.añadirVertice("d");
-        g.añadirVertice("e");
-        g.añadirVertice("f");
-        g.añadirVertice("g");
+        g.agregarVertice("b");
+        g.agregarVertice("c");
+        g.agregarVertice("d");
+        g.agregarVertice("e");
+        g.agregarVertice("f");
+        g.agregarVertice("g");
 
-        g.añadirArista("a", "b", 1);
-        g.añadirArista("b", "a", 1);
-        g.añadirArista("a", "c", 3);
-        g.añadirArista("c", "a", 3);
-        g.añadirArista("b","d",3);
-        g.añadirArista("d","b",3);
-        g.añadirArista("c","d",1);
-        g.añadirArista("d","c",1);
-        g.añadirArista("d","f",10);
-        g.añadirArista("f","d",10);
-        g.añadirArista("c","e",7);
-        g.añadirArista("e","c",7);
-        g.añadirArista("e","f",2);
-        g.añadirArista("f","e",2);
-        g.añadirArista("e","g",8);
-        g.añadirArista("g","e",8);
+        g.agregarArista("a", "b", 1);
+        g.agregarArista("b", "a", 1);
+        g.agregarArista("a", "c", 3);
+        g.agregarArista("c", "a", 3);
+        g.agregarArista("b","d",3);
+        g.agregarArista("d","b",3);
+        g.agregarArista("c","d",1);
+        g.agregarArista("d","c",1);
+        g.agregarArista("d","f",10);
+        g.agregarArista("f","d",10);
+        g.agregarArista("c","e",7);
+        g.agregarArista("e","c",7);
+        g.agregarArista("e","f",2);
+        g.agregarArista("f","e",2);
+        g.agregarArista("e","g",8);
+        g.agregarArista("g","e",8);
 
         return g;
     }
