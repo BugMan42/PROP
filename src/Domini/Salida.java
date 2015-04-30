@@ -1,6 +1,8 @@
 package Domini;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by jose on 15/04/15.
@@ -8,10 +10,12 @@ import java.util.ArrayList;
 public class Salida {
 
     private ArrayList<String> mensajes;
+    private Set<Integer> comunidades;
 
     public Salida()
     {
         mensajes = new ArrayList<String>();
+        comunidades = new HashSet<Integer>();
     }
 
 
@@ -30,5 +34,7 @@ public class Salida {
     {
         return mensajes;
     }
-
+    public Set<Integer> comunidad() {
+        return comunidades;
+    }
 }
