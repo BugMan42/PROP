@@ -21,11 +21,12 @@ public class DriverTST {
         print("2 boolean existe(String key)");
         print("3 borrar(String key)");
         print("4 modificar(String key, X x) ");
-        print("5 modificar(String OldKey, String NewKey");
+        print("5 modificar(String oldKey, String newKey)");
+        print("6 modificar(String oldKey, String newKey, X x)");
         print("7 String toString()");
         print("8 ArrayList<String> consultarClaves()");
         print("9 Boolean esVacio()");
-        print("10 vaciar");
+        print("10 vaciar()");
         print("11 int size()");
         print("12 Salir");
         print("Escribe la opcion");
@@ -34,61 +35,71 @@ public class DriverTST {
         return Input.nextLine();
     }
     public static void main(String[] args) throws Exception {
+        tst = new TST<Integer>();
         Scanner userInput = new Scanner(System.in);
         boolean seguir = true;
+        PresentaMenu();
         do {
-            PresentaMenu();
+            //PresentaMenu();
             try {
                 ProcesarLinea(LeerLinea(userInput));
             } catch (Exception a) {
                 print(a.getMessage());
             }
+            PresentaMenu();
         } while(userInput.hasNextLine());
     }
 
-    //TODO error si no argumentos o null
     private static void ProcesarLinea(String str) throws Exception {
         String aux[] = str.split("\\s");
         if (str.length() == 0) throw new IllegalArgumentException("Pocs arguments pre");
         switch (Integer.parseInt(aux[0])) {
+            case 0:
+                if (aux.length < 3) throw new IllegalArgumentException("Pocos argumentos");
+                tst.insertar(aux[1],Integer.parseInt(aux[2]));
+                break;
             case 1:
                 if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
-                if (aux.length == 8) {
-
-                }
-                else throw new IllegalArgumentException("Pocos argumentos");
+                print(""+tst.obtener(aux[1]));
                 break;
             case 2:
                 if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                print(""+tst.existe(aux[1]));
                 break;
             case 3:
                 if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                tst.borrar(aux[1]);
                 break;
             case 4:
-                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (aux.length < 3) throw new IllegalArgumentException("Pocos argumentos");
+                tst.modificar(aux[1],Integer.parseInt(aux[2]));
                 break;
             case 5:
-                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (aux.length < 3) throw new IllegalArgumentException("Pocos argumentos");
+                tst.modificar(aux[1], aux[2]);
                 break;
             case 6:
-                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
-                break;
+                if (aux.length < 4) throw new IllegalArgumentException("Pocos argumentos");
+                tst.modificar(aux[1], aux[2],Integer.parseInt(aux[3]));
             case 7:
-                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                print(tst.toString());
                 break;
             case 8:
-                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                print(tst.consultarClaves().toString());
                 break;
             case 9:
+                print(tst.esVacio()+"");
                 break;
             case 10:
+                tst.vaciar();
                 break;
             case 11:
+                print(tst.size()+"");
                 break;
             case 12:
                 System.exit(0);
             default:
-                //respuesta no valida Print()?
+                print("Fuera de rango");
                 break;
         }
     }

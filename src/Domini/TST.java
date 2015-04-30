@@ -1,5 +1,8 @@
 package Domini;
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import java.util.*;
+import java.util.ArrayList;
 
 
 public class TST<X extends Object>  {
@@ -31,7 +34,6 @@ public class TST<X extends Object>  {
         public void modificar(X x) {
             valor = x;
         }
-        //Puede faltar una modificadora ---> ya veremos
     }
 //#######################################################################################
 //#######################################################################################
@@ -59,15 +61,8 @@ public class TST<X extends Object>  {
 //###################################INSERTAR############################################
 //#######################################################################################
 
-    /*
-    public void insertar(X x) {
-        String k = x.toString();
-        root = (TSTNodoChar) insertar(root,k,x,0);
-    }
-    */
     public void insertar(String key, X x) throws Exception {
         root = (TSTNodoChar) insertar(root, key, x, 0);
-
     }
 
     private TSTNodo insertar(TSTNodo t, String key, X x, int l) throws Exception {
@@ -78,7 +73,10 @@ public class TST<X extends Object>  {
 
         if (t == null) {
             t = new TSTNodoChar(c);
-            if (c == fin) t.middle = new TSTNodoFinal(x);
+            if (c == fin) {
+                t.middle = new TSTNodoFinal(x);
+                ++N;
+            }
             else t.middle = insertar(t.middle,key,x,l+1);
         }
         else {
@@ -170,6 +168,7 @@ public class TST<X extends Object>  {
             else if (tChar.valor==fin) {
                 //FUNCION QUE ELIMINARA EL NODO Y ARREGLARA EL PANORAMA
                 t = eliminarNodo(t);
+                --N;
             }
             else {
                 print("No esta");
@@ -230,22 +229,23 @@ public class TST<X extends Object>  {
 //#######################################################################################
 
     //Modificación comp --> Modificamos el key pero mantenemos el objeto
-    public void modificar(String OldKey, String NewKey) throws Exception{
-        root = (TSTNodoChar) modificar(root,OldKey,null,NewKey,0);
+    public void modificar(String oldKey, String newKey) throws Exception{
+        root = (TSTNodoChar) modificar(root,oldKey,null,newKey,0);
     }
     //Modificación comp ---> Modificamos el key y canviamos el objeto
-    public void modificar(String OldKey, String NewKey, X x) throws Exception{
-        root = (TSTNodoChar) modificar(root,NewKey,x,OldKey,0);
+    public void modificar(String oldKey, String newKey, X x) throws Exception{
+        root = (TSTNodoChar) modificar(root,newKey,x,oldKey,0);
     }
 
     //Modificación Compuesta
     /** FALTA HACER EFICIENTE*/
-    private TSTNodo modificar(TSTNodo t, String OldKey, X x, String NewKey,int d) throws Exception{
+    private TSTNodo modificar(TSTNodo t, String oldKey, X x, String newKey,int d) throws Exception{
         if (x == null) {
-            x = obtener(OldKey);
+            x = obtener(oldKey);
         }
-        borrar(OldKey);
-        insertar(NewKey,x);
+        if(existe(newKey)) throw new Exception("ya existe la clave");
+        borrar(oldKey);
+        insertar(newKey,x);
         return t;
     }
 

@@ -337,6 +337,7 @@ public class Grafo {
         return vertices.existe(v);
     }
     public void modificarVertice(String idVieja, String idNueva) throws Exception {
+        if (vertices.existe(idNueva)) throw new Exception("Clave repetida");
         vertices.modificar(idVieja,idNueva);
     }
 
@@ -347,24 +348,29 @@ public class Grafo {
         return obtenerListaPesos(f(A), f(B));
     }
     public List<Double> obtenerListaPesos(int A, int B) throws Exception {
+        if (!indexValido(A)) throw new Exception("Index no valido");
+        if (!indexValido(B)) throw new Exception("Index no valido");
         return aristas.get(A).obtenerPesosSalida(B);
     }
     public double totalPesoSalida(String A) throws Exception{
         return totalPesoSalida(f(A));
     }
     public double totalPesoSalida(int A) throws Exception {
+        if (!indexValido(A)) throw new Exception("Index no valido");
         return aristas.get(A).totalPesoSalida();
     }
     public double totalPesoEntrada(String A) throws Exception {
         return totalPesoEntrada(f(A));
     }
     public double totalPesoEntrada(int A) throws Exception {
+        if (!indexValido(A)) throw new Exception("Index no valido");
         return aristas.get(A).totalPesoEntrada();
     }
     public List<Integer> nodosSalida(String A) throws Exception{
         return nodosSalida(f(A));
     }
     public List<Integer> nodosSalida(int A) throws Exception {
+        if (!indexValido(A)) throw new Exception("Index no valido");
         List<Integer> aux = aristas.get(A).obtenerNodosSalida();
         return aux;
     }
@@ -372,6 +378,7 @@ public class Grafo {
         return nodosEntrada(f(A));
     }
     public List<Integer> nodosEntrada(int A) throws Exception{
+        if (!indexValido(A)) throw new Exception("Index no valido");
         List<Integer> aux = aristas.get(A).obtenerNodosEntrada();
         return aux;
     }
@@ -425,8 +432,9 @@ public class Grafo {
         añadirArista(f(origen), f(fin), peso);
     }
 
-    public void añadirArista(int origen,int fin, double peso) {
-        //int aux2 = f((V)e.fin());
+    public void añadirArista(int origen,int fin, double peso) throws Exception {
+        if (!indexValido(origen)) throw new Exception("Index No valido");
+        if (!indexValido(fin)) throw new Exception("Index No Valido");
         AristasNodo ent = aristas.get(origen);
         ent.agregarEntrada(fin, peso);
         aristas.set(origen, ent);
@@ -435,31 +443,32 @@ public class Grafo {
         aristas.set(fin, sal);
     }
 
-    public void modificarArista(int A, int B,double oldPeso, double newPeso) throws Exception {
-        aristas.get(A).modificarSalida(B, oldPeso, newPeso);
-        aristas.get(B).modificarEntrada(A, oldPeso, newPeso);
+    public void modificarArista(int origen, int fin,double oldPeso, double newPeso) throws Exception {
+        if (!indexValido(origen)) throw new Exception("Index No valido");
+        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        aristas.get(origen).modificarSalida(fin, oldPeso, newPeso);
+        aristas.get(fin).modificarEntrada(origen, oldPeso, newPeso);
     }
     //eliminara todas las aristas desde origen a fin y fin a a origen
     public void eliminarAristas(String origen,String fin) throws Exception{
         eliminarAristas(f(origen), f(fin));
     }
-    public void eliminarAristas(int A,int B) throws Exception {
-        aristas.get(A).eliminarAristasSalida(B);
-        aristas.get(B).eliminarAristasEntrada(A);
+    public void eliminarAristas(int origen,int fin) throws Exception {
+        if (!indexValido(origen)) throw new Exception("Index No valido");
+        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        aristas.get(origen).eliminarAristasSalida(fin);
+        aristas.get(fin).eliminarAristasEntrada(origen);
     }
     //elimina una sola arista con peso especifico
     public void eliminarArista(String origen, String fin, double peso) throws Exception{
         eliminarArista(f(origen), f(fin), peso);
     }
     public void eliminarArista(int origen,int fin,double peso) throws Exception {
+        if (!indexValido(origen)) throw new Exception("Index No valido");
+        if (!indexValido(fin)) throw new Exception("Index No Valido");
         aristas.get(fin).eliminarAristaEntrada(origen, peso);
         aristas.get(origen).eliminarAristaSalida(fin, peso);
     }
-
-//########################################################################
-/**##########################CONSULTORAS################################*/
-//########################################################################
-
     public boolean existeArista(String A, String B) throws Exception {
         return existeArista(f(A), f(B));
     }
@@ -473,4 +482,10 @@ public class Grafo {
         if (!indexValido(fin)) throw new Exception("Index No Valido");
         return aristas.get(origen).existeAristaSalida(fin,peso) && aristas.get(fin).existeAristaEntrada(origen,peso);
     }
+
+//########################################################################
+/**##########################CONSULTORAS################################*/
+//########################################################################
+
+
 }
