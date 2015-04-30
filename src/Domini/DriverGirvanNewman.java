@@ -18,6 +18,7 @@ public class DriverGirvanNewman {
         gn.ejecutar_iteración();
         gn.ejecutar_iteración();
         gn.ejecutar_iteración();
+        gn.ejecutar_iteración();
         ArrayList<String> hist = out.mostrarHistorial();
         for(int i = 0; i < hist.size(); ++i)
         {
@@ -29,8 +30,10 @@ public class DriverGirvanNewman {
 
     private static Grafo crearGrafo() throws Exception {
         Grafo g = new Grafo();
-
+        System.out.println(g.V());
         g.añadirVertice("a");
+
+        System.out.println("'a' added");
         g.añadirVertice("b");
         g.añadirVertice("c");
         g.añadirVertice("d");
