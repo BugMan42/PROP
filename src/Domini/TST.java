@@ -1,5 +1,4 @@
 package Domini;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import java.util.*;
 import java.util.ArrayList;
@@ -58,7 +57,7 @@ public class TST<X extends Object>  {
         return N;
     }
 //#######################################################################################
-//###################################INSERTAR############################################
+/**###################################INSERTAR##########################################*/
 //#######################################################################################
 
     public void insertar(String key, X x) throws Exception {
@@ -89,12 +88,12 @@ public class TST<X extends Object>  {
         return t;
     }
 //#######################################################################################
-//###################################OBTENER#############################################
+/**###################################OBTENER###########################################*/
 //#######################################################################################
 
 
     public X obtener(String key) throws Exception{
-        return obtener(root,key,0);
+        return obtener(root, key, 0);
     }
 
     private X obtener(TSTNodo t,String key,int d) throws Exception{
@@ -105,10 +104,10 @@ public class TST<X extends Object>  {
         else c = fin;
 
         TSTNodoChar tChar = (TSTNodoChar) t;
-        if (tChar.valor > c) return obtener(t.left,key,d);
-        else if (tChar.valor < c) return obtener(t.right,key,d);
+        if (tChar.valor > c) return obtener(t.left, key, d);
+        else if (tChar.valor < c) return obtener(t.right, key, d);
         else {
-            if (key.length() > d) return obtener(t.middle,key,d+1);
+            if (key.length() > d) return obtener(t.middle, key, d + 1);
             else if (tChar.valor==c) {
                 TSTNodoFinal f = (TSTNodoFinal) t.middle;
                 return f.valor;
@@ -118,7 +117,7 @@ public class TST<X extends Object>  {
     }
 
 //#######################################################################################
-//###############################CONTIENE/EXISTE#########################################
+/**###############################CONTIENE/EXISTE######################################*/
 //#######################################################################################
 
     public boolean existe(String key) {
@@ -143,39 +142,61 @@ public class TST<X extends Object>  {
 
 
 //#######################################################################################
-//#######################################################################################
+/**##################################BORRAR##############################################*/
 //#######################################################################################
 
-    public void borrar(String key) {
+    public void borrar(String key) throws Exception {
         root = (TSTNodoChar) borrar(root, null, key, 0);
 
     }
-    private TSTNodo borrar(TSTNodo t,TSTNodo padre,String key,int d) {
-        if (t == null) {
-            print("no esta");
-            return null;
-        }
+    private TSTNodo borrar(TSTNodo t,TSTNodo padre,String key,int d) throws Exception {
+        if (t == null) throw new Exception("no existe la clave");
 
         char c;
         if (d < key.length()) c = key.charAt(d);
         else c = fin;
-        //print(String.valueOf(c));
         TSTNodoChar tChar = (TSTNodoChar) t;
-        if (c < tChar.valor) t.left =  borrar(t.left, t, key, d);
-        else if (c > tChar.valor ) t.right = borrar(t.right, t, key, d);
+        print(String.valueOf(tChar.valor));
+        if (c < tChar.valor) {
+            t.left =  borrar(t.left, t, key, d);
+            if (t.left == null) { }
+        }
+        else if (c > tChar.valor ) {
+            t.right = borrar(t.right, t, key, d);
+        }
         else {
-            if (d < key.length()) t.middle = borrar(t.middle, t, key, d + 1);
+            if (d < key.length()) {
+                t.middle = borrar(t.middle, t, key, d + 1);
+                //if (t.middle == null) print("null");
+            }
             else if (tChar.valor==fin) {
                 //FUNCION QUE ELIMINARA EL NODO Y ARREGLARA EL PANORAMA
                 t = eliminarNodo(t);
                 --N;
             }
             else {
-                print("No esta");
-                //Exception?¿?
+                throw new Exception("no existe la clave");
             }
         }
+        if (t.left == null && t.right == null && t.middle == null) {
+            print("null final");
+            t = null;
+        }
         return t;
+    }
+    private TSTNodo eliminarNodo(TSTNodo r, int a) {
+        if(r != null) {
+            if(r.right == null) {
+                r = r.left;
+            }
+            else if (r.left == null) {
+                r = r.right;
+            }
+            else {
+                TSTNodo aux = r.left;
+            }
+        }
+        return r;
     }
 
     private TSTNodo eliminarNodo(TSTNodo r) {
@@ -184,28 +205,33 @@ public class TST<X extends Object>  {
                 r = r.left;
             }
             else {
+                    TSTNodo aux = r;
+                    r = r.right;
+                    TSTNodo aux2 = r.right;
+                    r.right = aux;
+                    aux.right = aux2;
+                    aux2 = r.left;
+                    r.left = aux.left;
+                    aux.left = aux2;
+                    r.right = eliminarNodo(r.right);
             }
         }
         return r;
     }
 //#######################################################################################
-/**#################################FALTA TESTEAR#######################################*/
+/**#################################MODIFICAR############################################*/
 //#######################################################################################
     //Modificación Simple
-    public void modificar(String key, X x) {
+    public void modificar(String key, X x) throws Exception {
         root = (TSTNodoChar) modificar(root, x, key, 0);
     }
     //Modificación Simple
-    private TSTNodo modificar(TSTNodo t, X x,String key, int d) {
-        if (t == null) {
-            print("no esta");
-            return null;
-        }
+    private TSTNodo modificar(TSTNodo t, X x,String key, int d) throws Exception {
+        if (t == null) throw new Exception("no existe la clave");
 
         char c;
         if (d < key.length()) c = key.charAt(d);
         else c = fin;
-        //print(String.valueOf(c));
 
         TSTNodoChar tChar = (TSTNodoChar) t;
         if (c < tChar.valor) t.left =  modificar(t.left, x, key, d);
@@ -218,8 +244,8 @@ public class TST<X extends Object>  {
                 t.middle = f;
             }
             else {
-                print("No esta");
-                //NO esta//return null;
+                throw new Exception("no existe la clave");
+
             }
         }
         return t;
@@ -243,22 +269,19 @@ public class TST<X extends Object>  {
         if (x == null) {
             x = obtener(oldKey);
         }
-        if(existe(newKey)) throw new Exception("ya existe la clave");
+        if (existe(newKey)) throw new Exception("ya existe la clave");
         borrar(oldKey);
         insertar(newKey,x);
         return t;
     }
 
-//#######################################################################################
-//#######################################################################################
-//#######################################################################################
     private void print(String str) {
         System.out.println(str);
     }
-//#######################################################################################
-//##############################IMPRIMIR CLAVES##########################################
-//#######################################################################################
 
+/**##################################################################
+#############################CONSULTAR################################
+#####################################################################*/
     public String toString() {
         ArrayList<String> v = new ArrayList<String>();
         imprimir(root, "", v);
@@ -276,23 +299,22 @@ public class TST<X extends Object>  {
     }
     private void imprimir(TSTNodo r, String word, ArrayList<String> v) {
         if (r != null) {
-            //imprimimos hijo izquierdo
             imprimir(r.left, word,v);
-            //si hemos llegado a Nodo con marca añadimos palabra
             TSTNodoChar rChar = (TSTNodoChar)r;
-            //Si fin añadimos palabra si no imprimimos medio
             if (rChar.valor == fin) v.add(word);
             else imprimir(r.middle, word+rChar.valor,v);
-            //imprimimos hijo derecho
-            imprimir(r.right, word,v);
+            imprimir(r.right, word, v);
         }
     }
+    /** COMO se hace?????????*/
     public List<X> consultarObjetos() {
-        ArrayList<X> v = new ArrayList<X>();
+        List<X> v = new ArrayList<X>();
         imprimir2(root, "", v);
-        return v;
+        List<X> aux = Collections.unmodifiableList(v);
+        return aux;
     }
-    private void imprimir2(TSTNodo t, String word, ArrayList<X> v) {
+
+    private void imprimir2(TSTNodo t, String word, List<X> v) {
         if (t != null) {
             //imprimimos hijo izquierdo
             imprimir2(t.left, word, v);

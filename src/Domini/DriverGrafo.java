@@ -7,20 +7,27 @@ public class DriverGrafo {
     private static void print(String str) {
         System.out.println(str);
     }
-    public static void main(String[] args) {
+    public static void main(String[] args)throws Exception {
+
+        Grafo a = new Grafo();
+        a.agregarVertice("abc");
+        a.agregarVertice("abd");
+        print(a.consultarVertices().toString());
+        print(a.consultarVerticesID().toString());
+        //a.agregarArista(0,1,2.0);
 
        /* Congresista c1 = new Congresista("12345678A","Paco","Sobaco",8,"Springfield","Massachusets","Republicano");
         Congresista c2 = new Congresista("12345678B", "Barack","Obama",53,"Springfield","Massachusets", "Republicano");
         Nodo n1 = new Nodo(c1);
         Nodo n2 = new Nodo(c2);*/
-        Set<Double> a = new TreeSet<Double>();
+        /*Set<Double> a = new TreeSet<Double>();
         a.add(2.0);
         print(a.toString());
         a.add(1.0);
         a.add(1.0);
         print(a.toString());
         a.add(0.0);
-        print(a.toString());
+        print(a.toString());*/
 
 
         //Arista a = new Arista(n1, n2, 3);*/

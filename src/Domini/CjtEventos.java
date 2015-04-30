@@ -50,7 +50,7 @@ public class CjtEventos {
      * Pre: nombre y fecha no pueden ser vacios
      * Post: El evento e ha sido a�adido al conjunto de eventos
      */
-    public void EliminarEvento(String nombre, String fecha) throws NoValido{
+    public void EliminarEvento(String nombre, String fecha) throws Exception{
         if (Valido(nombre, fecha)) {
             cjt.borrar(nombre+fecha);
         }

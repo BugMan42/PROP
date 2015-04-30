@@ -22,7 +22,7 @@ public class Grafo {
         public int obtenerAdy() {
             return ady;
         }
-        public void añadirPeso(double peso) {
+        public void agregarPeso(double peso) {
             pesos.add(peso);
         }
         public void eliminarArista(double peso) {
@@ -86,7 +86,7 @@ public class Grafo {
         void agregarEntrada(int origen,double peso) {
             for(int i = 0; i < entrada.size(); ++i) {
                 if(entrada.get(i).equals(origen)) {
-                    entrada.get(i).añadirPeso(peso);
+                    entrada.get(i).agregarPeso(peso);
                     return;
                 }
                 else if (entrada.get(i).obtenerAdy() > origen) {
@@ -98,7 +98,7 @@ public class Grafo {
         void agregarSalida(int dest,double peso) {
             for(int i = 0; i < salida.size(); ++i) {
                 if(salida.get(i).equals(dest)) {
-                    salida.get(i).añadirPeso(peso);
+                    salida.get(i).agregarPeso(peso);
                     return;
                 }
                 else if (salida.get(i).obtenerAdy() > dest) {
@@ -304,15 +304,17 @@ public class Grafo {
     public Integer f(String clave) throws Exception {
         return vertices.obtener(clave);
     }
+
 /**##################################################################
 //#############################VERTICES##############################
 //##################################################################*/
-    /** añadir vertice*/
-    public void añadirVertice(String v) throws Exception{
+
+    /** agregar vertice*/
+    public void agregarVertice(String v) throws Exception{
         int aux = nextIndice();
         vertices.insertar(v, aux); // Si esta petara
         aristas.add(aux, new AristasNodo(v));
-        if (aux == vacios.peek()) vacios.poll();
+        if (!vacios.isEmpty() && aux == vacios.peek()) vacios.poll();
     }
     //TODO ELIMINAR vertice complejo
     public void eliminarVertice(String v) throws Exception{
@@ -327,8 +329,17 @@ public class Grafo {
     public  ArrayList<Integer> consultarVertices() {
         ArrayList<Integer> Array = new ArrayList<Integer>();
         for(int i = 0; i < aristas.size(); ++i) {
-            if (!aristas.get(i).equals(null)) {
+            if (! (aristas.get(i) == null)) {
                 Array.add(i);
+            }
+        }
+        return Array;
+    }
+    public ArrayList<String> consultarVerticesID() {
+        ArrayList<String> Array = new ArrayList<String>();
+        for(int i = 0; i < aristas.size(); ++i) {
+            if (! (aristas.get(i) == null)) {
+                Array.add(aristas.get(i).clave);
             }
         }
         return Array;
@@ -418,7 +429,7 @@ public class Grafo {
         else return vacios.peek();
     }
     private boolean indexValido(int index) {
-        return aristas.get(index).equals(null);
+        return aristas.size() < index;// || aristas.get(index).equals(null);
     }
     private void print(String v) {
         System.out.println(v);
@@ -427,14 +438,14 @@ public class Grafo {
 //##################################################################
 //#############################ARISTAS##############################
 //##################################################################
-/**Falta poner añadir arista sin sentido */
-    public void añadirArista(String origen,String fin, double peso) throws Exception{
-        añadirArista(f(origen), f(fin), peso);
+/**Falta poner agregar arista sin sentido */
+    public void agregarArista(String origen,String fin, double peso) throws Exception{
+        agregarArista(f(origen), f(fin), peso);
     }
 
-    public void añadirArista(int origen,int fin, double peso) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
+    public void agregarArista(int origen,int fin, double peso) throws Exception {
+        //if (!indexValido(origen)) throw new Exception("Index No valido");
+        //if (!indexValido(fin)) throw new Exception("Index No Valido");
         AristasNodo ent = aristas.get(origen);
         ent.agregarEntrada(fin, peso);
         aristas.set(origen, ent);

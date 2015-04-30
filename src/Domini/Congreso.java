@@ -18,7 +18,7 @@ public class Congreso {
     public void addCongresista(Congresista C) throws Exception {
         tst.insertar(C.obtDni().toString(),C);
     }
-    public void eliminarCongresista(Congresista C) {
+    public void eliminarCongresista(Congresista C) throws Exception{
         tst.borrar(C.obtDni().toString());
     }
     public ArrayList<String> obtener_lista() {
@@ -27,7 +27,7 @@ public class Congreso {
     public boolean contieneCongresista(Dni dni) {
         return tst.existe(dni.toString());
     }
-    public void EliminarCongresista(Dni dni) {
+    public void EliminarCongresista(Dni dni) throws Exception {
         tst.borrar(dni.toString());
     }
     public void EliminarCongreso() {

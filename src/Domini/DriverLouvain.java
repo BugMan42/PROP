@@ -22,19 +22,19 @@ public class DriverLouvain {
         DriverLouvain dl = new DriverLouvain();
 
         Grafo g = new Grafo();
-        g.añadirVertice("a");
-        g.añadirVertice("b");
-        g.añadirVertice("c");
+        g.agregarVertice("a");
+        g.agregarVertice("b");
+        g.agregarVertice("c");
         /*
         int a = g.consultarVertice("a");
         int b = g.consultarVertice("b");
         int c = g.consultarVertice("c");
         */
-        g.añadirArista("a","b",1);
-        g.añadirArista("b","c",1);
-        g.añadirArista("c","a",1);
+        g.agregarArista("a","b",1);
+        g.agregarArista("b","c",1);
+        g.agregarArista("c","a",1);
 
-        //g.añadirArista("a","a",1);
+        //g.agregarArista("a","a",1);
 
         ArrayList<Integer> v = g.consultarVertices();
         for (int i : v) dl.print(String.valueOf(i));
