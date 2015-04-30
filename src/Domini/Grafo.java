@@ -170,7 +170,7 @@ public class Grafo {
         void modificarSalida(int dest,double oldPeso, double newPeso) throws Exception {
             for(int i = 0; i < salida.size(); ++i) {
                 if(salida.get(i).equals(dest)) {
-                    salida.get(i);
+                    salida.get(i).modificarPeso(oldPeso,newPeso);
                     return;
                 }
             }
@@ -384,16 +384,8 @@ public class Grafo {
     public void agregarArista(int origen,int fin, double peso) throws Exception {
         if (!indexValido(origen)) throw new Exception("Index No valido");
         if (!indexValido(fin)) throw new Exception("Index No Valido");
-        //print(origen+" Agregar Salida "+fin);
         aristas.get(origen).agregarSalida(fin,peso);
-        //print(fin+" Agregar Entrada "+origen);
         aristas.get(fin).agregarEntrada(origen,peso);
-        /*AristasNodo ent = aristas.get(origen);
-        ent.agregarEntrada(fin, peso);
-        aristas.set(origen, ent);
-        AristasNodo sal = aristas.get(fin);
-        sal.agregarSalida(origen, peso);
-        aristas.set(fin, sal);*/
     }
 
     public void modificarArista(int origen, int fin,double oldPeso, double newPeso) throws Exception {
