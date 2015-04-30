@@ -25,10 +25,11 @@ public class DriverTST {
         print("6 modificar(String oldKey, String newKey, X x)");
         print("7 String toString()");
         print("8 ArrayList<String> consultarClaves()");
-        print("9 Boolean esVacio()");
-        print("10 vaciar()");
-        print("11 int size()");
-        print("12 Salir");
+        print("9 ArrayList<X> consultarObjetos()");
+        print("10 Boolean esVacio()");
+        print("11 vaciar()");
+        print("12 int size()");
+        print("13 Salir");
         print("Escribe la opcion");
     }
     private static String LeerLinea(Scanner Input) {
@@ -88,15 +89,18 @@ public class DriverTST {
                 print(tst.consultarClaves().toString());
                 break;
             case 9:
-                print(tst.esVacio()+"");
+                print(tst.consultarObjetos().toString());
                 break;
             case 10:
-                tst.vaciar();
+                print(tst.esVacio()+"");
                 break;
             case 11:
-                print(tst.size()+"");
+                tst.vaciar();
                 break;
             case 12:
+                print(tst.size()+"");
+                break;
+            case 13:
                 System.exit(0);
             default:
                 print("Fuera de rango");

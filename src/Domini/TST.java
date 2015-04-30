@@ -156,10 +156,10 @@ public class TST<X extends Object>  {
         if (d < key.length()) c = key.charAt(d);
         else c = fin;
         TSTNodoChar tChar = (TSTNodoChar) t;
-        print(String.valueOf(tChar.valor));
+        //print(String.valueOf(tChar.valor));
         if (c < tChar.valor) {
             t.left =  borrar(t.left, t, key, d);
-            if (t.left == null) { }
+            //if (t.left == null) { }
         }
         else if (c > tChar.valor ) {
             t.right = borrar(t.right, t, key, d);
@@ -171,15 +171,15 @@ public class TST<X extends Object>  {
             }
             else if (tChar.valor==fin) {
                 //FUNCION QUE ELIMINARA EL NODO Y ARREGLARA EL PANORAMA
-                t = eliminarNodo(t);
+                t = t.right;//  eliminarNodo(t);
                 --N;
             }
             else {
                 throw new Exception("no existe la clave");
             }
         }
-        if (t.left == null && t.right == null && t.middle == null) {
-            print("null final");
+        if (t != null && t.left == null && t.right == null && t.middle == null) {
+            //print("null final");
             t = null;
         }
         return t;
@@ -306,7 +306,7 @@ public class TST<X extends Object>  {
             imprimir(r.right, word, v);
         }
     }
-    /** COMO se hace?????????*/
+
     public List<X> consultarObjetos() {
         List<X> v = new ArrayList<X>();
         imprimir2(root, "", v);
@@ -316,17 +316,13 @@ public class TST<X extends Object>  {
 
     private void imprimir2(TSTNodo t, String word, List<X> v) {
         if (t != null) {
-            //imprimimos hijo izquierdo
             imprimir2(t.left, word, v);
-            //si hemos llegado a Nodo con marca añadimos palabra
             TSTNodoChar rChar = (TSTNodoChar)t;
-            //Si fin añadimos palabra si no imprimimos medio
             if (rChar.valor == fin) {
                 TSTNodoFinal f = (TSTNodoFinal) t.middle;
-                v.add(f.valor);/** .clone?*/
+                v.add(f.valor);
             }
             else imprimir2(t.middle, word+rChar.valor, v);
-            //imprimimos hijo derecho
             imprimir2(t.right, word,v);
         }
     }

@@ -7,6 +7,7 @@ public class DriverGrafo {
     private static void print(String str) {
         System.out.println(str);
     }
+
     public static void main(String[] args)throws Exception {
 
         Grafo a = new Grafo();
@@ -17,14 +18,20 @@ public class DriverGrafo {
         //print(a.consultarVertices().toString());
         //print(a.consultarVerticesID().toString());
         a.agregarArista(0, 1, 2.0);
+        a.agregarArista(1, 0, 2.0);
         a.agregarArista(0, 1, 3.0);
-        a.agregarArista(0, 1, 4.0);
-        a.agregarArista(0, 3,1.0);
-        a.agregarArista(0, 2, 1.0);
+        a.agregarArista(1, 0, 3.0);
+        //a.agregarArista(0, 1, 4.0);
+        // a.agregarArista(0, 3,1.0);
+        //a.agregarArista(0, 2, 1.0);
+        print(a.nodosEntrada(1)+"");
         print(a.nodosSalida(0) + "");
+
         print(a.pesoAristasVertices(0, 1) + "");
-        a.modificarArista(0, 1, 2.0,3.0);
-        print(a.pesoAristasVertices(0,1)+"");
+        print(a.pesoAristasVertices(1, 0) + "");
+        //a.modificarArista(0, 1, 2.0,3.0);
+        //print(a.pesoAristasVertices(0,1)+"");
+        //print(a.pesoAristasVertices(1,0)+"");
         //a.agregarVertice("acd");
 
         /*Set<Double> a = new TreeSet<Double>();
