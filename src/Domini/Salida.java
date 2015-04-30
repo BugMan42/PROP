@@ -10,7 +10,7 @@ import java.util.Set;
 public class Salida {
 
     private ArrayList<String> mensajes;
-    private Set<Integer> comunidades;
+    private ArrayList<Set<Integer>> comunidades;
 
     public Salida()
     {
@@ -34,7 +34,7 @@ public class Salida {
     {
         return mensajes;
     }
-    public Set<Integer> comunidad() {
+    public ArrayList<Set<Integer>> comunidad() {
         return comunidades;
     }
 }
