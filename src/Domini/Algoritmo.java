@@ -10,20 +10,20 @@ public abstract class Algoritmo {
     protected Entrada in;
     protected Salida out;
 
-    public Algoritmo() {}
+    public Algoritmo() throws Exception {}
 
-    public Algoritmo(Entrada i, Salida o) {
+    public Algoritmo(Entrada i, Salida o) throws Exception {
         in = i;
         out = o;
     }
 
-    public Grafo ejecutar_algoritmo() {
+    public Grafo ejecutar_algoritmo() throws Exception {
 
          //PD: No
         return in.obtGrafo();
     };
 
-    public Grafo ejecutar_iteración(Grafo g) {
+    public Grafo ejecutar_iteración(Grafo g) throws Exception {
         return g; //PD: No.
     };
 

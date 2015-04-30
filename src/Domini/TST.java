@@ -2,7 +2,7 @@ package Domini;
 import java.util.*;
 
 
-public class TST<X> {
+public class TST<X extends Object>  {
     //Nodos
     class TSTNodo {
         TSTNodo left, middle, right;
@@ -290,8 +290,7 @@ public class TST<X> {
     public List<X> consultarObjetos() {
         ArrayList<X> v = new ArrayList<X>();
         imprimir2(root, "", v);
-        List<X> aux = Collections.unmodifiableList(v);
-        return aux;
+        return v;
     }
     private void imprimir2(TSTNodo t, String word, ArrayList<X> v) {
         if (t != null) {
@@ -302,7 +301,7 @@ public class TST<X> {
             //Si fin añadimos palabra si no imprimimos medio
             if (rChar.valor == fin) {
                 TSTNodoFinal f = (TSTNodoFinal) t.middle;
-                v.add(f.valor);
+                v.add(f.valor);/** .clone?*/
             }
             else imprimir2(t.middle, word+rChar.valor, v);
             //imprimimos hijo derecho

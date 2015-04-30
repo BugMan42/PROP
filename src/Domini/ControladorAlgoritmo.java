@@ -26,7 +26,7 @@ public class ControladorAlgoritmo {
     *       Suponemos que los controladores se encargan de enviar la información correcta
     * Post: alg es el tipo de algoritmo
     */
-    public void seleccionAlgoritmo(String s)
+    public void seleccionAlgoritmo(String s) throws Exception
     {
         if (s.equals("g")) alg = new Girvan_Newman(in, out);
         //else if (s.equals("l")) alg = new Louvain(in, out); #falta descomentar en Louvain
@@ -34,7 +34,7 @@ public class ControladorAlgoritmo {
     }
 
 
-    public Grafo ejecutar()
+    public Grafo ejecutar() throws Exception
     {
         return alg.ejecutar_algoritmo();
     }
@@ -44,7 +44,7 @@ public class ControladorAlgoritmo {
     * Pre:  alg tiene que tener una entrada inicializada y un tipo seleccionado
     * Post: Devuelve un grafo resultado de una iteración del algoritmo del tipo seleccionado
      */
-    public Grafo ejecutar_iteracion()
+    public Grafo ejecutar_iteracion()throws Exception
     {
         return alg.ejecutar_iteración(in.obtGrafo());
     }

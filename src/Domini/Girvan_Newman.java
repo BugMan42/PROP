@@ -3,7 +3,7 @@ package Domini;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * Created by falc on 2/04/15.
@@ -53,7 +53,7 @@ public class Girvan_Newman extends Algoritmo{
 
     ArrayList<Node> node;
 
-    public Girvan_Newman(Entrada i, Salida o)
+    public Girvan_Newman(Entrada i, Salida o) throws Exception
     {
         super(i, o);
         data_graph = in.obtGrafo();
@@ -61,20 +61,20 @@ public class Girvan_Newman extends Algoritmo{
     }
 
     @Override
-    public Grafo ejecutar_algoritmo() {
+    public Grafo ejecutar_algoritmo() throws Exception {
 
         int limit = (int) in.obtParam1();
         while(alg_cc < limit) alg_graph = ejecutar_iteración(alg_graph);
         return alg_graph;
     }
 
-    public void ejecutar_iteración()
+    public void ejecutar_iteración() throws Exception
     {
         alg_graph = ejecutar_iteración(alg_graph);
     }
 
     @Override
-    public Grafo ejecutar_iteración(Grafo g) {
+    public Grafo ejecutar_iteración(Grafo g) throws Exception {
         int N = g.V(); //Número de vértices del grafo
         int cc = 0; //Número componentes conexos
         int cc2 = 0;
@@ -109,7 +109,7 @@ public class Girvan_Newman extends Algoritmo{
 
             Q.add(new Arista<Integer>(i, 0));
 
-            System.out.println("node source: " + data_graph.consultarVertice(i));
+            System.out.println("node source: " + data_graph.fPrima(i));
             Node uno = node.get(i);
             uno.distance = 0;
             uno.weight = 1;
@@ -125,7 +125,7 @@ public class Girvan_Newman extends Algoritmo{
             {
                 Arista<Integer> a = Q.poll();
                 int v = a.fin();
-                System.out.println("    node: " + data_graph.consultarVertice(v));
+                System.out.println("    node: " + data_graph.fPrima(v));
 
                 Node ref_v = node.get(v);
                 if (!ref_v.visited) {
@@ -133,13 +133,13 @@ public class Girvan_Newman extends Algoritmo{
                     ref_v.component = cc;
                     route.add(v);
                     int leaf_index = 0;
-                    ArrayList<Integer> al = g.nodosSucesores(v);
+                    List<Integer> al = g.nodosSalida(v);
                     System.out.print("      adj:");
                     for (int aux : al) { //Para todos los nodos adyacentes a v
                         Node ref_aux = node.get(aux);
-                        double dist = data_graph.pesoAristaVertices(v, aux); //dist es el peso de v -> aux
+                        double dist = data_graph.pesoAristasVertices(v, aux); //dist es el peso de v -> aux
                         if (!ref_aux.visited) {
-                            System.out.print(" "+data_graph.consultarVertice(aux));
+                            System.out.print(" "+data_graph.fPrima(aux));
                             if (ref_aux.distance == 0) {
                                 ref_aux.distance = ref_v.distance + dist;
                                 ref_aux.weight = ref_v.weight;
@@ -174,14 +174,14 @@ public class Girvan_Newman extends Algoritmo{
             {
                 Node golf = node.get(p);
                 if (golf.parent.size() > 0) {
-                    System.out.println(data_graph.consultarVertice(p) + ": " + golf.parent);
+                    System.out.println(data_graph.fPrima(p) + ": " + golf.parent);
                     for (int inode : golf.parent) {
 
                         Node up = node.get(inode);
                         double multiplier = up.weight/golf.weight;
-                        double myWeight = (1 + golf.down_total) * multiplier / data_graph.pesoAristaVertices(inode, p);
-                        double rel = g.pesoAristaVertices(inode, p) + myWeight;
-                        g.modPesoAristaVertices(inode, p, rel);
+                        double myWeight = (1 + golf.down_total) * multiplier / data_graph.pesoAristasVertices(inode, p);
+                        double rel = g.pesoAristasVertices(inode, p) + myWeight;
+                        //g.modPesoAristaVertices(inode, p, rel);
                         up.down_total += myWeight;
 
                         if (victim.weight < myWeight) {
@@ -198,7 +198,7 @@ public class Girvan_Newman extends Algoritmo{
 
         }
 
-        out.agregarMensaje("Arista eliminada: " + data_graph.consultarVertice(victim.orig) + "--" + data_graph.consultarVertice(victim.dest));
+        out.agregarMensaje("Arista eliminada: " + data_graph.fPrima(victim.orig) + "--" + data_graph.fPrima(victim.dest));
         alg_graph.eliminarAristas(victim.orig, victim.dest);//, data_graph.pesoAristaVertices(victim.orig, victim.dest));
         alg_graph.eliminarAristas(victim.dest, victim.orig);//, data_graph.pesoAristaVertices(victim.dest, victim.orig));
 
@@ -246,11 +246,11 @@ public class Girvan_Newman extends Algoritmo{
                     ref_v.component = cc2;
                     route.add(v);
                     int leaf_index = 0;
-                    ArrayList<Integer> al = g.nodosSucesores(v);
+                    List<Integer> al = g.nodosSalida(v);
                     for (int aux : al) { //Para todos los nodos adyacentes a V[v]
 
                         Node ref_aux = node.get(aux);
-                        double dist = data_graph.pesoAristaVertices(v, aux); //dist es el peso de v -> aux
+                        double dist = data_graph.pesoAristasVertices(v, aux); //dist es el peso de v -> aux
                         if (!ref_aux.visited) {
                             if (ref_aux.distance == 0) {
                                 ref_aux.distance = ref_v.distance + dist;
@@ -288,9 +288,9 @@ public class Girvan_Newman extends Algoritmo{
 
                         Node up = node.get(inode);
                         double multiplier = up.weight/golf.weight;
-                        double myWeight = (1 + golf.down_total) * multiplier / data_graph.pesoAristaVertices(inode, p);
-                        double rel = g.pesoAristaVertices(inode, p) + myWeight;
-                        g.modPesoAristaVertices(inode, p, rel);
+                        double myWeight = (1 + golf.down_total) * multiplier / data_graph.pesoAristasVertices(inode, p);
+                        double rel = g.pesoAristasVertices(inode, p) + myWeight;
+                        //g.modPesoAristasVertices(inode, p, rel);
                         up.down_total += myWeight;
 
                         if (victim.weight < myWeight) {
