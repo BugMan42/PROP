@@ -312,7 +312,7 @@ public class Grafo {
         return aristas.size()-vacios.size();
     }
     public String fPrima(int nodo) throws Exception {
-        if (aristas.get(nodo).equals(null)) throw new Exception("No existe Vertice");
+        if (aristas.get(nodo) == null) throw new Exception("No existe Vertice");
         return aristas.get(nodo).clave;
     }
     public Integer f(String clave) throws Exception {
