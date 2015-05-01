@@ -100,9 +100,9 @@ public abstract class Evento {
      * Pre: Cierto
      * Post: Devuelve el subtipo del evento
      */
-    /*public String obt_subtipo() {
-        return subtipo;
-    }*/
+    public String ID() {
+        return nombre+fecha.ToString();
+    }
 
     /**Consultora de importancia
      * Pre: Cierto

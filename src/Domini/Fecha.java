@@ -39,6 +39,8 @@ public class Fecha {
         return fecha[0] + "/" + fecha[1] + "/" + fecha[2];
     }
 
+    public String ToString() {return fecha[0] + fecha[1] + fecha[2];}
+
     public boolean equals(Fecha f) {
         return fecha[0].equals(f.fecha[0]) && fecha[1].equals(f.fecha[1]) && fecha[2].equals(f.fecha[2]);
     }
