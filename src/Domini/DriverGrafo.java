@@ -4,66 +4,110 @@ import java.util.ArrayList;
 import java.util.*;
 
 public class DriverGrafo {
+    private static Scanner user_input = new Scanner(System.in);
+    private static Grafo g;
+
     private static void print(String str) {
         System.out.println(str);
     }
 
-    public static void main(String[] args)throws Exception {
-        /*
-        TST<Integer> a = new TST<Integer>();
-        a.insertar("a",1);
-        a.insertar("b", 2);
-        print(a.consultarClaves()+"");
-        TST<Integer> b = new TST<Integer>(a);
-        print(b.consultarClaves()+"");
-        print(a.consultarObjetos() + "");
-        print(b.consultarObjetos() + "");
-        b.modificar("a", 3);
-        print(a.consultarObjetos()+"");
-        print(b.consultarObjetos()+"");
-        */
-        PriorityQueue<Integer> a = new PriorityQueue<Integer>();
-        a.add(3);
-        a.add(2);
-        a.add(1);
-        print(a.poll() + "");
-        print(a.poll()+"");
-        print(a.poll()+"");
-
-        /*
-        Grafo a = new Grafo();
-        a.agregarVertice("abc");
-        a.agregarVertice("abd");
-        a.agregarVertice("a");
-        a.agregarVertice("b");
-        //print(a.consultarVertices().toString());
-        //print(a.consultarVerticesID().toString());
-        a.agregarArista(0, 1, 2.0);
-        a.agregarArista(1, 0, 2.0);
-        a.agregarArista(0, 1, 3.0);
-        a.agregarArista(1, 0, 3.0);
-        //a.agregarArista(0, 1, 4.0);
-        // a.agregarArista(0, 3,1.0);
-        //a.agregarArista(0, 2, 1.0);
-        print(a.nodosEntrada(1)+"");
-        print(a.nodosSalida(0) + "");
-
-        print(a.pesoAristasVertices(0, 1) + "");
-        print(a.pesoAristasVertices(1, 0) + "");
-        //a.modificarArista(0, 1, 2.0,3.0);
-        //print(a.pesoAristasVertices(0,1)+"");
-        //print(a.pesoAristasVertices(1,0)+"");
-        //a.agregarVertice("acd");
-
-        /*Set<Double> a = new TreeSet<Double>();
-        a.add(2.0);
-        print(a.toString());
-        a.add(1.0);
-        a.add(1.0);
-        print(a.toString());
-        a.add(0.0);
-        print(a.toString());*/
+    private static void PresentaMenu() {
+        print("\nDRIVER DE GRAFO  X:Integer");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
+        print("");
 
 
+        print("Escribe la opcion");
+    }/*
+    private static String LeerLinea(Scanner Input) {
+        return Input.nextLine();
     }
+    public static void main(String[] args) throws Exception {
+        g = new Grafo();
+        Scanner userInput = new Scanner(System.in);
+        boolean seguir = true;
+        PresentaMenu();
+        do {
+            //PresentaMenu();
+            try {
+                ProcesarLinea(LeerLinea(userInput));
+            } catch (Exception a) {
+                print(a.getMessage());
+            }
+            PresentaMenu();
+        } while(userInput.hasNextLine());
+    }
+
+    private static void ProcesarLinea(String str) throws Exception {
+        String aux[] = str.split("\\s");
+        if (str.length() == 0) throw new InsuficientesArgumentos();
+        switch (Integer.parseInt(aux[0])) {
+            case 0:
+                if (aux.length < 3) throw new InsuficientesArgumentos();
+                tst.insertar(aux[1],Integer.parseInt(aux[2]));
+                break;
+            case 1:
+                if (aux.length < 2) throw new InsuficientesArgumentos();
+                print(""+tst.obtener(aux[1]));
+                break;
+            case 2:
+                if (aux.length < 2) throw new InsuficientesArgumentos();
+                print(""+tst.existe(aux[1]));
+                break;
+            case 3:
+                if (aux.length < 2) throw new InsuficientesArgumentos();
+                tst.borrar(aux[1]);
+                break;
+            case 4:
+                if (aux.length < 3) throw new InsuficientesArgumentos();
+                tst.modificar(aux[1], Integer.parseInt(aux[2]));
+                break;
+            case 5:
+                if (aux.length < 3) throw new InsuficientesArgumentos();
+                tst.modificar(aux[1], aux[2]);
+                break;
+            case 6:
+                if (aux.length < 4) throw new InsuficientesArgumentos();
+                tst.modificar(aux[1], aux[2],Integer.parseInt(aux[3]));
+            case 7:
+                print(tst.toString());
+                break;
+            case 8:
+                print(tst.consultarClaves().toString());
+                break;
+            case 9:
+                print(tst.consultarObjetos().toString());
+                break;
+            case 10:
+                print(tst.esVacio()+"");
+                break;
+            case 11:
+                tst.vaciar();
+                break;
+            case 12:
+                print(tst.size()+"");
+                break;
+            case 13:
+                System.exit(0);
+            default:
+                print("Fuera de rango");
+                break;
+        }
+    }*/
 }

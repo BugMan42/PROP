@@ -352,14 +352,29 @@ public class Grafo {
         aristas.add(aux, new AristasNodo(v));
         if (!vacios.isEmpty() && aux == vacios.peek()) vacios.poll();
     }
-    //TODO ELIMINAR vertice complejo
     public void eliminarVertice(String v) throws Exception{
-        int aux = vertices.obtener(v);
-        vacios.add(aux);
-        eliminarvertices(aux);
+        eliminarVertice(vertices.obtener(v));
     }
-    private void eliminarvertices(int index) {
-        aristas.set(index, null);
+    //TODO ELIMINAR vertice complejo
+    public void eliminarVertice(int v) throws  Exception {
+       if (indexValido(v)) {
+           vertices.borrar(fPrima(v));
+           vacios.add(v);
+           eliminarAristas(v);
+           aristas.set(v, null);
+           print(vacios+"");
+       }
+       else throw new Exception("vertice No Valido");
+    }
+    private void eliminarAristas(int v) throws Exception{
+        List<Integer> aux = aristas.get(v).obtenerNodosEntrada();
+        for (int i = 0; i < aux.size(); ++i) {
+            aristas.get(aux.get(i)).eliminarAristasSalida(v);
+        }
+        aux = aristas.get(v).obtenerNodosSalida();
+        for (int i = 0; i < aux.size(); ++i) {
+            aristas.get(aux.get(i)).eliminarAristasEntrada(v);
+        }
     }
 
     public  ArrayList<Integer> consultarVertices() {

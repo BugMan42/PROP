@@ -1,32 +1,50 @@
 package Domini;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
  * Created by usuario on 28/04/2015.
  */
 public class DriverClique {
-        final static String menu = "Bienvenido al driver de evento";
-        final static String opcion1 = "1. Alta de un evento";
-        final static String opcion2 = "2. Modificacion de un evento";
-        final static String opcion3 = "3. Consulta de un evento";
-        final static String opcion4 = "4. Ayuda";
-        final static String opcion5 = "5. Salir";
-        final static String error = "Introduzca un numero del 1 al 5";
-        final static String nueva = "Introduzca una nueva opcion del 1 al 4. 5 para salir";
-        final static String fin = "Gracias por usar este driver. THE END";
-        private static Grafo v;
-        private static Clique c;
+    /*final static String menu = "Bienvenido al driver de evento";
+    final static String opcion1 = "1. Alta de un evento";
+    final static String opcion2 = "2. Modificacion de un evento";
+    final static String opcion3 = "3. Consulta de un evento";
+    final static String opcion4 = "4. Ayuda";
+    final static String opcion5 = "5. Salir";
+    final static String error = "Introduzca un numero del 1 al 5";
+    final static String nueva = "Introduzca una nueva opcion del 1 al 4. 5 para salir";
+    final static String fin = "Gracias por usar este driver. THE END";*/
+    private static Grafo v;
+    private static Clique c;
+    private static Entrada en;
+    private static Salida sa;
 
-        public static void main(String[] args) {
-            ImprimirMenu();
-            Scanner entrada = new Scanner(System.in);
+
+        public static void main(String[] args) throws Exception {
+            Grafo g = crearGrafo();
+            ArrayList<Integer> gv = g.consultarVertices();
+            for (int i = 0; i < gv.size(); ++i) {
+                List<Integer> ady = g.nodosSalida(gv.get(i));
+                for (int j = 0; j < ady.size(); ++j) System.out.println("nodo "+Integer.toString(i)+" adyacente a "+Integer.toString(ady.get(j)));
+            }
+            en = new Entrada(g, 3);
+            sa = new Salida();
+            c = new Clique(en, sa);
+            c.ejecutar_algoritmo();
+            ArrayList<String> hist = sa.mostrarHistorial();
+            for (String aHist : hist) {
+                System.out.println(aHist);
+            }
+            }
         /*String op = entrada.next();
         while (!numero(op)) {
             System.out.println("Tiene que ser un numero");
             op = entrada.next();
         }*/
-            int opcion = Integer.parseInt(entrada.next());
+            /*int opcion = Integer.parseInt(entrada.next());
             while (opcion != 5) {
                 switch (opcion) {
                     case 1:
@@ -40,7 +58,7 @@ public class DriverClique {
                         break;
                     case 4:
                     ayuda(entrada);
-                    break;*/
+                    break;
                     default:
                         System.out.println(error);
                 }
@@ -48,9 +66,30 @@ public class DriverClique {
                 opcion = entrada.nextInt();
             }
             System.out.println(fin);
-        }
+        }*/
 
-        private static void ImprimirMenu() {
+    private static Grafo crearGrafo() throws Exception {
+        Grafo g = new Grafo();
+        g.agregarVertice("1");
+        g.agregarVertice("2");
+        g.agregarVertice("3");
+        g.agregarVertice("4");
+        g.agregarVertice("5");
+        g.agregarVertice("6");
+        g.agregarVertice("7");
+        g.agregarArista("1", "2", 1);
+        g.agregarArista("1", "3", 1);
+        g.agregarArista("2", "3", 1);
+        g.agregarArista("2", "4", 1);
+        g.agregarArista("3", "4", 1);
+        g.agregarArista("4", "5", 1);
+        g.agregarArista("4", "6", 1);
+        g.agregarArista("5", "6", 1);
+        g.agregarArista("6", "7", 1);
+        return g;
+    }
+
+        /*private static void ImprimirMenu() {
             System.out.println(menu);
             System.out.println(opcion1);
             System.out.println(opcion2);
@@ -197,6 +236,6 @@ public class DriverClique {
                 System.out.println("El evento no existe");
             }
         }
-    }*/
+    }
 
-}
+}*/

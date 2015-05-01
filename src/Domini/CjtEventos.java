@@ -15,8 +15,8 @@ public class CjtEventos {
      * y fecha no sea null
      */
     private boolean Valido(String nombre, String fecha) throws NoValido {
-        if (nombre.equals("")) throw new NoValido("Nombre");
-        if (!Fecha.valido(fecha)) throw new NoValido("Fecha");
+        if (nombre.equals("")) throw new NoValido("Nombre", 0);
+        if (!Fecha.valido(fecha)) throw new NoValido("Fecha", 0);
         return true;
     }
 
@@ -71,7 +71,7 @@ public class CjtEventos {
      * Post: El evento e ha sido a�adido al conjunto de eventos
      */
     public void AgregarEvento(Evento e) throws Exception{
-        if (e == null) throw new NoValido("Evento");
+        if (e == null) throw new NoValido("Evento", 0);
         cjt.insertar(e.obt_nombre()+e.obt_fecha(), e);
     }
 

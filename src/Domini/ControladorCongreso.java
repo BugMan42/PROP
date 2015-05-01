@@ -1,5 +1,7 @@
 package Domini;
 
+import java.util.ArrayList;
+
 /**
  * Created by bug on 8/04/15.
  */
@@ -11,15 +13,86 @@ public class ControladorCongreso {
         c = new Congreso();
     }
 
-    public void add_congresista(String s){
-        String[] aux = s.split("\\s");
-        //for (int i=0; i<7; ++i) System.out.println(aux[i]);
-        //Congresista con = new Congresista(aux[0],aux[1],aux[2],Integer.valueOf(aux[3]),aux[4],aux[5],aux[6]);
-        /*if (c.contieneCongresista(con)) System.out.println("ya esta en el congreso");
-        else System.out.println("no esta en el congreso");
-        if (c.contieneCongresista(aux[0])) System.out.println("ya esta en el congreso");
-        else System.out.println("no esta en el congreso");*/
-        //c.addCongresista(con);
-        //System.out.println(String.valueOf(c.obtener_lista().size()));
+    public int size(){
+        return c.size();
+    }
+
+    public boolean esVacio(){
+        return c.esVacio();
+    }
+
+    public void agregarCongresista(String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
+        Dni d = new Dni(dni);
+        c.agregarCongresista(d,nombre,apellido,edad,ciudad,estado,partido);
+    }
+
+    public ArrayList<String> obtenerListaID(){
+        return c.obtenerListaID();
+    }
+
+    public boolean contieneCongresista(String dni) throws Exception {
+        Dni d = new Dni(dni);
+        return c.contieneCongresista(d);
+    }
+
+    public void eliminarCongresista(String dni) throws Exception {
+        Dni d = new Dni(dni);
+        c.eliminarCongresista(d);
+    }
+
+    public void eliminarCongreso() {
+        c.eliminarCongreso();
+    }
+
+    public void modNombreCongresista(String dni, String nombre) throws Exception {
+        Dni d = new Dni(dni);
+        c.modNombreCongresista(d, nombre);
+    }
+
+    public void modApellidoCongresista(String dni, String apellido) throws Exception {
+        Dni d = new Dni(dni);
+        c.modApellidoCongresista(d, apellido);
+    }
+
+    public void modEdadCongresista(String dni, int edad) throws Exception {
+        Dni d = new Dni(dni);
+        c.modEdadCongresista(d, edad);
+    }
+
+    public void modCiudadCongresista(String dni, String ciudad) throws Exception {
+        Dni d = new Dni(dni);
+        c.modCiudadCongresista(d, ciudad);
+    }
+
+    public void modEstadoCongresista(String dni, String estado) throws Exception {
+        Dni d = new Dni(dni);
+        c.modEstadoCongresista(d, estado);
+    }
+
+    public void modPartidoCongresista(String dni, String partido) throws Exception {
+        Dni d = new Dni(dni);
+        c.modPartidoCongresista(d, partido);
+    }
+
+    public void modDniCongresista(String dni, String dni_nuevo) throws Exception {
+        Dni d = new Dni(dni);
+        Dni d_nuevo = new Dni(dni_nuevo);
+        c.modDniCongresista(d, d_nuevo);
+    }
+
+    public void modCongresista(String dni, String dni_nuevo, String nombre, String apellido, int edad, String ciudad,
+                               String estado, String partido) throws  Exception{
+        Dni d = new Dni(dni);
+        Dni d_nuevo = new Dni(dni_nuevo);
+        c.modCongresista(d, d_nuevo, nombre, apellido, edad, ciudad, estado, partido);
+    }
+
+    public Congresista consultarCongresista(String dni) throws Exception {
+        Dni d = new Dni(dni);
+        return c.consultarCongresista(d);
+    }
+
+    public String toString() {
+        return c.toString();
     }
 }

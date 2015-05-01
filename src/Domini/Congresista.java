@@ -28,8 +28,8 @@ public class Congresista {
     // Creadora de un Congresista -> se validará :
     // dni es un string de 9 caracteres y 8 son numeros y el último carácter es una letra
     // los otros parámetros no se validan ----???? hay que validar si son vacios?
-    public Congresista (Dni dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
-        if (!EdadValida(edad)) throw new IllegalArgumentException(error3);
+    public Congresista (Dni dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
+        if (!EdadValida(edad)) throw new Exception("edad");
         Dni = dni;
         Nombre = nombre;
         Apellido = apellido;
@@ -58,11 +58,11 @@ public class Congresista {
     public void modApellido(String apellido) {
         Apellido = apellido;
     }
-    public void modEdad(int edad) {
+    public void modEdad(int edad) throws Exception {
         if (EdadValida(edad)) {
             Edad = edad;
         }
-        else throw new IllegalArgumentException(error4);
+        else throw new Exception("edad");
     }
     public void modCiudad(String ciudad) {
         Ciudad = ciudad;
@@ -73,8 +73,8 @@ public class Congresista {
     public void modPartido(String partido) {
         Partido = partido;
     }
-    public void mod(Dni dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
-        if (!EdadValida(edad)) throw new IllegalArgumentException(error3);
+    public void mod(Dni dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
+        if (!EdadValida(edad)) throw new Exception("edad");
         Dni = dni;
         Nombre = nombre;
         Apellido = apellido;
@@ -105,6 +105,9 @@ public class Congresista {
     }
     public String obtPartido() {
         return Partido;
+    }
+    public String ID() {
+        return Dni.toString();
     }
     public String toString() {
         return Dni+" "+Nombre+" "+Apellido+" "+Edad+" "+Ciudad+" "+Estado+" "+Partido;
