@@ -9,12 +9,14 @@ public class Clique extends Algoritmo {
 
     private Grafo g;
     private int k;
+    private int num;
     public Clique() throws Exception {}
     public Clique(Entrada in, Salida out) throws Exception {
         super(in, out);
         g = in.obtGrafo();
         k = (int)in.obtParam1();
         if (k <= 2) throw new NoValido("k", 9);
+        num = 0;
     }
 
     class comunidades {
@@ -25,9 +27,6 @@ public class Clique extends Algoritmo {
         void agregar_clique(k_clique k) {
             com.add(k);
         }
-        /*void fusionar(int i, int j) {
-            com.get(i).addAll(com.get(j));
-        }*/
     }
 
     class k_clique {
@@ -47,10 +46,6 @@ public class Clique extends Algoritmo {
         void eliminar() {
              c.clear();
          }
-    }
-
-    private void Trabajo() {
-
     }
 
     private void cliqueOneNode(k_clique kc,int k, int u, List<Integer> lista) throws Exception {
@@ -88,6 +83,12 @@ public class Clique extends Algoritmo {
         }
     }
 
+    private int index_sublista(int i) throws Exception{
+        int contador = 0;
+        for (Iterator it = g.nodosSalida(i).listIterator(); it.hasNext() && (Integer)it.next() < i;) ++contador;
+        return contador;
+    }
+
     public Grafo ejecutar_algoritmo() throws Exception {
         //Primera version ineficiente coste n^2
         int n = g.V();
@@ -97,15 +98,14 @@ public class Clique extends Algoritmo {
             int m = g.degreeSalida(i);
             if (m + 1 >= k) {
                 ArrayList<Integer> candidatos = new ArrayList<Integer>();
-                int contador = 0;
-                for (Iterator it = g.nodosSalida(i).listIterator(); it.hasNext() && (Integer)it.next() < i;) ++contador;
-                candidatos = (ArrayList<Integer>) g.nodosSalida(i).subList(contador, m);
+                candidatos = (ArrayList<Integer>) g.nodosSalida(i).subList(index_sublista(i), m);
                 kc.agregar(i);
                 cliqueOneNode(kc, k, i, candidatos);
                 if (kc.size() > 0) c.agregar_clique(kc);
             }
         }
-        /*for (int i = 0; i < n; ++i) {
+        /*for (Iterator it = )
+        for (int i = 0; i < n; ++i) {
             ArrayList<Integer> ady = g.ady_copia(i);
             if (ady.size() >= 3 && g.pesoAristasVertice(i) >= 4) { //3 sera k cuando este listo y 4 sera el valor de threshold
                 k_clique k = new k_clique();

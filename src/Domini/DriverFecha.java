@@ -59,7 +59,7 @@ public class DriverFecha {
     private static void consulta(Scanner entrada) {
         System.out.println("Bienvenido a consulta de un evento");
         try {
-            System.out.println(f.ConsultarFecha());
+            System.out.println(f.ToString());
         } catch (Exception e) {
             System.out.println("El evento no existe");
         }
