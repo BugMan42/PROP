@@ -88,10 +88,10 @@ public class Grafo {
         }
         AristasNodo(AristasNodo A) {
             clave = A.clave;
-            for (int i = 0; i < entrada.size(); ++i) {
+            for (int i = 0; i < A.entrada.size(); ++i) {
                 entrada.add(i,new NodoInterno(A.entrada.get(i)));
             }
-            for (int i = 0; i < salida.size(); ++i) {
+            for (int i = 0; i < A.salida.size(); ++i) {
                 salida.add(i, new NodoInterno(A.salida.get(i)));
             }
         }
