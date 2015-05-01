@@ -15,8 +15,9 @@ public class Congreso {
     public int size() {
         return tst.size();
     }
-    public void agregarCongresista(Congresista C) throws Exception {
-        tst.insertar(C.obtDni().toString(),C);
+    public void agregarCongresista(Dni dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
+        Congresista aux = new Congresista(dni,nombre,apellido,edad,ciudad,estado,partido);
+        tst.insertar(dni.toString(),aux);
     }
     public ArrayList<String> obtenerLista() {
         return tst.consultarClaves();
