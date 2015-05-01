@@ -24,6 +24,10 @@ public class Clique extends Algoritmo {
         comunidades() {
             com = new ArrayList<k_clique>();
         }
+        int size() {return com.size();}
+        k_clique obt_clique(int i) {
+            return com.get(i);
+        }
         void agregar_clique(k_clique k) {
             com.add(k);
         }
@@ -40,6 +44,7 @@ public class Clique extends Algoritmo {
         ArrayList<Integer> lista() {
               return c;
         }
+        Integer obt_vertice(int i) {return c.get(i);}
         void agregar(int u) {
              c.add(u);
          }
@@ -71,7 +76,7 @@ public class Clique extends Algoritmo {
             kc.agregar(v);
             Iterator itv = g.nodosSalida(v).listIterator();
             ArrayList<Integer> candidatos = new ArrayList<Integer>();
-            for (Iterator it = lista.listIterator(0); it.hasNext(); ) {
+            for (Iterator it = lista.listIterator(1); it.hasNext(); ) {
                 int w = (Integer) it.next();
                 if (w > u) {
                     int x = -1;
@@ -97,13 +102,19 @@ public class Clique extends Algoritmo {
             k_clique kc = new k_clique();
             int m = g.degreeSalida(i);
             if (m + 1 >= k) {
-                ArrayList<Integer> candidatos = new ArrayList<Integer>();
-                candidatos = (ArrayList<Integer>) g.nodosSalida(i).subList(index_sublista(i), m);
+                System.out.println(Integer.toString(index_sublista(i)));
+                List<Integer> candidatos = g.nodosSalida(i).subList(index_sublista(i), m);
                 kc.agregar(i);
                 cliqueOneNode(kc, k, i, candidatos);
                 if (kc.size() > 0) c.agregar_clique(kc);
             }
         }
+        for (int i = 0; i < c.size();++i) {
+            out.agregarMensaje("clique" + Integer.toString(i) + ": ");
+            k_clique kc = c.obt_clique(i);
+            for (int j = 0; j < kc.size(); ++j) out.agregarMensaje("vertice " + Integer.toString(kc.obt_vertice(j)));
+        }
+
         /*for (Iterator it = )
         for (int i = 0; i < n; ++i) {
             ArrayList<Integer> ady = g.ady_copia(i);
