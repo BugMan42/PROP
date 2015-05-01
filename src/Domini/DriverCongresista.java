@@ -55,7 +55,7 @@ public class DriverCongresista {
         if (str.length() == 0) throw new InsuficientesArgumentos();
         switch (Integer.parseInt(aux[0])) {
             case 0:
-                if (aux.length < 2) throw new InsuficientesArgumentos();
+                if (aux.length < 8) throw new InsuficientesArgumentos();
                 if (aux.length == 8) {
                     Dni a = new Dni(aux[1]);
                     C = new Congresista(a, aux[2], aux[3], Integer.parseInt(aux[4]), aux[5], aux[6], aux[7]);

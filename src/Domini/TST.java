@@ -66,6 +66,7 @@ public class TST<X>  {
         return root == null;
     }
     public void vaciar() {
+        N = 0;
         root = null;
     }
     public int size() {

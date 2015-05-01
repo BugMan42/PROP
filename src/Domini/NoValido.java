@@ -6,9 +6,9 @@ package Domini;
 public class NoValido extends Exception {
     final static String error1 = "Dia no puede ser inferior a 1 ni mayor que 31";
     final static String error2 = "Mes no puede ser inferior a 1 ni mayor que 12";
-    final static String error3 = "Año no puede ser inferior a 1";
+    final static String error3 = "AÃ±o no puede ser inferior a 1";
     final static String error4 = "Febrero no tiene dia 30 ni 31";
-    final static String error5 = "Dia 29 de febrero solo en años bisiestos";
+    final static String error5 = "Dia 29 de febrero solo en aÃ±os bisiestos";
     final static String error6 = "El mes no tiene dia 31";
     final static String error7 = "La fecha no puede ser vacia";
     final static String error8 = "El formato es dd/mm/yyyy";
