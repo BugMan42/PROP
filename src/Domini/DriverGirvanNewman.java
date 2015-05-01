@@ -16,6 +16,9 @@ public class DriverGirvanNewman {
         out = new Salida();
         gn = new Girvan_Newman(in, out);
         gn.ejecutar_iteración();
+        gn.ejecutar_iteración();
+        gn.ejecutar_iteración();
+        gn.ejecutar_iteración();
         ArrayList<String> hist = out.mostrarHistorial();
         for (String aHist : hist) {
             System.out.println(aHist);

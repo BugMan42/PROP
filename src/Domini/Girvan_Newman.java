@@ -68,8 +68,8 @@ public class Girvan_Newman extends Algoritmo{
         return alg_graph;
     }
 
-    public void ejecutar_iteración() throws Exception
-    {
+
+    public void ejecutar_iteración() throws Exception {
         alg_graph = ejecutar_iteración(alg_graph);
     }
 
@@ -110,13 +110,12 @@ public class Girvan_Newman extends Algoritmo{
             for (int j = 0; j < N; ++j) {
                 Node n = node.get(j);
                 n.visited = false;
-                n.component = -1;
+                //n.component = -1;
                 n.leaf = false;
                 n.distance = Double.POSITIVE_INFINITY;
                 n.parent.clear();
                 n.weight = 0;
                 n.down_total = 0;
-                node.add(n);
             }
 
             Q.add(new Arista<Integer>(i, 0));
@@ -150,6 +149,7 @@ public class Girvan_Newman extends Algoritmo{
                     for (int aux : al) { //Para todos los nodos adyacentes a v
                         Node ref_aux = node.get(aux);
                         double dist = data_graph.pesoAristasVertices(v, aux); //dist es el peso de v -> aux
+                        if (i == 0 && dist == alg_graph.pesoAristasVertices(v, aux) ) alg_graph.modificarArista(v, aux, dist, 0);
                         if (!ref_aux.visited) {
 
                             if (ref_aux.distance > ref_v.distance + dist){
@@ -162,7 +162,7 @@ public class Girvan_Newman extends Algoritmo{
                             leaf_index += 1;
                             ref_aux.parent.add(v);
 
-                            System.out.print(" "+data_graph.fPrima(aux)+" ("+dist+") {"+ref_aux.distance+"} <"+ref_aux.weight+">");
+                            System.out.print(" "+data_graph.fPrima(aux)+" "+ref_aux.parent+" ("+dist+") {"+ref_aux.distance+"} <"+ref_aux.weight+">");
 
                             Q.add(new Arista<Integer>(aux, dist));
 
@@ -181,10 +181,12 @@ public class Girvan_Newman extends Algoritmo{
             }
 
             System.out.println("BRANDES");
-            System.out.println(route);
+            System.out.println(route.size()+" "+route);
             //Pesos en grafo
-            for (int z = 0; z < route.size(); ++z)
+            int endRoute = route.size();
+            for (int z = 0; z < endRoute; ++z)
             {
+                System.out.println(z);
                 int p = route.pollLast();
                 Node golf = node.get(p);
                 System.out.println("    "+data_graph.fPrima(p)+"#"+golf.parent.size()+golf.parent);
@@ -195,10 +197,10 @@ public class Girvan_Newman extends Algoritmo{
                         Node up = node.get(inode);
                         double multiplier = up.weight/golf.weight;
                         double myWeight = (1 + golf.down_total) * multiplier / data_graph.pesoAristasVertices(inode, p);
-                        double dependency = g.pesoAristasVertices(inode, p);
+                        double dependency = alg_graph.pesoAristasVertices(inode, p);
                         double rel = dependency + myWeight;
-                        g.modificarArista(inode, p, dependency, rel);
-                        System.out.println("        "+g.fPrima(inode)+"--"+g.fPrima(p)+": "+rel+" | m="+up.weight+"/"+golf.weight+"="+multiplier+" |");
+                        alg_graph.modificarArista(inode, p, dependency, rel);
+                        System.out.println("        "+alg_graph.fPrima(inode)+"--"+alg_graph.fPrima(p)+": "+rel+" | m="+up.weight+"/"+golf.weight+"="+multiplier+" |");
                         up.down_total += myWeight;
 
                         if (victim.weight < myWeight) {
@@ -219,6 +221,18 @@ public class Girvan_Newman extends Algoritmo{
         alg_graph.eliminarAristas(victim.orig, victim.dest);//, data_graph.pesoAristaVertices(victim.orig, victim.dest));
         alg_graph.eliminarAristas(victim.dest, victim.orig);//, data_graph.pesoAristaVertices(victim.dest, victim.orig));
 
+        for (int ii = 0; ii < N; ++ii) {
+            Node n = node.get(ii);
+            n.visited = false;
+            n.component = -1;
+            n.leaf = false;
+            n.distance = Double.POSITIVE_INFINITY;
+            n.parent.clear();
+            n.weight = 0;
+            n.down_total = 0;
+            node.add(n);
+        }
+
         //Segundo pase del algoritmo de Girvan-Newman
         for (int iii = 0; iii < N; ++iii)
         {
@@ -231,7 +245,6 @@ public class Girvan_Newman extends Algoritmo{
             for (int k = 0; k < N; ++k) {
                 Node n = node.get(k);
                 n.visited = false;
-                n.component = -1;
                 n.leaf = false;
                 n.distance = Double.POSITIVE_INFINITY;
                 n.parent.clear();
@@ -263,16 +276,16 @@ public class Girvan_Newman extends Algoritmo{
                     ref_v.component = cc2;
                     route.add(v);
                     int leaf_index = 0;
-                    List<Integer> al = g.nodosSalida(v);
+                    List<Integer> al = alg_graph.nodosSalida(v);
                     for (int aux : al) { //Para todos los nodos adyacentes a V[v]
 
                         Node ref_aux = node.get(aux);
                         double dist = data_graph.pesoAristasVertices(v, aux); //dist es el peso de v -> aux
                         if (!ref_aux.visited) {
-                            if (ref_aux.distance == 0) {
+
+                            if (ref_aux.distance > ref_v.distance + dist){
                                 ref_aux.distance = ref_v.distance + dist;
-                            } else if (ref_aux.distance > ref_v.distance + dist){
-                                ref_aux.distance = ref_v.distance + dist;
+                                ref_aux.weight = ref_v.weight;
                             } else if (ref_aux.distance == ref_v.distance + dist) {
                                 ref_aux.weight += ref_v.weight;
                             }
@@ -296,8 +309,10 @@ public class Girvan_Newman extends Algoritmo{
             }
 
             //Pesos en grafo
-            for (int p : route)
+            int endRoute = route.size();
+            for (int z = 0; z < endRoute; ++z)
             {
+                int p = route.pollLast();
                 Node golf = node.get(p);
                 if (golf.parent.size() > 0) {
                     for (int inode : golf.parent) {
@@ -305,9 +320,9 @@ public class Girvan_Newman extends Algoritmo{
                         Node up = node.get(inode);
                         double multiplier = up.weight/golf.weight;
                         double myWeight = (1 + golf.down_total) * multiplier / data_graph.pesoAristasVertices(inode, p);
-                        double dependency = g.pesoAristasVertices(inode, p);
+                        double dependency = alg_graph.pesoAristasVertices(inode, p);
                         double rel = dependency + myWeight;
-                        g.modificarArista(inode, p, dependency, rel);
+                        alg_graph.modificarArista(inode, p, dependency, rel);
                         up.down_total += myWeight;
 
                         if (victim.weight < myWeight) {
@@ -325,11 +340,12 @@ public class Girvan_Newman extends Algoritmo{
         }
 
         //Mensajes de salida
+        System.out.println("Com: "+cc2+" "+cc);
         if (cc2 > cc)
         {
             int d_cc = cc2 - cc;
-            if (d_cc == 1 && alg_cc != 0) out.agregarMensaje("Ha surgido una nueva comunidad.");
-            else if (d_cc > 1) out.agregarMensaje("Han surgido "+ d_cc +" nuevas comunidades.");
+            if (d_cc == 1 && alg_cc != 0) out.agregarMensaje("Ha surgido una nueva comunidad ("+d_cc+"="+cc2+"-"+cc+").");
+            else if (d_cc > 1) out.agregarMensaje("Han surgido "+ d_cc +" nuevas comunidades ("+d_cc+"="+cc2+").");
         }
 
         alg_cc = cc2;

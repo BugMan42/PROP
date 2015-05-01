@@ -49,5 +49,9 @@ public class ControladorAlgoritmo {
         return alg.ejecutar_iteración(in.obtGrafo());
     }
 
+    public Salida obtSalida()
+    {
+        return out;
+    }
 
 }
