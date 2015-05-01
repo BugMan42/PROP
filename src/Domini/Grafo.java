@@ -319,7 +319,7 @@ public class Grafo {
     }
     //TODO COMO SE HACE
     public Grafo(Grafo g) throws Exception {
-        for (int i = 0; i < aristas.size(); ++i) {
+        for (int i = 0; i < g.aristas.size(); ++i) {
             aristas.add(i, new AristasNodo(g.aristas.get(i)));
         }
         vertices = new TST(g.vertices);

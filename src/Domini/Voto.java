@@ -13,6 +13,10 @@ public abstract class Voto {
         dni = new Dni(d);
     }
 
+    /* Obtener DNI
+     * pre:
+     * post: Devuelve el DNI que identifica el voto
+    */
     public String obt_dni() {
         return dni.DNI();
     }
@@ -23,11 +27,14 @@ public abstract class Voto {
 
     public abstract String obt_tipo();
 
+    /* Mostrar Información
+    * Pre:
+    * Post: Devuelve un string con la información del voto
+    */
     public String mostrarInfo() {
         return "El congresista con DNI "+dni;
     }
 
-    //Modificable a necesidad
     public String toString() {
         return dni.toString();
     }

@@ -16,13 +16,9 @@ public class DriverGirvanNewman {
         out = new Salida();
         gn = new Girvan_Newman(in, out);
         gn.ejecutar_iteración();
-        gn.ejecutar_iteración();
-        gn.ejecutar_iteración();
-        gn.ejecutar_iteración();
         ArrayList<String> hist = out.mostrarHistorial();
-        for(int i = 0; i < hist.size(); ++i)
-        {
-            System.out.println(hist.get(i));
+        for (String aHist : hist) {
+            System.out.println(aHist);
         }
 
 
@@ -30,10 +26,7 @@ public class DriverGirvanNewman {
 
     private static Grafo crearGrafo() throws Exception {
         Grafo g = new Grafo();
-        System.out.println(g.V());
         g.agregarVertice("a");
-
-        System.out.println("'a' added");
         g.agregarVertice("b");
         g.agregarVertice("c");
         g.agregarVertice("d");
@@ -45,18 +38,18 @@ public class DriverGirvanNewman {
         g.agregarArista("b", "a", 1);
         g.agregarArista("a", "c", 3);
         g.agregarArista("c", "a", 3);
-        g.agregarArista("b","d",3);
-        g.agregarArista("d","b",3);
-        g.agregarArista("c","d",1);
-        g.agregarArista("d","c",1);
-        g.agregarArista("d","f",10);
-        g.agregarArista("f","d",10);
-        g.agregarArista("c","e",7);
-        g.agregarArista("e","c",7);
-        g.agregarArista("e","f",2);
-        g.agregarArista("f","e",2);
-        g.agregarArista("e","g",8);
-        g.agregarArista("g","e",8);
+        g.agregarArista("b", "d", 3);
+        g.agregarArista("d", "b", 3);
+        g.agregarArista("c", "d", 1);
+        g.agregarArista("d", "c", 1);
+        g.agregarArista("d", "f", 10);
+        g.agregarArista("f", "d", 10);
+        g.agregarArista("c", "e", 7);
+        g.agregarArista("e", "c", 7);
+        g.agregarArista("e", "f", 2);
+        g.agregarArista("f", "e", 2);
+        g.agregarArista("e", "g", 8);
+        g.agregarArista("g", "e", 8);
 
         return g;
     }
