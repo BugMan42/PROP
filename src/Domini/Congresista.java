@@ -73,6 +73,16 @@ public class Congresista {
     public void modPartido(String partido) {
         Partido = partido;
     }
+    public void mod(Dni dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
+        if (!EdadValida(edad)) throw new IllegalArgumentException(error3);
+        Dni = dni;
+        Nombre = nombre;
+        Apellido = apellido;
+        Edad = edad;
+        Ciudad = ciudad;
+        Estado = estado;
+        Partido = partido;
+    }
 
     //Consultoras
     public Dni obtDni() {

@@ -1,10 +1,27 @@
 package Domini;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
+import java.util.ArrayList;
 
 
-public class TST<X> {
+public class TST<X>  {
+
+    private X X_clone(X x) throws Exception, InvocationTargetException {
+        for (Class i : x.getClass().getInterfaces())
+            if (i.getName().equals("java.lang.Cloneable")) // Be sure E implements Cloneable.
+                for (Method m : x.getClass().getMethods())
+                    if (m.getName().equals("clone") && // Be sure E has an appropriate clone(),
+                            m.getParameterTypes().length == 0 && // takes no parameters, anx returns
+                            m.getReturnType().getName().equals("java.lang.Object")) // type Object.
+                        return (X) m.invoke(x); // Invoke x.clone(), typecast, and return it.
+        return x;
+    }
+
+
     //Nodos
-    class TSTNodo {
+    private class TSTNodo {
         TSTNodo left, middle, right;
 
         public TSTNodo() {
@@ -14,7 +31,7 @@ public class TST<X> {
         }
     }
 
-    class TSTNodoChar extends TSTNodo {
+    private class TSTNodoChar extends TSTNodo {
         char valor;
         public TSTNodoChar(char Valor) {
             super();
@@ -22,7 +39,7 @@ public class TST<X> {
         }
     }
 
-    class TSTNodoFinal extends TSTNodo {
+    private class TSTNodoFinal extends TSTNodo {
         X valor;
         public TSTNodoFinal(X x) {
             super();
@@ -31,7 +48,6 @@ public class TST<X> {
         public void modificar(X x) {
             valor = x;
         }
-        //Puede faltar una modificadora ---> ya veremos
     }
 //#######################################################################################
 //#######################################################################################
@@ -55,19 +71,35 @@ public class TST<X> {
     public int size() {
         return N;
     }
+
 //#######################################################################################
-//###################################INSERTAR############################################
+/**#################################CREADORA COPIADORA##################################*/
+//#######################################################################################
+    public TST(TST t) throws Exception {
+        root = (TSTNodoChar) clonar(t.root, root);
+    }
+    private TSTNodo clonar(TSTNodo t, TSTNodo c) throws Exception {
+        if (t == null) return null;
+        TSTNodoChar auxt = (TSTNodoChar) t;
+        c =  new TSTNodoChar(auxt.valor);
+        c.left = clonar(t.left, c.left);
+        if (auxt.valor == fin) {
+            TSTNodoFinal auxt2 = (TSTNodoFinal) t.middle;
+            c.middle = new TSTNodoFinal(X_clone(auxt2.valor));
+        }
+        else c.middle = clonar(t.middle, c.middle);
+        c.right = clonar(t.right, c.right);
+        return c;
+    }
+
+
+
+//#######################################################################################
+/**###################################INSERTAR##########################################*/
 //#######################################################################################
 
-    /*
-    public void insertar(X x) {
-        String k = x.toString();
-        root = (TSTNodoChar) insertar(root,k,x,0);
-    }
-    */
     public void insertar(String key, X x) throws Exception {
         root = (TSTNodoChar) insertar(root, key, x, 0);
-
     }
 
     private TSTNodo insertar(TSTNodo t, String key, X x, int l) throws Exception {
@@ -78,7 +110,10 @@ public class TST<X> {
 
         if (t == null) {
             t = new TSTNodoChar(c);
-            if (c == fin) t.middle = new TSTNodoFinal(x);
+            if (c == fin) {
+                t.middle = new TSTNodoFinal(x);
+                ++N;
+            }
             else t.middle = insertar(t.middle,key,x,l+1);
         }
         else {
@@ -91,12 +126,12 @@ public class TST<X> {
         return t;
     }
 //#######################################################################################
-//###################################OBTENER#############################################
+/**###################################OBTENER###########################################*/
 //#######################################################################################
 
 
     public X obtener(String key) throws Exception{
-        return obtener(root,key,0);
+        return obtener(root, key, 0);
     }
 
     private X obtener(TSTNodo t,String key,int d) throws Exception{
@@ -107,10 +142,10 @@ public class TST<X> {
         else c = fin;
 
         TSTNodoChar tChar = (TSTNodoChar) t;
-        if (tChar.valor > c) return obtener(t.left,key,d);
-        else if (tChar.valor < c) return obtener(t.right,key,d);
+        if (tChar.valor > c) return obtener(t.left, key, d);
+        else if (tChar.valor < c) return obtener(t.right, key, d);
         else {
-            if (key.length() > d) return obtener(t.middle,key,d+1);
+            if (key.length() > d) return obtener(t.middle, key, d + 1);
             else if (tChar.valor==c) {
                 TSTNodoFinal f = (TSTNodoFinal) t.middle;
                 return f.valor;
@@ -120,7 +155,7 @@ public class TST<X> {
     }
 
 //#######################################################################################
-//###############################CONTIENE/EXISTE#########################################
+/**###############################CONTIENE/EXISTE######################################*/
 //#######################################################################################
 
     public boolean existe(String key) {
@@ -145,68 +180,63 @@ public class TST<X> {
 
 
 //#######################################################################################
-//#######################################################################################
+/**##################################BORRAR##############################################*/
 //#######################################################################################
 
-    public void borrar(String key) {
+    public void borrar(String key) throws Exception {
         root = (TSTNodoChar) borrar(root, null, key, 0);
 
     }
-    private TSTNodo borrar(TSTNodo t,TSTNodo padre,String key,int d) {
-        if (t == null) {
-            print("no esta");
-            return null;
-        }
+    private TSTNodo borrar(TSTNodo t,TSTNodo padre,String key,int d) throws Exception {
+        if (t == null) throw new Exception("no existe la clave");
 
         char c;
         if (d < key.length()) c = key.charAt(d);
         else c = fin;
-        //print(String.valueOf(c));
         TSTNodoChar tChar = (TSTNodoChar) t;
-        if (c < tChar.valor) t.left =  borrar(t.left, t, key, d);
-        else if (c > tChar.valor ) t.right = borrar(t.right, t, key, d);
+        //print(String.valueOf(tChar.valor));
+        if (c < tChar.valor) {
+            t.left =  borrar(t.left, t, key, d);
+            //if (t.left == null) { }
+        }
+        else if (c > tChar.valor ) {
+            t.right = borrar(t.right, t, key, d);
+        }
         else {
-            if (d < key.length()) t.middle = borrar(t.middle, t, key, d + 1);
+            if (d < key.length()) {
+                t.middle = borrar(t.middle, t, key, d + 1);
+                //if (t.middle == null) print("null");
+            }
             else if (tChar.valor==fin) {
                 //FUNCION QUE ELIMINARA EL NODO Y ARREGLARA EL PANORAMA
-                t = eliminarNodo(t);
+                t = t.right;//  eliminarNodo(t);
+                --N;
             }
             else {
-                print("No esta");
-                //Exception?¿?
+                throw new Exception("no existe la clave");
             }
+        }
+        if (t != null && t.left == null && t.right == null && t.middle == null) {
+            //print("null final");
+            t = null;
         }
         return t;
     }
 
-    private TSTNodo eliminarNodo(TSTNodo r) {
-        if(r != null) {
-            if(r.right == null) {
-                r = r.left;
-            }
-            else {
-            }
-        }
-        return r;
-    }
 //#######################################################################################
-/**#################################FALTA TESTEAR#######################################*/
+/**#################################MODIFICAR############################################*/
 //#######################################################################################
     //Modificación Simple
-    public void modificar(String key, X x) {
+    public void modificar(String key, X x) throws Exception {
         root = (TSTNodoChar) modificar(root, x, key, 0);
     }
     //Modificación Simple
-    private TSTNodo modificar(TSTNodo t, X x,String key, int d) {
-        if (t == null) {
-            print("no esta");
-            return null;
-        }
+    private TSTNodo modificar(TSTNodo t, X x,String key, int d) throws Exception {
+        if (t == null) throw new Exception("no existe la clave");
 
         char c;
         if (d < key.length()) c = key.charAt(d);
         else c = fin;
-        //print(String.valueOf(c));
 
         TSTNodoChar tChar = (TSTNodoChar) t;
         if (c < tChar.valor) t.left =  modificar(t.left, x, key, d);
@@ -219,8 +249,8 @@ public class TST<X> {
                 t.middle = f;
             }
             else {
-                print("No esta");
-                //NO esta//return null;
+                throw new Exception("no existe la clave");
+
             }
         }
         return t;
@@ -230,35 +260,33 @@ public class TST<X> {
 //#######################################################################################
 
     //Modificación comp --> Modificamos el key pero mantenemos el objeto
-    public void modificar(String OldKey, String NewKey) throws Exception{
-        root = (TSTNodoChar) modificar(root,OldKey,null,NewKey,0);
+    public void modificar(String oldKey, String newKey) throws Exception{
+        root = (TSTNodoChar) modificar(root,oldKey,null,newKey,0);
     }
     //Modificación comp ---> Modificamos el key y canviamos el objeto
-    public void modificar(String OldKey, String NewKey, X x) throws Exception{
-        root = (TSTNodoChar) modificar(root,NewKey,x,OldKey,0);
+    public void modificar(String oldKey, String newKey, X x) throws Exception{
+        root = (TSTNodoChar) modificar(root,newKey,x,oldKey,0);
     }
 
     //Modificación Compuesta
     /** FALTA HACER EFICIENTE*/
-    private TSTNodo modificar(TSTNodo t, String OldKey, X x, String NewKey,int d) throws Exception{
+    private TSTNodo modificar(TSTNodo t, String oldKey, X x, String newKey,int d) throws Exception{
         if (x == null) {
-            x = obtener(OldKey);
+            x = obtener(oldKey);
         }
-        borrar(OldKey);
-        insertar(NewKey,x);
+        if (existe(newKey)) throw new Exception("ya existe la clave");
+        borrar(oldKey);
+        insertar(newKey,x);
         return t;
     }
 
-//#######################################################################################
-//#######################################################################################
-//#######################################################################################
     private void print(String str) {
         System.out.println(str);
     }
-//#######################################################################################
-//##############################IMPRIMIR CLAVES##########################################
-//#######################################################################################
 
+/**##################################################################
+#############################CONSULTAR################################
+#####################################################################*/
     public String toString() {
         ArrayList<String> v = new ArrayList<String>();
         imprimir(root, "", v);
@@ -276,36 +304,30 @@ public class TST<X> {
     }
     private void imprimir(TSTNodo r, String word, ArrayList<String> v) {
         if (r != null) {
-            //imprimimos hijo izquierdo
             imprimir(r.left, word,v);
-            //si hemos llegado a Nodo con marca añadimos palabra
             TSTNodoChar rChar = (TSTNodoChar)r;
-            //Si fin añadimos palabra si no imprimimos medio
             if (rChar.valor == fin) v.add(word);
             else imprimir(r.middle, word+rChar.valor,v);
-            //imprimimos hijo derecho
-            imprimir(r.right, word,v);
+            imprimir(r.right, word, v);
         }
     }
+
     public List<X> consultarObjetos() {
-        ArrayList<X> v = new ArrayList<X>();
+        List<X> v = new ArrayList<X>();
         imprimir2(root, "", v);
         List<X> aux = Collections.unmodifiableList(v);
         return aux;
     }
-    private void imprimir2(TSTNodo t, String word, ArrayList<X> v) {
+
+    private void imprimir2(TSTNodo t, String word, List<X> v) {
         if (t != null) {
-            //imprimimos hijo izquierdo
             imprimir2(t.left, word, v);
-            //si hemos llegado a Nodo con marca añadimos palabra
             TSTNodoChar rChar = (TSTNodoChar)t;
-            //Si fin añadimos palabra si no imprimimos medio
             if (rChar.valor == fin) {
                 TSTNodoFinal f = (TSTNodoFinal) t.middle;
                 v.add(f.valor);
             }
             else imprimir2(t.middle, word+rChar.valor, v);
-            //imprimimos hijo derecho
             imprimir2(t.right, word,v);
         }
     }

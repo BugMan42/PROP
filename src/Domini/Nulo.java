@@ -9,7 +9,7 @@ public class Nulo extends Voto {
     public Nulo () {
     }
 
-    public Nulo (String dni) {
+    public Nulo (String dni) throws Exception {
         super(dni);
     }
 
@@ -18,7 +18,7 @@ public class Nulo extends Voto {
         return "Nulo";
     }
 
-    public String toString() {
-        return super.toString()+"nulo";
+    public String mostrarInfo() {
+        return super.mostrarInfo() + "ha votado en nulo";
     }
 }

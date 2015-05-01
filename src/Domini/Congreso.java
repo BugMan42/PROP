@@ -6,11 +6,11 @@ public class Congreso {
     static final String error1 = "Congreso no contiene el dni";
     static final String error2 = "Congreso ya contiene el dni";
     static final String error3 = "DNI NO VALIDO";
+
     private TST<Congresista> tst;
-    //private int N;
+
     public Congreso() {
         tst = new TST<Congresista>();
-        //N = 0;
     }
     public int size() {
         return tst.size();
@@ -18,7 +18,7 @@ public class Congreso {
     public void addCongresista(Congresista C) throws Exception {
         tst.insertar(C.obtDni().toString(),C);
     }
-    public void eliminarCongresista(Congresista C) {
+    public void eliminarCongresista(Congresista C) throws Exception{
         tst.borrar(C.obtDni().toString());
     }
     public ArrayList<String> obtener_lista() {
@@ -27,7 +27,7 @@ public class Congreso {
     public boolean contieneCongresista(Dni dni) {
         return tst.existe(dni.toString());
     }
-    public void EliminarCongresista(Dni dni) {
+    public void EliminarCongresista(Dni dni) throws Exception {
         tst.borrar(dni.toString());
     }
     public void EliminarCongreso() {
@@ -60,14 +60,21 @@ public class Congreso {
     }
     /** Bueno hay algo mejor????? */
     public void ModificarDni(Dni dni, Dni dniNuevo) throws Exception {
-        tst.obtener(dni.toString()).modDni(dniNuevo);
         tst.modificar(dni.toString(),dniNuevo.toString());
+        tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
     }
-    public void ModificarCongresista(Dni dni,Dni dni2 , String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
-
+    public void ModificarCongresista(Dni dni,Dni dniNuevo , String nombre, String apellido,
+                                     int edad, String ciudad, String estado, String partido) throws  Exception{
+        tst.modificar(dni.toString(),dniNuevo.toString());
+        tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
+        tst.obtener(dniNuevo.toString()).mod(dniNuevo,nombre,apellido,edad,ciudad,estado,partido);
     }
     public Congresista ConsultarCongresista(Dni dni) throws Exception {
         Congresista aux = new Congresista(tst.obtener(dni.toString()));
+        return aux;
+    }
+    public String toString() {
+        String aux = tst.toString();
         return aux;
     }
 

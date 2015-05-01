@@ -5,10 +5,10 @@ package Domini;
  */
 public class Abstencion extends Voto {
 
-    public Abstencion () {
+    public Abstencion() {
     }
 
-    public Abstencion (String dni) {
+    public Abstencion(String dni) throws Exception {
         super(dni);
     }
 
@@ -17,5 +17,8 @@ public class Abstencion extends Voto {
         return "Abstención";
     }
 
-    public String toString() {return super.toString()+"'abstención'."; }
+    public String mostrarInfo() {
+        return super.mostrarInfo() + "se ha abstenido.";
+    }
+
 }

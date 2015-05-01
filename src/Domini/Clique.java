@@ -1,15 +1,14 @@
 package Domini;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created by usuario on 04/04/2015.
  */
 public class Clique extends Algoritmo {
 
-    public Clique() {}
-    public Clique(Entrada in, Salida out) {
+    public Clique() throws Exception {}
+    public Clique(Entrada in, Salida out) throws Exception {
         super(in, out);
     }
 
@@ -49,9 +48,9 @@ public class Clique extends Algoritmo {
 
     }
 
-    private void cliqueOneNode(Grafo g, comunidades c,int k, int u) {
-        if (g.degree(u) + 1 < k) return;//Si no tiene suficiente grado para ser candidato no tiene sentido seguir
-        ArrayList<Integer> ady = g.nodosAdyacentes(u);
+    private void cliqueOneNode(Grafo g, comunidades c,int k, int u) throws Exception {
+        if (g.degreeSalida(u) + 1 < k) return;//Si no tiene suficiente grado para ser candidato no tiene sentido seguir
+        List<Integer> ady = g.nodosSalida(u);
         k_clique kc = new k_clique();
         kc.agregar(u);
         ArrayList<Integer> candidatos = new ArrayList<Integer>();
@@ -68,7 +67,7 @@ public class Clique extends Algoritmo {
         k.agregar(u);
         if (!g.es_ady(u, ))
     }*/
-    public Grafo ejecutar_iteración(Grafo g) {
+    public Grafo ejecutar_iteración(Grafo g) throws Exception {
         //Primera version ineficiente coste n^2
         int n = g.V();
         int k = 3;
