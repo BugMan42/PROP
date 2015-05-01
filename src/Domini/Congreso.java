@@ -58,10 +58,8 @@ public class Congreso {
     }
     public void modDniCongresista(Dni dni, Dni dniNuevo) throws Exception {
         if (!dni.equals(dniNuevo)) {
-            print("antes mod");
             tst.modificar(dni.toString(), dniNuevo.toString());
-            print("despues mod");
-            //tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
+            tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
         }
     }
     public void modCongresista(Dni dni,Dni dniNuevo , String nombre, String apellido,
