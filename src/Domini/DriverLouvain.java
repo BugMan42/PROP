@@ -22,22 +22,50 @@ public class DriverLouvain {
         DriverLouvain dl = new DriverLouvain();
 
         Grafo g = new Grafo();
+
+        // EJEMPLO 1
+        /*
         g.añadirVertice("a");
         g.añadirVertice("b");
         g.añadirVertice("c");
-        /*
-        int a = g.consultarVertice("a");
-        int b = g.consultarVertice("b");
-        int c = g.consultarVertice("c");
-        */
-        g.añadirArista("a","b",1);
-        g.añadirArista("b","c",1);
+
+        g.añadirArista("a", "b", 1);
+        g.añadirArista("b", "a", 1);
+        g.añadirArista("b", "c", 1);
+        g.añadirArista("c","b",1);
         g.añadirArista("c","a",1);
+        g.añadirArista("a","c",1);
+        */
+
+        // EJEMPLO 2
+
+        g.añadirVertice("a");
+        g.añadirVertice("b");
+        g.añadirVertice("c");
+        g.añadirVertice("d");
+        g.añadirVertice("e");
+        g.añadirVertice("f");
+
+        g.añadirArista("a","b",1);
+        g.añadirArista("b","a",1);
+        g.añadirArista("b","c",1);
+        g.añadirArista("c","b",1);
+        g.añadirArista("c","a",1);
+        g.añadirArista("a","c",1);
+        g.añadirArista("c","d",1);
+        g.añadirArista("d","c",1);
+        g.añadirArista("d","e",1);
+        g.añadirArista("e","d",1);
+        g.añadirArista("e","f",1);
+        g.añadirArista("f","e",1);
+        g.añadirArista("f","d",1);
+        g.añadirArista("d","f",1);
+
 
         //g.añadirArista("a","a",1);
 
         ArrayList<Integer> v = g.consultarVertices();
-        for (int i : v) dl.print(String.valueOf(i));
+        //for (int i : v) dl.print(String.valueOf(i));
 
 
         //dl.print(String.valueOf(g.V()));
