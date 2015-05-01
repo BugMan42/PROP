@@ -48,7 +48,7 @@ public class DriverCongreso {
         C = new Congreso();
         Scanner userInput = new Scanner(System.in);
         boolean seguir = true;
-        //PresentaMenu();
+        PresentaMenu();
         do {
             //PresentaMenu();
             try {
@@ -56,7 +56,7 @@ public class DriverCongreso {
             } catch (Exception a) {
                 print(a.getMessage());
             }
-            //PresentaMenu();
+            PresentaMenu();
         } while(userInput.hasNextLine());
     }
 

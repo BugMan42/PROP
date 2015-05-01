@@ -56,11 +56,12 @@ public class Congreso {
     public void modPartidoCongresista(Dni dni,String partido) throws Exception {
         tst.obtener(dni.toString()).modPartido(partido);
     }
-    /** Bueno hay algo mejor????? */
     public void modDniCongresista(Dni dni, Dni dniNuevo) throws Exception {
         if (!dni.equals(dniNuevo)) {
+            print("antes mod");
             tst.modificar(dni.toString(), dniNuevo.toString());
-            tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
+            print("despues mod");
+            //tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
         }
     }
     public void modCongresista(Dni dni,Dni dniNuevo , String nombre, String apellido,
@@ -77,6 +78,8 @@ public class Congreso {
         String aux = tst.toString();
         return aux;
     }
-
+    public void print(String d) {
+        System.out.println(d);
+    }
 
 }

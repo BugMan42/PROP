@@ -56,17 +56,14 @@ public class DriverCongresista {
         switch (Integer.parseInt(aux[0])) {
             case 0:
                 if (aux.length < 8) throw new InsuficientesArgumentos();
-                if (aux.length == 8) {
                     Dni a = new Dni(aux[1]);
                     C = new Congresista(a, aux[2], aux[3], Integer.parseInt(aux[4]), aux[5], aux[6], aux[7]);
-                }
-                else throw new DemasiadosArgumentos();
                 break;
             case 1:
                 if (aux.length < 2) throw new InsuficientesArgumentos();
                 if (C != null) {
-                    Dni a = new  Dni(aux[1]);
-                    C.modDni(a);
+                    Dni ab = new  Dni(aux[1]);
+                    C.modDni(ab);
                 }
                 else throw new CongresistaNoInicializado();
                 break;
@@ -75,48 +72,48 @@ public class DriverCongresista {
                 if (C != null) {
                     C.modNombre(aux[1]);
                 }
-                else throw new IllegalArgumentException("Congresista no ini");
+                else throw new CongresistaNoInicializado();
                 break;
             case 3:
                 if (aux.length < 2) throw new InsuficientesArgumentos();
                 if (C != null) {
                     C.modApellido(aux[1]);
                 }
-                else throw new IllegalArgumentException("Congresista no ini");
+                else throw new CongresistaNoInicializado();
                 break;
             case 4:
                 if (aux.length < 2) throw new InsuficientesArgumentos();
                 if (C != null) {
                     C.modEdad(Integer.parseInt(aux[1]));
                 }
-                else throw new IllegalArgumentException("Congresista no ini");
+                else throw new CongresistaNoInicializado();
                 break;
             case 5:
                 if (aux.length < 2) throw new InsuficientesArgumentos();
                 if (C != null) {
                     C.modCiudad(aux[1]);
                 }
-                else throw new IllegalArgumentException("Congresista no ini");
+                else throw new CongresistaNoInicializado();
                 break;
             case 6:
                 if (aux.length < 2) throw new InsuficientesArgumentos();
                 if (C != null) {
                     C.modEstado(aux[1]);
                 }
-                else throw new IllegalArgumentException("Congresista no ini");
+                else throw new CongresistaNoInicializado();
                 break;
             case 7:
                 if (aux.length < 2) throw new InsuficientesArgumentos();
                 if (C != null) {
                     C.modPartido(aux[1]);
                 }
-                else throw new IllegalArgumentException("Congresista no ini");
+                else throw new CongresistaNoInicializado();
                 break;
             case 8:
                 if (C != null) {
                     print(C.toString());
                 }
-                else throw new IllegalArgumentException("Congresista no ini");
+                else throw new CongresistaNoInicializado();
                 break;
             case 9:
                 System.exit(0);

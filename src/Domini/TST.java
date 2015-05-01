@@ -262,23 +262,25 @@ public class TST<X>  {
 
     //Modificación comp --> Modificamos el key pero mantenemos el objeto
     public void modificar(String oldKey, String newKey) throws Exception{
-        root = (TSTNodoChar) modificar(root,oldKey,null,newKey,0);
+        //root = (TSTNodoChar) modificar(root,oldKey,null,newKey,0);
+        modificar(root,oldKey,null,newKey,0);
     }
     //Modificación comp ---> Modificamos el key y canviamos el objeto
     public void modificar(String oldKey, String newKey, X x) throws Exception{
-        root = (TSTNodoChar) modificar(root,newKey,x,oldKey,0);
+        //root = (TSTNodoChar) modificar(root,oldKey,x,newKey,0);
+        modificar(root,oldKey,x,newKey,0);
     }
 
     //Modificación Compuesta
     /** FALTA HACER EFICIENTE*/
-    private TSTNodo modificar(TSTNodo t, String oldKey, X x, String newKey,int d) throws Exception{
+    private void modificar(TSTNodo t, String oldKey, X x, String newKey,int d) throws Exception{
         if (x == null) {
             x = obtener(oldKey);
         }
         if (existe(newKey)) throw new Exception("ya existe la clave");
         borrar(oldKey);
         insertar(newKey,x);
-        return t;
+        //return t;
     }
 
     private void print(String str) {
