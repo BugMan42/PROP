@@ -20,17 +20,17 @@ public class Louvain extends Algoritmo {
     private double[] k; // Suma de los pesos de las aristas adyacentes a cada nodo.
     private double[] ins, tot;
 
-    public Louvain(Entrada i, Salida o){
+    public Louvain(Entrada i, Salida o) throws Exception {
         super(i, o);
     }
 
     public Grafo ejecutar_algoritmo() throws Exception {
-        g = in.obtGrafo();
+        g = new Grafo(in.obtGrafo());
         lim_Q = in.obtParam1();
 
         // Guardar peso total del grafo.
         m2 = .0;
-        for(int i=0; i<g.V(); ++i) m2 += g.totalPesoSucesores(i);
+        for(int i=0; i<g.V(); ++i) m2 += g.totalPesoSalida(i);
         //print("Peso total: "+String.valueOf(m2));
 
 
@@ -44,7 +44,7 @@ public class Louvain extends Algoritmo {
         return g;
     }
 
-    private boolean primera_fase(){
+    private boolean primera_fase() throws Exception {
         num_n = g.V();
         boolean mejora = false;
         int nodos_movidos;
@@ -59,7 +59,7 @@ public class Louvain extends Algoritmo {
 
         // k[i] = Suma de pesos de las aristas adyacentes a i.
         k = new double[num_n];
-        for (int i=0; i<num_n; ++i) k[i] = g.totalPesoSucesores(i);
+        for (int i=0; i<num_n; ++i) k[i] = g.totalPesoSalida(i);
 
         // Calcular modularidad grafo.
         double old_Q = modularidad();
@@ -178,17 +178,17 @@ public class Louvain extends Algoritmo {
 
         // Construir grafo.
         Grafo g2 = new Grafo();
-        for(int i=0; i<num_nuevas_com; ++i) g2.añadirVertice(String.valueOf(i));
+        for(int i=0; i<num_nuevas_com; ++i) g2.agregarVertice(String.valueOf(i));
 
         for(int i=0; i<num_nuevas_com; ++i){
             // Calcular aristas comunidad i.
             Map<Integer,Double> aristas = new HashMap<Integer, Double>();
             for(int n : nodos_com.get(i)){
-                ArrayList<Integer> nodos_ady = g.nodosSucesores(n);
+                List<Integer> nodos_ady = g.nodosSalida(n);
                 for(int n_ady : nodos_ady){
                     int com = renumerar[n2c[n_ady]];
                     if(!aristas.containsKey(com)) aristas.put(com,0.0);
-                    List<Double> peso = g.pesosAdyacentes(n,n_ady);
+                    List<Double> peso = g.obtenerListaPesos(n, n_ady);
                     double p = aristas.get(com) + peso.get(0);
                     aristas.put(com,p);
                 }
@@ -198,20 +198,20 @@ public class Louvain extends Algoritmo {
 
             // Añadir aristas comunidad i.
             for(Map.Entry<Integer,Double> p : aristas.entrySet())
-                g2.añadirArista(String.valueOf(i),String.valueOf(p.getKey()),p.getValue());
+                g2.agregarArista(String.valueOf(i), String.valueOf(p.getKey()), p.getValue());
         }
 
         g = g2;
     }
 
-    /*
-    private double modularidad(){
+    /* Modularidad, versión anterior.
+    private double modularidad() throws Exception {
         double sum = .0;
         for (int i=0; i<num_n; ++i){
             for (int j=0; j<num_n; ++j){ // Para cada nodo i,j.
                 if (n2c[i] == n2c[j]){ // Si son de la misma comunidad.
                     double Aij = .0;
-                    List<Double> pesosAij = g.pesosAdyacentes(i,j);
+                    List<Double> pesosAij = g.obtenerListaPesos(i,j);
                     if (!pesosAij.isEmpty()){ // Si existe arista entre i y j.
                         Aij = pesosAij.get(0);
                     }
@@ -233,7 +233,7 @@ public class Louvain extends Algoritmo {
         return q;
     }
 
-    private double ganancia_modularidad(int nodo, int com){
+    private double ganancia_modularidad(int nodo, int com) throws Exception {
         double kiin = suma_peso_nodos_adyacentes_com(nodo,com);
         //double gmod = ((ins[com]+kiin*2)/m2)-(((tot[com]+k[nodo])/m2)*((tot[com]+k[nodo])/m2));
         //gmod -= (ins[com]/m2 - ((tot[com]/m2)*(tot[com]/m2)) - ((k[nodo]/m2)*(k[nodo]/m2)));
@@ -244,21 +244,21 @@ public class Louvain extends Algoritmo {
         return gmod;
     }
 
-    private ArrayList<Integer> comunidades_ady(int nodo, double[] p_nc){
-        ArrayList<Integer> nodos = g.nodosSucesores(nodo);
+    private ArrayList<Integer> comunidades_ady(int nodo, double[] p_nc) throws Exception {
+        List<Integer> nodos = g.nodosSalida(nodo);
         Collections.sort(nodos);
         ArrayList<Integer> coms = new ArrayList<Integer>();
         coms.add(n2c[nodo]);
         for(Integer x : nodos){
             if (!coms.contains(n2c[x])) coms.add(n2c[x]);
-            List<Double> p = g.pesosAdyacentes(nodo,x);
+            List<Double> p = g.obtenerListaPesos(nodo, x);
             if(x==nodo) p_nc[n2c[x]] += p.get(0)/2;
             else p_nc[n2c[x]] += p.get(0);
         }
         return coms;
     }
 
-    private void calcular_pesos_comunidades(){
+    private void calcular_pesos_comunidades() throws Exception {
         ins = new double[num_n];
         tot = new double[num_n];
         for(int i=0; i<num_n; ++i){
@@ -266,9 +266,9 @@ public class Louvain extends Algoritmo {
             tot[i] = .0;
         }
         for(int i=0; i<num_n; ++i){
-            ArrayList<Integer> n = g.nodosSucesores(i);
+            List<Integer> n = g.nodosSalida(i);
             for(int j : n){
-                List<Double> p = g.pesosAdyacentes(i,j);
+                List<Double> p = g.obtenerListaPesos(i, j);
                 // p nunca vacío porque estamos consultando nodos adyacentes.
                 tot[n2c[j]] += p.get(0);
                 if(n2c[i] == n2c[j]) ins[n2c[i]] += p.get(0);
@@ -295,12 +295,12 @@ public class Louvain extends Algoritmo {
                 String.valueOf(k[nodo]));
     }
 
-    private double suma_peso_nodos_adyacentes_com(int nodo, int com){
+    private double suma_peso_nodos_adyacentes_com(int nodo, int com) throws Exception {
         double p = 0.0;
-        ArrayList<Integer> n = g.nodosSucesores(nodo);
+        List<Integer> n = g.nodosSalida(nodo);
         for(int i : n){
             if (n2c[i] == com){
-                List<Double> lp = g.pesosAdyacentes(nodo, i);
+                List<Double> lp = g.obtenerListaPesos(nodo, i);
                 p += lp.get(0);
             }
         }

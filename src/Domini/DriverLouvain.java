@@ -25,46 +25,46 @@ public class DriverLouvain {
 
         // EJEMPLO 1
         /*
-        g.añadirVertice("a");
-        g.añadirVertice("b");
-        g.añadirVertice("c");
+        g.agregarVertice("a");
+        g.agregarVertice("b");
+        g.agregarVertice("c");
 
-        g.añadirArista("a", "b", 1);
-        g.añadirArista("b", "a", 1);
-        g.añadirArista("b", "c", 1);
-        g.añadirArista("c","b",1);
-        g.añadirArista("c","a",1);
-        g.añadirArista("a","c",1);
+        g.agregarArista("a", "b", 1);
+        g.agregarArista("b", "a", 1);
+        g.agregarArista("b", "c", 1);
+        g.agregarArista("c","b",1);
+        g.agregarArista("c","a",1);
+        g.agregarArista("a","c",1);
         */
 
         // EJEMPLO 2
 
-        g.añadirVertice("a");
-        g.añadirVertice("b");
-        g.añadirVertice("c");
-        g.añadirVertice("d");
-        g.añadirVertice("e");
-        g.añadirVertice("f");
+        g.agregarVertice("a");
+        g.agregarVertice("b");
+        g.agregarVertice("c");
+        g.agregarVertice("d");
+        g.agregarVertice("e");
+        g.agregarVertice("f");
 
-        g.añadirArista("a","b",1);
-        g.añadirArista("b","a",1);
-        g.añadirArista("b","c",1);
-        g.añadirArista("c","b",1);
-        g.añadirArista("c","a",1);
-        g.añadirArista("a","c",1);
-        g.añadirArista("c","d",1);
-        g.añadirArista("d","c",1);
-        g.añadirArista("d","e",1);
-        g.añadirArista("e","d",1);
-        g.añadirArista("e","f",1);
-        g.añadirArista("f","e",1);
-        g.añadirArista("f","d",1);
-        g.añadirArista("d","f",1);
+        g.agregarArista("a","b",1);
+        g.agregarArista("b","a",1);
+        g.agregarArista("b","c",1);
+        g.agregarArista("c","b",1);
+        g.agregarArista("c","a",1);
+        g.agregarArista("a","c",1);
+        g.agregarArista("c","d",1);
+        g.agregarArista("d","c",1);
+        g.agregarArista("d","e",1);
+        g.agregarArista("e","d",1);
+        g.agregarArista("e","f",1);
+        g.agregarArista("f","e",1);
+        g.agregarArista("f","d",1);
+        g.agregarArista("d","f",1);
+        
 
+        //g.agregarArista("a","a",1);
 
-        //g.añadirArista("a","a",1);
-
-        ArrayList<Integer> v = g.consultarVertices();
+        //ArrayList<Integer> v = g.consultarVertices();
         //for (int i : v) dl.print(String.valueOf(i));
 
 
