@@ -53,34 +53,34 @@ public class DriverTST {
 
     private static void ProcesarLinea(String str) throws Exception {
         String aux[] = str.split("\\s");
-        if (str.length() == 0) throw new IllegalArgumentException("Pocs arguments pre");
+        if (str.length() == 0) throw new InsuficientesArgumentos();
         switch (Integer.parseInt(aux[0])) {
             case 0:
-                if (aux.length < 3) throw new IllegalArgumentException("Pocos argumentos");
+                if (aux.length < 3) throw new InsuficientesArgumentos();
                 tst.insertar(aux[1],Integer.parseInt(aux[2]));
                 break;
             case 1:
-                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (aux.length < 2) throw new InsuficientesArgumentos();
                 print(""+tst.obtener(aux[1]));
                 break;
             case 2:
-                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (aux.length < 2) throw new InsuficientesArgumentos();
                 print(""+tst.existe(aux[1]));
                 break;
             case 3:
-                if (aux.length < 2) throw new IllegalArgumentException("Pocos argumentos");
+                if (aux.length < 2) throw new InsuficientesArgumentos();
                 tst.borrar(aux[1]);
                 break;
             case 4:
-                if (aux.length < 3) throw new IllegalArgumentException("Pocos argumentos");
-                tst.modificar(aux[1],Integer.parseInt(aux[2]));
+                if (aux.length < 3) throw new InsuficientesArgumentos();
+                tst.modificar(aux[1], Integer.parseInt(aux[2]));
                 break;
             case 5:
-                if (aux.length < 3) throw new IllegalArgumentException("Pocos argumentos");
+                if (aux.length < 3) throw new InsuficientesArgumentos();
                 tst.modificar(aux[1], aux[2]);
                 break;
             case 6:
-                if (aux.length < 4) throw new IllegalArgumentException("Pocos argumentos");
+                if (aux.length < 4) throw new InsuficientesArgumentos();
                 tst.modificar(aux[1], aux[2],Integer.parseInt(aux[3]));
             case 7:
                 print(tst.toString());

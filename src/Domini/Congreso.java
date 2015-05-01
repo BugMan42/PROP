@@ -15,61 +15,58 @@ public class Congreso {
     public int size() {
         return tst.size();
     }
-    public void addCongresista(Congresista C) throws Exception {
+    public void agregarCongresista(Congresista C) throws Exception {
         tst.insertar(C.obtDni().toString(),C);
     }
-    public void eliminarCongresista(Congresista C) throws Exception{
-        tst.borrar(C.obtDni().toString());
-    }
-    public ArrayList<String> obtener_lista() {
+    public ArrayList<String> obtenerLista() {
         return tst.consultarClaves();
     }
     public boolean contieneCongresista(Dni dni) {
         return tst.existe(dni.toString());
     }
-    public void EliminarCongresista(Dni dni) throws Exception {
+    public void eliminarCongresista(Dni dni) throws Exception {
         tst.borrar(dni.toString());
     }
-    public void EliminarCongreso() {
+    public void eliminarCongreso() {
         tst.vaciar();
     }
 
     //####################################
     //########MODIFICADORAS###############
     //####################################
-    public void ModificarDniCongresista(Dni dni,int edad) throws Exception {
+    public void modificarDniCongresista(Dni dni,int edad) throws Exception {
         tst.obtener(dni.toString()).modEdad(edad);
     }
-    public void ModificarNombreCongresista(Dni dni,String nombre) throws Exception {
+    public void modificarNombreCongresista(Dni dni,String nombre) throws Exception {
         tst.obtener(dni.toString()).modNombre(nombre);
     }
-    public void ModificarApellidoCongresista(Dni dni,String apellido) throws Exception {
+    public void modificarApellidoCongresista(Dni dni,String apellido) throws Exception {
         tst.obtener(dni.toString()).modApellido(apellido);
     }
-    public void ModificarEdadCongresista(Dni dni,int edad) throws Exception {
+    public void modificarEdadCongresista(Dni dni,int edad) throws Exception {
         tst.obtener(dni.toString()).modEdad(edad);
     }
-    public void ModificarCiudadCongresista(Dni dni,String ciudad) throws Exception {
+    public void modificarCiudadCongresista(Dni dni,String ciudad) throws Exception {
         tst.obtener(dni.toString()).modCiudad(ciudad);
     }
-    public void ModificarEstadoCongresista(Dni dni,String estado) throws Exception {
+    public void modificarEstadoCongresista(Dni dni,String estado) throws Exception {
         tst.obtener(dni.toString()).modEstado(estado);
     }
-    public void ModificarPartidoCongresista(Dni dni,String partido) throws Exception {
+    public void modificarPartidoCongresista(Dni dni,String partido) throws Exception {
         tst.obtener(dni.toString()).modPartido(partido);
     }
     /** Bueno hay algo mejor????? */
-    public void ModificarDni(Dni dni, Dni dniNuevo) throws Exception {
+    public void modificarDni(Dni dni, Dni dniNuevo) throws Exception {
         tst.modificar(dni.toString(),dniNuevo.toString());
         tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
     }
-    public void ModificarCongresista(Dni dni,Dni dniNuevo , String nombre, String apellido,
+    public void modificarCongresista(Dni dni,Dni dniNuevo , String nombre, String apellido,
                                      int edad, String ciudad, String estado, String partido) throws  Exception{
         tst.modificar(dni.toString(),dniNuevo.toString());
         tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
         tst.obtener(dniNuevo.toString()).mod(dniNuevo,nombre,apellido,edad,ciudad,estado,partido);
     }
-    public Congresista ConsultarCongresista(Dni dni) throws Exception {
+    public Congresista consultarCongresista(Dni dni) throws Exception {
         Congresista aux = new Congresista(tst.obtener(dni.toString()));
         return aux;
     }

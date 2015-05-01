@@ -88,6 +88,8 @@ public class Grafo {
         }
         AristasNodo(AristasNodo A) {
             clave = A.clave;
+            entrada = new ArrayList<NodoInterno>();
+            salida = new ArrayList<NodoInterno>();
             for (int i = 0; i < A.entrada.size(); ++i) {
                 entrada.add(i,new NodoInterno(A.entrada.get(i)));
             }
@@ -319,12 +321,14 @@ public class Grafo {
     }
     //TODO COMO SE HACE
     public Grafo(Grafo g) throws Exception {
+        aristas = new ArrayList<AristasNodo>();
+        vacios = new PriorityQueue<Integer>();
+        vertices = new TST<Integer>();
         for (int i = 0; i < g.aristas.size(); ++i) {
             aristas.add(i, new AristasNodo(g.aristas.get(i)));
         }
         vertices = new TST(g.vertices);
-        if (g.vacios.isEmpty()) vacios = new PriorityQueue<Integer>();
-        else vacios = new PriorityQueue<Integer>(g.vacios);
+        if (!g.vacios.isEmpty()) vacios = new PriorityQueue<Integer>(g.vacios);
     }
     public int V() {
         return aristas.size()-vacios.size();

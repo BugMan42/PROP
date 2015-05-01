@@ -30,7 +30,7 @@ public class Prop {
     private static void decide(int opcion, String[] args) {
         switch (opcion) {
             case 1:
-                Domini.DriverCongreso.main(args);
+                //Domini.DriverCongreso.main(args);
                 break;
             case 2:
                 //Domini.DriverCongreso.main(args);
