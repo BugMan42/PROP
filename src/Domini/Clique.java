@@ -68,6 +68,7 @@ public class Clique extends Algoritmo {
                 kc.agregar(u);
                 kc.agregar(v);
             }
+            else kc.eliminar();
             return;
         }
         else {
@@ -87,25 +88,23 @@ public class Clique extends Algoritmo {
         }
     }
 
-    public Grafo ejecutar_iteración() throws Exception {
+    public Grafo ejecutar_algoritmo() throws Exception {
         //Primera version ineficiente coste n^2
-        /*int n = g.V();
+        int n = g.V();
         comunidades c = new comunidades();
         for (int i = 0; i < n; ++i) {
             k_clique kc = new k_clique();
-            if (g.degreeSalida(i) + 1 >= k) {
+            int m = g.degreeSalida(i);
+            if (m + 1 >= k) {
                 ArrayList<Integer> candidatos = new ArrayList<Integer>();
                 int contador = 0;
-                int w = g.nodosSalida(i).get(0);
-                for (Iterator it = g.nodosSalida(i).listIterator(); it.hasNext() && w it.next())); ) {
-                    int w = (Integer) it.next();
-                    ++contador;
-                }
+                for (Iterator it = g.nodosSalida(i).listIterator(); it.hasNext() && (Integer)it.next() < i;) ++contador;
+                candidatos = (ArrayList<Integer>) g.nodosSalida(i).subList(contador, m);
                 kc.agregar(i);
-                cliqueOneNode(kc, k, i, g.nodosSalida(i));
+                cliqueOneNode(kc, k, i, candidatos);
                 if (kc.size() > 0) c.agregar_clique(kc);
             }
-        }*/
+        }
         /*for (int i = 0; i < n; ++i) {
             ArrayList<Integer> ady = g.ady_copia(i);
             if (ady.size() >= 3 && g.pesoAristasVertice(i) >= 4) { //3 sera k cuando este listo y 4 sera el valor de threshold
