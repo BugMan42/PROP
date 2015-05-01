@@ -5,11 +5,11 @@ import java.util.ArrayList;
 /**
  * Created by jose on 15/04/15.
  */
-public class ControladorCjtRelacion {
+public class ControladorRelaciones {
 
     private Relaciones c;
 
-    public ControladorCjtRelacion(){
+    public ControladorRelaciones(){
         c = new Relaciones();
     }
 
