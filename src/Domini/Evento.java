@@ -18,8 +18,8 @@ public abstract class Evento {
      * Post: Se crea un evento solo con los atributos nombre y fecha
      */
     public Evento(String name, String date) throws NoValido {
-        if (name.equals("")) throw new NoValido("nombre");
-        if (date.equals("")) throw new NoValido("fecha");
+        if (name.equals("")) throw new NoValido("nombre", 0);
+        if (date.equals("")) throw new NoValido("fecha", 0);
         nombre = name;
         fecha = new Fecha(date);
     }
@@ -28,9 +28,9 @@ public abstract class Evento {
      *Post: Se crea un evento con todos que seran name, date, subtype y importance.
      */
     public Evento(String name, String date, int importance) throws NoValido {
-        if (name.equals("")) throw new NoValido("nombre");
-        if (date.equals("")) throw new NoValido("fecha");
-        if (importance <= 0) throw new NoValido("importancia");
+        if (name.equals("")) throw new NoValido("nombre", 0);
+        if (date.equals("")) throw new NoValido("fecha", 0);
+        if (importance <= 0) throw new NoValido("importancia", 0);
         fecha = new Fecha(date);
         nombre = name;
         importancia = importance;
@@ -43,7 +43,7 @@ public abstract class Evento {
      * Post: Al nombre del evento se le ha asignado name
      */
     public void ModNombre(String name) throws NoValido{
-        if (name.equals("")) throw new NoValido("nombre");
+        if (name.equals("")) throw new NoValido("nombre", 0);
         nombre = name;
     }
 
@@ -68,7 +68,7 @@ public abstract class Evento {
      * Post: A la importancia del evento se le ha asignado importance
      */
     public void ModImportancia(int importance) throws NoValido{
-        if (importance <= 0) throw new NoValido("Importancia");
+        if (importance <= 0) throw new NoValido("Importancia", 0);
         importancia = importance;
     }
 
