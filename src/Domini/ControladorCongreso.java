@@ -17,83 +17,79 @@ public class ControladorCongreso {
         return c.size();
     }
 
-    public void agregarCongresista(String s) throws Exception {
-        String[] aux = s.split("\\s");
-        Dni dni = new Dni(aux[0]);
-        Congresista con = new Congresista(dni,aux[1],aux[2],Integer.valueOf(aux[3]),aux[4],aux[5],aux[6]);
-        c.agregarCongresista(dni,aux[1],aux[2],Integer.valueOf(aux[3]),aux[4],aux[5],aux[6]);
+    public boolean esVacio(){
+        return c.esVacio();
     }
 
-    public ArrayList<String> obtenerLista(){
+    public void agregarCongresista(String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
+        Dni d = new Dni(dni);
+        c.agregarCongresista(d,nombre,apellido,edad,ciudad,estado,partido);
+    }
+
+    public ArrayList<String> obtenerListaID(){
         return c.obtenerListaID();
     }
 
-    public boolean contieneCongresista(String s) throws Exception {
-        Dni dni = new Dni(s);
-        return c.contieneCongresista(dni);
+    public boolean contieneCongresista(String dni) throws Exception {
+        Dni d = new Dni(dni);
+        return c.contieneCongresista(d);
     }
 
-    public void eliminarCongresista(String s) throws Exception {
-        Dni dni = new Dni(s);
-        c.eliminarCongresista(dni);
+    public void eliminarCongresista(String dni) throws Exception {
+        Dni d = new Dni(dni);
+        c.eliminarCongresista(d);
     }
+
     public void eliminarCongreso() {
         c.eliminarCongreso();
     }
 
-    public void modificarNombreCongresista(String s) throws Exception {
-        String[] aux = s.split("\\s");
-        Dni dni = new Dni(aux[0]);
-        c.modNombreCongresista(dni, aux[1]);
+    public void modNombreCongresista(String dni, String nombre) throws Exception {
+        Dni d = new Dni(dni);
+        c.modNombreCongresista(d, nombre);
     }
 
-    public void modificarApellidoCongresista(String s) throws Exception {
-        String[] aux = s.split("\\s");
-        Dni dni = new Dni(aux[0]);
-        c.modApellidoCongresista(dni, aux[1]);
+    public void modApellidoCongresista(String dni, String apellido) throws Exception {
+        Dni d = new Dni(dni);
+        c.modApellidoCongresista(d, apellido);
     }
 
-    public void modificarEdadCongresista(String s) throws Exception {
-        String[] aux = s.split("\\s");
-        Dni dni = new Dni(aux[0]);
-        c.modEdadCongresista(dni, Integer.parseInt(aux[1]));
+    public void modEdadCongresista(String dni, int edad) throws Exception {
+        Dni d = new Dni(dni);
+        c.modEdadCongresista(d, edad);
     }
 
-    public void modificarCiudadCongresista(String s) throws Exception {
-        String[] aux = s.split("\\s");
-        Dni dni = new Dni(aux[0]);
-        c.modCiudadCongresista(dni, aux[1]);
+    public void modCiudadCongresista(String dni, String ciudad) throws Exception {
+        Dni d = new Dni(dni);
+        c.modCiudadCongresista(d, ciudad);
     }
 
-    public void modificarEstadoCongresista(String s) throws Exception {
-        String[] aux = s.split("\\s");
-        Dni dni = new Dni(aux[0]);
-        c.modEstadoCongresista(dni, aux[1]);
+    public void modEstadoCongresista(String dni, String estado) throws Exception {
+        Dni d = new Dni(dni);
+        c.modEstadoCongresista(d, estado);
     }
 
-    public void modificarPartidoCongresista(String s) throws Exception {
-        String[] aux = s.split("\\s");
-        Dni dni = new Dni(aux[0]);
-        c.modPartidoCongresista(dni, aux[1]);
+    public void modPartidoCongresista(String dni, String partido) throws Exception {
+        Dni d = new Dni(dni);
+        c.modPartidoCongresista(d, partido);
     }
 
-    public void modificarDni(String s) throws Exception {
-        String[] aux = s.split("\\s");
-        Dni dni = new Dni(aux[0]);
-        Dni dni_nuevo = new Dni(aux[1]);
-        c.modDniCongresista(dni, dni_nuevo);
+    public void modDniCongresista(String dni, String dni_nuevo) throws Exception {
+        Dni d = new Dni(dni);
+        Dni d_nuevo = new Dni(dni_nuevo);
+        c.modDniCongresista(d, d_nuevo);
     }
 
-    public void modificarCongresista(String s) throws  Exception{
-        String[] aux = s.split("\\s");
-        Dni dni = new Dni(aux[0]);
-        Dni dni_nuevo = new Dni(aux[1]);
-        c.modCongresista(dni, dni_nuevo, aux[2], aux[3], Integer.parseInt(aux[4]), aux[5], aux[6], aux[7]);
+    public void modCongresista(String dni, String dni_nuevo, String nombre, String apellido, int edad, String ciudad,
+                               String estado, String partido) throws  Exception{
+        Dni d = new Dni(dni);
+        Dni d_nuevo = new Dni(dni_nuevo);
+        c.modCongresista(d, d_nuevo, nombre, apellido, edad, ciudad, estado, partido);
     }
 
-    public Congresista consultarCongresista(String s) throws Exception {
-        Dni dni = new Dni(s);
-        return c.consultarCongresista(dni);
+    public Congresista consultarCongresista(String dni) throws Exception {
+        Dni d = new Dni(dni);
+        return c.consultarCongresista(d);
     }
 
     public String toString() {

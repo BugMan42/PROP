@@ -22,66 +22,75 @@ public class DriverControladorCongreso {
             String[] params = linea.split("\\s");
             try {
                 op = Integer.parseInt(params[0]);
-                String aux = "";
                 switch (op) {
                     case 0:
+                        dcc.validar_num_params(params, 1);
                         dcc.print(String.valueOf(cc.size()));
                         break;
                     case 1:
-                        aux = dcc.validar_num_params(params,8);
-                        cc.agregarCongresista(aux);
+                        dcc.validar_num_params(params, 1);
+                        dcc.print(String.valueOf(cc.esVacio()));
                         break;
                     case 2:
-                        dcc.print(cc.obtenerLista().toString());
+                        dcc.validar_num_params(params,8);
+                        cc.agregarCongresista(params[1], params[2], params[3], Integer.parseInt(params[4]), params[5],
+                                params[6], params[7]);
                         break;
                     case 3:
-                        aux = dcc.validar_num_params(params, 2);
-                        dcc.print(Boolean.toString(cc.contieneCongresista(aux)));
+                        dcc.validar_num_params(params, 1);
+                        dcc.print(cc.obtenerListaID().toString());
                         break;
                     case 4:
-                        aux = dcc.validar_num_params(params,2);
-                        cc.eliminarCongresista(aux);
+                        dcc.validar_num_params(params, 2);
+                        dcc.print(Boolean.toString(cc.contieneCongresista(params[1])));
                         break;
                     case 5:
-                        cc.eliminarCongreso();
+                        dcc.validar_num_params(params, 2);
+                        cc.eliminarCongresista(params[1]);
                         break;
                     case 6:
-                        aux = dcc.validar_num_params(params,3);
-                        cc.modificarNombreCongresista(aux);
+                        dcc.validar_num_params(params, 1);
+                        cc.eliminarCongreso();
                         break;
                     case 7:
-                        aux = dcc.validar_num_params(params,3);
-                        cc.modificarApellidoCongresista(aux);
+                        dcc.validar_num_params(params,3);
+                        cc.modNombreCongresista(params[1], params[2]);
                         break;
                     case 8:
-                        aux = dcc.validar_num_params(params,3);
-                        cc.modificarEdadCongresista(aux);
+                        dcc.validar_num_params(params,3);
+                        cc.modApellidoCongresista(params[1], params[2]);
                         break;
                     case 9:
-                        aux = dcc.validar_num_params(params,3);
-                        cc.modificarCiudadCongresista(aux);
+                        dcc.validar_num_params(params,3);
+                        cc.modEdadCongresista(params[1], Integer.parseInt(params[2]));
                         break;
                     case 10:
-                        aux = dcc.validar_num_params(params,3);
-                        cc.modificarEstadoCongresista(aux);
+                        dcc.validar_num_params(params,3);
+                        cc.modCiudadCongresista(params[1], params[2]);
                         break;
                     case 11:
-                        aux = dcc.validar_num_params(params,3);
-                        cc.modificarPartidoCongresista(aux);
+                        dcc.validar_num_params(params,3);
+                        cc.modEstadoCongresista(params[1], params[2]);
                         break;
                     case 12:
-                        aux = dcc.validar_num_params(params,3);
-                        cc.modificarDni(aux);
+                        dcc.validar_num_params(params,3);
+                        cc.modPartidoCongresista(params[1], params[2]);
                         break;
                     case 13:
-                        aux = dcc.validar_num_params(params,9);
-                        cc.modificarCongresista(aux);
+                        dcc.validar_num_params(params,3);
+                        cc.modDniCongresista(params[1], params[2]);
                         break;
                     case 14:
-                        aux = dcc.validar_num_params(params,2);
-                        dcc.print(cc.consultarCongresista(aux).toString());
+                        dcc.validar_num_params(params,9);
+                        cc.modCongresista(params[1], params[2], params[3], params[4], Integer.parseInt(params[5]),
+                                params[6], params[7], params[8]);
                         break;
                     case 15:
+                        dcc.validar_num_params(params,2);
+                        dcc.print(cc.consultarCongresista(params[1]).toString());
+                        break;
+                    case 16:
+                        dcc.validar_num_params(params,1);
                         dcc.print(cc.toString());
                         break;
                 }
@@ -91,44 +100,39 @@ public class DriverControladorCongreso {
                 op = -1;
             }
         }
-        while(op != 16);
+        while(op != 17);
     }
 
     private void menu(){
         print("\nDRIVER DE CONTROLADOR CONGRESO");
         print("0 size()");
-        print("1 agregarCongresista(String dni, String nombre, String apellido, int edad, " +
+        print("1 esVacio()");
+        print("2 agregarCongresista(String dni, String nombre, String apellido, int edad, " +
                 "String ciudad, String estado, String partido)");
-        print("2 obtenerLista()");
-        print("3 contieneCongresista(String dni)");
-        print("4 eliminarCongresista(String dni)");
-        print("5 eliminarCongreso()");
-        print("6 modificarNombreCongresista(Dni dni,String nombre)");
-        print("7 modificarApellidoCongresista(Dni dni,String apellido)");
-        print("8 modificarEdadCongresista(Dni dni,int edad)");
-        print("9 modificarCiudadCongresista(Dni dni,String ciudad)");
-        print("10 modificarEstadoCongresista(Dni dni,String estado)");
-        print("11 modificarPartidoCongresista(Dni dni,String partido)");
-        print("12 modificarDni(Dni dni, Dni dniNuevo)");
-        print("13 modificarCongresista(Dni dni,Dni dniNuevo , String nombre, String apellido," +
+        print("3 obtenerListaID()");
+        print("4 contieneCongresista(String dni)");
+        print("5 eliminarCongresista(String dni)");
+        print("6 eliminarCongreso()");
+        print("7 modNombreCongresista(String dni,String nombre)");
+        print("8 modApellidoCongresista(String dni,String apellido)");
+        print("9 modEdadCongresista(String dni,int edad)");
+        print("10 modCiudadCongresista(String dni,String ciudad)");
+        print("11 modEstadoCongresista(String dni,String estado)");
+        print("12 modPartidoCongresista(String dni,String partido)");
+        print("13 modDniCongresista(String dni, String dni_nuevo)");
+        print("14 modCongresista(String dni, String dni_nuevo, String nombre, String apellido," +
                 " int edad, String ciudad, String estado, String partido)");
-        print("14 consultarCongresista(Dni dni)");
-        print("15 toString()");
-        print("16 Salir\n");
+        print("15 consultarCongresista(Dni dni)");
+        print("16 toString()");
+        print("17 Salir\n");
     }
 
     private void print(String s){
         System.out.println(s);
     }
 
-    public String validar_num_params(String[] params, int num) throws Exception {
-        String aux = "";
-        if (params.length == num){
-            aux = params[1];
-            for (int i = 2; i < num; ++i) aux += " " + params[i];
-            return aux;
-        }
-        else throw new Exception(E1);
+    public void validar_num_params(String[] params, int num) throws Exception {
+        if (params.length != num) throw new Exception(E1);
     }
 
 }
