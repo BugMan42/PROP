@@ -362,6 +362,7 @@ public class Grafo {
            vacios.add(v);
            eliminarAristas(v);
            aristas.set(v, null);
+           print(vacios+"");
        }
        else throw new Exception("vertice No Valido");
     }

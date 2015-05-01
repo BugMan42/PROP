@@ -1,95 +1,130 @@
 package Domini;
 
-import java.util.ArrayList;
-
-/**
- * Created by bug on 20/03/15.
- */
+import java.util.*;
 
 
 public class Relaciones {
-    private ArrayList<Relacion> Lista;
+    private class NodeC {
+        ArrayList<Relacion> eventos;
+        NodeC(Relacion r) {
+            eventos = new ArrayList<Relacion>();
+            eventos.add(0,r);
+        }
+        public Congresista obtCongresista() {
+            return eventos.get(0).obtCongresista();
+        }
+        public String obtenerIDCongresista() {
+            return eventos.get(0).obtCongresista().ID();
+        }
+        public void agregarRelacion(Relacion r) throws Exception {
+            int i;
+            for (i = 0; i < eventos.size(); ++i) {
+                if (eventos.get(i).obtEvento().ID().equals(r.obtEvento())) {
+                    throw new Exception("Ya existe la Relacion");
+                }
+            }
+            eventos.add(i,r);
+        }
+        public void eliminarRelacion(Relacion r) throws Exception {
+            for (int i = 0; i < eventos.size(); ++i) {
+                if (eventos.get(i).obtEvento().ID().equals(r.obtEvento())) {
+                    eventos.remove(i);
+                    return;
+                }
+            }
+            throw new Exception("No existe Relacion");
+        }
+        //cuidado no es deep copy
+        public ArrayList<Relacion> obtenerRelaciones() {
+            return eventos;
+        }
+        public ArrayList<Evento> obtenerEventos() {
+            ArrayList<Evento> aux = new ArrayList<Evento>();
+            for (int i = 0; i < eventos.size(); ++i) {
+                aux.add(i,eventos.get(i).obtEvento());
+            }
+            return aux;
+        }
+    }
+    private class NodeE {
+        ArrayList<Relacion> congresistas;
+        public NodeE(Relacion r) {
+            congresistas = new ArrayList<Relacion>();
+            congresistas.add(0,r);
+        }
+        public void agregarRelacion(Relacion r) throws Exception {
+            int i;
+            for (i = 0; i < congresistas.size(); ++i) {
+                if (congresistas.get(i).obtEvento().ID().equals(r.obtEvento())) {
+                    throw new Exception("Ya existe la Relacion");
+                }
+            }
+            congresistas.add(i,r);
+        }
+        public void eliminarRelacion(Relacion r) throws Exception {
+            for (int i = 0; i < eventos.size(); ++i) {
+                if (congresistas.get(i).obtEvento().ID().equals(r.obtEvento())) {
+                    congresistas.remove(i);
+                    return;
+                }
+            }
+            throw new Exception("No existe Relacion");
+        }
+        //cuidado no es deep copy
+        public ArrayList<Relacion> obtenerRelaciones() {
+            return congresistas;
+        }
+        public ArrayList<Congresista> obtenerCongresistas() {
+            ArrayList<Congresista> aux = new ArrayList<Congresista>();
+            for (int i = 0; i < congresistas.size(); ++i) {
+                aux.add(i,congresistas.get(i).obtCongresista());
+            }
+            return aux;
+        }
+    }
+    private TST<NodeC> congresistas;
+    private TST<NodeE> eventos;
 
     public Relaciones() {
-        Lista = new ArrayList<Relacion>();
+        congresistas = new TST<NodeC>();
+        eventos = new TST<NodeE>();
     }
-    public ArrayList<Relacion> obt_lista() {
-        return Lista;
-    }
-    public void add_Relacion(Relacion R) {
-        Lista.add(R);
-    }
-    public void eliminar_relacion(Relacion R) {
-        Lista.remove(R);
-    }
-    public boolean contiene(Relacion R) {
-        return Lista.contains(R);
-    }
-    static final String error1 = "Congreso no contiene el dni";
-    static final String error2 = "Congreso ya contiene el dni";
-    static final String error3 = "DNI NO VALIDO";
-    //private int N;
-    /*private int BuscarIndice(Dni dni) {
-        //si no se encuentra retorna -1
-        int n = Lista.size();
-        boolean found = false;
-        int i = 0;
-        while (!found && i < n) {
-            if (Lista.get(i).obtDni().equals(dni)) found = true;
-            else ++i;
+    public void agregarRelacion(Relacion r) throws Exception {
+        NodeC aux = new NodeC(r);
+        if (!congresistas.existe(r.obtCongresista().ID())) {
+            congresistas.insertar(r.obtCongresista().ID(),aux);
         }
-        if (!found) i = -1;
-        return i;
-    }*/
-    /*public void addRelacion(Relacion C) {
-        if (!contieneRelacion(C.obtDni())) {
-            Lista.add(C);
+        else {
+            aux = congresistas.obtener(r.obtCongresista().ID());
+            aux.agregarRelacion(r);
         }
-        else throw new IllegalArgumentException(error2);
-        //++N;
-    }*/
-    public void eliminarRelacion(Relacion R) {
-        Lista.remove(R);
-        //--N;
-    }
-    public ArrayList<Relacion> obtener_lista() {
-        return Lista;
-    }
-    /*public boolean contieneRelacion(Relacion C) {
-        //post: retorna verdadero si el Relacion esta en el congreso
-        return Lista.contains(C);
-    }*/
-   /* public boolean contieneRelacion(Dni dni) {
-        //post: retorna verdadero si el dni esta en el congreso
-        int n = Lista.size();
-        int i = 0;
-        while (i < n) {
-            if (Lista.get(i).obtDni().equals(dni)) return true;
-            else ++i;
+        NodeE aux2 = new NodeE(r);
+        if (!eventos.existe(r.obtEvento().ID())) {
+            eventos.insertar(r.obtEvento().ID(),aux2);
         }
-        return false;
-    }*/
-    /*public void EliminarRelacion(Dni dni) {
-        int i = BuscarIndice(dni);
-        if (i != -1) Lista.remove(i);
-        else throw new IllegalArgumentException(error1);
+        else {
+            aux2 = eventos.obtener(r.obtEvento().ID());
+            aux2.agregarRelacion(r);
+        }
     }
-    public void EliminarRelaciones() {
-        Lista.clear();
-    }*/
+    public void eliminarRelacion(Relacion r) throws Exception {
+        NodeC aux = congresistas.obtener(r.obtCongresista().ID());
+        aux.eliminarRelacion(r);
+        NodeE aux2 = eventos.obtener(r.obtEvento().ID());
+        aux2.eliminarRelacion(r);
+    }
+    ArrayList<Evento> obtEventos(Congresista c) throws Exception {
+        return congresistas.obtener(c.ID()).obtenerEventos();
+    }
+    ArrayList<Congresista> obtCongresistas(Evento e) throws Exception {
+        return eventos.obtener(e.ID()).obtenerCongresistas();
+    }
+    ArrayList<Relacion> obtRelaciones(Congresista c) throws Exception {
+        return congresistas.obtener(c.ID()).obtenerRelaciones();
+    }
+    ArrayList<Relacion> obtRelaciones(Evento e) throws Exception {
+        return eventos.obtener(e.ID()).obtenerRelaciones();
+    }
 
-    //####################################
-    //########MODIFICADORAS###############
-    //####################################
-   /* public void ModificarRelacion(Dni dni,Dni dni2 , String nombre, String apellido, int edad, String ciudad, String estado, String partido) {
-        int i = BuscarIndice(dni);
-        if (i != -1) Lista.get(i).modEdad(edad);
-        else throw new IllegalArgumentException(error1);
-    }*/
-    /*public Relacion ConsultarRelacion(Dni dni) {
-        int i = BuscarIndice(dni);
-        if (i != -1) return Lista.get(i);
-        else throw new IllegalArgumentException(error1);
-    }*/
 
 }

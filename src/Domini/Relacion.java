@@ -8,26 +8,26 @@ public class Relacion {
     //atributos no pueden ser null
     private Congresista C;
     private Evento E;
-    Relacion(Congresista C1, Evento E1) {
-        C = C1;
-        E = E1;
-    }
-    //Modificadoras
-    public void mod_relacion(Congresista C1, Evento Ev) {
+    Relacion(Congresista C1, Evento Ev) {
         C = C1;
         E = Ev;
     }
-    public void mod_relacion(Congresista C1) {
+    //Modificadoras
+    public void modRelacion(Congresista C1, Evento Ev) {
+        C = C1;
+        E = Ev;
+    }
+    public void modRelacion(Congresista C1) {
         C = C1;
     }
-    public void mod_relacion(Evento Ev) {
+    public void modRelacion(Evento Ev) {
         E = Ev;
     }
     //Consultoras
-    public Congresista obt_congresista() {
+    public Congresista obtCongresista() {
         return C;
     }
-    public Evento obt_Evento() {
+    public Evento obtEvento() {
         return E;
     }
     public String toString() {

@@ -25,17 +25,22 @@ public class DriverGrafo {
         Grafo a = new Grafo();
         a.agregarVertice("a");
         a.agregarVertice("b");
+        a.agregarVertice("c");
+        a.agregarVertice("d");
         print(a.consultarVertices().toString());
         print(a.consultarVerticesID().toString());
         //a.eliminarVertice(1);
 
         //print(a.f("h")+" "+a.fPrima(a.f("h")));
         a.agregarArista(0, 1, 2.0);
+        a.agregarArista(0, 2, 2.0);
+        a.agregarArista(0, 3, 2.0);
         a.agregarArista(1, 0, 2.0);
         a.agregarArista(0, 1, 3.0);
         a.agregarArista(1, 0, 3.0);
         a.eliminarVertice(1);
-        print("Nodos Entrada 1 " + a.nodosEntrada(0));
+        a.eliminarVertice(2);
+        print("Nodos Entrada 0 " + a.nodosEntrada(0));
         print("Nodos Salida 0 "+a.nodosSalida(0));
        // print("Nodos Entrada 0 "+a.nodosEntrada(0));
         //print("Nodos Salida 1 "+a.nodosSalida(1));

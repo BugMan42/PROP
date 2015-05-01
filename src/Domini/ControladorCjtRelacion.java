@@ -13,9 +13,9 @@ public class ControladorCjtRelacion {
         c = new Relaciones();
     }
 
-    private ArrayList<Relacion> obt_lista(){
+    /*private ArrayList<Relacion> obt_lista(){
         return c.obt_lista();
-    }
+    }*/
 
     public Grafo generar_grafo_relaciones(){
         Grafo g = new Grafo();
