@@ -25,6 +25,9 @@ public class Congreso {
     public ArrayList<String> obtenerListaID() {
         return tst.consultarClaves();
     }
+    public List<Congresista> obtenerCongreso() {
+        return tst.consultarObjetos();
+    }
     public boolean contieneCongresista(Dni dni) {
         return tst.existe(dni.toString());
     }

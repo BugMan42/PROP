@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.ArrayList;
 
-
+//String key must be [a---z]+[A----Z]+[0---9]
 public class TST<X>  {
 
     private X X_clone(X x) throws Exception, InvocationTargetException {
@@ -119,7 +119,7 @@ public class TST<X>  {
         }
         else {
             TSTNodoChar tChar = (TSTNodoChar) t;
-            if (c == fin && tChar.valor == fin) throw new Exception("CLAVE REPETIDA");
+            if (c == fin && tChar.valor == fin) throw new KeyAlreadyExistsTST(key);
             if (c < tChar.valor) t.left = insertar(t.left,key,x,l);
             else if (c > tChar.valor) t.right = insertar(t.right,key,x,l);
             else t.middle = insertar(t.middle,key,x,l+1);
@@ -136,7 +136,7 @@ public class TST<X>  {
     }
 
     private X obtener(TSTNodo t,String key,int d) throws Exception{
-        if (t == null) throw new Exception("no existe la clave");
+        if (t == null) throw new KeyNotExistsTST(key);
 
         char c;
         if (d < key.length()) c = key.charAt(d);
@@ -151,7 +151,7 @@ public class TST<X>  {
                 TSTNodoFinal f = (TSTNodoFinal) t.middle;
                 return f.valor;
             }
-            else return null;
+            else throw new KeyNotExistsTST(key);
         }
     }
 
@@ -189,7 +189,7 @@ public class TST<X>  {
 
     }
     private TSTNodo borrar(TSTNodo t,TSTNodo padre,String key,int d) throws Exception {
-        if (t == null) throw new Exception("no existe la clave");
+        if (t == null) throw new KeyNotExistsTST(key);
 
         char c;
         if (d < key.length()) c = key.charAt(d);
@@ -214,7 +214,7 @@ public class TST<X>  {
                 --N;
             }
             else {
-                throw new Exception("no existe la clave");
+                throw new KeyNotExistsTST(key);
             }
         }
         if (t != null && t.left == null && t.right == null && t.middle == null) {
@@ -233,7 +233,7 @@ public class TST<X>  {
     }
     //Modificación Simple
     private TSTNodo modificar(TSTNodo t, X x,String key, int d) throws Exception {
-        if (t == null) throw new Exception("no existe la clave");
+        if (t == null) throw new KeyNotExistsTST(key);
 
         char c;
         if (d < key.length()) c = key.charAt(d);
@@ -250,7 +250,7 @@ public class TST<X>  {
                 t.middle = f;
             }
             else {
-                throw new Exception("no existe la clave");
+                throw new KeyNotExistsTST(key);
 
             }
         }
@@ -282,7 +282,8 @@ public class TST<X>  {
             if (x == null) {
                 x = obtener(oldKey);
             }
-            if (existe(newKey)) throw new Exception("ya existe la clave");
+            if (!existe(oldKey)) throw new KeyNotExistsTST(oldKey);
+            if (existe(newKey)) throw new KeyAlreadyExistsTST(newKey);
             borrar(oldKey);
             insertar(newKey,x);
         }
@@ -290,7 +291,8 @@ public class TST<X>  {
             if (x == null) {
                 x = obtener(oldKey);
             }
-            if (existe(newKey)) throw new Exception("ya existe la clave");
+            if (!existe(oldKey)) throw new KeyNotExistsTST(oldKey);
+            if (existe(newKey)) throw new KeyAlreadyExistsTST(newKey);
             borrar(oldKey);
             insertar(newKey,x);
             //return t;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.*;
 
 public class DriverGrafo {
-    private static Scanner user_input = new Scanner(System.in);
     private static Grafo g;
 
     private static void print(String str) {
@@ -22,11 +21,11 @@ public class DriverGrafo {
         print(" 6 agregarVertice(String v)");
         print(" 7 eliminarVertice(String v)");
         print(" 8 eliminarVertice(int v)");
-        print(" 9 consultarVertices():ArrayList<Integer>");
-        print("10 consultarVerticesID():ArrayList<String>");
-        print("11 existeVertice(String v):boolean");
-        print("12 existeVertice(int v):boolean");
-        print("13 modificarClaveVertice(String idVieja, String idNueva)");
+        print(" 9 modificarClaveVertice(String idVieja, String idNueva)");
+        print("10 consultarVertices():ArrayList<Integer>");
+        print("11 consultarVerticesID():ArrayList<String>");
+        print("12 existeVertice(String v):boolean");
+        print("13 existeVertice(int v):boolean");
         print("14 agregarArista(String origen,String fin, double peso)");
         print("15 agregarArista(int origen,int fin, double peso)");
         print("16 modificarArista(String origen, String fin,double oldPeso," +
@@ -38,9 +37,9 @@ public class DriverGrafo {
         print("20 eliminarAristas(String origen,String fin)");
         print("21 eliminarAristas(int origen,int fin)");
         print("22 degreeEntrada(String v):int");
-        print("23 degreeEntrada(int v)");
-        print("24 degreeSalida(String v)");
-        print("25 degreeSalida(int v)");
+        print("23 degreeEntrada(int v):int");
+        print("24 degreeSalida(String v):int");
+        print("25 degreeSalida(int v):int");
         print("26 existeArista(String A, String B):boolean");
         print("27 existeArista(int origen, int fin):boolean");
         print("28 existeAristaPeso(String origen, String fin, double peso):boolean");
@@ -64,22 +63,26 @@ public class DriverGrafo {
         return Input.nextLine();
     }
     public static void main(String[] args) throws Exception {
+        boolean imprimir = false;
+        if (args.length > 0) {
+            if (args[0].equals("1")) imprimir = true;
+        }
         g = new Grafo();
         Scanner userInput = new Scanner(System.in);
-        boolean seguir = true;
-        PresentaMenu();
+        if (imprimir) PresentaMenu();
         do {
             //PresentaMenu();
             try {
-                ProcesarLinea(LeerLinea(userInput));
+                ProcesarLinea(LeerLinea(userInput),imprimir);
             } catch (Exception a) {
                 print(a.getMessage());
             }
-            PresentaMenu();
+            if (imprimir) PresentaMenu();
         } while(userInput.hasNextLine());
     }
 
-    private static void ProcesarLinea(String str) throws Exception {
+    private static void ProcesarLinea(String str, boolean imprimir) throws Exception {
+        if (!imprimir) print("> "+str);
         String aux[] = str.split("\\s");
         if (str.length() == 0) throw new InsuficientesArgumentos();
         switch (Integer.parseInt(aux[0])) {
@@ -116,22 +119,22 @@ public class DriverGrafo {
                 g.eliminarVertice(Integer.parseInt(aux[1]));
                 break;
             case 9:
-                print(g.consultarVertices().toString());
+                if (aux.length < 3) throw new InsuficientesArgumentos();
+                g.modificarClaveVertice(aux[1], aux[2]);
                 break;
             case 10:
-                print(g.consultarVerticesID().toString());
+                print(g.consultarVertices().toString());
                 break;
             case 11:
-                if (aux.length < 2) throw new InsuficientesArgumentos();
-                print(g.existeVertice(aux[1])+"");
+                print(g.consultarVerticesID().toString());
                 break;
             case 12:
                 if (aux.length < 2) throw new InsuficientesArgumentos();
-                print(g.existeVertice(Integer.parseInt(aux[1]))+"");
+                print(g.existeVertice(aux[1]) + "");
                 break;
             case 13:
-                if (aux.length < 3) throw new InsuficientesArgumentos();
-                g.modificarClaveVertice(aux[1], aux[2]);
+                if (aux.length < 2) throw new InsuficientesArgumentos();
+                print(g.existeVertice(Integer.parseInt(aux[1])) + "");
                 break;
             case 14:
                 if (aux.length < 4) throw new InsuficientesArgumentos();
