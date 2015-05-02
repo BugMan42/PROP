@@ -33,7 +33,9 @@ public class DriverCongresista {
     private static void PresentaMenu() {
         print("\nDRIVER DE CONGRESISTA");
 
-        print("0 Congresista (String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido)");
+        print("0 Congresista (String dni, String nombre," +
+                " String apellido, int edad, String ciudad, " +
+                "String estado, String partido)");
         print("1 modDni(String dni)");
         print("2 modNombre(String nombre)");
         print("3 modApellido(String apellido)");
