@@ -70,7 +70,9 @@ public class Clique extends Algoritmo {
         }
         else {
             int u = lista.get(0);
+            System.out.println("Primer nodo " + Integer.toString(u));
             int v = lista.get(1);
+            System.out.println("Segundo nodo " + Integer.toString(u));
             kc.agregar(u);
             kc.agregar(v);
             List<Integer> candidatos = g.nodosSalida(u);
@@ -96,6 +98,7 @@ public class Clique extends Algoritmo {
             int i = (Integer)it.next();
             System.out.println("Tratando nodo num: "+ Integer.toString(i));
             int m = g.degreeSalida(i);
+            System.out.println("Grado de: "+ Integer.toString(i) + ": "+ Integer.toString(m));
             if (m + 1 >= k) {
                 System.out.println(Integer.toString(index_sublista(i)));
                 int j = index_sublista(i);
@@ -105,7 +108,7 @@ public class Clique extends Algoritmo {
                     kc.agregar(i);
                     int v = (Integer)it2.next();
                     kc.agregar(v);
-                    cliqueOneNode(kc, k - 2, candidatos);
+                    cliqueOneNode(kc, k - 2, candidatos.subList(j, m));
                     if (kc.size() > 0) c.agregar_clique(kc);
                     ++j;
                 }

@@ -18,7 +18,7 @@ public abstract class Voto {
      * post: Devuelve el DNI que identifica el voto
     */
     public String obt_dni() {
-        return dni.DNI();
+        return dni.toString();
     }
 
     public void mod_dni(String s) throws Exception {

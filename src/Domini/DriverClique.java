@@ -30,7 +30,7 @@ public class DriverClique {
             List<Integer> ady = g.nodosSalida(gv.get(i));
             for (int j = 0; j < ady.size(); ++j) System.out.println("nodo "+Integer.toString(i)+" adyacente a "+Integer.toString(ady.get(j)));
         }
-        en = new Entrada(g, 4);
+        en = new Entrada(g, 3);
         sa = new Salida();
         c = new Clique(en, sa);
         c.ejecutar_algoritmo();
@@ -78,7 +78,7 @@ public class DriverClique {
         g.agregarVertice("6");
         g.agregarVertice("7");
 
-        /*.agregarArista("1", "2", 1);
+        g.agregarArista("1", "2", 1);
         g.agregarArista("1", "3", 1);
         g.agregarArista("2", "3", 1);
         g.agregarArista("2", "4", 1);
@@ -97,7 +97,7 @@ public class DriverClique {
         g.agregarArista("6", "4", 1);
         g.agregarArista("6", "5", 1);
         g.agregarArista("7", "6", 1);
-
+/*
         g.agregarArista("1", "2", 1);
         g.agregarArista("1", "3", 1);
         g.agregarArista("1", "4", 1);
@@ -116,7 +116,7 @@ public class DriverClique {
         g.agregarArista("5", "3", 1);
         g.agregarArista("5", "4", 1);*/
 
-        g.agregarArista("1", "2", 1);
+        /*g.agregarArista("1", "2", 1);
         g.agregarArista("1", "3", 1);
         g.agregarArista("1", "4", 1);
         g.agregarArista("2", "3", 1);
@@ -128,7 +128,7 @@ public class DriverClique {
         g.agregarArista("4", "1", 1);
         g.agregarArista("3", "2", 1);
         g.agregarArista("4", "2", 1);
-        g.agregarArista("4", "3", 1);
+        g.agregarArista("4", "3", 1);*/
         return g;
     }
 
