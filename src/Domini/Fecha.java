@@ -26,11 +26,11 @@ public class Fecha {
         int dia = Integer.parseInt(aux[0]);
         int mes = Integer.parseInt(aux[1]);
         int any = Integer.parseInt(aux[2]);
-        if (aux.length == 3 && Correcto(dia, mes, any)) {
+        if (aux.length == 3 && Correcto(dia, mes, any)) return true;
+        else {
             data = Integer.toString(dia)+Integer.toString(mes)+Integer.toString(any);
-            return true;
+            return false;
         }
-        else return false;
     }
 
     public Fecha(String data) throws NoValido {
