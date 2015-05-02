@@ -115,9 +115,9 @@ public class Clique extends Algoritmo {
             }
         }
         for (int i = 0; i < c.size();++i) {
-            out.agregarMensaje("clique" + Integer.toString(i) + ": ");
+            sout.agregarMensaje("clique" + Integer.toString(i) + ": ");
             k_clique kc = c.obt_clique(i);
-            for (int j = 0; j < kc.size(); ++j) out.agregarMensaje("vertice " + Integer.toString(kc.obt_vertice(j)));
+            for (int j = 0; j < kc.size(); ++j) sout.agregarMensaje("vertice " + Integer.toString(kc.obt_vertice(j)));
         }
 
         /*for (Iterator it = )

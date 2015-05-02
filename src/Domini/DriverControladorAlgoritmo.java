@@ -8,11 +8,13 @@ import java.util.Scanner;
 public class DriverControladorAlgoritmo {
 
     private static ControladorAlgoritmo c_alg;
+    private static ControladorRelaciones c_rel;
     private static Scanner ui;
 
     public DriverControladorAlgoritmo()
     {
-        c_alg = new ControladorAlgoritmo();
+        c_rel = new ControladorRelaciones();
+        c_alg = new ControladorAlgoritmo(c_rel);
         ui = new Scanner(System.in);
     }
 
@@ -24,6 +26,8 @@ public class DriverControladorAlgoritmo {
             opt = Integer.parseInt(ui.next());
             switch(opt)
             {
+                case 1:
+
                 case 2:
                     selectAlgorithm();
                     break;

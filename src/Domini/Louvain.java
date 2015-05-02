@@ -32,37 +32,37 @@ public class Louvain extends Algoritmo {
         m2 = .0;
         for(int i=0; i<g.V(); ++i) m2 += g.totalPesoSalida(i);
 
-        out.agregarMensaje(hora_sistema());
-        out.agregarMensaje("MÉTODO DE LOUVAIN.");
-        out.agregarMensaje("Inicio de la ejecución del algoritmo.");
-        out.agregarMensaje("Peso total del grafo: "+String.valueOf(m2));
-        out.agregarMensaje("Mínimo incremento de modularidad fijado: " + String.valueOf(lim_Q) + "\n");
+        sout.agregarMensaje(hora_sistema());
+        sout.agregarMensaje("MÉTODO DE LOUVAIN.");
+        sout.agregarMensaje("Inicio de la ejecución del algoritmo.");
+        sout.agregarMensaje("Peso total del grafo: "+String.valueOf(m2));
+        sout.agregarMensaje("Mínimo incremento de modularidad fijado: " + String.valueOf(lim_Q) + "\n");
 
         boolean mejora;
         int pasadas = 0;
         do {
             ++pasadas;
-            out.agregarMensaje("PASADA NUM. "+String.valueOf(pasadas));
+            sout.agregarMensaje("PASADA NUM. "+String.valueOf(pasadas));
             mejora = primera_fase();
             segunda_fase();
             actualizar_salida();
-            out.agregarMensaje("FIN PASADA NUM. " + String.valueOf(pasadas)+"\n");
+            sout.agregarMensaje("FIN PASADA NUM. " + String.valueOf(pasadas)+"\n");
         }
         while (mejora);
 
 
-        out.agregarMensaje(hora_sistema());
-        out.agregarMensaje("Fin de la ejecución del algoritmo.");
-        out.agregarMensaje("Tiempo de ejecución(ms): "+String.valueOf((System.nanoTime()-tini)/1000000.0));
-        out.agregarMensaje("Pasadas realizadas: "+String.valueOf(pasadas));
+        sout.agregarMensaje(hora_sistema());
+        sout.agregarMensaje("Fin de la ejecución del algoritmo.");
+        sout.agregarMensaje("Tiempo de ejecución(ms): "+String.valueOf((System.nanoTime()-tini)/1000000.0));
+        sout.agregarMensaje("Pasadas realizadas: "+String.valueOf(pasadas));
         String s = "Comunidades encontradas:\n";
-        for(int i = 0; i<out.comunidad().size(); ++i){
+        for(int i = 0; i<sout.comunidad().size(); ++i){
             s += "Comunidad "+String.valueOf(i)+": ";
-            for(int j : out.comunidad().get(i))
+            for(int j : sout.comunidad().get(i))
                 s += String.valueOf(j)+" ";
             s += "\n";
         }
-        out.agregarMensaje(s);
+        sout.agregarMensaje(s);
 
         return g;
     }
@@ -87,8 +87,8 @@ public class Louvain extends Algoritmo {
         double old_Q = modularidad();
         double new_Q = old_Q;
 
-        out.agregarMensaje("INICIO DE LA PRIMERA FASE");
-        out.agregarMensaje("Num. nodos del grafo: "+String.valueOf(num_n));
+        sout.agregarMensaje("INICIO DE LA PRIMERA FASE");
+        sout.agregarMensaje("Num. nodos del grafo: "+String.valueOf(num_n));
 
         // Preparar orden aleatorio.
         Random r = new Random();
@@ -102,15 +102,15 @@ public class Louvain extends Algoritmo {
         }
 
 
-        out.agregarMensaje("Inicio del bucle encargado de mover los nodos en cada iteración hacia las comunidades" +
+        sout.agregarMensaje("Inicio del bucle encargado de mover los nodos en cada iteración hacia las comunidades" +
                 " que producen más ganancia de modularidad.\n");
         do {
             old_Q = new_Q;
             nodos_movidos = 0;
 
-            out.agregarMensaje("Inicio iteración.");
-            out.agregarMensaje("Modularidad: "+String.valueOf(old_Q));
-            out.agregarMensaje("Moviendo nodos a la mejor comunidad.\n");
+            sout.agregarMensaje("Inicio iteración.");
+            sout.agregarMensaje("Modularidad: "+String.valueOf(old_Q));
+            sout.agregarMensaje("Moviendo nodos a la mejor comunidad.\n");
 
             // Mover nodos a la mejor comunidad.
             // Elegir nodo (mejor en orden aleatorio).
@@ -118,7 +118,7 @@ public class Louvain extends Algoritmo {
                 int nodo = rand[i];
                 int com_nodo = n2c[nodo];
 
-                out.agregarMensaje("Nodo "+String.valueOf(nodo)+" (Comunidad "+String.valueOf(com_nodo)+")");
+                sout.agregarMensaje("Nodo "+String.valueOf(nodo)+" (Comunidad "+String.valueOf(com_nodo)+")");
 
                 // Consultar comunidades adyacentes al nodo.
                 // Calcular pesos adyacencias del nodo a comunidades.
@@ -128,61 +128,61 @@ public class Louvain extends Algoritmo {
                 // Comentarios Salida
                 String s = "Comunidades adyacentes al nodo: ";
                 for(Integer x : coms) s += String.valueOf(x)+" ";
-                out.agregarMensaje(s);
+                sout.agregarMensaje(s);
 
                 // Quitar nodo de su comunidad.
-                out.agregarMensaje("Quitar nodo "+String.valueOf(nodo)+" de la comunidad "+String.valueOf(com_nodo));
+                sout.agregarMensaje("Quitar nodo "+String.valueOf(nodo)+" de la comunidad "+String.valueOf(com_nodo));
                 quitar_nodo_comunidad(nodo, com_nodo, p_nc[com_nodo]);
 
                 // Para cada comunidad comprobar la ganancia de modularidad al añadir el nodo.
-                out.agregarMensaje("Comprobando ganancias al añadir el nodo a cada comunidad adyacente.");
+                sout.agregarMensaje("Comprobando ganancias al añadir el nodo a cada comunidad adyacente.");
                 int mejor_com = com_nodo;
                 double mejor_ganancia = 0.0;
                 for(int j : coms){
                     double ganancia = ganancia_modularidad(nodo,j);
-                    out.agregarMensaje("Comunidad "+String.valueOf(j)+" => Ganancia "+String.valueOf(ganancia));
+                    sout.agregarMensaje("Comunidad "+String.valueOf(j)+" => Ganancia "+String.valueOf(ganancia));
                     if (ganancia > mejor_ganancia){
                         mejor_com = j;
                         mejor_ganancia = ganancia;
                     }
                 }
-                out.agregarMensaje("Fin de la comprobación.");
-                out.agregarMensaje("Mejor ganancia: " + String.valueOf(mejor_ganancia) + " (Comunidad " + String.valueOf(mejor_com) + ")");
+                sout.agregarMensaje("Fin de la comprobación.");
+                sout.agregarMensaje("Mejor ganancia: " + String.valueOf(mejor_ganancia) + " (Comunidad " + String.valueOf(mejor_com) + ")");
 
                 // Añadir el nodo a la comunidad con mayor ganancia.
-                out.agregarMensaje("Añadir nodo "+String.valueOf(nodo)+" a la comunidad "+String.valueOf(mejor_com)+"\n");
+                sout.agregarMensaje("Añadir nodo "+String.valueOf(nodo)+" a la comunidad "+String.valueOf(mejor_com)+"\n");
                 insertar_nodo_comunidad(nodo, mejor_com, p_nc[mejor_com]);
 
                 // Si hemos movido el nodo a otra comunidad incrementamos nodos_movidos.
                 if(mejor_com != com_nodo) ++nodos_movidos;
 
             }
-            out.agregarMensaje("Nodos movidos a las mejores comunidades.");
+            sout.agregarMensaje("Nodos movidos a las mejores comunidades.");
 
             // Si se ha movido algún nodo entonces se ha mejorado la modularidad.
             if(nodos_movidos > 0) mejora = true;
 
             // Recalcular modularidad.
             new_Q = modularidad();
-            out.agregarMensaje("Modularidad anterior: "+String.valueOf(old_Q));
-            out.agregarMensaje("Nueva modularidad: "+String.valueOf(new_Q));
-            out.agregarMensaje("Incremento: "+String.valueOf(new_Q-old_Q));
-            out.agregarMensaje("Incremento mínimo fijado: "+String.valueOf(lim_Q));
+            sout.agregarMensaje("Modularidad anterior: "+String.valueOf(old_Q));
+            sout.agregarMensaje("Nueva modularidad: "+String.valueOf(new_Q));
+            sout.agregarMensaje("Incremento: "+String.valueOf(new_Q-old_Q));
+            sout.agregarMensaje("Incremento mínimo fijado: "+String.valueOf(lim_Q));
 
-            if(new_Q-old_Q>lim_Q) out.agregarMensaje("Incremento > Mínimo incremento");
-            else out.agregarMensaje("Incremento <= Mínimo incremento");
+            if(new_Q-old_Q>lim_Q) sout.agregarMensaje("Incremento > Mínimo incremento");
+            else sout.agregarMensaje("Incremento <= Mínimo incremento");
 
-            if(nodos_movidos>0) out.agregarMensaje("Se han movido nodos a otras comunidades en la iteración.");
-            else out.agregarMensaje("No se ha movido ningún nodo a otra comunidad en la iteración.");
+            if(nodos_movidos>0) sout.agregarMensaje("Se han movido nodos a otras comunidades en la iteración.");
+            else sout.agregarMensaje("No se ha movido ningún nodo a otra comunidad en la iteración.");
 
-            out.agregarMensaje("Fin iteración.\n");
+            sout.agregarMensaje("Fin iteración.\n");
         }
         while (new_Q - old_Q > lim_Q && nodos_movidos > 0);
         // Repetir mientras "modularidad nueva - modularidad antigua > minimo establecido"
         // y se haya movido algún nodo a otra comunidad en la iteración.
 
-        out.agregarMensaje("Fin del bucle.");
-        out.agregarMensaje("FIN DE LA PRIMERA FASE\n");
+        sout.agregarMensaje("Fin del bucle.");
+        sout.agregarMensaje("FIN DE LA PRIMERA FASE\n");
 
         // Devuelve true si se ha realizado alguna mejora.
         return mejora;
@@ -197,8 +197,8 @@ public class Louvain extends Algoritmo {
         // Las aristas entre nodos de la misma comunidad generan bucles (aristas que relacionan
         // un nodo consigo mismo) para la comunidad en el nuevo grafo.
 
-        out.agregarMensaje("INICIO DE LA SEGUNDA FASE");
-        out.agregarMensaje("Calcular número de comunidades nuevas.");
+        sout.agregarMensaje("INICIO DE LA SEGUNDA FASE");
+        sout.agregarMensaje("Calcular número de comunidades nuevas.");
 
         // Calcular num comunidades nuevas.
         int[] renumerar = new int[num_n];
@@ -208,13 +208,13 @@ public class Louvain extends Algoritmo {
             if(renumerar[i] > 0) renumerar[i] = num_nuevas_com++;
         }
 
-        out.agregarMensaje("Num. comunidades nuevas: "+String.valueOf(num_nuevas_com));
+        sout.agregarMensaje("Num. comunidades nuevas: "+String.valueOf(num_nuevas_com));
         String s = "Listado de nodos y comunidad a la que pertenecen.\n";
         for(int i=0; i<num_n; ++i) s += String.valueOf(i)+" "+String.valueOf(renumerar[n2c[i]])+"\n";
-        out.agregarMensaje(s);
+        sout.agregarMensaje(s);
 
 
-        out.agregarMensaje("Construir matriz con los nodos que contiene cada comunidad para " +
+        sout.agregarMensaje("Construir matriz con los nodos que contiene cada comunidad para " +
                 "la creación del nuevo grafo.");
 
         // Construir matriz con los nodos de cada comunidad.
@@ -229,17 +229,17 @@ public class Louvain extends Algoritmo {
             for (int j : nodos_com.get(i)) s += String.valueOf(j)+" ";
             s += "\n";
         }
-        out.agregarMensaje(s);
+        sout.agregarMensaje(s);
 
         // Construir grafo.
-        out.agregarMensaje("Construir nuevo grafo.");
+        sout.agregarMensaje("Construir nuevo grafo.");
         Grafo g2 = new Grafo();
         for(int i=0; i<num_nuevas_com; ++i) g2.agregarVertice(String.valueOf(i));
-        out.agregarMensaje("Num. nodos del nuevo grafo: "+String.valueOf(g2.V()));
+        sout.agregarMensaje("Num. nodos del nuevo grafo: "+String.valueOf(g2.V()));
 
         for(int i=0; i<num_nuevas_com; ++i){
             // Calcular aristas comunidad i.
-            out.agregarMensaje("Creando aristas del nodo "+String.valueOf(i));
+            sout.agregarMensaje("Creando aristas del nodo "+String.valueOf(i));
             Map<Integer,Double> aristas = new HashMap<Integer, Double>();
             for(int n : nodos_com.get(i)){
                 List<Integer> nodos_ady = g.nodosSalida(n);
@@ -259,47 +259,47 @@ public class Louvain extends Algoritmo {
             s = "";
             for(Map.Entry<Integer,Double> p : aristas.entrySet())
                 s += "hacia nodo "+String.valueOf(p.getKey())+" con peso "+p.getValue()+"\n";
-            out.agregarMensaje(s);
+            sout.agregarMensaje(s);
         }
-        out.agregarMensaje("FIN DE LA SEGUNDA FASE\n");
+        sout.agregarMensaje("FIN DE LA SEGUNDA FASE\n");
 
         g = g2;
     }
 
     private void actualizar_salida(){
-        out.agregarMensaje("INICIO ACTUALIZACIÓN SALIDA");
-        out.agregarMensaje("Guardar cuáles son los nodos iniciales que pertenecen a cada nueva comunidad.");
+        sout.agregarMensaje("INICIO ACTUALIZACIÓN SALIDA");
+        sout.agregarMensaje("Guardar cuáles son los nodos iniciales que pertenecen a cada nueva comunidad.");
 
-        if (out.comunidad().size()>0) {
+        if (sout.comunidad().size()>0) {
             ArrayList<Set<Integer>> nueva_com = new ArrayList<Set<Integer>>();
             for(ArrayList<Integer> nodos : nodos_com){
                 Set<Integer> com = new HashSet<Integer>();
                 for(Integer n : nodos)
-                    for(Integer x : out.comunidad().get(n))
+                    for(Integer x : sout.comunidad().get(n))
                         com.add(x);
                 nueva_com.add(com);
             }
-            out.comunidad().clear();
-            out.comunidad().addAll(nueva_com);
+            sout.comunidad().clear();
+            sout.comunidad().addAll(nueva_com);
         }
         else {
             for(ArrayList<Integer> nodos : nodos_com){
                 Set<Integer> com = new HashSet<Integer>();
                 for(Integer n : nodos) com.add(n);
-                out.comunidad().add(com);
+                sout.comunidad().add(com);
             }
         }
 
 
         String s = "";
-        for(int i=0; i<out.comunidad().size(); ++i){
+        for(int i=0; i<sout.comunidad().size(); ++i){
             s += "COMUNIDAD "+String.valueOf(i)+": ";
-            for(Integer x : out.comunidad().get(i))
+            for(Integer x : sout.comunidad().get(i))
                 s += String.valueOf(x)+" ";
             s += "\n";
         }
-        out.agregarMensaje(s);
-        out.agregarMensaje("FIN ACTUALIZACIÓN SALIDA\n");
+        sout.agregarMensaje(s);
+        sout.agregarMensaje("FIN ACTUALIZACIÓN SALIDA\n");
     }
 
     // Modularidad, versión anterior.

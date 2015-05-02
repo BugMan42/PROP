@@ -7,16 +7,23 @@ public class ControladorAlgoritmo {
     private Entrada in;
     private Algoritmo alg;
     private Salida out;
+    private ControladorRelaciones crel;
 
-    public ControladorAlgoritmo()
+    public ControladorAlgoritmo(ControladorRelaciones cr)
     {
         out = new Salida();
         in = new Entrada();
+        crel = cr;
     }
 
-    public void modEntrada(Grafo g, String p) // Serán Strings
+    // Dado el controlador de relaciones que pasas como parametro, se crea el grafo correspondiente
+    public void crearGrafo()
     {
-        in.modGrafo(g);
+        in.modGrafo(crel.generar_grafo_relaciones());
+    }
+
+    public void modParamEntrada(String p) // Serán Strings
+    {
         in.modParam1(p);
     }
 

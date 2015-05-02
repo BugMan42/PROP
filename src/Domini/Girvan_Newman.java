@@ -219,7 +219,7 @@ public class Girvan_Newman extends Algoritmo{
 
         }
 
-        out.agregarMensaje("Arista eliminada: " + data_graph.fPrima(victim.orig) + "--" + data_graph.fPrima(victim.dest));
+        sout.agregarMensaje("Arista eliminada: " + data_graph.fPrima(victim.orig) + "--" + data_graph.fPrima(victim.dest));
         alg_graph.eliminarAristas(victim.orig, victim.dest);//, data_graph.pesoAristaVertices(victim.orig, victim.dest));
         alg_graph.eliminarAristas(victim.dest, victim.orig);//, data_graph.pesoAristaVertices(victim.dest, victim.orig));
 
@@ -235,7 +235,7 @@ public class Girvan_Newman extends Algoritmo{
             node.add(n);
         }
 
-        out.comunidad().clear();
+        sout.comunidad().clear();
         TreeSet<Integer> comm = null;
         //Segundo pase del algoritmo de Girvan-Newman
         for (int iii = 0; iii < N; ++iii)
@@ -269,7 +269,7 @@ public class Girvan_Newman extends Algoritmo{
                 uno.component = cc2;
                 comm = new TreeSet<Integer>();
                 comm.add(iii);
-                out.comunidad().add(comm);
+                sout.comunidad().add(comm);
             }
 
             //Mientras la cola no esté vacía
@@ -356,7 +356,7 @@ public class Girvan_Newman extends Algoritmo{
         if (cc2 > cc)
         {
             int d_cc = cc2 - cc;
-            if (d_cc == 1 && alg_cc != 0) out.agregarMensaje("Ha surgido una nueva comunidad.");
+            if (d_cc == 1 && alg_cc != 0) sout.agregarMensaje("Ha surgido una nueva comunidad.");
         }
 
         alg_cc = cc2;
