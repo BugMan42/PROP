@@ -410,7 +410,7 @@ public class Grafo {
     public boolean existeVertice(int v) {
         return indexValido(v);
     }
-    public void modificarVertice(String idVieja, String idNueva) throws Exception {
+    public void modificarClaveVertice(String idVieja, String idNueva) throws Exception {
         //if (vertices.existe(idNueva)) throw new Exception("Clave repetida");
         vertices.modificar(idVieja,idNueva);
     }
@@ -435,7 +435,10 @@ public class Grafo {
         if (!indexValido(origen)) throw new Exception("Index No valido");
         if (!indexValido(fin)) throw new Exception("Index No Valido");
         aristas.get(origen).agregarSalida(fin,peso);
-        aristas.get(fin).agregarEntrada(origen,peso);
+        aristas.get(fin).agregarEntrada(origen, peso);
+    }
+    public void modificarArista(String origen, String fin,double oldPeso, double newPeso) throws Exception {
+        modificarArista(f(origen), f(fin), oldPeso, newPeso);
     }
 
     public void modificarArista(int origen, int fin,double oldPeso, double newPeso) throws Exception {
@@ -471,6 +474,9 @@ public class Grafo {
         if (!indexValido(origen)) throw new Exception("Index No valido");
         if (!indexValido(fin)) throw new Exception("Index No Valido");
         return aristas.get(origen).existeAristaSalida(fin) && aristas.get(fin).existeAristaEntrada(origen);
+    }
+    public boolean existeAristaPeso(String origen, String fin, double peso) throws Exception {
+        return existeAristaPeso(f(origen),f(fin),peso);
     }
     public boolean existeAristaPeso(int origen, int fin, double peso) throws Exception {
         if (!indexValido(origen)) throw new Exception("Index No valido");
@@ -518,6 +524,9 @@ public class Grafo {
         if (!indexValido(A)) throw new Exception("Index no valido");
         List<Integer> aux = aristas.get(A).obtenerNodosEntrada();
         return aux;
+    }
+    public double pesoAristasVertices(String origen, String fin) throws Exception {
+        return pesoAristasVertices(f(origen),f(fin));
     }
     public double pesoAristasVertices(int origen, int fin) throws Exception {
         if (!indexValido(origen)) throw new Exception("Index No valido");
