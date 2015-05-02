@@ -59,6 +59,18 @@ public class DriverControladorCjtEvento {
                         if(params.length!=3) throw new Exception(E1);
                         dce.print(String.valueOf(ce.ExisteEvento(params[1], params[2])));
                         break;
+                    case 9:
+                        if(params.length!=1) throw new Exception(E1);
+                        dce.print(String.valueOf(ce.size()));
+                        break;
+                    case 10:
+                        if(params.length!=2) throw new Exception(E1);
+                        ce.guardar(params[1]);
+                        break;
+                    case 11:
+                        if(params.length!=2) throw new Exception(E1);
+                        ce.guardar(params[1]);
+                        break;
                 }
             }
             catch (Exception e) {
@@ -66,7 +78,7 @@ public class DriverControladorCjtEvento {
                 op = -1;
             }
         }
-        while(op != 9);
+        while(op != 12);
     }
 
     private void menu(){
@@ -80,7 +92,10 @@ public class DriverControladorCjtEvento {
         print("6 ConsultarTodosEventos()");
         print("7 ConsultarEvento(String nombre, String fecha)");
         print("8 ExisteEvento(String nombre, String fecha)");
-        print("9 Salir\n");
+        print("9 size()");
+        print("10 guardar(String ruta)");
+        print("11 cargar(String ruta)");
+        print("12 Salir\n");
     }
 
     private void print(String s){

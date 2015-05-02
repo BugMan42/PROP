@@ -3,7 +3,6 @@ package Domini;
 
 import Persistencia.ControladorPersistencia;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -58,11 +57,14 @@ public class ControladorCjtEvento {
         return ce.ExisteEvento(nombre, fecha);
     }
 
-    /*
+    public int size(){
+        return ce.size();
+    }
+
     public void guardar(String ruta) throws Exception {
-        if (!ce.) {
+        if (ce.size() == 0) {
             ControladorPersistencia cp = new ControladorPersistencia(ruta);
-            ArrayList<Evento> es = ce.ConsultarTodosEventos();
+            List<Evento> es = ce.ConsultarTodosEventos();
             Iterator<Evento> it = es.iterator();
             cp.abrirEscritura();
             while (it.hasNext()){
@@ -78,6 +80,7 @@ public class ControladorCjtEvento {
         }
     }
 
+    /*
     public void cargar(String ruta) throws Exception {
         ControladorPersistencia cp = new ControladorPersistencia(ruta);
         cp.abrirLectura();
