@@ -263,14 +263,14 @@ public class TST<X>  {
     //Modificación comp --> Modificamos el key pero mantenemos el objeto
     public void modificar(String oldKey, String newKey) throws Exception{
         //root = (TSTNodoChar) modificar(root,oldKey,null,newKey,0);
-        if (oldKey != newKey) {
+        if (!(oldKey.equals(newKey))) {
             modificar(root,oldKey,null,newKey,0);
         }
     }
     //Modificación comp ---> Modificamos el key y canviamos el objeto
     public void modificar(String oldKey, String newKey, X x) throws Exception{
         //root = (TSTNodoChar) modificar(root,oldKey,x,newKey,0);
-        if (oldKey != newKey) {
+        if (!(oldKey.equals(newKey)))    {
             modificar(root,oldKey,x,newKey,0);
         }
     }

@@ -82,6 +82,7 @@ public class DriverTST {
             case 6:
                 if (aux.length < 4) throw new InsuficientesArgumentos();
                 tst.modificar(aux[1], aux[2],Integer.parseInt(aux[3]));
+                break;
             case 7:
                 print(tst.toString());
                 break;

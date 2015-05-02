@@ -320,7 +320,7 @@ public class Grafo {
         vacios = new PriorityQueue<Integer>(); //espacios vacios eficiencia aumentar
     }
     //TODO COMO SE HACE
-    public Grafo(Grafo g) throws Exception {
+        public Grafo(Grafo g) throws Exception {
         aristas = new ArrayList<AristasNodo>();
         vacios = new PriorityQueue<Integer>();
         vertices = new TST<Integer>();
@@ -333,13 +333,18 @@ public class Grafo {
     public int V() {
         return aristas.size()-vacios.size();
     }
-    public String fPrima(int nodo) throws Exception {
-        if (aristas.get(nodo) == null) throw new Exception("No existe Vertice");
-        return aristas.get(nodo).clave;
+    public int f(String clave) throws Exception {
+        try {
+            return vertices.obtener(clave);
+        }
+        catch (Exception a) { }
+        throw new Exception("No existe Vertice");
     }
-    public Integer f(String clave) throws Exception {
-        return vertices.obtener(clave);
+    public String fPrima(int v) throws Exception {
+        if (!indexValido(v)) throw new Exception("No existe Vertice");
+        return aristas.get(v).clave;
     }
+
 
 /**##################################################################
 //#############################VERTICES##############################
@@ -362,7 +367,11 @@ public class Grafo {
            vacios.add(v);
            eliminarAristas(v);
            aristas.set(v, null);
-           print(vacios+"");
+           if (vertices.esVacio()) {
+               aristas.clear();
+               vacios.clear();
+           }
+           //print(vacios+"");
        }
        else throw new Exception("vertice No Valido");
     }
@@ -398,14 +407,18 @@ public class Grafo {
     public boolean existeVertice(String v) {
         return vertices.existe(v);
     }
+    public boolean existeVertice(int v) {
+        return indexValido(v);
+    }
     public void modificarVertice(String idVieja, String idNueva) throws Exception {
-        if (vertices.existe(idNueva)) throw new Exception("Clave repetida");
+        //if (vertices.existe(idNueva)) throw new Exception("Clave repetida");
         vertices.modificar(idVieja,idNueva);
     }
 
 //######################################################################
 //######################################################################
     private boolean indexValido(int index) {
+        if (aristas.isEmpty()) return false;
         if (aristas.size()-1 < index) return false;
         return !(aristas.get(index) == null);
     }
@@ -516,7 +529,7 @@ public class Grafo {
 /**############################################################*/
 //##############################################################
     public boolean vacio() {
-        return aristas.size() > 0;
+        return vertices.size() == 0;
     }
     public int degreeEntrada(String v) throws Exception {
         return degreeEntrada(f(v));
