@@ -41,8 +41,10 @@ public class DriverGirvanNewman {
 
         System.out.println("Introduzca el número de aristas del grafo a crear:");
         int n_aristas = Integer.parseInt(ui.next());
+        System.out.println("Introduzca las aristas con el siguiente formato (Nº arista_origen, Nº arista_destino, peso):");
         for (int j = 0; j < n_aristas; ++j)
         {
+
             int v1 = Integer.parseInt(ui.next());
             int v2 = Integer.parseInt(ui.next());
             double p = Double.parseDouble(ui.next());
@@ -57,11 +59,6 @@ public class DriverGirvanNewman {
             }
 
         }
-
-        g.agregarArista("e", "f", 2);
-        g.agregarArista("f", "e", 2);
-        g.agregarArista("e", "g", 8);
-        g.agregarArista("g", "e", 8);
 
         return g;
     }
