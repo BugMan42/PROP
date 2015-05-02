@@ -8,7 +8,6 @@ import java.util.List;
  */
 public class CjtEvento {
     private TST<Evento> cjt;
-
     /**Comprueba si los parámetros son válidos
      * Pre: Cierto
      *Post: Devuelve true en caso de que nombre no sea vac�o
@@ -17,8 +16,6 @@ public class CjtEvento {
     private boolean Valido(String nombre, String fecha) throws NoValido {
         if (nombre.equals("")) throw new NoValido("Nombre", 0);
         if (!Fecha.valido(fecha)) throw new NoValido("Fecha", 0);
-        String s[] = fecha.split("/");
-        fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
         return true;
     }
 
@@ -54,6 +51,8 @@ public class CjtEvento {
      */
     public void EliminarEvento(String nombre, String fecha) throws Exception{
         if (Valido(nombre, fecha)) {
+            String s[] = fecha.split("/");
+            fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
             cjt.borrar(nombre+fecha);
         }
     }
