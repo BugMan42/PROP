@@ -9,7 +9,7 @@ import java.util.Hashtable;
  */
 public class Votacion extends Evento {
 
-    private Hashtable<String, Voto> votos = new Hashtable<String, Voto>();
+    private TST<Voto> votos = new TST<Voto>();
 
     public Votacion(String nombre, String fecha) throws Exception{
         super(nombre, fecha);
@@ -25,24 +25,29 @@ public class Votacion extends Evento {
 
 
     // Métodos de inserción de votos
-    public void añadir_voto(String id, Voto v) {
-        votos.put(id, v);
+    public void añadir_voto(String id, Voto v) throws Exception {
+        votos.insertar(id, v);
     }
 
-    public void añadir_voto(Voto v) {
-        votos.put(v.obt_dni(), v);
+    public void añadir_voto(Voto v) throws Exception {
+        votos.insertar(v.toString(), v);
     }
 
-    public void eliminar_voto(String id) {
-        votos.remove(id);
+    public void modificar_voto(String id, Voto v) throws Exception {
+        votos.borrar(id);
+        votos.insertar(id, v);
     }
 
-    public String consultar_voto(String id) {
-        return votos.get(id).mostrarInfo();
+    public void eliminar_voto(String id) throws Exception {
+        votos.borrar(id);
     }
 
-    public Voto obt_voto(String id) {
-        return votos.get(id);
+    public String consultar_voto(String id) throws Exception {
+        return votos.obtener(id).mostrarInfo();
+    }
+
+    public Voto obt_voto(String id) throws Exception {
+        return votos.obtener(id);
     }
 
     public String toString() {

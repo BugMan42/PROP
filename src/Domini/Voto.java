@@ -7,7 +7,9 @@ package Domini;
 public abstract class Voto {
     private Dni dni;
 
-    public Voto() {}
+    public Voto() {
+        dni = null;
+    }
 
     public Voto (String d) throws Exception {
         dni = new Dni(d);
@@ -22,7 +24,8 @@ public abstract class Voto {
     }
 
     public void mod_dni(String s) throws Exception {
-        dni.modDni(s);
+        if (dni == null) dni = new Dni(s);
+        else dni.modDni(s);
     }
 
     public abstract String obt_tipo();

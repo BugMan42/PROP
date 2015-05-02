@@ -60,6 +60,9 @@ public class DriverGirvanNewman {
 
         }
 
+        System.out.println("Introduzca el número máximo de comunidades para el algoritmo:");
+        int limit = ui.nextInt();
+
         return g;
     }
 }

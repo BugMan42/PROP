@@ -18,6 +18,6 @@ public class Positivo extends Voto {
     }
 
     public String mostrarInfo() {
-        return super.mostrarInfo() + "ha votado a favor.";
+        return super.mostrarInfo() + " ha votado a favor.";
     }
 }

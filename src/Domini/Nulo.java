@@ -19,6 +19,6 @@ public class Nulo extends Voto {
     }
 
     public String mostrarInfo() {
-        return super.mostrarInfo() + "ha votado en nulo";
+        return super.mostrarInfo() + " ha votado en nulo";
     }
 }

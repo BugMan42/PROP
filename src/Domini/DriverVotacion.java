@@ -30,7 +30,7 @@ public class DriverVotacion {
         while (opcion != 6);
     }
 
-    public static void alta(){
+    public static void alta() {
         System.out.println("Escribe el tipo de voto a introducir:");
         System.out.println("(1: Blanco, 2: Abstencion, 3: Positivo, 4: Negativo o 5: Nulo)");
         String s1 = user_input.next();
@@ -70,15 +70,21 @@ public class DriverVotacion {
 
         }*/
         System.out.println("Escribe el DNI del congresista votante:");
-
+        String s2 = user_input.next();
         try {
-            v.mod_dni(s1);
+            v.mod_dni(s2);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("DNI incorrecto");
+            System.out.println("DNI incorrecto, operación cancelada");
+            return;
         }
 
-        vt.añadir_voto(v);
+        try {
+            vt.añadir_voto(v);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("DNI ya existente, operación cancelada");
+        }
     }
 
     public static void consulta()
@@ -103,8 +109,7 @@ public class DriverVotacion {
         }
     }
 
-    public static void modificacion()
-    {
+    public static void modificacion() {
         System.out.println("Introduce el DNI del voto a modificar:");
         String s1 = user_input.next();
         try {
@@ -127,7 +132,13 @@ public class DriverVotacion {
             System.out.println("Tipo de voto no válido, operación cancelada.");
             return;
         }
-        vt.añadir_voto(s1,v);
+
+        try {
+            vt.añadir_voto(s1, v);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("DNI ya existe, operación cancelada");
+        }
 
     }
 

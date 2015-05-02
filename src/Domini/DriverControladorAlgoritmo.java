@@ -45,6 +45,8 @@ public class DriverControladorAlgoritmo {
         System.out.println("1. Crear grafo");
         System.out.println("2. Elegir algoritmo");
         System.out.println("3. Crear entrada");
+        System.out.println("4. Ejecutar algoritmo");
+        System.out.println("4. Consultar salida");
 
     }
 

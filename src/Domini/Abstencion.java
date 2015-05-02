@@ -18,7 +18,7 @@ public class Abstencion extends Voto {
     }
 
     public String mostrarInfo() {
-        return super.mostrarInfo() + "se ha abstenido.";
+        return super.mostrarInfo() + " se ha abstenido.";
     }
 
 }
