@@ -98,12 +98,12 @@ public class DriverControladorCongreso {
                         dcc.print(cc.toString());
                         break;
                     case 18:
-                        dcc.validar_num_params(params, 3);
-                        cc.guardar(Integer.parseInt(params[1]), params[2]);
+                        dcc.validar_num_params(params, 2);
+                        cc.guardar(params[1]);
                         break;
                     case 19:
-                        dcc.validar_num_params(params, 3);
-                        cc.cargar(Integer.parseInt(params[1]), params[2]);
+                        dcc.validar_num_params(params, 2);
+                        cc.cargar(params[1]);
                         break;
                 }
             }
@@ -137,8 +137,8 @@ public class DriverControladorCongreso {
                 " int edad, String ciudad, String estado, String partido)");
         print("16 consultarCongresista(Dni dni)");
         print("17 toString()");
-        print("18 guardar(int n, String ruta)");
-        print("19 cargar(int n, String ruta)");
+        print("18 guardar(String ruta)");
+        print("19 cargar(String ruta)");
         print("20 Salir\n");
     }
 
