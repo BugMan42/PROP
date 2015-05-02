@@ -41,57 +41,69 @@ public class DriverControladorCongreso {
                         dcc.print(cc.obtenerListaID().toString());
                         break;
                     case 4:
-                        dcc.validar_num_params(params, 2);
-                        dcc.print(Boolean.toString(cc.contieneCongresista(params[1])));
+                        dcc.validar_num_params(params, 1);
+                        dcc.print(cc.obtenerCongreso().toString());
                         break;
                     case 5:
                         dcc.validar_num_params(params, 2);
-                        cc.eliminarCongresista(params[1]);
+                        dcc.print(Boolean.toString(cc.contieneCongresista(params[1])));
                         break;
                     case 6:
+                        dcc.validar_num_params(params, 2);
+                        cc.eliminarCongresista(params[1]);
+                        break;
+                    case 7:
                         dcc.validar_num_params(params, 1);
                         cc.eliminarCongreso();
                         break;
-                    case 7:
+                    case 8:
                         dcc.validar_num_params(params,3);
                         cc.modNombreCongresista(params[1], params[2]);
                         break;
-                    case 8:
+                    case 9:
                         dcc.validar_num_params(params,3);
                         cc.modApellidoCongresista(params[1], params[2]);
                         break;
-                    case 9:
+                    case 10:
                         dcc.validar_num_params(params,3);
                         cc.modEdadCongresista(params[1], Integer.parseInt(params[2]));
                         break;
-                    case 10:
+                    case 11:
                         dcc.validar_num_params(params,3);
                         cc.modCiudadCongresista(params[1], params[2]);
                         break;
-                    case 11:
+                    case 12:
                         dcc.validar_num_params(params,3);
                         cc.modEstadoCongresista(params[1], params[2]);
                         break;
-                    case 12:
+                    case 13:
                         dcc.validar_num_params(params,3);
                         cc.modPartidoCongresista(params[1], params[2]);
                         break;
-                    case 13:
+                    case 14:
                         dcc.validar_num_params(params,3);
                         cc.modDniCongresista(params[1], params[2]);
                         break;
-                    case 14:
+                    case 15:
                         dcc.validar_num_params(params,9);
                         cc.modCongresista(params[1], params[2], params[3], params[4], Integer.parseInt(params[5]),
                                 params[6], params[7], params[8]);
                         break;
-                    case 15:
+                    case 16:
                         dcc.validar_num_params(params,2);
                         dcc.print(cc.consultarCongresista(params[1]).toString());
                         break;
-                    case 16:
+                    case 17:
                         dcc.validar_num_params(params,1);
                         dcc.print(cc.toString());
+                        break;
+                    case 18:
+                        dcc.validar_num_params(params, 3);
+                        cc.guardar(Integer.parseInt(params[1]), params[2]);
+                        break;
+                    case 19:
+                        dcc.validar_num_params(params, 3);
+                        cc.cargar(Integer.parseInt(params[1]), params[2]);
                         break;
                 }
             }
@@ -100,7 +112,7 @@ public class DriverControladorCongreso {
                 op = -1;
             }
         }
-        while(op != 17);
+        while(op != 20);
     }
 
     private void menu(){
@@ -110,21 +122,24 @@ public class DriverControladorCongreso {
         print("2 agregarCongresista(String dni, String nombre, String apellido, int edad, " +
                 "String ciudad, String estado, String partido)");
         print("3 obtenerListaID()");
-        print("4 contieneCongresista(String dni)");
-        print("5 eliminarCongresista(String dni)");
-        print("6 eliminarCongreso()");
-        print("7 modNombreCongresista(String dni,String nombre)");
-        print("8 modApellidoCongresista(String dni,String apellido)");
-        print("9 modEdadCongresista(String dni,int edad)");
-        print("10 modCiudadCongresista(String dni,String ciudad)");
-        print("11 modEstadoCongresista(String dni,String estado)");
-        print("12 modPartidoCongresista(String dni,String partido)");
-        print("13 modDniCongresista(String dni, String dni_nuevo)");
-        print("14 modCongresista(String dni, String dni_nuevo, String nombre, String apellido," +
+        print("4 obtenerCongreso()");
+        print("5 contieneCongresista(String dni)");
+        print("6 eliminarCongresista(String dni)");
+        print("7 eliminarCongreso()");
+        print("8 modNombreCongresista(String dni,String nombre)");
+        print("9 modApellidoCongresista(String dni,String apellido)");
+        print("10 modEdadCongresista(String dni,int edad)");
+        print("11 modCiudadCongresista(String dni,String ciudad)");
+        print("12 modEstadoCongresista(String dni,String estado)");
+        print("13 modPartidoCongresista(String dni,String partido)");
+        print("14 modDniCongresista(String dni, String dni_nuevo)");
+        print("15 modCongresista(String dni, String dni_nuevo, String nombre, String apellido," +
                 " int edad, String ciudad, String estado, String partido)");
-        print("15 consultarCongresista(Dni dni)");
-        print("16 toString()");
-        print("17 Salir\n");
+        print("16 consultarCongresista(Dni dni)");
+        print("17 toString()");
+        print("18 guardar(int n, String ruta)");
+        print("19 cargar(int n, String ruta)");
+        print("20 Salir\n");
     }
 
     private void print(String s){

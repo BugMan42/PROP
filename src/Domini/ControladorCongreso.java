@@ -1,6 +1,10 @@
 package Domini;
 
+import Persistencia.ControladorPersistencia;
+
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by bug on 8/04/15.
@@ -28,6 +32,10 @@ public class ControladorCongreso {
 
     public ArrayList<String> obtenerListaID(){
         return c.obtenerListaID();
+    }
+
+    public List<Congresista> obtenerCongreso(){
+        return c.obtenerCongreso();
     }
 
     public boolean contieneCongresista(String dni) throws Exception {
@@ -94,5 +102,41 @@ public class ControladorCongreso {
 
     public String toString() {
         return c.toString();
+    }
+
+    public void guardar(int n, String ruta) throws Exception {
+        if (!c.esVacio()) {
+            ControladorPersistencia cp = new ControladorPersistencia(ruta);
+            List<Congresista> cs = c.obtenerCongreso();
+            Iterator<Congresista> it = cs.iterator();
+            cp.abrirEscritura();
+            while (it.hasNext()){
+                String datos = "";
+                int j = 0;
+                while (j < n && it.hasNext()){
+                    datos += it.next().toString()+"\n";
+                    ++j;
+                }
+                cp.escribir(datos);
+            }
+            cp.cerrarFichero();
+        }
+    }
+
+    public void cargar(int n, String ruta) throws Exception {
+        ControladorPersistencia cp = new ControladorPersistencia(ruta);
+        cp.abrirLectura();
+        c.eliminarCongreso();
+        String r = cp.leer(n);
+        while (r != ""){
+            String[] aux = r.split("\n");
+            for(String con : aux){
+                String[] prm = con.split("\\s");
+                Dni d = new Dni(prm[0]);
+                c.agregarCongresista(d, prm[1], prm[2], Integer.parseInt(prm[3]), prm[4], prm[5], prm[6]);
+            }
+            r = cp.leer(n);
+        }
+        cp.cerrarFichero();
     }
 }

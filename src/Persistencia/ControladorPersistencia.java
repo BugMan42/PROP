@@ -45,12 +45,7 @@ public class ControladorPersistencia {
 
     public void escribir(String datos) throws Exception {
         if (w == null) throw new Exception(E4);
-        String l[] = datos.split("\n");
-        int i = 0;
-        while (i < l.length){
-            w.write(l[i++]);
-            w.newLine();
-        }
+        w.write(datos);
     }
 
     public void cerrarFichero() throws Exception {
