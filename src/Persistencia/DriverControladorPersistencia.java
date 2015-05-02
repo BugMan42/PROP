@@ -1,50 +1,70 @@
 package Persistencia;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.Scanner;
 
 /**
  * Created by Jose on 28/03/2015.
  */
 public class DriverControladorPersistencia {
+    // Mensajes excepciones.
+    static final String E1 = "Número de parámetros incorrecto.";
 
-    public static void main(String[] args) throws ParseException {
-        print("***DRIVER DE CONTROLADOR PERSISTENCIA***");
-        Scanner user_input = new Scanner(System.in);
+    private static ControladorPersistencia cp;
+
+    public static void main(String[] args) {
+        DriverControladorPersistencia dcp = new DriverControladorPersistencia();
+        cp = new ControladorPersistencia("./pruebaPersistencia.txt");
+        Scanner ui = new Scanner(System.in);
         int op;
         do {
-            menu();
-            op = Integer.parseInt(user_input.next());
-            switch(op){
-                case 1: guardar(user_input);
-                    break;
-                case 2: ayuda();
-                    break;
+            dcp.menu();
+            String linea = ui.nextLine();
+            String[] params = linea.split("\\s");
+            try {
+                op = Integer.parseInt(params[0]);
+                switch (op) {
+                    case 0:
+                        if (params.length != 1) throw new Exception(E1);
+                        cp.abrirLectura();
+                        break;
+                    case 1:
+                        if (params.length != 1) throw new Exception(E1);
+                        cp.abrirEscritura();
+                        break;
+                    case 2:
+                        if (params.length != 2) throw new Exception(E1);
+                        dcp.print(cp.leer(Integer.parseInt(params[1])));
+                        break;
+                    case 3:
+                        if (params.length != 2) throw new Exception(E1);
+                        cp.escribir(params[1].replace("/","\n"));
+                        break;
+                    case 4:
+                        if (params.length != 1) throw new Exception(E1);
+                        cp.cerrarFichero();
+                        break;
+                }
             }
-        } while (op != 3);
-    }
-
-    private static void menu() {
-        print("***1.-GUARDAR");
-        print("***2.-AYUDA");
-        print("***3.-SALIR");
-    }
-
-    private static void guardar(Scanner ui){
-        String path = ui.next();
-        String data = ui.next();
-        ControladorPersistencia cp = new ControladorPersistencia();
-        try {
-            cp.guardar(path, data);
-        } catch (IOException e) {
-            e.printStackTrace();
+            catch (Exception e) {
+                dcp.print(e.getMessage());
+                op = -1;
+            }
         }
+        while(op != 5);
     }
 
-    private static void ayuda(){
-
+    private void menu(){
+        print("\nDRIVER DE CONTROLADOR PERSISTENCIA");
+        print("0 abrirLectura()");
+        print("1 abrirEscritura()");
+        print("2 leer(int num_lineas)");
+        print("3 escribir(String datos)");
+        print("4 cerrarFichero()");
+        print("5 Salir\n");
     }
 
-    private static void print(String s){ System.out.println(s); }
+    private void print(String s){
+        System.out.println(s);
+    }
+
 }

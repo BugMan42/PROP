@@ -71,7 +71,6 @@ public class Louvain extends Algoritmo {
         num_n = g.V();
         boolean mejora = false;
         int nodos_movidos;
-        int pasadas = 0;
 
         // Inicializar comunidades.
         n2c = new int[num_n];
@@ -108,7 +107,6 @@ public class Louvain extends Algoritmo {
         do {
             old_Q = new_Q;
             nodos_movidos = 0;
-            ++pasadas;
 
             out.agregarMensaje("Inicio iteración.");
             out.agregarMensaje("Modularidad: "+String.valueOf(old_Q));
@@ -119,7 +117,6 @@ public class Louvain extends Algoritmo {
             for (int i=0; i<num_n; ++i){
                 int nodo = rand[i];
                 int com_nodo = n2c[nodo];
-                double peso_nodo = k[nodo];
 
                 out.agregarMensaje("Nodo "+String.valueOf(nodo)+" (Comunidad "+String.valueOf(com_nodo)+")");
 
