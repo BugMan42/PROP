@@ -11,6 +11,9 @@ import java.util.List;
  */
 public class ControladorCongreso {
 
+    static final int max_lineas_guardar = 300;
+    static final int max_lineas_cargar = 300;
+
     private Congreso c;
 
     public ControladorCongreso(){
@@ -104,7 +107,7 @@ public class ControladorCongreso {
         return c.toString();
     }
 
-    public void guardar(int n, String ruta) throws Exception {
+    public void guardar(String ruta) throws Exception {
         if (!c.esVacio()) {
             ControladorPersistencia cp = new ControladorPersistencia(ruta);
             List<Congresista> cs = c.obtenerCongreso();
@@ -113,7 +116,7 @@ public class ControladorCongreso {
             while (it.hasNext()){
                 String datos = "";
                 int j = 0;
-                while (j < n && it.hasNext()){
+                while (j < max_lineas_guardar && it.hasNext()){
                     datos += it.next().toString()+"\n";
                     ++j;
                 }
@@ -123,11 +126,11 @@ public class ControladorCongreso {
         }
     }
 
-    public void cargar(int n, String ruta) throws Exception {
+    public void cargar(String ruta) throws Exception {
         ControladorPersistencia cp = new ControladorPersistencia(ruta);
         cp.abrirLectura();
         c.eliminarCongreso();
-        String r = cp.leer(n);
+        String r = cp.leer(max_lineas_cargar);
         while (r != ""){
             String[] aux = r.split("\n");
             for(String con : aux){
@@ -135,7 +138,7 @@ public class ControladorCongreso {
                 Dni d = new Dni(prm[0]);
                 c.agregarCongresista(d, prm[1], prm[2], Integer.parseInt(prm[3]), prm[4], prm[5], prm[6]);
             }
-            r = cp.leer(n);
+            r = cp.leer(max_lineas_cargar);
         }
         cp.cerrarFichero();
     }

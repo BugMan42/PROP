@@ -1,5 +1,7 @@
 package Domini;
 
+import sun.reflect.generics.tree.Tree;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -233,6 +235,8 @@ public class Girvan_Newman extends Algoritmo{
             node.add(n);
         }
 
+        out.comunidad().clear();
+        TreeSet<Integer> comm = null;
         //Segundo pase del algoritmo de Girvan-Newman
         for (int iii = 0; iii < N; ++iii)
         {
@@ -257,11 +261,15 @@ public class Girvan_Newman extends Algoritmo{
             Node uno = node.get(iii);
             uno.distance = 0;
             uno.weight = 1;
+
             //Si no pertanece el nodo a un componente conexo, sumamos 1 a cc y le asignamos un componente al nodo
             if (uno.component == -1)
             {
                 ++cc2;
                 uno.component = cc2;
+                comm = new TreeSet<Integer>();
+                comm.add(iii);
+                out.comunidad().add(comm);
             }
 
             //Mientras la cola no esté vacía
@@ -273,7 +281,12 @@ public class Girvan_Newman extends Algoritmo{
                 Node ref_v = node.get(v);
                 if (!ref_v.visited) {
                     ref_v.visited = true;
-                    ref_v.component = cc2;
+                    if (ref_v.component == -1)
+                    {
+                        ref_v.component = cc2;
+                        comm.add(v);
+                    }
+
                     route.add(v);
                     int leaf_index = 0;
                     List<Integer> al = alg_graph.nodosSalida(v);
@@ -340,12 +353,10 @@ public class Girvan_Newman extends Algoritmo{
         }
 
         //Mensajes de salida
-        System.out.println("Com: "+cc2+" "+cc);
         if (cc2 > cc)
         {
             int d_cc = cc2 - cc;
-            if (d_cc == 1 && alg_cc != 0) out.agregarMensaje("Ha surgido una nueva comunidad ("+d_cc+"="+cc2+"-"+cc+").");
-            else if (d_cc > 1) out.agregarMensaje("Han surgido "+ d_cc +" nuevas comunidades ("+d_cc+"="+cc2+").");
+            if (d_cc == 1 && alg_cc != 0) out.agregarMensaje("Ha surgido una nueva comunidad.");
         }
 
         alg_cc = cc2;
