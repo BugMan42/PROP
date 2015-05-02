@@ -38,9 +38,9 @@ public class DriverGrafo {
         print("20 eliminarAristas(String origen,String fin)");
         print("21 eliminarAristas(int origen,int fin)");
         print("22 degreeEntrada(String v):int");
-        print("23 degreeEntrada(int v)");
-        print("24 degreeSalida(String v)");
-        print("25 degreeSalida(int v)");
+        print("23 degreeEntrada(int v):int");
+        print("24 degreeSalida(String v):int");
+        print("25 degreeSalida(int v):int");
         print("26 existeArista(String A, String B):boolean");
         print("27 existeArista(int origen, int fin):boolean");
         print("28 existeAristaPeso(String origen, String fin, double peso):boolean");
