@@ -23,7 +23,14 @@ public class Fecha {
     public static boolean valido(String data) throws NoValido {
         if (data.equals("")) return false;
         String[] aux = data.split("/");
-        return aux.length == 3 && Correcto(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
+        int dia = Integer.parseInt(aux[0]);
+        int mes = Integer.parseInt(aux[1]);
+        int any = Integer.parseInt(aux[2]);
+        if (aux.length == 3 && Correcto(dia, mes, any)) {
+            data = Integer.toString(dia)+Integer.toString(mes)+Integer.toString(any);
+            return true;
+        }
+        else return false;
     }
 
     public Fecha(String data) throws NoValido {
