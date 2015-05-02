@@ -47,7 +47,7 @@ public class CjtEvento {
 
     /**Elimina un evento del conjunto de eventos
      * Pre: nombre y fecha no pueden ser vacios
-     * Post: El evento e ha sido a�adido al conjunto de eventos
+     * Post: El evento e ha sido anadido al conjunto de eventos
      */
     public void EliminarEvento(String nombre, String fecha) throws Exception{
         if (Valido(nombre, fecha)) {
@@ -196,8 +196,10 @@ public class CjtEvento {
      * Post: Devuelve el evento especificado por nombre y fecha
      */
     public Evento ConsultarEvento(String nombre, String fecha) throws Exception{
-        if (Valido(nombre, fecha)) return cjt.obtener(nombre+fecha);
-        else throw new IllegalArgumentException();
+        Valido(nombre, fecha);
+        String s[] = fecha.split("/");
+        fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
+        return cjt.obtener(nombre+fecha);
     }
 
     /**
@@ -206,6 +208,8 @@ public class CjtEvento {
      */
     public boolean ExisteEvento(String nombre, String fecha) throws NoValido {
         Valido(nombre, fecha);
+        String s[] = fecha.split("/");
+        fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
         return cjt.existe(nombre+fecha);
     }
 

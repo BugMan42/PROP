@@ -96,6 +96,10 @@ public abstract class Evento {
         return fecha.ConsultarFecha();
     }
 
+    public String obtFecha() {
+        return fecha.ToString();
+    }
+
     /**Consultora de subtipo
      * Pre: Cierto
      * Post: Devuelve el subtipo del evento
