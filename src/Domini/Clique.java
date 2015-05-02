@@ -68,27 +68,16 @@ public class Clique extends Algoritmo {
             else kc.eliminar();
             return;
         }
-
         else {
             int u = lista.get(0);
             int v = lista.get(1);
             kc.agregar(u);
             kc.agregar(v);
-            Iterator it = g.nodosSalida(u).listIterator();
-            Iterator itv = g.nodosSalida(v).listIterator();
-            ArrayList<Integer> candidatos = new ArrayList<Integer>();
-
-            while (it.hasNext() && itv.hasNext()) {
-                int w = (Integer) it.next();
-                int y = (Integer) itv.next();
-                if (w > u && y > v) {
-                    if (w == y) candidatos.add(w);
-                    else if (w < y) {
-                        int x = -1;
-                        while (it.hasNext() && (x = (Integer) it.next()) < w) ;
-                    }
-                }
-            }
+            List<Integer> candidatos = g.nodosSalida(u);
+            candidatos.retainAll(g.nodosSalida(v));
+            Iterator it = candidatos.listIterator();
+            int x = -1;
+            while (it.hasNext() && (x = (Integer)it.next()) < v) it.remove();
             if (candidatos.size() > 0) cliqueOneNode(kc, k - 2, candidatos);
         }
     }
@@ -108,16 +97,17 @@ public class Clique extends Algoritmo {
             System.out.println("Tratando nodo num: "+ Integer.toString(i));
             int m = g.degreeSalida(i);
             if (m + 1 >= k) {
-                k_clique kc = new k_clique();
                 System.out.println(Integer.toString(index_sublista(i)));
-                kc.agregar(i);
-                List<Integer> candidatos = g.nodosSalida(i).subList(index_sublista(i), m);
+                int j = index_sublista(i);
+                List<Integer> candidatos = g.nodosSalida(i).subList(j, m);
                 for (Iterator it2 = candidatos.iterator(); it2.hasNext();) {
+                    k_clique kc = new k_clique();
+                    kc.agregar(i);
                     int v = (Integer)it2.next();
                     kc.agregar(v);
-                    candidatos.remove(0);
                     cliqueOneNode(kc, k - 2, candidatos);
                     if (kc.size() > 0) c.agregar_clique(kc);
+                    ++j;
                 }
             }
         }
