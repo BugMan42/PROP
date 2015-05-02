@@ -6,7 +6,7 @@ import java.util.regex.PatternSyntaxException;
  * Created by usuario on 11/04/2015.
  */
 public class Fecha {
-    private String[] fecha;
+    private int[] fecha;
 
     private static boolean Correcto(int dia, int mes, int any) throws NoValido{
         if (dia < 1 || dia > 31) throw new NoValido("Dia", 1);
@@ -30,8 +30,14 @@ public class Fecha {
         if (data.equals("")) throw new NoValido("Fecha", 7);
         String[] aux = data.split("/");
         if (aux.length != 3) throw new NoValido("Fecha", 8);
-        Correcto(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
-        fecha = aux;
+        int dia = Integer.parseInt(aux[0]);
+        int mes = Integer.parseInt(aux[1]);
+        int año = Integer.parseInt(aux[2]);
+        Correcto(dia, mes, año);
+        fecha = new int[3];
+        fecha[0] = dia;
+        fecha[1] = mes;
+        fecha[2] = año;
     }
 
     //Consultora
@@ -39,10 +45,10 @@ public class Fecha {
         return fecha[0] + "/" + fecha[1] + "/" + fecha[2];
     }
 
-    public String ToString() {return fecha[0] + fecha[1] + fecha[2];}
+    public String ToString() {return Integer.toString(fecha[0]) + Integer.toString(fecha[1]) + Integer.toString(fecha[2]);}
 
     public boolean equals(Fecha f) {
-        return fecha[0].equals(f.fecha[0]) && fecha[1].equals(f.fecha[1]) && fecha[2].equals(f.fecha[2]);
+        return fecha[0] == f.fecha[0] && fecha[1] == f.fecha[1] && fecha[2] == f.fecha[2];
     }
 
     /*traer string de la fecha y comparar

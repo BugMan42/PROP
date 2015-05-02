@@ -54,11 +54,11 @@ public class Clique extends Algoritmo {
     }
 
     private void cliqueOneNode(k_clique kc,int k, List<Integer> lista) throws Exception {
-        if (k == 1) {
+        if (lista.size() > 0 && k == 1) {
             kc.agregar(lista.get(0));
             return;
         }
-        if (k == 2) {
+        if (lista.size() > 0 && k == 2) {
             int u = lista.get(0);
             int v = lista.get(1);
             if (g.existeArista(u, v)) {
@@ -101,19 +101,19 @@ public class Clique extends Algoritmo {
             System.out.println("Grado de: "+ Integer.toString(i) + ": "+ Integer.toString(m));
             if (m + 1 >= k) {
                 System.out.println(Integer.toString(index_sublista(i)));
-                int j = index_sublista(i);
-                List<Integer> candidatos = g.nodosSalida(i).subList(j, m);
+                List<Integer> candidatos = g.nodosSalida(i).subList(index_sublista(i), m);
                 for (Iterator it2 = candidatos.iterator(); it2.hasNext();) {
                     k_clique kc = new k_clique();
                     kc.agregar(i);
                     int v = (Integer)it2.next();
                     kc.agregar(v);
-                    cliqueOneNode(kc, k - 2, candidatos);
+                    List<Integer> l = new ArrayList<Integer>(candidatos);
+                    l.remove(0);
+                    cliqueOneNode(kc, k - 2, l);
                     if (kc.size() > 0) {
                         System.out.println("En el nodo num: " + Integer.toString(i) + " se ha creado una clique");
                         c.agregar_clique(kc);
                     }
-                    ++j;
                 }
             }
         }
