@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ControladorCjtEvento {
+    static final String E1 = "Tipo de evento incorrecto: ";
 
     static final int max_lineas_guardar = 300;
     static final int max_lineas_cargar = 300;
@@ -26,23 +27,19 @@ public class ControladorCjtEvento {
     }
 
     public void AgregarVotacion(String nombre, String fecha, int importancia) throws Exception{
-        Votacion v = new Votacion(nombre, fecha, importancia);
-        ce.AgregarEvento(v);
+        ce.AgregarVotacion(nombre, fecha, importancia);
     }
 
     public void AgregarReunionPersonal(String nombre, String fecha, int importancia) throws Exception{
-        Personal per = new Personal(nombre, fecha, importancia);
-        ce.AgregarEvento(per);
+        ce.AgregarReunionPersonal(nombre, fecha, importancia);
     }
 
     public void AgregarReunionProfesional(String nombre, String fecha, int importancia) throws Exception{
-        Profesional pro = new Profesional(nombre, fecha, importancia);
-        ce.AgregarEvento(pro);
+        ce.AgregarReunionProfesional(nombre, fecha, importancia);
     }
 
-    public void AgregarActo(String nombre, String fecha, String subtipo, int importancia) throws Exception{
-        Acto a = new Acto(nombre, fecha, subtipo, importancia);
-        ce.AgregarEvento(a);
+    public void AgregarActo(String nombre, String fecha, int importancia) throws Exception{
+        ce.AgregarActo(nombre, fecha, importancia);
     }
 
     public List<Evento> ConsultarTodosEventos() {
@@ -62,7 +59,7 @@ public class ControladorCjtEvento {
     }
 
     public void guardar(String ruta) throws Exception {
-        if (ce.size() == 0) {
+        if (ce.size() > 0) {
             ControladorPersistencia cp = new ControladorPersistencia(ruta);
             List<Evento> es = ce.ConsultarTodosEventos();
             Iterator<Evento> it = es.iterator();
@@ -80,22 +77,24 @@ public class ControladorCjtEvento {
         }
     }
 
-    /*
     public void cargar(String ruta) throws Exception {
         ControladorPersistencia cp = new ControladorPersistencia(ruta);
         cp.abrirLectura();
-        c.eliminarCongreso();
+        ce.EliminarCjtEvento();
         String r = cp.leer(max_lineas_cargar);
-        while (r != ""){
+        while (!r.equals("")){
             String[] aux = r.split("\n");
             for(String con : aux){
                 String[] prm = con.split("\\s");
-                Dni d = new Dni(prm[0]);
-                c.agregarCongresista(d, prm[1], prm[2], Integer.parseInt(prm[3]), prm[4], prm[5], prm[6]);
+                if(prm[0].equals("Votacion")) ce.AgregarVotacion(prm[1], prm[2], Integer.parseInt(prm[3]));
+                else if(prm[0].equals("ReunionPersonal")) ce.AgregarReunionPersonal(prm[1], prm[2], Integer.parseInt(prm[3]));
+                else if(prm[0].equals("ReunionProfesional")) ce.AgregarReunionProfesional(prm[1],prm[2],Integer.parseInt(prm[3]));
+                else if(prm[0].equals("Acto")) ce.AgregarActo(prm[1], prm[2], Integer.parseInt(prm[3]));
+                else throw new Exception(E1+prm[0]);
             }
             r = cp.leer(max_lineas_cargar);
         }
         cp.cerrarFichero();
     }
-    */
+
 }

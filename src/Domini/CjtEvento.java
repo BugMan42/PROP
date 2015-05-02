@@ -75,6 +75,26 @@ public class CjtEvento {
         cjt.insertar(e.obt_nombre()+e.obt_fecha(), e);
     }
 
+    public void AgregarVotacion(String nombre, String fecha, int importancia) throws Exception{
+        Votacion v = new Votacion(nombre, fecha, importancia);
+        AgregarEvento(v);
+    }
+
+    public void AgregarReunionPersonal(String nombre, String fecha, int importancia) throws Exception{
+        Personal per = new Personal(nombre, fecha, importancia);
+        AgregarEvento(per);
+    }
+
+    public void AgregarReunionProfesional(String nombre, String fecha, int importancia) throws Exception{
+        Profesional pro = new Profesional(nombre, fecha, importancia);
+        AgregarEvento(pro);
+    }
+
+    public void AgregarActo(String nombre, String fecha, int importancia) throws Exception{
+        Acto a = new Acto(nombre, fecha, importancia);
+        AgregarEvento(a);
+    }
+
     /** Modificadora del nombre de un evento
      * Pre: nomViejo, fecha y nomNuevo no pueden ser vacíos,
      * el evento especificado por nomViejo y fecha tiene que existir y el

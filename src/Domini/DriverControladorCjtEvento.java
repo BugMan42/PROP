@@ -44,8 +44,8 @@ public class DriverControladorCjtEvento {
                         ce.AgregarReunionProfesional(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 5:
-                        if(params.length!=5) throw new Exception(E1);
-                        ce.AgregarActo(params[1], params[2], params[3], Integer.parseInt(params[4]));
+                        if(params.length!=4) throw new Exception(E1);
+                        ce.AgregarActo(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 6:
                         if(params.length!=1) throw new Exception(E1);
@@ -69,7 +69,7 @@ public class DriverControladorCjtEvento {
                         break;
                     case 11:
                         if(params.length!=2) throw new Exception(E1);
-                        ce.guardar(params[1]);
+                        ce.cargar(params[1]);
                         break;
                 }
             }
@@ -88,7 +88,7 @@ public class DriverControladorCjtEvento {
         print("2 AgregarVotacion(String nombre, String fecha, int importancia)");
         print("3 AgregarReunionPersonal(String nombre, String fecha, int importancia)");
         print("4 AgregarReunionProfesional(String nombre, String fecha, int importancia)");
-        print("5 AgregarActo(String nombre, String fecha, String subtipo, int importancia)");
+        print("5 AgregarActo(String nombre, String fecha, int importancia)");
         print("6 ConsultarTodosEventos()");
         print("7 ConsultarEvento(String nombre, String fecha)");
         print("8 ExisteEvento(String nombre, String fecha)");
