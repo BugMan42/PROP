@@ -8,7 +8,7 @@ public class Personal extends Reunion{
         super(nombre, fecha, importancia);
     }
 
-    public String ToString() {
+    public String toString() {
         return "ReunionPersonal " + nombre + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
     }
 }

@@ -108,7 +108,6 @@ public class Clique extends Algoritmo {
                     kc.agregar(i);
                     int v = (Integer)it2.next();
                     kc.agregar(v);
-                    //List<Integer> aux = (ArrayList<Integer>) candidatos.clone();
                     cliqueOneNode(kc, k - 2, candidatos);
                     if (kc.size() > 0) {
                         System.out.println("En el nodo num: " + Integer.toString(i) + " se ha creado una clique");

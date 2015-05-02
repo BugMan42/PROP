@@ -45,7 +45,7 @@ public class Votacion extends Evento {
         return votos.get(id);
     }
 
-    public String ToString() {//Sorry anselmo te tenia que poner esta sino petaba porque la hice abstract :D
+    public String toString() {
         return "Votacion " + nombre + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
     }
 }

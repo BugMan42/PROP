@@ -67,7 +67,7 @@ public abstract class Evento {
      * Pre: importancia > 0
      * Post: A la importancia del evento se le ha asignado importance
      */
-    public void ModImportancia(int importance) throws NoValido{
+    public void ModImportancia(int importance) throws NoValido {
         if (importance <= 0) throw new NoValido("Importancia", 0);
         importancia = importance;
     }
@@ -104,7 +104,7 @@ public abstract class Evento {
         return nombre+fecha.ToString();
     }
 
-    public abstract String ToString();
+    public abstract String toString();
 
     /**Consultora de importancia
      * Pre: Cierto
@@ -113,6 +113,4 @@ public abstract class Evento {
     public int obt_importancia() {
         return importancia;
     }
-
-
 }
