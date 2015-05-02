@@ -5,9 +5,9 @@ package Domini;
  * Clase Evento
  */
 public abstract class Evento {
-    private String nombre;
-    private Fecha fecha;
-    private int importancia;
+    protected String nombre;
+    protected Fecha fecha;
+    protected int importancia;
 
     //Constructoras
 
@@ -103,6 +103,8 @@ public abstract class Evento {
     public String ID() {
         return nombre+fecha.ToString();
     }
+
+    public abstract String ToString();
 
     /**Consultora de importancia
      * Pre: Cierto

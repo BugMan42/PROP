@@ -7,4 +7,7 @@ public class Profesional extends Reunion {
     public Profesional(String nombre, String fecha, int importancia) throws Exception{
         super(nombre, fecha, importancia);
     }
+    public String ToString() {
+        return "ReunionProfesional " + nombre + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
+    }
 }

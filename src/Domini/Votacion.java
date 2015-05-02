@@ -19,7 +19,9 @@ public class Votacion extends Evento {
         super(name, date, importance);
     }
 
-    public Votacion() {}
+    public Votacion() {
+        super();
+    }
 
 
     // Métodos de inserción de votos
@@ -41,5 +43,9 @@ public class Votacion extends Evento {
 
     public Voto obt_voto(String id) {
         return votos.get(id);
+    }
+
+    public String ToString() {//Sorry anselmo te tenia que poner esta sino petaba porque la hice abstract :D
+        return "Votacion " + nombre + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
     }
 }

@@ -6,7 +6,19 @@ import java.util.*;
 //Grafo algoritmo
 //String--->Clave
 public class Grafo {
-
+    private class VerticeNotFound extends Exception {
+        public VerticeNotFound(int a) {
+            super("No existe el Vertice(i): "+a);
+        }
+        public VerticeNotFound(String a) {
+            super("No existe el Vertice(Key): "+a);
+        }
+    }
+    private class VerticeAlreadyExists extends Exception {
+        public VerticeAlreadyExists(String v) {
+            super("Ya existe el Vertice: "+v);
+        }
+    }
 //#########################################################################
 /**##############################NodoInterno##############################*/
 //#########################################################################
@@ -155,14 +167,14 @@ public class Grafo {
             }
             throw new Exception("Arista Salida no existe");
         }
-        void eliminarAristaEntrada(int dest,double peso) throws Exception {
+        void eliminarAristaEntrada(int origen,double peso) throws Exception {
             for(int i = 0; i < entrada.size(); ++i) {
-                if(entrada.get(i).equals(dest)) {
+                if(entrada.get(i).equals(origen)) {
                     entrada.get(i).eliminarArista(peso);
                     return;
                 }
             }
-            throw new Exception("Arista Entrada no existe");
+            throw new Exception("Arista Entrada "+origen+" no existe");
         }
         void eliminarAristaSalida(int dest,double peso) throws Exception {
             for(int i = 0; i < salida.size(); ++i) {
@@ -171,7 +183,7 @@ public class Grafo {
                     return;
                 }
             }
-            throw new Exception("Arista Salida no existe");
+            throw new Exception("Arista Salida"+dest+"no existe");
         }
 
         void modificarEntrada(int origen,double oldPeso, double newPeso) throws Exception {
@@ -254,7 +266,7 @@ public class Grafo {
                     return salida.get(i).total();
                 }
             }
-            throw new Exception("Vertice dest no valido");
+            throw new Exception("No existe ninga arista con dest:"+dest);
         }
         double totalPesoEntrada () {
             double a = 0.0;
@@ -291,7 +303,8 @@ public class Grafo {
                     return entrada.get(i).listaPesos();
                 }
             }
-            throw new Exception("Arista Entrada no existe");
+            //throw new Exception("Arista Entrada no existe");
+            return new ArrayList<Double>();
         }
         List<Double> obtenerPesosSalida(int dest) throws Exception {
             for(int i = 0; i < salida.size(); ++i) {
@@ -299,7 +312,8 @@ public class Grafo {
                     return salida.get(i).listaPesos();
                 }
             }
-            throw new Exception("Arista salida no existe");
+            //throw new Exception("Arista salida no existe");
+            return new ArrayList<Double>();
         }
         boolean equals(AristasNodo A) {
             return A.clave == clave;
@@ -337,11 +351,12 @@ public class Grafo {
         try {
             return vertices.obtener(clave);
         }
-        catch (Exception a) { }
-        throw new Exception("No existe Vertice");
+        catch (Exception a) {
+            throw new VerticeNotFound(clave);
+        }
     }
     public String fPrima(int v) throws Exception {
-        if (!indexValido(v)) throw new Exception("No existe Vertice");
+        if (!indexValido(v)) throw new VerticeNotFound(v);
         return aristas.get(v).clave;
     }
 
@@ -353,12 +368,26 @@ public class Grafo {
     /** agregar vertice*/
     public void agregarVertice(String v) throws Exception{
         int aux = nextIndice();
-        vertices.insertar(v, aux); // Si esta petara
+        insertarVerticeInterno(v, aux);
         aristas.add(aux, new AristasNodo(v));
         if (!vacios.isEmpty() && aux == vacios.peek()) vacios.poll();
     }
+    private void insertarVerticeInterno(String v, int aux) throws Exception {
+        try {
+            vertices.insertar(v, aux); // Si esta petara
+        } catch (Exception a) {
+            throw new VerticeAlreadyExists(v);
+        }
+
+    }
+
     public void eliminarVertice(String v) throws Exception{
-        eliminarVertice(vertices.obtener(v));
+        try {
+            eliminarVertice(vertices.obtener(v));
+        }
+        catch (Exception a) {
+            throw new VerticeNotFound(v);
+        }
     }
     //TODO ELIMINAR vertice complejo
     public void eliminarVertice(int v) throws  Exception {
@@ -373,7 +402,7 @@ public class Grafo {
            }
            //print(vacios+"");
        }
-       else throw new Exception("vertice No Valido");
+       else throw new VerticeNotFound(v);
     }
     private void eliminarAristas(int v) throws Exception{
         List<Integer> aux = aristas.get(v).obtenerNodosEntrada();
@@ -411,8 +440,16 @@ public class Grafo {
         return indexValido(v);
     }
     public void modificarClaveVertice(String idVieja, String idNueva) throws Exception {
-        //if (vertices.existe(idNueva)) throw new Exception("Clave repetida");
-        vertices.modificar(idVieja,idNueva);
+        //if (!existeVertice(idVieja)) throw new VerticeAlreadyExists();
+        try {
+            vertices.modificar(idVieja,idNueva);
+            aristas.get(f(idNueva)).modificarClave(idNueva);
+        }
+        catch(Exception a) {
+            if (a.getClass().equals(KeyNotExistsTST.class)) throw new VerticeNotFound(idVieja);
+            if (a.getClass().equals(KeyAlreadyExistsTST.class)) throw new VerticeAlreadyExists(idNueva);
+            //throw new VerticeAlreadyExists(idNueva);
+        }
     }
 
 //######################################################################
@@ -432,8 +469,8 @@ public class Grafo {
     }
 
     public void agregarArista(int origen,int fin, double peso) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        if (!indexValido(origen)) throw new VerticeNotFound(origen);
+        if (!indexValido(fin)) throw new VerticeNotFound(fin);
         aristas.get(origen).agregarSalida(fin,peso);
         aristas.get(fin).agregarEntrada(origen, peso);
     }
@@ -442,8 +479,8 @@ public class Grafo {
     }
 
     public void modificarArista(int origen, int fin,double oldPeso, double newPeso) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        if (!indexValido(origen)) throw new VerticeNotFound(origen);
+        if (!indexValido(fin)) throw new VerticeNotFound(fin);
         aristas.get(origen).modificarSalida(fin, oldPeso, newPeso);
         aristas.get(fin).modificarEntrada(origen, oldPeso, newPeso);
     }
@@ -452,8 +489,8 @@ public class Grafo {
         eliminarAristas(f(origen), f(fin));
     }
     public void eliminarAristas(int origen,int fin) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        if (!indexValido(origen)) throw new VerticeNotFound(origen);
+        if (!indexValido(fin)) throw new VerticeNotFound(fin);
         aristas.get(origen).eliminarAristasSalida(fin);
         aristas.get(fin).eliminarAristasEntrada(origen);
     }
@@ -462,8 +499,8 @@ public class Grafo {
         eliminarArista(f(origen), f(fin), peso);
     }
     public void eliminarArista(int origen,int fin,double peso) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        if (!indexValido(origen)) throw new VerticeNotFound(origen);
+        if (!indexValido(fin)) throw new VerticeNotFound(fin);
         aristas.get(fin).eliminarAristaEntrada(origen, peso);
         aristas.get(origen).eliminarAristaSalida(fin, peso);
     }
@@ -471,16 +508,16 @@ public class Grafo {
         return existeArista(f(A), f(B));
     }
     public boolean existeArista(int origen, int fin) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        if (!indexValido(origen)) throw new VerticeNotFound(origen);
+        if (!indexValido(fin)) throw new VerticeNotFound(fin);
         return aristas.get(origen).existeAristaSalida(fin) && aristas.get(fin).existeAristaEntrada(origen);
     }
     public boolean existeAristaPeso(String origen, String fin, double peso) throws Exception {
         return existeAristaPeso(f(origen),f(fin),peso);
     }
     public boolean existeAristaPeso(int origen, int fin, double peso) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        if (!indexValido(origen)) throw new VerticeNotFound(origen);
+        if (!indexValido(fin)) throw new VerticeNotFound(fin);
         return aristas.get(origen).existeAristaSalida(fin,peso) && aristas.get(fin).existeAristaEntrada(origen,peso);
     }
 
@@ -491,29 +528,29 @@ public class Grafo {
         return obtenerListaPesos(f(A), f(B));
     }
     public List<Double> obtenerListaPesos(int A, int B) throws Exception {
-        if (!indexValido(A)) throw new Exception("Index no valido");
-        if (!indexValido(B)) throw new Exception("Index no valido");
+        if (!indexValido(A)) throw new VerticeNotFound(A);
+        if (!indexValido(B)) throw new VerticeNotFound(B);
         return aristas.get(A).obtenerPesosSalida(B);
     }
     public double totalPesoSalida(String A) throws Exception{
         return totalPesoSalida(f(A));
     }
     public double totalPesoSalida(int A) throws Exception {
-        if (!indexValido(A)) throw new Exception("Index no valido");
+        if (!indexValido(A)) throw new VerticeNotFound(A);
         return aristas.get(A).totalPesoSalida();
     }
     public double totalPesoEntrada(String A) throws Exception {
         return totalPesoEntrada(f(A));
     }
     public double totalPesoEntrada(int A) throws Exception {
-        if (!indexValido(A)) throw new Exception("Index no valido");
+        if (!indexValido(A)) throw new VerticeNotFound(A);
         return aristas.get(A).totalPesoEntrada();
     }
     public List<Integer> nodosSalida(String A) throws Exception{
         return nodosSalida(f(A));
     }
     public List<Integer> nodosSalida(int A) throws Exception {
-        if (!indexValido(A)) throw new Exception("Index no valido");
+        if (!indexValido(A)) throw new VerticeNotFound(A);
         List<Integer> aux = aristas.get(A).obtenerNodosSalida();
         return aux;
     }
@@ -521,7 +558,7 @@ public class Grafo {
         return nodosEntrada(f(A));
     }
     public List<Integer> nodosEntrada(int A) throws Exception{
-        if (!indexValido(A)) throw new Exception("Index no valido");
+        if (!indexValido(A)) throw new VerticeNotFound(A);
         List<Integer> aux = aristas.get(A).obtenerNodosEntrada();
         return aux;
     }
@@ -529,8 +566,8 @@ public class Grafo {
         return pesoAristasVertices(f(origen),f(fin));
     }
     public double pesoAristasVertices(int origen, int fin) throws Exception {
-        if (!indexValido(origen)) throw new Exception("Index No valido");
-        if (!indexValido(fin)) throw new Exception("Index No Valido");
+        if (!indexValido(origen)) throw new VerticeNotFound(origen);
+        if (!indexValido(fin)) throw new VerticeNotFound(fin);
         return aristas.get(origen).pesoAristasVertice(fin);
 
     }
@@ -540,18 +577,19 @@ public class Grafo {
     public boolean vacio() {
         return vertices.size() == 0;
     }
+
     public int degreeEntrada(String v) throws Exception {
         return degreeEntrada(f(v));
     }
     public int degreeEntrada(int v) throws Exception {
-        if (!indexValido(v)) throw new Exception("index no valido");
+        if (!indexValido(v)) throw new VerticeNotFound(v);
         return aristas.get(v).degreeEntrada();
     }
     public int degreeSalida(String v) throws Exception {
         return degreeSalida(f(v));
     }
     public int degreeSalida(int v) throws Exception {
-        if (!indexValido(v)) throw new Exception("index no valido");
+        if (!indexValido(v)) throw new VerticeNotFound(v);
         return aristas.get(v).degreeSalida();
     }
 

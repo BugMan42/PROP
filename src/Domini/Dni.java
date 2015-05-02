@@ -4,7 +4,7 @@ public class Dni  {
     ////formato: 9 caracteres (8 numeros y 1 letra)
     private String dni;
 
-    Dni(String s) throws Exception {
+    public Dni(String s) throws Exception {
         if (valido(s)) {
             dni = s;
         }
@@ -15,9 +15,6 @@ public class Dni  {
             dni = s;
         }
         else throw new Exception("DNI no valido");
-    }
-    String DNI() {
-        return dni;
     }
 
     public static boolean valido(String d) {
