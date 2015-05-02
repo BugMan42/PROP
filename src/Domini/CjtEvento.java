@@ -73,7 +73,7 @@ public class CjtEvento {
      */
     public void AgregarEvento(Evento e) throws Exception{
         if (e == null) throw new NoValido("Evento", 0);
-        cjt.insertar(e.obt_nombre()+e.obt_fecha(), e);
+        cjt.insertar(e.obt_nombre()+e.obtFecha(), e);
     }
 
     public void AgregarVotacion(String nombre, String fecha, int importancia) throws Exception{
