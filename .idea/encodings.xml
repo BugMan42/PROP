@@ -4,6 +4,7 @@
     <file url="file://$PROJECT_DIR$/src/Domini/Acto.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/Domini/Clique.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/Domini/ControladorAlgoritmo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Domini/ControladorCjtEvento.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/Domini/ControladorCongreso.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/Domini/ControladorRelaciones.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/Domini/DriverClique.java" charset="UTF-8" />

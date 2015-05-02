@@ -1,13 +1,13 @@
 package Domini;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by usuario on 26/04/2015.
  */
 public class CjtEvento {
     private TST<Evento> cjt;
-    private ArrayList<Evento> Listado;
 
     /**Comprueba si los parámetros son válidos
      * Pre: Cierto
@@ -42,7 +42,6 @@ public class CjtEvento {
      * Post: Crea un nuevo controlador de evento
      */
     public CjtEvento() {
-        Listado = new ArrayList<Evento>();
         cjt = new TST<Evento>();
     }
 
@@ -61,13 +60,12 @@ public class CjtEvento {
      * Post: Todos los eventos ser�n eliminados
      */
     public void EliminarCjtEvento() {
-        Listado.clear();
         cjt.vaciar();
     }
 
     //Modificadoras
 
-    /**A�ade un evento al conjunto de eventos
+    /**Añade un evento al conjunto de eventos
      * Pre: Evento e no puede ser nulo
      * Post: El evento e ha sido a�adido al conjunto de eventos
      */
@@ -166,8 +164,8 @@ public class CjtEvento {
      * Pre: Cierto
      * Post: Devuelve una lista con todos los eventos
      */
-    public ArrayList<Evento> ConsultarTodosEventos() {
-        return Listado;
+    public List<Evento> ConsultarTodosEventos() {
+        return cjt.consultarObjetos();
     }
 
     /**Consultora de un evento
@@ -187,5 +185,9 @@ public class CjtEvento {
     public boolean ExisteEvento(String nombre, String fecha) throws NoValido {
         Valido(nombre, fecha);
         return cjt.existe(nombre+fecha);
+    }
+
+    public int size() {
+        return cjt.size();
     }
 }

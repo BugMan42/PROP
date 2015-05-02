@@ -17,7 +17,6 @@ public class DriverClique {
     final static String error = "Introduzca un numero del 1 al 5";
     final static String nueva = "Introduzca una nueva opcion del 1 al 4. 5 para salir";
     final static String fin = "Gracias por usar este driver. THE END";*/
-    private static Grafo v;
     private static Clique c;
     private static Entrada en;
     private static Salida sa;

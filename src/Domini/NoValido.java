@@ -13,8 +13,8 @@ public class NoValido extends Exception {
     final static String error7 = "La fecha no puede ser vacia";
     final static String error8 = "El formato es dd/mm/yyyy";
     final static String error9 = "La k minima es 3";
-    final static String error10 = "La fecha no puede ser vacia";
-    final static String error11 = "La fecha no puede ser vacia";
+    /*final static String error10 = "La fecha no puede ser vacia";
+    final static String error11 = "La fecha no puede ser vacia";*/
 
 
     public NoValido() {
@@ -52,12 +52,12 @@ public class NoValido extends Exception {
                 case 9:
                     System.out.println(error9);
                     break;
-                case 10:
+                /*case 10:
                     System.out.println(error10);
                     break;
                 case 11:
                     System.out.println(error11);
-                    break;
+                    break;*/
             }
         }
     }
