@@ -20,6 +20,7 @@ public class CjtEvento {
         return true;
     }
 
+
     /**Buscadora de eventos
      * Pre: nombre y fecha no pueden ser vacios
      * Post: Devuelve el índice del evento especificado por el nombre
