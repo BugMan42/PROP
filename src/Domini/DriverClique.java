@@ -23,22 +23,22 @@ public class DriverClique {
     private static Salida sa;
 
 
-        public static void main(String[] args) throws Exception {
-            Grafo g = crearGrafo();
-            ArrayList<Integer> gv = g.consultarVertices();
-            for (int i = 0; i < gv.size(); ++i) {
-                List<Integer> ady = g.nodosSalida(gv.get(i));
-                for (int j = 0; j < ady.size(); ++j) System.out.println("nodo "+Integer.toString(i)+" adyacente a "+Integer.toString(ady.get(j)));
-            }
-            en = new Entrada(g, 3);
-            sa = new Salida();
-            c = new Clique(en, sa);
-            c.ejecutar_algoritmo();
-            ArrayList<String> hist = sa.mostrarHistorial();
-            for (String aHist : hist) {
-                System.out.println(aHist);
-            }
-            }
+    public static void main(String[] args) throws Exception {
+        Grafo g = crearGrafo();
+        ArrayList<Integer> gv = g.consultarVertices();
+        for (int i = 0; i < gv.size(); ++i) {
+            List<Integer> ady = g.nodosSalida(gv.get(i));
+            for (int j = 0; j < ady.size(); ++j) System.out.println("nodo "+Integer.toString(i)+" adyacente a "+Integer.toString(ady.get(j)));
+        }
+        en = new Entrada(g, 4);
+        sa = new Salida();
+        c = new Clique(en, sa);
+        c.ejecutar_algoritmo();
+        ArrayList<String> hist = sa.mostrarHistorial();
+        for (String aHist : hist) {
+            System.out.println(aHist);
+        }
+    }
         /*String op = entrada.next();
         while (!numero(op)) {
             System.out.println("Tiene que ser un numero");
@@ -77,7 +77,8 @@ public class DriverClique {
         g.agregarVertice("5");
         g.agregarVertice("6");
         g.agregarVertice("7");
-        g.agregarArista("1", "2", 1);
+
+        /*.agregarArista("1", "2", 1);
         g.agregarArista("1", "3", 1);
         g.agregarArista("2", "3", 1);
         g.agregarArista("2", "4", 1);
@@ -86,6 +87,48 @@ public class DriverClique {
         g.agregarArista("4", "6", 1);
         g.agregarArista("5", "6", 1);
         g.agregarArista("6", "7", 1);
+
+        g.agregarArista("2", "1", 1);
+        g.agregarArista("3", "1", 1);
+        g.agregarArista("3", "2", 1);
+        g.agregarArista("4", "2", 1);
+        g.agregarArista("4", "3", 1);
+        g.agregarArista("5", "4", 1);
+        g.agregarArista("6", "4", 1);
+        g.agregarArista("6", "5", 1);
+        g.agregarArista("7", "6", 1);
+
+        g.agregarArista("1", "2", 1);
+        g.agregarArista("1", "3", 1);
+        g.agregarArista("1", "4", 1);
+        g.agregarArista("2", "3", 1);
+        g.agregarArista("2", "5", 1);
+        g.agregarArista("3", "4", 1);
+        g.agregarArista("3", "5", 1);
+        g.agregarArista("4", "5", 1);
+
+        g.agregarArista("2", "1", 1);
+        g.agregarArista("3", "1", 1);
+        g.agregarArista("4", "1", 1);
+        g.agregarArista("3", "2", 1);
+        g.agregarArista("5", "2", 1);
+        g.agregarArista("4", "3", 1);
+        g.agregarArista("5", "3", 1);
+        g.agregarArista("5", "4", 1);*/
+
+        g.agregarArista("1", "2", 1);
+        g.agregarArista("1", "3", 1);
+        g.agregarArista("1", "4", 1);
+        g.agregarArista("2", "3", 1);
+        g.agregarArista("2", "4", 1);
+        g.agregarArista("3", "4", 1);
+
+        g.agregarArista("2", "1", 1);
+        g.agregarArista("3", "1", 1);
+        g.agregarArista("4", "1", 1);
+        g.agregarArista("3", "2", 1);
+        g.agregarArista("4", "2", 1);
+        g.agregarArista("4", "3", 1);
         return g;
     }
 

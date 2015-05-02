@@ -53,16 +53,13 @@ public class Clique extends Algoritmo {
          }
     }
 
-    private void cliqueOneNode(k_clique kc,int k, int u, List<Integer> lista) throws Exception {
-        if (lista.size() + 1 < k) {
-            kc.eliminar();
-            return;       //Si no tiene suficiente grado para ser candidato no tiene sentido seguir
-        }
+    private void cliqueOneNode(k_clique kc,int k, List<Integer> lista) throws Exception {
         if (k == 1) {
             kc.agregar(lista.get(0));
             return;
         }
         if (k == 2) {
+            int u = lista.get(0);
             int v = lista.get(1);
             if (g.existeArista(u, v)) {
                 kc.agregar(u);
@@ -71,42 +68,57 @@ public class Clique extends Algoritmo {
             else kc.eliminar();
             return;
         }
+
         else {
-            int v = lista.get(0);
+            int u = lista.get(0);
+            int v = lista.get(1);
+            kc.agregar(u);
             kc.agregar(v);
+            Iterator it = g.nodosSalida(u).listIterator();
             Iterator itv = g.nodosSalida(v).listIterator();
             ArrayList<Integer> candidatos = new ArrayList<Integer>();
-            for (Iterator it = lista.listIterator(1); it.hasNext(); ) {
+
+            while (it.hasNext() && itv.hasNext()) {
                 int w = (Integer) it.next();
-                if (w > u) {
-                    int x = -1;
-                    while (itv.hasNext() && (x = (Integer) itv.next()) < w) ;
-                    if (x == w) candidatos.add(w);
+                int y = (Integer) itv.next();
+                if (w > u && y > v) {
+                    if (w == y) candidatos.add(w);
+                    else if (w < y) {
+                        int x = -1;
+                        while (it.hasNext() && (x = (Integer) it.next()) < w) ;
+                    }
                 }
             }
-            if (candidatos.size() > 0) cliqueOneNode(kc, k - 2, candidatos.get(0), candidatos);
+            if (candidatos.size() > 0) cliqueOneNode(kc, k - 2, candidatos);
         }
     }
 
-    private int index_sublista(int i) throws Exception{
+    private int index_sublista(int i) throws Exception {
         int contador = 0;
-        for (Iterator it = g.nodosSalida(i).listIterator(); it.hasNext() && (Integer)it.next() < i;) ++contador;
+        for (Iterator it = g.nodosSalida(i).iterator(); it.hasNext() && (Integer)it.next() < i;) ++contador;
         return contador;
     }
 
     public Grafo ejecutar_algoritmo() throws Exception {
         //Primera version ineficiente coste n^2
-        int n = g.V();
+        //int n = g.V();
         comunidades c = new comunidades();
-        for (int i = 0; i < n; ++i) {
-            k_clique kc = new k_clique();
+        for (Iterator it = g.consultarVertices().iterator(); it.hasNext();) {
+            int i = (Integer)it.next();
+            System.out.println("Tratando nodo num: "+ Integer.toString(i));
             int m = g.degreeSalida(i);
             if (m + 1 >= k) {
+                k_clique kc = new k_clique();
                 System.out.println(Integer.toString(index_sublista(i)));
-                List<Integer> candidatos = g.nodosSalida(i).subList(index_sublista(i), m);
                 kc.agregar(i);
-                cliqueOneNode(kc, k, i, candidatos);
-                if (kc.size() > 0) c.agregar_clique(kc);
+                List<Integer> candidatos = g.nodosSalida(i).subList(index_sublista(i), m);
+                for (Iterator it2 = candidatos.iterator(); it2.hasNext();) {
+                    int v = (Integer)it2.next();
+                    kc.agregar(v);
+                    candidatos.remove(0);
+                    cliqueOneNode(kc, k - 2, candidatos);
+                    if (kc.size() > 0) c.agregar_clique(kc);
+                }
             }
         }
         for (int i = 0; i < c.size();++i) {
