@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by usuario on 26/04/2015.
  */
-public class CjtEventos {
+public class CjtEvento {
     private TST<Evento> cjt;
     private ArrayList<Evento> Listado;
 
@@ -41,7 +41,7 @@ public class CjtEventos {
      * Pre: Cierto
      * Post: Crea un nuevo controlador de evento
      */
-    public CjtEventos() {
+    public CjtEvento() {
         Listado = new ArrayList<Evento>();
         cjt = new TST<Evento>();
     }
@@ -60,8 +60,9 @@ public class CjtEventos {
      * Pre: Cierto
      * Post: Todos los eventos ser�n eliminados
      */
-    public void EliminarCjtEventos() {
-        cjt = null;
+    public void EliminarCjtEvento() {
+        Listado.clear();
+        cjt.vaciar();
     }
 
     //Modificadoras
