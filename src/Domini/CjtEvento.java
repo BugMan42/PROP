@@ -93,8 +93,6 @@ public class CjtEvento {
             //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
             String f[] = fechaVieja.split("/");
             fechaVieja = Integer.toString(Integer.parseInt(f[0]))+Integer.toString(Integer.parseInt(f[1]))+Integer.toString(Integer.parseInt(f[2]));
-            String s[] = fechaNueva.split("/");
-            fechaNueva = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
             //Como obtener pasa la referencia al objeto lo modifico y lo pongo correctamente en el conjunto de acuerdo a su nueva clave
             Evento aux = cjt.obtener(nombre+fechaVieja);
             aux.ModFecha(fechaNueva);
