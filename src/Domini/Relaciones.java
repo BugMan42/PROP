@@ -125,6 +125,15 @@ public class Relaciones {
     ArrayList<Relacion> obtRelaciones(Evento e) throws Exception {
         return eventos.obtener(e.ID()).obtenerRelaciones();
     }
+    ArrayList<Congresista> obtCongresistas() {
+        List<NodeC> array = congresistas.consultarObjetos();
+        ArrayList<Congresista> aux = new ArrayList<Congresista>();
+        ListIterator<NodeC> it = array.listIterator();
+        while (it.hasNext()) {
+            aux.add(it.next().obtCongresista());
+        }
+        return aux;
+    }
 
 
 }
