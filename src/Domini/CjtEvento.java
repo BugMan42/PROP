@@ -94,8 +94,10 @@ public class CjtEvento {
             String f[] = fechaVieja.split("/");
             fechaVieja = Integer.toString(Integer.parseInt(f[0]))+Integer.toString(Integer.parseInt(f[1]))+Integer.toString(Integer.parseInt(f[2]));
             //Como obtener pasa la referencia al objeto lo modifico y lo pongo correctamente en el conjunto de acuerdo a su nueva clave
-            Evento aux = cjt.obtener(nombre+fechaVieja);
+            Evento aux = cjt.obtener(nombre + fechaVieja);
             aux.ModFecha(fechaNueva);
+            String s[] = fechaNueva.split("/");
+            fechaNueva = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
             cjt.modificar(nombre+fechaVieja, nombre+fechaNueva, aux);
         }
         else throw new NoValido("FechaNueva", 0);
