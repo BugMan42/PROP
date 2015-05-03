@@ -1,28 +1,68 @@
 package Domini;
 
+/**
+ * Clase Dni
+ */
 public class Dni  {
-    ////formato: 9 caracteres (8 numeros y 1 letra)
+    private class DNINOVALIDO extends Exception {
+        public DNINOVALIDO(String s) {
+            super("DNI "+s+" no valido");
+        }
+    }
+    /**Formato: 9 caracteres (8 numeros y 1 letra)
+     * 8 primeros caracteres son numeros
+     * ultimo caracter es una letra
+     * el Dni siempre se guardara con el ultimo
+     * caracter con mayuscula
+     * dos dnis son iguales si tienen los mismos caracteres
+     * sin importar si es mayuscula o minuscula la ultima letra
+     */
     private String dni;
 
+    /**
+     * Pre: El String es un dni valido
+     * Post: Se creara el dni
+     * parametro: String s
+     * throws Exception
+     */
     public Dni(String s) throws Exception {
         if (valido(s)) {
             dni = trad(s);
         }
-        else throw new Exception("DNI no valido");
+        else throw new DNINOVALIDO(s);
     }
+
+    /**
+     * traduce de minusculas a mayusculas
+     * en el caso que sea necesario:
+     * (ultima letra es minuscula)
+     */
     private String trad(String d) {
         if (java.lang.Character.isLowerCase(d.charAt(8))) {
             d = d.toUpperCase();
         }
         return d;
     }
+
+    /**
+     * Modificadora del dni
+     * si el dni es valido se modifica por
+     * el nuevo dni s
+     * (mismo caso que en creadora)
+     * se traduce a mayusculas
+     */
     void modDni(String s) throws Exception {
         if (valido(s)) {
-            dni = s;
+            dni = trad(s);
         }
-        else throw new Exception("DNI no valido");
+        else throw new DNINOVALIDO(s);
     }
 
+    /**
+     * Post: devuelve si es valido o
+     * no el dni
+     * No se comprueba minuscula/mayuscula
+     */
     public static boolean valido(String d) {
         if (d.length() != 9) return false;
         for (int i = 0; i <8; ++i) {
@@ -31,9 +71,18 @@ public class Dni  {
         return Character.isLetter(d.charAt(8));
 
     }
+
+    /**
+     * Devuelve el dni en formato String
+     */
     public String toString() {
         return dni;
     }
+
+    /**
+     * Post: Devuelve si el Dni es igual al
+     * Dni D.
+     */
     public boolean equals(Dni D) {
         return D.dni.equals(dni);
     }

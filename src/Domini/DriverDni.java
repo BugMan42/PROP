@@ -29,20 +29,25 @@ public class DriverDni {
         return Input.nextLine();
     }
     public static void main(String[] args) throws Exception {
+        boolean imprimir = false;
+        if (args.length > 0) {
+            if (args[0].equals("1")) imprimir = true;
+        }
         Scanner userInput = new Scanner(System.in);
-        PresentaMenu();
+        if (imprimir) PresentaMenu();
         do {
             //PresentaMenu();
             try {
-                ProcesarLinea(LeerLinea(userInput));
+                ProcesarLinea(LeerLinea(userInput),imprimir);
             } catch (Exception a) {
                 print(a.getMessage());
             }
-            PresentaMenu();
+            if (imprimir) PresentaMenu();
         } while(userInput.hasNextLine());
     }
 
-    private static void ProcesarLinea(String str) throws Exception {
+    private static void ProcesarLinea(String str, boolean imprimir) throws Exception {
+        if (!imprimir) print("> "+str);
         String aux[] = str.split("\\s");
         if (str.length() == 0) throw new InsuficientesArgumentos();
         switch (Integer.parseInt(aux[0])) {
@@ -62,10 +67,14 @@ public class DriverDni {
                 break;
             case 3:
                 if (aux.length < 2) throw new InsuficientesArgumentos();
-                print("" + DNI.equals(new Dni(aux[1])));
+                if (DNI != null) {
+                    print("" + DNI.equals(new Dni(aux[1])));
+                } else throw new DNINoInicializado();
                 break;
             case 4:
-                print(DNI.toString());
+                if (DNI != null) {
+                    print(DNI.toString());
+                } else throw new DNINoInicializado();
                 break;
             case 5:
                 System.exit(0);
