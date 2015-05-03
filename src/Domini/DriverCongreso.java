@@ -48,20 +48,24 @@ public class DriverCongreso {
     public static void main(String[] args) throws Exception {
         C = new Congreso();
         Scanner userInput = new Scanner(System.in);
-        boolean seguir = true;
-        PresentaMenu();
+        boolean imprimir = true;
+        if (args.length > 0) {
+            if (args[0].equals("0")) imprimir = false;
+        }
+        if (imprimir) PresentaMenu();
         do {
             //PresentaMenu();
             try {
-                ProcesarLinea(LeerLinea(userInput));
+                ProcesarLinea(LeerLinea(userInput),imprimir);
             } catch (Exception a) {
                 print(a.getMessage());
             }
-            PresentaMenu();
+            if (imprimir) PresentaMenu();
         } while(userInput.hasNextLine());
     }
 
-    private static void ProcesarLinea(String str) throws Exception {
+    private static void ProcesarLinea(String str, boolean imprimir) throws Exception {
+        if (!imprimir) print("> "+str);
         String aux[] = str.split("\\s");
         if (str.length() == 0) throw new ArgumentosInsuficientes();
         if (Integer.parseInt(aux[0]) != 20) System.out.print("S: ");

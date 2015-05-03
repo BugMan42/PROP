@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class DriverTST {
 
-    private static Scanner user_input = new Scanner(System.in);
     private static TST<Integer> tst;
 
     private static void print(String str) {
@@ -36,20 +35,24 @@ public class DriverTST {
     public static void main(String[] args) throws Exception {
         tst = new TST<Integer>();
         Scanner userInput = new Scanner(System.in);
-        boolean seguir = true;
-        PresentaMenu();
+        boolean imprimir = true;
+        if (args.length > 0) {
+            if (args[0].equals("0")) imprimir = false;
+        }
+        if (imprimir) PresentaMenu();
         do {
             //PresentaMenu();
             try {
-                ProcesarLinea(LeerLinea(userInput));
+                ProcesarLinea(LeerLinea(userInput),imprimir);
             } catch (Exception a) {
                 print(a.getMessage());
             }
-            PresentaMenu();
+            if (imprimir) PresentaMenu();
         } while(userInput.hasNextLine());
     }
 
-    private static void ProcesarLinea(String str) throws Exception {
+    private static void ProcesarLinea(String str, boolean imprimir) throws Exception {
+        if (!imprimir) print("E: "+str);
         String aux[] = str.split("\\s");
         if (str.length() == 0) throw new ArgumentosInsuficientes();
         switch (Integer.parseInt(aux[0])) {
@@ -59,11 +62,11 @@ public class DriverTST {
                 break;
             case 1:
                 if (aux.length < 2) throw new ArgumentosInsuficientes();
-                print(""+tst.obtener(aux[1]));
+                print("S: "+tst.obtener(aux[1]));
                 break;
             case 2:
                 if (aux.length < 2) throw new ArgumentosInsuficientes();
-                print(""+tst.existe(aux[1]));
+                print("S: "+tst.existe(aux[1]));
                 break;
             case 3:
                 if (aux.length < 2) throw new ArgumentosInsuficientes();
@@ -82,22 +85,22 @@ public class DriverTST {
                 tst.modificar(aux[1], aux[2],Integer.parseInt(aux[3]));
                 break;
             case 7:
-                print(tst.toString());
+                print("S: "+tst.toString());
                 break;
             case 8:
-                print(tst.consultarClaves().toString());
+                print("S: "+tst.consultarClaves().toString());
                 break;
             case 9:
-                print(tst.consultarObjetos().toString());
+                print("S: "+tst.consultarObjetos().toString());
                 break;
             case 10:
-                print(tst.esVacio()+"");
+                print("S: "+tst.esVacio());
                 break;
             case 11:
                 tst.vaciar();
                 break;
             case 12:
-                print(tst.size()+"");
+                print("S: "+tst.size());
                 break;
             case 13:
                 System.exit(0);
@@ -107,4 +110,3 @@ public class DriverTST {
         }
     }
 }
-

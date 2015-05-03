@@ -19,12 +19,6 @@ public class Dni  {
      */
     private String dni;
 
-    /**
-     * Pre: El String es un dni valido
-     * Post: Se creara el dni
-     * parametro: String s
-     * throws Exception
-     */
     public Dni(String s) throws Exception {
         if (valido(s)) {
             dni = trad(s);
@@ -32,11 +26,6 @@ public class Dni  {
         else throw new DNINOVALIDO(s);
     }
 
-    /**
-     * traduce de minusculas a mayusculas
-     * en el caso que sea necesario:
-     * (ultima letra es minuscula)
-     */
     private String trad(String d) {
         if (java.lang.Character.isLowerCase(d.charAt(8))) {
             d = d.toUpperCase();
@@ -44,13 +33,6 @@ public class Dni  {
         return d;
     }
 
-    /**
-     * Modificadora del dni
-     * si el dni es valido se modifica por
-     * el nuevo dni s
-     * (mismo caso que en creadora)
-     * se traduce a mayusculas
-     */
     void modDni(String s) throws Exception {
         if (valido(s)) {
             dni = trad(s);
@@ -58,31 +40,18 @@ public class Dni  {
         else throw new DNINOVALIDO(s);
     }
 
-    /**
-     * Post: devuelve si es valido o
-     * no el dni
-     * No se comprueba minuscula/mayuscula
-     */
     public static boolean valido(String d) {
         if (d.length() != 9) return false;
         for (int i = 0; i <8; ++i) {
             if (!Character.isDigit((d.charAt(i)))) return false;
         }
         return Character.isLetter(d.charAt(8));
-
     }
 
-    /**
-     * Devuelve el dni en formato String
-     */
     public String toString() {
         return dni;
     }
 
-    /**
-     * Post: Devuelve si el Dni es igual al
-     * Dni D.
-     */
     public boolean equals(Dni D) {
         return D.dni.equals(dni);
     }

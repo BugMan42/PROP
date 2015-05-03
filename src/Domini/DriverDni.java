@@ -47,10 +47,9 @@ public class DriverDni {
     }
 
     private static void ProcesarLinea(String str, boolean imprimir) throws Exception {
-        if (!imprimir) print("> "+str);
+        if (!imprimir) print("E: "+str);
         String aux[] = str.split("\\s");
         if (str.length() == 0) throw new ArgumentosInsuficientes();
-        if (Integer.parseInt(aux[0]) != 5) System.out.print("S: ");
         switch (Integer.parseInt(aux[0])) {
             case 0:
                 if (aux.length < 2) throw new ArgumentosInsuficientes();
@@ -64,17 +63,17 @@ public class DriverDni {
                 break;
             case 2:
                 if (aux.length < 2) throw new ArgumentosInsuficientes();
-                print("" + Dni.valido(aux[1]));
+                print("S: " + Dni.valido(aux[1]));
                 break;
             case 3:
                 if (aux.length < 2) throw new ArgumentosInsuficientes();
                 if (DNI != null) {
-                    print("" + DNI.equals(new Dni(aux[1])));
+                    print("S: " + DNI.equals(new Dni(aux[1])));
                 } else throw new DNINoInicializado();
                 break;
             case 4:
                 if (DNI != null) {
-                    print(DNI.toString());
+                    print("S:"+DNI.toString());
                 } else throw new DNINoInicializado();
                 break;
             case 5:
