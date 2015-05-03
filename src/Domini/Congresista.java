@@ -8,11 +8,7 @@ public class Congresista {
         }
     }
 
-    /**
-     * Dni es un Dni valido
-     * Edad es un entero > 0
-     * Los otros parametros son Strings
-     */
+    //Edad es un entero > 0
     private Dni Dni;
     private String Nombre;
     private String Apellido;
