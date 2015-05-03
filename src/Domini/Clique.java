@@ -54,11 +54,16 @@ public class Clique extends Algoritmo {
     }
 
     private void cliqueOneNode(k_clique kc,int k, List<Integer> lista) throws Exception {
-        if (lista.size() > 0 && k == 1) {
+        System.out.println("Mi k es " + Integer.toString(k) + " la lista tiene este numero de elementos "+ Integer.toString(lista.size()));
+        if (lista.isEmpty() || lista.size() < k) {
+            kc.eliminar();
+            return;
+        }
+        if (k == 1) {
             kc.agregar(lista.get(0));
             return;
         }
-        if (lista.size() > 0 && k == 2) {
+        if (k == 2) {
             int u = lista.get(0);
             int v = lista.get(1);
             if (g.existeArista(u, v)) {
@@ -102,17 +107,27 @@ public class Clique extends Algoritmo {
             if (m + 1 >= k) {
                 System.out.println(Integer.toString(index_sublista(i)));
                 List<Integer> candidatos = g.nodosSalida(i).subList(index_sublista(i), m);
+                System.out.println("Candidatos");
+                for (int j = 0; j < candidatos.size(); ++j) {
+                    System.out.println("Soy el candidato numero "+ Integer.toString(candidatos.get(j)));
+                }
                 for (Iterator it2 = candidatos.iterator(); it2.hasNext();) {
                     k_clique kc = new k_clique();
                     kc.agregar(i);
                     int v = (Integer)it2.next();
                     kc.agregar(v);
+                    it2.remove();
                     List<Integer> l = new ArrayList<Integer>(candidatos);
+                    System.out.println("Lista recursividad");
+                    for (int j = 0; j < l.size(); ++j) {
+                        System.out.println("Soy el candidato numero "+ Integer.toString(candidatos.get(j)));
+                    }
                     cliqueOneNode(kc, k - 2, l);
                     if (kc.size() > 0) {
                         System.out.println("En el nodo num: " + Integer.toString(i) + " se ha creado una clique");
                         c.agregar_clique(kc);
                     }
+                    System.out.println("Acabo de quitar el vertice " + Integer.toString(v));
                 }
             }
         }
