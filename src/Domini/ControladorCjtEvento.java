@@ -7,10 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ControladorCjtEvento {
-    static final String E1 = "Tipo de evento incorrecto: ";
+    private static final String E1 = "Tipo de evento incorrecto: ";
 
-    static final int max_lineas_guardar = 300;
-    static final int max_lineas_cargar = 300;
+    private static final int max_lineas_guardar = 300;
+    private static final int max_lineas_cargar = 300;
 
     private CjtEvento ce;
 

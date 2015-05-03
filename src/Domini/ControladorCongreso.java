@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class ControladorCongreso {
 
-    static final int max_lineas_guardar = 300;
-    static final int max_lineas_cargar = 300;
+    private static final int max_lineas_guardar = 300;
+    private static final int max_lineas_cargar = 300;
 
     private Congreso c;
 

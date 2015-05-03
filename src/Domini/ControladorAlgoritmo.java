@@ -19,7 +19,7 @@ public class ControladorAlgoritmo {
     // Dado el controlador de relaciones que pasas como parametro, se crea el grafo correspondiente
     public void crearGrafo()
     {
-        in.modGrafo(crel.generar_grafo_relaciones());
+        //in.modGrafo(crel.generar_grafo_relaciones());
     }
 
     public void modParamEntrada(String p) // Serán Strings

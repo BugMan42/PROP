@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class DriverControladorCjtEvento {
     // Mensajes excepciones.
-    static final String E1 = "Número de parámetros incorrecto.";
+    private static final String E1 = "Número de parámetros incorrecto.";
 
     private static ControladorCjtEvento ce;
 

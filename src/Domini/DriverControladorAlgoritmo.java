@@ -13,7 +13,7 @@ public class DriverControladorAlgoritmo {
 
     public DriverControladorAlgoritmo()
     {
-        c_rel = new ControladorRelaciones();
+        //c_rel = new ControladorRelaciones();
         c_alg = new ControladorAlgoritmo(c_rel);
         ui = new Scanner(System.in);
     }
