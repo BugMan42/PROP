@@ -27,7 +27,7 @@ public class Relaciones {
         }
         public void eliminarRelacion(Relacion r) throws Exception {
             for (int i = 0; i < eventos.size(); ++i) {
-                if (eventos.get(i).obtEvento().ID().equals(r.obtEvento())) {
+                if (eventos.get(i).obtEvento().ID().equals(r.obtEvento().ID())) {
                     eventos.remove(i);
                     return;
                 }
@@ -63,7 +63,7 @@ public class Relaciones {
         }
         public void eliminarRelacion(Relacion r) throws Exception {
             for (int i = 0; i < eventos.size(); ++i) {
-                if (congresistas.get(i).obtEvento().ID().equals(r.obtEvento())) {
+                if (congresistas.get(i).obtEvento().ID().equals(r.obtEvento().ID())) {
                     congresistas.remove(i);
                     return;
                 }
@@ -109,6 +109,7 @@ public class Relaciones {
     }
     public void eliminarRelacion(Relacion r) throws Exception {
         NodeC aux = congresistas.obtener(r.obtCongresista().ID());
+        print(aux.obtenerIDCongresista());
         aux.eliminarRelacion(r);
         NodeE aux2 = eventos.obtener(r.obtEvento().ID());
         aux2.eliminarRelacion(r);
@@ -147,5 +148,8 @@ public class Relaciones {
         return array;
     }
 
+    private static void print(String str) {
+        System.out.println(str);
+    }
 
 }

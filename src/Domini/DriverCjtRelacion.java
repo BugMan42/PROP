@@ -14,7 +14,8 @@ public class DriverCjtRelacion {
         Relacion R2 = new Relacion(C1,E2);
         R.agregarRelacion(R1);
         R.agregarRelacion(R2);
-        print(R.obtCongresistas(E1)+"");
+        //R.eliminarRelacion(R1);
+        print(R.obtEventos(C1)+"");
 
     }
     private static void print(String str) {
