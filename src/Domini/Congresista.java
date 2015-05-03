@@ -41,6 +41,7 @@ public class Congresista {
         Estado = c.obtEstado();
         Partido = c.obtPartido();
     }
+
     //Modificadoras
     public void modDni(Dni dni) {
         Dni = dni;
@@ -76,7 +77,6 @@ public class Congresista {
     }
 
     //Consultoras
-
     public Dni obtDni() {
         return Dni;
     }
