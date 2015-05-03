@@ -97,30 +97,41 @@ public class DriverControladorRelaciones {
                         cr.eliminarRelacion(params[1], params[2], params[3]);
                         break;
                     case 17:
+                        if(params.length!=1) throw new Exception(E1);
+                        cr.eliminarTodasLasRelaciones();
+                        break;
+                    case 18:
                         if(params.length!=2) throw new Exception(E1);
                         dr.print(cr.obtEventos(params[1]).toString());
                         break;
-                    case 18:
+                    case 19:
                         if(params.length!=3) throw new Exception(E1);
                         dr.print(cr.obtCongresistas(params[1], params[2]).toString());
                         break;
-                    case 19:
+                    case 20:
                         if(params.length!=2) throw new Exception(E1);
                         dr.print(cr.obtRelaciones(params[1]).toString());
                         break;
-                    case 20:
+                    case 21:
                         if(params.length!=3) throw new Exception(E1);
                         dr.print(cr.obtRelaciones(params[1],params[2]).toString());
                         break;
-                    /*
-                    case 21:
+                    case 22:
+                        if(params.length!=1) throw new Exception(E1);
+                        dr.print(cr.obtCongresistas().toString());
+                        break;
+                    case 23:
+                        if(params.length!=1) throw new Exception(E1);
+                        dr.print(cr.obtTodasLasRelaciones().toString());
+                        break;
+                    case 24:
                         if(params.length!=2) throw new Exception(E1);
                         cr.guardar(params[1]);
                         break;
-                    case 22:
+                    case 25:
                         if(params.length!=2) throw new Exception(E1);
                         cr.cargar(params[1]);
-                        break;*/
+                        break;
 
                 }
             }
@@ -129,7 +140,7 @@ public class DriverControladorRelaciones {
                 op = -1;
             }
         }
-        while(op != 23);
+        while(op != 26);
     }
 
     private void menu(){
@@ -155,14 +166,17 @@ public class DriverControladorRelaciones {
         print("//////// Relaciones ///////////////////////////");
         print("15 agregarRelacion(String dni, String nombre, String fecha)");
         print("16 eliminarRelacion(String dni, String nombre, String fecha)");
-        print("17 obtEventos(String dni)");
-        print("18 obtCongresistas(String nombre, String fecha)");
-        print("19 obtRelaciones(String dni)");
-        print("20 obtRelaciones(String nombre, String fecha)");
-        print("21 guardarRelaciones(String ruta)");
-        print("22 cargarRelaciones(String ruta)");
+        print("17 eliminarTodasLasRelaciones()");
+        print("18 obtEventos(String dni)");
+        print("19 obtCongresistas(String nombre, String fecha)");
+        print("20 obtRelaciones(String dni)");
+        print("21 obtRelaciones(String nombre, String fecha)");
+        print("22 obtCongresistas()");
+        print("23 obtTodasLasRelaciones()");
+        print("24 guardarRelaciones(String ruta)");
+        print("25 cargarRelaciones(String ruta)");
         print("///////////////////////////////////////////////");
-        print("23 Salir\n");
+        print("26 Salir\n");
     }
 
     private void print(String s){

@@ -38,6 +38,10 @@ public class ControladorRelaciones {
         rs.eliminarRelacion(r);
     }
 
+    public void eliminarTodasLasRelaciones() throws Exception {
+        rs.eliminarTodasLasRelaciones();
+    }
+
     ArrayList<Evento> obtEventos(String dni) throws Exception {
         Congresista con = c.consultarCongresista(dni);
         return rs.obtEventos(con);
@@ -58,12 +62,19 @@ public class ControladorRelaciones {
         return rs.obtRelaciones(ev);
     }
 
-    /*
+    ArrayList<Congresista> obtCongresistas(){
+        return rs.obtCongresistas();
+    }
+
+    ArrayList<Relacion> obtTodasLasRelaciones() throws Exception {
+        return rs.obtTodasLasRelaciones();
+    }
+
     public void guardar(String ruta) throws Exception {
         if (!c.esVacio()) {
             ControladorPersistencia cp = new ControladorPersistencia(ruta);
-            List<Congresista> cs = c.obtenerCongreso();
-            Iterator<Congresista> it = cs.iterator();
+            ArrayList<Relacion> rel = rs.obtTodasLasRelaciones();
+            Iterator<Relacion> it = rel.iterator();
             cp.abrirEscritura();
             while (it.hasNext()){
                 String datos = "";
@@ -81,17 +92,17 @@ public class ControladorRelaciones {
     public void cargar(String ruta) throws Exception {
         ControladorPersistencia cp = new ControladorPersistencia(ruta);
         cp.abrirLectura();
-        c.eliminarCongreso();
+        rs.eliminarTodasLasRelaciones();
         String r = cp.leer(max_lineas_cargar);
         while (!r.equals("")){
             String[] aux = r.split("\n");
             for(String con : aux){
                 String[] prm = con.split("\\s");
-                agregarCongresista(prm[0], prm[1], prm[2], Integer.parseInt(prm[3]), prm[4], prm[5], prm[6]);
+                agregarRelacion(prm[0], prm[1], prm[2]);
             }
             r = cp.leer(max_lineas_cargar);
         }
         cp.cerrarFichero();
-    }*/
+    }
 
 }

@@ -113,6 +113,10 @@ public class Relaciones {
         NodeE aux2 = eventos.obtener(r.obtEvento().ID());
         aux2.eliminarRelacion(r);
     }
+    public void eliminarTodasLasRelaciones() throws Exception {
+        congresistas.vaciar();
+        eventos.vaciar();
+    }
     public ArrayList<Evento> obtEventos(Congresista c) throws Exception {
         return congresistas.obtener(c.ID()).obtenerEventos();
     }
