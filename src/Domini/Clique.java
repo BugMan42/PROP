@@ -9,17 +9,16 @@ public class Clique extends Algoritmo {
 
     private Grafo g;
     private int k;
-    private int num;
     public Clique() throws Exception {}
     public Clique(Entrada in, Salida out) throws Exception {
         super(in, out);
         g = in.obtGrafo();
         k = (int)in.obtParam1();
         if (k <= 2) throw new NoValido("k", 9);
-        num = 0;
     }
 
     class comunidades {
+
         private ArrayList<k_clique> com;
         comunidades() {
             com = new ArrayList<k_clique>();
@@ -31,12 +30,18 @@ public class Clique extends Algoritmo {
         void agregar_clique(k_clique k) {
             com.add(k);
         }
+        Iterator<k_clique> iterator(int i) {
+            return com.listIterator();
+        }
+
     }
 
     class k_clique {
         private ArrayList<Integer> c;
+        private boolean num;
         k_clique() {
             c = new ArrayList<Integer>();
+            num = false;
         }
         int size() {
             return c.size();
@@ -51,6 +56,8 @@ public class Clique extends Algoritmo {
         void eliminar() {
              c.clear();
          }
+        boolean obt_num() {return num;}
+        void mod_num() {num = true;}
     }
 
     private void cliqueOneNode(k_clique kc,int k, List<Integer> lista) throws Exception {
@@ -136,7 +143,28 @@ public class Clique extends Algoritmo {
             k_clique kc = c.obt_clique(i);
             for (int j = 0; j < kc.size(); ++j) sout.agregarMensaje("vertice " + Integer.toString(kc.obt_vertice(j)));
         }
-
+        for (int i = 0; i < c.size(); ++i) {
+            Set<Integer> s = new HashSet<Integer>();
+            k_clique kc = c.obt_clique(i);
+            if (!kc.obt_num()) {
+                kc.mod_num();
+                for (int j = 0; j < c.size(); ++j) {
+                    if (i != j) {
+                        k_clique kc1 = c.obt_clique(j);
+                        if (!kc.obt_num()) {
+                            ArrayList<Integer> aux = new ArrayList<Integer>(kc.lista());
+                            aux.retainAll(kc1.lista());
+                            if (aux.size() == k - 1) {
+                                kc1.mod_num();
+                                s.addAll(kc.lista());
+                                s.addAll(kc1.lista());
+                            }
+                        }
+                    }
+                }
+            }
+            if (!s.isEmpty()) sout.agregarComunidad(s);
+        }
         /*for (Iterator it = )
         for (int i = 0; i < n; ++i) {
             ArrayList<Integer> ady = g.ady_copia(i);

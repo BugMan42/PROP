@@ -34,6 +34,9 @@ public class Salida {
     {
         return mensajes;
     }
+    public void agregarComunidad(Set<Integer> s) {
+        comunidades.add(s);
+    }
     public ArrayList<Set<Integer>> comunidad() {
         return comunidades;
     }
