@@ -53,14 +53,4 @@ public class Fecha {
     public boolean equals(Fecha f) {
         return fecha[0] == f.fecha[0] && fecha[1] == f.fecha[1] && fecha[2] == f.fecha[2];
     }
-
-    /*traer string de la fecha y comparar
-    public boolean igual(String date) {
-        if (date.equals("")) throw new IllegalArgumentException("La fecha no puede ser vac�a");
-        String[] aux = date.split("/");
-        if (aux.length > 3) throw new IllegalArgumentException("El formato es dd/mm/yyyy");
-        Correcto(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), Integer.parseInt(aux[2]));
-        return fecha[0].equals(aux[0]) && fecha[1].equals(aux[1]) && fecha[2].equals(aux[2]);
-    }
-    */
 }

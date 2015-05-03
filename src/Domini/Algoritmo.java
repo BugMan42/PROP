@@ -18,7 +18,6 @@ public abstract class Algoritmo {
     }
 
     public void ejecutar_algoritmo() throws Exception {
-
     };
 
     public void ejecutar_iteración(Grafo g) throws Exception {

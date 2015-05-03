@@ -13,10 +13,9 @@ public class CjtEvento {
      *Post: Devuelve true en caso de que nombre no sea vacio
      * y fecha sea valida
      */
-    private boolean Valido(String nombre, String fecha) throws NoValido {
+    private void Valido(String nombre, String fecha) throws NoValido {
         if (nombre.equals("")) throw new NoValido("Nombre", 0);
         if (!Fecha.valido(fecha)) throw new NoValido("Fecha", 0);
-        return true;
     }
 
     /**Creadora de conjunto de evento
@@ -33,11 +32,10 @@ public class CjtEvento {
      * Post: El evento espcificado por nombre y fecha ha sido eliminado del conjunto de eventos
      */
     public void EliminarEvento(String nombre, String fecha) throws Exception{
-        if (Valido(nombre, fecha)) {
-            String s[] = fecha.split("/");
-            fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
-            cjt.borrar(nombre+fecha);
-        }
+        Valido(nombre, fecha);
+        String s[] = fecha.split("/");
+        fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
+        cjt.borrar(nombre+fecha);
     }
 
     /**Elinina todos los eventos
@@ -65,80 +63,54 @@ public class CjtEvento {
      * evento identificado por nomNuevo y fecha no puede existir
      * Post: Al evento especificado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
      */
-    public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo) throws NoValido{
-        /*if (Valido(nomViejo, fecha)) {
-            if (!nomNuevo.equals("")) {
-                if (cjt.existe(nomViejo+fecha)) {
-                    if (!cjt.existe(nomNuevo+fecha)) {
-                        ///////////////////HACER////////////
-                    }
-                    else throw new IllegalArgumentException();
-                }
-                else throw new IllegalArgumentException();
-            }
-            else throw new IllegalArgumentException();
-        }*/
+    public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo) throws Exception{
+        Valido(nomViejo, fecha);
+        if (!nomNuevo.equals("")) {
+            String s[] = fecha.split("/");
+            fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
+            Evento aux = cjt.obtener(nomViejo+fecha);
+            aux.ModNombre(nomNuevo);
+            cjt.modificar(nomViejo+fecha, nomNuevo+fecha, aux);
+        }
+        else throw new NoValido("NombreNuevo", 0);
     }
 
     /** Modificadora de la fecha de un evento
-     * Pre: nombre, fechaVieja y fechaNueva no puede ser vac�os, el evento especificado
+     * Pre: nombre, fechaVieja y fechaNueva no puede ser vacios, el evento especificado
      *  por nombre y fechaVieja tiene que existir y el evento identificado
      *  por nombre y fechaNueva no puede existir
      * Post: Al evento especificado por nombre y fechaVieja se le ha cambiado la fecha por fechaNueva
      */
     public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) throws Exception{
-        //////////////////HACER//////////////////////////////
-        /*if (Valido(nombre, fechaVieja)) {
-            if (!fechaNueva.equals("")) {
-                if (cjt.existe(nombre+fechaVieja)) {
-                    if (!cjt.existe(nombre+fechaVieja)) {
-                        //////////////////HACER////////////
-                    }
-                    else throw new IllegalArgumentException();
-                }
-                else throw new IllegalArgumentException();
-            }
-            else throw new IllegalArgumentException();
-        }*/
-    }
-
-    /** Modificadora del subtipo de un evento
-     * Pre: nombre, fecha y subtipo no pueden ser vacíos,
-     * el evento especificado por nombre y fecha tiene que existir
-     * Post: Al evento especificado por nombre y fecha se le ha cambiado el subtipo por subtype
-     */
-    /*public void ModificarSubtipoEvento(String nombre, String fecha, String subtype) {
-        if (Valido(nombre, fecha)) {
-            if (!subtype.equals("")) {
-                int i = BuscarIndice(nombre, fecha);
-                if (i != -1) Listado.get(i).ModSubtipo(subtype);
-                else throw new IllegalArgumentException();
-            }
-            else throw new IllegalArgumentException();
+        Valido(nombre, fechaVieja);
+        if (Fecha.valido(fechaNueva)) {
+            String s[] = fechaNueva.split("/");
+            fechaNueva = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
+            Evento aux = cjt.obtener(nombre+fechaVieja);
+            aux.ModFecha(fechaNueva);
+            cjt.modificar(nombre+fechaVieja, nombre+fechaNueva, aux);
         }
-    }*/
+        else throw new NoValido("FechaNueva", 0);
+    }
 
     /** Modificadora de la importancia de un evento
      * Pre: nombre y fecha no pueden ser vacios, importance > 0
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Al evento especificado por nombre y fecha se le ha cambiado la importancia por importance
      */
-    public void ModificarImpEvento(String nombre, String fecha, int importance) throws NoValido{
-        ///////////////////////////////////HACER///////////////////////////////////
-        /*if (Valido(nombre, fecha)) {
-            if (importance > 0) {
-                int i = BuscarIndice(nombre, fecha);
-                if (i != -1) Listado.get(i).ModImportancia(importance);
-                else throw new IllegalArgumentException();
-            }
-            else throw new IllegalArgumentException();
-        }*/
+    public void ModificarImpEvento(String nombre, String fecha, int importance) throws Exception {
+        Valido(nombre, fecha);
+        String s[] = fecha.split("/");
+        fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
+        Evento aux = cjt.obtener(nombre+fecha);
+        aux.ModImportancia(importance);
+        cjt.modificar(nombre+fecha, aux);
     }
 
     /**Agrega un evento con parámetros random
      * Pre: Cierto
      * Post: Se ha agregado al conjunto un evento nuevo con
-     * par�metros random
+     * parametros random
      */
     public void AgregarEventoRandom() {}
 
