@@ -16,7 +16,7 @@ public class DriverDni {
     }
 
     private static void PresentaMenu() {
-        print("\nDRIVER DE TST<X>  X:Integer");
+        print("\nDRIVER DNI");
         print("0 Dni(String d)");
         print("1 modDni(String d)");
         print("2 valido(String d):boolean");
@@ -48,7 +48,7 @@ public class DriverDni {
         switch (Integer.parseInt(aux[0])) {
             case 0:
                 if (aux.length < 2) throw new InsuficientesArgumentos();
-                DNI.modDni(aux[1]);
+                DNI = new Dni(aux[1]);
                 break;
             case 1:
                 if (aux.length < 2) throw new InsuficientesArgumentos();
@@ -62,7 +62,7 @@ public class DriverDni {
                 break;
             case 3:
                 if (aux.length < 2) throw new InsuficientesArgumentos();
-                print("" + DNI.equals(aux[1]));
+                print("" + DNI.equals(new Dni(aux[1])));
                 break;
             case 4:
                 print(DNI.toString());

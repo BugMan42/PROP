@@ -6,9 +6,15 @@ public class Dni  {
 
     public Dni(String s) throws Exception {
         if (valido(s)) {
-            dni = s;
+            dni = trad(s);
         }
         else throw new Exception("DNI no valido");
+    }
+    private String trad(String d) {
+        if (java.lang.Character.isLowerCase(d.charAt(8))) {
+            d = d.toUpperCase();
+        }
+        return d;
     }
     void modDni(String s) throws Exception {
         if (valido(s)) {
