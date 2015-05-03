@@ -20,7 +20,13 @@ public class DriverVotacion {
     private static Votacion vt;
 
     public static void main(String[] args) throws ReflectiveOperationException {
-        vt = new Votacion();
+
+        try {
+            vt = new Votacion("Test", "11/04/07", 5);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error, argumento no válido (aunque no debería)");
+        }
         int opcion;
         do {
             print_menu();
@@ -45,30 +51,7 @@ public class DriverVotacion {
             return;
         }
 
-        /*int opt = Integer.parseInt(s1);
-        Voto v;
-        switch (opt)
-        {
-            case 1:
-                v = new Blanco();
-                break;
-            case 2:
-                v = new Abstencion();
-                break;
-            case 3:
-                v = new Positivo();
-                break;
-            case 4:
-                v = new Negativo();
-                break;
-            case 5:
-                v = new Nulo();
-                break;
-            default:
-                System.out.println("Opción incorrecta, operación cancelada");
-                return;
 
-        }*/
         System.out.println("Escribe el DNI del congresista votante:");
         String s2 = user_input.next();
         try {

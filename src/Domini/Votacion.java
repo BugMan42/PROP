@@ -11,18 +11,9 @@ public class Votacion extends Evento {
 
     private TST<Voto> votos = new TST<Voto>();
 
-    public Votacion(String nombre, String fecha) throws Exception{
-        super(nombre, fecha);
-    }
-
     public Votacion(String name, String date, int importance) throws Exception{
         super(name, date, importance);
     }
-
-    public Votacion() {
-        super();
-    }
-
 
     // Métodos de inserción de votos
     public void añadir_voto(String id, Voto v) throws Exception {
