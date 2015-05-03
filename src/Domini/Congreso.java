@@ -18,9 +18,8 @@ public class Congreso {
     public boolean esVacio() {
         return tst.esVacio();
     }
-    public void agregarCongresista(Dni dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
-        Congresista aux = new Congresista(dni,nombre,apellido,edad,ciudad,estado,partido);
-        tst.insertar(dni.toString(),aux);
+    public void agregarCongresista(Congresista c) throws Exception {
+        tst.insertar(c.ID(),c);
     }
     public ArrayList<String> obtenerListaID() {
         return tst.consultarClaves();

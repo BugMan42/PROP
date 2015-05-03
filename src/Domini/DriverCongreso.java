@@ -69,8 +69,9 @@ public class DriverCongreso {
                 break;
             case 1:
                 if (aux.length < 8) throw new InsuficientesArgumentos();
-                C.agregarCongresista(new Dni(aux[1]), aux[2], aux[3], Integer.parseInt(aux[4]),
+                Congresista con = new Congresista(new Dni(aux[1]), aux[2], aux[3], Integer.parseInt(aux[4]),
                         aux[5], aux[6], aux[7]);
+                C.agregarCongresista(con);
                 break;
             case 2:
                 if (aux.length < 2) throw new InsuficientesArgumentos();

@@ -30,7 +30,8 @@ public class ControladorCongreso {
 
     public void agregarCongresista(String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
         Dni d = new Dni(dni);
-        c.agregarCongresista(d,nombre,apellido,edad,ciudad,estado,partido);
+        Congresista con = new Congresista(d,nombre,apellido,edad,ciudad,estado,partido);
+        c.agregarCongresista(con);
     }
 
     public ArrayList<String> obtenerListaID(){
@@ -131,12 +132,11 @@ public class ControladorCongreso {
         cp.abrirLectura();
         c.eliminarCongreso();
         String r = cp.leer(max_lineas_cargar);
-        while (r != ""){
+        while (!r.equals("")){
             String[] aux = r.split("\n");
             for(String con : aux){
                 String[] prm = con.split("\\s");
-                Dni d = new Dni(prm[0]);
-                c.agregarCongresista(d, prm[1], prm[2], Integer.parseInt(prm[3]), prm[4], prm[5], prm[6]);
+                agregarCongresista(prm[0], prm[1], prm[2], Integer.parseInt(prm[3]), prm[4], prm[5], prm[6]);
             }
             r = cp.leer(max_lineas_cargar);
         }
