@@ -1,7 +1,5 @@
 package Domini;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -93,7 +91,7 @@ public class CjtEvento {
         Valido(nombre, fechaVieja);
         if (Fecha.valido(fechaNueva)) {
             //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
-            String f[] = fechaNueva.split("/");
+            String f[] = fechaVieja.split("/");
             fechaVieja = Integer.toString(Integer.parseInt(f[0]))+Integer.toString(Integer.parseInt(f[1]))+Integer.toString(Integer.parseInt(f[2]));
             String s[] = fechaNueva.split("/");
             fechaNueva = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));

@@ -53,14 +53,6 @@ public abstract class Evento {
         fecha = new Fecha(date);
     }
 
-    /**Modificadora de subtipo
-     * Pre: subtype tiene que ser un string no vac�o
-     * Post: Al subtipo del evento se le ha asignado subtype
-     */
-    /*public void ModSubtipo(String subtype) {
-        if (subtype.equals("")) throw new IllegalArgumentException("3");
-        subtipo = subtype;
-    }*/
     /**Modificadora de importancia
      * Pre: importancia > 0
      * Post: A la importancia del evento se le ha asignado importance
@@ -71,12 +63,6 @@ public abstract class Evento {
     }
 
     //Consultoras
-
-    /*traer nombre y fecha y comparar strings
-    boolean igual(String name, String date) {
-        if (name.equals("")) throw new IllegalArgumentException("1");
-        return name.equals(nombre) && fecha.igual(date);
-    }*/
 
     /**Consultora de nombre
      * Pre: Cierto
@@ -94,13 +80,17 @@ public abstract class Evento {
         return fecha.ConsultarFecha();
     }
 
+    /**Consultora de fecha sin barras
+     * Pre : Cierto
+     * Post: Devuelve la fecha sin barras separadoras entre el dia, el mes y el año
+     */
     public String obtFecha() {
         return fecha.ToString();
     }
 
-    /**Consultora de subtipo
+    /**Consultora del Identificador de la clase
      * Pre: Cierto
-     * Post: Devuelve el subtipo del evento
+     * Post: Devuelve el nombre y la fecha concatenados
      */
     public String ID() {
         return nombre+fecha.ToString();
