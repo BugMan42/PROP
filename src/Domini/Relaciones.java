@@ -13,6 +13,9 @@ public class Relaciones {
         public Congresista obtCongresista() {
             return eventos.get(0).obtCongresista();
         }
+        public boolean esVacio() {
+            return eventos.size() == 0;
+        }
         public String obtenerIDCongresista() {
             return eventos.get(0).obtCongresista().ID();
         }
@@ -51,6 +54,9 @@ public class Relaciones {
         public NodeE(Relacion r) {
             congresistas = new ArrayList<Relacion>();
             congresistas.add(0,r);
+        }
+        public boolean esVacio() {
+            return congresistas.size() == 0;
         }
         public void agregarRelacion(Relacion r) throws Exception {
             int i;
@@ -110,8 +116,10 @@ public class Relaciones {
     public void eliminarRelacion(Relacion r) throws Exception {
         NodeC aux = congresistas.obtener(r.obtCongresista().ID());
         aux.eliminarRelacion(r);
+        if (aux.esVacio()) congresistas.borrar(r.obtCongresista().ID());
         NodeE aux2 = eventos.obtener(r.obtEvento().ID());
         aux2.eliminarRelacion(r);
+        if (aux2.esVacio()) eventos.borrar(r.obtEvento().ID());
     }
     public void eliminarRelaciones() throws Exception {
         congresistas.vaciar();

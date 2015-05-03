@@ -11,11 +11,11 @@ public class DriverCjtRelacion {
         Evento E2 = new Profesional("Golf2","12/12/2012",10);
         Relaciones R = new Relaciones();
         Relacion R1 = new Relacion(C1,E1);
-        Relacion R2 = new Relacion(C1,E2);
+        Relacion R2 = new Relacion(C2,E2);
         R.agregarRelacion(R1);
         R.agregarRelacion(R2);
-        //R.eliminarRelacion(R1);
-        print(R.obtEventos(C1)+"");
+        R.eliminarRelacion(R1);
+        print(R.obtTodasLasRelaciones()+"");
 
     }
     private static void print(String str) {

@@ -43,8 +43,16 @@ public class DriverCongresista {
         print("7 modPartido(String partido)");
         print("8 mod(Dni dni,String nombre, String apellido,|n" +
                 " int edad, String ciudad, String estado, String partido)");
-        print("9 toString:String");
-        print("10 Salir");
+        print("9 obtDni():Dni");
+        print("10 obtNombre():String");
+        print("11 obtApellido():String");
+        print("12 obtEdad():int");
+        print("13 obtCiudad():String");
+        print("14 obtEstado():String");
+        print("15 obtPartido():String");
+        print("16 ID():String");
+        print("17 toString:String");
+        print("18 Salir");
         print("Escribe la opcion");
     }
     private static String LeerLinea(Scanner Input) {
@@ -121,11 +129,59 @@ public class DriverCongresista {
                 break;
             case 9:
                 if (C != null) {
-                    print(C.toString());
+                    print(C.obtDni()+"");
                 }
                 else throw new CongresistaNoInicializado();
                 break;
             case 10:
+                if (C != null) {
+                    print(C.obtNombre());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 11:
+                if (C != null) {
+                    print(C.obtApellido());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 12:
+                if (C != null) {
+                    print(C.obtEdad()+"");
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 13:
+                if (C != null) {
+                    print(C.obtCiudad());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 14:
+                if (C != null) {
+                    print(C.obtEstado());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 15:
+                if (C != null) {
+                    print(C.obtPartido());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 16:
+                if (C != null) {
+                    print(C.ID());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 17:
+                if (C != null) {
+                    print(C.toString());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 18:
                 System.exit(0);
                 break;
             default:
