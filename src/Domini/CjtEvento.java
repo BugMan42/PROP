@@ -34,10 +34,10 @@ public class CjtEvento {
      */
     public void EliminarEvento(String nombre, String fecha) throws Exception{
         Valido(nombre, fecha);
+        //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
         String s[] = fecha.split("/");
         fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
-        //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
-        cjt.borrar(nombre+fecha);
+        cjt.borrar(nombre + fecha);
     }
 
     /**Elinina todos los eventos
@@ -68,10 +68,11 @@ public class CjtEvento {
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo) throws Exception{
         Valido(nomViejo, fecha);
         if (!nomNuevo.equals("")) {
+        //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
             String s[] = fecha.split("/");
             fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
-            //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
-            Evento aux = cjt.obtener(nomViejo+fecha);
+            //Como obtener pasa la referencia al objeto lo modifico y lo pongo correctamente en el conjunto de acuerdo a su nueva clave
+            Evento aux = cjt.obtener(nomViejo + fecha);
             aux.ModNombre(nomNuevo);
             cjt.modificar(nomViejo+fecha, nomNuevo+fecha, aux);
         }
@@ -87,9 +88,10 @@ public class CjtEvento {
     public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) throws Exception {
         Valido(nombre, fechaVieja);
         if (Fecha.valido(fechaNueva)) {
+        //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
             String s[] = fechaNueva.split("/");
             fechaNueva = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
-            //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
+            //Como obtener pasa la referencia al objeto lo modifico y lo pongo correctamente en el conjunto de acuerdo a su nueva clave
             Evento aux = cjt.obtener(nombre+fechaVieja);
             aux.ModFecha(fechaNueva);
             cjt.modificar(nombre+fechaVieja, nombre+fechaNueva, aux);
@@ -104,6 +106,7 @@ public class CjtEvento {
      */
     public void ModificarImpEvento(String nombre, String fecha, int importance) throws Exception {
         Valido(nombre, fecha);
+        //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
         String s[] = fecha.split("/");
         fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
         //Como el tst devuelve la refencia al objeto directamente puedo cambiarle los atributos
@@ -134,6 +137,7 @@ public class CjtEvento {
      */
     public Evento ConsultarEvento(String nombre, String fecha) throws Exception{
         Valido(nombre, fecha);
+        //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
         String s[] = fecha.split("/");
         fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
         return cjt.obtener(nombre+fecha);
@@ -145,6 +149,7 @@ public class CjtEvento {
      */
     public boolean ExisteEvento(String nombre, String fecha) throws NoValido {
         Valido(nombre, fecha);
+        //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
         String s[] = fecha.split("/");
         fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
         return cjt.existe(nombre+fecha);
