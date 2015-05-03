@@ -23,6 +23,9 @@ public abstract class Voto {
         return dni.toString();
     }
 
+    /* Modificar dni
+    * Post: El dni del voto es el modificado.
+    */
     public void mod_dni(String s) throws Exception {
         if (dni == null) dni = new Dni(s);
         else dni.modDni(s);
