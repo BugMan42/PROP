@@ -1,6 +1,9 @@
 package Domini;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Created by jose on 3/05/15.
@@ -132,7 +135,10 @@ public class DriverControladorRelaciones {
                         if(params.length!=2) throw new Exception(E1);
                         dr.cr.cargar(params[1]);
                         break;
-
+                    case 26:
+                        if(params.length!=1) throw new Exception(E1);
+                        dr.prueba_grafo();
+                        break;
                 }
             }
             catch (Exception e) {
@@ -140,7 +146,7 @@ public class DriverControladorRelaciones {
                 op = -1;
             }
         }
-        while(op != 26);
+        while(op != 27);
     }
 
     private void menu(){
@@ -175,12 +181,31 @@ public class DriverControladorRelaciones {
         print("23 obtTodasLasRelaciones()");
         print("24 guardarRelaciones(String ruta)");
         print("25 cargarRelaciones(String ruta)");
+        print("26 prueba grafo");
         print("///////////////////////////////////////////////");
-        print("26 Salir\n");
+        print("27 Salir\n");
     }
 
     private void print(String s){
         System.out.println(s);
+    }
+
+    private void prueba_grafo() throws Exception {
+        cr.crearGrafoRelaciones();
+        Grafo g = cr.crearGrafoAlgoritmo();
+        Entrada in = new Entrada(g,0.000001);
+        Salida out = new Salida();
+        Louvain l = new Louvain(in, out);
+        l.ejecutar_algoritmo();
+        //print(out.mostrarHistorial().toString());
+        print(out.comunidad().toString());
+        ArrayList<Set<String>> dnicom = new ArrayList<Set<String>>();
+        for(Set<Integer> si : out.comunidad()){
+            Set<String> sdni = new HashSet<String>();
+            for(Integer x : si) sdni.add(g.fPrima(x));
+            dnicom.add(sdni);
+        }
+        print(dnicom.toString());
     }
 
 }

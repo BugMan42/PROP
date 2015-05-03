@@ -65,11 +65,7 @@ public class Louvain extends Algoritmo {
             s += "\n";
         }
         out.agregarMensaje(s);
-
-    }
-
-    public void ejecutar_iteracion(){
-
+        
     }
 
     private boolean primera_fase() throws Exception {
