@@ -17,7 +17,7 @@ public class DriverEvento {
     final static String opcion8 = "8 ID()";
     final static String opcion9 = "9 toString()";
     final static String opcion10 = "10 obt_importancia()";
-    final static String error = "Introduzca un numero del 1 al 10. 11 para salir";
+    final static String msg = "Introduzca un numero del 1 al 10. 11 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
     private static Evento1 e;
 
@@ -38,29 +38,29 @@ public class DriverEvento {
     public static void Proceso(Scanner entrada) throws Exception {
         String s = entrada.nextLine();
         String aux[] = s.split("\\s");
-        if (s.length() == 0) throw new NoValido("Linea", 11);
+        if (s.length() == 0) throw new ArgumentosInsuficientes();
         switch (Integer.parseInt(aux[0])) {
             case 1:
-                if (aux.length < 4) throw new NoValido("Linea", 11);;
+                if (aux.length < 4) throw new ArgumentosInsuficientes();
                 if (aux.length > 4) throw new DemasiadosArgumentos();
                 e = new Evento1(aux[1], aux[2], Integer.parseInt(aux[3]));
                 break;
             case 2:
-                if (aux.length < 2) throw new NoValido("Linea", 11);;
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
                 if (aux.length > 2) throw new DemasiadosArgumentos();
                 if (e != null) {
                     e.ModNombre(aux[1]);
                 } else throw new Exception("Evento no existe");
                 break;
             case 3:
-                if (aux.length < 2) throw new NoValido("Linea", 11);;
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
                 if (aux.length > 2) throw new DemasiadosArgumentos();
                 if (e != null) {
                     e.ModFecha(aux[1]);
                 } else throw new Exception("Evento no existe");
                 break;
             case 4:
-                if (aux.length < 2) throw new NoValido("Linea", 11);;
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
                 if (aux.length > 2) throw new DemasiadosArgumentos();
                 if (e != null) {
                     e.ModImportancia(Integer.parseInt(aux[1]));
@@ -94,7 +94,7 @@ public class DriverEvento {
                 System.exit(0);
                 break;
             default:
-                System.out.println(error);
+                System.out.println(msg);
                 break;
         }
     }
@@ -111,7 +111,7 @@ public class DriverEvento {
         System.out.println(opcion8);
         System.out.println(opcion9);
         System.out.println(opcion10);
-        System.out.println();
+        System.out.println(msg);
     }
 
     /*private static void alta(Scanner entrada) {

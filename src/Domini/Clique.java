@@ -125,6 +125,7 @@ public class Clique extends Algoritmo {
                     kc.agregar(v);
                     it2.remove();
                     List<Integer> l = new ArrayList<Integer>(candidatos);
+                    l.retainAll(g.nodosSalida(v));
                     System.out.println("Lista recursividad");
                     for (int j = 0; j < l.size(); ++j) {
                         System.out.println("Soy el candidato numero "+ Integer.toString(candidatos.get(j)));

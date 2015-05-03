@@ -10,8 +10,8 @@ public class CjtEvento {
     private TST<Evento> cjt;
     /**Comprueba si los parámetros son válidos
      * Pre: Cierto
-     *Post: Devuelve true en caso de que nombre no sea vac�o
-     * y fecha no sea null
+     *Post: Devuelve true en caso de que nombre no sea vacio
+     * y fecha sea valida
      */
     private boolean Valido(String nombre, String fecha) throws NoValido {
         if (nombre.equals("")) throw new NoValido("Nombre", 0);
@@ -19,35 +19,18 @@ public class CjtEvento {
         return true;
     }
 
-
-    /**Buscadora de eventos
-     * Pre: nombre y fecha no pueden ser vacios
-     * Post: Devuelve el índice del evento especificado por el nombre
-     * y por la fecha si existe. En caso contrario devuelve -1
-     */
-    /*private int BuscarIndice(String nombre,String fecha) {
-        int n = Listado.size();
-        boolean found = false;
-        int i = 0;
-        while (!found && i < n) {
-            if (Listado.get(i).obt_nombre().equals(nombre) && Listado.get(i).obt_fecha().equals(fecha)) found = true;
-            else ++i;
-        }
-        if (!found) i = -1;
-        return i;
-    }*/
-
-    /**Creadora de controlador de evento
+    /**Creadora de conjunto de evento
      * Pre: Cierto
-     * Post: Crea un nuevo controlador de evento
+     * Post: Crea un nuevo conjunto de eventos
      */
     public CjtEvento() {
         cjt = new TST<Evento>();
     }
 
     /**Elimina un evento del conjunto de eventos
-     * Pre: nombre y fecha no pueden ser vacios
-     * Post: El evento e ha sido anadido al conjunto de eventos
+     * Pre: nombre no puede ser vacío, fecha tiene que ser valida y
+     * el evento especificado por nombre y fecha tiene que existir
+     * Post: El evento espcificado por nombre y fecha ha sido eliminado del conjunto de eventos
      */
     public void EliminarEvento(String nombre, String fecha) throws Exception{
         if (Valido(nombre, fecha)) {
@@ -59,7 +42,7 @@ public class CjtEvento {
 
     /**Elinina todos los eventos
      * Pre: Cierto
-     * Post: Todos los eventos ser�n eliminados
+     * Post: Todos los eventos han sido eliminados
      */
     public void EliminarCjtEvento() {
         cjt.vaciar();
@@ -69,7 +52,7 @@ public class CjtEvento {
 
     /**Añade un evento al conjunto de eventos
      * Pre: Evento e no puede ser nulo
-     * Post: El evento e ha sido a�adido al conjunto de eventos
+     * Post: El evento e ha sido añaadido al conjunto de eventos
      */
     public void AgregarEvento(Evento e) throws Exception{
         if (e == null) throw new NoValido("Evento", 0);
@@ -83,7 +66,6 @@ public class CjtEvento {
      * Post: Al evento especificado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
      */
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo) throws NoValido{
-        ////////////////////////////////HACER/////////////////////////
         /*if (Valido(nomViejo, fecha)) {
             if (!nomNuevo.equals("")) {
                 if (cjt.existe(nomViejo+fecha)) {
