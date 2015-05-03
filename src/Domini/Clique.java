@@ -62,7 +62,8 @@ public class Clique extends Algoritmo {
     }
 
     /**
-     * Pre:
+     * Pre: u tiene que estar en el grafo, 0 <= i < numcomunidades
+     * Post: u pertenece a la comunidad i
      */
     public void insertar_nodo(int u, int i) throws NoValido {
         if (!g.existeVertice(u)) throw new NoValido("Nodo", 10);
@@ -70,6 +71,7 @@ public class Clique extends Algoritmo {
         Set<Integer> s =out.comunidad_at(i);
         s.add(u);
     }
+
     /**
      * Pre: Cierto
      * Post: En salida se encuentran almacenadas las comunidades encontradas en el grafo
