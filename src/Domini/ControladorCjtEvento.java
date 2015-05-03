@@ -27,19 +27,23 @@ public class ControladorCjtEvento {
     }
 
     public void AgregarVotacion(String nombre, String fecha, int importancia) throws Exception{
-        ce.AgregarVotacion(nombre, fecha, importancia);
+        Votacion v = new Votacion(nombre, fecha, importancia);
+        ce.AgregarEvento(v);
     }
 
     public void AgregarReunionPersonal(String nombre, String fecha, int importancia) throws Exception{
-        ce.AgregarReunionPersonal(nombre, fecha, importancia);
+        Personal per = new Personal(nombre, fecha, importancia);
+        ce.AgregarEvento(per);
     }
 
     public void AgregarReunionProfesional(String nombre, String fecha, int importancia) throws Exception{
-        ce.AgregarReunionProfesional(nombre, fecha, importancia);
+        Profesional pro = new Profesional(nombre, fecha, importancia);
+        ce.AgregarEvento(pro);
     }
 
     public void AgregarActo(String nombre, String fecha, int importancia) throws Exception{
-        ce.AgregarActo(nombre, fecha, importancia);
+        Acto a = new Acto(nombre, fecha, importancia);
+        ce.AgregarEvento(a);
     }
 
     public List<Evento> ConsultarTodosEventos() {
@@ -86,10 +90,10 @@ public class ControladorCjtEvento {
             String[] aux = r.split("\n");
             for(String con : aux){
                 String[] prm = con.split("\\s");
-                if(prm[0].equals("Votacion")) ce.AgregarVotacion(prm[1], prm[2], Integer.parseInt(prm[3]));
-                else if(prm[0].equals("ReunionPersonal")) ce.AgregarReunionPersonal(prm[1], prm[2], Integer.parseInt(prm[3]));
-                else if(prm[0].equals("ReunionProfesional")) ce.AgregarReunionProfesional(prm[1],prm[2],Integer.parseInt(prm[3]));
-                else if(prm[0].equals("Acto")) ce.AgregarActo(prm[1], prm[2], Integer.parseInt(prm[3]));
+                if(prm[0].equals("Votacion")) AgregarVotacion(prm[1], prm[2], Integer.parseInt(prm[3]));
+                else if(prm[0].equals("ReunionPersonal")) AgregarReunionPersonal(prm[1], prm[2], Integer.parseInt(prm[3]));
+                else if(prm[0].equals("ReunionProfesional")) AgregarReunionProfesional(prm[1],prm[2],Integer.parseInt(prm[3]));
+                else if(prm[0].equals("Acto")) AgregarActo(prm[1], prm[2], Integer.parseInt(prm[3]));
                 else throw new Exception(E1+prm[0]);
             }
             r = cp.leer(max_lineas_cargar);
