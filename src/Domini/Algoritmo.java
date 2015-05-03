@@ -12,6 +12,10 @@ public abstract class Algoritmo {
 
     public Algoritmo() throws Exception {}
 
+    //Constructor de algoritmo con parámetros
+    /*
+    Nos permite utilizar una entrada y una salida previamente inicializadas
+     */
     public Algoritmo(Entrada i, Salida o) throws Exception {
         in = i;
         out = o;
