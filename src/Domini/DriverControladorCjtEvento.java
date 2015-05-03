@@ -48,26 +48,38 @@ public class DriverControladorCjtEvento {
                         dce.ce.AgregarActo(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 6:
-                        if(params.length!=1) throw new Exception(E1);
-                        dce.print(dce.ce.ConsultarTodosEventos().toString());
+                        if(params.length!=4) throw new Exception(E1);
+                        dce.ce.ModificarNombreEvento(params[1],params[2],params[3]);
                         break;
                     case 7:
-                        if(params.length!=3) throw new Exception(E1);
-                        dce.print(dce.ce.ConsultarEvento(params[1], params[2]).toString());
+                        if(params.length!=4) throw new Exception(E1);
+                        dce.ce.ModificarFechaEvento(params[1], params[2], params[3]);
                         break;
                     case 8:
-                        if(params.length!=3) throw new Exception(E1);
-                        dce.print(String.valueOf(dce.ce.ExisteEvento(params[1], params[2])));
+                        if(params.length!=4) throw new Exception(E1);
+                        dce.ce.ModificarImpEvento(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 9:
                         if(params.length!=1) throw new Exception(E1);
-                        dce.print(String.valueOf(dce.ce.size()));
+                        dce.print(dce.ce.ConsultarTodosEventos().toString());
                         break;
                     case 10:
+                        if(params.length!=3) throw new Exception(E1);
+                        dce.print(dce.ce.ConsultarEvento(params[1], params[2]).toString());
+                        break;
+                    case 11:
+                        if(params.length!=3) throw new Exception(E1);
+                        dce.print(String.valueOf(dce.ce.ExisteEvento(params[1], params[2])));
+                        break;
+                    case 12:
+                        if(params.length!=1) throw new Exception(E1);
+                        dce.print(String.valueOf(dce.ce.size()));
+                        break;
+                    case 13:
                         if(params.length!=2) throw new Exception(E1);
                         dce.ce.guardar(params[1]);
                         break;
-                    case 11:
+                    case 14:
                         if(params.length!=2) throw new Exception(E1);
                         dce.ce.cargar(params[1]);
                         break;
@@ -78,7 +90,7 @@ public class DriverControladorCjtEvento {
                 op = -1;
             }
         }
-        while(op != 12);
+        while(op != 15);
     }
 
     private void menu(){
@@ -89,13 +101,16 @@ public class DriverControladorCjtEvento {
         print("3 AgregarReunionPersonal(String nombre, String fecha, int importancia)");
         print("4 AgregarReunionProfesional(String nombre, String fecha, int importancia)");
         print("5 AgregarActo(String nombre, String fecha, int importancia)");
-        print("6 ConsultarTodosEventos()");
-        print("7 ConsultarEvento(String nombre, String fecha)");
-        print("8 ExisteEvento(String nombre, String fecha)");
-        print("9 size()");
-        print("10 guardar(String ruta)");
-        print("11 cargar(String ruta)");
-        print("12 Salir\n");
+        print("6 ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo)");
+        print("7 ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva)");
+        print("8 ModificarImpEvento(String nombre, String fecha, int importance)");
+        print("9 ConsultarTodosEventos()");
+        print("10 ConsultarEvento(String nombre, String fecha)");
+        print("11 ExisteEvento(String nombre, String fecha)");
+        print("12 size()");
+        print("13 guardar(String ruta)");
+        print("14 cargar(String ruta)");
+        print("15 Salir\n");
     }
 
     private void print(String s){

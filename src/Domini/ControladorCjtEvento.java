@@ -46,6 +46,18 @@ public class ControladorCjtEvento {
         ce.AgregarEvento(a);
     }
 
+    public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo) throws Exception{
+        ce.ModificarNombreEvento(nomViejo, fecha, nomNuevo);
+    }
+
+    public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) throws Exception {
+        ce.ModificarFechaEvento(nombre, fechaVieja, fechaNueva);
+    }
+
+    public void ModificarImpEvento(String nombre, String fecha, int importance) throws Exception {
+        ce.ModificarImpEvento(nombre, fecha, importance);
+    }
+
     public List<Evento> ConsultarTodosEventos() {
         return ce.ConsultarTodosEventos();
     }
