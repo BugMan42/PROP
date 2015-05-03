@@ -73,4 +73,8 @@ public class Salida {
     public ArrayList<Set<Integer>> comunidad() {
         return comunidades;
     }
+
+    public Set<Integer> comunidad_at(int i) {return comunidades.get(i);}
+
+    public int numComunidades() {return comunidades.size();}
 }
