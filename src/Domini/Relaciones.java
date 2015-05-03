@@ -113,7 +113,7 @@ public class Relaciones {
         NodeE aux2 = eventos.obtener(r.obtEvento().ID());
         aux2.eliminarRelacion(r);
     }
-    public void eliminarTodasLasRelaciones() throws Exception {
+    public void eliminarRelaciones() throws Exception {
         congresistas.vaciar();
         eventos.vaciar();
     }

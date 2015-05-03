@@ -39,7 +39,7 @@ public class ControladorRelaciones {
     }
 
     public void eliminarTodasLasRelaciones() throws Exception {
-        rs.eliminarTodasLasRelaciones();
+        rs.eliminarRelaciones();
     }
 
     ArrayList<Evento> obtEventos(String dni) throws Exception {
@@ -92,7 +92,7 @@ public class ControladorRelaciones {
     public void cargar(String ruta) throws Exception {
         ControladorPersistencia cp = new ControladorPersistencia(ruta);
         cp.abrirLectura();
-        rs.eliminarTodasLasRelaciones();
+        rs.eliminarRelaciones();
         String r = cp.leer(max_lineas_cargar);
         while (!r.equals("")){
             String[] aux = r.split("\n");
