@@ -66,7 +66,7 @@ public class Salida {
     }
 
     /**
-     * Muestra todas las comunidades
+     * Devuelve todas las comunidades
      * Pre: Cierto
      * Post: Se devuelven todas las comunidades que han sido previamente almacenadas
      */
@@ -74,7 +74,19 @@ public class Salida {
         return comunidades;
     }
 
-    public Set<Integer> comunidad_at(int i) {return comunidades.get(i);}
+    /**Devuelve la comunidad de num i
+     *Pre: 0 <= i < numcomunidades
+     * Post: Devuelve la comunidad numero i
+     */
+    public Set<Integer> comunidad_at(int i) throws NoValido{
+        if (i < 0 || i >= comunidades.size()) throw new NoValido("Indice", 11);
+        return comunidades.get(i);
+    }
 
+    /**
+     *
+     * Pre: Cierto
+     * Post: Devuelve el numero de comunidades que hay en salida
+     */
     public int numComunidades() {return comunidades.size();}
 }
