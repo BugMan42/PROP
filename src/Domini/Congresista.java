@@ -8,11 +8,7 @@ public class Congresista {
         }
     }
 
-    /**
-     * Dni es un Dni valido
-     * Edad es un entero > 0
-     * Los otros parametros son Strings
-     */
+    //Edad es un entero > 0
     private Dni Dni;
     private String Nombre;
     private String Apellido;
@@ -105,8 +101,8 @@ public class Congresista {
         return Dni+" "+Nombre+" "+Apellido+" "+Edad+" "+Ciudad+" "+Estado+" "+Partido;
     }
 
-     //Valida la edad: Comprueba si
-     //el parametro n es un entero > 0
+    //Valida la edad: Comprueba si
+    //el parametro n es un entero > 0
     private static boolean EdadValida(int n) {
         return n > 0;
     }
