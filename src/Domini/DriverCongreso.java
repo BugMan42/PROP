@@ -27,7 +27,6 @@ public class DriverCongreso {
         print("8 modCiudadCongresista(Dni dni,String ciudad)");
         print("9 modEstadoCongresista(Dni dni,String estado)");
         print("10 modPartidoCongresista(Dni dni,String partido)");
-
         print("11 modCongresista(Dni dni,Dni dniNuevo ," +
                 " String nombre, String apellido,int edad," +
                 " String ciudad, String estado, String partido) ");
@@ -35,9 +34,11 @@ public class DriverCongreso {
         print("13 esVacio():boolean");
         print("14 size():int");
         print("15 consultarCongresista(Dni dni):Congresista ");
-        print("16 obtenerListaID():ArrayList<String>");
-        print("17 toString():String ");
-        print("18 Salir");
+        print("16 copiaConsultarCongresista(Dni dni)");
+        print("17 obtenerListaID():ArrayList<String>");
+        print("18 obtenerCongreso():List<Congresista>");
+        print("19 toString():String ");
+        print("20 Salir");
         print("Escribe la opcion");
     }
 
@@ -63,6 +64,7 @@ public class DriverCongreso {
     private static void ProcesarLinea(String str) throws Exception {
         String aux[] = str.split("\\s");
         if (str.length() == 0) throw new ArgumentosInsuficientes();
+        if (Integer.parseInt(aux[0]) != 20) System.out.print("S: ");
         switch (Integer.parseInt(aux[0])) {
             case 0:
                 C = new Congreso();
@@ -115,7 +117,7 @@ public class DriverCongreso {
                 break;
             case 12:
                 if (aux.length < 2) throw new ArgumentosInsuficientes();
-                print(C.contieneCongresista(new Dni(aux[1]))+"");
+                print(C.contieneCongresista(new Dni(aux[1])) + "");
                 break;
             case 13:
                 print(C.esVacio()+"");
@@ -128,12 +130,25 @@ public class DriverCongreso {
                 print(C.consultarCongresista(new Dni(aux[1])).toString());
                 break;
             case 16:
-                print(C.obtenerListaID().toString());
+                print("test copia");
+                C.eliminarCongreso();
+                C.agregarCongresista(new Congresista(new Dni("20901724z"), "James", "Stuart", 12, "BCN", "BCN", "Podemos"));
+                Congresista a = C.copiaConsultarCongresista(new Dni("20901724z"));
+                C.modApellidoCongresista(new Dni("20901724z"),"PERE");
+                print(a.toString());
+                print(C.consultarCongresista(new Dni("20901724z"))+"");
                 break;
             case 17:
-                print(C.toString());
+                print(C.obtenerListaID()+"");
                 break;
             case 18:
+                print(C.obtenerCongreso()+"");
+                break;
+            case 19:
+                print(C.toString());
+                break;
+
+            case 20:
                 System.exit(0);
             default:
                 print("Fuera de rango");

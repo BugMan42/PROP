@@ -15,7 +15,10 @@ public class DriverCongresista {
 
     public static void main(String[] args) throws ParseException {
         Scanner userInput = new Scanner(System.in);
-        boolean imprimir = false;
+        boolean imprimir = true;
+        if (args.length > 0) {
+            if (args[0].equals("0")) imprimir = false;
+        }
         if (imprimir) PresentaMenu();
         do {
             try {
@@ -60,9 +63,10 @@ public class DriverCongresista {
     }
 
     private static void ProcesarLinea(String str, boolean imprimir) throws Exception {
-        if (!imprimir) print("> "+str);
+        if (!imprimir) print("E: "+str);
         String aux[] = str.split("\\s");
         if (str.length() == 0) throw new ArgumentosInsuficientes();
+        if (Integer.parseInt(aux[0]) != 18) System.out.print("S: ");
         switch (Integer.parseInt(aux[0])) {
             case 0:
                 if (aux.length < 8) throw new ArgumentosInsuficientes();

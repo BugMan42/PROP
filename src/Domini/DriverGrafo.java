@@ -62,9 +62,9 @@ public class DriverGrafo {
         return Input.nextLine();
     }
     public static void main(String[] args) throws Exception {
-        boolean imprimir = false;
+        boolean imprimir = true;
         if (args.length > 0) {
-            if (args[0].equals("1")) imprimir = true;
+            if (args[0].equals("0")) imprimir = false;
         }
         g = new Grafo();
         Scanner userInput = new Scanner(System.in);
@@ -81,8 +81,9 @@ public class DriverGrafo {
     }
 
     private static void ProcesarLinea(String str, boolean imprimir) throws Exception {
-        if (!imprimir) print("> "+str);
+        if (!imprimir) print("E: "+str);
         String aux[] = str.split("\\s");
+        System.out.print("S: ");
         if (str.length() == 0) throw new ArgumentosInsuficientes();
         switch (Integer.parseInt(aux[0])) {
             case 0:

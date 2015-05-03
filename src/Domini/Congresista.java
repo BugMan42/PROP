@@ -1,5 +1,4 @@
 package Domini;
-
 /**
  * Clase Congresista
  */

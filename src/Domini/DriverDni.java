@@ -29,9 +29,9 @@ public class DriverDni {
         return Input.nextLine();
     }
     public static void main(String[] args) throws Exception {
-        boolean imprimir = false;
+        boolean imprimir = true;
         if (args.length > 0) {
-            if (args[0].equals("1")) imprimir = true;
+            if (args[0].equals("0")) imprimir = false;
         }
         Scanner userInput = new Scanner(System.in);
         if (imprimir) PresentaMenu();
@@ -50,6 +50,7 @@ public class DriverDni {
         if (!imprimir) print("> "+str);
         String aux[] = str.split("\\s");
         if (str.length() == 0) throw new ArgumentosInsuficientes();
+        if (Integer.parseInt(aux[0]) != 5) System.out.print("S: ");
         switch (Integer.parseInt(aux[0])) {
             case 0:
                 if (aux.length < 2) throw new ArgumentosInsuficientes();
