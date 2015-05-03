@@ -9,7 +9,11 @@ public class Clique extends Algoritmo {
 
     private Grafo g;
     private int k;
-    public Clique() throws Exception {}
+
+    /**Creadora de Clique
+     * Pre: in y out no pueden ser nulos
+     * Post: Se ha creado un clique en caso de que la k de entrada sea mayor que 2
+     */
     public Clique(Entrada in, Salida out) throws Exception {
         super(in, out);
         g = in.obtGrafo();
@@ -18,7 +22,6 @@ public class Clique extends Algoritmo {
     }
 
     class comunidades {
-
         private ArrayList<k_clique> com;
         comunidades() {
             com = new ArrayList<k_clique>();
@@ -33,7 +36,6 @@ public class Clique extends Algoritmo {
         Iterator<k_clique> iterator(int i) {
             return com.listIterator();
         }
-
     }
 
     class k_clique {
@@ -60,6 +62,12 @@ public class Clique extends Algoritmo {
         void mod_num() {com = true;}
     }
 
+    /**
+     * Mira si hay k_cliques en una lista
+     * Pre: lista contiene enteros ordenados
+     * Post: Si lista contiene un clique de tamaño k entonces esta en kc
+     * sino kc estara vacio
+     */
     private void cliqueOneNode(k_clique kc,int k, List<Integer> lista) throws Exception {
         System.out.println("Mi k es " + Integer.toString(k) + " la lista tiene este numero de elementos "+ Integer.toString(lista.size()));
         if (lista.isEmpty() || lista.size() < k) {
@@ -96,15 +104,23 @@ public class Clique extends Algoritmo {
         }
     }
 
+    /**
+     * Pre: 0 <= i < g.size()
+     * Post: Devuelve el numero de nodos adyacentes a i en el grafo
+     * que son mas pequeños a i
+     */
     private int index_sublista(int i) throws Exception {
         int contador = 0;
         for (Iterator it = g.nodosSalida(i).iterator(); it.hasNext() && (Integer)it.next() < i;) ++contador;
         return contador;
     }
 
+    /**
+     * Pre: Cierto
+     * Post: En salida se encuentran almacenadas las comunidades encontradas en el grafo
+     */
     public void ejecutar_algoritmo() throws Exception {
         //Primera version ineficiente coste n^2
-        //int n = g.V();
         comunidades c = new comunidades();
         for (Iterator it = g.consultarVertices().iterator(); it.hasNext();) {
             int i = (Integer)it.next();

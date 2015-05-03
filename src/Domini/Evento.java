@@ -11,8 +11,6 @@ public abstract class Evento {
 
     //Constructoras
 
-    public Evento() {}
-
     /**Creadora con atributos obligatorios
      * Pre: name tiene que ser un string no vacio y Fecha debe contener una fecha no vacia
      * Post: Se crea un evento solo con los atributos nombre y fecha
@@ -24,7 +22,7 @@ public abstract class Evento {
         fecha = new Fecha(date);
     }
     /**Creadora completa
-     * Pre: name, subtype tienen que ser strings no vacios, date tiene que ser v�lida???? importance tiene que ser mayor que 0
+     * Pre: name tiene que ser no vacio, date tiene que ser valida, importance tiene que ser mayor que 0
      *Post: Se crea un evento con todos que seran name, date, subtype y importance.
      */
     public Evento(String name, String date, int importance) throws NoValido {

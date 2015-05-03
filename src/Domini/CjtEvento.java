@@ -19,6 +19,8 @@ public class CjtEvento {
         if (!Fecha.valido(fecha)) throw new NoValido("Fecha", 0);
     }
 
+    //////////////////////////////////////CREADORA////////////////////////
+
     /**Creadora de conjunto de evento
      * Pre: Cierto
      * Post: Crea un nuevo conjunto de eventos
@@ -26,6 +28,8 @@ public class CjtEvento {
     public CjtEvento() {
         cjt = new TST<Evento>();
     }
+
+    /////////////////////////////////////ELIMINADORAS/////////////////////
 
     /**Elimina un evento del conjunto de eventos
      * Pre: nombre no puede ser vacío, fecha tiene que ser valida y
@@ -88,7 +92,9 @@ public class CjtEvento {
     public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) throws Exception {
         Valido(nombre, fechaVieja);
         if (Fecha.valido(fechaNueva)) {
-        //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
+            //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
+            String f[] = fechaNueva.split("/");
+            fechaVieja = Integer.toString(Integer.parseInt(f[0]))+Integer.toString(Integer.parseInt(f[1]))+Integer.toString(Integer.parseInt(f[2]));
             String s[] = fechaNueva.split("/");
             fechaNueva = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
             //Como obtener pasa la referencia al objeto lo modifico y lo pongo correctamente en el conjunto de acuerdo a su nueva clave
