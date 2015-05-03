@@ -24,7 +24,7 @@ public class ControladorAlgoritmo {
 
     public void modParamEntrada(String p) // Serán Strings
     {
-        in.modParam1(p);
+        in.modParam1(Double.parseDouble(p));
     }
 
     /*
@@ -41,9 +41,9 @@ public class ControladorAlgoritmo {
     }
 
 
-    public Grafo ejecutar() throws Exception
+    public void ejecutar() throws Exception
     {
-        return alg.ejecutar_algoritmo();
+        alg.ejecutar_algoritmo();
     }
 
     /*
@@ -51,9 +51,9 @@ public class ControladorAlgoritmo {
     * Pre:  alg tiene que tener una entrada inicializada y un tipo seleccionado
     * Post: Devuelve un grafo resultado de una iteración del algoritmo del tipo seleccionado
      */
-    public Grafo ejecutar_iteracion()throws Exception
+    public void ejecutar_iteracion()throws Exception
     {
-        return alg.ejecutar_iteración(in.obtGrafo());
+        alg.ejecutar_iteración(in.obtGrafo());
     }
 
     public Salida obtSalida()

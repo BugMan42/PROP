@@ -16,9 +16,9 @@ public class Entrada {
         param = p;
     }
 
-    public void modParam1(String s)
+    public void modParam1(double p)
     {
-        param = Integer.parseInt(s);
+        param = p;
     }
 
     public double obtParam1()

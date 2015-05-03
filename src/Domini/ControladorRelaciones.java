@@ -38,7 +38,7 @@ public class ControladorRelaciones {
         rs.eliminarRelacion(r);
     }
 
-    public void eliminarTodasLasRelaciones() throws Exception {
+    public void eliminarRelaciones() throws Exception {
         rs.eliminarRelaciones();
     }
 

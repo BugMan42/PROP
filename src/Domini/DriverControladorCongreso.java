@@ -7,13 +7,13 @@ import java.util.Scanner;
  */
 public class DriverControladorCongreso {
     // Mensajes excepciones.
-    static final String E1 = "Número de parámetros incorrecto.";
+    private static final String E1 = "Número de parámetros incorrecto.";
 
-    private static ControladorCongreso cc;
+    private ControladorCongreso cc;
 
     public static void main(String[] args) {
         DriverControladorCongreso dcc = new DriverControladorCongreso();
-        cc = new ControladorCongreso();
+        dcc.cc = new ControladorCongreso();
         Scanner ui = new Scanner(System.in);
         int op;
         do {
@@ -25,85 +25,85 @@ public class DriverControladorCongreso {
                 switch (op) {
                     case 0:
                         dcc.validar_num_params(params, 1);
-                        dcc.print(String.valueOf(cc.size()));
+                        dcc.print(String.valueOf(dcc.cc.size()));
                         break;
                     case 1:
                         dcc.validar_num_params(params, 1);
-                        dcc.print(String.valueOf(cc.esVacio()));
+                        dcc.print(String.valueOf(dcc.cc.esVacio()));
                         break;
                     case 2:
                         dcc.validar_num_params(params,8);
-                        cc.agregarCongresista(params[1], params[2], params[3], Integer.parseInt(params[4]), params[5],
+                        dcc.cc.agregarCongresista(params[1], params[2], params[3], Integer.parseInt(params[4]), params[5],
                                 params[6], params[7]);
                         break;
                     case 3:
                         dcc.validar_num_params(params, 1);
-                        dcc.print(cc.obtenerListaID().toString());
+                        dcc.print(dcc.cc.obtenerListaID().toString());
                         break;
                     case 4:
                         dcc.validar_num_params(params, 1);
-                        dcc.print(cc.obtenerCongreso().toString());
+                        dcc.print(dcc.cc.obtenerCongreso().toString());
                         break;
                     case 5:
                         dcc.validar_num_params(params, 2);
-                        dcc.print(Boolean.toString(cc.contieneCongresista(params[1])));
+                        dcc.print(Boolean.toString(dcc.cc.contieneCongresista(params[1])));
                         break;
                     case 6:
                         dcc.validar_num_params(params, 2);
-                        cc.eliminarCongresista(params[1]);
+                        dcc.cc.eliminarCongresista(params[1]);
                         break;
                     case 7:
                         dcc.validar_num_params(params, 1);
-                        cc.eliminarCongreso();
+                        dcc.cc.eliminarCongreso();
                         break;
                     case 8:
                         dcc.validar_num_params(params,3);
-                        cc.modNombreCongresista(params[1], params[2]);
+                        dcc.cc.modNombreCongresista(params[1], params[2]);
                         break;
                     case 9:
                         dcc.validar_num_params(params,3);
-                        cc.modApellidoCongresista(params[1], params[2]);
+                        dcc.cc.modApellidoCongresista(params[1], params[2]);
                         break;
                     case 10:
                         dcc.validar_num_params(params,3);
-                        cc.modEdadCongresista(params[1], Integer.parseInt(params[2]));
+                        dcc.cc.modEdadCongresista(params[1], Integer.parseInt(params[2]));
                         break;
                     case 11:
                         dcc.validar_num_params(params,3);
-                        cc.modCiudadCongresista(params[1], params[2]);
+                        dcc.cc.modCiudadCongresista(params[1], params[2]);
                         break;
                     case 12:
                         dcc.validar_num_params(params,3);
-                        cc.modEstadoCongresista(params[1], params[2]);
+                        dcc.cc.modEstadoCongresista(params[1], params[2]);
                         break;
                     case 13:
                         dcc.validar_num_params(params,3);
-                        cc.modPartidoCongresista(params[1], params[2]);
+                        dcc.cc.modPartidoCongresista(params[1], params[2]);
                         break;
                     case 14:
                         dcc.validar_num_params(params,3);
-                        cc.modDniCongresista(params[1], params[2]);
+                        dcc.cc.modDniCongresista(params[1], params[2]);
                         break;
                     case 15:
                         dcc.validar_num_params(params,9);
-                        cc.modCongresista(params[1], params[2], params[3], params[4], Integer.parseInt(params[5]),
+                        dcc.cc.modCongresista(params[1], params[2], params[3], params[4], Integer.parseInt(params[5]),
                                 params[6], params[7], params[8]);
                         break;
                     case 16:
                         dcc.validar_num_params(params,2);
-                        dcc.print(cc.consultarCongresista(params[1]).toString());
+                        dcc.print(dcc.cc.consultarCongresista(params[1]).toString());
                         break;
                     case 17:
                         dcc.validar_num_params(params,1);
-                        dcc.print(cc.toString());
+                        dcc.print(dcc.cc.toString());
                         break;
                     case 18:
                         dcc.validar_num_params(params, 2);
-                        cc.guardar(params[1]);
+                        dcc.cc.guardar(params[1]);
                         break;
                     case 19:
                         dcc.validar_num_params(params, 2);
-                        cc.cargar(params[1]);
+                        dcc.cc.cargar(params[1]);
                         break;
                 }
             }

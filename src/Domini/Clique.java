@@ -102,7 +102,7 @@ public class Clique extends Algoritmo {
         return contador;
     }
 
-    public Grafo ejecutar_algoritmo() throws Exception {
+    public void ejecutar_algoritmo() throws Exception {
         //Primera version ineficiente coste n^2
         //int n = g.V();
         comunidades c = new comunidades();
@@ -139,9 +139,9 @@ public class Clique extends Algoritmo {
             }
         }
         for (int i = 0; i < c.size();++i) {
-            sout.agregarMensaje("clique" + Integer.toString(i) + ": ");
+            out.agregarMensaje("clique" + Integer.toString(i) + ": ");
             k_clique kc = c.obt_clique(i);
-            for (int j = 0; j < kc.size(); ++j) sout.agregarMensaje("vertice " + Integer.toString(kc.obt_vertice(j)));
+            for (int j = 0; j < kc.size(); ++j) out.agregarMensaje("vertice " + Integer.toString(kc.obt_vertice(j)));
         }
         for (int i = 0; i < c.size(); ++i) {
             Set<Integer> s = new HashSet<Integer>();
@@ -176,14 +176,13 @@ public class Clique extends Algoritmo {
                         }
                     }
                 }
-                if (!s.isEmpty()) sout.agregarComunidad(s);
+                if (!s.isEmpty()) out.agregarComunidad(s);
                 else {
                     s.addAll(kc.lista());
-                    sout.agregarComunidad(s);
+                    out.agregarComunidad(s);
                 }
             }
 
         }
-        return g;
     }
 }

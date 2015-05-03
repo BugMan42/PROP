@@ -8,23 +8,21 @@ public abstract class Algoritmo {
 
     // Punteros a las clases inicializadas en el Controlador del Algoritmo
     protected Entrada in;
-    protected Salida sout;
+    protected Salida out;
 
     public Algoritmo() throws Exception {}
 
     public Algoritmo(Entrada i, Salida o) throws Exception {
         in = i;
-        sout = o;
+        out = o;
     }
 
-    public Grafo ejecutar_algoritmo() throws Exception {
+    public void ejecutar_algoritmo() throws Exception {
 
-         //PD: No
-        return in.obtGrafo();
     };
 
-    public Grafo ejecutar_iteración(Grafo g) throws Exception {
-        return g; //PD: No.
+    public void ejecutar_iteración(Grafo g) throws Exception {
+
     };
 
 }

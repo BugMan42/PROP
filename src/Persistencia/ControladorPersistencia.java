@@ -6,11 +6,11 @@ import java.io.*;
  * Created by bug on 23/03/15.
  */
 public class ControladorPersistencia {
-    static final String E1 = "El fichero ya se ha abierto para escritura.";
-    static final String E2 = "El fichero ya se ha abierto para lectura.";
-    static final String E3 = "No se ha abierto ningún fichero para lectura.";
-    static final String E4 = "No se ha abierto ningún fichero para escritura.";
-    static final String E5 = "Ningún fichero abierto.";
+    private static final String E1 = "El fichero ya se ha abierto para escritura.";
+    private static final String E2 = "El fichero ya se ha abierto para lectura.";
+    private static final String E3 = "No se ha abierto ningún fichero para lectura.";
+    private static final String E4 = "No se ha abierto ningún fichero para escritura.";
+    private static final String E5 = "Ningún fichero abierto.";
 
     private BufferedReader r;
     private BufferedWriter w;

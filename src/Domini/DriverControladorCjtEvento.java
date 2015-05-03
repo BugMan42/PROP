@@ -9,11 +9,11 @@ public class DriverControladorCjtEvento {
     // Mensajes excepciones.
     private static final String E1 = "Número de parámetros incorrecto.";
 
-    private static ControladorCjtEvento ce;
+    private ControladorCjtEvento ce;
 
     public static void main(String[] args) {
         DriverControladorCjtEvento dce = new DriverControladorCjtEvento();
-        ce = new ControladorCjtEvento();
+        dce.ce = new ControladorCjtEvento();
         Scanner ui = new Scanner(System.in);
         int op;
         do {
@@ -25,51 +25,51 @@ public class DriverControladorCjtEvento {
                 switch (op) {
                     case 0:
                         if(params.length!=3) throw new Exception(E1);
-                        ce.EliminarEvento(params[1],params[2]);
+                        dce.ce.EliminarEvento(params[1],params[2]);
                         break;
                     case 1:
                         if(params.length!=1) throw new Exception(E1);
-                        ce.EliminarCjtEvento();
+                        dce.ce.EliminarCjtEvento();
                         break;
                     case 2:
                         if(params.length!=4) throw new Exception(E1);
-                        ce.AgregarVotacion(params[1], params[2], Integer.parseInt(params[3]));
+                        dce.ce.AgregarVotacion(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 3:
                         if(params.length!=4) throw new Exception(E1);
-                        ce.AgregarReunionPersonal(params[1], params[2], Integer.parseInt(params[3]));
+                        dce.ce.AgregarReunionPersonal(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 4:
                         if(params.length!=4) throw new Exception(E1);
-                        ce.AgregarReunionProfesional(params[1], params[2], Integer.parseInt(params[3]));
+                        dce.ce.AgregarReunionProfesional(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 5:
                         if(params.length!=4) throw new Exception(E1);
-                        ce.AgregarActo(params[1], params[2], Integer.parseInt(params[3]));
+                        dce.ce.AgregarActo(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 6:
                         if(params.length!=1) throw new Exception(E1);
-                        dce.print(ce.ConsultarTodosEventos().toString());
+                        dce.print(dce.ce.ConsultarTodosEventos().toString());
                         break;
                     case 7:
                         if(params.length!=3) throw new Exception(E1);
-                        dce.print(ce.ConsultarEvento(params[1], params[2]).toString());
+                        dce.print(dce.ce.ConsultarEvento(params[1], params[2]).toString());
                         break;
                     case 8:
                         if(params.length!=3) throw new Exception(E1);
-                        dce.print(String.valueOf(ce.ExisteEvento(params[1], params[2])));
+                        dce.print(String.valueOf(dce.ce.ExisteEvento(params[1], params[2])));
                         break;
                     case 9:
                         if(params.length!=1) throw new Exception(E1);
-                        dce.print(String.valueOf(ce.size()));
+                        dce.print(String.valueOf(dce.ce.size()));
                         break;
                     case 10:
                         if(params.length!=2) throw new Exception(E1);
-                        ce.guardar(params[1]);
+                        dce.ce.guardar(params[1]);
                         break;
                     case 11:
                         if(params.length!=2) throw new Exception(E1);
-                        ce.cargar(params[1]);
+                        dce.ce.cargar(params[1]);
                         break;
                 }
             }

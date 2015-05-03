@@ -9,11 +9,11 @@ public class DriverControladorPersistencia {
     // Mensajes excepciones.
     static final String E1 = "Número de parámetros incorrecto.";
 
-    private static ControladorPersistencia cp;
+    private ControladorPersistencia cp;
 
     public static void main(String[] args) {
         DriverControladorPersistencia dcp = new DriverControladorPersistencia();
-        cp = new ControladorPersistencia("./pruebaPersistencia.txt");
+        dcp.cp = new ControladorPersistencia("./pruebaPersistencia.txt");
         Scanner ui = new Scanner(System.in);
         int op;
         do {
@@ -25,23 +25,23 @@ public class DriverControladorPersistencia {
                 switch (op) {
                     case 0:
                         if (params.length != 1) throw new Exception(E1);
-                        cp.abrirLectura();
+                        dcp.cp.abrirLectura();
                         break;
                     case 1:
                         if (params.length != 1) throw new Exception(E1);
-                        cp.abrirEscritura();
+                        dcp.cp.abrirEscritura();
                         break;
                     case 2:
                         if (params.length != 2) throw new Exception(E1);
-                        dcp.print(cp.leer(Integer.parseInt(params[1])));
+                        dcp.print(dcp.cp.leer(Integer.parseInt(params[1])));
                         break;
                     case 3:
                         if (params.length != 2) throw new Exception(E1);
-                        cp.escribir(params[1].replace("/","\n"));
+                        dcp.cp.escribir(params[1].replace("/","\n"));
                         break;
                     case 4:
                         if (params.length != 1) throw new Exception(E1);
-                        cp.cerrarFichero();
+                        dcp.cp.cerrarFichero();
                         break;
                 }
             }
