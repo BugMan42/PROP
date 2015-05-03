@@ -101,8 +101,8 @@ public class Congresista {
         return Dni+" "+Nombre+" "+Apellido+" "+Edad+" "+Ciudad+" "+Estado+" "+Partido;
     }
 
-     //Valida la edad: Comprueba si
-     //el parametro n es un entero > 0
+    //Valida la edad: Comprueba si
+    //el parametro n es un entero > 0
     private static boolean EdadValida(int n) {
         return n > 0;
     }
