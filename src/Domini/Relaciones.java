@@ -113,19 +113,19 @@ public class Relaciones {
         NodeE aux2 = eventos.obtener(r.obtEvento().ID());
         aux2.eliminarRelacion(r);
     }
-    ArrayList<Evento> obtEventos(Congresista c) throws Exception {
+    public ArrayList<Evento> obtEventos(Congresista c) throws Exception {
         return congresistas.obtener(c.ID()).obtenerEventos();
     }
-    ArrayList<Congresista> obtCongresistas(Evento e) throws Exception {
+    public ArrayList<Congresista> obtCongresistas(Evento e) throws Exception {
         return eventos.obtener(e.ID()).obtenerCongresistas();
     }
-    ArrayList<Relacion> obtRelaciones(Congresista c) throws Exception {
+    public ArrayList<Relacion> obtRelaciones(Congresista c) throws Exception {
         return congresistas.obtener(c.ID()).obtenerRelaciones();
     }
-    ArrayList<Relacion> obtRelaciones(Evento e) throws Exception {
+    public ArrayList<Relacion> obtRelaciones(Evento e) throws Exception {
         return eventos.obtener(e.ID()).obtenerRelaciones();
     }
-    ArrayList<Congresista> obtCongresistas() {
+    public ArrayList<Congresista> obtCongresistas() {
         List<NodeC> array = congresistas.consultarObjetos();
         ArrayList<Congresista> aux = new ArrayList<Congresista>();
         ListIterator<NodeC> it = array.listIterator();
@@ -133,6 +133,14 @@ public class Relaciones {
             aux.add(it.next().obtCongresista());
         }
         return aux;
+    }
+    public ArrayList<Relacion> obtTodasLasRelaciones() throws Exception {
+        ArrayList<Congresista> aux = obtCongresistas();
+        ArrayList<Relacion> array = new ArrayList<Relacion>();
+        for (int i = 0; i < aux.size(); ++i) {
+            array.addAll(congresistas.obtener(aux.get(i).ID()).obtenerRelaciones());
+        }
+        return array;
     }
 
 
