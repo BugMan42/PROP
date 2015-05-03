@@ -17,6 +17,7 @@ public class ControladorRelaciones {
     private ControladorCongreso c;
     private ControladorCjtEvento e;
     private Relaciones rs;
+    private Grafo g;
 
     public ControladorRelaciones(ControladorCongreso cc, ControladorCjtEvento ce){
         c = cc;
@@ -29,6 +30,8 @@ public class ControladorRelaciones {
         Evento ev = e.ConsultarEvento(nombre, fecha);
         Relacion r = new Relacion(con,ev);
         rs.agregarRelacion(r);
+
+
     }
 
     public void eliminarRelacion(String dni, String nombre, String fecha) throws Exception {
@@ -103,6 +106,29 @@ public class ControladorRelaciones {
             r = cp.leer(max_lineas_cargar);
         }
         cp.cerrarFichero();
+    }
+
+    public void crearGrafoRelaciones() throws Exception {
+        g = new Grafo();
+        ArrayList<Congresista> c = obtCongresistas();
+        for(Congresista con : c) g.agregarVertice(con.ID());
+        ArrayList<Relacion> r = obtTodasLasRelaciones();
+        for(Relacion re : r){
+            String origen = re.obtCongresista().ID();
+            ArrayList<Congresista> ce = obtCongresistas(re.obtEvento().obt_nombre(),re.obtEvento().obt_fecha());
+            for(Congresista cone : ce)
+                if(!origen.equals(cone.ID()))
+                    g.agregarArista(origen, cone.ID(), re.obtEvento().obt_importancia());
+        }
+    }
+
+    public Grafo crearGrafoAlgoritmo() throws Exception {
+        Grafo golf = new Grafo();
+        for(String s : g.consultarVerticesID()) golf.agregarVertice(s);
+        for(int i : g.consultarVertices())
+            for(int j : g.nodosSalida(i))
+                if(i!=j) golf.agregarArista(i,j,g.pesoAristasVertices(i,j));
+        return golf;
     }
 
 }
