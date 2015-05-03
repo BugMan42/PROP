@@ -38,10 +38,10 @@ public class Clique extends Algoritmo {
 
     class k_clique {
         private ArrayList<Integer> c;
-        private boolean num;
+        private boolean com;
         k_clique() {
             c = new ArrayList<Integer>();
-            num = false;
+            com = false;
         }
         int size() {
             return c.size();
@@ -56,8 +56,8 @@ public class Clique extends Algoritmo {
         void eliminar() {
              c.clear();
          }
-        boolean obt_num() {return num;}
-        void mod_num() {num = true;}
+        boolean obt_num() {return com;}
+        void mod_num() {com = true;}
     }
 
     private void cliqueOneNode(k_clique kc,int k, List<Integer> lista) throws Exception {
@@ -145,43 +145,45 @@ public class Clique extends Algoritmo {
         }
         for (int i = 0; i < c.size(); ++i) {
             Set<Integer> s = new HashSet<Integer>();
+            System.out.println("Tratando clique num: "+ Integer.toString(i));
             k_clique kc = c.obt_clique(i);
             if (!kc.obt_num()) {
+                System.out.println("El clique num: "+ Integer.toString(i) + " no tiene comunidad aun");
                 kc.mod_num();
+                boolean agregado = false;
                 for (int j = 0; j < c.size(); ++j) {
                     if (i != j) {
                         k_clique kc1 = c.obt_clique(j);
-                        if (!kc.obt_num()) {
+                        System.out.println("Mirando clique num: "+ Integer.toString(j) + " para relacionarlo con " + Integer.toString(i));
+                        if (!kc1.obt_num()) {
+                            System.out.println("El clique num: " + Integer.toString(j) + " no tiene comunidad aun");
                             ArrayList<Integer> aux = new ArrayList<Integer>(kc.lista());
                             aux.retainAll(kc1.lista());
+                            System.out.println("El clique num: " + Integer.toString(j) + " tiene con clique num: " + Integer.toString(i)+ " exactamente estos nodos en comun "+ Integer.toString(aux.size()));
                             if (aux.size() == k - 1) {
+                                System.out.println("El clique num: " + Integer.toString(j) + " esta en la misma comunidad que " + Integer.toString(i));
                                 kc1.mod_num();
-                                s.addAll(kc.lista());
-                                s.addAll(kc1.lista());
+                                if (i < j) {
+                                    s.addAll(kc.lista());
+                                    agregado = true;
+                                    s.addAll(kc1.lista());
+                                }
+                                else {
+                                    s.addAll(kc1.lista());
+                                    if (!agregado) s.addAll(kc.lista());
+                                }
                             }
                         }
                     }
                 }
-            }
-            if (!s.isEmpty()) sout.agregarComunidad(s);
-        }
-        /*for (Iterator it = )
-        for (int i = 0; i < n; ++i) {
-            ArrayList<Integer> ady = g.ady_copia(i);
-            if (ady.size() >= 3 && g.pesoAristasVertice(i) >= 4) { //3 sera k cuando este listo y 4 sera el valor de threshold
-                k_clique k = new k_clique();
-                k.agregar(i);
-                while (k.size() < 3 && ady.size() > 0){
-                    int v = ady.get(0);
-                    k.agregar(v);
-                    ady.remove(0);
-                    for (int j = 0; j < ady.size(); ++j) {
-                        if (!g.es_ady(v, ady.get(j))) ady.remove(j);
-                    }
+                if (!s.isEmpty()) sout.agregarComunidad(s);
+                else {
+                    s.addAll(kc.lista());
+                    sout.agregarComunidad(s);
                 }
-                if (k.size() < 3) k.eliminar();
             }
+
         }
-         */return g;
+        return g;
     }
 }

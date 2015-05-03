@@ -3,6 +3,7 @@ package Domini;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Created by usuario on 28/04/2015.
@@ -29,13 +30,19 @@ public class DriverClique {
             List<Integer> ady = g.nodosSalida(gv.get(i));
             for (int j = 0; j < ady.size(); ++j) System.out.println("nodo "+Integer.toString(i)+" adyacente a "+Integer.toString(ady.get(j)));
         }
-        en = new Entrada(g, 3);
+        en = new Entrada(g, 4);
         sa = new Salida();
         c = new Clique(en, sa);
         c.ejecutar_algoritmo();
         ArrayList<String> hist = sa.mostrarHistorial();
         for (String aHist : hist) {
             System.out.println(aHist);
+        }
+        for (Set<Integer> i : sa.comunidad()) {
+            System.out.println("Comunidad");
+            for (Integer j : i) {
+                System.out.println(Integer.toString(j));
+            }
         }
     }
         /*String op = entrada.next();

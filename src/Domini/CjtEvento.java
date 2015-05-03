@@ -73,7 +73,7 @@ public class CjtEvento {
      */
     public void AgregarEvento(Evento e) throws Exception{
         if (e == null) throw new NoValido("Evento", 0);
-        cjt.insertar(e.obt_nombre()+e.obtFecha(), e);
+        cjt.insertar(e.ID(), e);
     }
 
     /** Modificadora del nombre de un evento
