@@ -16,11 +16,11 @@ public class NoValido extends Exception {
     //final static String error10 = "Argumentos insuficientes";
     //final static String error11 = "La fecha no puede ser vacia";
 
-
-    public NoValido() {
-        super();
-    }
-
+    /**Creadora de NoValido
+     * Pre: Cierto
+     * Post: Se lanza una excepcion con texto s no es valido y
+     * se saca por pantalla el motivo de la excepcion dependiendo de op
+     */
     public NoValido(String s, int op) {
         super(s + " no es valido/a");
         if (op > 0) {

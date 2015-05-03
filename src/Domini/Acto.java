@@ -6,8 +6,8 @@ package Domini;
 public class Acto extends Evento {
     /**
      * Creadora de acto
-     * Pre: nombre no puede estar vacia, fecha tiene que ser valida y no vacia
-     * importancia tiene que ser mayor que 0
+     * Pre: nombre no puede estar vacio, fecha tiene que ser valida e
+     * importancia > 0
      * Post: Se ha creado una instancia de Acto con atributos nombre, fecha e importancia
      */
     public Acto(String nombre, String fecha, int importancia) throws Exception{
