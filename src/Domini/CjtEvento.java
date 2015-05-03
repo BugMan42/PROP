@@ -1,6 +1,7 @@
 package Domini;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -35,6 +36,7 @@ public class CjtEvento {
         Valido(nombre, fecha);
         String s[] = fecha.split("/");
         fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
+        //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
         cjt.borrar(nombre+fecha);
     }
 
@@ -50,7 +52,7 @@ public class CjtEvento {
 
     /**Añade un evento al conjunto de eventos
      * Pre: Evento e no puede ser nulo
-     * Post: El evento e ha sido añaadido al conjunto de eventos
+     * Post: El evento e ha sido añadido al conjunto de eventos
      */
     public void AgregarEvento(Evento e) throws Exception{
         if (e == null) throw new NoValido("Evento", 0);
@@ -58,7 +60,7 @@ public class CjtEvento {
     }
 
     /** Modificadora del nombre de un evento
-     * Pre: nomViejo, fecha y nomNuevo no pueden ser vacíos,
+     * Pre: nomViejo y nomNuevo no pueden ser vacíos, fecha tiene que ser valida
      * el evento especificado por nomViejo y fecha tiene que existir y el
      * evento identificado por nomNuevo y fecha no puede existir
      * Post: Al evento especificado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
@@ -68,6 +70,7 @@ public class CjtEvento {
         if (!nomNuevo.equals("")) {
             String s[] = fecha.split("/");
             fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
+            //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
             Evento aux = cjt.obtener(nomViejo+fecha);
             aux.ModNombre(nomNuevo);
             cjt.modificar(nomViejo+fecha, nomNuevo+fecha, aux);
@@ -76,16 +79,17 @@ public class CjtEvento {
     }
 
     /** Modificadora de la fecha de un evento
-     * Pre: nombre, fechaVieja y fechaNueva no puede ser vacios, el evento especificado
-     *  por nombre y fechaVieja tiene que existir y el evento identificado
-     *  por nombre y fechaNueva no puede existir
+     * Pre: nombreno puede ser vacio, fechaVieja y fechaNueva tienen que ser validas,
+     * el evento especificado por nombre y fechaVieja tiene que existir y
+     * el evento identificado por nombre y fechaNueva no puede existir
      * Post: Al evento especificado por nombre y fechaVieja se le ha cambiado la fecha por fechaNueva
      */
-    public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) throws Exception{
+    public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) throws Exception {
         Valido(nombre, fechaVieja);
         if (Fecha.valido(fechaNueva)) {
             String s[] = fechaNueva.split("/");
             fechaNueva = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
+            //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
             Evento aux = cjt.obtener(nombre+fechaVieja);
             aux.ModFecha(fechaNueva);
             cjt.modificar(nombre+fechaVieja, nombre+fechaNueva, aux);
@@ -94,7 +98,7 @@ public class CjtEvento {
     }
 
     /** Modificadora de la importancia de un evento
-     * Pre: nombre y fecha no pueden ser vacios, importance > 0
+     * Pre: nombre no puede ser vacio, fecha tiene que ser valido, importance > 0
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Al evento especificado por nombre y fecha se le ha cambiado la importancia por importance
      */
@@ -102,9 +106,8 @@ public class CjtEvento {
         Valido(nombre, fecha);
         String s[] = fecha.split("/");
         fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
-        Evento aux = cjt.obtener(nombre+fecha);
-        aux.ModImportancia(importance);
-        cjt.modificar(nombre+fecha, aux);
+        //Como el tst devuelve la refencia al objeto directamente puedo cambiarle los atributos
+        cjt.obtener(nombre+fecha).ModImportancia(importance);
     }
 
     /**Agrega un evento con parámetros random
@@ -125,7 +128,7 @@ public class CjtEvento {
     }
 
     /**Consultora de un evento
-     * Pre: nombre y fecha no pueden ser vacíos y
+     * Pre: nombre no puede ser vacío y fecha tiene que ser valida
      * el evento especificado por nombre y fecha tiene que existir
      * Post: Devuelve el evento especificado por nombre y fecha
      */
@@ -147,6 +150,10 @@ public class CjtEvento {
         return cjt.existe(nombre+fecha);
     }
 
+    /**Consultora del tamaño del conjunto
+     * Pre: Cierto
+     * Post: Devuelve el numero de elementos que se encuentran en el conjunto.
+     */
     public int size() {
         return cjt.size();
     }
