@@ -109,7 +109,6 @@ public class Relaciones {
     }
     public void eliminarRelacion(Relacion r) throws Exception {
         NodeC aux = congresistas.obtener(r.obtCongresista().ID());
-        print(aux.obtenerIDCongresista());
         aux.eliminarRelacion(r);
         NodeE aux2 = eventos.obtener(r.obtEvento().ID());
         aux2.eliminarRelacion(r);

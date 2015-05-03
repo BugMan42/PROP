@@ -1,7 +1,5 @@
 package Domini;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -53,34 +51,34 @@ public class DriverTST {
 
     private static void ProcesarLinea(String str) throws Exception {
         String aux[] = str.split("\\s");
-        if (str.length() == 0) throw new InsuficientesArgumentos();
+        if (str.length() == 0) throw new ArgumentosInsuficientes();
         switch (Integer.parseInt(aux[0])) {
             case 0:
-                if (aux.length < 3) throw new InsuficientesArgumentos();
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
                 tst.insertar(aux[1],Integer.parseInt(aux[2]));
                 break;
             case 1:
-                if (aux.length < 2) throw new InsuficientesArgumentos();
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
                 print(""+tst.obtener(aux[1]));
                 break;
             case 2:
-                if (aux.length < 2) throw new InsuficientesArgumentos();
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
                 print(""+tst.existe(aux[1]));
                 break;
             case 3:
-                if (aux.length < 2) throw new InsuficientesArgumentos();
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
                 tst.borrar(aux[1]);
                 break;
             case 4:
-                if (aux.length < 3) throw new InsuficientesArgumentos();
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
                 tst.modificar(aux[1], Integer.parseInt(aux[2]));
                 break;
             case 5:
-                if (aux.length < 3) throw new InsuficientesArgumentos();
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
                 tst.modificar(aux[1], aux[2]);
                 break;
             case 6:
-                if (aux.length < 4) throw new InsuficientesArgumentos();
+                if (aux.length < 4) throw new ArgumentosInsuficientes();
                 tst.modificar(aux[1], aux[2],Integer.parseInt(aux[3]));
                 break;
             case 7:

@@ -62,59 +62,59 @@ public class DriverCongreso {
 
     private static void ProcesarLinea(String str) throws Exception {
         String aux[] = str.split("\\s");
-        if (str.length() == 0) throw new InsuficientesArgumentos();
+        if (str.length() == 0) throw new ArgumentosInsuficientes();
         switch (Integer.parseInt(aux[0])) {
             case 0:
                 C = new Congreso();
                 break;
             case 1:
-                if (aux.length < 8) throw new InsuficientesArgumentos();
+                if (aux.length < 8) throw new ArgumentosInsuficientes();
                 Congresista con = new Congresista(new Dni(aux[1]), aux[2], aux[3], Integer.parseInt(aux[4]),
                         aux[5], aux[6], aux[7]);
                 C.agregarCongresista(con);
                 break;
             case 2:
-                if (aux.length < 2) throw new InsuficientesArgumentos();
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
                 C.eliminarCongresista(new Dni(aux[1]));
                 break;
             case 3:
                 C.eliminarCongreso();
                 break;
             case 4:
-                if (aux.length < 3) throw new InsuficientesArgumentos();
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
                 C.modDniCongresista(new Dni(aux[1]), new Dni(aux[2]));
                 break;
             case 5:
-                if (aux.length < 3) throw new InsuficientesArgumentos();
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
                 C.modNombreCongresista(new Dni(aux[1]), aux[2]);
                 break;
             case 6:
-                if (aux.length < 3) throw new InsuficientesArgumentos();
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
                 C.modApellidoCongresista(new Dni(aux[1]), aux[2]);
                 break;
             case 7:
-                if (aux.length < 3) throw new InsuficientesArgumentos();
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
                 C.modEdadCongresista(new Dni(aux[1]), Integer.parseInt(aux[2]));
                 break;
             case 8:
-                if (aux.length < 3) throw new InsuficientesArgumentos();
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
                 C.modCiudadCongresista(new Dni(aux[1]), aux[2]);
                 break;
             case 9:
-                if (aux.length < 3) throw new InsuficientesArgumentos();
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
                 C.modEstadoCongresista(new Dni(aux[1]), aux[2]);
                 break;
             case 10:
-                if (aux.length < 3) throw new InsuficientesArgumentos();
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
                 C.modPartidoCongresista(new Dni(aux[1]), aux[2]);
                 break;
             case 11:
-                if (aux.length < 9) throw new InsuficientesArgumentos();
+                if (aux.length < 9) throw new ArgumentosInsuficientes();
                 C.modCongresista(new Dni(aux[1]), new Dni(aux[2]), aux[3],
                         aux[4], Integer.parseInt(aux[5]), aux[6], aux[7], aux[8]);
                 break;
             case 12:
-                if (aux.length < 2) throw new InsuficientesArgumentos();
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
                 print(C.contieneCongresista(new Dni(aux[1]))+"");
                 break;
             case 13:
@@ -124,7 +124,7 @@ public class DriverCongreso {
                 print(C.size()+"");
                 break;
             case 15:
-                if (aux.length < 2) throw new InsuficientesArgumentos();
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
                 print(C.consultarCongresista(new Dni(aux[1])).toString());
                 break;
             case 16:

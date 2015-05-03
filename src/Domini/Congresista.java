@@ -1,35 +1,37 @@
 package Domini;
 
 /**
- * Created by bug on 20/03/15.
+ * Clase Congresista
  */
 public class Congresista {
-    //Atributos para congresistas: ninguno puede ser no validos o null
-    //formato: 9 caracteres (8 numeros y 1 letra)
+
+    private class EdadNoValida extends Exception {
+        public EdadNoValida(int edad) {
+            super("Edad "+edad+" no Valida");
+        }
+    }
+
+    /**
+     * Dni es un Dni valido
+     * Edad es un entero > 0
+     * Los otros parametros son Strings
+     *
+     */
     private Dni Dni;
     private String Nombre;
     private String Apellido;
-    //edad es un entero mayor que cero
     private int Edad;
     private String Ciudad;
     private String Estado;
+
     private String Partido;
-
-    static final String error1 = "Dni no valido";
-    static final String error2 = "Nombre no valido";
-    static final String error3 = "Apellido no valido";
-    static final String error4 = "Edad no valida";
-    static final String error5 = "Ciudad no valida";
-    static final String error6 = "Estado no valido";
-    static final String error7 = "Partido no valido";
-
     //Creadoras
-    //public Congresista() { }
-    // Creadora de un Congresista -> se validará :
-    // dni es un string de 9 caracteres y 8 son numeros y el último carácter es una letra
-    // los otros parámetros no se validan ----???? hay que validar si son vacios?
+    /** Pre: edad valida
+     *  Post: Se crea un Congresista con sus atributos
+     *  Si edad no valida Excepcion
+     */
     public Congresista (Dni dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
-        if (!EdadValida(edad)) throw new Exception("edad");
+        if (!EdadValida(edad)) throw new EdadNoValida(edad);
         Dni = dni;
         Nombre = nombre;
         Apellido = apellido;
@@ -38,6 +40,13 @@ public class Congresista {
         Estado = estado;
         Partido = partido;
     }
+
+    /**
+     * Creadora copiadora de un Congresista
+     * Se crea un Congresista con los atributos
+     * del Congresista c
+     * es una copia en profundidad(deep copy)
+     */
     public Congresista(Congresista c) {
         Dni = c.obtDni();
         Nombre = c.obtNombre();
@@ -47,34 +56,58 @@ public class Congresista {
         Estado = c.obtEstado();
         Partido = c.obtPartido();
     }
-
     //Modificadoras
+    /**
+     * Modifica el Dni
+     */
     public void modDni(Dni dni) {
         Dni = dni;
     }
+    /**
+     * Modifica el Nombre
+     */
     public void modNombre(String nombre) {
         Nombre = nombre;
     }
+    /**
+     * Modifica el Apellido
+     */
     public void modApellido(String apellido) {
         Apellido = apellido;
     }
+    /**
+     * Pre: edad valida
+     * Post: Modifica la edad
+     * Si no excepcion
+     */
     public void modEdad(int edad) throws Exception {
-        if (EdadValida(edad)) {
-            Edad = edad;
-        }
-        else throw new Exception("edad");
+        if (!EdadValida(edad)) throw new EdadNoValida(edad);
+        else Edad = edad;
     }
+    /**
+     * Modifica la Ciudad
+     */
     public void modCiudad(String ciudad) {
         Ciudad = ciudad;
     }
+    /**
+     * Modifica el Estado
+     */
     public void modEstado(String estado) {
         Estado = estado;
     }
+    /**
+     * Modifica el Partido
+     */
     public void modPartido(String partido) {
         Partido = partido;
     }
+    /**
+     * Modifica todos sus atributos
+     * Si edad no es valida lanza una excepcion
+     */
     public void mod(Dni dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
-        if (!EdadValida(edad)) throw new Exception("edad");
+        if (!EdadValida(edad)) throw new EdadNoValida(edad);
         Dni = dni;
         Nombre = nombre;
         Apellido = apellido;
@@ -85,35 +118,68 @@ public class Congresista {
     }
 
     //Consultoras
+
+    /**
+     * Retorna el Dni del Congresista
+     */
     public Dni obtDni() {
         return Dni;
     }
+    /**
+     * Retorna el Nombre del Congresista
+     */
     public String obtNombre() {
         return Nombre;
     }
+    /**
+     * Retorna el Apellido del Congresista
+     */
     public String obtApellido() {
         return Apellido;
     }
+    /**
+     * Retorna la Edad del Congresista
+     */
     public int obtEdad() {
         return Edad;
     }
+    /**
+     * Retorna la Ciudad del Congresista
+     */
     public String obtCiudad() {
         return Ciudad;
     }
+    /**
+     * Retorna el Estado del Congresista
+     */
     public String obtEstado() {
         return Estado;
     }
+    /**
+     * Retorna el Partido del Congresista
+     */
     public String obtPartido() {
         return Partido;
     }
+    /**
+     * Retorna el Identificador del Congresista
+     * retorna el dni en string
+     */
     public String ID() {
         return Dni.toString();
     }
+    /**
+     * Retorna un String conteniendo todos sus
+     * atributos
+     */
     public String toString() {
         return Dni+" "+Nombre+" "+Apellido+" "+Edad+" "+Ciudad+" "+Estado+" "+Partido;
     }
-    //valida si edad es valida
-    // se considera valida edad > 0
+
+    /**
+     * Valida la edad: Comprueba si
+     * el parametro n es un entero > 0
+     */
     private static boolean EdadValida(int n) {
         return n > 0;
     }
