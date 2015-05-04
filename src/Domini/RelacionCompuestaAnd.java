@@ -24,6 +24,6 @@ public class RelacionCompuestaAnd extends RelacionCompuesta {
     }
 
     public String toString() {
-        return super.toString()+" AND "+B.toString();
+        return "["+super.toString()+"] AND ["+B.toString()+"]";
     }
 }

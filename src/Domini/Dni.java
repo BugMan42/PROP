@@ -1,8 +1,5 @@
 package Domini;
 
-/**
- * Clase Dni
- */
 public class Dni  {
     private class DNINOVALIDO extends Exception {
         public DNINOVALIDO(String s) {
@@ -39,7 +36,8 @@ public class Dni  {
         }
         else throw new DNINOVALIDO(s);
     }
-
+    //Comprueba si es valido el dni mediante un
+    // recorrido secuencial
     public static boolean valido(String d) {
         if (d.length() != 9) return false;
         for (int i = 0; i <8; ++i) {
