@@ -247,8 +247,7 @@ public class Louvain extends Algoritmo {
                 for(int n_ady : nodos_ady){
                     int com = renumerar[n2c[n_ady]];
                     if(!aristas.containsKey(com)) aristas.put(com,0.0);
-                    List<Double> peso = g.obtenerListaPesos(n, n_ady);
-                    double p = aristas.get(com) + peso.get(0);
+                    double p = aristas.get(com) + g.pesoAristasVertices(n, n_ady);
                     aristas.put(com,p);
                 }
             }
@@ -312,10 +311,8 @@ public class Louvain extends Algoritmo {
             for (int j=0; j<num_n; ++j){ // Para cada nodo i,j.
                 if (n2c[i] == n2c[j]){ // Si son de la misma comunidad.
                     double Aij = .0;
-                    if(n_ady.contains(j)){ // Si existe arista entre i y j.
-                        List<Double> pesosAij = g.obtenerListaPesos(i,j);
-                        Aij = pesosAij.get(0);
-                    }
+                    if(n_ady.contains(j)) // Si existe arista entre i y j.
+                        Aij = g.pesoAristasVertices(i,j);
                     sum += Aij - ((k[i]*k[j])/m2);
                 }
             }
@@ -346,9 +343,8 @@ public class Louvain extends Algoritmo {
         coms.add(n2c[nodo]);
         for(Integer x : nodos){
             if (!coms.contains(n2c[x])) coms.add(n2c[x]);
-            List<Double> p = g.obtenerListaPesos(nodo, x);
-            if(x==nodo) p_nc[n2c[x]] += p.get(0)/2;
-            else p_nc[n2c[x]] += p.get(0);
+            if(x==nodo) p_nc[n2c[x]] += g.pesoAristasVertices(nodo,x)/2;
+            else p_nc[n2c[x]] += g.pesoAristasVertices(nodo, x);
         }
         return coms;
     }
@@ -363,10 +359,9 @@ public class Louvain extends Algoritmo {
         for(int i=0; i<num_n; ++i){
             List<Integer> n = g.nodosSalida(i);
             for(int j : n){
-                List<Double> p = g.obtenerListaPesos(i, j);
-                // p nunca vacío porque estamos consultando nodos adyacentes.
-                tot[n2c[j]] += p.get(0);
-                if(n2c[i] == n2c[j]) ins[n2c[i]] += p.get(0);
+                double p = g.pesoAristasVertices(i,j);
+                tot[n2c[j]] += p;
+                if(n2c[i] == n2c[j]) ins[n2c[i]] += p;
             }
         }
     }
@@ -386,12 +381,9 @@ public class Louvain extends Algoritmo {
     private double suma_peso_nodos_adyacentes_com(int nodo, int com) throws Exception {
         double p = 0.0;
         List<Integer> n = g.nodosSalida(nodo);
-        for(int i : n){
-            if (n2c[i] == com){
-                List<Double> lp = g.obtenerListaPesos(nodo, i);
-                p += lp.get(0);
-            }
-        }
+        for(int i : n)
+            if (n2c[i] == com)
+                p += g.pesoAristasVertices(nodo,i);
         return p;
     }
 
