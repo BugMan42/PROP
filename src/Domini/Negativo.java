@@ -6,11 +6,7 @@ package Domini;
 public class Negativo extends Voto{
     //Creadora vacía de Negativo
     public Negativo () {
-    }
-
-    //Creadora con parámetros de Negativo
-    public Negativo (String dni) throws Exception {
-        super(dni);
+        super();
     }
 
     @Override

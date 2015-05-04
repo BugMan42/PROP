@@ -7,11 +7,7 @@ package Domini;
 public class Nulo extends Voto {
     //Creadora vacía de Nulo
     public Nulo () {
-    }
-
-    //Creadora con parámetros de Nulo
-    public Nulo (String dni) throws Exception {
-        super(dni);
+        super();
     }
 
     @Override

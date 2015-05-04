@@ -55,7 +55,7 @@ public class DriverVotacion {
         System.out.println("Escribe el DNI del congresista votante:");
         String s2 = user_input.next();
         try {
-            v.mod_dni(s2);
+            Dni.valido(s2);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("DNI incorrecto, operación cancelada");
@@ -63,7 +63,7 @@ public class DriverVotacion {
         }
 
         try {
-            vt.añadir_voto(v);
+            vt.añadir_voto(s2, v);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("DNI ya existente, operación cancelada");

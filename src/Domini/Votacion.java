@@ -21,11 +21,6 @@ public class Votacion extends Evento {
         votos.insertar(id, v);
     }
 
-    //Método de inserción de votos teniendo como clave para insertar el DNI del Voto
-    public void añadir_voto(Voto v) throws Exception {
-        votos.insertar(v.obt_dni(), v);
-    }
-
     //Siendo id el DNI de v, este método permite canviar el tipo de Voto de un Congresista para una votación
     public void modificar_voto(String id, Voto v) throws Exception {
         votos.borrar(id);

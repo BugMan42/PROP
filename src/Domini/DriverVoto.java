@@ -22,15 +22,6 @@ public class DriverVoto {
             System.out.println("Tipo de voto no válido, operación cancelada.");
             return;
         }
-        System.out.println("Escribe el DNI del congresista votante:");
-
-        try {
-            v.mod_dni(s1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("DNI incorrecto");
-        }
-
         System.out.println(v.toString());
     }
 
