@@ -17,6 +17,9 @@ public class DriverControladorRelaciones {
     private ControladorRelaciones cr;
 
     public static void main(String[] args) {
+        boolean imp = true;
+        if(args.length > 0 && args[0].equals("0")) imp = false;
+
         DriverControladorRelaciones dr = new DriverControladorRelaciones();
         dr.cc = new ControladorCongreso();
         dr.ce = new ControladorCjtEvento();
@@ -24,7 +27,7 @@ public class DriverControladorRelaciones {
         Scanner ui = new Scanner(System.in);
         int op;
         do {
-            dr.menu();
+            if(imp) dr.menu();
             String linea = ui.nextLine();
             String[] params = linea.split("\\s");
             try {

@@ -12,12 +12,15 @@ public class DriverControladorPersistencia {
     private ControladorPersistencia cp;
 
     public static void main(String[] args) {
+        boolean imp = true;
+        if(args.length > 0 && args[0].equals("0")) imp = false;
+
         DriverControladorPersistencia dcp = new DriverControladorPersistencia();
         dcp.cp = new ControladorPersistencia("./pruebaPersistencia.txt");
         Scanner ui = new Scanner(System.in);
         int op;
         do {
-            dcp.menu();
+            if(imp) dcp.menu();
             String linea = ui.nextLine();
             String[] params = linea.split("\\s");
             try {

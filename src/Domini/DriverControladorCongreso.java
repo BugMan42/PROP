@@ -12,12 +12,15 @@ public class DriverControladorCongreso {
     private ControladorCongreso cc;
 
     public static void main(String[] args) {
+        boolean imp = true;
+        if(args.length > 0 && args[0].equals("0")) imp = false;
+
         DriverControladorCongreso dcc = new DriverControladorCongreso();
         dcc.cc = new ControladorCongreso();
         Scanner ui = new Scanner(System.in);
         int op;
         do {
-            dcc.menu();
+            if(imp) dcc.menu();
             String linea = ui.nextLine();
             String[] params = linea.split("\\s");
             try {
