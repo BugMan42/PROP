@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class DriverClique {
     final static String menu = "Bienvenido/a al driver de clique";
-    final static String opcion1 = "1 Clique(Entrada in, Salida out). Usando GrafoPrueba1 y k = 3";
+    final static String opcion1 = "1 Clique(Entrada in, Salida out). Usando GrafoPrueba1 y k = 3 si no se cambia.";
     final static String opcion2 = "2 Elegir k";
     final static String opcion3 = "3 ejecutar_algoritmo()";
     final static String opcion4 = "4 CrearGrafoPrueba(). Sin argumentos";
@@ -25,16 +25,18 @@ public class DriverClique {
     private static Grafo g;
 
     public static void main(String[] args) throws Exception {
-        System.out.println(menu);
+        k = 3;
         Scanner entrada = new Scanner(System.in);
+        System.out.println(menu);
+        ImprimirMenu();
         do {
             try {
-                ImprimirMenu();
                 Proceso(entrada);
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+            ImprimirMenu();
         }
         while (entrada.hasNext());
 
@@ -59,7 +61,6 @@ public class DriverClique {
             case 1:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
                 crearGrafo(1);
-                k = 3;
                 en = new Entrada(g, k);
                 sa = new Salida();
                 c = new Clique(en, sa);

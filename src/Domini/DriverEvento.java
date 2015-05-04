@@ -23,8 +23,9 @@ public class DriverEvento {
     private static Evento1 e;
 
     public static void main(String[] args) throws Exception {
-        ImprimirMenu();
         Scanner entrada = new Scanner(System.in);
+        System.out.println(menu);
+        ImprimirMenu();
         do {
             try {
                 Proceso(entrada);
@@ -32,6 +33,7 @@ public class DriverEvento {
             catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+            ImprimirMenu();
         }
         while (entrada.hasNext());
     }

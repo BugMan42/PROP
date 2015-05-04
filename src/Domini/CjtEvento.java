@@ -113,7 +113,7 @@ public class CjtEvento {
         data = data+Integer.toString(valorEntero)+"/";
         valorEntero = (int)Math.floor(Math.random()*(3000-1+1)+1);
         data = data+Integer.toString(valorEntero);
-        //En el remoto caso de que el random genere un evento que ya exista, se aborta.
+        //En el remoto caso de que el random genere un evento que ya existe
         if (cjt.existe(nombre+data)) throw new Exception("El evento ya existe vuelve a probar");
         //Uso un numero random [1,10] para importancia
         valorEntero =(int)Math.floor(Math.random()*(10-1+1)+1);

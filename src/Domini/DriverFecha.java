@@ -20,13 +20,15 @@ public class DriverFecha {
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);
         System.out.println(menu);
+        ImprimirMenu();
         do {
             try {
-                ImprimirMenu();
                 Proceso(entrada);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+            ImprimirMenu();
         }
         while (entrada.hasNext());
     }
