@@ -21,7 +21,7 @@ public class Blanco extends Voto {
     }
 
     @Override
-    //Devuelve un string que cotiene información del Voto
+    //Devuelve un string que contiene información del Voto
     public String mostrarInfo() {
         return super.mostrarInfo()+" ha votado en blanco.";
     }

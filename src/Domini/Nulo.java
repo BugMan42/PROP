@@ -5,19 +5,22 @@ package Domini;
  * Clase Nulo
  */
 public class Nulo extends Voto {
-
+    //Creadora vacía de Nulo
     public Nulo () {
     }
 
+    //Creadora con parámetros de Nulo
     public Nulo (String dni) throws Exception {
         super(dni);
     }
 
     @Override
+    //Devuelve en un string el nombre de la subclase a la que pertence la instancia
     public String obt_tipo() {
         return "Nulo";
     }
 
+    //Devuelve un string que contiene información del Voto
     public String mostrarInfo() {
         return super.mostrarInfo() + " ha votado en nulo";
     }
