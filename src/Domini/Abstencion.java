@@ -21,4 +21,8 @@ public class Abstencion extends Voto {
         return super.mostrarInfo() + " se ha abstenido.";
     }
 
+    public String toString() {
+        return "Abstencion";
+    }
+
 }

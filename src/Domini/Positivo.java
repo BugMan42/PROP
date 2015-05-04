@@ -20,4 +20,8 @@ public class Positivo extends Voto {
     public String mostrarInfo() {
         return super.mostrarInfo() + " ha votado a favor.";
     }
+
+    public String toString() {
+        return "Positivo";
+    }
 }

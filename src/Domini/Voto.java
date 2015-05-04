@@ -41,8 +41,9 @@ public abstract class Voto {
         return "El congresista con DNI "+dni;
     }
 
-    public String toString() {
+    public abstract String toString();
+    /*{
         return dni.toString();
-    }
+    }*/
 
 }

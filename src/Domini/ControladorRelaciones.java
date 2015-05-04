@@ -4,7 +4,6 @@ import Persistencia.ControladorPersistencia;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by jose on 15/04/15.
@@ -28,7 +27,7 @@ public class ControladorRelaciones {
     public void agregarRelacion(String dni, String nombre, String fecha) throws Exception {
         Congresista con = c.consultarCongresista(dni);
         Evento ev = e.ConsultarEvento(nombre, fecha);
-        Relacion r = new Relacion(con,ev);
+        RelacionSimple r = new RelacionSimple(con,ev);
         rs.agregarRelacion(r);
 
 
@@ -37,7 +36,7 @@ public class ControladorRelaciones {
     public void eliminarRelacion(String dni, String nombre, String fecha) throws Exception {
         Congresista con = c.consultarCongresista(dni);
         Evento ev = e.ConsultarEvento(nombre, fecha);
-        Relacion r = new Relacion(con,ev);
+        RelacionSimple r = new RelacionSimple(con,ev);
         rs.eliminarRelacion(r);
     }
 
@@ -55,12 +54,12 @@ public class ControladorRelaciones {
         return rs.obtCongresistas(ev);
     }
 
-    ArrayList<Relacion> obtRelaciones(String dni) throws Exception {
+    ArrayList<RelacionSimple> obtRelaciones(String dni) throws Exception {
         Congresista con = c.consultarCongresista(dni);
         return rs.obtRelaciones(con);
     }
 
-    ArrayList<Relacion> obtRelaciones(String nombre, String fecha) throws Exception {
+    ArrayList<RelacionSimple> obtRelaciones(String nombre, String fecha) throws Exception {
         Evento ev = e.ConsultarEvento(nombre, fecha);
         return rs.obtRelaciones(ev);
     }
@@ -69,15 +68,15 @@ public class ControladorRelaciones {
         return rs.obtCongresistas();
     }
 
-    ArrayList<Relacion> obtTodasLasRelaciones() throws Exception {
+    ArrayList<RelacionSimple> obtTodasLasRelaciones() throws Exception {
         return rs.obtTodasLasRelaciones();
     }
 
     public void guardar(String ruta) throws Exception {
         if (!c.esVacio()) {
             ControladorPersistencia cp = new ControladorPersistencia(ruta);
-            ArrayList<Relacion> rel = rs.obtTodasLasRelaciones();
-            Iterator<Relacion> it = rel.iterator();
+            ArrayList<RelacionSimple> rel = rs.obtTodasLasRelaciones();
+            Iterator<RelacionSimple> it = rel.iterator();
             cp.abrirEscritura();
             while (it.hasNext()){
                 String datos = "";
@@ -112,8 +111,8 @@ public class ControladorRelaciones {
         g = new Grafo();
         ArrayList<Congresista> c = obtCongresistas();
         for(Congresista con : c) g.agregarVertice(con.ID());
-        ArrayList<Relacion> r = obtTodasLasRelaciones();
-        for(Relacion re : r){
+        ArrayList<RelacionSimple> r = obtTodasLasRelaciones();
+        for(RelacionSimple re : r){
             String origen = re.obtCongresista().ID();
             ArrayList<Congresista> ce = obtCongresistas(re.obtEvento().obt_nombre(),re.obtEvento().obt_fecha());
             for(Congresista cone : ce)

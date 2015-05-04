@@ -21,4 +21,8 @@ public class Blanco extends Voto {
         return super.mostrarInfo()+" ha votado en blanco.";
     }
 
+    public String toString() {
+        return "Blanco";
+    }
+
 }

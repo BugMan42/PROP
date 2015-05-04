@@ -5,9 +5,9 @@ import java.util.*;
 
 public class Relaciones {
     private class NodeC {
-        ArrayList<Relacion> eventos;
-        NodeC(Relacion r) {
-            eventos = new ArrayList<Relacion>();
+        ArrayList<RelacionSimple> eventos;
+        NodeC(RelacionSimple r) {
+            eventos = new ArrayList<RelacionSimple>();
             eventos.add(0,r);
         }
         public Congresista obtCongresista() {
@@ -19,26 +19,26 @@ public class Relaciones {
         public String obtenerIDCongresista() {
             return eventos.get(0).obtCongresista().ID();
         }
-        public void agregarRelacion(Relacion r) throws Exception {
+        public void agregarRelacion(RelacionSimple r) throws Exception {
             int i;
             for (i = 0; i < eventos.size(); ++i) {
                 if (eventos.get(i).obtEvento().ID().equals(r.obtEvento())) {
-                    throw new Exception("Ya existe la Relacion");
+                    throw new Exception("Ya existe la RelacionSimple");
                 }
             }
             eventos.add(i,r);
         }
-        public void eliminarRelacion(Relacion r) throws Exception {
+        public void eliminarRelacion(RelacionSimple r) throws Exception {
             for (int i = 0; i < eventos.size(); ++i) {
                 if (eventos.get(i).obtEvento().ID().equals(r.obtEvento().ID())) {
                     eventos.remove(i);
                     return;
                 }
             }
-            throw new Exception("No existe Relacion");
+            throw new Exception("No existe RelacionSimple");
         }
         //cuidado no es deep copy
-        public ArrayList<Relacion> obtenerRelaciones() {
+        public ArrayList<RelacionSimple> obtenerRelaciones() {
             return eventos;
         }
         public ArrayList<Evento> obtenerEventos() {
@@ -50,34 +50,34 @@ public class Relaciones {
         }
     }
     private class NodeE {
-        ArrayList<Relacion> congresistas;
-        public NodeE(Relacion r) {
-            congresistas = new ArrayList<Relacion>();
+        ArrayList<RelacionSimple> congresistas;
+        public NodeE(RelacionSimple r) {
+            congresistas = new ArrayList<RelacionSimple>();
             congresistas.add(0,r);
         }
         public boolean esVacio() {
             return congresistas.size() == 0;
         }
-        public void agregarRelacion(Relacion r) throws Exception {
+        public void agregarRelacion(RelacionSimple r) throws Exception {
             int i;
             for (i = 0; i < congresistas.size(); ++i) {
                 if (congresistas.get(i).obtEvento().ID().equals(r.obtEvento())) {
-                    throw new Exception("Ya existe la Relacion");
+                    throw new Exception("Ya existe la RelacionSimple");
                 }
             }
             congresistas.add(i,r);
         }
-        public void eliminarRelacion(Relacion r) throws Exception {
+        public void eliminarRelacion(RelacionSimple r) throws Exception {
             for (int i = 0; i < eventos.size(); ++i) {
                 if (congresistas.get(i).obtEvento().ID().equals(r.obtEvento().ID())) {
                     congresistas.remove(i);
                     return;
                 }
             }
-            throw new Exception("No existe Relacion");
+            throw new Exception("No existe RelacionSimple");
         }
         //cuidado no es deep copy
-        public ArrayList<Relacion> obtenerRelaciones() {
+        public ArrayList<RelacionSimple> obtenerRelaciones() {
             return congresistas;
         }
         public ArrayList<Congresista> obtenerCongresistas() {
@@ -95,7 +95,7 @@ public class Relaciones {
         congresistas = new TST<NodeC>();
         eventos = new TST<NodeE>();
     }
-    public void agregarRelacion(Relacion r) throws Exception {
+    public void agregarRelacion(RelacionSimple r) throws Exception {
         NodeC aux = new NodeC(r);
         if (!congresistas.existe(r.obtCongresista().ID())) {
             congresistas.insertar(r.obtCongresista().ID(),aux);
@@ -113,7 +113,7 @@ public class Relaciones {
             aux2.agregarRelacion(r);
         }
     }
-    public void eliminarRelacion(Relacion r) throws Exception {
+    public void eliminarRelacion(RelacionSimple r) throws Exception {
         NodeC aux = congresistas.obtener(r.obtCongresista().ID());
         aux.eliminarRelacion(r);
         if (aux.esVacio()) congresistas.borrar(r.obtCongresista().ID());
@@ -131,10 +131,10 @@ public class Relaciones {
     public ArrayList<Congresista> obtCongresistas(Evento e) throws Exception {
         return eventos.obtener(e.ID()).obtenerCongresistas();
     }
-    public ArrayList<Relacion> obtRelaciones(Congresista c) throws Exception {
+    public ArrayList<RelacionSimple> obtRelaciones(Congresista c) throws Exception {
         return congresistas.obtener(c.ID()).obtenerRelaciones();
     }
-    public ArrayList<Relacion> obtRelaciones(Evento e) throws Exception {
+    public ArrayList<RelacionSimple> obtRelaciones(Evento e) throws Exception {
         return eventos.obtener(e.ID()).obtenerRelaciones();
     }
     public ArrayList<Congresista> obtCongresistas() {
@@ -146,9 +146,9 @@ public class Relaciones {
         }
         return aux;
     }
-    public ArrayList<Relacion> obtTodasLasRelaciones() throws Exception {
+    public ArrayList<RelacionSimple> obtTodasLasRelaciones() throws Exception {
         ArrayList<Congresista> aux = obtCongresistas();
-        ArrayList<Relacion> array = new ArrayList<Relacion>();
+        ArrayList<RelacionSimple> array = new ArrayList<RelacionSimple>();
         for (int i = 0; i < aux.size(); ++i) {
             array.addAll(congresistas.obtener(aux.get(i).ID()).obtenerRelaciones());
         }

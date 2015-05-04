@@ -10,8 +10,8 @@ public class DriverCjtRelacion {
         Evento E1 = new Profesional("Golf","12/12/2012",10);
         Evento E2 = new Profesional("Golf2","12/12/2012",10);
         Relaciones R = new Relaciones();
-        Relacion R1 = new Relacion(C1,E1);
-        Relacion R2 = new Relacion(C2,E2);
+        RelacionSimple R1 = new RelacionSimple(C1,E1);
+        RelacionSimple R2 = new RelacionSimple(C2,E2);
         R.agregarRelacion(R1);
         R.agregarRelacion(R2);
         R.eliminarRelacion(R1);
