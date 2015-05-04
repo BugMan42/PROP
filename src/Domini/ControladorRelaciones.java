@@ -34,7 +34,7 @@ public class ControladorRelaciones {
         Evento ev = e.ConsultarEvento(nombre, fecha);
         if(ev.tipo().equals("Votacion")) throw new Exception(E1);
         Congresista con = c.consultarCongresista(dni);
-        RelacionSimple1 r = new RelacionSimpleSinVoto1(con,ev);
+        RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
         rs.agregarRelacion(r);
     }
 
@@ -49,14 +49,14 @@ public class ControladorRelaciones {
         else if (voto.equals("Nulo")) v = new Nulo();
         else if (voto.equals("Positivo")) v = new Positivo();
         else throw new Exception(E3);
-        RelacionSimple1 r = new RelacionSimpleConVoto1(con,ev,v);
+        RelacionSimple r = new RelacionSimpleConVoto(con,ev,v);
         rs.agregarRelacion(r);
     }
 
     public void eliminarRelacion(String dni, String nombre, String fecha) throws Exception {
         Congresista con = c.consultarCongresista(dni);
         Evento ev = e.ConsultarEvento(nombre, fecha);
-        RelacionSimple1 r = new RelacionSimpleSinVoto1(con,ev);
+        RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
         rs.eliminarRelacion(r);
     }
 
@@ -74,12 +74,12 @@ public class ControladorRelaciones {
         return rs.obtCongresistas(ev);
     }
 
-    ArrayList<RelacionSimple1> obtRelaciones(String dni) throws Exception {
+    ArrayList<RelacionSimple> obtRelaciones(String dni) throws Exception {
         Congresista con = c.consultarCongresista(dni);
         return rs.obtRelaciones(con);
     }
 
-    ArrayList<RelacionSimple1> obtRelaciones(String nombre, String fecha) throws Exception {
+    ArrayList<RelacionSimple> obtRelaciones(String nombre, String fecha) throws Exception {
         Evento ev = e.ConsultarEvento(nombre, fecha);
         return rs.obtRelaciones(ev);
     }
@@ -88,15 +88,15 @@ public class ControladorRelaciones {
         return rs.obtCongresistas();
     }
 
-    ArrayList<RelacionSimple1> obtTodasLasRelaciones() throws Exception {
+    ArrayList<RelacionSimple> obtTodasLasRelaciones() throws Exception {
         return rs.obtTodasLasRelaciones();
     }
 
     public void guardar(String ruta) throws Exception {
         if (!c.esVacio()) {
             ControladorPersistencia cp = new ControladorPersistencia(ruta);
-            ArrayList<RelacionSimple1> rel = rs.obtTodasLasRelaciones();
-            Iterator<RelacionSimple1> it = rel.iterator();
+            ArrayList<RelacionSimple> rel = rs.obtTodasLasRelaciones();
+            Iterator<RelacionSimple> it = rel.iterator();
             cp.abrirEscritura();
             while (it.hasNext()){
                 String datos = "";
@@ -132,12 +132,12 @@ public class ControladorRelaciones {
         g = new Grafo();
         ArrayList<Congresista> c = obtCongresistas();
         for(Congresista con : c) g.agregarVertice(con.ID());
-        ArrayList<RelacionSimple1> r = obtTodasLasRelaciones();
-        for(RelacionSimple1 re : r){
+        ArrayList<RelacionSimple> r = obtTodasLasRelaciones();
+        for(RelacionSimple re : r){
             String origen = re.obtCongresista().ID();
             if(re.obtEvento().tipo().equals("Votacion")) {
-                ArrayList<RelacionSimple1> rv = obtRelaciones(re.obtEvento().obt_nombre(),re.obtEvento().obt_fecha());
-                for (RelacionSimple1 rvi : rv) {
+                ArrayList<RelacionSimple> rv = obtRelaciones(re.obtEvento().obt_nombre(),re.obtEvento().obt_fecha());
+                for (RelacionSimple rvi : rv) {
                     String fin = rvi.obtCongresista().ID();
                     if (!origen.equals(fin)) {
                         Voto v_origen = re.obtVoto();
