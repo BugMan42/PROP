@@ -96,46 +96,50 @@ public class DriverControladorRelaciones {
                         dr.cr.agregarRelacion(params[1], params[2], params[3]);
                         break;
                     case 16:
+                        if(params.length!=5) throw new Exception(E1);
+                        dr.cr.agregarVoto(params[1], params[2], params[3], params[4]);
+                        break;
+                    case 17:
                         if(params.length!=4) throw new Exception(E1);
                         dr.cr.eliminarRelacion(params[1], params[2], params[3]);
                         break;
-                    case 17:
+                    case 18:
                         if(params.length!=1) throw new Exception(E1);
                         dr.cr.eliminarRelaciones();
                         break;
-                    case 18:
+                    case 19:
                         if(params.length!=2) throw new Exception(E1);
                         dr.print(dr.cr.obtEventos(params[1]).toString());
                         break;
-                    case 19:
+                    case 20:
                         if(params.length!=3) throw new Exception(E1);
                         dr.print(dr.cr.obtCongresistas(params[1], params[2]).toString());
                         break;
-                    case 20:
+                    case 21:
                         if(params.length!=2) throw new Exception(E1);
                         dr.print(dr.cr.obtRelaciones(params[1]).toString());
                         break;
-                    case 21:
+                    case 22:
                         if(params.length!=3) throw new Exception(E1);
                         dr.print(dr.cr.obtRelaciones(params[1],params[2]).toString());
                         break;
-                    case 22:
+                    case 23:
                         if(params.length!=1) throw new Exception(E1);
                         dr.print(dr.cr.obtCongresistas().toString());
                         break;
-                    case 23:
+                    case 24:
                         if(params.length!=1) throw new Exception(E1);
                         dr.print(dr.cr.obtTodasLasRelaciones().toString());
                         break;
-                    case 24:
+                    case 25:
                         if(params.length!=2) throw new Exception(E1);
                         dr.cr.guardar(params[1]);
                         break;
-                    case 25:
+                    case 26:
                         if(params.length!=2) throw new Exception(E1);
                         dr.cr.cargar(params[1]);
                         break;
-                    case 26:
+                    case 27:
                         if(params.length!=1) throw new Exception(E1);
                         dr.prueba_grafo();
                         break;
@@ -146,7 +150,7 @@ public class DriverControladorRelaciones {
                 op = -1;
             }
         }
-        while(op != 27);
+        while(op != 28);
     }
 
     private void menu(){
@@ -171,19 +175,20 @@ public class DriverControladorRelaciones {
         print("14 cargarEventos(String ruta)");
         print("//////// Relaciones ///////////////////////////");
         print("15 agregarRelacion(String dni, String nombre, String fecha)");
-        print("16 eliminarRelacion(String dni, String nombre, String fecha)");
-        print("17 eliminarRelaciones()");
-        print("18 obtEventos(String dni)");
-        print("19 obtCongresistas(String nombre, String fecha)");
-        print("20 obtRelaciones(String dni)");
-        print("21 obtRelaciones(String nombre, String fecha)");
-        print("22 obtCongresistas()");
-        print("23 obtTodasLasRelaciones()");
-        print("24 guardarRelaciones(String ruta)");
-        print("25 cargarRelaciones(String ruta)");
-        print("26 prueba grafo");
+        print("16 agregarVoto(String dni, String nombre, String fecha, String voto");
+        print("17 eliminarRelacion(String dni, String nombre, String fecha)");
+        print("18 eliminarRelaciones()");
+        print("19 obtEventos(String dni)");
+        print("20 obtCongresistas(String nombre, String fecha)");
+        print("21 obtRelaciones(String dni)");
+        print("22 obtRelaciones(String nombre, String fecha)");
+        print("23 obtCongresistas()");
+        print("24 obtTodasLasRelaciones()");
+        print("25 guardarRelaciones(String ruta)");
+        print("26 cargarRelaciones(String ruta)");
+        print("27 prueba grafo");
         print("///////////////////////////////////////////////");
-        print("27 Salir\n");
+        print("28 Salir\n");
     }
 
     private void print(String s){
