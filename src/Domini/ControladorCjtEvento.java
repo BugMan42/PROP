@@ -41,9 +41,18 @@ public class ControladorCjtEvento {
         ce.AgregarEvento(pro);
     }
 
-    public void AgregarActo(String nombre, String fecha, int importancia) throws Exception{
-        //Acto a = new Acto(nombre, fecha, importancia);
-        //ce.AgregarEvento(a);
+    public void AgregarActoOficial(String nombre, String fecha, int importancia) throws Exception{
+        Oficial o = new Oficial(nombre, fecha, importancia);
+        ce.AgregarEvento(o);
+    }
+
+    public void AgregarActoNoOficial(String nombre, String fecha, int importancia) throws Exception{
+        NoOficial n = new NoOficial(nombre, fecha, importancia);
+        ce.AgregarEvento(n);
+    }
+
+    public void AgregarEventoRandom() throws Exception {
+        ce.AgregarEventoRandom();
     }
 
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo) throws Exception{
@@ -105,7 +114,8 @@ public class ControladorCjtEvento {
                 if(prm[0].equals("Votacion")) AgregarVotacion(prm[1], prm[2], Integer.parseInt(prm[3]));
                 else if(prm[0].equals("ReunionPersonal")) AgregarReunionPersonal(prm[1], prm[2], Integer.parseInt(prm[3]));
                 else if(prm[0].equals("ReunionProfesional")) AgregarReunionProfesional(prm[1],prm[2],Integer.parseInt(prm[3]));
-                else if(prm[0].equals("Acto")) AgregarActo(prm[1], prm[2], Integer.parseInt(prm[3]));
+                else if(prm[0].equals("ActoOficial")) AgregarActoOficial(prm[1], prm[2], Integer.parseInt(prm[3]));
+                else if(prm[0].equals("ActoNoOficial")) AgregarActoNoOficial(prm[1], prm[2], Integer.parseInt(prm[3]));
                 else throw new Exception(E1+prm[0]);
             }
             r = cp.leer(max_lineas_cargar);
