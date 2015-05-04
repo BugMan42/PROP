@@ -12,12 +12,15 @@ public class DriverControladorCjtEvento {
     private ControladorCjtEvento ce;
 
     public static void main(String[] args) {
+        boolean imp = true;
+        if(args.length > 0 && args[0].equals("0")) imp = false;
+
         DriverControladorCjtEvento dce = new DriverControladorCjtEvento();
         dce.ce = new ControladorCjtEvento();
         Scanner ui = new Scanner(System.in);
         int op;
         do {
-            dce.menu();
+            if(imp) dce.menu();
             String linea = ui.nextLine();
             String[] params = linea.split("\\s");
             try {

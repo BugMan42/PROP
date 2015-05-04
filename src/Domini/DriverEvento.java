@@ -17,13 +17,15 @@ public class DriverEvento {
     final static String opcion8 = "8 ID()";
     final static String opcion9 = "9 toString()";
     final static String opcion10 = "10 obt_importancia()";
-    final static String msg = "Introduzca un numero del 1 al 10. 11 para salir";
+    final static String opcion11 = "11 tipo()";
+    final static String msg = "Introduzca un numero del 1 al 11. 12 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
     private static Evento1 e;
 
     public static void main(String[] args) throws Exception {
-        ImprimirMenu();
         Scanner entrada = new Scanner(System.in);
+        System.out.println(menu);
+        ImprimirMenu();
         do {
             try {
                 Proceso(entrada);
@@ -31,6 +33,7 @@ public class DriverEvento {
             catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+            ImprimirMenu();
         }
         while (entrada.hasNext());
     }
@@ -48,49 +51,61 @@ public class DriverEvento {
             case 2:
                 if (aux.length < 2) throw new ArgumentosInsuficientes();
                 if (aux.length > 2) throw new DemasiadosArgumentos();
-                if (e != null) {
-                    e.ModNombre(aux[1]);
-                } else throw new Exception("Evento no existe");
+                if (e != null) e.ModNombre(aux[1]);
+                else throw new Exception("Evento no existe");
                 break;
             case 3:
                 if (aux.length < 2) throw new ArgumentosInsuficientes();
                 if (aux.length > 2) throw new DemasiadosArgumentos();
-                if (e != null) {
-                    e.ModFecha(aux[1]);
-                } else throw new Exception("Evento no existe");
+                if (e != null) e.ModFecha(aux[1]);
+                else throw new Exception("Evento no existe");
                 break;
             case 4:
                 if (aux.length < 2) throw new ArgumentosInsuficientes();
                 if (aux.length > 2) throw new DemasiadosArgumentos();
-                if (e != null) {
-                    e.ModImportancia(Integer.parseInt(aux[1]));
-                } else throw new Exception("Evento no existe");
+                if (e != null) e.ModImportancia(Integer.parseInt(aux[1]));
+                else throw new Exception("Evento no existe");
                 break;
             case 5:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                System.out.println(e.obt_nombre());
+                if (e != null) System.out.println(e.obt_nombre());
+                else throw new Exception("Evento no existe");
                 break;
             case 6:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                System.out.println(e.obt_fecha());
+                if (e != null) System.out.println(e.obt_fecha());
+                else throw new Exception("Evento no existe");
                 break;
             case 7:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                System.out.println(e.obtFecha());
+                if (e != null) System.out.println(e.obtFecha());
+                else throw new Exception("Evento no existe");
+
                 break;
             case 8:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                System.out.println(e.ID());
+                if (e != null) System.out.println(e.ID());
+                else throw new Exception("Evento no existe");
                 break;
             case 9:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                System.out.println(e.toString());
+                if (e != null) System.out.println(e.toString());
+                else throw new Exception("Evento no existe");
                 break;
             case 10:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                System.out.println(Integer.toString(e.obt_importancia()));
+                if (e != null) System.out.println(Integer.toString(e.obt_importancia()));
+                else throw new Exception("Evento no existe");
+
                 break;
             case 11:
+                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (e != null) System.out.println(e.tipo());
+                else throw new Exception("Evento no existe");
+
+                break;
+            case 12:
+                System.out.println(fin);
                 System.exit(0);
                 break;
             default:
@@ -111,6 +126,7 @@ public class DriverEvento {
         System.out.println(opcion8);
         System.out.println(opcion9);
         System.out.println(opcion10);
+        System.out.println(opcion11);
         System.out.println(msg);
     }
 }

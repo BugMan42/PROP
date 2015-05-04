@@ -7,62 +7,84 @@ import java.util.Scanner;
  */
 public class DriverFecha {
     final static String menu = "Bienvenido al driver de fecha";
-    final static String opcion1 = "1. Alta de una fecha";
-    final static String opcion2 = "2. Consulta de una fecha";
-    final static String opcion3 = "3. Ayuda";
-    final static String opcion4 = "4. Salir";
-    final static String error = "Introduzca un numero del 1 al 4";
-    final static String nueva = "Introduzca una nueva opcion del 1 al 3. 4 para salir";
+    final static String opcion1 = "1 Fecha(String data)";
+    final static String opcion2 = "2 valido(String data)";
+    final static String opcion3 = "3 ConsultarFecha()";
+    final static String opcion4 = "4 ToString()";
+    final static String opcion5 = "5 equals(Fecha f)";
+    final static String msg = "Introduzca un numero del 1 al 5. 6 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
+
     private static Fecha f;
 
-    public static void main(String[] args) {
-        ImprimirMenu();
+    public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);
-        int opcion = Integer.parseInt(entrada.next());
-        while (opcion != 4) {
-            switch (opcion) {
-                case 1:
-                    alta(entrada);
-                    break;
-                case 2:
-                    consulta(entrada);
-                    break;
-                default:
-                    System.out.println(error);
-                    break;
+        System.out.println(menu);
+        ImprimirMenu();
+        do {
+            try {
+                Proceso(entrada);
             }
-            System.out.println(nueva);
-            opcion = entrada.nextInt();
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            ImprimirMenu();
         }
-        System.out.println(fin);
+        while (entrada.hasNext());
+    }
+
+    public static void Proceso(Scanner entrada) throws Exception {
+        String s = entrada.nextLine();
+        String aux[] = s.split("\\s");
+        if (s.length() == 0) throw new ArgumentosInsuficientes();
+        switch (Integer.parseInt(aux[0])) {
+            case 1:
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
+                if (aux.length > 2) throw new DemasiadosArgumentos();
+                f = new Fecha(aux[1]);
+                break;
+            case 2:
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
+                if (aux.length > 2) throw new DemasiadosArgumentos();
+                if (Fecha.valido(aux[1])) System.out.println("La fecha es valida");
+                else System.out.println("La fecha no es valida");
+                break;
+            case 3:
+                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (f != null) System.out.println(f.ConsultarFecha());
+                else throw new Exception("La fecha no ha sido creada");
+                break;
+            case 4:
+                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (f != null) System.out.println(f.ToString());
+                else throw new Exception("La fecha no ha sido creada");
+                break;
+            case 5:
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
+                if (aux.length > 2) throw new DemasiadosArgumentos();
+                Fecha f1 = new Fecha("1/1/2000");
+                if (f != null) {
+                    if (f.equals(f1)) System.out.println("La fecha es igual a la fecha 1/1/2000");
+                    else System.out.println("La fecha es igual a la fecha 1/1/2000");
+                }
+                else throw new Exception("La fecha no ha sido creada");
+                break;
+            case 6:
+                System.out.println(fin);
+                System.exit(0);
+                break;
+            default:
+                System.out.println(msg);
+                break;
+        }
     }
 
     private static void ImprimirMenu() {
-        System.out.println(menu);
         System.out.println(opcion1);
         System.out.println(opcion2);
         System.out.println(opcion3);
         System.out.println(opcion4);
-    }
-
-    private static void alta(Scanner entrada) {
-        System.out.println("Introduzca la fecha del evento en formato dd/MM/yyyy");
-        String data = entrada.next();
-        try {
-            f = new Fecha(data);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void consulta(Scanner entrada) {
-        System.out.println("Bienvenido a consulta de un evento");
-        try {
-            System.out.println(f.ConsultarFecha());
-        } catch (Exception e) {
-            System.out.println("El evento no existe");
-        }
+        System.out.println(opcion5);
+        System.out.println(msg);
     }
 }
-

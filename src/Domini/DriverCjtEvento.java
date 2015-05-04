@@ -6,20 +6,23 @@ import java.util.Scanner;
  * Created by usuario on 03/05/2015.
  */
 public class DriverCjtEvento {
-    final static String menu = "Bienvenido al driver de evento";
+    final static String menu = "Bienvenido/a al driver de conjunto de eventos";
     final static String opcion1 = "1 CjtEvento()";
-    final static String opcion2 = "2 ModNombre(String name)";
-    final static String opcion3 = "3 ModFecha (String date)";
-    final static String opcion4 = "4 ModImportancia(int importance)";
-    final static String opcion5 = "5 obt_nombre()";
-    final static String opcion6 = "6 obt_fecha()";
-    final static String opcion7 = "7 obtFecha()";
-    final static String opcion8 = "8 ID()";
-    final static String opcion9 = "9 toString()";
-    final static String opcion10 = "10 obt_importancia()";
-    final static String msg = "Introduzca un numero del 1 al 10. 11 para salir";
+    final static String opcion2 = "2 EliminarCjtEvento()";
+    final static String opcion3 = "3 EliminarEvento(String nombre, String fecha)";
+    final static String opcion4 = "4 AgregarEvento(Evento e). Sin argumentos";
+    final static String opcion5 = "5 ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo)";
+    final static String opcion6 = "6 ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva)";
+    final static String opcion7 = "7 ModificarImpEvento(String nombre, String fecha, int importance)";
+    final static String opcion8 = "8 AgregarEventoRandom()";
+    final static String opcion9 = "9 ConsultarTodosEventos()";
+    final static String opcion10 = "10 ConsultarEvento(String nombre, String fecha)";
+    final static String opcion11 = "11 ExisteEvento(String nombre, String fecha)";
+    final static String opcion12 = "12 size()";
+    final static String msg = "Introduzca un numero del 1 al 12. 13 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
-    private static Evento1 e;
+    private static CjtEvento cjt;
+    private static Evento e;
 
     public static void main(String[] args) throws Exception {
         ImprimirMenu();
@@ -41,56 +44,75 @@ public class DriverCjtEvento {
         if (s.length() == 0) throw new ArgumentosInsuficientes();
         switch (Integer.parseInt(aux[0])) {
             case 1:
-                if (aux.length < 4) throw new ArgumentosInsuficientes();
-                if (aux.length > 4) throw new DemasiadosArgumentos();
-                e = new Evento1(aux[1], aux[2], Integer.parseInt(aux[3]));
+                if (aux.length > 1) throw new DemasiadosArgumentos();
+                cjt = new CjtEvento();
                 break;
             case 2:
-                if (aux.length < 2) throw new ArgumentosInsuficientes();
-                if (aux.length > 2) throw new DemasiadosArgumentos();
-                if (e != null) {
-                    e.ModNombre(aux[1]);
-                } else throw new Exception("Evento no existe");
+                if (aux.length > 1) throw new DemasiadosArgumentos();
+                cjt.EliminarCjtEvento();
                 break;
             case 3:
-                if (aux.length < 2) throw new ArgumentosInsuficientes();
-                if (aux.length > 2) throw new DemasiadosArgumentos();
-                if (e != null) {
-                    e.ModFecha(aux[1]);
-                } else throw new Exception("Evento no existe");
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
+                if (aux.length > 3) throw new DemasiadosArgumentos();
+                if (cjt != null) cjt.EliminarEvento(aux[1], aux[2]);
+                else throw new Exception("El conjunto no existe no existe");
                 break;
             case 4:
-                if (aux.length < 2) throw new ArgumentosInsuficientes();
-                if (aux.length > 2) throw new DemasiadosArgumentos();
-                if (e != null) {
-                    e.ModImportancia(Integer.parseInt(aux[1]));
-                } else throw new Exception("Evento no existe");
+                if (aux.length > 1) throw new DemasiadosArgumentos();
+                e = new Evento1("Golf", "5/5/2015", 1);
+                if (cjt != null) cjt.AgregarEvento(e);
+                else throw new Exception("El conjunto no existe no existe");
                 break;
             case 5:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
-                System.out.println(e.obt_nombre());
+                if (aux.length < 4) throw new ArgumentosInsuficientes();
+                if (aux.length > 4) throw new DemasiadosArgumentos();
+                if (cjt != null) cjt.ModificarNombreEvento(aux[1], aux[2], aux[3]);
+                else throw new Exception("El conjunto no existe");
                 break;
             case 6:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
-                System.out.println(e.obt_fecha());
+                if (aux.length < 4) throw new ArgumentosInsuficientes();
+                if (aux.length > 4) throw new DemasiadosArgumentos();
+                if (cjt != null)cjt.ModificarFechaEvento(aux[1], aux[2], aux[3]);
+                else throw new Exception("El conjunto no existe no existe");
                 break;
             case 7:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
-                System.out.println(e.obtFecha());
+                if (aux.length < 4) throw new ArgumentosInsuficientes();
+                if (aux.length > 4) throw new DemasiadosArgumentos();
+                if (cjt != null)cjt.ModificarImpEvento(aux[1], aux[2], Integer.parseInt(aux[3]));
+                else throw new Exception("El conjunto no existe no existe");
                 break;
             case 8:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                System.out.println(e.ID());
+                if (cjt != null) cjt.AgregarEventoRandom();
+                else throw new Exception("El conjunto no existe no existe");
                 break;
             case 9:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                System.out.println(e.toString());
+                if (cjt != null) System.out.println(cjt.ConsultarTodosEventos());
+                else throw new Exception("El conjunto no existe");
                 break;
             case 10:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
-                System.out.println(Integer.toString(e.obt_importancia()));
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
+                if (aux.length > 3) throw new DemasiadosArgumentos();
+                if (cjt != null) System.out.println(cjt.ConsultarEvento(aux[1], aux[2]));
+                else throw new Exception("El conjunto no existe");
                 break;
             case 11:
+                if (aux.length < 3) throw new ArgumentosInsuficientes();
+                if (aux.length > 3) throw new DemasiadosArgumentos();
+                if (cjt != null) {
+                    if (cjt.ExisteEvento(aux[1], aux[2])) System.out.println("El evento existe");
+                    else System.out.println("El evento no existe");
+                }
+                else throw new Exception("El conjunto no existe no existe");
+                break;
+            case 12:
+                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (cjt != null) System.out.println(cjt.size());
+                else throw new Exception("El conjunto no existe no existe");
+                break;
+            case 13:
+                System.out.println(fin);
                 System.exit(0);
                 break;
             default:
@@ -111,6 +133,8 @@ public class DriverCjtEvento {
         System.out.println(opcion8);
         System.out.println(opcion9);
         System.out.println(opcion10);
+        System.out.println(opcion11);
+        System.out.println(opcion12);
         System.out.println(msg);
     }
 }

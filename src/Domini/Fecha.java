@@ -8,10 +8,6 @@ import java.util.regex.PatternSyntaxException;
 public class Fecha {
     private int[] fecha;
 
-    /**
-     * Pre: Cierto
-     * Post: Devuelve true en caso de que dia, mes y año formen una fecha valida
-     */
     private static boolean Correcto(int dia, int mes, int any) throws NoValido{
         if (dia < 1 || dia > 31) throw new NoValido("Dia", 1);
         if (mes <= 0 || mes >= 13) throw new NoValido("Mes", 2);
@@ -24,10 +20,6 @@ public class Fecha {
         return true;
     }
 
-    /**
-     * Pre: data no es vacio
-     * Post: Devuelve si data es una fecha valida
-     */
     public static boolean valido(String data) throws NoValido {
         if (data.equals("")) return false;
         String[] aux = data.split("/");
