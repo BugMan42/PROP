@@ -33,34 +33,76 @@ public class DriverAlgoritmo {
 
     public static void crear_grafo()
     {
-        /*graf = new Grafo(7);
-        Arista a = new Arista(1,2,0);
-        graf.addEdge(a);
-         */
+        Grafo g = new Grafo();
+        System.out.println("Introduzca el número de vértices del grafo a crear:");
+        int cantidad = Integer.parseInt(user_input.next());
+        char ch = 'a';
+        for (int i = 0; i < cantidad; ++i)
+        {
+            try {
+                g.agregarVertice(Character.toString(ch));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ++ch;
+        }
 
+        System.out.println("Introduzca el número de aristas del grafo a crear:");
+        int n_aristas = Integer.parseInt(user_input.next());
+        System.out.println("Introduzca las aristas con el siguiente formato (Nº arista_origen, Nº arista_destino, peso):");
+        for (int j = 0; j < n_aristas; ++j)
+        {
 
+            int v1 = Integer.parseInt(user_input.next());
+            int v2 = Integer.parseInt(user_input.next());
+            double p = Double.parseDouble(user_input.next());
+
+            if ((v1 < cantidad && v1 >= 0) && (v2 < cantidad && v2 >= 0)) {
+                try {
+                    g.agregarArista(v1, v2, p);
+                    g.agregarArista(v2, v1, p);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Vértices incorrecto, operación cancelada");
+                }
+
+            }
+        }
+
+        return;
 
     }
 
     public static void clique()
     {
-       // alg = new Clique();
-        //alg.ejecutar_algoritmo(in, out);
-        //Mostrar grafo resultante
+        try {
+            alg = new Clique(in, out);
+            alg.ejecutar_iteración(in.obtGrafo());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(out.mostrarHistorial());
     }
 
     public static void louvain()
     {
-       // alg = new Louvain();
-       // alg.ejecutar_algoritmo(in, out);
-        //Mostrar grafo resultante
+        try {
+            alg = new Louvain(in, out);
+            alg.ejecutar_iteración(in.obtGrafo());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(out.mostrarHistorial());
     }
 
     public static void girvan_newman()
     {
-        //alg = new Girvan_Newman();
-        //alg.ejecutar_algoritmo(in, out);
-        //Mostrar grafo resultante
+        try {
+            alg = new Girvan_Newman(in, out);
+            alg.ejecutar_iteración(in.obtGrafo());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
