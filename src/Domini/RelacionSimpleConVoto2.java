@@ -9,6 +9,9 @@ public class RelacionSimpleConVoto2 extends RelacionSimple2{
         super(true,a,e);
         V = v;
     }
+    Voto obtVoto() {
+        return V;
+    }
     public String toString() {
         return super.toString()+" "+V;
     }

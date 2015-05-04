@@ -101,9 +101,16 @@ public class pruebas {
         Array1.add(R1_1);
         Array1.add(R1_2);
         print("0: " + Array1.get(0).tieneVoto());
-        print("1: "+Array1.get(1).tieneVoto());
+        print("1: " + Array1.get(1).tieneVoto());
         print(Array1.get(0).toString());
         print(Array1.get(1).toString());
+        print("fin");
+        if (Array1.get(0).tieneVoto()) print(Array1.get(0).obtenerVoto() + "");
+        if (Array1.get(1).tieneVoto()) print(Array1.get(1).obtenerVoto()+"");
+        if (Array2.get(0).tieneVoto()) {
+            RelacionSimpleConVoto2 aux = (RelacionSimpleConVoto2) Array2.get(0);
+            print(aux.obtVoto()+"");
+        }
 
     }
     private static void print(String str) {
