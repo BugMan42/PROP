@@ -7,7 +7,11 @@ public class RelacionSimpleSinVoto1 extends RelacionSimple1 {
     public RelacionSimpleSinVoto1(Congresista a, Evento e) {
         super(false, a, e);
     }
-    Voto obtenerVoto()throws Exception {
+    public Voto obtVoto()throws Exception {
         throw new Exception("No hay voto");
     }
+    public void modVoto(Voto v1) throws Exception {
+        throw new Exception("No hay voto");
+    }
+
 }
