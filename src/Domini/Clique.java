@@ -9,10 +9,6 @@ public class Clique extends Algoritmo {
     private Grafo g;
     private int k;
 
-    /**Creadora de Clique
-     * Pre: in y out no pueden ser nulos
-     * Post: Se ha creado un clique en caso de que la k de entrada sea mayor que 2
-     */
     public Clique(Entrada in, Salida out) throws Exception {
         super(in, out);
         g = in.obtGrafo();
@@ -61,20 +57,12 @@ public class Clique extends Algoritmo {
         void mod_num() {com = true;}
     }
 
-    /**Inserta un nodo en una comunidad
-     * Pre: u tiene que estar en el grafo, 0 <= i < numcomunidades
-     * Post: u pertenece a la comunidad i
-     */
     public void insertar_nodo(int u, int i) throws NoValido {
         if (!g.existeVertice(u)) throw new NoValido("Nodo", 10);
         Set<Integer> s =out.comunidad_at(i);
         s.add(u);
     }
 
-    /**
-     * Pre: Cierto
-     * Post: En salida se encuentran almacenadas las comunidades encontradas en el grafo
-     */
     public void ejecutar_algoritmo() throws Exception {
         //Primera version ineficiente coste n^2
         comunidades c = new comunidades();
@@ -179,8 +167,7 @@ public class Clique extends Algoritmo {
         List<Integer> candidatos = g.nodosSalida(u);
         candidatos.retainAll(g.nodosSalida(v));
         Iterator it = candidatos.listIterator();
-        int x = -1;
-        while (it.hasNext() && (x = (Integer)it.next()) < v) it.remove();
+        while (it.hasNext() && ((Integer)it.next()) < v) it.remove();
         return candidatos;
     }
 

@@ -91,6 +91,7 @@ public class DriverEvento {
                 System.out.println(Integer.toString(e.obt_importancia()));
                 break;
             case 11:
+                System.out.println(fin);
                 System.exit(0);
                 break;
             default:
