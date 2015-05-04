@@ -11,7 +11,6 @@ public class DriverNulo {
         Scanner user_input = new Scanner( System.in );
         int opt = user_input.nextInt();
         Nulo v = new Nulo();
-
         do {
             System.out.println("Driver de Nulo");
             System.out.println("0. Consulta de tipo");
