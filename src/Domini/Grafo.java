@@ -36,6 +36,9 @@ public class Grafo {
             pesos = (LinkedList) N.pesos.clone();
             ady = N.ady;
         }
+        public boolean esVacio() {
+            return pesos.isEmpty();
+        }
         public int obtenerAdy() {
             return ady;
         }
@@ -171,6 +174,7 @@ public class Grafo {
             for(int i = 0; i < entrada.size(); ++i) {
                 if(entrada.get(i).equals(origen)) {
                     entrada.get(i).eliminarArista(peso);
+                    if (entrada.get(i).esVacio()) entrada.remove(i);
                     return;
                 }
             }
@@ -180,6 +184,7 @@ public class Grafo {
             for(int i = 0; i < salida.size(); ++i) {
                 if(salida.get(i).equals(dest)) {
                     salida.get(i).eliminarArista(peso);
+                    if (salida.get(i).esVacio()) salida.remove(i);
                     return;
                 }
             }

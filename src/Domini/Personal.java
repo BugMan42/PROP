@@ -15,12 +15,16 @@ public class Personal extends Reunion{
     }
 
     /**
-     * Pasa un personal a string. Útil a la hora de guardar el objeto.
+     * Pasa un personal a string. ï¿½til a la hora de guardar el objeto.
      * Pre: Cierto
      * Post: Devuelve un string que contiene la palabra ReunionPersonal, el nombre del personal, su fecha y su importancia
      * separados por espacios.
      */
     public String toString() {
         return "ReunionPersonal " + nombre + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
+    }
+
+    public String tipo(){
+        return "ReunionPersonal";
     }
 }

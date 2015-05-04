@@ -22,4 +22,8 @@ public class Profesional extends Reunion {
     public String toString() {
         return "ReunionProfesional " + nombre + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
     }
+
+    public String tipo(){
+        return "ReunionProfesional";
+    }
 }

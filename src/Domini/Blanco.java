@@ -7,12 +7,7 @@ package Domini;
 public class Blanco extends Voto {
 
     //Creadora vacía de Blanco
-    public Blanco() {}
-
-    //Creadora con parámetros de Blanco
-    public Blanco(String dni) throws Exception {
-        super(dni);
-    }
+    public Blanco() { super(); }
 
     @Override
     //Devuelve en un string el nombre de la subclase a la que pertence la instancia

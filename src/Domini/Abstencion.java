@@ -7,12 +7,9 @@ public class Abstencion extends Voto {
 
     //Creadora vacía de Abstención
     public Abstencion() {
+        super();
     }
 
-    //Creadora con parámetros de Abstención
-    public Abstencion(String dni) throws Exception {
-        super(dni);
-    }
 
     @Override
     //Devuelve en un string el nombre de la subclase a la que pertence la instancia
