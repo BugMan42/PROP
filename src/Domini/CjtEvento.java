@@ -62,14 +62,14 @@ public class CjtEvento {
     }
 
     /** Modificadora del nombre de un evento
-     * Pre: nomViejo y nomNuevo no pueden ser vacíos, fecha tiene que ser valida
+     * Pre: nomViejo y nomNuevo no pueden ser vacíos y tienen que ser diferentes, fecha tiene que ser valida
      * el evento especificado por nomViejo y fecha tiene que existir y el
      * evento identificado por nomNuevo y fecha no puede existir
      * Post: Al evento especificado por nomViejo y fecha se le ha cambiado el nombre por nomNuevo
      */
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo) throws Exception{
         Valido(nomViejo, fecha);
-        if (!nomNuevo.equals("")) {
+        if (!nomNuevo.equals("") && !nomNuevo.equals(nomViejo)) {
         //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
             String s[] = fecha.split("/");
             fecha = Integer.toString(Integer.parseInt(s[0]))+Integer.toString(Integer.parseInt(s[1]))+Integer.toString(Integer.parseInt(s[2]));
@@ -89,7 +89,7 @@ public class CjtEvento {
      */
     public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva) throws Exception {
         Valido(nombre, fechaVieja);
-        if (Fecha.valido(fechaNueva)) {
+        if (!fechaVieja.equals(fechaNueva) && Fecha.valido(fechaNueva)) {
             //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque sino no se encontrara el objeto
             String f[] = fechaVieja.split("/");
             fechaVieja = Integer.toString(Integer.parseInt(f[0]))+Integer.toString(Integer.parseInt(f[1]))+Integer.toString(Integer.parseInt(f[2]));

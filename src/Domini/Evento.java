@@ -37,29 +37,29 @@ public abstract class Evento {
     //Modificadoras
 
     /**Modificadora de nombre
-     * Pre: name tiene que ser un string no vac�o
+     * Pre: name tiene que ser un string no vacio y diferente del nombre actual
      * Post: Al nombre del evento se le ha asignado name
      */
     public void ModNombre(String name) throws NoValido{
         if (name.equals("")) throw new NoValido("nombre", 0);
-        nombre = name;
+        if (!nombre.equals(name)) nombre = name;
     }
 
     /**Modificadora de fecha
-     * Pre: date tiene que ser v�lido
+     * Pre: date tiene que ser valido y diferente de la fecha actual
      * Post: A la fecha del evento se le ha asignado date
      */
     public void ModFecha (String date) throws NoValido {
-        fecha = new Fecha(date);
+        if (fecha.ConsultarFecha().equals(date)) fecha = new Fecha(date);
     }
 
     /**Modificadora de importancia
-     * Pre: importancia > 0
+     * Pre: importancia > 0 y diferente de la importancia actual
      * Post: A la importancia del evento se le ha asignado importance
      */
     public void ModImportancia(int importance) throws NoValido {
         if (importance <= 0) throw new NoValido("Importancia", 0);
-        importancia = importance;
+        if (importancia != importance) importancia = importance;
     }
 
     //Consultoras
