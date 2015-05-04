@@ -2,8 +2,8 @@ package Domini;
 
 public class RelacionCompuestaNot extends RelacionCompuesta {
 
-    public RelacionCompuestaNot(Relacion A) {
-        super(A);
+    public RelacionCompuestaNot(Relacion a) {
+        super(a);
     }
 
     //No tiene relacion B---> excepcion
@@ -19,5 +19,9 @@ public class RelacionCompuestaNot extends RelacionCompuesta {
     }
     public boolean esNot() {
         return true;
+    }
+
+    public String toString() {
+        return " NOT ["+super.toString()+"]";
     }
 }

@@ -32,6 +32,10 @@ public class DriverRelacionSimpleConVoto {
         return Input.nextLine();
     }
     public static void main(String[] args) throws Exception {
+        Congresista C1 = new Congresista(new Dni("00000000A"),"Edsger","Dijkstra",72,"Rotterdam","NT","Pirata");
+        Evento E1 = new Profesional("Golf","12/12/2012",10);
+        Voto V1 = new Blanco();
+        R = new RelacionSimpleConVoto(C1,E1,V1);
 
         boolean imprimir = true;
         if (args.length > 0) {

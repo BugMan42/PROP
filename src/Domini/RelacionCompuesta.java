@@ -26,4 +26,8 @@ public abstract class RelacionCompuesta extends Relacion {
         return false;
     }
 
+    public String toString() {
+        return A.toString();
+    }
+
 }

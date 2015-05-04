@@ -22,4 +22,8 @@ public class RelacionCompuestaAnd extends RelacionCompuesta {
     public boolean esNot() {
         return false;
     }
+
+    public String toString() {
+        return super.toString()+" AND "+B.toString();
+    }
 }
