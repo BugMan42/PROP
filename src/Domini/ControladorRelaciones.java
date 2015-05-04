@@ -11,8 +11,8 @@ import java.util.Random;
  * Created by jose on 15/04/15.
  */
 public class ControladorRelaciones {
-    static final private String E1 = "El tipo de evento debe ser: ReunionPersonal, ReunionProfesional o Acto." +
-            " Para votar utiliza agregarVoto(String dni, String nombre, String fecha, String voto)";
+    static final private String E1 = "El tipo de evento debe ser: ReunionPersonal, ReunionProfesional, ActoOficial " +
+            "o ActoNoOficial. Para votar utiliza agregarVoto(String dni, String nombre, String fecha, String voto)";
     static final private String E2 = "El evento debe ser una Votación.";
     static final private String E3 = "Tipo de voto incorrecto. Tipos disponibles: Abstencion, Blanco, Negativo, " +
             "Nulo y Positivo.";
