@@ -5,22 +5,11 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.ArrayList;
 
-//String key must be [a---z]+[A----Z]+[0---9]
+//String key tiene que ser [a---z]+[A----Z]+[0---9]
+// y no puede ser vacia
 public class TST<X>  {
 
-    private X X_clone(X x) throws Exception, InvocationTargetException {
-        for (Class i : x.getClass().getInterfaces())
-            if (i.getName().equals("java.lang.Cloneable")) // Be sure E implements Cloneable.
-                for (Method m : x.getClass().getMethods())
-                    if (m.getName().equals("clone") && // Be sure E has an appropriate clone(),
-                            m.getParameterTypes().length == 0 && // takes no parameters, anx returns
-                            m.getReturnType().getName().equals("java.lang.Object")) // type Object.
-                        return (X) m.invoke(x); // Invoke x.clone(), typecast, and return it.
-        return x;
-    }
-
-
-    //Nodos
+    //Nodos necesarios internos de la clase
     private class TSTNodo {
         TSTNodo left, middle, right;
 
@@ -49,9 +38,8 @@ public class TST<X>  {
             valor = x;
         }
     }
-//#######################################################################################
-//#######################################################################################
-//#######################################################################################
+
+    //Clase
 
     //Atributos clase
     private static char fin = '#'; // marca
@@ -62,6 +50,8 @@ public class TST<X>  {
         root = null;
         N = 0;
     }
+    //Eliminamos el tst mediante la desreferenciacion
+    //Java se ocupa.
     public boolean esVacio() {
         return root == null;
     }
@@ -76,14 +66,17 @@ public class TST<X>  {
 //#######################################################################################
 /**#################################CREADORA COPIADORA##################################*/
 //#######################################################################################
+    //Se intenta clonar el objeto X
     public TST(TST t) throws Exception {
         root = (TSTNodoChar) clonar(t.root, root);
     }
     private TSTNodo clonar(TSTNodo t, TSTNodo c) throws Exception {
         if (t == null) return null;
+
         TSTNodoChar auxt = (TSTNodoChar) t;
         c =  new TSTNodoChar(auxt.valor);
         c.left = clonar(t.left, c.left);
+
         if (auxt.valor == fin) {
             TSTNodoFinal auxt2 = (TSTNodoFinal) t.middle;
             c.middle = new TSTNodoFinal(X_clone(auxt2.valor));
@@ -98,13 +91,16 @@ public class TST<X>  {
 //#######################################################################################
 /**###################################INSERTAR##########################################*/
 //#######################################################################################
-
+    //Al insertar recorremos el arbol y vamos agregando nodo
+    //en el caso que este ya la clave---> Excepcion
     public void insertar(String key, X x) throws Exception {
         root = (TSTNodoChar) insertar(root, key, x, 0);
     }
-
+    //La creacion/recorrido del tst se hace mediante la comparacion de caracteres
+    //es decir segun el caracter del nodo y el caracter de la string
+    //Si es menor se recorre hacia la izquierda si no hacia la derecha
+    //si es igual seguimos por el nodo del medio
     private TSTNodo insertar(TSTNodo t, String key, X x, int l) throws Exception {
-        //if (key.length() == 0) throw new Exception("key vacia");
         char c;
         if (l < key.length()) c = key.charAt(l);
         else c = fin;
@@ -134,7 +130,9 @@ public class TST<X>  {
     public X obtener(String key) throws Exception{
         return obtener(root, key, 0);
     }
-
+    // Se obtiene el objeto con clave key
+    // si no esta ese lanza excepcion
+    // el caso en que no esta es cuando llegamos a un nodo null
     private X obtener(TSTNodo t,String key,int d) throws Exception{
         if (t == null) throw new KeyNotExistsTST(key);
 
@@ -162,7 +160,7 @@ public class TST<X>  {
     public boolean existe(String key) {
         return existe(root, key, 0);
     }
-
+    //se recorre el arbol formando la string key
     private boolean existe(TSTNodo t,String key,int d) {
         if (t == null) return false;
 
@@ -186,19 +184,21 @@ public class TST<X>  {
 
     public void borrar(String key) throws Exception {
         root = (TSTNodoChar) borrar(root, null, key, 0);
-
     }
+    //Para borrar primero llegamos a el nodo con clave key
+    // Si llegamos(existe) se elimina este nodo y se
+    //borrar tantos nodos vacios como haya
     private TSTNodo borrar(TSTNodo t,TSTNodo padre,String key,int d) throws Exception {
+        //si t == null esque no existe el objeto que estamos buscando
         if (t == null) throw new KeyNotExistsTST(key);
 
         char c;
         if (d < key.length()) c = key.charAt(d);
         else c = fin;
         TSTNodoChar tChar = (TSTNodoChar) t;
-        //print(String.valueOf(tChar.valor));
+
         if (c < tChar.valor) {
             t.left =  borrar(t.left, t, key, d);
-            //if (t.left == null) { }
         }
         else if (c > tChar.valor ) {
             t.right = borrar(t.right, t, key, d);
@@ -206,19 +206,19 @@ public class TST<X>  {
         else {
             if (d < key.length()) {
                 t.middle = borrar(t.middle, t, key, d + 1);
-                //if (t.middle == null) print("null");
             }
             else if (tChar.valor==fin) {
-                //FUNCION QUE ELIMINARA EL NODO Y ARREGLARA EL PANORAMA
-                t = t.right;//  eliminarNodo(t);
+                //Segun el convenio de claves garantia
+                // que se pueda hacer esta operacion
+                t = t.right;
                 --N;
             }
             else {
                 throw new KeyNotExistsTST(key);
             }
         }
+        //Eliminar cuando volvemos
         if (t != null && t.left == null && t.right == null && t.middle == null) {
-            //print("null final");
             t = null;
         }
         return t;
@@ -256,26 +256,27 @@ public class TST<X>  {
         }
         return t;
     }
+
 //#######################################################################################
 /**#############################__FALTA EFICIENCIA__#####################################*/
 //#######################################################################################
-
+    //Solo modificamos si la clave nueva es diferente a la vieja
     //Modificación comp --> Modificamos el key pero mantenemos el objeto
-    public void modificar(String oldKey, String newKey) throws Exception{
-        //root = (TSTNodoChar) modificar(root,oldKey,null,newKey,0);
+    public void modificar(String oldKey, String newKey) throws Exception {
         if (!(oldKey.equals(newKey))) {
             modificar(root,oldKey,null,newKey,0);
         }
     }
     //Modificación comp ---> Modificamos el key y canviamos el objeto
-    public void modificar(String oldKey, String newKey, X x) throws Exception{
-        //root = (TSTNodoChar) modificar(root,oldKey,x,newKey,0);
+    public void modificar(String oldKey, String newKey, X x) throws Exception {
         if (!(oldKey.equals(newKey)))    {
             modificar(root,oldKey,x,newKey,0);
         }
     }
 
-    //Modificación Compuesta
+    //Modificación Compuesta falta hacer que si la clave vieja y
+    //la clave nueva tienen un prefijo minimo no hace falta borrar
+    //la clave y insertar, pudiendo reaprovecharel recorrido
     /** FALTA HACER EFICIENTE*/
     private void modificar(TSTNodo t, String oldKey, X x, String newKey,int d) throws Exception {
         if (oldKey.charAt(0) != newKey.charAt(0)) {
@@ -295,7 +296,6 @@ public class TST<X>  {
             if (existe(newKey)) throw new KeyAlreadyExistsTST(newKey);
             borrar(oldKey);
             insertar(newKey,x);
-            //return t;
         }
 
     }
@@ -304,9 +304,9 @@ public class TST<X>  {
         System.out.println(str);
     }
 
-/**##################################################################
-#############################CONSULTAR################################
-#####################################################################*/
+//###################################################################
+/**###########################CONSULTAR#############################*/
+//###################################################################
     public String toString() {
         ArrayList<String> v = new ArrayList<String>();
         imprimir(root, "", v);
@@ -315,7 +315,7 @@ public class TST<X>  {
     /*public String ConsultarClavesString() {
         ArrayList<String> v = new ArrayList<String>();
         imprimir(root, "",v);
-        return "TST_KEYS: "+v;
+        return "TST_CLAVES: "+v;
     }*/
     public ArrayList<String> consultarClaves() {
         ArrayList<String> v = new ArrayList<String>();
@@ -324,21 +324,26 @@ public class TST<X>  {
     }
     private void imprimir(TSTNodo r, String word, ArrayList<String> v) {
         if (r != null) {
+            //hijo izquierdo
             imprimir(r.left, word,v);
+            //Hijo del medio
             TSTNodoChar rChar = (TSTNodoChar)r;
             if (rChar.valor == fin) v.add(word);
             else imprimir(r.middle, word+rChar.valor,v);
+            //hijo derecho
             imprimir(r.right, word, v);
         }
     }
-
+    //Utilizamos una lista inmodificable para
+    //asegurarnos que no nos pueden modificar nada
     public List<X> consultarObjetos() {
         List<X> v = new ArrayList<X>();
         imprimir2(root, "", v);
         List<X> aux = Collections.unmodifiableList(v);
         return aux;
     }
-
+    //Funcion muy semejante a imprimir solo que costruimos una
+    //lista de X
     private void imprimir2(TSTNodo t, String word, List<X> v) {
         if (t != null) {
             imprimir2(t.left, word, v);
@@ -352,6 +357,17 @@ public class TST<X>  {
         }
     }
 
+    //funcion que recorre el "arbol del objeto" para ver si contiene la funcion cloanar
+    private X X_clone(X x) throws Exception {
+        for (Class i : x.getClass().getInterfaces())
+            if (i.getName().equals("java.lang.Cloneable")) //Nos aseguramos que tiene la interfaz cloneable
+                for (Method m : x.getClass().getMethods())
+                    if (m.getName().equals("clone") && // No aseguramos que tiene un clon() apropiado
+                            m.getParameterTypes().length == 0 &&
+                            m.getReturnType().getName().equals("java.lang.Object"))
+                        return (X) m.invoke(x); // Invocamos clone si no copia
+        return x;
+    }
 
 
 }

@@ -23,6 +23,18 @@ public class Congreso {
     public void agregarCongresista(Congresista c) throws Exception {
         tst.insertar(c.ID(),c);
     }
+    public void agregarCongresistaRandom() throws Exception {
+        Random rand = new Random();
+        String[] names = {"Dijkstra", "Neumamnn", "Edsger","Gordon","Moore","Richard","Hamming","Max","Newman","Allen","Newll","Jon-Von","Neumann","Alan","Turing"}; //15
+        String[] dnis = {"00000000a","00000000d","00000000c","00000000b","00000000y","00000000e","00000000g","00000000f"}; // 8
+        int randomNum = rand.nextInt((100 - 0) + 1) ;
+        int name = rand.nextInt((14 - 0) + 1) ;
+        int surname = rand.nextInt((14 - 0) ) ;
+        int dni = rand.nextInt((8 - 0) + 1) ;
+        Congresista c = new Congresista(new Dni(dnis[dni]),names[name],names[surname],randomNum,"Londres","Londres","Progresista");
+        tst.insertar(c.ID(),c);
+
+    }
 
     public void eliminarCongresista(Dni dni) throws Exception {
         try {
