@@ -10,7 +10,6 @@ public class Abstencion extends Voto {
         super();
     }
 
-
     @Override
     //Devuelve en un string el nombre de la subclase a la que pertence la instancia
     public String obt_tipo() {

@@ -1,10 +1,13 @@
 package Domini;
 
-/**
- * Created by bug on 23/03/15.
- */
+
 public class DriverRelacion {
     public static void main(String[] args) {
-
+        Relacion r = new RelacionDriver();
+        print("Driver Relacion");
+        print("Relacion es Simple: "+r.esSimple());
+    }
+    public static void print(String str) {
+        System.out.println(str);
     }
 }

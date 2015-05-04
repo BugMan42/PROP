@@ -4,16 +4,20 @@ import Persistencia.ControladorPersistencia;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by jose on 15/04/15.
  */
 public class ControladorRelaciones {
-    static final private String E1 = "El tipo de evento debe ser: ReunionPersonal, ReunionProfesional o Acto." +
-            " Para votar utiliza agregarVoto(String dni, String nombre, String fecha, String voto)";
+    static final private String E1 = "El tipo de evento debe ser: ReunionPersonal, ReunionProfesional, ActoOficial " +
+            "o ActoNoOficial. Para votar utiliza agregarVoto(String dni, String nombre, String fecha, String voto)";
     static final private String E2 = "El evento debe ser una Votación.";
     static final private String E3 = "Tipo de voto incorrecto. Tipos disponibles: Abstencion, Blanco, Negativo, " +
             "Nulo y Positivo.";
+    static final private String E4 = "Para crear una relación aleatoria debe existir al menos un congresista " +
+            "en el congreso y un evento en el conjunto de eventos.";
 
 
     private static final int max_lineas_guardar = 300;
@@ -51,6 +55,33 @@ public class ControladorRelaciones {
         else throw new Exception(E3);
         RelacionSimple r = new RelacionSimpleConVoto(con,ev,v);
         rs.agregarRelacion(r);
+    }
+
+    public void agregarRelacionRandom() throws Exception {
+        if(!c.esVacio() && e.size() > 0){
+            List<Congresista> lc = c.obtenerCongreso();
+            List<Evento> le = e.ConsultarTodosEventos();
+            Random r = new Random();
+            Congresista con = lc.get(r.nextInt(lc.size()));
+            Evento ev = le.get(r.nextInt(le.size()));
+            if(ev.tipo().equals("Votacion")) {
+                String tipo = "Abstencion";
+                int rand = r.nextInt(5);
+                switch (rand){
+                    case 1: tipo = "Blanco";
+                        break;
+                    case 2: tipo = "Negativo";
+                        break;
+                    case 3: tipo = "Nulo";
+                        break;
+                    case 4: tipo = "Positivo";
+                        break;
+                }
+                agregarVoto(con.ID(),ev.obt_nombre(),ev.obt_fecha(),tipo);
+            }
+            else agregarRelacion(con.ID(),ev.obt_nombre(),ev.obt_fecha());
+        }
+        else throw new Exception(E4);
     }
 
     public void eliminarRelacion(String dni, String nombre, String fecha) throws Exception {
