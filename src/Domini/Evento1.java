@@ -11,4 +11,8 @@ public class Evento1 extends Evento {
     public String toString() {
         return "Evento " + nombre + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
     }
+
+    public String tipo() {
+        return "Evento";
+    }
 }

@@ -3,16 +3,16 @@ package Domini;
 import java.util.Scanner;
 
 /**
- * Created by usuario on 03/05/2015.
+ * Created by usuario on 04/05/2015.
  */
-public class DriverReunion {
-    final static String menu = "Bienvenido/a al driver de reunion";
-    final static String opcion1 = "1 Reunion(String name, String date, int importance)";
+public class DriverNoOficial {
+    final static String menu = "Bienvenido/a al driver de ActoNoOficial";
+    final static String opcion1 = "1 NoOficial (String nombre, String fecha, int importancia)";
     final static String opcion2 = "2 toString()";
     final static String opcion3 = "3 tipo()";
     final static String msg = "Introduzca un numero del 1 al 3. 4 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
-    private static Reunion1 r;
+    private static NoOficial n;
 
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);
@@ -37,16 +37,16 @@ public class DriverReunion {
             case 1:
                 if (aux.length < 4) throw new ArgumentosInsuficientes();
                 if (aux.length > 4) throw new DemasiadosArgumentos();
-                r = new Reunion1(aux[1], aux[2], Integer.parseInt(aux[3]));
+                n = new NoOficial(aux[1], aux[2], Integer.parseInt(aux[3]));
                 break;
             case 2:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                if (r != null) System.out.println(r.toString());
+                if (n != null) System.out.println(n.toString());
                 else throw new Exception("El acto no ha sido creado");
                 break;
             case 3:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                if (r != null) System.out.println(r.tipo());
+                if (n != null) System.out.println(n.tipo());
                 else throw new Exception("El acto no ha sido creado");
                 break;
             case 4:

@@ -60,7 +60,5 @@ public abstract class Evento {
         return importancia;
     }
 
-    public String tipo(){
-        return "";
-    }
+    public abstract String tipo();
 }
