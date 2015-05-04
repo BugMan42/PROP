@@ -44,4 +44,8 @@ public class Votacion extends Evento {
     public String toString() {
         return "Votacion " + nombre + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
     }
+
+    public String tipo(){
+        return "Votacion";
+    }
 }

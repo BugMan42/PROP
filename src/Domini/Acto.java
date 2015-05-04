@@ -23,4 +23,8 @@ public class Acto extends Evento {
     public String toString() {
         return "Acto "+ nombre + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
     }
+
+    public String tipo(){
+        return "Acto";
+    }
 }

@@ -105,4 +105,8 @@ public abstract class Evento {
     public int obt_importancia() {
         return importancia;
     }
+
+    public String tipo(){
+        return "";
+    }
 }
