@@ -4,9 +4,11 @@ package Domini;
  * Created on 15/04/15.
  */
 public class ControladorAlgoritmo {
+
     private Entrada in;
     private Algoritmo alg;
     private Salida out;
+    //Referencia a un ControladorRelacioes creado previamente
     private ControladorRelaciones crel;
 
     public ControladorAlgoritmo(ControladorRelaciones cr)
@@ -22,6 +24,7 @@ public class ControladorAlgoritmo {
         //in.modGrafo(crel.generar_grafo_relaciones());
     }
 
+    //Modifica el parámetro de la entrada
     public void modParamEntrada(String p) // Serán Strings
     {
         in.modParam1(Double.parseDouble(p));
@@ -40,7 +43,7 @@ public class ControladorAlgoritmo {
         else if (s.equals("c")) alg = new Clique(in, out);
     }
 
-
+    //Ejecuta el algoritmo seleccionado según la entrada creada(in), y escribe resultados en la salida (out)
     public void ejecutar() throws Exception
     {
         alg.ejecutar_algoritmo();
@@ -56,6 +59,7 @@ public class ControladorAlgoritmo {
         alg.ejecutar_iteración(in.obtGrafo());
     }
 
+    //Devuelve una refernecia de la Salida
     public Salida obtSalida()
     {
         return out;
