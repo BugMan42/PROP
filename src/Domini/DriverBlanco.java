@@ -9,13 +9,15 @@ public class DriverBlanco {
 
     public static void main(String[] args){
         Scanner user_input = new Scanner( System.in );
-        int opt = user_input.nextInt();
-        Abstencion v = new Abstencion();
+        int opt;
+        Blanco v = new Blanco();
 
         do {
-            System.out.println("Driver de Abstención");
+            System.out.println("Driver de Blanco");
             System.out.println("0. Consulta de tipo");
             System.out.println("1. Ayuda");
+            System.out.println("2. Salir");
+            opt = user_input.nextInt();
             switch (opt)
             {
                 case 0:

@@ -9,13 +9,15 @@ public class DriverPositivo {
 
     public static void main(String[] args){
         Scanner user_input = new Scanner( System.in );
-        int opt = user_input.nextInt();
+        int opt;
         Positivo v = new Positivo();
 
         do {
-            System.out.println("Driver de Positivo");
+            System.out.println("\nDriver de Positivo");
             System.out.println("0. Consulta de tipo");
             System.out.println("1. Ayuda");
+            System.out.println("2. Salir");
+            opt = user_input.nextInt();
             switch (opt)
             {
                 case 0:

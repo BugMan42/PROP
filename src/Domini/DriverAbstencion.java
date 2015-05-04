@@ -9,13 +9,14 @@ public class DriverAbstencion {
 
     public static void main(String[] args){
         Scanner user_input = new Scanner( System.in );
-        int opt = user_input.nextInt();
+        int opt;
         Abstencion v = new Abstencion();
-
         do {
-            System.out.println("Driver de Abstención");
+            System.out.println("\nDRIVER DE ABSTENCIÓN");
             System.out.println("0. Consulta de tipo");
             System.out.println("1. Ayuda");
+            System.out.println("2. Salir");
+            opt = user_input.nextInt();
             switch (opt)
             {
                 case 0:
@@ -27,7 +28,7 @@ public class DriverAbstencion {
                 default:
                     System.out.println("Vuelva a introducir un número.");
             }
-            opt = user_input.nextInt();
+
         } while (opt != 2);
 
     }
