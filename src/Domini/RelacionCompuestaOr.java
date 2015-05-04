@@ -24,6 +24,6 @@ public class RelacionCompuestaOr extends RelacionCompuesta{
     }
 
     public String toString() {
-        return super.toString()+" OR "+B.toString();
+        return "["+super.toString()+"] OR ["+B.toString()+"]";
     }
 }
