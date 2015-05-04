@@ -14,18 +14,18 @@ public abstract class Algoritmo {
 
     //Constructor de algoritmo con parámetros
     /*
-    Nos permite utilizar una entrada y una salida previamente inicializadas
-     */
+    *   Nos permite utilizar una entrada y una salida previamente inicializadas
+    */
     public Algoritmo(Entrada i, Salida o) throws Exception {
         in = i;
         out = o;
     }
 
     public void ejecutar_algoritmo() throws Exception {
-    };
+    }
 
     public void ejecutar_iteración(Grafo g) throws Exception {
 
-    };
+    }
 
 }

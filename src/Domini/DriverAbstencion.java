@@ -10,10 +10,10 @@ public class DriverAbstencion {
     public static void main(String[] args){
         Scanner user_input = new Scanner( System.in );
         int opt = user_input.nextInt();
-        Blanco v = new Blanco();
+        Abstencion v = new Abstencion();
 
         do {
-            System.out.println("Driver de Blanco");
+            System.out.println("Driver de Abstención");
             System.out.println("0. Consulta de tipo");
             System.out.println("1. Ayuda");
             switch (opt)
