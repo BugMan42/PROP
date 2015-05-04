@@ -42,8 +42,8 @@ public class ControladorCjtEvento {
     }
 
     public void AgregarActo(String nombre, String fecha, int importancia) throws Exception{
-        Acto a = new Acto(nombre, fecha, importancia);
-        ce.AgregarEvento(a);
+        //Acto a = new Acto(nombre, fecha, importancia);
+        //ce.AgregarEvento(a);
     }
 
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo) throws Exception{
