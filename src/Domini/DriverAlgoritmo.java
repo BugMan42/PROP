@@ -22,6 +22,8 @@ public class DriverAlgoritmo {
     private static Salida out;
 
     public static void main(String[] args) throws ReflectiveOperationException {
+        in = new Entrada(new Grafo(), 2);
+        out = new Salida();
         int opcion;
         do {
             print_menu();
@@ -69,7 +71,7 @@ public class DriverAlgoritmo {
             }
         }
 
-        return;
+        in.modGrafo(g);
 
     }
 
@@ -107,7 +109,7 @@ public class DriverAlgoritmo {
     }
 
     public static void ayuda() {
-        System.out.println("Driver de los algorismos");
+        System.out.println("Driver de los algoritmos");
         System.out.println("En el menú, seleccione la opción que desee. Para salir, utilice la opción 6.");
     }
 

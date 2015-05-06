@@ -17,6 +17,7 @@ public class DriverBlanco {
             System.out.println("0. Consulta de tipo");
             System.out.println("1. Ayuda");
             System.out.println("2. Salir");
+            System.out.println("Introduzca el número de la opción que desee.");
             opt = user_input.nextInt();
             switch (opt)
             {
@@ -25,6 +26,8 @@ public class DriverBlanco {
                     break;
                 case 1:
                     System.out.println("AYUDA: Introduce el número de la opción que prefieras.");
+                    break;
+                case 2:
                     break;
                 default:
                     System.out.println("Vuelva a introducir un número.");

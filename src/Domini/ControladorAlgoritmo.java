@@ -19,9 +19,9 @@ public class ControladorAlgoritmo {
     }
 
     // Dado el controlador de relaciones que pasas como parametro, se crea el grafo correspondiente
-    public void crearGrafo()
-    {
-        //in.modGrafo(crel.generar_grafo_relaciones());
+    public void crearGrafo() throws Exception {
+        crel.crearGrafoRelaciones();
+        in.modGrafo(crel.crearGrafoAlgoritmo());
     }
 
     //Modifica el parámetro de la entrada
@@ -39,7 +39,7 @@ public class ControladorAlgoritmo {
     public void seleccionAlgoritmo(String s) throws Exception
     {
         if (s.equals("g")) alg = new Girvan_Newman(in, out);
-        //else if (s.equals("l")) alg = new Louvain(in, out); #falta descomentar en Louvain
+        else if (s.equals("l")) alg = new Louvain(in, out);
         else if (s.equals("c")) alg = new Clique(in, out);
     }
 

@@ -21,7 +21,7 @@ public class DriverNegativo {
             switch (opt)
             {
                 case 0:
-                    System.out.println(v.toString());
+                    System.out.println(v.mostrarInfo());
                     break;
                 case 1:
                     System.out.println("AYUDA: Introduce el número de la opción que prefieras.");
@@ -29,7 +29,7 @@ public class DriverNegativo {
                 default:
                     System.out.println("Vuelva a introducir un número.");
             }
-            opt = user_input.nextInt();
+
         } while (opt != 2);
 
     }

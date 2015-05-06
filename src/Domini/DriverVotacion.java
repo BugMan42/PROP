@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class DriverVotacion {
 
     final static String text1 = "***DRIVER DE VOTACIÓN***";
+    final static String opcion0 = "***0.-CREACIÓN DE VOTACIÓN";
     final static String opcion1 = "***1.-CONSULTA DE VOTACIÓN";
     final static String opcion5 = "***2.-AYUDA";
     final static String opcion6 = "***3.-SALIR";
@@ -35,7 +36,7 @@ public class DriverVotacion {
 
     public static void consulta()
     {
-        vt.toString();
+        System.out.println(vt.toString());
     }
 
     public static void ayuda() {
@@ -46,20 +47,41 @@ public class DriverVotacion {
     public static void print_menu()
     {
         System.out.println("\n"+text1);
+        System.out.println(opcion0);
         System.out.println(opcion1);
         System.out.println(opcion5);
         System.out.println(opcion6);
         System.out.println("\nEscribe el número de la opción que quieras:");
     }
 
+    public static void creacion()
+    {
+        System.out.println("\nIntroduzca el nombre, la fecha y la importancia del evento:");
+        String s1 = user_input.next();
+        String s2 = user_input.next();
+        Integer s3 = user_input.nextInt();
+
+        try {
+            vt = new Votacion(s1, s2, s3);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     public static void decide(int opt) throws InstantiationException, IllegalAccessException {
         switch (opt)
         {
+            case 0:
+                creacion();
+                break;
             case 1:
                 consulta();
                 break;
             case 2:
                 ayuda();
+                break;
+            case 3:
                 break;
             default:
                 System.out.println("Opción incorrecta, vuelve a introducir un número");
