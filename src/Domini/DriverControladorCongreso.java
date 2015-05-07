@@ -10,6 +10,8 @@ public class DriverControladorCongreso {
     private static final String E1 = "Número de parámetros incorrecto.";
 
     private ControladorCongreso cc;
+    private ControladorCjtEvento ce;
+    private ControladorRelaciones cr;
 
     public static void main(String[] args) {
         boolean imp = true;
@@ -17,6 +19,8 @@ public class DriverControladorCongreso {
 
         DriverControladorCongreso dcc = new DriverControladorCongreso();
         dcc.cc = new ControladorCongreso();
+        dcc.ce = new ControladorCjtEvento();
+        dcc.cr = new ControladorRelaciones(dcc.cc,dcc.ce);
         Scanner ui = new Scanner(System.in);
         int op;
         do {
@@ -53,11 +57,11 @@ public class DriverControladorCongreso {
                         break;
                     case 6:
                         dcc.validar_num_params(params, 2);
-                        dcc.cc.eliminarCongresista(params[1]);
+                        dcc.cc.eliminarCongresista(params[1],dcc.cr);
                         break;
                     case 7:
                         dcc.validar_num_params(params, 1);
-                        dcc.cc.eliminarCongreso();
+                        dcc.cc.eliminarCongreso(dcc.cr);
                         break;
                     case 8:
                         dcc.validar_num_params(params,3);
@@ -85,12 +89,12 @@ public class DriverControladorCongreso {
                         break;
                     case 14:
                         dcc.validar_num_params(params,3);
-                        dcc.cc.modDniCongresista(params[1], params[2]);
+                        dcc.cc.modDniCongresista(params[1], params[2], dcc.cr);
                         break;
                     case 15:
                         dcc.validar_num_params(params,9);
                         dcc.cc.modCongresista(params[1], params[2], params[3], params[4], Integer.parseInt(params[5]),
-                                params[6], params[7], params[8]);
+                                params[6], params[7], params[8], dcc.cr);
                         break;
                     case 16:
                         dcc.validar_num_params(params,2);
@@ -106,7 +110,7 @@ public class DriverControladorCongreso {
                         break;
                     case 19:
                         dcc.validar_num_params(params, 2);
-                        dcc.cc.cargar(params[1]);
+                        dcc.cc.cargar(params[1], dcc.cr);
                         break;
                 }
             }

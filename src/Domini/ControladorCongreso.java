@@ -47,13 +47,15 @@ public class ControladorCongreso {
         return c.contieneCongresista(d);
     }
 
-    public void eliminarCongresista(String dni) throws Exception {
+    public void eliminarCongresista(String dni, ControladorRelaciones cr) throws Exception {
+        if(cr.tieneRelaciones(dni)) cr.eliminarRelaciones(dni);
         Dni d = new Dni(dni);
         c.eliminarCongresista(d);
     }
 
-    public void eliminarCongreso() {
+    public void eliminarCongreso(ControladorRelaciones cr) throws Exception {
         c.eliminarCongreso();
+        cr.eliminarRelaciones();
     }
 
     public void modNombreCongresista(String dni, String nombre) throws Exception {
@@ -86,14 +88,16 @@ public class ControladorCongreso {
         c.modPartidoCongresista(d, partido);
     }
 
-    public void modDniCongresista(String dni, String dni_nuevo) throws Exception {
+    public void modDniCongresista(String dni, String dni_nuevo, ControladorRelaciones cr) throws Exception {
+        if(cr.tieneRelaciones(dni)) cr.modCongresista(dni,dni_nuevo);
         Dni d = new Dni(dni);
         Dni d_nuevo = new Dni(dni_nuevo);
         c.modDniCongresista(d, d_nuevo);
     }
 
     public void modCongresista(String dni, String dni_nuevo, String nombre, String apellido, int edad, String ciudad,
-                               String estado, String partido) throws  Exception{
+                               String estado, String partido, ControladorRelaciones cr) throws  Exception{
+        if(cr.tieneRelaciones(dni)) cr.modCongresista(dni,dni_nuevo);
         Dni d = new Dni(dni);
         Dni d_nuevo = new Dni(dni_nuevo);
         c.modCongresista(d, d_nuevo, nombre, apellido, edad, ciudad, estado, partido);
@@ -127,10 +131,10 @@ public class ControladorCongreso {
         }
     }
 
-    public void cargar(String ruta) throws Exception {
+    public void cargar(String ruta, ControladorRelaciones cr) throws Exception {
         ControladorPersistencia cp = new ControladorPersistencia(ruta);
         cp.abrirLectura();
-        c.eliminarCongreso();
+        eliminarCongreso(cr);
         String r = cp.leer(max_lineas_cargar);
         while (!r.equals("")){
             String[] aux = r.split("\n");

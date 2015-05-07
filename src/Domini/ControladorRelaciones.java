@@ -84,11 +84,54 @@ public class ControladorRelaciones {
         else throw new Exception(E4);
     }
 
+    public boolean existeRelacion(String dni, String nombre, String fecha) throws Exception{
+        Evento ev = e.ConsultarEvento(nombre, fecha);
+        if(ev.tipo().equals("Votacion")) throw new Exception(E1);
+        Congresista con = c.consultarCongresista(dni);
+        RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
+        return rs.existeRelacion(r);
+    }
+
+    public boolean existeVoto(String dni, String nombre, String fecha, String voto) throws Exception {
+        Evento ev = e.ConsultarEvento(nombre, fecha);
+        if(!ev.tipo().equals("Votacion")) throw new Exception(E2);
+        Congresista con = c.consultarCongresista(dni);
+        Voto v;
+        if (voto.equals("Abstencion")) v = new Abstencion();
+        else if (voto.equals("Blanco")) v = new Blanco();
+        else if (voto.equals("Negativo")) v = new Negativo();
+        else if (voto.equals("Nulo")) v = new Nulo();
+        else if (voto.equals("Positivo")) v = new Positivo();
+        else throw new Exception(E3);
+        RelacionSimple r = new RelacionSimpleConVoto(con,ev,v);
+        return rs.existeRelacion(r);
+    }
+
+    public boolean tieneRelaciones(String dni) throws Exception{
+        Congresista con = c.consultarCongresista(dni);
+        return rs.tieneRelaciones(con);
+    }
+
+    public boolean tieneRelaciones(String nombre, String fecha) throws Exception{
+        Evento ev = e.ConsultarEvento(nombre, fecha);
+        return rs.tieneRelaciones(ev);
+    }
+
     public void eliminarRelacion(String dni, String nombre, String fecha) throws Exception {
         Congresista con = c.consultarCongresista(dni);
         Evento ev = e.ConsultarEvento(nombre, fecha);
         RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
         rs.eliminarRelacion(r);
+    }
+
+    public void eliminarRelaciones(String dni) throws Exception {
+        Congresista con = c.consultarCongresista(dni);
+        rs.eliminarRelaciones(con);
+    }
+
+    public void eliminarRelaciones(String nombre, String fecha) throws Exception {
+        Evento ev = e.ConsultarEvento(nombre, fecha);
+        rs.eliminarRelaciones(ev);
     }
 
     public void eliminarRelaciones() throws Exception {
@@ -115,12 +158,24 @@ public class ControladorRelaciones {
         return rs.obtRelaciones(ev);
     }
 
+    ArrayList<Evento> obtEventos(){
+        return rs.obtEventos();
+    }
+
     ArrayList<Congresista> obtCongresistas(){
         return rs.obtCongresistas();
     }
 
     ArrayList<RelacionSimple> obtTodasLasRelaciones() throws Exception {
         return rs.obtTodasLasRelaciones();
+    }
+
+    public void modEvento(String id, String new_id) throws Exception {
+        rs.modEvento(id, new_id);
+    }
+
+    public void modCongresista(String id, String new_id) throws Exception{
+        rs.modCongresista(id,new_id);
     }
 
     public void guardar(String ruta) throws Exception {

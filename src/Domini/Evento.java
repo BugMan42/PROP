@@ -28,7 +28,7 @@ public abstract class Evento {
     }
 
     public void ModFecha (String date) throws NoValido {
-        if (fecha.ConsultarFecha().equals(date)) fecha = new Fecha(date);
+        fecha = new Fecha(date);
     }
 
     public void ModImportancia(int importance) throws NoValido {

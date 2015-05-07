@@ -63,13 +63,16 @@ public class Relaciones {
             congresistas = new ArrayList<RelacionSimple>();
             congresistas.add(0,r);
         }
+        public Evento obtEvento() {
+            return congresistas.get(0).obtEvento();
+        }
         public boolean esVacio() {
             return congresistas.size() == 0;
         }
         public void agregarRelacion(RelacionSimple r) throws Exception {
             int i;
             for (i = 0; i < congresistas.size(); ++i) {
-                if (congresistas.get(i).obtEvento().ID().equals(r.obtEvento())) {
+                if (congresistas.get(i).obtCongresista().ID().equals(r.obtCongresista().ID())) {
                     throw new Exception("Ya existe la RelacionSimple");
                 }
             }
@@ -77,7 +80,7 @@ public class Relaciones {
         }
         public void eliminarRelacion(RelacionSimple r) throws Exception {
             for (int i = 0; i < eventos.size(); ++i) {
-                if (congresistas.get(i).obtEvento().ID().equals(r.obtEvento().ID())) {
+                if (congresistas.get(i).obtCongresista().ID().equals(r.obtCongresista().ID())) {
                     congresistas.remove(i);
                     return;
                 }
@@ -124,6 +127,14 @@ public class Relaciones {
     public boolean existeRelacion(RelacionSimple r) throws Exception {
         return congresistas.obtener(r.obtCongresista().ID()).existeRelacion(r);
     }
+    public boolean tieneRelaciones(Congresista c) throws Exception {
+        ArrayList<String> sc = congresistas.consultarClaves();
+        return sc.contains(c.ID());
+    }
+    public boolean tieneRelaciones(Evento e) throws Exception {
+        ArrayList<String> se = eventos.consultarClaves();
+        return se.contains(e.ID());
+    }
     public void eliminarRelacion(RelacionSimple r) throws Exception {
         NodeC aux = congresistas.obtener(r.obtCongresista().ID());
         aux.eliminarRelacion(r);
@@ -131,6 +142,14 @@ public class Relaciones {
         NodeE aux2 = eventos.obtener(r.obtEvento().ID());
         aux2.eliminarRelacion(r);
         if (aux2.esVacio()) eventos.borrar(r.obtEvento().ID());
+    }
+    public void eliminarRelaciones(Congresista c) throws Exception {
+        ArrayList<RelacionSimple> r = new ArrayList<RelacionSimple>(obtRelaciones(c));
+        for(RelacionSimple rs : r) eliminarRelacion(rs);
+    }
+    public void eliminarRelaciones(Evento e) throws Exception {
+        ArrayList<RelacionSimple> r = new ArrayList<RelacionSimple>(obtRelaciones(e));
+        for(RelacionSimple rs : r) eliminarRelacion(rs);
     }
     public void eliminarRelaciones() throws Exception {
         congresistas.vaciar();
@@ -147,6 +166,15 @@ public class Relaciones {
     }
     public ArrayList<RelacionSimple> obtRelaciones(Evento e) throws Exception {
         return eventos.obtener(e.ID()).obtenerRelaciones();
+    }
+    public ArrayList<Evento> obtEventos() {
+        List<NodeE> array = eventos.consultarObjetos();
+        ArrayList<Evento> aux = new ArrayList<Evento>();
+        ListIterator<NodeE> it = array.listIterator();
+        while (it.hasNext()) {
+            aux.add(it.next().obtEvento());
+        }
+        return aux;
     }
     public ArrayList<Congresista> obtCongresistas() {
         List<NodeC> array = congresistas.consultarObjetos();
@@ -165,9 +193,14 @@ public class Relaciones {
         }
         return array;
     }
-
-    private static void print(String str) {
-        System.out.println(str);
+    public void modEvento(String id, String new_id) throws Exception {
+        NodeE ne = eventos.obtener(id);
+        eventos.borrar(id);
+        eventos.insertar(new_id,ne);
     }
-
+    public void modCongresista(String id, String new_id) throws Exception {
+        NodeC nc = congresistas.obtener(id);
+        congresistas.borrar(id);
+        congresistas.insertar(new_id,nc);
+    }
 }

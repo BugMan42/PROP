@@ -43,118 +43,171 @@ public class DriverControladorRelaciones {
                         dr.print(dr.cc.obtenerCongreso().toString());
                         break;
                     case 2:
-                        if(params.length!=2) throw new Exception(E1);
-                        dr.cc.eliminarCongresista(params[1]);
+                        if(params.length!=3) throw new Exception(E1);
+                        dr.cc.modDniCongresista(params[1], params[2], dr.cr);
                         break;
                     case 3:
-                        if(params.length!=1) throw new Exception(E1);
-                        dr.cc.eliminarCongreso();
+                        if(params.length!=9) throw new Exception(E1);
+                        dr.cc.modCongresista(params[1], params[2], params[3], params[4], Integer.parseInt(params[5]),
+                                params[6], params[7], params[8], dr.cr);
                         break;
                     case 4:
                         if(params.length!=2) throw new Exception(E1);
-                        dr.cc.guardar(params[1]);
+                        dr.cc.eliminarCongresista(params[1], dr.cr);
                         break;
                     case 5:
-                        if(params.length!=2) throw new Exception(E1);
-                        dr.cc.cargar(params[1]);
+                        if(params.length!=1) throw new Exception(E1);
+                        dr.cc.eliminarCongreso(dr.cr);
                         break;
                     case 6:
-                        if(params.length!=4) throw new Exception(E1);
-                        dr.ce.AgregarVotacion(params[1], params[2], Integer.parseInt(params[3]));
+                        if(params.length!=2) throw new Exception(E1);
+                        dr.cc.guardar(params[1]);
                         break;
                     case 7:
-                        if(params.length!=4) throw new Exception(E1);
-                        dr.ce.AgregarReunionPersonal(params[1], params[2], Integer.parseInt(params[3]));
+                        if(params.length!=2) throw new Exception(E1);
+                        dr.cc.cargar(params[1], dr.cr);
                         break;
                     case 8:
                         if(params.length!=4) throw new Exception(E1);
-                        dr.ce.AgregarReunionProfesional(params[1], params[2], Integer.parseInt(params[3]));
+                        dr.ce.AgregarVotacion(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 9:
                         if(params.length!=4) throw new Exception(E1);
-                        dr.ce.AgregarActoOficial(params[1], params[2], Integer.parseInt(params[3]));
+                        dr.ce.AgregarReunionPersonal(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 10:
                         if(params.length!=4) throw new Exception(E1);
-                        dr.ce.AgregarActoNoOficial(params[1], params[2], Integer.parseInt(params[3]));
+                        dr.ce.AgregarReunionProfesional(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 11:
+                        if(params.length!=4) throw new Exception(E1);
+                        dr.ce.AgregarActoOficial(params[1], params[2], Integer.parseInt(params[3]));
+                        break;
+                    case 12:
+                        if(params.length!=4) throw new Exception(E1);
+                        dr.ce.AgregarActoNoOficial(params[1], params[2], Integer.parseInt(params[3]));
+                        break;
+                    case 13:
                         if(params.length!=1) throw new Exception(E1);
                         dr.ce.AgregarEventoRandom();
                         break;
-                    case 12:
+                    case 14:
                         if(params.length!=1) throw new Exception(E1);
                         dr.print(dr.ce.ConsultarTodosEventos().toString());
                         break;
-                    case 13:
-                        if(params.length!=3) throw new Exception(E1);
-                        dr.ce.EliminarEvento(params[1], params[2]);
-                        break;
-                    case 14:
-                        if(params.length!=1) throw new Exception(E1);
-                        dr.ce.EliminarCjtEvento();
-                        break;
                     case 15:
+                        if(params.length!=4) throw new Exception(E1);
+                        dr.ce.ModificarNombreEvento(params[1], params[2], params[3], dr.cr);
+                        break;
+                    case 16:
+                        if(params.length!=4) throw new Exception(E1);
+                        dr.ce.ModificarFechaEvento(params[1], params[2], params[3], dr.cr);
+                        break;
+                    case 17:
+                        if(params.length!=3) throw new Exception(E1);
+                        dr.ce.EliminarEvento(params[1], params[2], dr.cr);
+                        break;
+                    case 18:
+                        if(params.length!=1) throw new Exception(E1);
+                        dr.ce.EliminarCjtEvento(dr.cr);
+                        break;
+                    case 19:
                         if(params.length!=2) throw new Exception(E1);
                         dr.ce.guardar(params[1]);
                         break;
-                    case 16:
+                    case 20:
                         if(params.length!=2) throw new Exception(E1);
-                        dr.ce.cargar(params[1]);
+                        dr.ce.cargar(params[1], dr.cr);
                         break;
-                    case 17:
+                    case 21:
                         if(params.length!=4) throw new Exception(E1);
                         dr.cr.agregarRelacion(params[1], params[2], params[3]);
                         break;
-                    case 18:
+                    case 22:
                         if(params.length!=5) throw new Exception(E1);
                         dr.cr.agregarVoto(params[1], params[2], params[3], params[4]);
                         break;
-                    case 19:
+                    case 23:
                         if(params.length!=1) throw new Exception(E1);
                         dr.cr.agregarRelacionRandom();
                         break;
-                    case 20:
+                    case 24:
+                        if(params.length!=4) throw new Exception(E1);
+                        dr.print(String.valueOf(dr.cr.existeRelacion(params[1], params[2], params[3])));
+                        break;
+                    case 25:
+                        if(params.length!=5) throw new Exception(E1);
+                        dr.print(String.valueOf(dr.cr.existeVoto(params[1], params[2], params[3], params[4])));
+                        break;
+                    case 26:
+                        if(params.length!=2) throw new Exception(E1);
+                        dr.print(String.valueOf(dr.cr.tieneRelaciones(params[1])));
+                        break;
+                    case 27:
+                        if(params.length!=3) throw new Exception(E1);
+                        dr.print(String.valueOf(dr.cr.tieneRelaciones(params[1], params[2])));
+                        break;
+                    case 28:
                         if(params.length!=4) throw new Exception(E1);
                         dr.cr.eliminarRelacion(params[1], params[2], params[3]);
                         break;
-                    case 21:
+                    case 29:
+                        if(params.length!=2) throw new Exception(E1);
+                        dr.cr.eliminarRelaciones(params[1]);
+                        break;
+                    case 30:
+                        if(params.length!=3) throw new Exception(E1);
+                        dr.cr.eliminarRelaciones(params[1], params[2]);
+                        break;
+                    case 31:
                         if(params.length!=1) throw new Exception(E1);
                         dr.cr.eliminarRelaciones();
                         break;
-                    case 22:
+                    case 32:
                         if(params.length!=2) throw new Exception(E1);
                         dr.print(dr.cr.obtEventos(params[1]).toString());
                         break;
-                    case 23:
+                    case 33:
                         if(params.length!=3) throw new Exception(E1);
                         dr.print(dr.cr.obtCongresistas(params[1], params[2]).toString());
                         break;
-                    case 24:
+                    case 34:
                         if(params.length!=2) throw new Exception(E1);
                         dr.print(dr.cr.obtRelaciones(params[1]).toString());
                         break;
-                    case 25:
+                    case 35:
                         if(params.length!=3) throw new Exception(E1);
-                        dr.print(dr.cr.obtRelaciones(params[1],params[2]).toString());
+                        dr.print(dr.cr.obtRelaciones(params[1], params[2]).toString());
                         break;
-                    case 26:
+                    case 36:
+                        if(params.length!=1) throw new Exception(E1);
+                        dr.print(dr.cr.obtEventos().toString());
+                        break;
+                    case 37:
                         if(params.length!=1) throw new Exception(E1);
                         dr.print(dr.cr.obtCongresistas().toString());
                         break;
-                    case 27:
+                    case 38:
                         if(params.length!=1) throw new Exception(E1);
                         dr.print(dr.cr.obtTodasLasRelaciones().toString());
                         break;
-                    case 28:
+                    case 39:
+                        if(params.length!=3) throw new Exception(E1);
+                        dr.cr.modEvento(params[1], params[2]);
+                        break;
+                    case 40:
+                        if(params.length!=3) throw new Exception(E1);
+                        dr.cr.modCongresista(params[1], params[2]);
+                        break;
+                    case 41:
                         if(params.length!=2) throw new Exception(E1);
                         dr.cr.guardar(params[1]);
                         break;
-                    case 29:
+                    case 42:
                         if(params.length!=2) throw new Exception(E1);
                         dr.cr.cargar(params[1]);
                         break;
-                    case 30:
+                    case 43:
                         if(params.length!=1) throw new Exception(E1);
                         dr.prueba_grafo();
                         break;
@@ -165,7 +218,7 @@ public class DriverControladorRelaciones {
                 op = -1;
             }
         }
-        while(op != 31);
+        while(op != 44);
     }
 
     private void menu(){
@@ -174,39 +227,54 @@ public class DriverControladorRelaciones {
         print("0 agregarCongresista(String dni, String nombre, String apellido, int edad, " +
                 "String ciudad, String estado, String partido)");
         print("1 obtenerCongreso()");
-        print("2 eliminarCongresista(String dni)");
-        print("3 eliminarCongreso()");
-        print("4 guardarCongreso(String ruta)");
-        print("5 cargarCongreso(String ruta)");
+        print("2 modDniCongresista(String dni, String dni_nuevo)");
+        print("3 modCongresista(String dni, String dni_nuevo, String nombre, String apellido," +
+                " int edad, String ciudad, String estado, String partido)");
+        print("4 eliminarCongresista(String dni)");
+        print("5 eliminarCongreso()");
+        print("6 guardarCongreso(String ruta)");
+        print("7 cargarCongreso(String ruta)");
         print("//////// Eventos //////////////////////////////");
-        print("6 AgregarVotacion(String nombre, String fecha, int importancia)");
-        print("7 AgregarReunionPersonal(String nombre, String fecha, int importancia)");
-        print("8 AgregarReunionProfesional(String nombre, String fecha, int importancia)");
-        print("9 AgregarActoOficial(String nombre, String fecha, int importancia)");
-        print("10 AgregarActoNoOficial(String nombre, String fecha, int importancia)");
-        print("11 AgregarEventoRandom()");
-        print("12 ConsultarTodosEventos()");
-        print("13 EliminarEvento(String nombre, String fecha)");
-        print("14 EliminarCjtEvento()");
-        print("15 guardarEventos(String ruta)");
-        print("16 cargarEventos(String ruta)");
+        print("8 AgregarVotacion(String nombre, String fecha, int importancia)");
+        print("9 AgregarReunionPersonal(String nombre, String fecha, int importancia)");
+        print("10 AgregarReunionProfesional(String nombre, String fecha, int importancia)");
+        print("11 AgregarActoOficial(String nombre, String fecha, int importancia)");
+        print("12 AgregarActoNoOficial(String nombre, String fecha, int importancia)");
+        print("13 AgregarEventoRandom()");
+        print("14 ConsultarTodosEventos()");
+        print("15 ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo)");
+        print("16 ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva)");
+        print("17 EliminarEvento(String nombre, String fecha)");
+        print("18 EliminarCjtEvento()");
+        print("19 guardarEventos(String ruta)");
+        print("20 cargarEventos(String ruta)");
         print("//////// Relaciones ///////////////////////////");
-        print("17 agregarRelacion(String dni, String nombre, String fecha)");
-        print("18 agregarVoto(String dni, String nombre, String fecha, String voto)");
-        print("19 agregarRelacionRandom()");
-        print("20 eliminarRelacion(String dni, String nombre, String fecha)");
-        print("21 eliminarRelaciones()");
-        print("22 obtEventos(String dni)");
-        print("23 obtCongresistas(String nombre, String fecha)");
-        print("24 obtRelaciones(String dni)");
-        print("25 obtRelaciones(String nombre, String fecha)");
-        print("26 obtCongresistas()");
-        print("27 obtTodasLasRelaciones()");
-        print("28 guardarRelaciones(String ruta)");
-        print("29 cargarRelaciones(String ruta)");
-        print("30 prueba grafo");
+        print("21 agregarRelacion(String dni, String nombre, String fecha)");
+        print("22 agregarVoto(String dni, String nombre, String fecha, String voto)");
+        print("23 agregarRelacionRandom()");
+        print("24 existeRelacion(String dni, String nombre, String fecha)");
+        print("25 existeVoto(String dni, String nombre, String fecha, String voto)");
+        print("26 tieneRelaciones(String dni)");
+        print("27 tieneRelaciones(String nombre, String fecha)");
+        print("28 eliminarRelacion(String dni, String nombre, String fecha)");
+        print("29 eliminarRelaciones(String dni)");
+        print("30 eliminarRelaciones(String nombre, String fecha)");
+        print("31 eliminarRelaciones()");
+        print("32 obtEventos(String dni)");
+        print("33 obtCongresistas(String nombre, String fecha)");
+        print("34 obtRelaciones(String dni)");
+        print("35 obtRelaciones(String nombre, String fecha)");
+        print("36 obtEventos()");
+        print("37 obtCongresistas()");
+        print("38 obtTodasLasRelaciones()");
+        print("39 modEvento(String id, String new_id)");
+        print("40 modCongresista(String id, String new_id)");
+        print("41 guardarRelaciones(String ruta)");
+        print("42 cargarRelaciones(String ruta)");
+        print("43 prueba grafo");
         print("///////////////////////////////////////////////");
-        print("31 Salir\n");
+
+        print("44 Salir\n");
     }
 
     private void print(String s){

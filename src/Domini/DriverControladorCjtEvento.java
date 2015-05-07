@@ -9,14 +9,18 @@ public class DriverControladorCjtEvento {
     // Mensajes excepciones.
     private static final String E1 = "Número de parámetros incorrecto.";
 
+    private ControladorCongreso cc;
     private ControladorCjtEvento ce;
+    private ControladorRelaciones cr;
 
     public static void main(String[] args) {
         boolean imp = true;
         if(args.length > 0 && args[0].equals("0")) imp = false;
 
         DriverControladorCjtEvento dce = new DriverControladorCjtEvento();
+        dce.cc = new ControladorCongreso();
         dce.ce = new ControladorCjtEvento();
+        dce.cr = new ControladorRelaciones(dce.cc,dce.ce);
         Scanner ui = new Scanner(System.in);
         int op;
         do {
@@ -28,11 +32,11 @@ public class DriverControladorCjtEvento {
                 switch (op) {
                     case 0:
                         if(params.length!=3) throw new Exception(E1);
-                        dce.ce.EliminarEvento(params[1],params[2]);
+                        dce.ce.EliminarEvento(params[1],params[2],dce.cr);
                         break;
                     case 1:
                         if(params.length!=1) throw new Exception(E1);
-                        dce.ce.EliminarCjtEvento();
+                        dce.ce.EliminarCjtEvento(dce.cr);
                         break;
                     case 2:
                         if(params.length!=4) throw new Exception(E1);
@@ -60,11 +64,11 @@ public class DriverControladorCjtEvento {
                         break;
                     case 8:
                         if(params.length!=4) throw new Exception(E1);
-                        dce.ce.ModificarNombreEvento(params[1],params[2],params[3]);
+                        dce.ce.ModificarNombreEvento(params[1],params[2],params[3], dce.cr);
                         break;
                     case 9:
                         if(params.length!=4) throw new Exception(E1);
-                        dce.ce.ModificarFechaEvento(params[1], params[2], params[3]);
+                        dce.ce.ModificarFechaEvento(params[1], params[2], params[3], dce.cr);
                         break;
                     case 10:
                         if(params.length!=4) throw new Exception(E1);
@@ -92,7 +96,7 @@ public class DriverControladorCjtEvento {
                         break;
                     case 16:
                         if(params.length!=2) throw new Exception(E1);
-                        dce.ce.cargar(params[1]);
+                        dce.ce.cargar(params[1], dce.cr);
                         break;
                 }
             }
