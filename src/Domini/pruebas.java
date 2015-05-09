@@ -55,9 +55,17 @@ public class pruebas {
             print("Todas" + RR.obtRelaciones(E1));
             print("Todas" + RR.obtRelaciones(E2));
             print("Todas" + RR.obtRelaciones(E3));*/
-            Dni aa = new Dni();
-            print("Dni = "+aa.toString());
-
+            Congreso aa = new Congreso();
+            aa.agregarCongresistaRandom();
+            print(aa.obtenerCongreso()+"");
+            aa.agregarCongresistaRandom();
+            print(aa.obtenerCongreso()+"");
+            aa.agregarCongresistaRandom();
+            print(aa.obtenerCongreso()+"");
+            aa.agregarCongresistaRandom();
+            print(aa.obtenerCongreso()+"");
+            aa.agregarCongresistaRandom();
+            print(aa.obtenerCongreso()+"");
 
         }
         catch (Exception a) {
