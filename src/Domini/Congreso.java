@@ -33,7 +33,6 @@ public class Congreso {
         int dni = rand.nextInt((8 - 0) + 1) ;
         Congresista c = new Congresista(new Dni(dnis[dni]),names[name],names[surname],randomNum,"Londres","Londres","Progresista");
         tst.insertar(c.ID(),c);
-
     }
 
     public void eliminarCongresista(Dni dni) throws Exception {

@@ -1,5 +1,8 @@
 package Domini;
 
+import java.util.Random;
+import java.util.Vector;
+
 public class Dni  {
     private class DNINOVALIDO extends Exception {
         public DNINOVALIDO(String s) {
@@ -21,6 +24,15 @@ public class Dni  {
             dni = trad(s);
         }
         else throw new DNINOVALIDO(s);
+    }
+
+    public Dni() {
+        dni = new String();
+        Random rand = new Random();
+        for (int i = 0; i < 9; ++i) {
+            if (i == 8) dni += (char) ('A'+ rand.nextInt(26));
+            else dni += String.valueOf(rand.nextInt(10));
+        }
     }
 
     private String trad(String d) {
@@ -52,5 +64,9 @@ public class Dni  {
 
     public boolean equals(Dni D) {
         return D.dni.equals(dni);
+    }
+
+    public void print(String str) {
+        System.out.println(str);
     }
 }

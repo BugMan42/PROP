@@ -23,7 +23,7 @@ public class Relaciones {
             int i;
             for (i = 0; i < eventos.size(); ++i) {
                 if (eventos.get(i).obtEvento().ID().equals(r.obtEvento().ID())) {
-                    throw new Exception("Ya existe la RelacionSimple");
+                    throw new Exception("Ya existe la RelacionSimple: "+r.toString());
                 }
             }
             eventos.add(i,r);
