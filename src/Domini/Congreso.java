@@ -13,7 +13,16 @@ public class Congreso {
             super("No existe el Congresista: "+str);
         }
     }
+    //static
+    private static String[] nombre = {"Arif", "Konrad", "Edsger","Gordon","Kevin","Richard","Max","Linus","Allen","Jon-Von",
+            "Sophie","Alan","David","Arif","Zaman","Tim","Sergey","Larry","Mark","Bill"};
+    private static String[] apellido = {"Dijkstra", "Neumamnn", "Zuse","A. Wagner","Moore","Bell","Hamming","Cohen","Newman","Knuth",
+            "Allen","Torvalds","Warwick","Neumann","Stallman","Turing","Zaman","Goodger","Gates","Zuckerberg"};
+    private static String[] ciudad = {"Londres", "Paris", "Islamabad","Barcelona","Tokio","Washington","Seattle","New York",
+            "San Francisco","Chicago","Alexandria","Annapolis","Haifa","Louvain","Toronto","Berlin"};
+    private static String[] partido = {"Republicano","Democrata","Libre","Pirata"};
 
+    //atributs
     private TST<Congresista> tst;
 
     //Creadoras
@@ -27,26 +36,32 @@ public class Congreso {
             throw new Exception("El dni ya existe en el Congreso");
         }
     }
+    private void print(String str) {
+        System.out.println(str);
+    }
+    private void modDni(Dni r) throws Exception {
+        int i = 0;
+        while(i < 26 && tst.existe(r.toString()) ) {
+            r.cambiarLetra((char) ('A'+ i));
+            ++i;
+           // print(r+" "+i);
+        }
+    }
     public void agregarCongresistaRandom() throws Exception {
+        Random rand = new Random();
         Dni r = new Dni();
         while(tst.existe(r.toString())) {
-            r = new Dni();
+            //r = new Dni(); //opcion 1 no eficiente
+            modDni(r);       //opcion 2 eficiente solo cambiamos una letra
         }
-        Random rand = new Random();
-        String[] nombre = {"Arif", "Konrad", "Edsger","Gordon","Kevin","Richard","Max","Linus","Allen","Jon-Von",
-                           "Sophie","Alan","David","Arif","Zaman","Tim","Sergey","Larry","Mark","Bill"};
-        String[] apellido = {"Dijkstra", "Neumamnn", "Zuse","A. Wagner","Moore","Bell","Hamming","Cohen","Newman",
-                             "Allen","Torvalds","Warwick","Neumann","Stallman","Turing","Zaman","Goodger","Gates","Zuckerberg"};
-        String[] ciudad = {"Londres", "Paris", "Islamabad","Barcelona","Tokio","Washington","Seattle","New York",
-                           "San Francisco","Chicago","Alexandria","Annapolis","Haifa","Louvain","Toronto","Berlin"};
-        String[] partido = {"Republicano","Democrata","Libre","Pirata"};
         int edad = rand.nextInt(62)+18 ;
         int name = rand.nextInt(20);
         int surname = rand.nextInt(20);
         int city = rand.nextInt(16);
         int part = rand.nextInt(4);
-        Congresista c = new Congresista(new Dni(),nombre[name],apellido[surname],edad,ciudad[city],ciudad[city],partido[part]);
+        Congresista c = new Congresista(r,nombre[name],apellido[surname],edad,ciudad[city],ciudad[city],partido[part]);
         tst.insertar(c.ID(),c);
+        //print(tst.obtener(r.toString()).toString());
     }
 
     public void eliminarCongresista(Dni dni) throws Exception {
