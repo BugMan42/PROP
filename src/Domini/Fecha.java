@@ -9,14 +9,14 @@ public class Fecha {
     private int[] fecha;
 
     private static boolean Correcto(int dia, int mes, int any) throws NoValido{
-        if (dia < 1 || dia > 31) throw new NoValido("Dia", 1);
-        if (mes <= 0 || mes >= 13) throw new NoValido("Mes", 2);
-        if (any < 1) throw new NoValido("Año", 3);
+        if (dia < 1 || dia > 31) throw new NoValido("Fecha", 1);
+        if (mes <= 0 || mes >= 13) throw new NoValido("Fecha", 2);
+        if (any < 1) throw new NoValido("Fecha", 3);
         if (mes == 2) {
-            if ((dia == 30 || dia == 31)) throw new NoValido("Dia", 4);
-            if (dia == 29 && ((any % 4 != 0 || any % 100 == 0) && any % 400 != 0)) throw new NoValido("Dia", 5);
+            if ((dia == 30 || dia == 31)) throw new NoValido("Fecha", 4);
+            if (dia == 29 && ((any % 4 != 0 || any % 100 == 0) && any % 400 != 0)) throw new NoValido("Fecha", 5);
         }
-        else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31 ) throw new NoValido("Dia", 6);
+        else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31 ) throw new NoValido("Fecha", 6);
         return true;
     }
 

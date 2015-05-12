@@ -22,6 +22,7 @@ public class CjtEvento {
     /////////////////////////////////////ELIMINADORA/////////////////////
     public void EliminarCjtEvento() {
         cjt.vaciar();
+        cjt = null;
     }
 
     /////////////////////////////////////MODIFICADORAS////////////////////////

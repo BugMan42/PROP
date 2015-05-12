@@ -154,10 +154,9 @@ public class Clique extends Algoritmo {
         agregarMensajes(c);
         for (int i = 0; i < c.size(); ++i) {
             Set<Integer> s = new HashSet<Integer>();
-            System.out.println("Tratando clique num: " + Integer.toString(i));
+            out.agregarMensaje("Tratando clique num: " + Integer.toString(i));
             k_clique kc = c.obt_clique(i);
             if (!kc.obt_num())buscarCom(c,kc,s,i);
-            buscarCom(c,kc,s,i);
         }
     }
 

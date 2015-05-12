@@ -34,6 +34,7 @@ public class DriverCjtEvento {
             catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+            ImprimirMenu();
         }
         while (entrada.hasNext());
     }
@@ -49,19 +50,20 @@ public class DriverCjtEvento {
                 break;
             case 2:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                cjt.EliminarCjtEvento();
+                if (cjt != null) cjt.EliminarCjtEvento();
+                else throw new Exception("El conjunto no existe");
                 break;
             case 3:
                 if (aux.length < 3) throw new ArgumentosInsuficientes();
                 if (aux.length > 3) throw new DemasiadosArgumentos();
                 if (cjt != null) cjt.EliminarEvento(aux[1], aux[2]);
-                else throw new Exception("El conjunto no existe no existe");
+                else throw new Exception("El conjunto no existe");
                 break;
             case 4:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
                 e = new Evento1("Golf", "5/5/2015", 1);
                 if (cjt != null) cjt.AgregarEvento(e);
-                else throw new Exception("El conjunto no existe no existe");
+                else throw new Exception("El conjunto no existe");
                 break;
             case 5:
                 if (aux.length < 4) throw new ArgumentosInsuficientes();
@@ -73,18 +75,18 @@ public class DriverCjtEvento {
                 if (aux.length < 4) throw new ArgumentosInsuficientes();
                 if (aux.length > 4) throw new DemasiadosArgumentos();
                 if (cjt != null)cjt.ModificarFechaEvento(aux[1], aux[2], aux[3]);
-                else throw new Exception("El conjunto no existe no existe");
+                else throw new Exception("El conjunto no existe");
                 break;
             case 7:
                 if (aux.length < 4) throw new ArgumentosInsuficientes();
                 if (aux.length > 4) throw new DemasiadosArgumentos();
                 if (cjt != null)cjt.ModificarImpEvento(aux[1], aux[2], Integer.parseInt(aux[3]));
-                else throw new Exception("El conjunto no existe no existe");
+                else throw new Exception("El conjunto no existe");
                 break;
             case 8:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
                 if (cjt != null) cjt.AgregarEventoRandom();
-                else throw new Exception("El conjunto no existe no existe");
+                else throw new Exception("El conjunto no existe");
                 break;
             case 9:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
@@ -104,12 +106,12 @@ public class DriverCjtEvento {
                     if (cjt.ExisteEvento(aux[1], aux[2])) System.out.println("El evento existe");
                     else System.out.println("El evento no existe");
                 }
-                else throw new Exception("El conjunto no existe no existe");
+                else throw new Exception("El conjunto no existe");
                 break;
             case 12:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
                 if (cjt != null) System.out.println(cjt.size());
-                else throw new Exception("El conjunto no existe no existe");
+                else throw new Exception("El conjunto no existe");
                 break;
             case 13:
                 System.out.println(fin);
