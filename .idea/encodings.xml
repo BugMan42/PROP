@@ -16,5 +16,9 @@
     <file url="file://$PROJECT_DIR$/src/Domini/NoValido.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/Domini/Profesional.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/Domini/Salida.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Main.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Presentacio/ControladorPresentacion.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Presentacio/VistaMenu.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Presentacio/VistaPrincipal.java" charset="UTF-8" />
   </component>
 </project>

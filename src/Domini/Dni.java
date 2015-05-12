@@ -35,6 +35,13 @@ public class Dni  {
         }
     }
 
+    public void cambiarLetra(char l) throws Exception {
+        if (!Character.isLetter(l)) throw new Exception("l tiene que ser una letra");
+        dni = dni.substring(0, dni.length()-1);
+        dni += l;
+        dni.toUpperCase();
+    }
+
     private String trad(String d) {
         if (java.lang.Character.isLowerCase(d.charAt(8))) {
             d = d.toUpperCase();
