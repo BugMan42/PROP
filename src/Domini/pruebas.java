@@ -56,14 +56,19 @@ public class pruebas {
             print("Todas" + RR.obtRelaciones(E2));
             print("Todas" + RR.obtRelaciones(E3));*/
             long tini = System.nanoTime();
-            Congreso aa = new Congreso();
+            CjtEvento aa = new CjtEvento();
+            aa.AgregarEventoRandom();
+            print(aa.ConsultarTodosEventos().toString());
+            //Congreso aa = new Congreso();
+            //aa.agregarCongresistaRandom();
+            /*print(aa.obtenerCongreso().toString());
             for (int i = 0; i < 8000000; ++i) {
                 //print(""+i);
-               // aa.agregarCongresistaRandom();
+                //aa.agregarCongresistaRandom();
             }
-            print(aa.size()+"");
-            print("Tiempo de ejecución(ms): " + String.valueOf((System.nanoTime() - tini) / 1000000.0));
-            //print(aa.obtenerCongreso()+"");
+            //print(aa.size()+"");
+            //print("Tiempo de ejecución(ms): " + String.valueOf((System.nanoTime() - tini) / 1000000.0));
+            //print(aa.obtenerCongreso()+"");*/
 
         }
         catch (Exception a) {

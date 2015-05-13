@@ -39,20 +39,11 @@ public class Congreso {
     private void print(String str) {
         System.out.println(str);
     }
-    private void modDni(Dni r) throws Exception {
-        int i = 0;
-        while(i < 26 && tst.existe(r.toString()) ) {
-            r.cambiarLetra((char) ('A'+ i));
-            ++i;
-           // print(r+" "+i);
-        }
-    }
     public void agregarCongresistaRandom() throws Exception {
         Random rand = new Random();
         Dni r = new Dni();
-        while(tst.existe(r.toString())) {
-            //r = new Dni(); //opcion 1 no eficiente
-            modDni(r);       //opcion 2 eficiente solo cambiamos una letra
+        while (tst.existe(r.toString())) {
+            r = new Dni(); //opcion 1 no eficiente
         }
         int edad = rand.nextInt(62)+18 ;
         int name = rand.nextInt(20);

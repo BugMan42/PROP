@@ -21,6 +21,7 @@ public class VistaMenu extends JPanel {
         b5 = new JButton("Búsqueda de comunidades");
         b6 = new JButton("Salir");
 
+
         l = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
