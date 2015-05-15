@@ -42,6 +42,10 @@ public class ControladorPresentacion {
     {
         return cc;
     }
+    public ControladorRelaciones getControlRelaciones()
+    {
+        return cr;
+    }
 
 
 

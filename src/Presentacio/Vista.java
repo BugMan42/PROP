@@ -219,7 +219,6 @@ public class Vista extends JFrame {
                         else
                         {
                             name_field.setText(campos[0]);
-
                         }
 
 
@@ -262,13 +261,13 @@ public class Vista extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 def.addElement("Nuevo");
-                name_field.setText("Insert troll here");
+                //name_field.setText("Insert troll here");
                 name_field.requestFocusInWindow();
-                surname_field.setText("Insert meme here");
-                dni_field.setText("66666666X");
-                partido_field.setText("Insert RageQuit here");
-                age_field.setText("21");
-                city_field.setText("Insert Mordor here");
+                //surname_field.setText("Insert meme here");
+                //dni_field.setText("66666666X");
+                //partido_field.setText("Insert RageQuit here");
+                //age_field.setText("21");
+                //city_field.setText("Insert Mordor here");
                 name_list.setSelectedIndex(def.getSize() - 1);
                 //Añadir congresista en congreso
 
@@ -284,6 +283,14 @@ public class Vista extends JFrame {
                 String iden = dni_field.getText();
                 def.remove(name_list.getSelectedIndex());
                 name_list.setSelectedIndex(def.getSize()-1);
+
+                try {
+                    cp.getControlCongreso().eliminarCongresista(iden, cp.getControlRelaciones());
+                }
+                catch (Exception e2)
+                {
+                    e2.printStackTrace();
+                }
 
             }
         });
