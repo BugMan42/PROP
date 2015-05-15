@@ -8,7 +8,7 @@ public class ControladorAlgoritmo {
     private Entrada in;
     private Algoritmo alg;
     private Salida out;
-    //Referencia a un ControladorRelacioes creado previamente
+    //Referencia a un ControladorRelaciones creado previamente
     private ControladorRelaciones crel;
 
     public ControladorAlgoritmo(ControladorRelaciones cr)
@@ -59,10 +59,15 @@ public class ControladorAlgoritmo {
         alg.ejecutar_iteración(in.obtGrafo());
     }
 
-    //Devuelve una refernecia de la Salida
+    //Devuelve una referencia de la Salida
     public Salida obtSalida()
     {
         return out;
     }
 
+
+    public void salvar()
+    {
+
+    }
 }
