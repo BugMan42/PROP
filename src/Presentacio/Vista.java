@@ -83,7 +83,7 @@ public class Vista extends JFrame {
         menu1.addSeparator();
 
         // Item de menú 4 (Salir)
-        ImageIcon i_exit = new ImageIcon("src/images/exit.png");
+        ImageIcon i_exit = new ImageIcon("images/exit.png");
         JMenuItem item4 = new JMenuItem("Salir", KeyEvent.VK_X);
         item4.setIcon(i_exit);
         item4.setToolTipText("Salir de la aplicación");
@@ -163,7 +163,7 @@ public class Vista extends JFrame {
         surname_field.setMaximumSize(new Dimension(200, 25));
         final JTextField partido_field = new JTextField("Introduzca partido");
         partido_field.setMaximumSize(new Dimension(200, 25));
-        final JTextField age_field = new JTextField("Introduzca edad");
+        final JTextField age_field = new JTextField("21");
         age_field.setMaximumSize(new Dimension(200, 25));
         final JTextField city_field = new JTextField("Introduzca ciudad");
         city_field.setMaximumSize(new Dimension(200, 25));
@@ -254,8 +254,33 @@ public class Vista extends JFrame {
             }
         });
 
+        //Botón eliminar
+        ImageIcon i_del = new ImageIcon("images/del.png");
+        final JButton del = new JButton(i_del);
+        del.setEnabled(false);
+        del.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String iden = dni_field.getText();
+                def.remove(name_list.getSelectedIndex());
+
+
+                try {
+                    cp.getControlCongreso().eliminarCongresista(iden, cp.getControlRelaciones());
+                }
+                catch (Exception e2)
+                {
+                    e2.printStackTrace();
+                }
+
+                if (def.getSize()-1 < 0 ) del.setEnabled(false);
+                else name_list.setSelectedIndex(def.getSize()-1);
+
+            }
+        });
+
         //Botón añadir
-        ImageIcon i_add = new ImageIcon("src/images/add.png");
+        ImageIcon i_add = new ImageIcon("images/add.png");
         JButton add = new JButton(i_add);
         add.addActionListener(new ActionListener() {
             @Override
@@ -269,29 +294,9 @@ public class Vista extends JFrame {
                 //age_field.setText("21");
                 //city_field.setText("Insert Mordor here");
                 name_list.setSelectedIndex(def.getSize() - 1);
-                //Añadir congresista en congreso
 
-            }
-        });
 
-        //Botón eliminar
-        ImageIcon i_del = new ImageIcon("src/images/del.png");
-        JButton del = new JButton(i_del);
-        del.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String iden = dni_field.getText();
-                def.remove(name_list.getSelectedIndex());
-                name_list.setSelectedIndex(def.getSize()-1);
-
-                try {
-                    cp.getControlCongreso().eliminarCongresista(iden, cp.getControlRelaciones());
-                }
-                catch (Exception e2)
-                {
-                    e2.printStackTrace();
-                }
-
+                del.setEnabled(true);
             }
         });
 
