@@ -1,5 +1,7 @@
 package Presentacio;
 
+import Domini.Congresista;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -150,33 +152,41 @@ public class Vista extends JFrame {
         JLabel surname = new JLabel("Apellido:");
         JLabel dni = new JLabel("DNI:");
         JLabel partido = new JLabel("Partido:");
-        JTextField name_field = new JTextField("Introduzca nombre");
+        JLabel age = new JLabel("Edad:");
+        JLabel city = new JLabel("Ciudad:");
+        JLabel state = new JLabel("Estado:");
+        final JTextField name_field = new JTextField("Introduzca nombre");
         name_field.setMaximumSize(new Dimension(200, 25));
-        JTextField dni_field = new JTextField("Introduzca DNI");
+        final JTextField dni_field = new JTextField("00000000A");
         dni_field.setMaximumSize(new Dimension(200, 25));
-        JTextField surname_field = new JTextField("Introduzca apellido");
+        final JTextField surname_field = new JTextField("Introduzca apellido");
         surname_field.setMaximumSize(new Dimension(200, 25));
-        JTextField partido_field = new JTextField("Introduzca partido");
+        final JTextField partido_field = new JTextField("Introduzca partido");
         partido_field.setMaximumSize(new Dimension(200, 25));
-        JTextArea error_field = new JTextArea("No errors found");
+        final JTextField age_field = new JTextField("Introduzca edad");
+        age_field.setMaximumSize(new Dimension(200, 25));
+        final JTextField city_field = new JTextField("Introduzca ciudad");
+        city_field.setMaximumSize(new Dimension(200, 25));
+        final JTextField state_field = new JTextField("Introduzca estado");
+        state_field.setMaximumSize(new Dimension(200, 25));
+
+        final JTextArea error_field = new JTextArea("No errors found");
         error_field.setMaximumSize(new Dimension(200, 50));
         error_field.setEditable(false);
-        final JButton acceptButton = new JButton("Aceptar");
+
+
+        final JButton acceptButton;
+        acceptButton = new JButton("Aceptar");
         acceptButton.setEnabled(false);
+
         //JButton delete = new JButton("Eliminar");
 
         final DefaultListModel def = new DefaultListModel();
-
-        def.addElement("LOL, I'm a test");
-        def.addElement("LOL, I'm a test too");
-        def.addElement("LOL, me too");
-        def.addElement("Ayyy LMAO, me too");
-        def.addElement("WOLOLO, me too");
-        def.addElement("Ola k ase, test o k ase");
-        def.addElement("ROFL, Trololo");
         final JList name_list = new JList(def);
+
         name_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         name_list.setLayoutOrientation(JList.VERTICAL);
+        //Acción realizada al seleccionar un elemento
         name_list.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -189,12 +199,61 @@ public class Vista extends JFrame {
                     } else {
                         //Selection, enable the fire button.
                         acceptButton.setEnabled(true);
+                        String dato = (String) name_list.getSelectedValue();
+                        error_field.setText("#" + name_list.getSelectedIndex());
+
+                        // Del congresista a los campos
+                        String[] campos = dato.split(" ");
+
+                        if (campos.length >=2 && campos[1].charAt(0) == '[')
+                        {
+                            String iden = campos[1].substring(1,campos[1].length()-1);
+                            name_field.setText(campos[0]);
+                            dni_field.setText(iden);
+
+                            error_field.append("\n");
+                            error_field.append(dato);
+                            error_field.append("\n");
+                            error_field.append(iden);
+                        }
+                        else
+                        {
+                            name_field.setText(campos[0]);
+
+                        }
+
+
+
                     }
                 }
             }
         });
 
         JScrollPane scroll = new JScrollPane(name_list);
+
+        acceptButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int in = name_list.getSelectedIndex();
+                String nom = name_field.getText();
+                String iden = dni_field.getText();
+
+                Congresista cong = null;
+
+                try {
+                    cp.getControlCongreso().agregarCongresista(dni_field.getText(), name_field.getText(), surname_field.getText(), Integer.parseInt(age_field.getText()), city_field.getText(), partido_field.getText(), state_field.getText());
+                    cong = cp.getControlCongreso().consultarCongresista(iden);
+                    error_field.setText("");
+                    def.setElementAt(nom + " [" + iden + "]", in);
+                } catch (Exception e1) {
+                    //e1.printStackTrace();
+                    error_field.setText(e1.getMessage());
+                }
+
+
+
+            }
+        });
 
         //Botón añadir
         ImageIcon i_add = new ImageIcon("src/images/add.png");
@@ -203,7 +262,16 @@ public class Vista extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 def.addElement("Nuevo");
+                name_field.setText("Insert troll here");
+                name_field.requestFocusInWindow();
+                surname_field.setText("Insert meme here");
+                dni_field.setText("66666666X");
+                partido_field.setText("Insert RageQuit here");
+                age_field.setText("21");
+                city_field.setText("Insert Mordor here");
+                name_list.setSelectedIndex(def.getSize() - 1);
                 //Añadir congresista en congreso
+
             }
         });
 
@@ -213,7 +281,10 @@ public class Vista extends JFrame {
         del.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String iden = dni_field.getText();
                 def.remove(name_list.getSelectedIndex());
+                name_list.setSelectedIndex(def.getSize()-1);
+
             }
         });
 
@@ -243,12 +314,18 @@ public class Vista extends JFrame {
                                                                         .addComponent(name_field)
                                                                         .addComponent(dni)
                                                                         .addComponent(dni_field)
+                                                                        .addComponent(age)
+                                                                        .addComponent(age_field)
+                                                                        .addComponent(state)
+                                                                        .addComponent(state_field)
                                                         )
                                                         .addGroup(gr.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                                         .addComponent(surname)
                                                                         .addComponent(surname_field)
                                                                         .addComponent(partido)
                                                                         .addComponent(partido_field)
+                                                                        .addComponent(city)
+                                                                        .addComponent(city_field)
                                                         )
                                         )
                                         .addGroup(gr.createSequentialGroup()
@@ -289,6 +366,26 @@ public class Vista extends JFrame {
                                                                         .addComponent(partido)
                                                                         .addComponent(partido_field)
                                                         )
+                                        )
+                                        .addGroup(gr.createParallelGroup()
+                                                        .addGroup(gr.createSequentialGroup()
+                                                                        .addComponent(age)
+                                                                        .addComponent(age_field)
+                                                        )
+                                                        .addGroup(gr.createSequentialGroup()
+                                                                        .addComponent(city)
+                                                                        .addComponent(city_field)
+                                                        )
+                                        )
+                                        .addGroup(gr.createParallelGroup()
+                                                        .addGroup(gr.createSequentialGroup()
+                                                                        .addComponent(state)
+                                                                        .addComponent(state_field)
+                                                        )
+                                                        /*.addGroup(gr.createSequentialGroup()
+                                                                        .addComponent(city)
+                                                                        .addComponent(city_field)
+                                                        )*/
                                         )
                                         .addGroup(gr.createParallelGroup(GroupLayout.Alignment.CENTER)
                                                         .addComponent(error_field)

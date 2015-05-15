@@ -66,7 +66,12 @@ public class ControladorAlgoritmo {
     }
 
 
-    public void salvar()
+    public void guardar()
+    {
+
+    }
+
+    public void cargar()
     {
 
     }
