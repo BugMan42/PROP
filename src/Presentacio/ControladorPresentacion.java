@@ -16,6 +16,7 @@ public class ControladorPresentacion {
     private ControladorRelaciones cr;
 
     private Vista v; //Principal vp;
+    private VistaPrincipal vp;
 
     public ControladorPresentacion(){
         cc = new ControladorCongreso();
@@ -24,11 +25,17 @@ public class ControladorPresentacion {
         ca = new ControladorAlgoritmo(cr);
 
         v = new Vista(this); //Principal();
+        vp = new VistaPrincipal();
     }
 
     public Vista getVista()
     {
         return v;
+    }
+
+    public VistaPrincipal getVistaPrincipal()
+    {
+        return vp;
     }
 
     public ControladorCongreso getControlCongreso()
