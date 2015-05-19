@@ -12,6 +12,10 @@ public class DriverProfesional {
     final static String opcion3 = "3 tipo()";
     final static String msg = "Introduzca un numero del 1 al 3. 4 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
+    final static String dem = "Demasiados Argumentos";
+    final static String ins = "Argumentos Insuficientes";
+    final static String noExiste = "La reunionProfesional no ha sido creada";
+
     private static Profesional p;
 
     public static void main(String[] args) throws Exception {
@@ -33,22 +37,22 @@ public class DriverProfesional {
     public static void Proceso(Scanner entrada) throws Exception {
         String s = entrada.nextLine();
         String aux[] = s.split("\\s");
-        if (s.length() == 0) throw new ArgumentosInsuficientes();
+        if (s.length() == 0) throw new Exception(ins);
         switch (Integer.parseInt(aux[0])) {
             case 1:
-                if (aux.length < 4) throw new ArgumentosInsuficientes();
-                if (aux.length > 4) throw new DemasiadosArgumentos();
+                if (aux.length < 4) throw new Exception(ins);
+                if (aux.length > 4) throw new Exception(dem);
                 p = new Profesional(aux[1], aux[2], Integer.parseInt(aux[3]));
                 break;
             case 2:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (p != null) System.out.println(p.toString());
-                else throw new Exception("El acto no ha sido creado");
+                else throw new Exception(noExiste);
                 break;
             case 3:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (p != null) System.out.println(p.tipo());
-                else throw new Exception("El acto no ha sido creado");
+                else throw new Exception(noExiste);
                 break;
             case 4:
                 System.out.println(fin);

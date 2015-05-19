@@ -18,6 +18,10 @@ public class DriverSalida {
     final static String opcion7 = "7 comunidad_at(int i)";
     final static String msg = "Introduzca un numero del 1 al 7. 8 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
+    final static String dem = "Demasiados Argumentos";
+    final static String ins = "Argumentos Insuficientes";
+    final static String noExiste = "La salida no ha sido creada";
+
     private static Salida sa;
 
     public static void main(String[] args) throws Exception {
@@ -39,46 +43,46 @@ public class DriverSalida {
     public static void Proceso(Scanner entrada) throws Exception {
         String s = entrada.nextLine();
         String aux[] = s.split("\\s");
-        if (s.length() == 0) throw new ArgumentosInsuficientes();
+        if (s.length() == 0) throw new Exception(ins);
         switch (Integer.parseInt(aux[0])) {
             case 1:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 sa = new Salida();
                 break;
             case 2:
-                if (aux.length < 2) throw new ArgumentosInsuficientes();
-                if (aux.length > 2) throw new DemasiadosArgumentos();
+                if (aux.length < 2) throw new Exception(ins);
+                if (aux.length > 2) throw new Exception(dem);
                 if (sa != null) sa.agregarMensaje(aux[1]);
-                else throw new Exception("Salida no existe");
+                else throw new Exception(noExiste);
                 break;
             case 3:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (sa != null) System.out.println(sa.mostrarMensaje());
-                else throw new Exception("Salida no existe");
+                else throw new Exception(noExiste);
                 break;
             case 4:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (sa != null) System.out.println(sa.mostrarHistorial());
-                else throw new Exception("Salida no existe");
+                else throw new Exception(noExiste);
                 break;
             case 5:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (sa != null) {
                     Set<Integer> conj = new HashSet<Integer>();
                     sa.agregarComunidad(conj);
                 }
-                else throw new Exception("Salida no existe");
+                else throw new Exception(noExiste);
                 break;
             case 6:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (sa != null) System.out.println(sa.comunidad());
-                else throw new Exception("Salida no existe");
+                else throw new Exception(noExiste);
                 break;
             case 7:
-                if (aux.length < 2) throw new ArgumentosInsuficientes();
-                if (aux.length > 2) throw new DemasiadosArgumentos();
+                if (aux.length < 2) throw new Exception(ins);
+                if (aux.length > 2) throw new Exception(dem);
                 if (sa != null) System.out.println(sa.comunidad_at(Integer.parseInt(aux[1])));
-                else throw new Exception("Salida no existe");
+                else throw new Exception(noExiste);
                 break;
             case 8:
                 System.out.println(fin);

@@ -18,6 +18,9 @@ public class DriverClique {
     final static String opcion6 = "6 Mostrar comunidades";
     final static String msg = "Introduzca un numero del 1 al 6. 7 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
+    final static String noExiste = "Clique no existe";
+    final static String dem = "Demasiados Argumentos";
+    final static String ins = "Argumentos Insuficientes";
     private static Clique c;
     private static Entrada en;
     private static Salida sa;
@@ -39,55 +42,43 @@ public class DriverClique {
             ImprimirMenu();
         }
         while (entrada.hasNext());
-
-        c.ejecutar_algoritmo();
-        ArrayList<String> hist = sa.mostrarHistorial();
-        for (String aHist : hist) {
-            System.out.println(aHist);
-        }
-        for (Set<Integer> i : sa.comunidad()) {
-            System.out.println("Comunidad");
-            for (Integer j : i) {
-                System.out.println(Integer.toString(j));
-            }
-        }
     }
 
     public static void Proceso(Scanner entrada) throws Exception {
         String s = entrada.nextLine();
         String aux[] = s.split("\\s");
-        if (s.length() == 0) throw new ArgumentosInsuficientes();
+        if (s.length() == 0) throw new Exception(ins);
         switch (Integer.parseInt(aux[0])) {
             case 1:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 crearGrafo(1);
                 en = new Entrada(g, k);
                 sa = new Salida();
                 c = new Clique(en, sa);
                 break;
             case 2:
-                if (aux.length < 2) throw new ArgumentosInsuficientes();
-                if (aux.length > 2) throw new DemasiadosArgumentos();
+                if (aux.length < 2) throw new Exception(ins);
+                if (aux.length > 2) throw new Exception(dem);
                 k = Integer.parseInt(aux[1]);
                 break;
             case 3:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (c != null) c.ejecutar_algoritmo();
-                else throw new Exception("Clique no existe");
+                else throw new Exception(noExiste);
                 break;
             case 4:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 crearGrafoPersonalizado(entrada);
                 break;
             case 5:
-                if (aux.length < 2) throw new ArgumentosInsuficientes();
-                if (aux.length > 2) throw new DemasiadosArgumentos();
+                if (aux.length < 2) throw new Exception(ins);
+                if (aux.length > 2) throw new Exception(dem);
                 crearGrafo(Integer.parseInt(aux[1]));
                 break;
             case 6:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (c != null) mostrarCom();
-                else throw new Exception("Clique no existe");
+                else throw new Exception(noExiste);
                 break;
             case 7:
                 System.out.println(fin);
@@ -116,12 +107,12 @@ public class DriverClique {
         System.out.println("Introduzca los vertices que desee utilizar separados por linea");
         String s = entrada.nextLine();
         String aux[] = s.split("\\s");
-        if (s.length() == 0) throw new ArgumentosInsuficientes();
+        if (s.length() == 0) throw new Exception(ins);
         for (int i = 0; i < aux.length; ++i) g.agregarVertice(aux[i]);
         System.out.println("Introduzca nodo origen, nodo destino y peso separados por espacios. Ex: u v 1");
         s = entrada.nextLine();
         aux = s.split("\\s");
-        if (aux.length%3 != 0) throw new ArgumentosInsuficientes();
+        if (aux.length%3 != 0) throw new Exception(ins);
         for (int i = 0; i < aux.length; i+=3) g.agregarArista(aux[i], aux[i+1], Integer.parseInt(aux[i+2]));
     }
 

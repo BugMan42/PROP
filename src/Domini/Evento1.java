@@ -5,7 +5,7 @@ package Domini;
  */
 public class Evento1 extends Evento {
 
-    public Evento1(String name, String fecha, int importancia) throws NoValido{
+    public Evento1(String name, String fecha, int importancia) throws Exception{
         super(name,fecha, importancia);
     }
     public String toString() {

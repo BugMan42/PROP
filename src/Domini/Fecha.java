@@ -7,9 +7,10 @@ import java.util.regex.PatternSyntaxException;
  * Created by usuario on 11/04/2015.
  */
 public class Fecha {
+    static final String error1 = "Fecha no valida";
     private int[] fecha;
 
-    private static boolean Correcto(int dia, int mes, int any) throws NoValido{
+    private static boolean Correcto(int dia, int mes, int any) throws Exception{
         if (dia < 1 || dia > 31) throw new NoValido("Fecha", 1);
         if (mes <= 0 || mes >= 13) throw new NoValido("Fecha", 2);
         if (any < 1) throw new NoValido("Fecha", 3);
@@ -21,7 +22,7 @@ public class Fecha {
         return true;
     }
 
-    public static boolean valido(String data) throws NoValido {
+    public static boolean valido(String data) throws Exception {
         if (data.equals("")) return false;
         String[] aux = data.split("/");
         int dia = Integer.parseInt(aux[0]);
@@ -38,7 +39,7 @@ public class Fecha {
         fecha[2] = r.nextInt(3000)+1;
     }
 
-    public Fecha(String data) throws NoValido {
+    public Fecha(String data) throws Exception {
         if (data.equals("")) throw new NoValido("Fecha", 7);
         String[] aux = data.split("/");
         if (aux.length != 3) throw new NoValido("Fecha", 8);

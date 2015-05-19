@@ -21,6 +21,10 @@ public class DriverCjtEvento {
     final static String opcion12 = "12 size()";
     final static String msg = "Introduzca un numero del 1 al 12. 13 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
+    final static String dem = "Demasiados Argumentos";
+    final static String ins = "Argumentos Insuficientes";
+    final static String noexiste = "El conjunto no existe";
+    final static String eventoNoExiste = "El evento no existe";
     private static CjtEvento cjt;
     private static Evento e;
 
@@ -42,76 +46,76 @@ public class DriverCjtEvento {
     public static void Proceso(Scanner entrada) throws Exception {
         String s = entrada.nextLine();
         String aux[] = s.split("\\s");
-        if (s.length() == 0) throw new ArgumentosInsuficientes();
+        if (s.length() == 0) throw new Exception(ins);
         switch (Integer.parseInt(aux[0])) {
             case 1:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 cjt = new CjtEvento();
                 break;
             case 2:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (cjt != null) cjt.EliminarCjtEvento();
-                else throw new Exception("El conjunto no existe");
+                else throw new Exception(noexiste);
                 break;
             case 3:
-                if (aux.length < 3) throw new ArgumentosInsuficientes();
-                if (aux.length > 3) throw new DemasiadosArgumentos();
+                if (aux.length < 3) throw new Exception(ins);
+                if (aux.length > 3) throw new Exception(dem);
                 if (cjt != null) cjt.EliminarEvento(aux[1], aux[2]);
-                else throw new Exception("El conjunto no existe");
+                else throw new Exception(noexiste);
                 break;
             case 4:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 e = new Evento1("Golf", "5/5/2015", 1);
                 if (cjt != null) cjt.AgregarEvento(e);
-                else throw new Exception("El conjunto no existe");
+                else throw new Exception(noexiste);
                 break;
             case 5:
-                if (aux.length < 4) throw new ArgumentosInsuficientes();
-                if (aux.length > 4) throw new DemasiadosArgumentos();
+                if (aux.length < 4) throw new Exception(ins);
+                if (aux.length > 4) throw new Exception(dem);
                 if (cjt != null) cjt.ModificarNombreEvento(aux[1], aux[2], aux[3]);
-                else throw new Exception("El conjunto no existe");
+                else throw new Exception(noexiste);
                 break;
             case 6:
-                if (aux.length < 4) throw new ArgumentosInsuficientes();
-                if (aux.length > 4) throw new DemasiadosArgumentos();
+                if (aux.length < 4) throw new Exception(ins);
+                if (aux.length > 4) throw new Exception(dem);
                 if (cjt != null)cjt.ModificarFechaEvento(aux[1], aux[2], aux[3]);
-                else throw new Exception("El conjunto no existe");
+                else throw new Exception(noexiste);
                 break;
             case 7:
-                if (aux.length < 4) throw new ArgumentosInsuficientes();
-                if (aux.length > 4) throw new DemasiadosArgumentos();
+                if (aux.length < 4) throw new Exception(ins);
+                if (aux.length > 4) throw new Exception(dem);
                 if (cjt != null)cjt.ModificarImpEvento(aux[1], aux[2], Integer.parseInt(aux[3]));
-                else throw new Exception("El conjunto no existe");
+                else throw new Exception(noexiste);
                 break;
             case 8:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (cjt != null) cjt.AgregarEventoRandom();
-                else throw new Exception("El conjunto no existe");
+                else throw new Exception(noexiste);
                 break;
             case 9:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (cjt != null) System.out.println(cjt.ConsultarTodosEventos());
-                else throw new Exception("El conjunto no existe");
+                else throw new Exception(noexiste);
                 break;
             case 10:
-                if (aux.length < 3) throw new ArgumentosInsuficientes();
-                if (aux.length > 3) throw new DemasiadosArgumentos();
+                if (aux.length < 3) throw new Exception(ins);
+                if (aux.length > 3) throw new Exception(dem);
                 if (cjt != null) System.out.println(cjt.ConsultarEvento(aux[1], aux[2]));
-                else throw new Exception("El conjunto no existe");
+                else throw new Exception(noexiste);
                 break;
             case 11:
-                if (aux.length < 3) throw new ArgumentosInsuficientes();
-                if (aux.length > 3) throw new DemasiadosArgumentos();
+                if (aux.length < 3) throw new Exception(ins);
+                if (aux.length > 3) throw new Exception(dem);
                 if (cjt != null) {
-                    if (cjt.ExisteEvento(aux[1], aux[2])) System.out.println("El evento existe");
-                    else System.out.println("El evento no existe");
+                    if (cjt.ExisteEvento(aux[1], aux[2])) System.out.println(eventoNoExiste);
+                    else System.out.println(eventoNoExiste);
                 }
-                else throw new Exception("El conjunto no existe");
+                else throw new Exception(noexiste);
                 break;
             case 12:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (cjt != null) System.out.println(cjt.size());
-                else throw new Exception("El conjunto no existe");
+                else throw new Exception(noexiste);
                 break;
             case 13:
                 System.out.println(fin);
