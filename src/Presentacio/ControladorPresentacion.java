@@ -24,7 +24,7 @@ public class ControladorPresentacion {
         cr = new ControladorRelaciones(cc,ce);
         ca = new ControladorAlgoritmo(cr);
 
-        v = new Vista(this); //Principal();
+        v = new VistaAlgoritmo(this); //Principal();
         vp = new VistaPrincipal();
     }
 
