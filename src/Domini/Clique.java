@@ -6,6 +6,9 @@ import java.util.*;
  * Created by usuario on 04/04/2015.
  */
 public class Clique extends Algoritmo {
+    final static String error1 = "k no valida. La k minima es 3";
+    final static String error2 = "El nodo no pertenece al grafo";
+    final static String error3 = "El numero de comunidad debe estar entre [0 y numcomunidades - 1]";
     private Grafo g;
     private int k;
 
@@ -13,7 +16,7 @@ public class Clique extends Algoritmo {
         super(in, out);
         g = in.obtGrafo();
         k = (int)in.obtParam1();
-        if (k <= 2) throw new NoValido("k", 9);
+        if (k <= 2) throw new Exception(error1);
     }
 
     class comunidades {
@@ -61,8 +64,9 @@ public class Clique extends Algoritmo {
         void modNum(int i) {num = i;}
     }
 
-    public void insertar_nodo(int u, int i) throws NoValido {
-        if (!g.existeVertice(u)) throw new NoValido("Nodo", 10);
+    public void insertar_nodo(int u, int i) throws Exception {
+        if (!g.existeVertice(u)) throw new Exception(error2);
+        if (i < 0 || i >= out.numComunidades()) throw new Exception(error3);
         Set<Integer> s =out.comunidad_at(i);
         s.add(u);
     }

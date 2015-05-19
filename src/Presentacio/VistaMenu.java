@@ -25,22 +25,22 @@ public class VistaMenu extends JPanel {
         l = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource()==b1){
+                if (e.getSource()==b1) {
 
                 }
-                else if (e.getSource()==b2){
+                else if (e.getSource()==b2) {
 
                 }
-                else if (e.getSource()==b3){
+                else if (e.getSource()==b3) {
 
                 }
-                else if (e.getSource()==b4){
+                else if (e.getSource()==b4) {
 
                 }
-                else if (e.getSource()==b5){
+                else if (e.getSource()==b5) {
 
                 }
-                else if (e.getSource()==b6){
+                else if (e.getSource()==b6) {
                     System.exit(0);
                 }
             }

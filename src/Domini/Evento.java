@@ -47,11 +47,11 @@ public abstract class Evento {
     }
 
     public String obtFecha() {
-        return fecha.ToString();
+        return fecha.toString();
     }
 
     public String ID() {
-        return nombre+fecha.ToString();
+        return nombre+fecha.toString();
     }
 
     public abstract String toString();

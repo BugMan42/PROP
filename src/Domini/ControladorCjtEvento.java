@@ -89,7 +89,7 @@ public class ControladorCjtEvento {
         return ce.ConsultarEvento(nombre, fecha);
     }
 
-    public boolean ExisteEvento(String nombre, String fecha) throws NoValido {
+    public boolean ExisteEvento(String nombre, String fecha) throws Exception {
         return ce.ExisteEvento(nombre, fecha);
     }
 

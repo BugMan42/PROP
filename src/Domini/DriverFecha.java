@@ -56,7 +56,7 @@ public class DriverFecha {
                 break;
             case 4:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                if (f != null) System.out.println(f.ToString());
+                if (f != null) System.out.println(f.toString());
                 else throw new Exception("La fecha no ha sido creada");
                 break;
             case 5:

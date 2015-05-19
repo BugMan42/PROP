@@ -1,5 +1,6 @@
 package Domini;
 
+import java.util.Random;
 import java.util.regex.PatternSyntaxException;
 
 /**
@@ -29,6 +30,14 @@ public class Fecha {
         return aux.length == 3 && Correcto(dia, mes, any);
     }
 
+    public Fecha(Random r) {
+        //Uso numeros random del [1,28] para el dia.
+        //[1,12] para mes y [1,3000] para el año
+        fecha[0] = r.nextInt(28)+1;
+        fecha[1] = r.nextInt(12)+1;
+        fecha[2] = r.nextInt(3000)+1;
+    }
+
     public Fecha(String data) throws NoValido {
         if (data.equals("")) throw new NoValido("Fecha", 7);
         String[] aux = data.split("/");
@@ -48,7 +57,7 @@ public class Fecha {
         return fecha[0] + "/" + fecha[1] + "/" + fecha[2];
     }
 
-    public String ToString() {return Integer.toString(fecha[0]) + Integer.toString(fecha[1]) + Integer.toString(fecha[2]);}
+    public String toString() {return Integer.toString(fecha[0]) + Integer.toString(fecha[1]) + Integer.toString(fecha[2]);}
 
     public boolean equals(Fecha f) {
         return fecha[0] == f.fecha[0] && fecha[1] == f.fecha[1] && fecha[2] == f.fecha[2];

@@ -8,10 +8,11 @@ public class NoOficial extends Acto{
         super(nombre, data, importance);
     }
     public String toString() {
-        return "ActoNoOficial "+ nombre + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
+        return "ActoNoOficial "+ obt_nombre() + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
     }
 
     public String tipo(){
         return "ActoNoOficial";
     }
+
 }

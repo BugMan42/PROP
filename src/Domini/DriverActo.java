@@ -12,6 +12,8 @@ public class DriverActo {
     final static String opcion3 = "3 tipo()";
     final static String msg = "Introduzca un numero del 1 al 3. 4 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
+    final static String dem = "Demasiados Argumentos";
+    final static String ins = "Argumentos Insuficientes";
     private static Acto1 a;
 
     public static void main(String[] args) throws Exception {
@@ -33,20 +35,20 @@ public class DriverActo {
     public static void Proceso(Scanner entrada) throws Exception {
         String s = entrada.nextLine();
         String aux[] = s.split("\\s");
-        if (s.length() == 0) throw new ArgumentosInsuficientes();
+        if (s.length() == 0) throw new Exception(ins);
         switch (Integer.parseInt(aux[0])) {
             case 1:
-                if (aux.length < 4) throw new ArgumentosInsuficientes();
-                if (aux.length > 4) throw new DemasiadosArgumentos();
+                if (aux.length < 4) throw new Exception(ins);
+                if (aux.length > 4) throw new Exception(dem);
                 a = new Acto1(aux[1], aux[2], Integer.parseInt(aux[3]));
                 break;
             case 2:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (a != null) System.out.println(a.toString());
                 else throw new Exception("El acto no ha sido creado");
                 break;
             case 3:
-                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (aux.length > 1) throw new Exception(dem);
                 if (a != null) System.out.println(a.tipo());
                 else throw new Exception("El acto no ha sido creado");
                 break;
