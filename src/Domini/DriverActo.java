@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class DriverActo {
     final static String menu = "Bienvenido/a al driver de acto";
-    final static String opcion1 = "1 Acto(String name, String date, int importance)";
+    final static String opcion1 = "1 Acto(String name, Fecha date, int importance)";
     final static String opcion2 = "2 toString()";
     final static String opcion3 = "3 tipo()";
     final static String msg = "Introduzca un numero del 1 al 3. 4 para salir";
