@@ -144,7 +144,7 @@ public class TST<X>  {
         if (tChar.valor > c) return obtener(t.left, key, d);
         else if (tChar.valor < c) return obtener(t.right, key, d);
         else {
-            if (key.length() > d) return obtener(t.middle, key, d + 1);
+            if (d < key.length()) return obtener(t.middle, key, d + 1);
             else if (tChar.valor==c) {
                 TSTNodoFinal f = (TSTNodoFinal) t.middle;
                 return f.valor;
@@ -264,13 +264,13 @@ public class TST<X>  {
     //Modificación comp --> Modificamos el key pero mantenemos el objeto
     public void modificar(String oldKey, String newKey) throws Exception {
         if (!(oldKey.equals(newKey))) {
-            modificar(root,oldKey,null,newKey,0);
+            root = (TSTNodoChar) modificar(root, null, oldKey, newKey,0);
         }
     }
     //Modificación comp ---> Modificamos el key y canviamos el objeto
     public void modificar(String oldKey, String newKey, X x) throws Exception {
         if (!(oldKey.equals(newKey)))    {
-            modificar(root,oldKey,x,newKey,0);
+            root = (TSTNodoChar) modificar(root, x, oldKey,newKey,0);
         }
     }
 
@@ -278,7 +278,7 @@ public class TST<X>  {
     //la clave nueva tienen un prefijo minimo no hace falta borrar
     //la clave y insertar, pudiendo reaprovecharel recorrido
     /** FALTA HACER EFICIENTE*/
-    private void modificar(TSTNodo t, String oldKey, X x, String newKey,int d) throws Exception {
+    private void modificar1(TSTNodo t, String oldKey, X x, String newKey,int d) throws Exception {
         if (oldKey.charAt(0) != newKey.charAt(0)) {
             if (x == null) {
                 x = obtener(oldKey);
@@ -301,22 +301,83 @@ public class TST<X>  {
     // a ---> for old key
     // b ---> for new key
     public void modComp(String oldK, String newK) throws Exception {
-        modComp(root,null,oldK,newK,0,0);
+        root = (TSTNodoChar) modificar(root, null, oldK, newK, 0);
     }
-    private void modComp(TSTNodo oldN, TSTNodo newN, String oldKey, String newKey, int oldD, int newD) throws Exception {
-        if (oldN == null) throw new KeyNotExistsTST(oldKey);
+    private TSTNodo modificar(TSTNodo t, X x,String oldKey, String newKey, int d) throws Exception {
+        if (t == null) throw new KeyNotExistsTST(oldKey);
+
+        char c1;
+        if (d < oldKey.length()) c1 = oldKey.charAt(d);
+        else c1 = fin;
+
+        char c2;
+        if (d < newKey.length()) c2 = newKey.charAt(d);
+        else c2 = fin;
+
+        //print("c1 " + c1 + " c2 " + c2);
+        /*if (c1 == fin) {
+            TSTNodoFinal aux2 = (TSTNodoFinal) t.middle;
+            t = insertar(t, newKey, aux2.valor, d); // si esta petara
+            t = t.right;
+            //return t.right;
+        }*/
+        if (c1 == c2) { // yeah
+            TSTNodoChar aux = (TSTNodoChar) t;
+            if (c1 < aux.valor) t.left = modificar(t.left, x, oldKey, newKey,d);
+            else if (c1 > aux.valor) t.right = modificar(t.right, x, oldKey, newKey,d);
+            else { //c1 == aux.valor
+                if (d < oldKey.length()) t.middle = modificar(t.middle, x, oldKey, newKey,d+1);
+                else  print("wtf"); /*debug*/ //no hi ha else
+            }
+        }
+        else {
+            t = obtenerEspecial(t,t,x,oldKey,newKey,d,d);
+        }
+        return t;
+    }
+    private TSTNodo obtenerEspecial(TSTNodo r, TSTNodo t, X x,String key, String newKey, int d , int d2) throws Exception {
+        if (t == null) throw new KeyNotExistsTST(key);
+
         char c;
-        if (oldD < oldKey.length()) c = oldKey.charAt(oldD);
+        if (d < key.length()) c = key.charAt(d);
         else c = fin;
-        print(c+"");
 
-
-
-
+        TSTNodoChar tChar = (TSTNodoChar) t;
+        if (c < tChar.valor) t.left = obtenerEspecial(r, t.left, x, key, newKey, d, d2);
+        else if (c > tChar.valor) t.right = obtenerEspecial(r, t.right, x, key, newKey, d, d2);
+        else {
+            if (d < key.length()) t.middle =  obtenerEspecial(r, t.middle, x, key, newKey, d + 1, d2);
+            else if (c == tChar.valor) {
+                TSTNodoFinal aux = (TSTNodoFinal) t.middle;
+                if (x == null) x = aux.valor;
+                r = insertar(r, newKey,x,d2);
+                t = t.right;
+            }
+            else throw new KeyNotExistsTST(key);
+        }
+        if (t != null && t.left == null && t.right == null && t.middle == null) {
+            t = null;
+        }
+        return t;
     }
 
-    private void print(String str) {
+    private static void print(String str) {
         System.out.println(str);
+    }
+
+    public static void main(String[] args) throws Exception {
+        TST<Integer> tst = new TST<Integer>();
+        tst.insertar("abcd",12);
+        tst.insertar("abc",12);
+        tst.insertar("b",12);
+        tst.insertar("ab",12);
+        //tst.insertar("ab",13);
+        //print(tst.consultarClaves()+"");
+        tst.modComp("ab", "a");
+        tst.insertar("ab",12);
+        print(tst.consultarClaves() + "");
+        print("1 "+tst.obtener("a"));
+
     }
 
 //###################################################################
