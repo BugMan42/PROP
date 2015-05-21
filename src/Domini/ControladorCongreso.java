@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by bug on 8/04/15.
- */
 public class ControladorCongreso {
 
     private static final int max_lineas_guardar = 300;

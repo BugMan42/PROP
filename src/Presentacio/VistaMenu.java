@@ -5,10 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by Jose on 09/05/2015.
- */
-public class VistaMenu extends JPanel {
+public class    VistaMenu extends JPanel {
 
     private JButton b1, b2, b3, b4, b5, b6;
     private ActionListener l;

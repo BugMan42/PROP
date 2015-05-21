@@ -175,7 +175,7 @@ public class DriverCongresista {
                 break;
             case 16:
                 if (C != null) {
-                    print(C.ID());
+                    print(C.obtID());
                 }
                 else throw new CongresistaNoInicializado();
                 break;

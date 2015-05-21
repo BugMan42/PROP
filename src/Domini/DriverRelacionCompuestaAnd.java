@@ -31,8 +31,8 @@ public class DriverRelacionCompuestaAnd {
     public static void main(String[] args) throws Exception {
         Congresista C1 = new Congresista(new Dni("00000000A"),"Edsger","Dijkstra",72,"Rotterdam","NT","Pirata");
         Congresista C2 = new Congresista(new Dni("00000000B"),"Gordon","Moore",86,"San Francisco","CA","Berkeley");
-        Evento E1 = new Profesional("Golf","12/12/2012",10);
-        Evento E2 = new Profesional("Golf2","12/12/2012",10);
+        Reunion E1 = new Profesional("Golf","12/12/2012",10);
+        Reunion E2 = new Profesional("Golf2","12/12/2012",10);
         RelacionSimpleSinVoto R1 = new RelacionSimpleSinVoto(C1,E1);
         RelacionSimpleSinVoto R2 = new RelacionSimpleSinVoto(C2,E2);
         R = new RelacionCompuestaAnd(R1,R1);
@@ -57,14 +57,14 @@ public class DriverRelacionCompuestaAnd {
         Congresista C1 = new Congresista(new Dni("00000000A"),"Edsger","Dijkstra",72,"Rotterdam","NT","Pirata");
         Congresista C2 = new Congresista(new Dni("00000000B"),"Gordon","Moore",86,"San Francisco","CA","Berkeley");
         Congresista C3 = new Congresista(new Dni("00000000C"),"Richard","Hamming",82,"Monterey","CA","Pirata");
-        Evento E1 = new Profesional("Golf","12/12/2012",10);
-        Evento E2 = new Profesional("Golf2","12/12/2012",10);
-        Evento E3 = new Votacion("votos","12/12/2012",11);
+        Reunion E1 = new Profesional("Golf","12/12/2012",10);
+        Reunion E2 = new Profesional("Golf2","12/12/2012",10);
+        Votacion E3 = new Votacion("votos","12/12/2012",11);
         Voto V1 = new Positivo();
         Voto V2 = new Negativo();
         RelacionSimpleSinVoto R1 = new RelacionSimpleSinVoto(C1,E1);
         RelacionSimpleSinVoto R2 = new RelacionSimpleSinVoto(C2,E2);
-        RelacionSimpleSinVoto R3 = new RelacionSimpleSinVoto(C3,E3);
+        RelacionSimpleConVoto R3 = new RelacionSimpleConVoto(C3,E3,V1);
 
 
         if (!imprimir) print("E: "+str);

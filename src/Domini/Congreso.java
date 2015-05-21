@@ -30,11 +30,7 @@ public class Congreso {
         tst = new TST<Congresista>();
     }
     public void agregarCongresista(Congresista c) throws Exception {
-        try {
-            tst.insertar(c.ID(),c);
-        } catch(Exception a) {
-            throw new Exception("El dni ya existe en el Congreso");
-        }
+        tst.insertar(c.obtID(),c);
     }
     private void print(String str) {
         System.out.println(str);
@@ -43,7 +39,7 @@ public class Congreso {
         Random rand = new Random();
         Dni r = new Dni();
         while (tst.existe(r.toString())) {
-            r = new Dni(); //opcion 1 no eficiente
+            r = new Dni();
         }
         int edad = rand.nextInt(62)+18 ;
         int name = rand.nextInt(20);
@@ -51,17 +47,11 @@ public class Congreso {
         int city = rand.nextInt(16);
         int part = rand.nextInt(4);
         Congresista c = new Congresista(r,nombre[name],apellido[surname],edad,ciudad[city],ciudad[city],partido[part]);
-        tst.insertar(c.ID(),c);
-        //print(tst.obtener(r.toString()).toString());
+        tst.insertar(c.obtID(),c);
     }
 
     public void eliminarCongresista(Dni dni) throws Exception {
-        try {
-            tst.borrar(dni.toString());
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.borrar(dni.toString());
     }
     public void eliminarCongreso() {
         tst.vaciar();
@@ -70,23 +60,12 @@ public class Congreso {
     //Modificadoras
     public void modDniCongresista(Dni dni, Dni dniNuevo) throws Exception {
         if (!dni.equals(dniNuevo)) {
-            try {
-                tst.modificar(dni.toString(), dniNuevo.toString());
-                tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
-            }
-            catch(Exception a) {
-                if (a.getClass().equals(KeyNotExistsTST.class)) throw new NoExisteC(dni.toString());
-                if (a.getClass().equals(KeyAlreadyExistsTST.class)) throw new ExisteC(dniNuevo.toString());
-            }
+            tst.modificar(dni.toString(), dniNuevo.toString());
+            tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
         }
     }
     public void modNombreCongresista(Dni dni,String nombre) throws Exception {
-        try {
-            tst.obtener(dni.toString()).modNombre(nombre);
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.obtener(dni.toString()).modNombre(nombre);
     }
     public void modApellidoCongresista(Dni dni,String apellido) throws Exception {
         try {

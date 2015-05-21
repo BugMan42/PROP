@@ -297,6 +297,21 @@ public class TST<X>  {
             borrar(oldKey);
             insertar(newKey,x);
         }
+    }
+    // a ---> for old key
+    // b ---> for new key
+    public void modComp(String oldK, String newK) throws Exception {
+        modComp(root,null,oldK,newK,0,0);
+    }
+    private void modComp(TSTNodo oldN, TSTNodo newN, String oldKey, String newKey, int oldD, int newD) throws Exception {
+        if (oldN == null) throw new KeyNotExistsTST(oldKey);
+        char c;
+        if (oldD < oldKey.length()) c = oldKey.charAt(oldD);
+        else c = fin;
+        print(c+"");
+
+
+
 
     }
 

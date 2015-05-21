@@ -2,7 +2,16 @@ package Domini;
 
 public class RelacionSimpleSinVoto extends RelacionSimple {
 
-    public RelacionSimpleSinVoto(Congresista a, Evento e) {
+    /*public RelacionSimpleSinVoto(Congresista a, Evento e) throws Exception {
+        //if (e.tipo().equals("Votacion")) throw new Exception("Relacion Sin Voto no puede ser de una Votacion");
+        super(a, e);
+    }*/
+    public RelacionSimpleSinVoto(Congresista a, Acto e) throws Exception {
+        //if (e.tipo().equals("Votacion")) throw new Exception("Relacion Sin Voto no puede ser de una Votacion");
+        super(a, e);
+    }
+    public RelacionSimpleSinVoto(Congresista a, Reunion e) throws Exception {
+        //if (e.tipo().equals("Votacion")) throw new Exception("Relacion Sin Voto no puede ser de una Votacion");
         super(a, e);
     }
 

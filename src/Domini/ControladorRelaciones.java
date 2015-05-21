@@ -37,14 +37,26 @@ public class ControladorRelaciones {
     public void agregarRelacion(String dni, String nombre, String fecha) throws Exception {
         Evento ev = e.ConsultarEvento(nombre, fecha);
         if(ev.tipo().equals("Votacion")) throw new Exception(E1);
+        // Jose Modificalo como quieras era para que no petara
         Congresista con = c.consultarCongresista(dni);
-        RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
+        RelacionSimple r;
+        if (ev.tipo().equals("Acto")) {
+            Acto aux = (Acto) ev;
+            r = new RelacionSimpleSinVoto(con,aux);
+        }
+        else {
+            Reunion aux = (Reunion) ev;
+            r = new RelacionSimpleSinVoto(con,aux);
+        }
         rs.agregarRelacion(r);
     }
 
     public void agregarVoto(String dni, String nombre, String fecha, String voto) throws Exception {
         Evento ev = e.ConsultarEvento(nombre, fecha);
         if(!ev.tipo().equals("Votacion")) throw new Exception(E2);
+        //Modificalo como quieras jose..
+        Votacion aux = (Votacion) ev;
+
         Congresista con = c.consultarCongresista(dni);
         Voto v;
         if (voto.equals("Abstencion")) v = new Abstencion();
@@ -53,7 +65,7 @@ public class ControladorRelaciones {
         else if (voto.equals("Nulo")) v = new Nulo();
         else if (voto.equals("Positivo")) v = new Positivo();
         else throw new Exception(E3);
-        RelacionSimple r = new RelacionSimpleConVoto(con,ev,v);
+        RelacionSimple r = new RelacionSimpleConVoto(con,aux,v);
         rs.agregarRelacion(r);
     }
 
@@ -77,9 +89,9 @@ public class ControladorRelaciones {
                     case 4: tipo = "Positivo";
                         break;
                 }
-                agregarVoto(con.ID(),ev.obt_nombre(),ev.obt_fecha(),tipo);
+                agregarVoto(con.obtID(),ev.obt_nombre(),ev.obt_fecha(),tipo);
             }
-            else agregarRelacion(con.ID(),ev.obt_nombre(),ev.obt_fecha());
+            else agregarRelacion(con.obtID(),ev.obt_nombre(),ev.obt_fecha());
         }
         else throw new Exception(E4);
     }
@@ -88,13 +100,24 @@ public class ControladorRelaciones {
         Evento ev = e.ConsultarEvento(nombre, fecha);
         if(ev.tipo().equals("Votacion")) throw new Exception(E1);
         Congresista con = c.consultarCongresista(dni);
-        RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
+        RelacionSimple r;
+        // Modificalo como quieras
+        if (ev.tipo().equals("Acto")) {
+            Acto aux = (Acto) ev;
+            r = new RelacionSimpleSinVoto(con,aux);
+        }
+        else {
+            Reunion aux = (Reunion) ev;
+            r = new RelacionSimpleSinVoto(con,aux);
+        }
+        //RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
         return rs.existeRelacion(r);
     }
 
     public boolean existeVoto(String dni, String nombre, String fecha, String voto) throws Exception {
         Evento ev = e.ConsultarEvento(nombre, fecha);
         if(!ev.tipo().equals("Votacion")) throw new Exception(E2);
+        Votacion aux = (Votacion) ev;
         Congresista con = c.consultarCongresista(dni);
         Voto v;
         if (voto.equals("Abstencion")) v = new Abstencion();
@@ -103,7 +126,7 @@ public class ControladorRelaciones {
         else if (voto.equals("Nulo")) v = new Nulo();
         else if (voto.equals("Positivo")) v = new Positivo();
         else throw new Exception(E3);
-        RelacionSimple r = new RelacionSimpleConVoto(con,ev,v);
+        RelacionSimple r = new RelacionSimpleConVoto(con,aux,v);
         return rs.existeRelacion(r);
     }
 
@@ -120,7 +143,16 @@ public class ControladorRelaciones {
     public void eliminarRelacion(String dni, String nombre, String fecha) throws Exception {
         Congresista con = c.consultarCongresista(dni);
         Evento ev = e.ConsultarEvento(nombre, fecha);
-        RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
+        RelacionSimple r;
+        if (ev.tipo().equals("Acto")) {
+            Acto aux = (Acto) ev;
+            r = new RelacionSimpleSinVoto(con,aux);
+        }
+        else {
+            Reunion aux = (Reunion) ev;
+            r = new RelacionSimpleSinVoto(con,aux);
+        }
+       // RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
         rs.eliminarRelacion(r);
     }
 
@@ -217,14 +249,14 @@ public class ControladorRelaciones {
     public void crearGrafoRelaciones() throws Exception {
         g = new Grafo();
         ArrayList<Congresista> c = obtCongresistas();
-        for(Congresista con : c) g.agregarVertice(con.ID());
+        for(Congresista con : c) g.agregarVertice(con.obtID());
         ArrayList<RelacionSimple> r = obtTodasLasRelaciones();
         for(RelacionSimple re : r){
-            String origen = re.obtCongresista().ID();
+            String origen = re.obtCongresista().obtID();
             if(re.obtEvento().tipo().equals("Votacion")) {
                 ArrayList<RelacionSimple> rv = obtRelaciones(re.obtEvento().obt_nombre(),re.obtEvento().obt_fecha());
                 for (RelacionSimple rvi : rv) {
-                    String fin = rvi.obtCongresista().ID();
+                    String fin = rvi.obtCongresista().obtID();
                     if (!origen.equals(fin)) {
                         Voto v_origen = re.obtVoto();
                         Voto v_fin = rvi.obtVoto();
@@ -236,8 +268,8 @@ public class ControladorRelaciones {
             else {
                 ArrayList<Congresista> ce = obtCongresistas(re.obtEvento().obt_nombre(),re.obtEvento().obt_fecha());
                 for (Congresista cone : ce)
-                    if (!origen.equals(cone.ID()))
-                        g.agregarArista(origen, cone.ID(), re.obtEvento().obt_importancia());
+                    if (!origen.equals(cone.obtID()))
+                        g.agregarArista(origen, cone.obtID(), re.obtEvento().obt_importancia());
             }
         }
     }

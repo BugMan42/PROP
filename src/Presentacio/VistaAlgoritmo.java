@@ -202,6 +202,9 @@ public class VistaAlgoritmo extends Vista {
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, izq, der);
 
         add(splitPane);
+
+        cout(name_list.getFirstVisibleIndex()+" 1");
+        cout(name_list.getLastVisibleIndex()+" 2");
 /*
 
         GroupLayout gr = new GroupLayout(panel);
@@ -340,6 +343,9 @@ public class VistaAlgoritmo extends Vista {
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+    }
+    private void cout(String str) {
+        System.out.println(str);
     }
 
     public static void main(String[] args) {

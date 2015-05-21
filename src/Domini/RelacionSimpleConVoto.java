@@ -4,7 +4,11 @@ package Domini;
 public class RelacionSimpleConVoto extends RelacionSimple {
     private Voto V;
 
-    public RelacionSimpleConVoto(Congresista a, Evento e, Voto v) {
+    /*public RelacionSimpleConVoto(Congresista a, Evento e, Voto v) {
+        super(a, e);
+        V = v;
+    }*/
+    public RelacionSimpleConVoto(Congresista a, Votacion e, Voto v) {
         super(a, e);
         V = v;
     }

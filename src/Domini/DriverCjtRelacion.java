@@ -10,12 +10,12 @@ public class DriverCjtRelacion {
         Evento E1 = new Profesional("Golf","12/12/2012",10);
         Evento E2 = new Profesional("Golf2","12/12/2012",10);
         Relaciones R = new Relaciones();
-        RelacionSimple R1 = new RelacionSimpleSinVoto(C1,E1);
-        RelacionSimple R2 = new RelacionSimpleSinVoto(C2,E2);
+        //RelacionSimple R1 = new RelacionSimpleSinVoto(C1,E1);
+        /*RelacionSimple R2 = new RelacionSimpleSinVoto(C2,E2);
         R.agregarRelacion(R1);
         R.agregarRelacion(R2);
         R.eliminarRelacion(R1);
-        print(R.obtTodasLasRelaciones()+"");
+        print(R.obtTodasLasRelaciones()+"");*/
 
     }
     private static void print(String str) {
