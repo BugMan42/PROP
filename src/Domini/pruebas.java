@@ -19,12 +19,12 @@ public class pruebas {
             Congreso C = new Congreso();
             C.agregarCongresista(C1);
             C.agregarCongresista(C1);
-            Reunion E1 = new Profesional("A", "12/12/2012", 10);
-            Reunion E2 = new Profesional("B", "12/12/2012", 10);
-            Votacion E3 = new Votacion("C", "12/12/2012", 11);
-            Reunion E4 = new Profesional("D", "12/12/2012", 10);
-            Reunion E5 = new Profesional("E", "12/12/2012", 10);
-            Reunion E6 = new Profesional("F", "12/12/2012", 10);
+            Reunion E1 = new Profesional("A", new Fecha("12/12/2012"), 10);
+            Reunion E2 = new Profesional("B", new Fecha("12/12/2012"), 10);
+            Votacion E3 = new Votacion("C", new Fecha("12/12/2012"), 11);
+            Reunion E4 = new Profesional("D", new Fecha("12/12/2012"), 10);
+            Reunion E5 = new Profesional("E", new Fecha("12/12/2012"), 10);
+            Reunion E6 = new Profesional("F", new Fecha("12/12/2012"), 10);
             Voto a = new Positivo();
             Voto b = new Negativo();
             ArrayList<RelacionSimple> Array1 = new ArrayList<RelacionSimple>();

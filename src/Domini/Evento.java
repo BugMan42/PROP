@@ -11,25 +11,22 @@ public abstract class Evento {
     static final String error2 = "La fecha no es valida";
     static final String error3 = "La importancia no es valida";
 
-    protected String nombre;
-    protected Fecha fecha;
-    protected int importancia;
+    private String nombre;
+    private Fecha fecha;
+    private int importancia;
 
     //Constructoras
 
-    public Evento(String name, String date, int importance) throws Exception {
-        if (name.equals("")) throw new Exception(error1);
-        if (date.equals("")) throw new Exception(error2);
+    public Evento(String name, Fecha date, int importance) throws Exception {
         if (importance <= 0) throw new Exception(error3);
-        fecha = new Fecha(date);
         nombre = name.toUpperCase();
+        fecha = date;
         importancia = importance;
     }
 
     //Modificadoras
 
     public void ModNombre(String name) throws Exception{
-        if (name.equals("")) throw new Exception(error1);
         if (!nombre.equals(name)) nombre = name.toUpperCase();
     }
 

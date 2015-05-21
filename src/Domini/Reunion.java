@@ -12,7 +12,7 @@ public abstract class Reunion extends Evento {
      * importancia > 0
      * Post: Se ha creado una instancia de reunion con atributos nombre, fecha e importancia
      */
-    public Reunion(String nombre, String fecha, int importancia) throws Exception {
+    public Reunion(String nombre, Fecha fecha, int importancia) throws Exception {
         super(nombre, fecha, importancia);
     }
 }

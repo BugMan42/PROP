@@ -27,7 +27,7 @@ public class DriverReunion {
             }
             ImprimirMenu();
         }
-        while (entrada.hasNext());
+        while (entrada.hasNextLine());
     }
 
     public static void Proceso(Scanner entrada) throws Exception {
@@ -38,7 +38,7 @@ public class DriverReunion {
             case 1:
                 if (aux.length < 4) throw new ArgumentosInsuficientes();
                 if (aux.length > 4) throw new DemasiadosArgumentos();
-                r = new Reunion1(aux[1], aux[2], Integer.parseInt(aux[3]));
+                r = new Reunion1(aux[1], new Fecha(aux[2]), Integer.parseInt(aux[3]));
                 break;
             case 2:
                 if (aux.length > 1) throw new DemasiadosArgumentos();

@@ -33,7 +33,7 @@ public class DriverRelacionSimpleConVoto {
     }
     public static void main(String[] args) throws Exception {
         Congresista C1 = new Congresista(new Dni("00000000A"),"Edsger","Dijkstra",72,"Rotterdam","NT","Pirata");
-        Votacion E1 = new Votacion("Golf","12/12/2012",10);
+        Votacion E1 = new Votacion("Golf",new Fecha("12/12/2012"),10);
         Voto V1 = new Blanco();
         R = new RelacionSimpleConVoto(C1,E1,V1);
 
@@ -57,9 +57,9 @@ public class DriverRelacionSimpleConVoto {
         Congresista C1 = new Congresista(new Dni("00000000A"),"Edsger","Dijkstra",72,"Rotterdam","NT","Pirata");
         Congresista C2 = new Congresista(new Dni("00000000B"),"Gordon","Moore",86,"San Francisco","CA","Berkeley");
         Congresista C3 = new Congresista(new Dni("00000000C"),"Richard","Hamming",82,"Monterey","CA","Pirata");
-        Reunion E1 = new Profesional("Golf","12/12/2012",10);
-        Reunion E2 = new Profesional("Golf2","12/12/2012",10);
-        Votacion E3 = new Votacion("votos","12/12/2012",11);
+        Reunion E1 = new Profesional("Golf",new Fecha("12/12/2012"),10);
+        Reunion E2 = new Profesional("Golf2",new Fecha("12/12/2012"),10);
+        Votacion E3 = new Votacion("votos",new Fecha("12/12/2012"),11);
         Voto V1 = new Positivo();
         Voto V2 = new Negativo();
         if (!imprimir) print("E: "+str);

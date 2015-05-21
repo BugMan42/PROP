@@ -29,27 +29,32 @@ public class ControladorCjtEvento {
     }
 
     public void AgregarVotacion(String nombre, String fecha, int importancia) throws Exception{
-        Votacion v = new Votacion(nombre, fecha, importancia);
+        Fecha f = new Fecha(fecha);
+        Votacion v = new Votacion(nombre, f, importancia);
         ce.AgregarEvento(v);
     }
 
     public void AgregarReunionPersonal(String nombre, String fecha, int importancia) throws Exception{
-        Personal per = new Personal(nombre, fecha, importancia);
+        Fecha f = new Fecha(fecha);
+        Personal per = new Personal(nombre, f, importancia);
         ce.AgregarEvento(per);
     }
 
     public void AgregarReunionProfesional(String nombre, String fecha, int importancia) throws Exception{
-        Profesional pro = new Profesional(nombre, fecha, importancia);
+        Fecha f = new Fecha(fecha);
+        Profesional pro = new Profesional(nombre, f, importancia);
         ce.AgregarEvento(pro);
     }
 
     public void AgregarActoOficial(String nombre, String fecha, int importancia) throws Exception{
-        Oficial o = new Oficial(nombre, fecha, importancia);
+        Fecha f = new Fecha(fecha);
+        Oficial o = new Oficial(nombre, f, importancia);
         ce.AgregarEvento(o);
     }
 
     public void AgregarActoNoOficial(String nombre, String fecha, int importancia) throws Exception{
-        NoOficial n = new NoOficial(nombre, fecha, importancia);
+        Fecha f = new Fecha(fecha);
+        NoOficial n = new NoOficial(nombre, f, importancia);
         ce.AgregarEvento(n);
     }
 

@@ -8,7 +8,7 @@ package Domini;
 public class Votacion extends Evento {
 
     //Creadora con pará,etros de Votación
-    public Votacion(String name, String date, int importance) throws Exception{
+    public Votacion(String name, Fecha date, int importance) throws Exception{
         //Llamada a la creadora con parámetros de Evento
         super(name, date, importance);
     }
@@ -37,7 +37,7 @@ public class Votacion extends Evento {
 */
     //Conversor de Votación a String
     public String toString() {
-        return "Votacion " + nombre + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
+        return "Votacion " + obt_nombre() + " " + obt_fecha() + " " + Integer.toString(obt_importancia());
     }
 
     public String tipo(){

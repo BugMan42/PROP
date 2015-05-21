@@ -50,9 +50,9 @@ public class DriverRelaciones {
         Congresista C1 = new Congresista(new Dni("00000000A"),"Edsger","Dijkstra",72,"Rotterdam","NT","Pirata");
         Congresista C2 = new Congresista(new Dni("00000000B"),"Gordon","Moore",86,"San Francisco","CA","Berkeley");
         Congresista C3 = new Congresista(new Dni("00000000C"),"Richard","Hamming",82,"Monterey","CA","Pirata");
-        Reunion E1 = new Profesional("Golf","12/12/2012",10);
-        Reunion E2 = new Profesional("Golf2","12/12/2012",10);
-        Votacion E3 = new Votacion("votos","12/12/2012",11);
+        Reunion E1 = new Profesional("Golf",new Fecha("12/12/2012"),10);
+        Reunion E2 = new Profesional("Golf2",new Fecha("12/12/2012"),10);
+        Votacion E3 = new Votacion("votos",new Fecha("12/12/2012"),11);
         Voto V1 = new Positivo();
         Voto V2 = new Negativo();
         RelacionSimpleSinVoto R1 = new RelacionSimpleSinVoto(C1,E1);

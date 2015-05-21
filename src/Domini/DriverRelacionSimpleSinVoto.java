@@ -32,7 +32,7 @@ public class DriverRelacionSimpleSinVoto {
     }
     public static void main(String[] args) throws Exception {
         Congresista C1 = new Congresista(new Dni("00000000A"),"Edsger","Dijkstra",72,"Rotterdam","NT","Pirata");
-        Reunion E1 = new Profesional("Golf","12/12/2012",10);
+        Reunion E1 = new Profesional("Golf",new Fecha("12/12/2012"),10);
         R = new RelacionSimpleSinVoto(C1,E1);
         boolean imprimir = true;
         if (args.length > 0) {
@@ -54,9 +54,9 @@ public class DriverRelacionSimpleSinVoto {
         Congresista C4 = new Congresista(new Dni("00000000D"),"Max","Newman",87,"Chealsea","LO","Democrata");
         Congresista C5 = new Congresista(new Dni("00000000E"),"Allen","Newll",65,"San Francisco","SF","Pirata");
         Congresista C6 = new Congresista(new Dni("00000000F"),"Jon-Von","Neumann",53,"Budapest","AU","Pirata");
-        Reunion E1 = new Profesional("Golf","12/12/2012",10);
-        Reunion E2 = new Profesional("Golf2","12/12/2012",10);
-        Votacion E3 = new Votacion("votos","12/12/2012",11);
+        Reunion E1 = new Profesional("Golf",new Fecha("12/12/2012"),10);
+        Reunion E2 = new Profesional("Golf2",new Fecha("12/12/2012"),10);
+        Votacion E3 = new Votacion("votos",new Fecha("12/12/2012"),11);
         Voto V2 = new Blanco();
         if (!imprimir) print("E: "+str);
         String aux[] = str.split("\\s");

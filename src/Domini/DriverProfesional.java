@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class DriverProfesional {
     final static String menu = "Bienvenido/a al driver de reunionProfesional";
-    final static String opcion1 = "1 Profesional (String nombre, String fecha, int importancia)";
+    final static String opcion1 = "1 Profesional (String nombre, Fecha fecha, int importancia)";
     final static String opcion2 = "2 toString()";
     final static String opcion3 = "3 tipo()";
     final static String msg = "Introduzca un numero del 1 al 3. 4 para salir";
@@ -31,7 +31,7 @@ public class DriverProfesional {
             }
             ImprimirMenu();
         }
-        while (entrada.hasNext());
+        while (entrada.hasNextLine());
     }
 
     public static void Proceso(Scanner entrada) throws Exception {
@@ -42,7 +42,7 @@ public class DriverProfesional {
             case 1:
                 if (aux.length < 4) throw new Exception(ins);
                 if (aux.length > 4) throw new Exception(dem);
-                p = new Profesional(aux[1], aux[2], Integer.parseInt(aux[3]));
+                p = new Profesional(aux[1], new Fecha(aux[2]), Integer.parseInt(aux[3]));
                 break;
             case 2:
                 if (aux.length > 1) throw new Exception(dem);

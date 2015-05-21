@@ -20,7 +20,7 @@ public class DriverVotacion {
     public static void main(String[] args) throws ReflectiveOperationException {
 
         try {
-            vt = new Votacion("Test", "11/04/07", 5);
+            vt = new Votacion("Test", new Fecha("11/04/07"), 5);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error, argumento no válido (aunque no debería)");
@@ -62,7 +62,7 @@ public class DriverVotacion {
         Integer s3 = user_input.nextInt();
 
         try {
-            vt = new Votacion(s1, s2, s3);
+            vt = new Votacion(s1, new Fecha(s2), s3);
         } catch (Exception e){
             e.printStackTrace();
         }

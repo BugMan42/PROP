@@ -33,7 +33,7 @@ public class DriverFecha {
             }
             ImprimirMenu();
         }
-        while (entrada.hasNext());
+        while (entrada.hasNextLine());
     }
 
     public static void Proceso(Scanner entrada) throws Exception {

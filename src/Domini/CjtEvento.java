@@ -134,23 +134,23 @@ public class CjtEvento {
         Evento e;
         switch (tipo) {
             case 1:
-                e = new Votacion(nombre, f.toString(), importancia);
+                e = new Votacion(nombre, f, importancia);
                 cjt.insertar(e.ID(), e);
                 break;
             case 2:
-                e = new Personal(nombre, f.toString(), importancia);
+                e = new Personal(nombre, f, importancia);
                 cjt.insertar(e.ID(), e);
                 break;
             case 3:
-                e = new Profesional(nombre, f.toString(), importancia);
+                e = new Profesional(nombre, f, importancia);
                 cjt.insertar(e.ID(), e);
                 break;
             case 4:
-                e = new Oficial(nombre, f.toString(), importancia);
+                e = new Oficial(nombre, f, importancia);
                 cjt.insertar(e.ID(), e);
                 break;
             case 5:
-                e =  new NoOficial(nombre, f.toString(), importancia);
+                e =  new NoOficial(nombre, f, importancia);
                 cjt.insertar(e.ID(), e);
                 break;
             default:

@@ -30,7 +30,7 @@ public class DriverPersonal {
             }
             ImprimirMenu();
         }
-        while (entrada.hasNext());
+        while (entrada.hasNextLine());
     }
 
     public static void Proceso(Scanner entrada) throws Exception {
@@ -41,7 +41,7 @@ public class DriverPersonal {
             case 1:
                 if (aux.length < 4) throw new Exception(ins);
                 if (aux.length > 4) throw new Exception(dem);
-                p = new Personal(aux[1], aux[2], Integer.parseInt(aux[3]));
+                p = new Personal(aux[1], new Fecha(aux[2]), Integer.parseInt(aux[3]));
                 break;
             case 2:
                 if (aux.length > 1) throw new Exception(dem);

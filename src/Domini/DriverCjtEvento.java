@@ -40,7 +40,7 @@ public class DriverCjtEvento {
             }
             ImprimirMenu();
         }
-        while (entrada.hasNext());
+        while (entrada.hasNextLine());
     }
 
     public static void Proceso(Scanner entrada) throws Exception {
@@ -65,7 +65,7 @@ public class DriverCjtEvento {
                 break;
             case 4:
                 if (aux.length > 1) throw new Exception(dem);
-                e = new Evento1("Golf", "5/5/2015", 1);
+                e = new Evento1("Golf", new Fecha("5/5/2015"), 1);
                 if (cjt != null) cjt.AgregarEvento(e);
                 else throw new Exception(noexiste);
                 break;
