@@ -5,11 +5,11 @@ import javax.swing.*;
 /**
  * Created by Jose on 09/05/2015.
  */
-public class VistaPrincipal extends JFrame {
+public class VistaPrincipal1 extends JFrame {
 
     private VistaMenu vm;
 
-    public VistaPrincipal(){
+    public VistaPrincipal1(){
         vm = new VistaMenu();
 
         setTitle("Diputats dels EUA");

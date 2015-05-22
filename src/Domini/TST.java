@@ -371,12 +371,13 @@ public class TST<X>  {
         tst.insertar("abc",12);
         tst.insertar("b",12);
         tst.insertar("ab",12);
+        print("a: "+tst.obtener("ab"));
         //tst.insertar("ab",13);
         //print(tst.consultarClaves()+"");
-        tst.modComp("ab", "a");
+        tst.modificar("ab", "a",14);
         tst.insertar("ab",12);
         print(tst.consultarClaves() + "");
-        print("1 "+tst.obtener("a"));
+        print("a: "+tst.obtener("a"));
 
     }
 
