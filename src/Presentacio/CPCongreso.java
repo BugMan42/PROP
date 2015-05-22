@@ -1,18 +1,19 @@
 package Presentacio;
 
-/**
- * Created by bug on 22/05/15.
- */
+import Domini.ControladorCongreso;
+
+
 public class CPCongreso {
 
-    private PanelCongreso congreso = null;
+    private PanelCongreso PC = null;
+    private ControladorCongreso CC;
 
     public CPCongreso()
     {
     }
 
     public PanelCongreso obtPanel() {
-        if (congreso == null) congreso = new PanelCongreso(this);
-        return congreso;
+        if (PC == null) PC = new PanelCongreso(this);
+        return PC;
     }
 }

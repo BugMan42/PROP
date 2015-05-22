@@ -1,21 +1,20 @@
 package Presentacio;
 
+import Domini.Congreso;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-/**
- * Created by falc on 7/05/15.
- *
- */
 
 public class PanelLista extends Panel {
 
     //Referència al controlador de presentació que crea la vista
     JSplitPane sp;
-    JList list;
+    JList jlist;
     JButton addb;
     JButton delb;
+    JScrollPane jScrollPane1;
 
     public PanelLista(Vista v) {
 
@@ -32,7 +31,7 @@ public class PanelLista extends Panel {
 
     public JList obtLista()
     {
-        return list;
+        return jlist;
     }
 
     public JButton obtAgrBoton()
@@ -52,15 +51,38 @@ public class PanelLista extends Panel {
 
     private void initUI()
     {
-        final DefaultListModel def = new DefaultListModel();
-        list = new JList(def);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jlist = new javax.swing.JList();
 
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        list.setLayoutOrientation(JList.VERTICAL);
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jlist.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 3", "Item 4", "Item 3", "Item 4", "Item 3", "Item 4", "Item 3", "Item 4", "Item 3", "Item 4", "Item 3", "Item 4", "Item 3", "Item 4", "Item 3", "Item 4", "Item 3", "Item 4", "Item 3", "Item 4", "Item 3", "Item 4", "Item 3", "Item 4", "Item 3", "Item 4" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jlist);
+
+        /*GroupLayout layout = new javax.swing.GroupLayout(this);
+        setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+        );*/
+
+        //final DefaultListModel def = new DefaultListModel();
+        //jlist = new JList(def);
+
+        jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jlist.setLayoutOrientation(JList.VERTICAL);
         //Acción realizada al seleccionar un elemento
         //Las acciones las tendrán que definir
 
-        JScrollPane scroll = new JScrollPane(list);
+        //JScrollPane scroll = new JScrollPane(list);
 
         //Botón eliminar
         ImageIcon i_del = new ImageIcon("images/del.png");
@@ -77,12 +99,12 @@ public class PanelLista extends Panel {
         izq_lay.setAutoCreateContainerGaps(true);
 
         izq_lay.setHorizontalGroup(
-                izq_lay.createParallelGroup()
+                izq_lay.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(izq_lay.createSequentialGroup()
                                         .addComponent(addb)
                                         .addComponent(delb)
                         )
-                        .addComponent(scroll)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
         );
 
         izq_lay.setVerticalGroup(
@@ -91,7 +113,7 @@ public class PanelLista extends Panel {
                                         .addComponent(addb)
                                         .addComponent(delb)
                         )
-                        .addComponent(scroll)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);

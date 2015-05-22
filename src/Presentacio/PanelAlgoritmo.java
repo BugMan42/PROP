@@ -23,7 +23,7 @@ public class PanelAlgoritmo extends Panel{
 
     private void initUI()
     {
-        final JLabel rekt = new JLabel("This is...");
+        final JLabel rekt = new JLabel("U r Fucked");
         rekt.setBorder(BorderFactory.createLineBorder(Color.red));
         add(rekt, BorderLayout.SOUTH);
     }

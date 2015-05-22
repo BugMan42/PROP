@@ -17,21 +17,21 @@ import java.awt.event.ActionListener;
 public class PanelCongreso extends PanelLista {
 
     //Referència al controlador de presentació que crea la vista
-    CPCongreso cpc;
+    CPCongreso cvc;
 
     public PanelCongreso(CPCongreso c)
     {
         super();
-        cpc = c;
+        cvc = c;
         // Inicializa los componentes de la ventana
-        initUI();
+        //initUI();
     }
 
     public PanelCongreso() {
 
         super();
         // Inicializa los componentes de la ventana
-        initUI();
+        //initUI();
     }
 
     private void initUI()
@@ -45,19 +45,26 @@ public class PanelCongreso extends PanelLista {
         JLabel city = new JLabel("Ciudad:");
         JLabel state = new JLabel("Estado:");
         final JTextField name_field = new JTextField("Introduzca nombre");
-        name_field.setMaximumSize(new Dimension(200, 25));
+        //name_field.setMaximumSize(new Dimension(200, 25));
         final JTextField dni_field = new JTextField("00000000A");
-        dni_field.setMaximumSize(new Dimension(200, 25));
+        //dni_field.setMaximumSize(new Dimension(200, 25));
         final JTextField surname_field = new JTextField("Introduzca apellido");
-        surname_field.setMaximumSize(new Dimension(200, 25));
+        //surname_field.setMaximumSize(new Dimension(200, 25));
         final JTextField partido_field = new JTextField("Introduzca partido");
-        partido_field.setMaximumSize(new Dimension(200, 25));
+        //partido_field.setMaximumSize(new Dimension(200, 25));
         final JTextField age_field = new JTextField("21");
-        age_field.setMaximumSize(new Dimension(200, 25));
+        //age_field.setMaximumSize(new Dimension(200, 25));
         final JTextField city_field = new JTextField("Introduzca ciudad");
-        city_field.setMaximumSize(new Dimension(200, 25));
+        //city_field.setMaximumSize(new Dimension(200, 25));
         final JTextField state_field = new JTextField("Introduzca estado");
-        state_field.setMaximumSize(new Dimension(200, 25));
+        //state_field.setMaximumSize(new Dimension(200, 25));
+        name_field.putClientProperty("JComponent.sizeVariant", "large");
+        dni_field.putClientProperty("JComponent.sizeVariant", "regular");
+        surname_field.putClientProperty("JComponent.sizeVariant", "regular");
+        partido_field.putClientProperty("JComponent.sizeVariant", "regular");
+        age_field.putClientProperty("JComponent.sizeVariant", "regular");
+        city_field.putClientProperty("JComponent.sizeVariant", "regular");
+        state_field.putClientProperty("JComponent.sizeVariant", "regular");
 
         final JTextArea error_field = new JTextArea("No errors found");
         error_field.setMaximumSize(new Dimension(200, 50));
@@ -196,6 +203,8 @@ public class PanelCongreso extends PanelLista {
         der.setLayout(gr);
         gr.setAutoCreateGaps(true);
         gr.setAutoCreateContainerGaps(true);
+
+
 
         // Layout
 
