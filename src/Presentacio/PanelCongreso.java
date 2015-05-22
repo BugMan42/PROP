@@ -17,12 +17,12 @@ import java.awt.event.ActionListener;
 public class PanelCongreso extends PanelLista {
 
     //Referència al controlador de presentació que crea la vista
-    CPCongresistas cvc;
+    CPCongreso cpc;
 
-    public PanelCongreso(CPCongresistas c)
+    public PanelCongreso(CPCongreso c)
     {
         super();
-        cvc = c;
+        cpc = c;
         // Inicializa los componentes de la ventana
         initUI();
     }

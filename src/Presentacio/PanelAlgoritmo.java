@@ -8,16 +8,12 @@ import java.awt.*;
  */
 public class PanelAlgoritmo extends Panel{
 
-    CPAlgoritmo cva;
-
-
-
+    CPAlgoritmo cpa;
 
     public PanelAlgoritmo(CPAlgoritmo cont) {
         super();
-        cva = cont;
+        cpa = cont;
         initUI();
-        setLayout(new BorderLayout());
     }
 
     public PanelAlgoritmo() {
@@ -28,7 +24,7 @@ public class PanelAlgoritmo extends Panel{
     private void initUI()
     {
         final JLabel rekt = new JLabel("This is...");
-        rekt.setBorder(BorderFactory.createLineBorder(Color.black));
+        rekt.setBorder(BorderFactory.createLineBorder(Color.red));
         add(rekt, BorderLayout.SOUTH);
     }
 }

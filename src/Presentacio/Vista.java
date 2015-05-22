@@ -37,7 +37,8 @@ public class Vista extends JFrame {
 
     private void initUI()
     {
-        pan = cp.getControlVC().obtPanel();
+        pan = cp.getCPC().obtPanel();
+        //pan = cp.getCPA().obtPanel();
 
         // [this] Operación heredada de JFrame, define el título de la ventana
         setTitle("Graph Communities");
@@ -109,9 +110,11 @@ public class Vista extends JFrame {
         mi_cong.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pan.setVisible(false);
-                pan = cp.getControlVC().obtPanel();
-                pan.setVisible(true);
+                remove(pan);
+                pan = cp.getCPC().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
             }
         });
         menu1_5.add(mi_cong);
@@ -129,10 +132,11 @@ public class Vista extends JFrame {
         mi_alg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //pan es una referencia al panel de la vista.
-                pan.setVisible(false);
-                pan = cp.getControlVA().obtPanel();
-                pan.setVisible(true);
+                remove(pan);
+                pan = cp.getCPA().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
 
 
             }
@@ -162,9 +166,12 @@ public class Vista extends JFrame {
         bCongreso.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pan.setVisible(false);
-                pan = cp.getControlVC().obtPanel();
-                pan.setVisible(true);
+                remove(pan);
+                pan = cp.getCPC().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
+
             }
         });
         toolbar.add(bCongreso);
@@ -176,15 +183,17 @@ public class Vista extends JFrame {
         bAlgoritmo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pan.setVisible(false);
-                pan = cp.getControlVA().obtPanel();
-                pan.setVisible(true);
+                remove(pan);
+                pan = cp.getCPA().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
+
             }
         });
         toolbar.add(bAlgoritmo);
         add(toolbar, BorderLayout.NORTH);
-
-        add(pan, BorderLayout.CENTER);
+        add(pan);
 
     }
 

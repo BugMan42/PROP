@@ -17,6 +17,7 @@ public class Main {
                 new Runnable() {
                     public void run() {
                         ControladorPresentacion ctrlPres = new ControladorPresentacion();
+                        ctrlPres.inicializarPresentacion();
                     }
                 }
         );

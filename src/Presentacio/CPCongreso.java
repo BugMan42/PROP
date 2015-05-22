@@ -4,7 +4,8 @@ package Presentacio;
  * Created by bug on 22/05/15.
  */
 public class CPCongreso {
-    private PanelCongreso congreso;
+
+    private PanelCongreso congreso = null;
 
     public CPCongreso()
     {

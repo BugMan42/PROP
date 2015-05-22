@@ -16,7 +16,7 @@ public class ControladorPresentacion {
     private ControladorRelaciones cr;
 
     private CPAlgoritmo cpa;
-    private CPCongresistas cvc;
+    private CPCongreso cpc;
 
     private Vista v; //Principal vp;
     private VistaPrincipal vp;
@@ -27,7 +27,7 @@ public class ControladorPresentacion {
         cr = new ControladorRelaciones(cc,ce);
         ca = new ControladorAlgoritmo(cr);
 
-        cvc = new CPCongresistas();
+        cpc = new CPCongreso();
         cpa = new CPAlgoritmo();
 
         v = new Vista(this);
@@ -58,8 +58,8 @@ public class ControladorPresentacion {
     {
         return cr;
     }
-    public CPAlgoritmo getControlVA() { return cpa; }
-    public CPCongresistas getControlVC() { return cvc; }
+    public CPAlgoritmo getCPA() { return cpa; }
+    public CPCongreso getCPC() { return cpc; }
 
 
 }

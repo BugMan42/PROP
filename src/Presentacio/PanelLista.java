@@ -17,15 +17,6 @@ public class PanelLista extends Panel {
     JButton addb;
     JButton delb;
 
-    /*
-    public PanelLista(ControladorPresentacion c)
-    {
-        super(c);
-        // Inicializa los componentes de la ventana
-        initUI();
-    }
-    */
-
     public PanelLista(Vista v) {
 
         super(v);
@@ -35,6 +26,7 @@ public class PanelLista extends Panel {
 
     public PanelLista()
     {
+        super();
         initUI();
     }
 
