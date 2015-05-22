@@ -15,8 +15,11 @@ public class ControladorPresentacion {
     private ControladorAlgoritmo ca;
     private ControladorRelaciones cr;
 
-    private VistaPrincipal v; //Principal vp;
-    private VistaPrincipal1 vp;
+    private CPAlgoritmo cpa;
+    private CPCongresistas cvc;
+
+    private Vista v; //Principal vp;
+    private VistaPrincipal vp;
 
     public ControladorPresentacion(){
         cc = new ControladorCongreso();
@@ -24,16 +27,25 @@ public class ControladorPresentacion {
         cr = new ControladorRelaciones(cc,ce);
         ca = new ControladorAlgoritmo(cr);
 
-        v = new VistaAlgoritmo(this); //Principal();
-        vp = new VistaPrincipal1();
+        cvc = new CPCongresistas();
+        cpa = new CPAlgoritmo();
+
+        v = new Vista(this);
+
+       // vp = new VistaPrincipal();
     }
 
-    public VistaPrincipal getVista()
+    public void inicializarPresentacion() {
+        v.pack();
+        v.setVisible(true);
+    }
+
+    public Vista getVista()
     {
         return v;
     }
 
-    public VistaPrincipal1 getVistaPrincipal()
+    public VistaPrincipal getVistaPrincipal()
     {
         return vp;
     }
@@ -46,6 +58,8 @@ public class ControladorPresentacion {
     {
         return cr;
     }
+    public CPAlgoritmo getControlVA() { return cpa; }
+    public CPCongresistas getControlVC() { return cvc; }
 
 
 }

@@ -14,11 +14,9 @@ public class DriverVista {
             public void run() {
                 //Turn off metal's use of bold fonts
                 UIManager.put("swing.boldMetal", Boolean.FALSE);
-                VistaPrincipal frame = cp.getVista();
+                ControladorPresentacion frame = new ControladorPresentacion();
 
-                //Display the window.
-                frame.pack();
-                frame.setVisible(true);
+                frame.inicializarPresentacion();
             }
         });
 

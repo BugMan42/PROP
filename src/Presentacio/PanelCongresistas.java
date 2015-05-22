@@ -14,19 +14,20 @@ import java.awt.event.ActionListener;
  *
  */
 
-public class VistaAlgoritmo extends VistaPrincipal {
+public class PanelCongresistas extends PanelLista {
 
     //Referència al controlador de presentació que crea la vista
-    ControladorPresentacion cp;
+    CPCongresistas cvc;
 
-    public VistaAlgoritmo(ControladorPresentacion c)
+    public PanelCongresistas(CPCongresistas c)
     {
-        super(c);
+        super();
+        cvc = c;
         // Inicializa los componentes de la ventana
         initUI();
     }
 
-    public VistaAlgoritmo() {
+    public PanelCongresistas() {
 
         super();
         // Inicializa los componentes de la ventana
@@ -36,7 +37,6 @@ public class VistaAlgoritmo extends VistaPrincipal {
     private void initUI()
     {
 
-        JPanel panel = new JPanel();
         JLabel name = new JLabel("Nombre:");
         JLabel surname = new JLabel("Apellido:");
         JLabel dni = new JLabel("DNI:");
@@ -68,13 +68,10 @@ public class VistaAlgoritmo extends VistaPrincipal {
         acceptButton = new JButton("Aceptar");
         acceptButton.setEnabled(false);
 
-        //JButton delete = new JButton("Eliminar");
+        // Referencias a los objetos superiores
+        final JList name_list = obtLista();
+        final DefaultListModel def = (DefaultListModel) name_list.getModel();
 
-        final DefaultListModel def = new DefaultListModel();
-        final JList name_list = new JList(def);
-
-        name_list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        name_list.setLayoutOrientation(JList.VERTICAL);
         //Acción realizada al seleccionar un elemento
         name_list.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -94,9 +91,8 @@ public class VistaAlgoritmo extends VistaPrincipal {
                         // Del congresista a los campos
                         String[] campos = dato.split(" ");
 
-                        if (campos.length >=2 && campos[1].charAt(0) == '[')
-                        {
-                            String iden = campos[1].substring(1,campos[1].length()-1);
+                        if (campos.length >= 2 && campos[1].charAt(0) == '[') {
+                            String iden = campos[1].substring(1, campos[1].length() - 1);
                             name_field.setText(campos[0]);
                             dni_field.setText(iden);
 
@@ -104,12 +100,9 @@ public class VistaAlgoritmo extends VistaPrincipal {
                             error_field.append(dato);
                             error_field.append("\n");
                             error_field.append(iden);
-                        }
-                        else
-                        {
+                        } else {
                             name_field.setText(campos[0]);
                         }
-
 
 
                     }
@@ -117,8 +110,7 @@ public class VistaAlgoritmo extends VistaPrincipal {
             }
         });
 
-        JScrollPane scroll = new JScrollPane(name_list);
-
+        //Acción del botón Aceptar
         acceptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -129,8 +121,8 @@ public class VistaAlgoritmo extends VistaPrincipal {
                 Congresista cong = null;
 
                 try {
-                    cp.getControlCongreso().agregarCongresista(dni_field.getText(), name_field.getText(), surname_field.getText(), Integer.parseInt(age_field.getText()), city_field.getText(), partido_field.getText(), state_field.getText());
-                    cong = cp.getControlCongreso().consultarCongresista(iden);
+                    //cvc.agregarCongresista(dni_field.getText(), name_field.getText(), surname_field.getText(), Integer.parseInt(age_field.getText()), city_field.getText(), partido_field.getText(), state_field.getText());
+                    //cong = cvc.consultarCongresista(iden);
                     error_field.setText("");
                     def.setElementAt(nom + " [" + iden + "]", in);
                 } catch (Exception e1) {
@@ -139,15 +131,13 @@ public class VistaAlgoritmo extends VistaPrincipal {
                 }
 
 
-
             }
         });
 
         //Botón eliminar
-        ImageIcon i_del = new ImageIcon("images/del.png");
-        final JButton del = new JButton(i_del);
-        del.setEnabled(false);
-        del.addActionListener(new ActionListener() {
+        final JButton delb = obtElimBoton();
+        delb.setEnabled(false);
+        delb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String iden = dni_field.getText();
@@ -155,23 +145,20 @@ public class VistaAlgoritmo extends VistaPrincipal {
 
 
                 try {
-                    cp.getControlCongreso().eliminarCongresista(iden, cp.getControlRelaciones());
-                }
-                catch (Exception e2)
-                {
+                    //cvc.eliminarCongresista(iden, cp.getControlRelaciones());
+                } catch (Exception e2) {
                     e2.printStackTrace();
                 }
 
-                if (def.getSize()-1 < 0 ) del.setEnabled(false);
-                else name_list.setSelectedIndex(def.getSize()-1);
+                if (def.getSize() - 1 < 0) delb.setEnabled(false);
+                else name_list.setSelectedIndex(def.getSize() - 1);
 
             }
         });
 
         //Botón añadir
-        ImageIcon i_add = new ImageIcon("images/add.png");
-        JButton add = new JButton(i_add);
-        add.addActionListener(new ActionListener() {
+        final JButton addb = obtAgrBoton();
+        addb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 def.addElement("Nuevo");
@@ -185,46 +172,35 @@ public class VistaAlgoritmo extends VistaPrincipal {
                 name_list.setSelectedIndex(def.getSize() - 1);
 
 
-                del.setEnabled(true);
+                delb.setEnabled(true);
             }
         });
-
-        JPanel izq = new JPanel();
-        izq.add(add);
-        izq.add(del);
-        izq.add(scroll);
 
         JPanel der = new JPanel();
         der.add(name);
         der.add(name_field);
+        der.add(surname);
+        der.add(surname_field);
+        der.add(dni);
+        der.add(dni_field);
+        der.add(age);
+        der.add(age_field);
+        der.add(partido);
+        der.add(partido_field);
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, izq, der);
+        //Obtenemos el SplitPanel de la clase padre y le asignamos el panel a la parte derecha
+        obtSP().setRightComponent(der);
 
-        add(splitPane);
 
-        cout(name_list.getFirstVisibleIndex()+" 1");
-        cout(name_list.getLastVisibleIndex()+" 2");
-/*
-
-        GroupLayout gr = new GroupLayout(panel);
-        panel.setLayout(gr);
+        GroupLayout gr = new GroupLayout(der);
+        der.setLayout(gr);
         gr.setAutoCreateGaps(true);
         gr.setAutoCreateContainerGaps(true);
-*/
 
         // Layout
-        /*
+
         gr.setHorizontalGroup(
                 gr.createSequentialGroup()
-                        .addGroup(gr.createParallelGroup()
-                                        .addComponent(scroll)
-                                        .addGroup(gr.createSequentialGroup()
-                                                        .addComponent(add)
-                                                        .addComponent(del)
-                                        )
-
-
-                        )
                         .addGroup(gr.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(gr.createSequentialGroup()
                                                         .addGroup(gr.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -253,20 +229,12 @@ public class VistaAlgoritmo extends VistaPrincipal {
                                         )
                         )
         );
-        */
 
 
-        /*
+
+
         gr.setVerticalGroup(
                 gr.createParallelGroup()
-                        .addGroup(gr.createSequentialGroup()
-                                        .addGroup(gr.createParallelGroup()
-                                                        .addComponent(add)
-                                                        .addComponent(del)
-                                        )
-                                        .addComponent(scroll)
-
-                        )
                         .addGroup(gr.createSequentialGroup()
                                         .addGroup(gr.createParallelGroup()
                                                         .addGroup(gr.createSequentialGroup()
@@ -303,11 +271,11 @@ public class VistaAlgoritmo extends VistaPrincipal {
                                                                         .addComponent(state)
                                                                         .addComponent(state_field)
                                                         )
-                                                        /*.addGroup(gr.createSequentialGroup()
+                                                        .addGroup(gr.createSequentialGroup()
                                                                         .addComponent(city)
                                                                         .addComponent(city_field)
-                                                        )*/
-                                        /*)
+                                                        )
+                                        )
                                         .addGroup(gr.createParallelGroup(GroupLayout.Alignment.CENTER)
                                                         .addComponent(error_field)
                                                                 //.addComponent(delete)
@@ -316,46 +284,10 @@ public class VistaAlgoritmo extends VistaPrincipal {
                         )
 
 
-        );*/
+        );
 
 
     }
 
-    protected JComponent makeTextPanel(String text) {
-        JPanel panel = new JPanel(false);
-        JLabel filler = new JLabel(text);
-        filler.setHorizontalAlignment(JLabel.CENTER);
-        panel.setLayout(new GridLayout(1, 1));
-        panel.add(filler);
-        return panel;
-    }
 
-    /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from
-     * the event dispatch thread.
-     */
-    private static void createAndShowGUI() {
-        //Create and set up the window.
-        VistaAlgoritmo frame = new VistaAlgoritmo();
-
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
-    private void cout(String str) {
-        System.out.println(str);
-    }
-
-    public static void main(String[] args) {
-        //Schedule a job for the event dispatch thread:
-        //creating and showing this application's GUI.
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                //Turn off metal's use of bold fonts
-                UIManager.put("swing.boldMetal", Boolean.FALSE);
-                createAndShowGUI();
-            }
-        });
-    }
 }
