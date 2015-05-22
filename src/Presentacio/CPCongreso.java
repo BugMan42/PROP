@@ -13,6 +13,5 @@ public class CPCongreso {
     public PanelAlgoritmo obtPanel() {
         if (congreso == null) congreso = new PanelAlgoritmo(this);
         return congreso;
-
     }
 }
