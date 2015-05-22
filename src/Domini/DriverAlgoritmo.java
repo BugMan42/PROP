@@ -79,7 +79,6 @@ public class DriverAlgoritmo {
     {
         try {
             alg = new Clique(in, out);
-            alg.ejecutar_iteración(in.obtGrafo());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,7 +89,6 @@ public class DriverAlgoritmo {
     {
         try {
             alg = new Louvain(in, out);
-            alg.ejecutar_iteración(in.obtGrafo());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,7 +99,6 @@ public class DriverAlgoritmo {
     {
         try {
             alg = new Girvan_Newman(in, out);
-            alg.ejecutar_iteración(in.obtGrafo());
         } catch (Exception e) {
             e.printStackTrace();
         }

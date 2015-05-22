@@ -18,7 +18,6 @@ public class DriverGirvanNewman {
         in = new Entrada(golf, 2);
         out = new Salida();
         gn = new Girvan_Newman(in, out);
-        gn.ejecutar_algoritmo();
         ArrayList<String> hist = out.mostrarHistorial();
         for (String aHist : hist) {
             System.out.println(aHist);

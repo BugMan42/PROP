@@ -11,8 +11,8 @@ import java.util.*;
 public class Girvan_Newman extends Algoritmo{
 
 
-    //protected Entrada in
-    //protected Salida out
+    //obtIn() -> Entrada in
+    //obtOut() -> Salida out
 
     //Referencia al grafo que contiene datos originales del grafo de relaciones
     private Grafo data_graph;
@@ -94,15 +94,15 @@ public class Girvan_Newman extends Algoritmo{
     {
         super(i, o);
         //Se obtiene el grafo original desde la entrada
-        data_graph = in.obtGrafo();
+        data_graph = obtIn().obtGrafo();
         //El grafo que utilizará el algoritmo es una copia de data_graph
         alg_graph = new Grafo(data_graph);
+        ejecutar_algoritmo();
     }
 
-    @Override
-    public void ejecutar_algoritmo() throws Exception {
+    private void ejecutar_algoritmo() throws Exception {
         //El parámetro de finalización de Girvan-Newman es el número máximo de comunidades
-        int limit = (int) in.obtParam1();
+        int limit = (int) obtIn().obtParam1();
         while(alg_cc < limit) ejecutar_iteración(alg_graph);
     }
 
@@ -111,7 +111,6 @@ public class Girvan_Newman extends Algoritmo{
         ejecutar_iteración(alg_graph);
     }
 
-    @Override
     public void ejecutar_iteración(Grafo g) throws Exception {
         int N = g.V(); //Número de vértices del grafo
         int cc = 0; //Número componentes conexos en la primera ejecución del algoritmo de Dijkstra
@@ -263,7 +262,7 @@ public class Girvan_Newman extends Algoritmo{
         }
 
         //Eliminamos la arista con mayor intermediación
-        out.agregarMensaje("Arista eliminada: " + data_graph.fPrima(victim.orig) + "--" + data_graph.fPrima(victim.dest));
+        obtOut().agregarMensaje("Arista eliminada: " + data_graph.fPrima(victim.orig) + "--" + data_graph.fPrima(victim.dest));
         alg_graph.eliminarAristas(victim.orig, victim.dest);
         alg_graph.eliminarAristas(victim.dest, victim.orig);
 
@@ -279,7 +278,7 @@ public class Girvan_Newman extends Algoritmo{
             n.down_total = 0;
         }
 
-        out.comunidad().clear();
+        obtOut().comunidad().clear();
         TreeSet<Integer> comm = null;
         //Segundo pase del algoritmo de Girvan-Newman
         for (int iii = 0; iii < N; ++iii)
@@ -312,7 +311,7 @@ public class Girvan_Newman extends Algoritmo{
                 uno.component = cc2;
                 comm = new TreeSet<Integer>();
                 comm.add(iii);
-                out.comunidad().add(comm);
+                obtOut().comunidad().add(comm);
             }
 
             //Mientras la cola no esté vacía..
@@ -398,7 +397,7 @@ public class Girvan_Newman extends Algoritmo{
         if (cc2 > cc)
         {
             int d_cc = cc2 - cc;
-            if (d_cc == 1 && alg_cc != 0) out.agregarMensaje("Ha surgido una nueva comunidad.");
+            if (d_cc == 1 && alg_cc != 0) obtOut().agregarMensaje("Ha surgido una nueva comunidad.");
         }
 
         alg_cc = cc2;
