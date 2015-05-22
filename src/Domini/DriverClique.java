@@ -61,11 +61,11 @@ public class DriverClique {
                 if (aux.length > 2) throw new Exception(dem);
                 k = Integer.parseInt(aux[1]);
                 break;
-            /*case 3:
+            case 3:
                 if (aux.length > 1) throw new Exception(dem);
                 if (c != null) c.ejecutar_algoritmo();
                 else throw new Exception(noExiste);
-                break;*/
+                break;
             case 4:
                 if (aux.length > 1) throw new Exception(dem);
                 crearGrafoPersonalizado(entrada);
