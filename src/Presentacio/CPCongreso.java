@@ -6,12 +6,12 @@ package Presentacio;
 public class CPCongreso {
     private PanelCongreso congreso;
 
-    public CPAlgoritmo()
+    public CPCongreso()
     {
     }
 
-    public PanelAlgoritmo obtPanel() {
-        if (congreso == null) congreso = new PanelAlgoritmo(this);
+    public PanelCongreso obtPanel() {
+        if (congreso == null) congreso = new PanelCongreso(this);
         return congreso;
     }
 }
