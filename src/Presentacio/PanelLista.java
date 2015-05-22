@@ -104,7 +104,7 @@ public class PanelLista extends Panel {
                                         .addComponent(addb)
                                         .addComponent(delb)
                         )
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
         );
 
         izq_lay.setVerticalGroup(
@@ -113,13 +113,23 @@ public class PanelLista extends Panel {
                                         .addComponent(addb)
                                         .addComponent(delb)
                         )
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
         );
 
         sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         sp.setLeftComponent(izq);
         sp.setBorder(BorderFactory.createLineBorder(Color.black));
-        add(sp);
+        GroupLayout layout = new javax.swing.GroupLayout(this);
+        setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+        );
+        //add(sp);
 
     }
 
