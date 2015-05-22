@@ -1,9 +1,6 @@
 package Presentacio;
 
-import Domini.Congreso;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 
@@ -16,7 +13,7 @@ public class PanelLista extends Panel {
     JButton delb;
     JScrollPane jScrollPane1;
 
-    public PanelLista(Vista v) {
+    public PanelLista(VistaPrincipal v) {
 
         super(v);
         // Inicializa los componentes de la ventana

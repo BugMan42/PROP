@@ -15,11 +15,14 @@ public class VistaPrincipal extends JFrame {
 
     //Referència al controlador de presentació que crea la vista
     ControladorPresentacion cp;
+    JPanel pan;
 
     public VistaPrincipal(ControladorPresentacion c)
     {
         cp = c;
+        setMinimumSize(new Dimension(430, 350));
         initUI();
+
     }
 
     public VistaPrincipal() {
@@ -28,8 +31,16 @@ public class VistaPrincipal extends JFrame {
         initUI();
     }
 
+    public void setCP(ControladorPresentacion c)
+    {
+        cp = c;
+    }
+
     private void initUI()
     {
+        pan = cp.getCPC().obtPanel();
+        //pan = cp.getCPA().obtPanel();
+
         // [this] Operación heredada de JFrame, define el título de la ventana
         setTitle("Graph Communities");
         // [this] Operación heredada de JFrame, define el método por defecto para el cierre
@@ -97,11 +108,41 @@ public class VistaPrincipal extends JFrame {
 
         JMenuItem mi_cong = new JMenuItem("Congresistas", KeyEvent.VK_C);
         mi_cong.setToolTipText("Editar congresistas");
+        mi_cong.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remove(pan);
+                pan = cp.getCPC().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
+            }
+        });
         menu1_5.add(mi_cong);
 
         JMenuItem mi_eve = new JMenuItem("Eventos", KeyEvent.VK_E);
         mi_cong.setToolTipText("Editar eventos");
         menu1_5.add(mi_eve);
+
+        JMenuItem mi_rel = new JMenuItem("Relaciones", KeyEvent.VK_R);
+        mi_rel.setToolTipText("Editar relaciones");
+        menu1_5.add(mi_rel);
+
+        JMenuItem mi_alg = new JMenuItem("Algoritmo", KeyEvent.VK_R);
+        mi_alg.setToolTipText("Editar algoritmo y preferencias");
+        mi_alg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remove(pan);
+                pan = cp.getCPA().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
+
+
+            }
+        });
+        menu1_5.add(mi_alg);
 
         menuBar.add(menu1_5);
 
@@ -118,17 +159,42 @@ public class VistaPrincipal extends JFrame {
         setJMenuBar(menuBar);
 
         //Toolbar (será la sustituta del TabbedPane)
-        JToolBar toolbar = new JToolBar("REKT");
-        toolbar.setOrientation(0);
-        JButton bCongreso = new JButton("Congresistas");
+        JToolBar toolbar = new JToolBar("");
+        //Evita que la toolbar pueda ser extraída
+        toolbar.setFloatable(false);
+
+        JButton bCongreso = new JButton("Congreso");
+        bCongreso.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remove(pan);
+                pan = cp.getCPC().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
+
+            }
+        });
         toolbar.add(bCongreso);
         JButton bEventos = new JButton("Eventos");
         toolbar.add(bEventos);
         JButton bRelaciones = new JButton("Relaciones");
         toolbar.add(bRelaciones);
         JButton bAlgoritmo = new JButton("Algoritmo y preferencias");
+        bAlgoritmo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remove(pan);
+                pan = cp.getCPA().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
+
+            }
+        });
         toolbar.add(bAlgoritmo);
         add(toolbar, BorderLayout.NORTH);
+        add(pan);
 
     }
 

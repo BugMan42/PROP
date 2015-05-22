@@ -8,7 +8,7 @@ import java.awt.*;
  */
 public class Panel extends JPanel {
 
-    private Vista vis;
+    private VistaPrincipal vis;
 
     public Panel()
     {
@@ -16,19 +16,19 @@ public class Panel extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.cyan));
     }
 
-    public Panel(Vista v)
+    public Panel(VistaPrincipal v)
     {
         super();
         setBorder(BorderFactory.createLineBorder(Color.cyan));
         vis = v;
     }
 
-    public void establecerVista(Vista v)
+    public void establecerVista(VistaPrincipal v)
     {
         vis = v;
     }
 
-    public Vista obtenerVista()
+    public VistaPrincipal obtenerVista()
     {
         return vis;
     }

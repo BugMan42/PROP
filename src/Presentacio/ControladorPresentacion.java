@@ -18,7 +18,7 @@ public class ControladorPresentacion {
     private CPAlgoritmo cpa;
     private CPCongreso cpc;
 
-    private Vista v; //Principal vp;
+    private VistaPrincipal v; //Principal vp;
     private VistaPrincipal vp;
 
     public ControladorPresentacion(){
@@ -30,7 +30,7 @@ public class ControladorPresentacion {
         cpc = new CPCongreso();
         cpa = new CPAlgoritmo();
 
-        v = new Vista(this);
+        v = new VistaPrincipal(this);
 
        // vp = new VistaPrincipal();
     }
@@ -40,7 +40,7 @@ public class ControladorPresentacion {
         v.setVisible(true);
     }
 
-    public Vista getVista()
+    public VistaPrincipal getVista()
     {
         return v;
     }
