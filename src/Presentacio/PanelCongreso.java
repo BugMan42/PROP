@@ -32,6 +32,7 @@ public class PanelCongreso extends PanelLista {
         super();
         // Inicializa los componentes de la ventana
         //initUI();
+
     }
 
     private void initUI()
