@@ -16,8 +16,4 @@ public class CPAlgoritmo {
         return pa;
     }
 
-    public void elimPanel()
-    {
-        pa = null;
-    }
 }

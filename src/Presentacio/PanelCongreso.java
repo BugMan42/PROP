@@ -14,12 +14,12 @@ import java.awt.event.ActionListener;
  *
  */
 
-public class PanelCongresistas extends PanelLista {
+public class PanelCongreso extends PanelLista {
 
     //Referència al controlador de presentació que crea la vista
     CPCongresistas cvc;
 
-    public PanelCongresistas(CPCongresistas c)
+    public PanelCongreso(CPCongresistas c)
     {
         super();
         cvc = c;
@@ -27,7 +27,7 @@ public class PanelCongresistas extends PanelLista {
         initUI();
     }
 
-    public PanelCongresistas() {
+    public PanelCongreso() {
 
         super();
         // Inicializa los componentes de la ventana
