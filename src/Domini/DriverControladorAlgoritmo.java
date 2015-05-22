@@ -38,25 +38,21 @@ public class DriverControladorAlgoritmo {
                     crearEntrada();
                     break;
                 case 4:
-                    ejec();
-                    break;
-                case 5:
                     consultarSalida();
                 default:
                     break;
             }
 
-        } while (opt != 6);
+        } while (opt != 5);
     }
 
     private static void printMenu()
     {
         System.out.println("1. Crear grafo");
-        System.out.println("2. Elegir algoritmo");
+        System.out.println("2. Elegir algoritmo y ejecutar");
         System.out.println("3. Crear entrada");
-        System.out.println("4. Ejecutar algoritmo");
-        System.out.println("5. Consultar salida");
-        System.out.println("6. Salida");
+        System.out.println("4. Consultar salida");
+        System.out.println("5. Salida");
 
     }
 
@@ -70,13 +66,13 @@ public class DriverControladorAlgoritmo {
             int op = ui.nextInt();
             switch (op) {
                 case 1:
-                    c_alg.seleccionAlgoritmo("g");
+                    c_alg.seleccionAlgoritmo(1);
                     break;
                 case 2:
-                    c_alg.seleccionAlgoritmo("l");
+                    c_alg.seleccionAlgoritmo(2);
                     break;
                 case 3:
-                    c_alg.seleccionAlgoritmo("c");
+                    c_alg.seleccionAlgoritmo(3);
                     break;
                 default:
                     break;
@@ -103,15 +99,6 @@ public class DriverControladorAlgoritmo {
             c_rel.agregarRelacion("14141414R", "Campo de Golf", "11/4/2013");
             c_rel.agregarRelacion("15151515G", "Campo de Golf", "11/4/2013");
             c_alg.crearGrafo();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void ejec()
-    {
-        try {
-            c_alg.ejecutar();
         } catch (Exception e) {
             e.printStackTrace();
         }
