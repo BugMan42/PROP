@@ -14,7 +14,7 @@ public class DriverVista {
             public void run() {
                 //Turn off metal's use of bold fonts
                 UIManager.put("swing.boldMetal", Boolean.FALSE);
-                Vista frame = cp.getVista();
+                VistaPrincipal frame = cp.getVista();
 
                 //Display the window.
                 frame.pack();

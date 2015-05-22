@@ -8,14 +8,13 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 /**
  * Created by falc on 7/05/15.
  *
  */
 
-public class VistaAlgoritmo extends Vista {
+public class VistaAlgoritmo extends VistaPrincipal {
 
     //Referència al controlador de presentació que crea la vista
     ControladorPresentacion cp;

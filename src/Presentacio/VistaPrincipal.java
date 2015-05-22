@@ -1,10 +1,6 @@
 package Presentacio;
 
-import Domini.Congresista;
-
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,18 +11,18 @@ import java.awt.event.KeyEvent;
  *
  */
 
-public class Vista extends JFrame {
+public class VistaPrincipal extends JFrame {
 
     //Referència al controlador de presentació que crea la vista
     ControladorPresentacion cp;
 
-    public Vista(ControladorPresentacion c)
+    public VistaPrincipal(ControladorPresentacion c)
     {
         cp = c;
         initUI();
     }
 
-    public Vista() {
+    public VistaPrincipal() {
 
         // Inicializa los componentes de la ventana
         initUI();
@@ -143,7 +139,7 @@ public class Vista extends JFrame {
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        Vista frame = new Vista();
+        VistaPrincipal frame = new VistaPrincipal();
 
         //Display the window.
         frame.pack();

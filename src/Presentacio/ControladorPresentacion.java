@@ -15,7 +15,7 @@ public class ControladorPresentacion {
     private ControladorAlgoritmo ca;
     private ControladorRelaciones cr;
 
-    private Vista v; //Principal vp;
+    private VistaPrincipal v; //Principal vp;
     private VistaPrincipal1 vp;
 
     public ControladorPresentacion(){
@@ -28,7 +28,7 @@ public class ControladorPresentacion {
         vp = new VistaPrincipal1();
     }
 
-    public Vista getVista()
+    public VistaPrincipal getVista()
     {
         return v;
     }
