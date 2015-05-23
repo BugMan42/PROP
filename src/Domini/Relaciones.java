@@ -151,7 +151,7 @@ public class Relaciones {
         ArrayList<RelacionSimple> r = new ArrayList<RelacionSimple>(obtRelaciones(e));
         for(RelacionSimple rs : r) eliminarRelacion(rs);
     }
-    public void eliminarRelaciones() throws Exception {
+    public void eliminarRelaciones(){
         congresistas.vaciar();
         eventos.vaciar();
     }

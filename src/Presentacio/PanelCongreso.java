@@ -1,6 +1,8 @@
 package Presentacio;
 
 import Domini.Congresista;
+import Domini.ControladorCjtEvento;
+import Domini.ControladorRelaciones;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -17,6 +19,7 @@ public class PanelCongreso extends PanelLista {
 
     //Referència al controlador de presentació que crea la vista
     CPCongreso cvc;
+    CPRelaciones cpr;
 
     JButton bAgregarCongresista;
     JButton bAgregarRandom;
@@ -468,7 +471,11 @@ public class PanelCongreso extends PanelLista {
         System.out.println(str);
     }
 
-    private void bGuardarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
+    private void bClearActionPerformed(java.awt.event.ActionEvent evt) {
+        setDefaultText();
+    }
+
+    private void bAgregarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
@@ -476,15 +483,30 @@ public class PanelCongreso extends PanelLista {
         // TODO add your handling code here:
     }
 
-    private void bAgregarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
+    private void bModificarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
     private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        // TODO add your handling code here
+        ControladorCjtEvento aux = new ControladorCjtEvento();
+        ControladorRelaciones aux2 = new ControladorRelaciones(cvc.CC,aux);
+        cvc.CC.eliminarCongreso(aux2);
+       // print("he entrat "+cvc.CC.esVacio());
+        ListUpdate();
     }
 
-    private void bModificarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
+    private void ListUpdate() {
+        JList listCongreso = obtJlist();
+        String a[] = {"No hay Congresistas"};
+        if (cvc.CC.esVacio()) listCongreso.setListData(a);
+        else {
+            ArrayList<String> aux = cvc.CC.obtenerCongresoTotal();
+            listCongreso.setListData(aux.toArray());
+        }
+    }
+
+    private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
@@ -492,12 +514,8 @@ public class PanelCongreso extends PanelLista {
         // TODO add your handling code here:
     }
 
-    private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
+    private void bGuardarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }
-
-    private void bClearActionPerformed(java.awt.event.ActionEvent evt) {
-        setDefaultText();
     }
     private void setDefaultText() {
         textName.setText("Introduzca el Nombre");

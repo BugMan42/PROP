@@ -65,7 +65,7 @@ public class ControladorCongreso {
         c.eliminarCongresista(d);
     }
 
-    public void eliminarCongreso(ControladorRelaciones cr) throws Exception {
+    public void eliminarCongreso(ControladorRelaciones cr) {
         c.eliminarCongreso();
         cr.eliminarRelaciones();
     }

@@ -11,7 +11,7 @@ public class CPCongreso {
     public CPCongreso() {
         CC = new ControladorCongreso();
         try {
-            CC.agregarCongresistaRandom(1000);
+            CC.agregarCongresistaRandom(100);
         }catch (Exception e) {
             //WTF
         }
