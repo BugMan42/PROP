@@ -83,7 +83,57 @@ public class PanelCongreso extends PanelLista {
         jSpinner1 = new JSpinner();
 
        // setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        
+        // Referencias a los objetos superiores
+        final JList listCongreso = obtJlist();
+//        final DefaultListModel def = (DefaultListModel) name_list.getModel();
+
+        //Acción realizada al seleccionar un elemento
+        listCongreso.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+
+                    if (listCongreso.getSelectedIndex() == -1) {
+                        //No selection, disable fire button.
+                        //acceptButton.setEnabled(false);
+
+                    } else {
+                        //Selection, enable the fire button.
+                        //acceptButton.setEnabled(true);
+                        String dato = (String) listCongreso.getSelectedValue();
+                        //errorField.setText("#" + name_list.getSelectedIndex());
+
+                        // Del congresista a los campos
+                        String[] campos = dato.split(" ");
+
+                        if (campos.length == 7 ) {
+                            textDni.setText(campos[0]);
+                            textName.setText(campos[1]);
+                            textSurname.setText(campos[2]);
+                            textAge.setText(campos[3]);
+                            textCity.setText(campos[4]);
+                            textState.setText(campos[5]);
+                            textParty.setText(campos[6]);
+
+                            //String iden = campos[1].substring(1, campos[1].length() - 1);
+                            //nameField.setText(campos[0]);
+                            //dniField.setText(iden);
+
+                            /*errorField.append("\n");
+                            errorField.append(dato);
+                            errorField.append("\n");
+                            errorField.append(iden);*/
+                        } else {
+                            //nameField.setText(campos[0]);
+                        }
+
+
+                    }
+                }
+            }
+        });
+
+
 
         lName.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lName.setText("Nombre");
