@@ -30,6 +30,21 @@ public class ControladorCongreso {
         Congresista con = new Congresista(d,nombre,apellido,edad,ciudad,estado,partido);
         c.agregarCongresista(con);
     }
+    // Jose te la he puesto porque la necesitaba cambiala como te guste mas
+    public void agregarCongresistaRandom(int n) throws Exception{
+        for (int i = 0; i < n; ++i) {
+            c.agregarCongresistaRandom();
+        }
+    }
+    //Otra que me hacia falta aqui tengo que hablar contigo
+    public ArrayList<String> obtenerCongresoTotal() {
+        ArrayList<String> a = new ArrayList<String>(c.size());
+        List<Congresista> b = c.obtenerCongreso();
+        for (int i = 0; i < c.size(); ++i) {
+            a.add(b.get(i).toString());
+        }
+        return a;
+    }
 
     public ArrayList<String> obtenerListaID(){
         return c.obtenerListaID();

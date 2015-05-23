@@ -8,12 +8,16 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.*;
 
 
 public class PanelCongreso extends PanelLista {
 
     //Referència al controlador de presentació que crea la vista
     CPCongreso cvc;
+
     JButton bAgregarCongresista;
     JButton bAgregarRandom;
     JButton bCargarCongreso;
@@ -25,20 +29,20 @@ public class PanelCongreso extends PanelLista {
     Box.Filler filler1;
     JSpinner jSpinner1;
     JTextField textError;
+    JLabel lName;
+    JLabel lSurname;
+    JLabel lDni;
     JLabel lAge;
     JLabel lCity;
-    JLabel lDni;
-    JLabel lName;
-    JLabel lParty;
     JLabel lState;
-    JLabel lSurname;
-    JTextField textState;
+    JLabel lParty;
+    JTextField textName;
+    JTextField textSurname;
+    JTextField textDni;
     JTextField textAge;
     JTextField textCity;
-    JTextField textDni;
-    JTextField textName;
+    JTextField textState;
     JTextField textParty;
-    JTextField textSurname;
 
     public PanelCongreso(CPCongreso c)
     {
@@ -82,10 +86,17 @@ public class PanelCongreso extends PanelLista {
         bGuardarCongreso = new JButton();
         jSpinner1 = new JSpinner();
 
-       // setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        // setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // Referencias a los objetos superiores
         final JList listCongreso = obtJlist();
 //        final DefaultListModel def = (DefaultListModel) name_list.getModel();
+        String a[] = {"No hay Congresistas"};
+        if (cvc.CC.esVacio()) listCongreso.setListData(a);
+        else {
+           ArrayList<String> aux = cvc.CC.obtenerCongresoTotal();
+            listCongreso.setListData(aux.toArray());
+        }
+        //listCongreso.setListData();
 
         //Acción realizada al seleccionar un elemento
         listCongreso.addListSelectionListener(new ListSelectionListener() {
@@ -98,15 +109,12 @@ public class PanelCongreso extends PanelLista {
                         //acceptButton.setEnabled(false);
 
                     } else {
-                        //Selection, enable the fire button.
-                        //acceptButton.setEnabled(true);
                         String dato = (String) listCongreso.getSelectedValue();
                         //errorField.setText("#" + name_list.getSelectedIndex());
-
                         // Del congresista a los campos
                         String[] campos = dato.split(" ");
 
-                        if (campos.length == 7 ) {
+                        if (campos.length == 7) {
                             textDni.setText(campos[0]);
                             textName.setText(campos[1]);
                             textSurname.setText(campos[2]);
@@ -114,11 +122,6 @@ public class PanelCongreso extends PanelLista {
                             textCity.setText(campos[4]);
                             textState.setText(campos[5]);
                             textParty.setText(campos[6]);
-
-                            //String iden = campos[1].substring(1, campos[1].length() - 1);
-                            //nameField.setText(campos[0]);
-                            //dniField.setText(iden);
-
                             /*errorField.append("\n");
                             errorField.append(dato);
                             errorField.append("\n");
@@ -133,24 +136,25 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
+        setDefaultText();
 
 
         lName.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lName.setText("Nombre");
 
         textName.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textName.setText("Introduzca el Nombre");
-        textName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textNameActionPerformed(evt);
+        textName.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (textName.getText().charAt(0) == 'I') textName.setText("");
             }
         });
 
         textSurname.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textSurname.setText("Introduzca el Apellido");
-        textSurname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textSurnameActionPerformed(evt);
+        textSurname.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (textSurname.getText().charAt(0) == 'I') textSurname.setText("");
             }
         });
 
@@ -161,10 +165,10 @@ public class PanelCongreso extends PanelLista {
         lDni.setText("Dni");
 
         textDni.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textDni.setText("Introduzca el Dni");
-        textDni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textDniActionPerformed(evt);
+        textDni.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (textDni.getText().charAt(0) == 'I') textDni.setText("");
             }
         });
 
@@ -172,10 +176,10 @@ public class PanelCongreso extends PanelLista {
         lAge.setText("Edad");
 
         textAge.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textAge.setText("Introduzca el Dni");
-        textAge.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textAgeActionPerformed(evt);
+        textAge.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (textAge.getText().charAt(0) == 'I') textAge.setText("");
             }
         });
 
@@ -183,10 +187,10 @@ public class PanelCongreso extends PanelLista {
         lCity.setText("Ciudad");
 
         textCity.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textCity.setText("Introduzca el Dni");
-        textCity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCityActionPerformed(evt);
+        textCity.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (textCity.getText().charAt(0) == 'I') textCity.setText("");
             }
         });
 
@@ -194,10 +198,10 @@ public class PanelCongreso extends PanelLista {
         lState.setText("Estado");
 
         textState.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textState.setText("Introduzca el Estado");
-        textState.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textStateActionPerformed(evt);
+        textState.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (textState.getText().charAt(0) == 'I') textState.setText("");
             }
         });
 
@@ -205,10 +209,10 @@ public class PanelCongreso extends PanelLista {
         lParty.setText("Partido");
 
         textParty.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textParty.setText("Introduzca el Partido");
-        textParty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textPartyActionPerformed(evt);
+        textParty.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (textParty.getText().charAt(0) == 'I') textParty.setText("");
             }
         });
 
@@ -282,7 +286,6 @@ public class PanelCongreso extends PanelLista {
         jSpinner1.setFont(new java.awt.Font("Ubuntu", 0, 18));
 
 
-
         JPanel right = new JPanel();
         right.add(lName);
         right.add(textName);
@@ -317,9 +320,9 @@ public class PanelCongreso extends PanelLista {
         //right.setLayout(gr);
         //gr.setAutoCreateGaps(true);
         //gr.setAutoCreateContainerGaps(true);
-        
-        
-        
+
+
+
         //TODO
         GroupLayout layout = new GroupLayout(right);
         right.setLayout(layout);
@@ -425,67 +428,87 @@ public class PanelCongreso extends PanelLista {
                                 .addGap(30, 30, Short.MAX_VALUE))
         );
 
-    }// </editor-fold>                        
+    }// </editor-fold>
 
-        private void textNameActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void textSurnameActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void textDniActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void textAgeActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void textCityActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void textStateActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void textPartyActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void bGuardarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void bEliminarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void bAgregarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void bModificarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void bCargarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
-    
-        private void bClearActionPerformed(java.awt.event.ActionEvent evt) {
-            // TODO add your handling code here:
-        }
+    private void textNameActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        textName.setText("");
+    }
+
+    private void textSurnameActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        textSurname.setText("");
+    }
+
+    private void textDniActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        textDni.setText("");
+    }
+
+    private void textAgeActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        textAge.setText("");
+    }
+
+    private void textCityActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        textCity.setText("");
+    }
+
+    private void textStateActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void textPartyActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        print("he entrat");
+        textParty.setText("");
+    }
+    private void print(String str) {
+        System.out.println(str);
+    }
+
+    private void bGuardarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void bEliminarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void bAgregarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void bModificarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void bCargarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void bClearActionPerformed(java.awt.event.ActionEvent evt) {
+        setDefaultText();
+    }
+    private void setDefaultText() {
+        textName.setText("Introduzca el Nombre");
+        textSurname.setText("Introduzca el Apellido");
+        textDni.setText("Introduzca el Dni");
+        textAge.setText("Introduzca la Edad");
+        textCity.setText("Introduzca la Ciudad");
+        textState.setText("Introduzca el Estado");
+        textParty.setText("Introduzca el Partido");
+    }
+
     
     
     

@@ -5,11 +5,16 @@ import Domini.ControladorCongreso;
 
 public class CPCongreso {
 
-    private PanelCongreso PC = null;
-    private ControladorCongreso CC;
+    PanelCongreso PC = null;
+    ControladorCongreso CC;
 
-    public CPCongreso()
-    {
+    public CPCongreso() {
+        CC = new ControladorCongreso();
+        try {
+            CC.agregarCongresistaRandom(1000);
+        }catch (Exception e) {
+            //WTF
+        }
     }
 
     public PanelCongreso obtPanel() {

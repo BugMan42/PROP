@@ -18,8 +18,8 @@ public class Congreso {
             "Sophie","Alan","David","Arif","Zaman","Tim","Sergey","Larry","Mark","Bill"};
     private static String[] apellido = {"Dijkstra", "Neumamnn", "Zuse","A. Wagner","Moore","Bell","Hamming","Cohen","Newman","Knuth",
             "Allen","Torvalds","Warwick","Neumann","Stallman","Turing","Zaman","Goodger","Gates","Zuckerberg"};
-    private static String[] ciudad = {"Londres", "Paris", "Islamabad","Barcelona","Tokio","Washington","Seattle","New York",
-            "San Francisco","Chicago","Alexandria","Annapolis","Haifa","Louvain","Toronto","Berlin"};
+    private static String[] ciudad = {"Londres", "Paris", "Islamabad","Barcelona","Tokio","Washington","Seattle","New-York",
+            "San-Francisco","Chicago","Alexandria","Annapolis","Haifa","Louvain","Toronto","Berlin"};
     private static String[] partido = {"Republicano","Democrata","Libre","Pirata"};
 
     //atributs

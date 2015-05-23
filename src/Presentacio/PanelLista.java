@@ -69,7 +69,7 @@ public class PanelLista extends Panel {
        // setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE);
 
         jlist.setFont(new Font("Ubuntu", 0, 17)); // NOI18N
-        jlist.setModel(new AbstractListModel() {
+        /*jlist.setModel(new AbstractListModel() {
             String[] strings = {"00000000A Edsger Dijkstra 72 Rotterdam NT Pirata ", "00000000B Gordon Moore 86 SanFrancisco CA Berkeley", "00000000C Richard Hamming 82 Monterey CA Pirata", "00000000D Max Newman 87 Chealsea LO Democrata", "00000000E Allen Newll 65 SanFrancisco SF Pirata", "00000000F Jon-Von Neumann 53 Budapest AU Pirata", "00000000G Alan Turing 41 London LO Liberal"};
 
             public int getSize() {
@@ -79,7 +79,7 @@ public class PanelLista extends Panel {
             public Object getElementAt(int i) {
                 return strings[i];
             }
-        });
+        });*/
         jScrollPane1.setViewportView(jlist);
 
         boxSort.setFont(new Font("Ubuntu", 0, 17));
