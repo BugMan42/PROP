@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.font.TextAttribute;
 
 /**
  * Created by falc on 7/05/15.
@@ -20,7 +21,7 @@ public class VistaPrincipal extends JFrame {
     public VistaPrincipal(ControladorPresentacion c)
     {
         cp = c;
-        setMinimumSize(new Dimension(430, 350));
+        setMinimumSize(new Dimension(470, 350));
         initUI();
 
     }
@@ -105,8 +106,10 @@ public class VistaPrincipal extends JFrame {
         menuBar.add(menu1);
 
         JMenu menu1_5 = new JMenu("Editar");
+        //menu1_5.putClientProperty(TextAttribute.SIZE, 18);
 
-        JMenuItem mi_cong = new JMenuItem("Congresistas", KeyEvent.VK_C);
+        JMenuItem mi_cong = new JMenuItem("Congreso", KeyEvent.VK_C);
+       // mi_cong.putClientProperty(TextAttribute.SIZE, 18);
         mi_cong.setToolTipText("Editar congresistas");
         mi_cong.addActionListener(new ActionListener() {
             @Override
@@ -162,6 +165,7 @@ public class VistaPrincipal extends JFrame {
         JToolBar toolbar = new JToolBar("");
         //Evita que la toolbar pueda ser extraída
         toolbar.setFloatable(false);
+        //toolbar.setFont(new java.awt.Font("Sans Serif", 0, 17));
 
         JButton bCongreso = new JButton("Congreso");
         bCongreso.addActionListener(new ActionListener() {
@@ -192,6 +196,10 @@ public class VistaPrincipal extends JFrame {
 
             }
         });
+        bCongreso.setFont(new java.awt.Font("Sans Serif", 0, 17));
+        bAlgoritmo.setFont(new java.awt.Font("Sans Serif", 0, 17));
+        bEventos.setFont(new java.awt.Font("Sans Serif", 0, 17));
+        bRelaciones.setFont(new java.awt.Font("Sans Serif", 0, 17));
         toolbar.add(bAlgoritmo);
         add(toolbar, BorderLayout.NORTH);
         add(pan);

@@ -77,7 +77,7 @@ public class PanelCongreso extends PanelLista {
         acceptButton.setEnabled(false);
 
         // Referencias a los objetos superiores
-        final JList name_list = obtLista();
+        final JList name_list = obtJlist();
         final DefaultListModel def = (DefaultListModel) name_list.getModel();
 
         //Acción realizada al seleccionar un elemento
@@ -142,7 +142,7 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        //Botón eliminar
+       /* //Botón eliminar
         final JButton delb = obtElimBoton();
         delb.setEnabled(false);
         delb.addActionListener(new ActionListener() {
@@ -182,7 +182,7 @@ public class PanelCongreso extends PanelLista {
 
                 delb.setEnabled(true);
             }
-        });
+        });*/
 
         JPanel der = new JPanel();
         der.add(name);
@@ -197,7 +197,7 @@ public class PanelCongreso extends PanelLista {
         der.add(partido_field);
 
         //Obtenemos el SplitPanel de la clase padre y le asignamos el panel a la parte derecha
-        obtSP().setRightComponent(der);
+        obtSp().setRightComponent(der);
 
 
         GroupLayout gr = new GroupLayout(der);

@@ -30,7 +30,7 @@ public class Congreso {
         tst = new TST<Congresista>();
     }
     public void agregarCongresista(Congresista c) throws Exception {
-        tst.insertar(c.obtID(),c);
+        tst.insertar(c.obtID(), c);
     }
     private void print(String str) {
         System.out.println(str);
@@ -47,7 +47,7 @@ public class Congreso {
         int city = rand.nextInt(16);
         int part = rand.nextInt(4);
         Congresista c = new Congresista(r,nombre[name],apellido[surname],edad,ciudad[city],ciudad[city],partido[part]);
-        tst.insertar(c.obtID(),c);
+        tst.insertar(c.obtID(), c);
     }
 
     public void eliminarCongresista(Dni dni) throws Exception {
@@ -68,77 +68,36 @@ public class Congreso {
         tst.obtener(dni.toString()).modNombre(nombre);
     }
     public void modApellidoCongresista(Dni dni,String apellido) throws Exception {
-        try {
-            tst.obtener(dni.toString()).modApellido(apellido);
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.obtener(dni.toString()).modApellido(apellido);
     }
     public void modEdadCongresista(Dni dni,int edad) throws Exception {
-        try {
-            tst.obtener(dni.toString()).modEdad(edad);
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.obtener(dni.toString()).modEdad(edad);
     }
     public void modCiudadCongresista(Dni dni,String ciudad) throws Exception {
-        try {
-            tst.obtener(dni.toString()).modCiudad(ciudad);
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.obtener(dni.toString()).modCiudad(ciudad);
     }
     public void modEstadoCongresista(Dni dni,String estado) throws Exception {
-        try {
-            tst.obtener(dni.toString()).modEstado(estado);
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.obtener(dni.toString()).modEstado(estado);
     }
     public void modPartidoCongresista(Dni dni,String partido) throws Exception {
-        try {
-            tst.obtener(dni.toString()).modPartido(partido);
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.obtener(dni.toString()).modPartido(partido);
     }
     public void modCongresista(Dni dni,Dni dniNuevo , String nombre, String apellido,
                                int edad, String ciudad, String estado, String partido) throws  Exception{
-        try {
-            if (!dni.equals(dniNuevo)) {
-                tst.modificar(dni.toString(),dniNuevo.toString());
-                //tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
-                tst.obtener(dniNuevo.toString()).mod(dniNuevo, nombre, apellido, edad, ciudad, estado, partido);
-            }
-        }
-        catch (Exception a) {
-            if (a.getClass().equals(KeyNotExistsTST.class)) throw new NoExisteC(dni.toString());
-            if (a.getClass().equals(KeyAlreadyExistsTST.class)) throw new ExisteC(dniNuevo.toString());
+        if (!dni.equals(dniNuevo)) {
+            tst.modificar(dni.toString(), dniNuevo.toString());
+            //tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
+            tst.obtener(dniNuevo.toString()).mod(dniNuevo, nombre, apellido, edad, ciudad, estado, partido);
         }
     }
 
     //Consultoras
     public Congresista consultarCongresista(Dni dni) throws Exception {
-        try {
-            return tst.obtener(dni.toString());
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        return tst.obtener(dni.toString());
     }
     public Congresista copiaConsultarCongresista(Dni dni) throws Exception {
-        try {
-            Congresista aux = new Congresista(tst.obtener(dni.toString()));
-            return aux;
-        }
-        catch(Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        //Congresista aux = new Congresista(tst.obtener(dni.toString()));
+        return new Congresista(tst.obtener(dni.toString()));
     }
     public int size() {
         return tst.size();
