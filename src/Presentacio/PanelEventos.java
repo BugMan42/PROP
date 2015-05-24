@@ -113,7 +113,7 @@ public class PanelEventos extends PanelLista {
         ctimportancia.setText("");
         cbtipo.setSelectedIndex(0);
         lbinfo.setVisible(false);
-        
+
     }
 
     private boolean validar(String nombre, String fecha, String importancia, int i) {
