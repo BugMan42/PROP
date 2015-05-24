@@ -72,6 +72,14 @@ public class PanelCongreso extends PanelLista {
 
     }
     private void initGUI() {
+        final String def0="Introduzca el Nombre";
+        final String def1="Introduzca el Apellido";
+        final String def2="Introduzca el Dni";
+        final String def3="Introduzca la Edad";
+        final String def4="Introduzca la Ciudad";
+        final String def5="Introduzca el Estado";
+        final String def6="Introduzca el Partido";
+
         lName = new JLabel();
         textName = new JTextField();
         lSurname = new JLabel();
@@ -108,7 +116,6 @@ public class PanelCongreso extends PanelLista {
         t = true;
         setTextLabelStatus("Loading...");
         //labelStatus.setText("cargandoooooo");
-
         //listCongreso.setListData();
 
         //Acción realizada al seleccionar un elemento
@@ -142,8 +149,6 @@ public class PanelCongreso extends PanelLista {
                         } else {
                             //nameField.setText(campos[0]);
                         }
-
-
                     }
                 }
             }
@@ -156,18 +161,28 @@ public class PanelCongreso extends PanelLista {
         lName.setText("Nombre");
 
         textName.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textName.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        textName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textName);
+            }
+
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (checkStart(textName)) {
+                    textName.setText(def0);
+                }
             }
         });
 
         textSurname.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textSurname.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        textSurname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textSurname);
+            }
+
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (checkStart(textSurname)) {
+                    textSurname.setText(def1);
+                }
             }
         });
 
@@ -178,10 +193,14 @@ public class PanelCongreso extends PanelLista {
         lDni.setText("Dni");
 
         textDni.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textDni.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        textDni.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textDni);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (checkStart(textDni)) {
+                    textDni.setText(def2);
+                }
             }
         });
 
@@ -189,10 +208,14 @@ public class PanelCongreso extends PanelLista {
         lAge.setText("Edad");
 
         textAge.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textAge.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        textAge.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textAge);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (checkStart(textAge)) {
+                    textAge.setText(def3);
+                }
             }
         });
 
@@ -200,10 +223,14 @@ public class PanelCongreso extends PanelLista {
         lCity.setText("Ciudad");
 
         textCity.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textCity.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        textCity.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textCity);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (checkStart(textCity)) {
+                    textCity.setText(def4);
+                }
             }
         });
 
@@ -211,10 +238,14 @@ public class PanelCongreso extends PanelLista {
         lState.setText("Estado");
 
         textState.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textState.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        textState.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textState);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (checkStart(textState)) {
+                    textState.setText(def5);
+                }
             }
         });
 
@@ -222,10 +253,14 @@ public class PanelCongreso extends PanelLista {
         lParty.setText("Partido");
 
         textParty.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        textParty.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+        textParty.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textParty);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (checkStart(textParty)) {
+                    textParty.setText(def6);
+                }
             }
         });
 
@@ -444,6 +479,10 @@ public class PanelCongreso extends PanelLista {
 
     }// </editor-fold>
 
+    private boolean checkStart(JTextField aux) {
+        return aux.getText().equals("") || aux.getText().charAt(0) == ' ' || aux.getText().charAt(1) == ' ';
+    }
+
     private void clearText(JTextField aux) {
         if (!aux.getText().equals("") && aux.getText().charAt(0) == 'I') aux.setText("");
     }
@@ -657,7 +696,7 @@ public class PanelCongreso extends PanelLista {
     }
 
     protected void boxSortActionPerformed(ActionEvent evt) {
-
+        labelStatus.setText(boxSort.getSelectedIndex()+"");
     }
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt) {
@@ -681,276 +720,5 @@ public class PanelCongreso extends PanelLista {
     protected void setBoxSearch() {
         boxSearch.setModel(new DefaultComboBoxModel(new String[]{"Search By Dni", "Search By Nombre", "Search By Apellido", "Search By Edad", "Search By Ciudad", "Search By Estado", "Search By Partido"}));
     }
-    
-    
-    
-    
-    
-    
-
-    private void initUI()
-    {
-
-        JLabel name = new JLabel("Nombre:");
-        JLabel surname = new JLabel("Apellido:");
-        JLabel dni = new JLabel("DNI:");
-        JLabel age = new JLabel("Edad:");
-        JLabel city = new JLabel("Ciudad:");
-        JLabel state = new JLabel("Estado:");
-        JLabel partido = new JLabel("Partido:");
-        final JTextField nameField = new JTextField("Introduzca nombre");
-        //nameField.setMaximumSize(new Dimension(200, 25));
-        final JTextField dniField = new JTextField("8 numbers + 1 letter");
-        //dniField.setMaximumSize(new Dimension(200, 25));
-        final JTextField surnameField = new JTextField("Introduzca apellido");
-        //surnameField.setMaximumSize(new Dimension(200, 25));
-        final JTextField partidoField = new JTextField("Introduzca partido");
-        //partidoField.setMaximumSize(new Dimension(200, 25));
-        final JTextField ageField = new JTextField("Introduzca edad");
-        //ageField.setMaximumSize(new Dimension(200, 25));
-        final JTextField cityField = new JTextField("Introduzca ciudad");
-        //cityField.setMaximumSize(new Dimension(200, 25));
-        final JTextField stateField = new JTextField("Introduzca estado");
-        //stateField.setMaximumSize(new Dimension(200, 25));
-        nameField.putClientProperty("JComponent.sizeVariant", "large");
-        dniField.putClientProperty("JComponent.sizeVariant", "regular");
-        surnameField.putClientProperty("JComponent.sizeVariant", "regular");
-        partidoField.putClientProperty("JComponent.sizeVariant", "regular");
-        ageField.putClientProperty("JComponent.sizeVariant", "regular");
-        cityField.putClientProperty("JComponent.sizeVariant", "regular");
-        stateField.putClientProperty("JComponent.sizeVariant", "regular");
-
-        final JTextArea errorField = new JTextArea("No errors found");
-        errorField.setMaximumSize(new Dimension(200, 50));
-        errorField.setEditable(false);
-
-
-        final JButton acceptButton;
-        acceptButton = new JButton("Aceptar");
-        acceptButton.setEnabled(false);
-
-        // Referencias a los objetos superiores
-        final JList name_list = obtJlist();
-//        final DefaultListModel def = (DefaultListModel) name_list.getModel();
-
-        //Acción realizada al seleccionar un elemento
-        name_list.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-
-                    if (name_list.getSelectedIndex() == -1) {
-                        //No selection, disable fire button.
-                        acceptButton.setEnabled(false);
-
-                    } else {
-                        //Selection, enable the fire button.
-                        acceptButton.setEnabled(true);
-                        String dato = (String) name_list.getSelectedValue();
-                        errorField.setText("#" + name_list.getSelectedIndex());
-
-                        // Del congresista a los campos
-                        String[] campos = dato.split(" ");
-
-                        if (campos.length >= 2 && campos[1].charAt(0) == '[') {
-                            String iden = campos[1].substring(1, campos[1].length() - 1);
-                            nameField.setText(campos[0]);
-                            dniField.setText(iden);
-
-                            errorField.append("\n");
-                            errorField.append(dato);
-                            errorField.append("\n");
-                            errorField.append(iden);
-                        } else {
-                            nameField.setText(campos[0]);
-                        }
-
-
-                    }
-                }
-            }
-        });
-
-        //Acción del botón Aceptar
-        acceptButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int in = name_list.getSelectedIndex();
-                String nom = nameField.getText();
-                String iden = dniField.getText();
-
-                Congresista cong = null;
-
-                try {
-                    //cvc.agregarCongresista(dniField.getText(), nameField.getText(), surnameField.getText(), Integer.parseInt(ageField.getText()), cityField.getText(), partidoField.getText(), stateField.getText());
-                    //cong = cvc.consultarCongresista(iden);
-                    errorField.setText("");
-                    //def.setElementAt(nom + " [" + iden + "]", in);
-                } catch (Exception e1) {
-                    //e1.printStackTrace();
-                    errorField.setText(e1.getMessage());
-                }
-
-
-            }
-        });
-
-       /* //Botón eliminar
-        final JButton delb = obtElimBoton();
-        delb.setEnabled(false);
-        delb.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String iden = dniField.getText();
-                def.remove(name_list.getSelectedIndex());
-
-
-                try {
-                    //cvc.eliminarCongresista(iden, cp.getControlRelaciones());
-                } catch (Exception e2) {
-                    e2.printStackTrace();
-                }
-
-                if (def.getSize() - 1 < 0) delb.setEnabled(false);
-                else name_list.setSelectedIndex(def.getSize() - 1);
-
-            }
-        });
-
-        //Botón añadir
-        final JButton addb = obtAgrBoton();
-        addb.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                def.addElement("Nuevo");
-                //nameField.setText("Insert troll here");
-                nameField.requestFocusInWindow();
-                //surnameField.setText("Insert meme here");
-                //dniField.setText("66666666X");
-                //partidoField.setText("Insert RageQuit here");
-                //ageField.setText("21");
-                //cityField.setText("Insert Mordor here");
-                name_list.setSelectedIndex(def.getSize() - 1);
-
-
-                delb.setEnabled(true);
-            }
-        });*/
-
-        JPanel der = new JPanel();
-        der.add(name);
-        der.add(nameField);
-        der.add(surname);
-        der.add(surnameField);
-        der.add(dni);
-        der.add(dniField);
-        der.add(age);
-        der.add(ageField);
-        der.add(partido);
-        der.add(partidoField);
-
-        //Obtenemos el SplitPanel de la clase padre y le asignamos el panel a la parte derecha
-        obtSp().setRightComponent(der);
-
-
-        GroupLayout gr = new GroupLayout(der);
-        der.setLayout(gr);
-        gr.setAutoCreateGaps(true);
-        gr.setAutoCreateContainerGaps(true);
-
-
-
-        // Layout
-
-        gr.setHorizontalGroup(
-                gr.createSequentialGroup()
-                        .addGroup(gr.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(gr.createSequentialGroup()
-                                                        .addGroup(gr.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(name)
-                                                                        .addComponent(nameField)
-                                                                        .addComponent(dni)
-                                                                        .addComponent(dniField)
-                                                                        .addComponent(age)
-                                                                        .addComponent(ageField)
-                                                                        .addComponent(state)
-                                                                        .addComponent(stateField)
-                                                        )
-                                                        .addGroup(gr.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(surname)
-                                                                        .addComponent(surnameField)
-                                                                        .addComponent(partido)
-                                                                        .addComponent(partidoField)
-                                                                        .addComponent(city)
-                                                                        .addComponent(cityField)
-                                                        )
-                                        )
-                                        .addGroup(gr.createSequentialGroup()
-                                                        .addComponent(errorField)
-                                                                //.addComponent(delete)
-                                                        .addComponent(acceptButton)
-                                        )
-                        )
-        );
-
-
-
-
-        gr.setVerticalGroup(
-                gr.createParallelGroup()
-                        .addGroup(gr.createSequentialGroup()
-                                        .addGroup(gr.createParallelGroup()
-                                                        .addGroup(gr.createSequentialGroup()
-                                                                        .addComponent(name)
-                                                                        .addComponent(nameField)
-                                                        )
-                                                        .addGroup(gr.createSequentialGroup()
-                                                                        .addComponent(surname)
-                                                                        .addComponent(surnameField)
-                                                        )
-                                        )
-                                        .addGroup(gr.createParallelGroup()
-                                                        .addGroup(gr.createSequentialGroup()
-                                                                        .addComponent(dni)
-                                                                        .addComponent(dniField)
-                                                        )
-                                                        .addGroup(gr.createSequentialGroup()
-                                                                        .addComponent(partido)
-                                                                        .addComponent(partidoField)
-                                                        )
-                                        )
-                                        .addGroup(gr.createParallelGroup()
-                                                        .addGroup(gr.createSequentialGroup()
-                                                                        .addComponent(age)
-                                                                        .addComponent(ageField)
-                                                        )
-                                                        .addGroup(gr.createSequentialGroup()
-                                                                        .addComponent(city)
-                                                                        .addComponent(cityField)
-                                                        )
-                                        )
-                                        .addGroup(gr.createParallelGroup()
-                                                        .addGroup(gr.createSequentialGroup()
-                                                                        .addComponent(state)
-                                                                        .addComponent(stateField)
-                                                        )
-                                                        .addGroup(gr.createSequentialGroup()
-                                                                        .addComponent(city)
-                                                                        .addComponent(cityField)
-                                                        )
-                                        )
-                                        .addGroup(gr.createParallelGroup(GroupLayout.Alignment.CENTER)
-                                                        .addComponent(errorField)
-                                                                //.addComponent(delete)
-                                                        .addComponent(acceptButton)
-                                        )
-                        )
-
-
-        );
-
-
-    }
-
 
 }

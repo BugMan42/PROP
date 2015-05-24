@@ -8,6 +8,7 @@ import java.awt.event.*;
 public abstract class PanelLista extends Panel {
 
     //Referència al controlador de presentació que crea la vista
+    final String defaultTextLabelSearch = "Buscar";
     JSplitPane sp;
     JList jlist;
     JScrollPane jScrollPane1;
@@ -84,12 +85,22 @@ public abstract class PanelLista extends Panel {
         });
 
         textSearch.setFont(new Font("Ubuntu", 0, 17));
-        textSearch.setText("Buscar");
+        textSearch.setText(defaultTextLabelSearch);
         textSearch.setMinimumSize(new Dimension(83, 30));
         textSearch.setPreferredSize(new Dimension(83, 30));
-        textSearch.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                textSearchActionPerformed(evt);
+        textSearch.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent evt) {
+                //clearLabelSearch(textSearch);
+            }
+        });
+        textSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                clearLabelSearch(textSearch);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (textSearch.getText().equals("") || textSearch.getText().charAt(0) == ' ') {
+                    textSearch.setText("Buscar");
+                }
             }
         });
 
@@ -106,9 +117,9 @@ public abstract class PanelLista extends Panel {
         });*/
 
         buttonSearch.setIcon(new ImageIcon(getClass().getResource("/images/search25.png"))); // NOI18N
-        buttonSearch.setMaximumSize(new Dimension(16, 16));
-        buttonSearch.setMinimumSize(new Dimension(16, 16));
-        buttonSearch.setPreferredSize(new Dimension(16, 16));
+        buttonSearch.setMaximumSize(new Dimension(17, 17));
+        buttonSearch.setMinimumSize(new Dimension(17, 17));
+        buttonSearch.setPreferredSize(new Dimension(17, 17));
         buttonSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 buttonSearchActionPerformed(evt);
@@ -118,7 +129,7 @@ public abstract class PanelLista extends Panel {
         labelStatus.setFont(new java.awt.Font("Ubuntu", 0, 17));
         //labelStatus.setEnabled(false);
         //labelStatus.setFocusable(false);
-        setLableStatusVisible(true);
+        labelStatus.setVisible(false);
         labelStatus.setForeground(Color.BLACK);
 
 
@@ -172,6 +183,10 @@ public abstract class PanelLista extends Panel {
 
         //pack();
     }
+
+    protected void clearLabelSearch(JTextField aux) {
+        if (aux.getText().equals(defaultTextLabelSearch)) aux.setText("");
+    }
     // lable between list and buttons
     protected void setLableStatusVisible(boolean t) {
         labelStatus.setVisible(t);
@@ -188,8 +203,5 @@ public abstract class PanelLista extends Panel {
 
     protected abstract void setBoxSearch();
 
-    private void textSearchActionPerformed(ActionEvent evt) {
-        textSearch.setText("");
-    }
 
 }
