@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-public class PanelLista extends Panel {
+public abstract class PanelLista extends Panel {
 
     //Referència al controlador de presentació que crea la vista
     JSplitPane sp;
@@ -66,24 +66,13 @@ public class PanelLista extends Panel {
         boxSearch = new JComboBox();
         buttonSearch = new JButton();
 
-       // setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE);
-
-        jlist.setFont(new Font("Ubuntu", 0, 17)); // NOI18N
-        /*jlist.setModel(new AbstractListModel() {
-            String[] strings = {"00000000A Edsger Dijkstra 72 Rotterdam NT Pirata ", "00000000B Gordon Moore 86 SanFrancisco CA Berkeley", "00000000C Richard Hamming 82 Monterey CA Pirata", "00000000D Max Newman 87 Chealsea LO Democrata", "00000000E Allen Newll 65 SanFrancisco SF Pirata", "00000000F Jon-Von Neumann 53 Budapest AU Pirata", "00000000G Alan Turing 41 London LO Liberal"};
-
-            public int getSize() {
-                return strings.length;
-            }
-
-            public Object getElementAt(int i) {
-                return strings[i];
-            }
-        });*/
+        jlist.setFont(new Font("Ubuntu", 0, 17));
         jScrollPane1.setViewportView(jlist);
 
         boxSort.setFont(new Font("Ubuntu", 0, 17));
-        boxSort.setModel(new DefaultComboBoxModel(new String[]{"Sort By Dni", "Sort By Nombre", "Sort By Partido"}));
+
+        //boxSort.setModel(new DefaultComboBoxModel(new String[]{"Sort By Dni", "Sort By Nombre", "Sort By Partido"}));
+        setBoxSort();
         boxSort.setMinimumSize(new Dimension(113, 30));
         boxSort.setPreferredSize(new Dimension(113, 30));
         boxSort.addActionListener(new ActionListener() {
@@ -102,11 +91,17 @@ public class PanelLista extends Panel {
             }
         });
 
+        setBoxSearch();
         boxSearch.setFont(new Font("Ubuntu", 0, 17));
-        boxSearch.setModel(new DefaultComboBoxModel(new String[]{"Search By Dni", "Search By Nombre", "Search By Partido"}));
+        //boxSearch.setModel(new DefaultComboBoxModel(new String[]{"Search By Dni", "Search By Nombre", "Search By Partido"}));
         boxSearch.setToolTipText("");
         boxSearch.setMinimumSize(new Dimension(134, 28));
         boxSearch.setPreferredSize(new Dimension(134, 30));
+        /*boxSearch.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                boxSearchActionPerformed(evt);
+            }
+        });*/
 
         buttonSearch.setIcon(new ImageIcon(getClass().getResource("/images/search25.png"))); // NOI18N
         buttonSearch.setMaximumSize(new Dimension(16, 16));
@@ -165,103 +160,17 @@ public class PanelLista extends Panel {
 
         //pack();
     }
-    private void boxSortActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
-    }
+    protected abstract void boxSortActionPerformed(ActionEvent evt) ;
+    //Modificar para buscar
+    protected abstract void buttonSearchActionPerformed(ActionEvent evt);
+    //Modifcar para buscar, guardar como quieras
+    //protected abstract void boxSearchActionPerformed(ActionEvent evt);
+    protected abstract void setBoxSort();
 
-    private void buttonSearchActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
-    }
+    protected abstract void setBoxSearch();
 
     private void textSearchActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
+        textSearch.setText("");
     }
-
-   /* private void initUI()
-    {
-        jScrollPane2 = new  JScrollPane();
-        jlist = new  JList();
-
-        //setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE);
-
-        jlist.setModel(new  AbstractListModel() {
-            String[] strings = { "00000000A Edsger Dijkstra 72 Rotterdam NT Pirata ", "00000000B Gordon Moore 86 San Francisco CA Berkeley", "00000000C Richard Hamming 82 Monterey CA Pirata", "00000000D Max Newman 87 Chealsea LO Democrata", "00000000E Allen Newll 65 San Francisco SF Pirata", "00000000F Jon-Von Neumann 53 Budapest AU Pirata", "00000000G Alan Turing 41 London LO Liberal" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) {
-                return strings[i];
-            }
-        });
-        jlist.setFont(new Font("Sans Serif", 0, 17));
-        jScrollPane2.setViewportView(jlist);
-
-        /*GroupLayout layout = new  GroupLayout(this);
-        setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup( GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1,  GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup( GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1,  GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-        );*/
-
-        //final DefaultListModel def = new DefaultListModel();
-        //jlist = new JList(def);
-
-        /*jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jlist.setLayoutOrientation(JList.VERTICAL);
-        //Acción realizada al seleccionar un elemento
-        //Las acciones las tendrán que definir
-
-        //JScrollPane scroll = new JScrollPane(list);
-
-        //Botón eliminar
-        ImageIcon i_del = new ImageIcon(getClass().getResource("/images/del.png"));
-        delb = new JButton(i_del);
-
-        //Botón añadir
-        ImageIcon i_add = new ImageIcon(getClass().getResource("/images/add.png"));
-        addb = new JButton(i_add);
-
-        JPanel left = new JPanel();
-        GroupLayout leftLayout = new GroupLayout(left);
-        left.setLayout(leftLayout);
-        leftLayout.setAutoCreateGaps(true);
-        leftLayout.setAutoCreateContainerGaps(true);
-
-        leftLayout.setHorizontalGroup(
-                leftLayout.createParallelGroup( GroupLayout.Alignment.LEADING)
-                        .addGroup(leftLayout.createSequentialGroup()
-                                        .addComponent(addb)
-                                        .addComponent(delb)
-                        )
-                        .addComponent(jScrollPane1)
-        );
-
-        leftLayout.setVerticalGroup(
-                leftLayout.createSequentialGroup()
-                        .addGroup(leftLayout.createParallelGroup()
-                                        .addComponent(addb)
-                                        .addComponent(delb)
-                        )
-                        .addComponent(jScrollPane1)
-        );
-
-        sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        sp.setLeftComponent(left);
-        sp.setBorder(BorderFactory.createLineBorder(Color.black));
-        GroupLayout layout = new  GroupLayout(this);
-        setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup( GroupLayout.Alignment.LEADING)
-                        .addComponent(sp,  GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup( GroupLayout.Alignment.LEADING)
-                        .addComponent(sp,  GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-        );
-        //add(sp);
-
-    }*/
 
 }

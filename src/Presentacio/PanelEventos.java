@@ -118,4 +118,20 @@ public class PanelEventos extends PanelLista {
     private boolean validar(String nombre, String fecha, String importancia, int i) {
         return !nombre.equals("") && !fecha.equals("") && !importancia.equals("") && i != 0;
     }
+    protected void boxSortActionPerformed(ActionEvent evt) {
+
+    }
+    //Modificar para buscar
+    protected  void buttonSearchActionPerformed(ActionEvent evt) {
+
+    }
+    //Modifcar para buscar, guardar como quieras
+    //protected abstract void boxSearchActionPerformed(ActionEvent evt);
+    protected void setBoxSort() {
+        //boxSort.setModel(new DefaultComboBoxModel(new String[]{"Sort By Dni", "Sort By Nombre", "Sort By Partido"}));
+    }
+
+    protected void setBoxSearch() {
+        //boxSearch.setModel(new DefaultComboBoxModel(new String[]{"Search By Dni", "Search By Nombre", "Search By Partido"}));
+    }
 }

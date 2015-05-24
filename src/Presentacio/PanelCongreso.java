@@ -104,6 +104,7 @@ public class PanelCongreso extends PanelLista {
         //JList listCongreso = obtJlist();
 //        final DefaultListModel def = (DefaultListModel) name_list.getModel();
         ListUpdate();
+
         //listCongreso.setListData();
 
         //Acción realizada al seleccionar un elemento
@@ -649,6 +650,23 @@ public class PanelCongreso extends PanelLista {
         lError.setText("");
         lError.setText(str);
         lError.setForeground(Color.RED);
+    }
+
+    protected void boxSortActionPerformed(ActionEvent evt) {
+
+    }
+    //Modificar para buscar
+    protected  void buttonSearchActionPerformed(ActionEvent evt) {
+
+    }
+    //Modifcar para buscar, guardar como quieras
+    //protected abstract void boxSearchActionPerformed(ActionEvent evt);
+    protected void setBoxSort() {
+        boxSort.setModel(new DefaultComboBoxModel(new String[]{"Sort By Dni", "Sort By Nombre", "Sort By Apellido", "Sort By Edad", "Sort By Ciudad", "Sort By Estado", "Sort By Partido"}));
+    }
+
+    protected void setBoxSearch() {
+        boxSearch.setModel(new DefaultComboBoxModel(new String[]{"Search By Dni", "Search By Nombre", "Search By Apellido", "Search By Edad", "Search By Ciudad", "Search By Estado", "Search By Partido"}));
     }
     
     
