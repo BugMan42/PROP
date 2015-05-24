@@ -119,12 +119,24 @@ public class VistaPrincipal extends JFrame {
                 add(pan);
                 invalidate();
                 revalidate();
+                repaint();
             }
         });
         menu1_5.add(mi_cong);
 
         JMenuItem mi_eve = new JMenuItem("Eventos", KeyEvent.VK_E);
-        mi_cong.setToolTipText("Editar eventos");
+        mi_eve.setToolTipText("Editar eventos");
+        mi_eve.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remove(pan);
+                pan = cp.getCPC().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
+                repaint();
+            }
+        });
         menu1_5.add(mi_eve);
 
         JMenuItem mi_rel = new JMenuItem("Relaciones", KeyEvent.VK_R);
@@ -141,7 +153,7 @@ public class VistaPrincipal extends JFrame {
                 add(pan);
                 invalidate();
                 revalidate();
-
+                repaint();
 
             }
         });
@@ -176,12 +188,26 @@ public class VistaPrincipal extends JFrame {
                 add(pan);
                 invalidate();
                 revalidate();
+                repaint();
 
             }
         });
         toolbar.add(bCongreso);
         JButton bEventos = new JButton("Eventos");
         toolbar.add(bEventos);
+        bEventos.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        remove(pan);
+                        pan = cp.obtCPE().obtPanel();
+                        add(pan);
+                        invalidate();
+                        revalidate();
+                        repaint();
+                    }
+                }
+        );
         JButton bRelaciones = new JButton("Relaciones");
         toolbar.add(bRelaciones);
         JButton bAlgoritmo = new JButton("Algoritmo y preferencias");
@@ -193,7 +219,7 @@ public class VistaPrincipal extends JFrame {
                 add(pan);
                 invalidate();
                 revalidate();
-
+                repaint();
             }
         });
         bCongreso.setFont(new java.awt.Font("Sans Serif", 0, 17));

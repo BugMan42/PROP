@@ -18,6 +18,7 @@ import java.util.*;
 public class PanelCongreso extends PanelLista {
 
     //Referència al controlador de presentació que crea la vista
+    private Boolean[] vError;
     CPCongreso cvc;
     CPRelaciones cpr;
 
@@ -53,6 +54,10 @@ public class PanelCongreso extends PanelLista {
     public PanelCongreso(CPCongreso c)
     {
         super();
+        vError = new Boolean[7];
+        for (int i = 0; i < 7; ++i) {
+            vError[i] = false;
+        }
         cvc = c;
         // Inicializa los componentes de la ventana
         initGUI();
@@ -149,7 +154,7 @@ public class PanelCongreso extends PanelLista {
         textName.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!textName.getText().equals("") && textName.getText().charAt(0) == 'I') textName.setText("");
+                clearText(textName);
             }
         });
 
@@ -157,7 +162,7 @@ public class PanelCongreso extends PanelLista {
         textSurname.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!textSurname.getText().equals("") && textSurname.getText().charAt(0) == 'I') textSurname.setText("");
+                clearText(textSurname);
             }
         });
 
@@ -171,7 +176,7 @@ public class PanelCongreso extends PanelLista {
         textDni.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!textDni.getText().equals("") && textDni.getText().charAt(0) == 'I') textDni.setText("");
+                clearText(textDni);
             }
         });
 
@@ -182,7 +187,7 @@ public class PanelCongreso extends PanelLista {
         textAge.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!textAge.getText().equals("") && textAge.getText().charAt(0) == 'I') textAge.setText("");
+                clearText(textAge);
             }
         });
 
@@ -193,7 +198,7 @@ public class PanelCongreso extends PanelLista {
         textCity.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!textCity.getText().equals("") && textCity.getText().charAt(0) == 'I') textCity.setText("");
+                clearText(textCity);
             }
         });
 
@@ -204,7 +209,7 @@ public class PanelCongreso extends PanelLista {
         textState.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!textState.getText().equals("") && textState.getText().charAt(0) == 'I') textState.setText("");
+                clearText(textState);
             }
         });
 
@@ -215,7 +220,7 @@ public class PanelCongreso extends PanelLista {
         textParty.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!textParty.getText().equals("") && textParty.getText().charAt(0) == 'I') textParty.setText("");
+                clearText(textParty);
             }
         });
 
@@ -287,6 +292,7 @@ public class PanelCongreso extends PanelLista {
         });
 
         SpinnerNum.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        SpinnerNum.setValue(1);
 
 
         JPanel right = new JPanel();
@@ -433,6 +439,10 @@ public class PanelCongreso extends PanelLista {
 
     }// </editor-fold>
 
+    private void clearText(JTextField aux) {
+        if (!aux.getText().equals("") && aux.getText().charAt(0) == 'I') aux.setText("");
+    }
+
 
     private void print(String str) {
         System.out.println(str);
@@ -444,14 +454,18 @@ public class PanelCongreso extends PanelLista {
 
     private void bAgregarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        emptyLError();
         if (validarTodo()) {
             try {
                 cvc.CC.agregarCongresista(textDni.getText(),textName.getText(),textSurname.getText(),Integer.parseInt(textAge.getText()),textCity.getText(),textState.getText(),textParty.getText());
                 setDefaultText();
                 ListUpdate();
             }
-            catch (Exception a) {
-                setError(a.getMessage());
+            catch (NumberFormatException a) {
+                setError("La edad tiene que ser un número > 0");
+            }
+            catch (Exception a2) {
+                setError(a2.getMessage());
             }
 
         }
@@ -459,32 +473,57 @@ public class PanelCongreso extends PanelLista {
 
     }
     private boolean validarTodo() {
+        boolean change = false;
+        String errores = "";
         if (!validarJText(textName)) {
-            setError("Campo Nombre No Valido");
-            return false;
+            errores+="Nombre";
+            lName.setForeground(Color.RED);
+            vError[0] = true;
+            change = true;
         }
         if (!validarJText(textSurname)) {
-            setError("Campo Apellido No Valido");
-            return false;
+            if (!change) errores+="Apellido";
+            else errores+=", Apellido";
+            lSurname.setForeground(Color.RED);
+            vError[1] = true;
+            change = true;
         }
         if (!validarJText(textDni)) {
-            setError("Campo Dni No Valido");
-            return false;
+            if (!change) errores+="Dni";
+            else errores+=", Dni";
+            lDni.setForeground(Color.RED);
+            vError[2] = true;
+            change = true;
         }
         if (!validarJText(textAge)) {
-            setError("Campo Edad No Valido");
-            return false;
+            if (!change) errores+="Edad";
+            else errores+=", Edad";
+            lAge.setForeground(Color.RED);
+            vError[3] = true;
         }
         if (!validarJText(textCity)) {
-            setError("Campo Ciudad No Valido");
-            return false;
+            if (!change) errores+="Ciudad";
+            else errores+=", Ciudad";
+            lCity.setForeground(Color.RED);
+            vError[4] = true;
+            change = true;
         }
         if (!validarJText(textState)) {
-            setError("Campo Estado No Valido");
-            return false;
+            if (!change) errores+="Estado";
+            else errores+=", Estado";
+            lState.setForeground(Color.RED);
+            vError[5] = true;
+            change = true;
         }
         if (!validarJText(textParty)) {
-            setError("Campo Partido No Valido");
+            if (!change) errores+="Partido";
+            else errores+=", Partido";
+            lParty.setForeground(Color.RED);
+            vError[6] = true;
+            change = true;
+        }
+        if (change) {
+            setError("Campo "+ errores+" No Valido");
             return false;
         }
         return true;
@@ -492,6 +531,7 @@ public class PanelCongreso extends PanelLista {
 
     private void bEliminarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO ARREGLAR MERDA CONTROLADORS
+        emptyLError();
         ControladorCjtEvento aux = new ControladorCjtEvento();
         ControladorRelaciones aux2 = new ControladorRelaciones(cvc.CC, aux);
         if (validarJText(textDni)) {
@@ -506,6 +546,8 @@ public class PanelCongreso extends PanelLista {
         }
         else {
             setError("Campo Dni No valido");
+            lDni.setForeground(Color.RED);
+            vError[2] = true;
         }
 
     }
@@ -516,6 +558,7 @@ public class PanelCongreso extends PanelLista {
 
     private void bModificarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        emptyLError();
         if (validarTodo()) {
             //cvc.CC.mod
         }
@@ -524,6 +567,7 @@ public class PanelCongreso extends PanelLista {
 
     private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here
+        emptyLError();
         ControladorCjtEvento aux = new ControladorCjtEvento();
         ControladorRelaciones aux2 = new ControladorRelaciones(cvc.CC,aux);
         cvc.CC.eliminarCongreso(aux2);
@@ -531,18 +575,21 @@ public class PanelCongreso extends PanelLista {
     }
 
     private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
+        emptyLError();
         Integer n = (Integer)SpinnerNum.getValue();
-        if (n > 0) {
+        if (n > 0 && n < 1000001) {
             cvc.CC.agregarCongresistaRandom(n);
             ListUpdate();
         }
         else {
-            setError("El numero de congresistas random tienen que ser > 0");
+            setError("El numero de congresistas random tienen que ser > 0 y menor que 1000 001");
         }
     }
+        // Carregant ......
 
     private void bCargarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        emptyLError();
         JFileChooser chooser = new JFileChooser();
         //FileNameExtensionFilter filter = new FileNameExtensionFilter(
         //        "JPG & GIF Images", "jpg", "gif");
@@ -556,6 +603,7 @@ public class PanelCongreso extends PanelLista {
 
     private void bGuardarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        emptyLError();
         JFileChooser chooser = new JFileChooser();
         //FileNameExtensionFilter filter = new FileNameExtensionFilter(
         //        "JPG & GIF Images", "jpg", "gif");
@@ -588,7 +636,15 @@ public class PanelCongreso extends PanelLista {
 
     private void emptyLError() {
         lError.setText(" ");
+        lName.setForeground(Color.BLACK);
+        lSurname.setForeground(Color.BLACK);
+        lDni.setForeground(Color.BLACK);
+        lAge.setForeground(Color.BLACK);
+        lCity.setForeground(Color.BLACK);
+        lState.setForeground(Color.BLACK);
+        lParty.setForeground(Color.BLACK);
     }
+
     private void setError(String str) {
         lError.setText("");
         lError.setText(str);

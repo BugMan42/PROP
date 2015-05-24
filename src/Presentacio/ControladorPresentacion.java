@@ -17,6 +17,7 @@ public class ControladorPresentacion {
 
     private CPAlgoritmo cpa;
     private CPCongreso cpc;
+    private CPEventos cpe;
 
     private VistaPrincipal v; //Principal vp;
     private VistaPrincipal vp;
@@ -29,6 +30,7 @@ public class ControladorPresentacion {
 
         cpc = new CPCongreso();
         cpa = new CPAlgoritmo();
+        cpe = new CPEventos();
 
         v = new VistaPrincipal(this);
 
@@ -60,6 +62,6 @@ public class ControladorPresentacion {
     }
     public CPAlgoritmo getCPA() { return cpa; }
     public CPCongreso getCPC() { return cpc; }
-
+    public CPEventos obtCPE() { return cpe;}
 
 }

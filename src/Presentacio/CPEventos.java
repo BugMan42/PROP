@@ -7,12 +7,16 @@ import Domini.ControladorCjtEvento;
  */
 public class CPEventos {
     private PanelEventos PE;
-    private ControladorCjtEvento CC;
+    private ControladorCjtEvento CCE;
 
-        public CPEventos() {}
-
-        public PanelEventos obtPanel() {
-            if (PE == null) PE = new PanelEventos(this);
-            return PE;
+    public CPEventos() {
+            CCE = new ControladorCjtEvento();
         }
+
+    public PanelEventos obtPanel() {
+        if (PE == null) PE = new PanelEventos(this);
+        return PE;
+    }
+
+    public ControladorCjtEvento obtCCE() {return CCE;}
 }
