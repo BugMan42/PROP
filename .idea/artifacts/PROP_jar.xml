@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="PROP:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PROP_jar</output-path>
+    <root id="archive" name="PROP.jar">
+      <element id="module-output" name="PROP" />
+    </root>
+  </artifact>
+</component>

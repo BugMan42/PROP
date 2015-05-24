@@ -18,6 +18,7 @@ import java.util.*;
 public class PanelCongreso extends PanelLista {
 
     //Referència al controlador de presentació que crea la vista
+    boolean t;
     private Boolean[] vError;
     CPCongreso cvc;
     CPRelaciones cpr;
@@ -104,6 +105,9 @@ public class PanelCongreso extends PanelLista {
         //JList listCongreso = obtJlist();
 //        final DefaultListModel def = (DefaultListModel) name_list.getModel();
         ListUpdate();
+        t = true;
+        setTextLabelStatus("Loading...");
+        //labelStatus.setText("cargandoooooo");
 
         //listCongreso.setListData();
 
@@ -657,6 +661,15 @@ public class PanelCongreso extends PanelLista {
     }
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt) {
+        if (t) {
+            t = false;
+            labelStatus.setVisible(true);
+        }
+        else {
+            t = true;
+            labelStatus.setVisible(false);
+
+        }
 
     }
     //Modifcar para buscar, guardar como quieras

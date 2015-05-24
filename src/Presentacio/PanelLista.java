@@ -15,6 +15,7 @@ public abstract class PanelLista extends Panel {
     JTextField textSearch;
     JComboBox boxSearch;
     JButton buttonSearch;
+    JLabel labelStatus;
 
     public PanelLista(VistaPrincipal v) {
 
@@ -65,6 +66,7 @@ public abstract class PanelLista extends Panel {
         textSearch = new JTextField();
         boxSearch = new JComboBox();
         buttonSearch = new JButton();
+        labelStatus = new JLabel();
 
         jlist.setFont(new Font("Ubuntu", 0, 17));
         jScrollPane1.setViewportView(jlist);
@@ -113,6 +115,12 @@ public abstract class PanelLista extends Panel {
             }
         });
 
+        labelStatus.setFont(new java.awt.Font("Ubuntu", 0, 17));
+        //labelStatus.setEnabled(false);
+        //labelStatus.setFocusable(false);
+        setLableStatusVisible(true);
+        labelStatus.setForeground(Color.BLACK);
+
 
         JPanel panel = new JPanel();
         GroupLayout leftLayout = new GroupLayout(panel);
@@ -131,6 +139,7 @@ public abstract class PanelLista extends Panel {
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonSearch, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                        .addComponent(labelStatus, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         leftLayout.setVerticalGroup(
                 leftLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -141,6 +150,9 @@ public abstract class PanelLista extends Panel {
                                         .addComponent(boxSort, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(textSearch, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(3, 3, 3)
+                                .addComponent(labelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)
                                 .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
         );
 
@@ -159,6 +171,13 @@ public abstract class PanelLista extends Panel {
         );
 
         //pack();
+    }
+    // lable between list and buttons
+    protected void setLableStatusVisible(boolean t) {
+        labelStatus.setVisible(t);
+    }
+    protected void setTextLabelStatus(String text) {
+        labelStatus.setText(text);
     }
     protected abstract void boxSortActionPerformed(ActionEvent evt) ;
     //Modificar para buscar
