@@ -30,8 +30,9 @@ public class PanelCongreso extends PanelLista {
     JButton bGuardarCongreso;
     JButton bModificarCongresista;
     Box.Filler filler1;
-    JSpinner jSpinner1;
+    JSpinner SpinnerNum;
     JTextField textError;
+    JLabel lError;
     JLabel lName;
     JLabel lSurname;
     JLabel lDni;
@@ -46,6 +47,8 @@ public class PanelCongreso extends PanelLista {
     JTextField textCity;
     JTextField textState;
     JTextField textParty;
+    JList listCongreso;
+
 
     public PanelCongreso(CPCongreso c)
     {
@@ -80,6 +83,7 @@ public class PanelCongreso extends PanelLista {
         filler1 = new Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         bClear = new JButton();
         textError = new JTextField();
+        lError = new JLabel();
         bAgregarCongresista = new JButton();
         bAgregarRandom = new JButton();
         bEliminarCongresista = new JButton();
@@ -87,18 +91,14 @@ public class PanelCongreso extends PanelLista {
         bEliminarCongreso = new JButton();
         bCargarCongreso = new JButton();
         bGuardarCongreso = new JButton();
-        jSpinner1 = new JSpinner();
+        SpinnerNum = new JSpinner();
+        listCongreso = obtJlist();
 
         // setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // Referencias a los objetos superiores
-        final JList listCongreso = obtJlist();
+        //JList listCongreso = obtJlist();
 //        final DefaultListModel def = (DefaultListModel) name_list.getModel();
-        String a[] = {"No hay Congresistas"};
-        if (cvc.CC.esVacio()) listCongreso.setListData(a);
-        else {
-           ArrayList<String> aux = cvc.CC.obtenerCongresoTotal();
-            listCongreso.setListData(aux.toArray());
-        }
+        ListUpdate();
         //listCongreso.setListData();
 
         //Acción realizada al seleccionar un elemento
@@ -149,7 +149,7 @@ public class PanelCongreso extends PanelLista {
         textName.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (textName.getText().charAt(0) == 'I') textName.setText("");
+                if (!textName.getText().equals("") && textName.getText().charAt(0) == 'I') textName.setText("");
             }
         });
 
@@ -157,7 +157,7 @@ public class PanelCongreso extends PanelLista {
         textSurname.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (textSurname.getText().charAt(0) == 'I') textSurname.setText("");
+                if (!textSurname.getText().equals("") && textSurname.getText().charAt(0) == 'I') textSurname.setText("");
             }
         });
 
@@ -171,7 +171,7 @@ public class PanelCongreso extends PanelLista {
         textDni.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (textDni.getText().charAt(0) == 'I') textDni.setText("");
+                if (!textDni.getText().equals("") && textDni.getText().charAt(0) == 'I') textDni.setText("");
             }
         });
 
@@ -182,7 +182,7 @@ public class PanelCongreso extends PanelLista {
         textAge.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (textAge.getText().charAt(0) == 'I') textAge.setText("");
+                if (!textAge.getText().equals("") && textAge.getText().charAt(0) == 'I') textAge.setText("");
             }
         });
 
@@ -193,7 +193,7 @@ public class PanelCongreso extends PanelLista {
         textCity.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (textCity.getText().charAt(0) == 'I') textCity.setText("");
+                if (!textCity.getText().equals("") && textCity.getText().charAt(0) == 'I') textCity.setText("");
             }
         });
 
@@ -204,7 +204,7 @@ public class PanelCongreso extends PanelLista {
         textState.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (textState.getText().charAt(0) == 'I') textState.setText("");
+                if (!textState.getText().equals("") && textState.getText().charAt(0) == 'I') textState.setText("");
             }
         });
 
@@ -215,7 +215,7 @@ public class PanelCongreso extends PanelLista {
         textParty.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (textParty.getText().charAt(0) == 'I') textParty.setText("");
+                if (!textParty.getText().equals("") && textParty.getText().charAt(0) == 'I') textParty.setText("");
             }
         });
 
@@ -227,8 +227,8 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        textError.setText("textError");
-        textError.setEditable(false);
+        lError.setText(" ");
+        lError.setFont(new java.awt.Font("Ubuntu", 0, 18));
 
         bAgregarCongresista.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bAgregarCongresista.setText("AgregarCongresista");
@@ -286,7 +286,7 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        jSpinner1.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        SpinnerNum.setFont(new java.awt.Font("Ubuntu", 0, 18));
 
 
         JPanel right = new JPanel();
@@ -305,12 +305,12 @@ public class PanelCongreso extends PanelLista {
         right.add(lParty);
         right.add(textParty);
         right.add(bClear);
-        right.add(textError);
+        right.add(lError);
         right.add(bAgregarCongresista);
         right.add(bEliminarCongresista);
         right.add(bModificarCongresista);
         right.add(bEliminarCongreso);
-        right.add(jSpinner1);
+        right.add(SpinnerNum);
         right.add(bAgregarRandom);
         right.add(bCargarCongreso);
         right.add(bGuardarCongreso);
@@ -334,7 +334,7 @@ public class PanelCongreso extends PanelLista {
         //getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(textError)
+                        .addComponent(lError)
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                         .addComponent(lParty, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -361,7 +361,7 @@ public class PanelCongreso extends PanelLista {
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                         .addComponent(bCargarCongreso, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jSpinner1)
+                                        .addComponent(SpinnerNum)
                                         .addComponent(bModificarCongresista, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(bAgregarCongresista, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -411,7 +411,7 @@ public class PanelCongreso extends PanelLista {
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(filler1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                                .addComponent(textError, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lError, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(bAgregarCongresista)
@@ -423,7 +423,7 @@ public class PanelCongreso extends PanelLista {
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(bAgregarRandom)
-                                        .addComponent(jSpinner1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(SpinnerNum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(bCargarCongreso)
@@ -433,40 +433,7 @@ public class PanelCongreso extends PanelLista {
 
     }// </editor-fold>
 
-    private void textNameActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        textName.setText("");
-    }
 
-    private void textSurnameActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        textSurname.setText("");
-    }
-
-    private void textDniActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        textDni.setText("");
-    }
-
-    private void textAgeActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        textAge.setText("");
-    }
-
-    private void textCityActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        textCity.setText("");
-    }
-
-    private void textStateActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void textPartyActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        print("he entrat");
-        textParty.setText("");
-    }
     private void print(String str) {
         System.out.println(str);
     }
@@ -477,14 +444,82 @@ public class PanelCongreso extends PanelLista {
 
     private void bAgregarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        if (validarTodo()) {
+            try {
+                cvc.CC.agregarCongresista(textDni.getText(),textName.getText(),textSurname.getText(),Integer.parseInt(textAge.getText()),textCity.getText(),textState.getText(),textParty.getText());
+                setDefaultText();
+                ListUpdate();
+            }
+            catch (Exception a) {
+                setError(a.getMessage());
+            }
+
+        }
+
+
+    }
+    private boolean validarTodo() {
+        if (!validarJText(textName)) {
+            setError("Campo Nombre No Valido");
+            return false;
+        }
+        if (!validarJText(textSurname)) {
+            setError("Campo Apellido No Valido");
+            return false;
+        }
+        if (!validarJText(textDni)) {
+            setError("Campo Dni No Valido");
+            return false;
+        }
+        if (!validarJText(textAge)) {
+            setError("Campo Edad No Valido");
+            return false;
+        }
+        if (!validarJText(textCity)) {
+            setError("Campo Ciudad No Valido");
+            return false;
+        }
+        if (!validarJText(textState)) {
+            setError("Campo Estado No Valido");
+            return false;
+        }
+        if (!validarJText(textParty)) {
+            setError("Campo Partido No Valido");
+            return false;
+        }
+        return true;
     }
 
     private void bEliminarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        // TODO ARREGLAR MERDA CONTROLADORS
+        ControladorCjtEvento aux = new ControladorCjtEvento();
+        ControladorRelaciones aux2 = new ControladorRelaciones(cvc.CC, aux);
+        if (validarJText(textDni)) {
+            try {
+                cvc.CC.eliminarCongresista(textDni.getText(), aux2);
+                setDefaultText();
+                ListUpdate();
+            }
+            catch (Exception a) {
+                setError(a.getMessage());
+            }
+        }
+        else {
+            setError("Campo Dni No valido");
+        }
+
+    }
+    private boolean validarJText(JTextField aux) {
+        String[] a = aux.getText().split(" ");
+        return a.length == 1 && !aux.getText().equals(" ") && !aux.getText().equals("");
     }
 
     private void bModificarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        if (validarTodo()) {
+            //cvc.CC.mod
+        }
+
     }
 
     private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
@@ -492,30 +527,53 @@ public class PanelCongreso extends PanelLista {
         ControladorCjtEvento aux = new ControladorCjtEvento();
         ControladorRelaciones aux2 = new ControladorRelaciones(cvc.CC,aux);
         cvc.CC.eliminarCongreso(aux2);
-       // print("he entrat "+cvc.CC.esVacio());
         ListUpdate();
     }
 
+    private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
+        Integer n = (Integer)SpinnerNum.getValue();
+        if (n > 0) {
+            cvc.CC.agregarCongresistaRandom(n);
+            ListUpdate();
+        }
+        else {
+            setError("El numero de congresistas random tienen que ser > 0");
+        }
+    }
+
+    private void bCargarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        //FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        //        "JPG & GIF Images", "jpg", "gif");
+        //chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            System.out.println("You chose to open this file: " +
+                    chooser.getSelectedFile().getName());
+        }
+    }
+
+    private void bGuardarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        //FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        //        "JPG & GIF Images", "jpg", "gif");
+        //chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            System.out.println("You chose to open this file: " +
+                    chooser.getSelectedFile().getName());
+        }
+    }
+
     private void ListUpdate() {
-        JList listCongreso = obtJlist();
         String a[] = {"No hay Congresistas"};
         if (cvc.CC.esVacio()) listCongreso.setListData(a);
         else {
             ArrayList<String> aux = cvc.CC.obtenerCongresoTotal();
             listCongreso.setListData(aux.toArray());
         }
-    }
-
-    private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void bCargarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void bGuardarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
     private void setDefaultText() {
         textName.setText("Introduzca el Nombre");
@@ -525,8 +583,17 @@ public class PanelCongreso extends PanelLista {
         textCity.setText("Introduzca la Ciudad");
         textState.setText("Introduzca el Estado");
         textParty.setText("Introduzca el Partido");
+        emptyLError();
     }
 
+    private void emptyLError() {
+        lError.setText(" ");
+    }
+    private void setError(String str) {
+        lError.setText("");
+        lError.setText(str);
+        lError.setForeground(Color.RED);
+    }
     
     
     

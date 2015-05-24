@@ -10,11 +10,6 @@ public class CPCongreso {
 
     public CPCongreso() {
         CC = new ControladorCongreso();
-        try {
-            CC.agregarCongresistaRandom(100);
-        }catch (Exception e) {
-            //WTF
-        }
     }
 
     public PanelCongreso obtPanel() {

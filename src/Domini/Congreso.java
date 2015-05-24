@@ -35,7 +35,7 @@ public class Congreso {
     private void print(String str) {
         System.out.println(str);
     }
-    public void agregarCongresistaRandom() throws Exception {
+    public void agregarCongresistaRandom()  {
         Random rand = new Random();
         Dni r = new Dni();
         while (tst.existe(r.toString())) {
@@ -46,8 +46,12 @@ public class Congreso {
         int surname = rand.nextInt(20);
         int city = rand.nextInt(16);
         int part = rand.nextInt(4);
-        Congresista c = new Congresista(r,nombre[name],apellido[surname],edad,ciudad[city],ciudad[city],partido[part]);
-        tst.insertar(c.obtID(), c);
+        try {
+            Congresista c = new Congresista(r,nombre[name],apellido[surname],edad,ciudad[city],ciudad[city],partido[part]);
+            tst.insertar(c.obtID(), c);
+        } catch (Exception a) {
+            //Do nothing
+        }
     }
 
     public void eliminarCongresista(Dni dni) throws Exception {

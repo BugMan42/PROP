@@ -31,7 +31,7 @@ public class ControladorCongreso {
         c.agregarCongresista(con);
     }
     // Jose te la he puesto porque la necesitaba cambiala como te guste mas
-    public void agregarCongresistaRandom(int n) throws Exception{
+    public void agregarCongresistaRandom(int n) {
         for (int i = 0; i < n; ++i) {
             c.agregarCongresistaRandom();
         }
