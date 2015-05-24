@@ -60,4 +60,12 @@ public class ControladorAlgoritmo {
     {
 
     }
+
+    //Funciones para exportar el grafo a Capa de Presentación
+
+    public Integer num_vertex_entrada()
+    {
+        return in.obtGrafo().V();
+    }
+
 }

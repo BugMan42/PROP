@@ -220,6 +220,7 @@ public class VistaPrincipal extends JFrame {
                 invalidate();
                 revalidate();
                 repaint();
+
             }
         });
         bCongreso.setFont(new java.awt.Font("Sans Serif", 0, 17));
