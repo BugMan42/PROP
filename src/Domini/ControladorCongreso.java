@@ -8,6 +8,9 @@ import java.util.List;
 
 public class ControladorCongreso {
 
+    //Necesito algo asi
+    private ArrayList<Congresista> aux;
+
     private static final int max_lineas_guardar = 300;
     private static final int max_lineas_cargar = 300;
 

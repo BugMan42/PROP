@@ -197,6 +197,7 @@ public class PanelCongreso extends PanelLista {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textDni);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (checkStart(textDni)) {
                     textDni.setText(def2);
@@ -212,6 +213,7 @@ public class PanelCongreso extends PanelLista {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textAge);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (checkStart(textAge)) {
                     textAge.setText(def3);
@@ -227,6 +229,7 @@ public class PanelCongreso extends PanelLista {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textCity);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (checkStart(textCity)) {
                     textCity.setText(def4);
@@ -242,6 +245,7 @@ public class PanelCongreso extends PanelLista {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textState);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (checkStart(textState)) {
                     textState.setText(def5);
@@ -257,6 +261,7 @@ public class PanelCongreso extends PanelLista {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textParty);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (checkStart(textParty)) {
                     textParty.setText(def6);
@@ -332,7 +337,8 @@ public class PanelCongreso extends PanelLista {
         });
 
         SpinnerNum.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        SpinnerNum.setValue(1);
+        SpinnerNum.setModel(new SpinnerNumberModel(1, 1, 1000000, 1));
+        //SpinnerNum.setModel(new SpinnerNumberModel(new SpinnerNumberModel(5.0, 0.0, 9.0, 1.0));
 
 
         JPanel right = new JPanel();
@@ -604,6 +610,19 @@ public class PanelCongreso extends PanelLista {
         // TODO add your handling code here:
         emptyLError();
         if (validarTodo()) {
+            ControladorCjtEvento aux = new ControladorCjtEvento();
+            ControladorRelaciones aux2 = new ControladorRelaciones(cvc.CC, aux);
+            String dato = (String) listCongreso.getSelectedValue();
+            String[] campos = dato.split(" ");
+            try {
+                System.out.println("NO ha petat 0");
+                cvc.CC.modCongresista(campos[0], textDni.getText(), textName.getText(), textSurname.getText(), Integer.parseInt(textAge.getText()), textCity.getText(), textState.getText(), textParty.getText(), aux2);
+                setError(cvc.CC.size()+"");
+                ListUpdate();
+            }
+            catch (Exception a) {
+                setError(a.getMessage());
+            }
             //cvc.CC.mod
         }
 

@@ -16,9 +16,12 @@ public class pruebas {
             Congresista C6 = new Congresista(new Dni("00000000F"), "Jon-Von", "Neumann", 53, "Budapest", "AU", "Pirata");
             Congresista C7 = new Congresista(new Dni("00000000G"), "Alan", "Turing", 41, "London", "LO", "Liberal");
 
-            Congreso C = new Congreso();
-            C.agregarCongresista(C1);
-            C.agregarCongresista(C1);
+            Congreso c = new Congreso();
+            //c.agregarCongresista(C1);
+            //c.modCongresista(new Dni("00000000a"), new Dni("00000000a"), "e", "d", 12, "c", "b", "a");
+            ControladorCongreso d = new ControladorCongreso();
+            d.agregarCongresista( "00000000a", "a", "a", 12, "a", "a", "a");
+            print(d.obtenerCongreso().toString());
             Reunion E1 = new Profesional("A", new Fecha("12/12/2012"), 10);
             Reunion E2 = new Profesional("B", new Fecha("12/12/2012"), 10);
             Votacion E3 = new Votacion("C", new Fecha("12/12/2012"), 11);
@@ -27,7 +30,11 @@ public class pruebas {
             Reunion E6 = new Profesional("F", new Fecha("12/12/2012"), 10);
             Voto a = new Positivo();
             Voto b = new Negativo();
-            ArrayList<RelacionSimple> Array1 = new ArrayList<RelacionSimple>();
+            //Congreso c = new Congreso();
+           // print(c.size()+"");
+           // c.agregarCongresistaRandom();
+           // print(c.obtenerCongreso().toString());
+            /*ArrayList<RelacionSimple> Array1 = new ArrayList<RelacionSimple>();
             //RelacionSimple R1 = new RelacionSimpleConVoto(C1, E3, a);
             RelacionSimple R2 = new RelacionSimpleSinVoto(C1, E1);
             RelacionSimple R3 = new RelacionSimpleSinVoto(C1, E2);
@@ -41,7 +48,7 @@ public class pruebas {
             RelacionSimple R11 = new RelacionSimpleSinVoto(C2, E4);
             RelacionSimple R12 = new RelacionSimpleSinVoto(C2, E5);
             //RelacionCompuestaAnd R = new RelacionCompuestaAnd(R1, R2);
-            Relaciones RR = new Relaciones();
+            /*Relaciones RR = new Relaciones();
             RR.agregarRelacion(R2);
             RR.agregarRelacion(R3);
             //RR.agregarRelacion(R4);

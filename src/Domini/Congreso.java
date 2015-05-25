@@ -16,7 +16,7 @@ public class Congreso {
     //static
     private static String[] nombre = {"Arif", "Konrad", "Edsger","Gordon","Kevin","Richard","Max","Linus","Allen","Jon-Von",
             "Sophie","Alan","David","Arif","Zaman","Tim","Sergey","Larry","Mark","Bill"};
-    private static String[] apellido = {"Dijkstra", "Neumamnn", "Zuse","A. Wagner","Moore","Bell","Hamming","Cohen","Newman","Knuth",
+    private static String[] apellido = {"Dijkstra", "Neumamnn", "Zuse","A.Wagner","Moore","Bell","Hamming","Cohen","Newman","Knuth",
             "Allen","Torvalds","Warwick","Neumann","Stallman","Turing","Zaman","Goodger","Gates","Zuckerberg"};
     private static String[] ciudad = {"Londres", "Paris", "Islamabad","Barcelona","Tokio","Washington","Seattle","New-York",
             "San-Francisco","Chicago","Alexandria","Annapolis","Haifa","Louvain","Toronto","Berlin"};
@@ -92,6 +92,9 @@ public class Congreso {
             tst.modificar(dni.toString(), dniNuevo.toString());
             //tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
             tst.obtener(dniNuevo.toString()).mod(dniNuevo, nombre, apellido, edad, ciudad, estado, partido);
+        }
+        else {
+            tst.obtener(dni.toString()).mod(nombre, apellido, edad, ciudad, estado, partido);
         }
     }
 

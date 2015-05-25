@@ -71,6 +71,15 @@ public class Congresista implements Node {
         Estado = estado;
         Partido = partido;
     }
+    public void mod(String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
+        if (!EdadValida(edad)) throw new EdadNoValida(edad);
+        Nombre = nombre;
+        Apellido = apellido;
+        Edad = edad;
+        Ciudad = ciudad;
+        Estado = estado;
+        Partido = partido;
+    }
 
     //Consultoras
     public Dni obtDni() {
