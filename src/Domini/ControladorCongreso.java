@@ -68,19 +68,26 @@ public class ControladorCongreso {
     private void reordenar(){
         referencia = c.obtenerCongreso();
         switch (orden){
-            case 0: sortByDni();
+            case 0:
+                sortByDni();
                 break;
-            case 1: sortByName();
+            case 1:
+                sortByName();
                 break;
-            case 2: sortBySurName();
+            case 2:
+                sortBySurName();
                 break;
-            case 3: sortByAge();
+            case 3:
+                sortByAge();
                 break;
-            case 4: sortByCity();
+            case 4:
+                sortByCity();
                 break;
-            case 5: sortByState();
+            case 5:
+                sortByState();
                 break;
-            case 6: sortByParty();
+            case 6:
+                sortByParty();
                 break;
         }
     }
@@ -102,7 +109,9 @@ public class ControladorCongreso {
         if(cr.tieneRelaciones(dni)) cr.eliminarRelaciones(dni);
         Dni d = new Dni(dni);
         c.eliminarCongresista(d);
-        referencia.remove(d);
+        //guarrada util
+        referencia.remove(obtindiceRef(new Congresista(d,"","",1,"","","")));
+
     }
 
     public void eliminarCongreso(ControladorRelaciones cr) {
@@ -201,32 +210,60 @@ public class ControladorCongreso {
     }
 
     public void sortByDni() {
-        orden = 0;
-        Collections.sort(referencia, Congresista.DNI);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.DNI);
+            orden = 0;
+        }
     }
     public void sortByName() {
-        orden = 1;
-        Collections.sort(referencia, Congresista.NAME);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.NAME);
+            orden = 1;
+        }
     }
     public void sortBySurName() {
-        orden = 2;
-        Collections.sort(referencia, Congresista.SURNAME);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.SURNAME);
+            orden = 2;
+        }
     }
     public void sortByAge() {
-        orden = 3;
-        Collections.sort(referencia, Congresista.AGE);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.AGE);
+            orden = 3;
+        }
     }
     public void sortByCity() {
-        orden = 4;
-        Collections.sort(referencia, Congresista.CITY);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.CITY);
+            orden = 4;
+        }
     }
     public void sortByState() {
-        orden = 5;
-        Collections.sort(referencia, Congresista.STATE);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.STATE);
+            orden = 5;
+        }
     }
     public void sortByParty() {
-        orden = 6;
-        Collections.sort(referencia, Congresista.PARTY);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.PARTY);
+            orden = 6;
+        }
+    }
+    public void searchByDni() {
+    }
+    public void searchByName() {
+    }
+    public void searchBySurName() {
+    }
+    public void searchByAge() {
+    }
+    public void searchByCity() {
+    }
+    public void searchByState() {
+    }
+    public void searchByParty() {
     }
 
     //Pre: fin > inicio
@@ -261,6 +298,10 @@ public class ControladorCongreso {
             a.add(referencia.get(i).toString());
         }
         return a;
+    }
+
+    private int obtindiceRef(Congresista a) {
+        return Collections.binarySearch(referencia,a,Congresista.DNI);
     }
 
 }
