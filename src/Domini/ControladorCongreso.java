@@ -11,6 +11,7 @@ public class ControladorCongreso {
 
     //Necesito algo asi
     private List<Congresista> referencia;
+    private int orden;
 
     private static final int max_lineas_guardar = 300;
     private static final int max_lineas_cargar = 300;
@@ -19,6 +20,7 @@ public class ControladorCongreso {
 
     public ControladorCongreso(){
         c = new Congreso();
+        orden = 0;
     }
 
     public int size(){
@@ -39,6 +41,7 @@ public class ControladorCongreso {
         for (int i = 0; i < n; ++i) {
             c.agregarCongresistaRandom();
         }
+        referencia = c.obtenerCongreso();
     }
 
     public ArrayList<String> obtenerListaID(){
@@ -157,24 +160,31 @@ public class ControladorCongreso {
 
     /** FUNCIONES QUE HAY QUE IMPLEMENTAR */
     public void sortByDni() {
+        orden = 0;
         Collections.sort(referencia, Congresista.DNI);
     }
     public void sortByName() {
+        orden = 1;
         Collections.sort(referencia, Congresista.NAME);
     }
     public void sortBySurName() {
+        orden = 2;
         Collections.sort(referencia, Congresista.SURNAME);
     }
     public void sortByAge() {
+        orden = 3;
         Collections.sort(referencia, Congresista.AGE);
     }
     public void sortByCity() {
+        orden = 4;
         Collections.sort(referencia, Congresista.CITY);
     }
     public void sortByState() {
+        orden = 5;
         Collections.sort(referencia, Congresista.STATE);
     }
     public void sortByParty() {
+        orden = 6;
         Collections.sort(referencia, Congresista.PARTY);
     }
 
@@ -193,7 +203,7 @@ public class ControladorCongreso {
         ArrayList<String> a = new ArrayList<String>(c.size());
         //List<Congresista> b = c.obtenerCongreso();
         if (referencia == null) referencia = c.obtenerCongreso();
-        for (int i = 0; i < c.size(); ++i) {
+        for (int i = 0; i < referencia.size(); ++i) {
             a.add(referencia.get(i).toString());
         }
         return a;
