@@ -5,15 +5,21 @@ import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseGraph;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
+import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.control.GraphMouseListener;
+import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 /**
+ * Clase PanelAlgoritmo
  * Created by falc on 20/05/15.
  */
 public class PanelAlgoritmo extends Panel{
@@ -33,6 +39,11 @@ public class PanelAlgoritmo extends Panel{
 
     private void initUI()
     {
+        //Establecer Layout de PanelAlgoritmo
+        GroupLayout gr = new GroupLayout(this);
+        setLayout(gr);
+
+        //Inicialización de datos
         Graph<String, Integer> g = new SparseGraph<String, Integer>();
 
         g.addVertex("A");
@@ -46,18 +57,34 @@ public class PanelAlgoritmo extends Panel{
         Layout<String,Integer> l = new CircleLayout<String, Integer>(g);
         l.setSize(new Dimension(300, 300));
 
-        BasicVisualizationServer<String, Integer> vv = new BasicVisualizationServer<String, Integer>(l);
+        VisualizationViewer<String, Integer> vv = new VisualizationViewer<String, Integer>(l);
         vv.setPreferredSize(new Dimension(350, 350));
+        vv.setVertexToolTipTransformer(new ToStringLabeller<String>());
+        vv.addGraphMouseListener(new GraphMouseListener<String>() {
+            @Override
+            public void graphClicked(String s, MouseEvent mouseEvent) {
+                //if ()
+            }
 
-        add(vv);
+            @Override
+            public void graphPressed(String s, MouseEvent mouseEvent) {
 
+            }
+
+            @Override
+            public void graphReleased(String s, MouseEvent mouseEvent) {
+
+            }
+        });
+
+        /*
         String[] initString =
                 { "LOL" };
 
         String[] initStyles =
                 { "regular" };
 
-
+        */
 
         UIDefaults defaults = new UIDefaults();
         defaults.put("TextPane[Enabled].backgroundPainter", Color.black);
@@ -77,15 +104,33 @@ public class PanelAlgoritmo extends Panel{
         tp2.setBackground(Color.blue);
 
         JTextPane tp3 = new JTextPane();
-        tp3.setForeground(Color.magenta);
+        tp3.setForeground(Color.yellow);
         tp3.setText("REKT");
         tp3.putClientProperty("Nimbus.Overrides", defaults);
         tp3.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
-        tp3.setBackground(Color.lightGray);
+        tp3.setBackground(Color.magenta);
 
-        add(tp1);
-        add(tp2);
-        add(tp3);
+        gr.setHorizontalGroup(gr.createParallelGroup()
+                        .addComponent(vv)
+                        .addGroup(gr.createSequentialGroup()
+                                        .addComponent(tp1)
+                                        .addComponent(tp2)
+                                        .addComponent(tp3)
+                        )
+        );
+
+        gr.setVerticalGroup(gr.createSequentialGroup()
+                        .addComponent(vv)
+                        .addGroup(gr.createParallelGroup()
+                                        .addComponent(tp1)
+                                        .addComponent(tp2)
+                                        .addComponent(tp3)
+                        )
+        );
+
+        gr.setAutoCreateGaps(true);
+        gr.setAutoCreateContainerGaps(true);
+
     }
 
 }

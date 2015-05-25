@@ -1,5 +1,8 @@
 package Domini;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created on 15/04/15.
  */
@@ -8,6 +11,13 @@ public class ControladorAlgoritmo {
     private Entrada in;
     private Algoritmo alg;
     private Salida out;
+
+
+    //Punteros internos para exportar grafo
+    private int i_vertex = 0;
+    private int i_arista = 0;
+    private int real_i = 0;
+
     //Referencia a un ControladorRelaciones creado previamente
     private ControladorRelaciones crel;
 
@@ -66,6 +76,48 @@ public class ControladorAlgoritmo {
     public Integer num_vertex_entrada()
     {
         return in.obtGrafo().V();
+    }
+
+    // El string seguirá el formato ("indice"+"dni"), o ("indice"+"-"), si incorrecto.
+    public String next_vertex()
+    {
+        real_i = in.obtGrafo().consultarVertices().get(i_vertex);
+        String result = Integer.toString(real_i);
+        try {
+            result = result+" "+in.obtGrafo().fPrima(real_i);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = result+" -";
+        }
+
+        ++i_vertex;
+        i_arista = 0;
+        return result;
+    }
+
+    public String next_arista()
+    {
+        String result = Integer.toString(real_i);
+        try {
+            if (in.obtGrafo().nodosSalida(real_i).size() >= i_arista) result = result+" -";
+            else {
+                int ady = in.obtGrafo().nodosSalida(real_i).get(i_arista);
+                result = result+" "+ady;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = result+" -";
+        }
+        ++i_arista;
+        return result;
+
+    }
+
+    public void reset_pointers()
+    {
+        i_arista = 0;
+        i_vertex = 0;
+        real_i = 0;
     }
 
 }
