@@ -8,10 +8,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.*;
 
 
@@ -761,6 +758,10 @@ public class PanelCongreso extends PanelLista {
 
     protected void setBoxSearch() {
         boxSearch.setModel(new DefaultComboBoxModel(new String[]{"Search By Dni", "Search By Nombre", "Search By Apellido", "Search By Edad", "Search By Ciudad", "Search By Estado", "Search By Partido"}));
+    }
+
+    protected void textSearchTyped(KeyEvent evt) {
+
     }
 
 }

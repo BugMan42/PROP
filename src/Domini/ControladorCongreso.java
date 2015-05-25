@@ -3,13 +3,14 @@ package Domini;
 import Persistencia.ControladorPersistencia;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 public class ControladorCongreso {
 
     //Necesito algo asi
-    private ArrayList<Congresista> referencia;
+    private List<Congresista> referencia;
 
     private static final int max_lineas_guardar = 300;
     private static final int max_lineas_cargar = 300;
@@ -155,13 +156,28 @@ public class ControladorCongreso {
 
 
     /** FUNCIONES QUE HAY QUE IMPLEMENTAR */
-    public void sortByDni() {}
-    public void sortByName() {}
-    public void sortBySurName() {}
-    public void sortByAge() {}
-    public void sortByCity() {}
-    public void sortByState() {}
-    public void sortByParty() {}
+    public void sortByDni() {
+        Collections.sort(referencia, Congresista.DNI);
+    }
+    public void sortByName() {
+        Collections.sort(referencia, Congresista.NAME);
+    }
+    public void sortBySurName() {
+        Collections.sort(referencia, Congresista.SURNAME);
+    }
+    public void sortByAge() {
+        Collections.sort(referencia, Congresista.AGE);
+    }
+    public void sortByCity() {
+        Collections.sort(referencia, Congresista.CITY);
+    }
+    public void sortByState() {
+        Collections.sort(referencia, Congresista.STATE);
+    }
+    public void sortByParty() {
+        Collections.sort(referencia, Congresista.PARTY);
+    }
+
     //Pre: fin > inicio
     public ArrayList<String> obtenerBloque(int inicio, int fin) {
         //return referencia.subList(inicio,fin);
@@ -175,9 +191,10 @@ public class ControladorCongreso {
     //Otra que me hacia falta aqui tengo que hablar contigo
     public ArrayList<String> obtenerCongresoTotal() {
         ArrayList<String> a = new ArrayList<String>(c.size());
-        List<Congresista> b = c.obtenerCongreso();
+        //List<Congresista> b = c.obtenerCongreso();
+        if (referencia == null) referencia = c.obtenerCongreso();
         for (int i = 0; i < c.size(); ++i) {
-            a.add(b.get(i).toString());
+            a.add(referencia.get(i).toString());
         }
         return a;
     }

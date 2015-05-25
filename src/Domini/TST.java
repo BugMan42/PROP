@@ -416,8 +416,8 @@ public class TST<X>  {
     public List<X> consultarObjetos() {
         List<X> v = new ArrayList<X>();
         imprimir2(root, "", v);
-        List<X> aux = Collections.unmodifiableList(v);
-        return aux;
+        //List<X> aux = Collections.unmodifiableList(v);
+        return v;
     }
     //Funcion muy semejante a imprimir solo que costruimos una
     //lista de X

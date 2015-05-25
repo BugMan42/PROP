@@ -1,5 +1,7 @@
 package Domini;
 
+import java.util.Comparator;
+
 public class Congresista implements Node {
 
     private class EdadNoValida extends Exception {
@@ -119,4 +121,48 @@ public class Congresista implements Node {
     public boolean equals(Congresista a) {
         return a.obtID().equals(Dni);
     }
+
+
+    public static Comparator<Congresista> DNI = new Comparator<Congresista>() {
+        @Override
+        public int compare(Congresista o1, Congresista o2) {
+            return o1.Dni.toString().compareTo(o2.Dni.toString());
+        }
+    };
+    public static Comparator<Congresista> NAME = new Comparator<Congresista>() {
+        @Override
+        public int compare(Congresista o1, Congresista o2) {
+            return o1.Nombre.compareTo(o2.Nombre);
+        }
+    };
+    public static Comparator<Congresista> SURNAME = new Comparator<Congresista>() {
+        @Override
+        public int compare(Congresista o1, Congresista o2) {
+            return o1.Apellido.compareTo(o2.Apellido);
+        }
+    };
+    public static Comparator<Congresista> AGE = new Comparator<Congresista>() {
+        @Override
+        public int compare(Congresista o1, Congresista o2) {
+            return Integer.valueOf(o1.Edad).compareTo(o2.Edad);
+        }
+    };
+    public static Comparator<Congresista> CITY = new Comparator<Congresista>() {
+        @Override
+        public int compare(Congresista o1, Congresista o2) {
+            return o1.Ciudad.compareTo(o2.Ciudad);
+        }
+    };
+    public static Comparator<Congresista> STATE = new Comparator<Congresista>() {
+        @Override
+        public int compare(Congresista o1, Congresista o2) {
+            return o1.Estado.compareTo(o2.Estado);
+        }
+    };
+    public static Comparator<Congresista> PARTY = new Comparator<Congresista>() {
+        @Override
+        public int compare(Congresista o1, Congresista o2) {
+            return o1.Partido.compareTo(o2.Partido);
+        }
+    };
 }
