@@ -13,11 +13,13 @@ public class ControladorCongreso {
     private static final int max_lineas_cargar = 300;
 
     private List<Congresista> referencia;
+    private int orden;
     private Congreso c;
 
     public ControladorCongreso(){
         c = new Congreso();
         referencia = new ArrayList<Congresista>();
+        orden = 0;
     }
 
     public int size(){
@@ -33,6 +35,33 @@ public class ControladorCongreso {
         Congresista con = new Congresista(d,nombre,apellido,edad,ciudad,estado,partido);
         c.agregarCongresista(con);
         referencia.add(con);
+        mantenerOrden();
+    }
+    private void mantenerOrden() {
+        switch (orden) {
+            case 0:
+                sortByDni();
+                break;
+            case 1:
+                sortByName();
+                break;
+            case 2:
+                sortBySurName();
+                break;
+            case 3:
+                sortByAge();
+                break;
+            case 4:
+                sortByCity();
+                break;
+            case 5:
+                sortByState();
+                break;
+            case 6:
+                sortByParty();
+                break;
+
+        }
     }
 
     public void agregarCongresistaRandom(int n) {
@@ -40,6 +69,7 @@ public class ControladorCongreso {
             c.agregarCongresistaRandom();
         }
         referencia = c.obtenerCongreso();
+        mantenerOrden();
     }
 
     public ArrayList<String> obtenerListaID(){
@@ -59,7 +89,8 @@ public class ControladorCongreso {
         if(cr.tieneRelaciones(dni)) cr.eliminarRelaciones(dni);
         Dni d = new Dni(dni);
         c.eliminarCongresista(d);
-        referencia.remove(d);
+        //guarrada util
+        referencia.remove(obtindiceRef(new Congresista(d,"","",1,"","","")));
     }
 
     public void eliminarCongreso(ControladorRelaciones cr) {
@@ -160,25 +191,60 @@ public class ControladorCongreso {
 
     /** FUNCIONES QUE HAY QUE IMPLEMENTAR */
     public void sortByDni() {
-        Collections.sort(referencia, Congresista.DNI);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.DNI);
+            orden = 0;
+        }
     }
     public void sortByName() {
-        Collections.sort(referencia, Congresista.NAME);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.NAME);
+            orden = 1;
+        }
     }
     public void sortBySurName() {
-        Collections.sort(referencia, Congresista.SURNAME);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.SURNAME);
+            orden = 2;
+        }
     }
     public void sortByAge() {
-        Collections.sort(referencia, Congresista.AGE);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.AGE);
+            orden = 3;
+        }
     }
     public void sortByCity() {
-        Collections.sort(referencia, Congresista.CITY);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.CITY);
+            orden = 4;
+        }
     }
     public void sortByState() {
-        Collections.sort(referencia, Congresista.STATE);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.STATE);
+            orden = 5;
+        }
     }
     public void sortByParty() {
-        Collections.sort(referencia, Congresista.PARTY);
+        if (size() > 1) {
+            Collections.sort(referencia, Congresista.PARTY);
+            orden = 6;
+        }
+    }
+    public void searchByDni() {
+    }
+    public void searchByName() {
+    }
+    public void searchBySurName() {
+    }
+    public void searchByAge() {
+    }
+    public void searchByCity() {
+    }
+    public void searchByState() {
+    }
+    public void searchByParty() {
     }
 
     //Pre: fin > inicio
@@ -213,6 +279,10 @@ public class ControladorCongreso {
             a.add(referencia.get(i).toString());
         }
         return a;
+    }
+
+    private int obtindiceRef(Congresista a) {
+        return Collections.binarySearch(referencia,a,Congresista.DNI);
     }
 
 }
