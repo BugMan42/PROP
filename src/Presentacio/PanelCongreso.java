@@ -739,16 +739,50 @@ public class PanelCongreso extends PanelLista {
     }
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt) {
-        if (t) {
-            t = false;
+        try {
+            if (t) {
+                t = false;
+                labelStatus.setVisible(true);
+            } else {
+                t = true;
+                labelStatus.setVisible(false);
+            }
+            switch (boxSearch.getSelectedIndex()) {
+                case 0:
+                    CPC.searchByDni(textSearch.getText());
+                    break;
+                case 1:
+                    CPC.searchByName(textSearch.getText());
+                    break;
+                case 2:
+                    CPC.searchBySurName(textSearch.getText());
+                    break;
+                case 3:
+                    CPC.searchByAge(Integer.parseInt(textSearch.getText()));
+                    break;
+                case 4:
+                    CPC.searchByCity(textSearch.getText());
+                    break;
+                case 5:
+                    CPC.searchByState(textSearch.getText());
+                    break;
+                case 6:
+                    CPC.searchByParty(textSearch.getText());
+                    break;
+            }
+            ListUpdateBusqueda();
+        }catch (Exception a) {
             labelStatus.setVisible(true);
+            labelStatus.setText(a.getMessage());
         }
+    }
+    private void ListUpdateBusqueda() {
+        String a[] = {"No hay Congresistas que cumplan las condiciones"};
+        if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
         else {
-            t = true;
-            labelStatus.setVisible(false);
-
+            ArrayList<String> aux = CPC.obtCC().obtenerBusqueda();
+            listCongreso.setListData(aux.toArray());
         }
-
     }
     //Modifcar para buscar, guardar como quieras
     //protected abstract void boxSearchActionPerformed(ActionEvent evt);

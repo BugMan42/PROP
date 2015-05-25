@@ -51,4 +51,26 @@ public class CPCongreso {
         CC.sortByParty();
     }
 
+    public void searchByDni(String aux) throws Exception {
+        CC.searchByDni(aux);
+    }
+    public void searchByName(String aux) {
+        CC.searchByName(aux);
+    }
+    public void searchBySurName(String aux) {
+        CC.searchBySurName(aux);
+    }
+    public void searchByAge(int aux) {
+        CC.searchByAge(aux);
+    }
+    public void searchByCity(String aux) {
+        CC.searchByCity(aux);
+    }
+    public void searchByState(String aux) {
+        CC.searchByState(aux);
+    }
+    public void searchByParty(String aux) {
+        CC.searchByParty(aux);
+    }
+
 }

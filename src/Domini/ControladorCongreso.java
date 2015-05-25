@@ -13,6 +13,7 @@ public class ControladorCongreso {
     private static final int max_lineas_cargar = 300;
 
     private List<Congresista> referencia;
+    private List<Congresista> cache;
     private int orden;
     private Congreso c;
 
@@ -39,7 +40,7 @@ public class ControladorCongreso {
         int pos = 0;
         switch (orden){
             case 0: pos = Collections.binarySearch(referencia,con,Congresista.DNI);
-                    break;
+                break;
             case 1: pos = Collections.binarySearch(referencia,con,Congresista.NAME);
                 break;
             case 2: pos = Collections.binarySearch(referencia,con,Congresista.SURNAME);
@@ -55,7 +56,7 @@ public class ControladorCongreso {
         }
         // Cuando binarySearch no encuentra el elemento buscado devuelve: (-(insertion point) - 1).
         pos = pos*-1 -1;
-        referencia.add(pos,con);
+        referencia.add(pos, con);
     }
 
     public void agregarCongresistaRandom(int n) {
@@ -110,7 +111,7 @@ public class ControladorCongreso {
         Dni d = new Dni(dni);
         c.eliminarCongresista(d);
         //guarrada util
-        referencia.remove(obtindiceRef(new Congresista(d,"","",1,"","","")));
+        referencia.remove(obtindiceRef(new Congresista(d, "", "", 1, "", "", "")));
 
     }
 
@@ -251,20 +252,47 @@ public class ControladorCongreso {
             orden = 6;
         }
     }
-    public void searchByDni() {
+    public void searchByDni(String aux) throws Exception {
+        cache.clear();
+        cache.add(c.consultarCongresista(new Dni(aux)));
     }
-    public void searchByName() {
+    public void searchByName(String aux) {
+        cache.clear();
+        for (int i = 0; i < c.size(); ++i) {
+            if(referencia.get(i).obtNombre().contains(aux)) cache.add(referencia.get(i));
+        }
     }
-    public void searchBySurName() {
+    public void searchBySurName(String aux) {
+        cache.clear();
+        for (int i = 0; i < c.size(); ++i) {
+            if(referencia.get(i).obtApellido().contains(aux)) cache.add(referencia.get(i));
+        }
     }
-    public void searchByAge() {
+    public void searchByAge(int aux) {
+        cache.clear();
+        for (int i = 0; i < c.size(); ++i) {
+            if(referencia.get(i).obtEdad() == aux) cache.add(referencia.get(i));
+        }
     }
-    public void searchByCity() {
+    public void searchByCity(String aux) {
+        cache.clear();
+        for (int i = 0; i < c.size(); ++i) {
+            if(referencia.get(i).obtCiudad().contains(aux)) cache.add(referencia.get(i));
+        }
     }
-    public void searchByState() {
+    public void searchByState(String aux) {
+        cache.clear();
+        for (int i = 0; i < c.size(); ++i) {
+            if(referencia.get(i).obtEstado().contains(aux)) cache.add(referencia.get(i));
+        }
     }
-    public void searchByParty() {
+    public void searchByParty(String aux) {
+        cache.clear();
+        for (int i = 0; i < c.size(); ++i) {
+            if(referencia.get(i).obtPartido().contains(aux)) cache.add(referencia.get(i));
+        }
     }
+
 
     //Pre: fin > inicio
     public ArrayList<String> obtenerBloque(int inicio, int fin) {
@@ -288,6 +316,14 @@ public class ControladorCongreso {
             for (i=inicio; i<fin; ++i) bloque.add(referencia.get(i).toString());
         }
         return bloque;
+    }
+    public ArrayList<String> obtenerBusqueda() {
+        ArrayList<String> a = new ArrayList<String>(cache.size());
+        //if (referencia == null) referencia = c.obtenerCongreso();
+        for (int i = 0; i < cache.size(); ++i) {
+            a.add(cache.get(i).toString());
+        }
+        return a;
     }
 
     //Otra que me hacia falta aqui tengo que hablar contigo
