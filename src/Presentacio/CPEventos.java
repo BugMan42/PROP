@@ -1,13 +1,15 @@
 package Presentacio;
 
 import Domini.ControladorCjtEvento;
+import Domini.ControladorRelaciones;
 
 /**
  * Created by USUARIO on 22/05/2015.
  */
 public class CPEventos {
-    private PanelEventos PE;
-    private ControladorCjtEvento CCE;
+    PanelEventos PE;
+    ControladorCjtEvento CCE;
+    CPRelaciones CR;
 
     public CPEventos() {
             CCE = new ControladorCjtEvento();
@@ -19,4 +21,5 @@ public class CPEventos {
     }
 
     public ControladorCjtEvento obtCCE() {return CCE;}
+
 }

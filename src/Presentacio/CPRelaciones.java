@@ -8,9 +8,17 @@ import Domini.ControladorRelaciones;
 public class CPRelaciones {
     PanelRelaciones PR;
     ControladorRelaciones CR;
+    CPCongreso CPC;
+    CPEventos CPE;
 
-    public CPRelaciones() {
-        CR = new ControladorRelaciones(new ControladorCongreso(), new ControladorCjtEvento());
+    public CPRelaciones(CPCongreso cpc, CPEventos cpe) {
+        CPC = cpc;
+        CPE = cpe;
+
+        CR = new ControladorRelaciones(cpc.CC, cpe.CCE);
+
+        cpc.CR = this;
+        cpe.CR = this;
     }
 
     public PanelRelaciones obtPanel() {

@@ -10,31 +10,28 @@ import Domini.ControladorRelaciones;
  */
 public class ControladorPresentacion {
 
-    private ControladorCongreso cc;
+    /*private ControladorCongreso cc;
     private ControladorCjtEvento ce;
     private ControladorAlgoritmo ca;
-    private ControladorRelaciones cr;
+    private ControladorRelaciones cr;*/
 
     private CPAlgoritmo cpa;
     private CPCongreso cpc;
     private CPEventos cpe;
+    private CPRelaciones cpr;
 
-    private VistaPrincipal v; //Principal vp;
+    private VistaPrincipal v;
     private VistaPrincipal vp;
 
     public ControladorPresentacion(){
-        cc = new ControladorCongreso();
-        ce = new ControladorCjtEvento();
-        cr = new ControladorRelaciones(cc,ce);
-        ca = new ControladorAlgoritmo(cr);
-
         cpc = new CPCongreso();
         cpa = new CPAlgoritmo();
         cpe = new CPEventos();
+        cpr = new CPRelaciones(cpc, cpe);
 
         v = new VistaPrincipal(this);
 
-       // vp = new VistaPrincipal();
+       // / vp = new VistaPrincipal();
     }
 
     public void inicializarPresentacion() {
@@ -52,16 +49,9 @@ public class ControladorPresentacion {
         return vp;
     }
 
-    public ControladorCongreso getControlCongreso()
-    {
-        return cc;
-    }
-    public ControladorRelaciones getControlRelaciones()
-    {
-        return cr;
-    }
     public CPAlgoritmo getCPA() { return cpa; }
     public CPCongreso getCPC() { return cpc; }
     public CPEventos obtCPE() { return cpe;}
+    public CPRelaciones obtCPR() { return cpr;}
 
 }
