@@ -169,7 +169,7 @@ public abstract class PanelLista extends Panel {
 
         sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         sp.setLeftComponent(panel);
-        sp.setBorder(BorderFactory.createLineBorder(Color.black));
+        //sp.setBorder(BorderFactory.createLineBorder(Color.black));
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(

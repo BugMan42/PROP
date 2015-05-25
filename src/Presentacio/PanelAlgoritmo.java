@@ -4,17 +4,11 @@ import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseGraph;
-import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.GraphMouseListener;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
-import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
@@ -89,42 +83,67 @@ public class PanelAlgoritmo extends Panel{
         UIDefaults defaults = new UIDefaults();
         defaults.put("TextPane[Enabled].backgroundPainter", Color.black);
 
+        JLabel l1 = new JLabel("Louvain");
         JTextPane tp1 = new JTextPane();
         tp1.setForeground(Color.green);
         tp1.setText("REKT");
         tp1.putClientProperty("Nimbus.Overrides", defaults);
         tp1.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
         tp1.setBackground(Color.black);
+        tp1.setEnabled(false);
 
+        JLabel l2 = new JLabel("Girvan-Newman");
         JTextPane tp2 = new JTextPane();
         tp2.setForeground(Color.orange);
         tp2.setText("REKT");
         tp2.putClientProperty("Nimbus.Overrides", defaults);
         tp2.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
         tp2.setBackground(Color.blue);
+        tp2.setEnabled(false);
 
+        JLabel l3 = new JLabel("Clique Percolation");
         JTextPane tp3 = new JTextPane();
         tp3.setForeground(Color.yellow);
         tp3.setText("REKT");
         tp3.putClientProperty("Nimbus.Overrides", defaults);
         tp3.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
         tp3.setBackground(Color.magenta);
+        tp3.setEnabled(false);
 
-        gr.setHorizontalGroup(gr.createParallelGroup()
+        gr.setHorizontalGroup(gr.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addComponent(vv)
                         .addGroup(gr.createSequentialGroup()
-                                        .addComponent(tp1)
-                                        .addComponent(tp2)
-                                        .addComponent(tp3)
+                                        .addGroup(gr.createParallelGroup()
+                                                        .addComponent(l1)
+                                                        .addComponent(tp1)
+                                        )
+                                        .addGroup(gr.createParallelGroup()
+                                                        .addComponent(l2)
+                                                        .addComponent(tp2)
+                                        )
+                                        .addGroup(gr.createParallelGroup()
+                                                        .addComponent(l3)
+                                                        .addComponent(tp3)
+                                        )
+
                         )
         );
 
         gr.setVerticalGroup(gr.createSequentialGroup()
                         .addComponent(vv)
                         .addGroup(gr.createParallelGroup()
-                                        .addComponent(tp1)
-                                        .addComponent(tp2)
-                                        .addComponent(tp3)
+                                        .addGroup(gr.createSequentialGroup()
+                                                        .addComponent(l1)
+                                                        .addComponent(tp1)
+                                        )
+                                        .addGroup(gr.createSequentialGroup()
+                                                        .addComponent(l2)
+                                                        .addComponent(tp2)
+                                        )
+                                        .addGroup(gr.createSequentialGroup()
+                                                        .addComponent(l3)
+                                                        .addComponent(tp3)
+                                        )
                         )
         );
 
