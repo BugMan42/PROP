@@ -69,10 +69,13 @@ public class PanelEventos extends PanelLista {
                     String tipo = (String) cbtipo.getSelectedItem();
                     limpiarcampos();
                     if (tipo.equals("Votación")) cpe.obtCCE().AgregarVotacion(nombre, fecha, importancia);
-                    else if (tipo.equals("Reunión Profesional")) cpe.obtCCE().AgregarReunionProfesional(nombre, fecha, importancia);
-                    else if (tipo.equals("Reunión Personal")) cpe.obtCCE().AgregarReunionPersonal(nombre, fecha, importancia);
+                    else if (tipo.equals("Reunión Profesional"))
+                        cpe.obtCCE().AgregarReunionProfesional(nombre, fecha, importancia);
+                    else if (tipo.equals("Reunión Personal"))
+                        cpe.obtCCE().AgregarReunionPersonal(nombre, fecha, importancia);
                     else if (tipo.equals("Acto Oficial")) cpe.obtCCE().AgregarActoOficial(nombre, fecha, importancia);
-                    else if (tipo.equals("Acto No Oficial")) cpe.obtCCE().AgregarActoNoOficial(nombre, fecha, importancia);
+                    else if (tipo.equals("Acto No Oficial"))
+                        cpe.obtCCE().AgregarActoNoOficial(nombre, fecha, importancia);
                 } catch (Exception ex) {
                     mostrarmensaje("Error en el ingreso");
                 }
@@ -102,6 +105,67 @@ public class PanelEventos extends PanelLista {
 
         //Obtenemos el SplitPanel de la clase padre y le asignamos el panel a la parte rightecha
         obtSp().setRightComponent(right);
+
+        GroupLayout gl = new GroupLayout(right);
+        right.setLayout(gl);
+        gl.setAutoCreateGaps(true);
+        gl.setAutoCreateContainerGaps(true);
+        gl.setHorizontalGroup(
+                gl.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
+                                        .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                        .addComponent(lbnombre)
+                                                        .addComponent(ctnombre, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                        )
+                                        .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                        .addComponent(lbfecha)
+                                                        .addComponent(ctfecha, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                        )
+                        )
+                        .addGroup(GroupLayout.Alignment.LEADING,gl.createSequentialGroup()
+                                        .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                        .addComponent(lbimportancia)
+                                                        .addComponent(ctimportancia, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                        )
+                                        .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                        .addComponent(lbtipo)
+                                                        .addComponent(cbtipo, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                        )
+                        )
+                        .addComponent(lbinfo, GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                        .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
+                                        .addComponent(btguardar)
+                                        .addComponent(btlimpiar)
+                        )
+        );
+        gl.setVerticalGroup(
+                gl.createSequentialGroup()
+                        .addGroup(gl.createParallelGroup()
+                                        .addGroup(gl.createSequentialGroup()
+                                                        .addComponent(lbnombre)
+                                                        .addComponent(ctnombre, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                        )
+                                        .addGroup(gl.createSequentialGroup()
+                                                        .addComponent(lbfecha)
+                                                        .addComponent(ctfecha, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                        )
+                        )
+                        .addGroup(gl.createParallelGroup()
+                                        .addGroup(gl.createSequentialGroup()
+                                                        .addComponent(lbimportancia)
+                                                        .addComponent(ctimportancia, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                        )
+                                        .addGroup(gl.createSequentialGroup()
+                                                        .addComponent(lbtipo)
+                                                        .addComponent(cbtipo, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                        )
+                        )
+                        .addComponent(lbinfo, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                        .addGroup(gl.createParallelGroup()
+                                        .addComponent(btguardar)
+                                        .addComponent(btlimpiar)
+                        )
+        );
     }
 
     private void mostrarmensaje(String s) {
