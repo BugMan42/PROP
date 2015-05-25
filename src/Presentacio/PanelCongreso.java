@@ -509,7 +509,7 @@ public class PanelCongreso extends PanelLista {
         emptyLError();
         if (validarTodo()) {
             try {
-                cvc.obtCC().agregarCongresista(getTextString(textDni),getTextString(textName),getTextString(textSurname),Integer.parseInt(textAge.getText()),getTextString(textCity),getTextString(textState),getTextString(textParty));
+                cvc.obtCC().agregarCongresista(getTextString(textDni), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty));
                 setDefaultText();
                 ListUpdate();
             }
@@ -615,7 +615,7 @@ public class PanelCongreso extends PanelLista {
     }
 
     private void bModificarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        // TODO no funciona
         emptyLError();
         if (validarTodo()) {
             String dato = (String) listCongreso.getSelectedValue();
@@ -633,7 +633,6 @@ public class PanelCongreso extends PanelLista {
     }
 
     private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here
         emptyLError();
         setDefaultText();
         cvc.obtCC().eliminarCongreso(cvc.obtCPR().CR);
@@ -714,7 +713,32 @@ public class PanelCongreso extends PanelLista {
     }
 
     protected void boxSortActionPerformed(ActionEvent evt) {
-        labelStatus.setText(boxSort.getSelectedIndex()+"");
+        //labelStatus.setText(boxSort.getSelectedIndex()+"");
+        switch (boxSort.getSelectedIndex()) {
+            case 0:
+                cvc.sortByDni();
+                break;
+            case 1:
+                cvc.sortByName();
+                break;
+            case 2:
+                cvc.sortBySurName();
+                break;
+            case 3:
+                cvc.sortByAge();
+                break;
+            case 4:
+                cvc.sortByCity();
+                break;
+            case 5:
+                cvc.sortByState();
+                break;
+            case 6:
+                cvc.sortByParty();
+                break;
+        }
+        //TODO mejorar, te quedas donde estabas
+        ListUpdate();
     }
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt) {
