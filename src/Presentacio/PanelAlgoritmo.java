@@ -1,6 +1,6 @@
 package Presentacio;
 
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+/*import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseGraph;
@@ -23,15 +23,15 @@ public class PanelAlgoritmo extends Panel{
     public PanelAlgoritmo(CPAlgoritmo cont) {
         super();
         cpa = cont;
-        initUI();
+        //initUI();
     }
 
     public PanelAlgoritmo() {
         super();
-        initUI();
+        //initUI();
     }
 
-    private void initUI()
+    /*private void initUI()
     {
         //Establecer Layout de PanelAlgoritmo
         GroupLayout gr = new GroupLayout(this);
@@ -80,7 +80,7 @@ public class PanelAlgoritmo extends Panel{
 
         */
 
-        UIDefaults defaults = new UIDefaults();
+        /*UIDefaults defaults = new UIDefaults();
         defaults.put("TextPane[Enabled].backgroundPainter", Color.black);
 
         JLabel l1 = new JLabel("Louvain");
@@ -150,6 +150,6 @@ public class PanelAlgoritmo extends Panel{
         gr.setAutoCreateGaps(true);
         gr.setAutoCreateContainerGaps(true);
 
-    }
+    }*/
 
 }
