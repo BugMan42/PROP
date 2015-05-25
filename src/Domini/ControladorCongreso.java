@@ -34,42 +34,55 @@ public class ControladorCongreso {
         Dni d = new Dni(dni);
         Congresista con = new Congresista(d,nombre,apellido,edad,ciudad,estado,partido);
         c.agregarCongresista(con);
-        referencia.add(con);
-        mantenerOrden();
-    }
-    private void mantenerOrden() {
-        switch (orden) {
-            case 0:
-                sortByDni();
-                break;
-            case 1:
-                sortByName();
-                break;
-            case 2:
-                sortBySurName();
-                break;
-            case 3:
-                sortByAge();
-                break;
-            case 4:
-                sortByCity();
-                break;
-            case 5:
-                sortByState();
-                break;
-            case 6:
-                sortByParty();
-                break;
 
+        // Insertar ordenadamente en referencia.
+        int pos = 0;
+        switch (orden){
+            case 0: pos = Collections.binarySearch(referencia,con,Congresista.DNI);
+                    break;
+            case 1: pos = Collections.binarySearch(referencia,con,Congresista.NAME);
+                break;
+            case 2: pos = Collections.binarySearch(referencia,con,Congresista.SURNAME);
+                break;
+            case 3: pos = Collections.binarySearch(referencia,con,Congresista.AGE);
+                break;
+            case 4: pos = Collections.binarySearch(referencia,con,Congresista.CITY);
+                break;
+            case 5: pos = Collections.binarySearch(referencia,con,Congresista.STATE);
+                break;
+            case 6: pos = Collections.binarySearch(referencia,con,Congresista.PARTY);
+                break;
         }
+        // Cuando binarySearch no encuentra el elemento buscado devuelve: (-(insertion point) - 1).
+        pos = pos*-1 -1;
+        referencia.add(pos,con);
     }
 
     public void agregarCongresistaRandom(int n) {
         for (int i = 0; i < n; ++i) {
             c.agregarCongresistaRandom();
         }
+        reordenar();
+    }
+
+    private void reordenar(){
         referencia = c.obtenerCongreso();
-        mantenerOrden();
+        switch (orden){
+            case 0: sortByDni();
+                break;
+            case 1: sortByName();
+                break;
+            case 2: sortBySurName();
+                break;
+            case 3: sortByAge();
+                break;
+            case 4: sortByCity();
+                break;
+            case 5: sortByState();
+                break;
+            case 6: sortByParty();
+                break;
+        }
     }
 
     public ArrayList<String> obtenerListaID(){
@@ -89,8 +102,7 @@ public class ControladorCongreso {
         if(cr.tieneRelaciones(dni)) cr.eliminarRelaciones(dni);
         Dni d = new Dni(dni);
         c.eliminarCongresista(d);
-        //guarrada util
-        referencia.remove(obtindiceRef(new Congresista(d,"","",1,"","","")));
+        referencia.remove(d);
     }
 
     public void eliminarCongreso(ControladorRelaciones cr) {
@@ -188,63 +200,33 @@ public class ControladorCongreso {
         cp.cerrarFichero();
     }
 
-
-    /** FUNCIONES QUE HAY QUE IMPLEMENTAR */
     public void sortByDni() {
-        if (size() > 1) {
-            Collections.sort(referencia, Congresista.DNI);
-            orden = 0;
-        }
+        orden = 0;
+        Collections.sort(referencia, Congresista.DNI);
     }
     public void sortByName() {
-        if (size() > 1) {
-            Collections.sort(referencia, Congresista.NAME);
-            orden = 1;
-        }
+        orden = 1;
+        Collections.sort(referencia, Congresista.NAME);
     }
     public void sortBySurName() {
-        if (size() > 1) {
-            Collections.sort(referencia, Congresista.SURNAME);
-            orden = 2;
-        }
+        orden = 2;
+        Collections.sort(referencia, Congresista.SURNAME);
     }
     public void sortByAge() {
-        if (size() > 1) {
-            Collections.sort(referencia, Congresista.AGE);
-            orden = 3;
-        }
+        orden = 3;
+        Collections.sort(referencia, Congresista.AGE);
     }
     public void sortByCity() {
-        if (size() > 1) {
-            Collections.sort(referencia, Congresista.CITY);
-            orden = 4;
-        }
+        orden = 4;
+        Collections.sort(referencia, Congresista.CITY);
     }
     public void sortByState() {
-        if (size() > 1) {
-            Collections.sort(referencia, Congresista.STATE);
-            orden = 5;
-        }
+        orden = 5;
+        Collections.sort(referencia, Congresista.STATE);
     }
     public void sortByParty() {
-        if (size() > 1) {
-            Collections.sort(referencia, Congresista.PARTY);
-            orden = 6;
-        }
-    }
-    public void searchByDni() {
-    }
-    public void searchByName() {
-    }
-    public void searchBySurName() {
-    }
-    public void searchByAge() {
-    }
-    public void searchByCity() {
-    }
-    public void searchByState() {
-    }
-    public void searchByParty() {
+        orden = 6;
+        Collections.sort(referencia, Congresista.PARTY);
     }
 
     //Pre: fin > inicio
@@ -279,10 +261,6 @@ public class ControladorCongreso {
             a.add(referencia.get(i).toString());
         }
         return a;
-    }
-
-    private int obtindiceRef(Congresista a) {
-        return Collections.binarySearch(referencia,a,Congresista.DNI);
     }
 
 }

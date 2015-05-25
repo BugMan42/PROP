@@ -120,6 +120,34 @@ public class DriverControladorCongreso {
                         dcc.validar_num_params(params, 2);
                         dcc.cc.agregarCongresistaRandom(Integer.parseInt(params[1]));
                         break;
+                    case 22:
+                        dcc.validar_num_params(params, 1);
+                        dcc.cc.sortByDni();
+                        break;
+                    case 23:
+                        dcc.validar_num_params(params, 1);
+                        dcc.cc.sortByName();
+                        break;
+                    case 24:
+                        dcc.validar_num_params(params, 1);
+                        dcc.cc.sortBySurName();
+                        break;
+                    case 25:
+                        dcc.validar_num_params(params, 1);
+                        dcc.cc.sortByAge();
+                        break;
+                    case 26:
+                        dcc.validar_num_params(params, 1);
+                        dcc.cc.sortByCity();
+                        break;
+                    case 27:
+                        dcc.validar_num_params(params, 1);
+                        dcc.cc.sortByState();
+                        break;
+                    case 28:
+                        dcc.validar_num_params(params, 1);
+                        dcc.cc.sortByParty();
+                        break;
                 }
             }
             catch (Exception e) {
@@ -127,7 +155,7 @@ public class DriverControladorCongreso {
                 op = -1;
             }
         }
-        while(op != 22);
+        while(op != 29);
     }
 
     private void menu(){
@@ -156,7 +184,14 @@ public class DriverControladorCongreso {
         print("19 cargar(String ruta)");
         print("20 obtenerBloqueCongresista(String dni, int tam_bloque)");
         print("21 agregarCongresistaRandom(int n)");
-        print("22 Salir\n");
+        print("22 sortByDni()");
+        print("23 sortByName()");
+        print("24 sortBySurName()");
+        print("25 sortByAge()");
+        print("26 sortByCity()");
+        print("27 sortByState()");
+        print("28 sortByParty()");
+        print("29 Salir\n");
     }
 
     private void print(String s){
