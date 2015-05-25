@@ -39,8 +39,7 @@ public class ControladorCongreso {
         for (int i = 0; i < n; ++i) {
             c.agregarCongresistaRandom();
         }
-        referencia.clear();
-        referencia.addAll(obtenerCongreso());
+        referencia = c.obtenerCongreso();
     }
 
     public ArrayList<String> obtenerListaID(){
