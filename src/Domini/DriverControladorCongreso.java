@@ -112,6 +112,14 @@ public class DriverControladorCongreso {
                         dcc.validar_num_params(params, 2);
                         dcc.cc.cargar(params[1], dcc.cr);
                         break;
+                    case 20:
+                        dcc.validar_num_params(params, 3);
+                        dcc.print(dcc.cc.obtenerBloqueCongresista(params[1], Integer.parseInt(params[2])).toString());
+                        break;
+                    case 21:
+                        dcc.validar_num_params(params, 2);
+                        dcc.cc.agregarCongresistaRandom(Integer.parseInt(params[1]));
+                        break;
                 }
             }
             catch (Exception e) {
@@ -119,7 +127,7 @@ public class DriverControladorCongreso {
                 op = -1;
             }
         }
-        while(op != 20);
+        while(op != 22);
     }
 
     private void menu(){
@@ -146,7 +154,9 @@ public class DriverControladorCongreso {
         print("17 toString()");
         print("18 guardar(String ruta)");
         print("19 cargar(String ruta)");
-        print("20 Salir\n");
+        print("20 obtenerBloqueCongresista(String dni, int tam_bloque)");
+        print("21 agregarCongresistaRandom(int n)");
+        print("22 Salir\n");
     }
 
     private void print(String s){
