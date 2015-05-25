@@ -6,7 +6,7 @@ import Domini.ControladorRelaciones;
 
 public class CPCongreso {
 
-    PanelCongreso PC = null;
+    PanelCongreso PC;
     ControladorCongreso CC;
     CPRelaciones CR;
 

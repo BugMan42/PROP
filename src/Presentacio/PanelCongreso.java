@@ -582,13 +582,10 @@ public class PanelCongreso extends PanelLista {
     }
 
     private void bEliminarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO ARREGLAR MERDA CONTROLADORS
         emptyLError();
-        ControladorCjtEvento aux = new ControladorCjtEvento();
-        ControladorRelaciones aux2 = new ControladorRelaciones(cvc.CC, aux);
         if (validarJText(textDni)) {
             try {
-                cvc.CC.eliminarCongresista(textDni.getText(), aux2);
+                cvc.CC.eliminarCongresista(textDni.getText(), cvc.CR.CR);
                 setDefaultText();
                 ListUpdate();
             }
@@ -612,13 +609,10 @@ public class PanelCongreso extends PanelLista {
         // TODO add your handling code here:
         emptyLError();
         if (validarTodo()) {
-            ControladorCjtEvento aux = new ControladorCjtEvento();
-            ControladorRelaciones aux2 = new ControladorRelaciones(cvc.CC, aux);
             String dato = (String) listCongreso.getSelectedValue();
             String[] campos = dato.split(" ");
             try {
-                System.out.println("NO ha petat 0");
-                cvc.CC.modCongresista(campos[0], textDni.getText(), textName.getText(), textSurname.getText(), Integer.parseInt(textAge.getText()), textCity.getText(), textState.getText(), textParty.getText(), aux2);
+                cvc.CC.modCongresista(campos[0], textDni.getText(), textName.getText(), textSurname.getText(), Integer.parseInt(textAge.getText()), textCity.getText(), textState.getText(), textParty.getText(), cvc.CR.CR);
                 setError(cvc.CC.size()+"");
                 ListUpdate();
             }
@@ -633,9 +627,7 @@ public class PanelCongreso extends PanelLista {
     private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here
         emptyLError();
-        ControladorCjtEvento aux = new ControladorCjtEvento();
-        ControladorRelaciones aux2 = new ControladorRelaciones(cvc.CC,aux);
-        cvc.CC.eliminarCongreso(aux2);
+        cvc.CC.eliminarCongreso(cvc.CR.CR);
         ListUpdate();
     }
 
