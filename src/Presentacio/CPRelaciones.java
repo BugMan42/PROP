@@ -15,9 +15,9 @@ public class CPRelaciones {
         CPC = cpc;
         CPE = cpe;
 
-        CR = new ControladorRelaciones(cpc.CC, cpe.CCE);
+        CR = new ControladorRelaciones(cpc.obtCC(), cpe.CCE);
 
-        cpc.CR = this;
+        cpc.modCPR(this);
         cpe.CR = this;
     }
 

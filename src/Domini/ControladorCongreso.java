@@ -161,4 +161,15 @@ public class ControladorCongreso {
         }
         cp.cerrarFichero();
     }
+
+
+    /** FUNCIONES QUE HAY QUE IMPLEMENTAR */
+    public void sortByDni() {}
+    public void sortByName() {}
+    public void sortBySurName() {}
+    public void sortByAge() {}
+    public void sortByCity() {}
+    public void sortByState() {}
+    public void sortByParty() {}
+
 }

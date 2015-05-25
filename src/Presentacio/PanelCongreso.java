@@ -509,7 +509,7 @@ public class PanelCongreso extends PanelLista {
         emptyLError();
         if (validarTodo()) {
             try {
-                cvc.CC.agregarCongresista(textDni.getText(),textName.getText(),textSurname.getText(),Integer.parseInt(textAge.getText()),textCity.getText(),textState.getText(),textParty.getText());
+                cvc.obtCC().agregarCongresista(getTextString(textDni),getTextString(textName),getTextString(textSurname),Integer.parseInt(textAge.getText()),getTextString(textCity),getTextString(textState),getTextString(textParty));
                 setDefaultText();
                 ListUpdate();
             }
@@ -519,10 +519,19 @@ public class PanelCongreso extends PanelLista {
             catch (Exception a2) {
                 setError(a2.getMessage());
             }
-
         }
-
-
+    }
+    private String getTextString(JTextField aux) {
+        String aux2 = "";
+        String[] campos = aux.getText().split(" ");
+        if (campos.length != 1) {
+            for (int i = 0; i < campos.length; ++i) {
+                if (i != 0) aux2 += "-";
+                aux2 += (campos[i]);
+            }
+        }
+        else aux2 = aux.getText();
+        return aux2;
     }
     private boolean validarTodo() {
         boolean change = false;
@@ -585,7 +594,7 @@ public class PanelCongreso extends PanelLista {
         emptyLError();
         if (validarJText(textDni)) {
             try {
-                cvc.CC.eliminarCongresista(textDni.getText(), cvc.CR.CR);
+                cvc.obtCC().eliminarCongresista(textDni.getText(), cvc.obtCPR().CR);
                 setDefaultText();
                 ListUpdate();
             }
@@ -602,7 +611,7 @@ public class PanelCongreso extends PanelLista {
     }
     private boolean validarJText(JTextField aux) {
         String[] a = aux.getText().split(" ");
-        return a.length == 1 && !aux.getText().equals(" ") && !aux.getText().equals("");
+        return !(a.length == 0);// && !aux.getText().equals(" ") && !aux.getText().equals("");
     }
 
     private void bModificarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
@@ -612,8 +621,8 @@ public class PanelCongreso extends PanelLista {
             String dato = (String) listCongreso.getSelectedValue();
             String[] campos = dato.split(" ");
             try {
-                cvc.CC.modCongresista(campos[0], textDni.getText(), textName.getText(), textSurname.getText(), Integer.parseInt(textAge.getText()), textCity.getText(), textState.getText(), textParty.getText(), cvc.CR.CR);
-                setError(cvc.CC.size()+"");
+                cvc.obtCC().modCongresista(campos[0], textDni.getText(), textName.getText(), textSurname.getText(), Integer.parseInt(textAge.getText()), textCity.getText(), textState.getText(), textParty.getText(), cvc.obtCPR().CR);
+                //setError(cvc.obtCC().size()+"");
                 ListUpdate();
             }
             catch (Exception a) {
@@ -627,20 +636,16 @@ public class PanelCongreso extends PanelLista {
         // TODO add your handling code here
         emptyLError();
         setDefaultText();
-        cvc.CC.eliminarCongreso(cvc.CR.CR);
+        cvc.obtCC().eliminarCongreso(cvc.obtCPR().CR);
         ListUpdate();
     }
 
     private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         Integer n = (Integer)SpinnerNum.getValue();
-        if (n > 0 && n < 1000001) {
-            cvc.CC.agregarCongresistaRandom(n);
-            ListUpdate();
-        }
-        else {
-            setError("El numero de congresistas random tienen que ser > 0 y menor que 1000 001");
-        }
+        cvc.obtCC().agregarCongresistaRandom(n);
+        ListUpdate();
+
     }
         // Carregant ......
 
@@ -674,9 +679,9 @@ public class PanelCongreso extends PanelLista {
 
     private void ListUpdate() {
         String a[] = {"No hay Congresistas"};
-        if (cvc.CC.esVacio()) listCongreso.setListData(a);
+        if (cvc.obtCC().esVacio()) listCongreso.setListData(a);
         else {
-            ArrayList<String> aux = cvc.CC.obtenerCongresoTotal();
+            ArrayList<String> aux = cvc.obtCC().obtenerCongresoTotal();
             listCongreso.setListData(aux.toArray());
         }
     }
