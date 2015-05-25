@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * Clase Panel
  * Created by falc on 21/05/15.
  */
 public class Panel extends JPanel {
@@ -13,13 +14,13 @@ public class Panel extends JPanel {
     public Panel()
     {
         super();
-        setBorder(BorderFactory.createLineBorder(Color.cyan));
+        //setBorder(BorderFactory.createLineBorder(Color.cyan));
     }
 
     public Panel(VistaPrincipal v)
     {
         super();
-        setBorder(BorderFactory.createLineBorder(Color.cyan));
+        //setBorder(BorderFactory.createLineBorder(Color.cyan));
         vis = v;
     }
 
