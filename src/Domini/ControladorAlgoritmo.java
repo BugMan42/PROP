@@ -1,5 +1,8 @@
 package Domini;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created on 15/04/15.
  */
@@ -8,7 +11,14 @@ public class ControladorAlgoritmo {
     private Entrada in;
     private Algoritmo alg;
     private Salida out;
-    //Referencia a un ControladorRelacioes creado previamente
+
+
+    //Punteros internos para exportar grafo
+    private int i_vertex = 0;
+    private int i_arista = 0;
+    private int real_i = 0;
+
+    //Referencia a un ControladorRelaciones creado previamente
     private ControladorRelaciones crel;
 
     public ControladorAlgoritmo(ControladorRelaciones cr)
@@ -19,9 +29,9 @@ public class ControladorAlgoritmo {
     }
 
     // Dado el controlador de relaciones que pasas como parametro, se crea el grafo correspondiente
-    public void crearGrafo()
-    {
-        //in.modGrafo(crel.generar_grafo_relaciones());
+    public void crearGrafo() throws Exception {
+        crel.crearGrafoRelaciones();
+        in.modGrafo(crel.crearGrafoAlgoritmo());
     }
 
     //Modifica el parámetro de la entrada
@@ -36,33 +46,78 @@ public class ControladorAlgoritmo {
     *       Suponemos que los controladores se encargan de enviar la información correcta
     * Post: alg es el tipo de algoritmo
     */
-    public void seleccionAlgoritmo(String s) throws Exception
+    public void seleccionAlgoritmo(int s) throws Exception
     {
-        if (s.equals("g")) alg = new Girvan_Newman(in, out);
-        //else if (s.equals("l")) alg = new Louvain(in, out); #falta descomentar en Louvain
-        else if (s.equals("c")) alg = new Clique(in, out);
+        if (s == 1) alg = new Girvan_Newman(in, out);
+        else if (s == 2) alg = new Louvain(in, out);
+        else if (s == 3) alg = new Clique(in, out);
     }
 
-    //Ejecuta el algoritmo seleccionado según la entrada creada(in), y escribe resultados en la salida (out)
-    public void ejecutar() throws Exception
-    {
-        alg.ejecutar_algoritmo();
-    }
 
-    /*
-    * Ejecutar una iteración del algoritmo
-    * Pre:  alg tiene que tener una entrada inicializada y un tipo seleccionado
-    * Post: Devuelve un grafo resultado de una iteración del algoritmo del tipo seleccionado
-     */
-    public void ejecutar_iteracion()throws Exception
-    {
-        alg.ejecutar_iteración(in.obtGrafo());
-    }
-
-    //Devuelve una refernecia de la Salida
+    //Devuelve una referencia de la Salida
     public Salida obtSalida()
     {
         return out;
+    }
+
+
+    public void guardar()
+    {
+
+    }
+
+    public void cargar()
+    {
+
+    }
+
+    //Funciones para exportar el grafo a Capa de Presentación
+
+    public Integer num_vertex_entrada()
+    {
+        return in.obtGrafo().V();
+    }
+
+    // El string seguirá el formato ("indice"+"dni"), o ("indice"+"-"), si incorrecto.
+    public String next_vertex()
+    {
+        real_i = in.obtGrafo().consultarVertices().get(i_vertex);
+        String result = Integer.toString(real_i);
+        try {
+            result = result+" "+in.obtGrafo().fPrima(real_i);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = result+" -";
+        }
+
+        ++i_vertex;
+        i_arista = 0;
+        return result;
+    }
+
+    public String next_arista()
+    {
+        String result = Integer.toString(real_i);
+        try {
+            if (in.obtGrafo().nodosSalida(real_i).size() >= i_arista) result = result+" -";
+            else {
+                int ady = in.obtGrafo().nodosSalida(real_i).get(i_arista);
+                result = result+" "+ady;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = result+" -";
+        }
+        ++i_arista;
+        return result;
+
+    }
+
+    public void reset_pointers()
+    {
+        i_arista = 0;
+        i_vertex = 0;
+        real_i = 0;
     }
 
 }

@@ -1,6 +1,6 @@
 package Domini;
 
-public class Congresista {
+public class Congresista implements Node {
 
     private class EdadNoValida extends Exception {
         public EdadNoValida(int edad) {
@@ -71,6 +71,15 @@ public class Congresista {
         Estado = estado;
         Partido = partido;
     }
+    public void mod(String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
+        if (!EdadValida(edad)) throw new EdadNoValida(edad);
+        Nombre = nombre;
+        Apellido = apellido;
+        Edad = edad;
+        Ciudad = ciudad;
+        Estado = estado;
+        Partido = partido;
+    }
 
     //Consultoras
     public Dni obtDni() {
@@ -94,7 +103,7 @@ public class Congresista {
     public String obtPartido() {
         return Partido;
     }
-    public String ID() {
+    public String obtID() {
         return Dni.toString();
     }
     public String toString() {
@@ -105,5 +114,9 @@ public class Congresista {
     //el parametro n es un entero > 0
     private static boolean EdadValida(int n) {
         return n > 0;
+    }
+
+    public boolean equals(Congresista a) {
+        return a.obtID().equals(Dni);
     }
 }

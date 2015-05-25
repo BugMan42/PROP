@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by bug on 8/04/15.
- */
 public class ControladorCongreso {
+
+    //Necesito algo asi
+    private ArrayList<Congresista> aux;
 
     private static final int max_lineas_guardar = 300;
     private static final int max_lineas_cargar = 300;
@@ -33,6 +33,21 @@ public class ControladorCongreso {
         Congresista con = new Congresista(d,nombre,apellido,edad,ciudad,estado,partido);
         c.agregarCongresista(con);
     }
+    // Jose te la he puesto porque la necesitaba cambiala como te guste mas
+    public void agregarCongresistaRandom(int n) {
+        for (int i = 0; i < n; ++i) {
+            c.agregarCongresistaRandom();
+        }
+    }
+    //Otra que me hacia falta aqui tengo que hablar contigo
+    public ArrayList<String> obtenerCongresoTotal() {
+        ArrayList<String> a = new ArrayList<String>(c.size());
+        List<Congresista> b = c.obtenerCongreso();
+        for (int i = 0; i < c.size(); ++i) {
+            a.add(b.get(i).toString());
+        }
+        return a;
+    }
 
     public ArrayList<String> obtenerListaID(){
         return c.obtenerListaID();
@@ -47,13 +62,15 @@ public class ControladorCongreso {
         return c.contieneCongresista(d);
     }
 
-    public void eliminarCongresista(String dni) throws Exception {
+    public void eliminarCongresista(String dni, ControladorRelaciones cr) throws Exception {
+        if(cr.tieneRelaciones(dni)) cr.eliminarRelaciones(dni);
         Dni d = new Dni(dni);
         c.eliminarCongresista(d);
     }
 
-    public void eliminarCongreso() {
+    public void eliminarCongreso(ControladorRelaciones cr) {
         c.eliminarCongreso();
+        cr.eliminarRelaciones();
     }
 
     public void modNombreCongresista(String dni, String nombre) throws Exception {
@@ -86,14 +103,16 @@ public class ControladorCongreso {
         c.modPartidoCongresista(d, partido);
     }
 
-    public void modDniCongresista(String dni, String dni_nuevo) throws Exception {
+    public void modDniCongresista(String dni, String dni_nuevo, ControladorRelaciones cr) throws Exception {
+        if(cr.tieneRelaciones(dni)) cr.modCongresista(dni,dni_nuevo);
         Dni d = new Dni(dni);
         Dni d_nuevo = new Dni(dni_nuevo);
         c.modDniCongresista(d, d_nuevo);
     }
 
     public void modCongresista(String dni, String dni_nuevo, String nombre, String apellido, int edad, String ciudad,
-                               String estado, String partido) throws  Exception{
+                               String estado, String partido, ControladorRelaciones cr) throws  Exception{
+        if(cr.tieneRelaciones(dni)) cr.modCongresista(dni,dni_nuevo);
         Dni d = new Dni(dni);
         Dni d_nuevo = new Dni(dni_nuevo);
         c.modCongresista(d, d_nuevo, nombre, apellido, edad, ciudad, estado, partido);
@@ -127,10 +146,10 @@ public class ControladorCongreso {
         }
     }
 
-    public void cargar(String ruta) throws Exception {
+    public void cargar(String ruta, ControladorRelaciones cr) throws Exception {
         ControladorPersistencia cp = new ControladorPersistencia(ruta);
         cp.abrirLectura();
-        c.eliminarCongreso();
+        eliminarCongreso(cr);
         String r = cp.leer(max_lineas_cargar);
         while (!r.equals("")){
             String[] aux = r.split("\n");

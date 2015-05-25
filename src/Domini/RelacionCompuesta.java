@@ -1,25 +1,33 @@
 package Domini;
 
-/**
- * Created by bug on 4/05/15.
- */
 public abstract class RelacionCompuesta extends Relacion {
-    boolean esNot;
-    Relacion A;
-    //Relacion B;
-    public RelacionCompuesta(boolean EsNot,Relacion a) {
-        super(false);
-        esNot = EsNot;
+    private Relacion A;
+    //RelacionB estara solo en relacion compuesta and y or
+
+    public RelacionCompuesta(Relacion a) {
+        super();
         A = a;
-        //B = b;
     }
+
+    public void modRelacionA(Relacion a) {
+        A = a;
+    }
+    public abstract void modRelacionB(Relacion b) throws Exception;
+
     public Relacion obtRelacionA() {
         return A;
     }
     public abstract Relacion obtRelacionB() throws Exception;
+
     public abstract boolean esOr();
-    public boolean esNot() {
-        return esNot;
+    public abstract boolean esNot();
+
+    public boolean esSimple() {
+        return false;
+    }
+
+    public String toString() {
+        return A.toString();
     }
 
 }

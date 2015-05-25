@@ -10,7 +10,7 @@ public class Profesional extends Reunion {
      * importancia > 0
      * Post: Se ha creado una instancia de profesional con atributos nombre, fecha e importancia
      */
-    public Profesional(String nombre, String fecha, int importancia) throws Exception{
+    public Profesional(String nombre, Fecha fecha, int importancia) throws Exception{
         super(nombre, fecha, importancia);
     }
 /**
@@ -20,7 +20,7 @@ public class Profesional extends Reunion {
  * separados por espacios.
  * */
     public String toString() {
-        return "ReunionProfesional " + nombre + " " + fecha.ConsultarFecha() + " " + Integer.toString(importancia);
+        return "ReunionProfesional " + obt_nombre() + " " + obt_fecha() + " " + Integer.toString(obt_importancia());
     }
 
     public String tipo(){

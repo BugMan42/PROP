@@ -13,7 +13,16 @@ public class Congreso {
             super("No existe el Congresista: "+str);
         }
     }
+    //static
+    private static String[] nombre = {"Arif", "Konrad", "Edsger","Gordon","Kevin","Richard","Max","Linus","Allen","Jon-Von",
+            "Sophie","Alan","David","Arif","Zaman","Tim","Sergey","Larry","Mark","Bill"};
+    private static String[] apellido = {"Dijkstra", "Neumamnn", "Zuse","A.Wagner","Moore","Bell","Hamming","Cohen","Newman","Knuth",
+            "Allen","Torvalds","Warwick","Neumann","Stallman","Turing","Zaman","Goodger","Gates","Zuckerberg"};
+    private static String[] ciudad = {"Londres", "Paris", "Islamabad","Barcelona","Tokio","Washington","Seattle","New-York",
+            "San-Francisco","Chicago","Alexandria","Annapolis","Haifa","Louvain","Toronto","Berlin"};
+    private static String[] partido = {"Republicano","Democrata","Libre","Pirata"};
 
+    //atributs
     private TST<Congresista> tst;
 
     //Creadoras
@@ -21,16 +30,32 @@ public class Congreso {
         tst = new TST<Congresista>();
     }
     public void agregarCongresista(Congresista c) throws Exception {
-        tst.insertar(c.ID(),c);
+        tst.insertar(c.obtID(), c);
+    }
+    private void print(String str) {
+        System.out.println(str);
+    }
+    public void agregarCongresistaRandom()  {
+        Random rand = new Random();
+        Dni r = new Dni();
+        while (tst.existe(r.toString())) {
+            r = new Dni();
+        }
+        int edad = rand.nextInt(62)+18 ;
+        int name = rand.nextInt(20);
+        int surname = rand.nextInt(20);
+        int city = rand.nextInt(16);
+        int part = rand.nextInt(4);
+        try {
+            Congresista c = new Congresista(r,nombre[name],apellido[surname],edad,ciudad[city],ciudad[city],partido[part]);
+            tst.insertar(c.obtID(), c);
+        } catch (Exception a) {
+            //Do nothing
+        }
     }
 
     public void eliminarCongresista(Dni dni) throws Exception {
-        try {
-            tst.borrar(dni.toString());
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.borrar(dni.toString());
     }
     public void eliminarCongreso() {
         tst.vaciar();
@@ -39,96 +64,47 @@ public class Congreso {
     //Modificadoras
     public void modDniCongresista(Dni dni, Dni dniNuevo) throws Exception {
         if (!dni.equals(dniNuevo)) {
-            try {
-                tst.modificar(dni.toString(), dniNuevo.toString());
-                tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
-            }
-            catch(Exception a) {
-                if (a.getClass().equals(KeyNotExistsTST.class)) throw new NoExisteC(dni.toString());
-                if (a.getClass().equals(KeyAlreadyExistsTST.class)) throw new ExisteC(dniNuevo.toString());
-            }
+            tst.modificar(dni.toString(), dniNuevo.toString());
+            tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
         }
     }
     public void modNombreCongresista(Dni dni,String nombre) throws Exception {
-        try {
-            tst.obtener(dni.toString()).modNombre(nombre);
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.obtener(dni.toString()).modNombre(nombre);
     }
     public void modApellidoCongresista(Dni dni,String apellido) throws Exception {
-        try {
-            tst.obtener(dni.toString()).modApellido(apellido);
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.obtener(dni.toString()).modApellido(apellido);
     }
     public void modEdadCongresista(Dni dni,int edad) throws Exception {
-        try {
-            tst.obtener(dni.toString()).modEdad(edad);
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.obtener(dni.toString()).modEdad(edad);
     }
     public void modCiudadCongresista(Dni dni,String ciudad) throws Exception {
-        try {
-            tst.obtener(dni.toString()).modCiudad(ciudad);
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.obtener(dni.toString()).modCiudad(ciudad);
     }
     public void modEstadoCongresista(Dni dni,String estado) throws Exception {
-        try {
-            tst.obtener(dni.toString()).modEstado(estado);
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.obtener(dni.toString()).modEstado(estado);
     }
     public void modPartidoCongresista(Dni dni,String partido) throws Exception {
-        try {
-            tst.obtener(dni.toString()).modPartido(partido);
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        tst.obtener(dni.toString()).modPartido(partido);
     }
     public void modCongresista(Dni dni,Dni dniNuevo , String nombre, String apellido,
                                int edad, String ciudad, String estado, String partido) throws  Exception{
-        try {
-            if (!dni.equals(dniNuevo)) {
-                tst.modificar(dni.toString(),dniNuevo.toString());
-                //tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
-                tst.obtener(dniNuevo.toString()).mod(dniNuevo, nombre, apellido, edad, ciudad, estado, partido);
-            }
+        if (!dni.equals(dniNuevo)) {
+            tst.modificar(dni.toString(), dniNuevo.toString());
+            //tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
+            tst.obtener(dniNuevo.toString()).mod(dniNuevo, nombre, apellido, edad, ciudad, estado, partido);
         }
-        catch (Exception a) {
-            if (a.getClass().equals(KeyNotExistsTST.class)) throw new NoExisteC(dni.toString());
-            if (a.getClass().equals(KeyAlreadyExistsTST.class)) throw new ExisteC(dniNuevo.toString());
+        else {
+            tst.obtener(dni.toString()).mod(nombre, apellido, edad, ciudad, estado, partido);
         }
     }
 
     //Consultoras
     public Congresista consultarCongresista(Dni dni) throws Exception {
-        try {
-            return tst.obtener(dni.toString());
-        }
-        catch (Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        return tst.obtener(dni.toString());
     }
     public Congresista copiaConsultarCongresista(Dni dni) throws Exception {
-        try {
-            Congresista aux = new Congresista(tst.obtener(dni.toString()));
-            return aux;
-        }
-        catch(Exception a) {
-            throw new NoExisteC(dni.toString());
-        }
+        //Congresista aux = new Congresista(tst.obtener(dni.toString()));
+        return new Congresista(tst.obtener(dni.toString()));
     }
     public int size() {
         return tst.size();

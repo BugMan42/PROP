@@ -1,8 +1,8 @@
 package Domini;
 
-/**
- * Clase Dni
- */
+import java.util.Random;
+import java.util.Vector;
+
 public class Dni  {
     private class DNINOVALIDO extends Exception {
         public DNINOVALIDO(String s) {
@@ -26,6 +26,22 @@ public class Dni  {
         else throw new DNINOVALIDO(s);
     }
 
+    public Dni() {
+        dni = new String();
+        Random rand = new Random();
+        for (int i = 0; i < 9; ++i) {
+            if (i == 8) dni += (char) ('A'+ rand.nextInt(26));
+            else dni += String.valueOf(rand.nextInt(10));
+        }
+    }
+
+    public void cambiarLetra(char l) throws Exception {
+        if (!Character.isLetter(l)) throw new Exception("l tiene que ser una letra");
+        dni = dni.substring(0, dni.length()-1);
+        dni += l;
+        dni.toUpperCase();
+    }
+
     private String trad(String d) {
         if (java.lang.Character.isLowerCase(d.charAt(8))) {
             d = d.toUpperCase();
@@ -39,7 +55,8 @@ public class Dni  {
         }
         else throw new DNINOVALIDO(s);
     }
-
+    //Comprueba si es valido el dni mediante un
+    // recorrido secuencial
     public static boolean valido(String d) {
         if (d.length() != 9) return false;
         for (int i = 0; i <8; ++i) {
@@ -54,5 +71,9 @@ public class Dni  {
 
     public boolean equals(Dni D) {
         return D.dni.equals(dni);
+    }
+
+    public void print(String str) {
+        System.out.println(str);
     }
 }

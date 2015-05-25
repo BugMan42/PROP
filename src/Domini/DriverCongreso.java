@@ -39,6 +39,7 @@ public class DriverCongreso {
         print("18 obtenerCongreso():List<Congresista>");
         print("19 toString():String ");
         print("20 Salir");
+        print("21 agregarCongresistaRandom()");
         print("Escribe la opcion");
     }
 
@@ -154,6 +155,10 @@ public class DriverCongreso {
 
             case 20:
                 System.exit(0);
+                break;
+            case 21:
+                C.agregarCongresistaRandom();
+                break;
             default:
                 print("Fuera de rango");
                 break;

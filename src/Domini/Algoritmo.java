@@ -7,25 +7,25 @@ package Domini;
 public abstract class Algoritmo {
 
     // Punteros a las clases inicializadas en el Controlador del Algoritmo
-    protected Entrada in;
-    protected Salida out;
+    private Entrada in;
+    private Salida obtOut;
 
-    public Algoritmo() throws Exception {}
 
     //Constructor de algoritmo con parámetros
     /*
-    Nos permite utilizar una entrada y una salida previamente inicializadas
-     */
+    *   Nos permite utilizar una entrada y una salida previamente inicializadas
+    */
     public Algoritmo(Entrada i, Salida o) throws Exception {
         in = i;
-        out = o;
+        obtOut = o;
     }
 
-    public void ejecutar_algoritmo() throws Exception {
-    };
 
-    public void ejecutar_iteración(Grafo g) throws Exception {
+    public Entrada obtIn() {
+        return in;
+    }
 
-    };
-
+    public Salida obtOut() {
+        return obtOut;
+    }
 }

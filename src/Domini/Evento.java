@@ -1,112 +1,67 @@
 package Domini;
 
+import java.util.Random;
+
 /**
  * Created by falc on 20/03/15.
  * Clase Evento
  */
 public abstract class Evento {
-    protected String nombre;
-    protected Fecha fecha;
-    protected int importancia;
+    static final String error1 = "El nombre no es valido";
+    static final String error2 = "La fecha no es valida";
+    static final String error3 = "La importancia no es valida";
+
+    private String nombre;
+    private Fecha fecha;
+    private int importancia;
 
     //Constructoras
 
-    /**Creadora con atributos obligatorios
-     * Pre: name tiene que ser un string no vacio y Fecha debe contener una fecha no vacia
-     * Post: Se crea un evento solo con los atributos nombre y fecha
-     */
-    public Evento(String name, String date) throws NoValido {
-        if (name.equals("")) throw new NoValido("nombre", 0);
-        if (date.equals("")) throw new NoValido("fecha", 0);
-        nombre = name;
-        fecha = new Fecha(date);
-    }
-    /**Creadora completa
-     * Pre: name tiene que ser no vacio, date tiene que ser valida, importance tiene que ser mayor que 0
-     *Post: Se crea un evento con todos que seran name, date, subtype y importance.
-     */
-    public Evento(String name, String date, int importance) throws NoValido {
-        if (name.equals("")) throw new NoValido("nombre", 0);
-        if (date.equals("")) throw new NoValido("fecha", 0);
-        if (importance <= 0) throw new NoValido("importancia", 0);
-        fecha = new Fecha(date);
-        nombre = name;
+    public Evento(String name, Fecha date, int importance) throws Exception {
+        if (importance <= 0) throw new Exception(error3);
+        nombre = name.toUpperCase();
+        fecha = date;
         importancia = importance;
     }
 
     //Modificadoras
 
-    /**Modificadora de nombre
-     * Pre: name tiene que ser un string no vacio y diferente del nombre actual
-     * Post: Al nombre del evento se le ha asignado name
-     */
-    public void ModNombre(String name) throws NoValido{
-        if (name.equals("")) throw new NoValido("nombre", 0);
-        if (!nombre.equals(name)) nombre = name;
+    public void ModNombre(String name) throws Exception{
+        if (!nombre.equals(name)) nombre = name.toUpperCase();
     }
 
-    /**Modificadora de fecha
-     * Pre: date tiene que ser valido y diferente de la fecha actual
-     * Post: A la fecha del evento se le ha asignado date
-     */
-    public void ModFecha (String date) throws NoValido {
-        if (fecha.ConsultarFecha().equals(date)) fecha = new Fecha(date);
+    public void ModFecha (String date) throws Exception {
+        fecha = new Fecha(date);
     }
 
-    /**Modificadora de importancia
-     * Pre: importancia > 0 y diferente de la importancia actual
-     * Post: A la importancia del evento se le ha asignado importance
-     */
-    public void ModImportancia(int importance) throws NoValido {
-        if (importance <= 0) throw new NoValido("Importancia", 0);
+    public void ModImportancia(int importance) throws Exception {
+        if (importance <= 0) throw new Exception(error3);
         if (importancia != importance) importancia = importance;
     }
 
     //Consultoras
 
-    /**Consultora de nombre
-     * Pre: Cierto
-     * Post: Devuelve el nombre del evento
-     */
     public String obt_nombre() {
         return nombre;
     }
 
-    /**Consultora de fecha
-     * Pre: Cierto
-     * Post: Devuelve la fecha del evento
-     */
     public String obt_fecha() {
         return fecha.ConsultarFecha();
     }
 
-    /**Consultora de fecha sin barras
-     * Pre : Cierto
-     * Post: Devuelve la fecha sin barras separadoras entre el dia, el mes y el año
-     */
     public String obtFecha() {
-        return fecha.ToString();
+        return fecha.toString();
     }
 
-    /**Consultora del Identificador de la clase
-     * Pre: Cierto
-     * Post: Devuelve el nombre y la fecha concatenados
-     */
     public String ID() {
-        return nombre+fecha.ToString();
+        return nombre+fecha.toString();
     }
 
     public abstract String toString();
 
-    /**Consultora de importancia
-     * Pre: Cierto
-     * Post: Devuelve la importancia del evento
-     */
     public int obt_importancia() {
         return importancia;
     }
 
-    public String tipo(){
-        return "";
-    }
+    public abstract String tipo();
 }

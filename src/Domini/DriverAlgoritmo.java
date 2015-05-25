@@ -22,6 +22,8 @@ public class DriverAlgoritmo {
     private static Salida out;
 
     public static void main(String[] args) throws ReflectiveOperationException {
+        in = new Entrada(new Grafo(), 2);
+        out = new Salida();
         int opcion;
         do {
             print_menu();
@@ -69,7 +71,7 @@ public class DriverAlgoritmo {
             }
         }
 
-        return;
+        in.modGrafo(g);
 
     }
 
@@ -77,7 +79,6 @@ public class DriverAlgoritmo {
     {
         try {
             alg = new Clique(in, out);
-            alg.ejecutar_iteración(in.obtGrafo());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,7 +89,6 @@ public class DriverAlgoritmo {
     {
         try {
             alg = new Louvain(in, out);
-            alg.ejecutar_iteración(in.obtGrafo());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,7 +99,6 @@ public class DriverAlgoritmo {
     {
         try {
             alg = new Girvan_Newman(in, out);
-            alg.ejecutar_iteración(in.obtGrafo());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,7 +106,7 @@ public class DriverAlgoritmo {
     }
 
     public static void ayuda() {
-        System.out.println("Driver de los algorismos");
+        System.out.println("Driver de los algoritmos");
         System.out.println("En el menú, seleccione la opción que desee. Para salir, utilice la opción 6.");
     }
 

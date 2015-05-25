@@ -24,6 +24,7 @@ public class Grafo {
 //#########################################################################
 
     class NodoInterno {
+
         private LinkedList<Double> pesos;
         public int ady;
 
