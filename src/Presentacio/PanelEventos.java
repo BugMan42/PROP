@@ -3,6 +3,7 @@ package Presentacio;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by USUARIO on 22/05/2015.
@@ -121,17 +122,21 @@ public class PanelEventos extends PanelLista {
     protected void boxSortActionPerformed(ActionEvent evt) {
 
     }
+    //TODO MODIFICAR
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt) {
 
     }
+    //TODO MODIFICAR
     //Modifcar para buscar, guardar como quieras
     //protected abstract void boxSearchActionPerformed(ActionEvent evt);
     protected void setBoxSort() {
         //boxSort.setModel(new DefaultComboBoxModel(new String[]{"Sort By Dni", "Sort By Nombre", "Sort By Partido"}));
     }
-
+    //TODO MODIFICAR
     protected void setBoxSearch() {
         //boxSearch.setModel(new DefaultComboBoxModel(new String[]{"Search By Dni", "Search By Nombre", "Search By Partido"}));
     }
+    //TODO MODIFICAR
+    protected void textSearchTyped(KeyEvent evt) {} ;
 }

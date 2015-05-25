@@ -9,14 +9,14 @@ public abstract class PanelLista extends Panel {
 
     //Referència al controlador de presentació que crea la vista
     final String defaultTextLabelSearch = "Buscar";
-    JSplitPane sp;
-    JList jlist;
-    JScrollPane jScrollPane1;
-    JComboBox boxSort;
-    JTextField textSearch;
-    JComboBox boxSearch;
-    JButton buttonSearch;
-    JLabel labelStatus;
+    protected JSplitPane sp;
+    protected JList jlist;
+    protected JScrollPane jScrollPane1;
+    protected JComboBox boxSort;
+    protected JTextField textSearch;
+    protected JComboBox boxSearch;
+    protected JButton buttonSearch;
+    protected JLabel labelStatus;
 
     public PanelLista(VistaPrincipal v) {
 
@@ -91,8 +91,10 @@ public abstract class PanelLista extends Panel {
         textSearch.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent evt) {
                 //clearLabelSearch(textSearch);
+                textSearchTyped(evt);
             }
         });
+
         textSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 clearLabelSearch(textSearch);
@@ -202,6 +204,8 @@ public abstract class PanelLista extends Panel {
     protected abstract void setBoxSort();
 
     protected abstract void setBoxSearch();
+
+    protected abstract void textSearchTyped(KeyEvent evt) ;
 
 
 }

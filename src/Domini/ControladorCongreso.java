@@ -9,7 +9,7 @@ import java.util.List;
 public class ControladorCongreso {
 
     //Necesito algo asi
-    private ArrayList<Congresista> aux;
+    private ArrayList<Congresista> referencia;
 
     private static final int max_lineas_guardar = 300;
     private static final int max_lineas_cargar = 300;
@@ -33,20 +33,11 @@ public class ControladorCongreso {
         Congresista con = new Congresista(d,nombre,apellido,edad,ciudad,estado,partido);
         c.agregarCongresista(con);
     }
-    // Jose te la he puesto porque la necesitaba cambiala como te guste mas
+
     public void agregarCongresistaRandom(int n) {
         for (int i = 0; i < n; ++i) {
             c.agregarCongresistaRandom();
         }
-    }
-    //Otra que me hacia falta aqui tengo que hablar contigo
-    public ArrayList<String> obtenerCongresoTotal() {
-        ArrayList<String> a = new ArrayList<String>(c.size());
-        List<Congresista> b = c.obtenerCongreso();
-        for (int i = 0; i < c.size(); ++i) {
-            a.add(b.get(i).toString());
-        }
-        return a;
     }
 
     public ArrayList<String> obtenerListaID(){
@@ -171,5 +162,24 @@ public class ControladorCongreso {
     public void sortByCity() {}
     public void sortByState() {}
     public void sortByParty() {}
+    //Pre: fin > inicio
+    public ArrayList<String> obtenerBloque(int inicio, int fin) {
+        //return referencia.subList(inicio,fin);
+        ArrayList<String> a = new ArrayList<String>(fin-inicio);
+        List<Congresista> b = referencia.subList(inicio,fin);
+        for (int i = 0; i < c.size(); ++i) {
+            a.add(b.get(i).toString());
+        }
+        return a;
+    }
+    //Otra que me hacia falta aqui tengo que hablar contigo
+    public ArrayList<String> obtenerCongresoTotal() {
+        ArrayList<String> a = new ArrayList<String>(c.size());
+        List<Congresista> b = c.obtenerCongreso();
+        for (int i = 0; i < c.size(); ++i) {
+            a.add(b.get(i).toString());
+        }
+        return a;
+    }
 
 }

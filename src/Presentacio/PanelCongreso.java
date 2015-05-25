@@ -20,8 +20,8 @@ public class PanelCongreso extends PanelLista {
     //Referència al controlador de presentació que crea la vista
     boolean t;
     private Boolean[] vError;
-    CPCongreso cvc;
-    CPRelaciones cpr;
+    CPCongreso CPC;
+    //CPRelaciones cpr;
 
     JButton bAgregarCongresista;
     JButton bAgregarRandom;
@@ -59,7 +59,7 @@ public class PanelCongreso extends PanelLista {
         for (int i = 0; i < 7; ++i) {
             vError[i] = false;
         }
-        cvc = c;
+        CPC = c;
         // Inicializa los componentes de la ventana
         initGUI();
     }
@@ -509,7 +509,7 @@ public class PanelCongreso extends PanelLista {
         emptyLError();
         if (validarTodo()) {
             try {
-                cvc.obtCC().agregarCongresista(getTextString(textDni), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty));
+                CPC.obtCC().agregarCongresista(getTextString(textDni), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty));
                 setDefaultText();
                 ListUpdate();
             }
@@ -594,7 +594,7 @@ public class PanelCongreso extends PanelLista {
         emptyLError();
         if (validarJText(textDni)) {
             try {
-                cvc.obtCC().eliminarCongresista(textDni.getText(), cvc.obtCPR().CR);
+                CPC.obtCC().eliminarCongresista(textDni.getText(), CPC.obtCPR().CR);
                 setDefaultText();
                 ListUpdate();
             }
@@ -621,8 +621,8 @@ public class PanelCongreso extends PanelLista {
             String dato = (String) listCongreso.getSelectedValue();
             String[] campos = dato.split(" ");
             try {
-                cvc.obtCC().modCongresista(campos[0], textDni.getText(), textName.getText(), textSurname.getText(), Integer.parseInt(textAge.getText()), textCity.getText(), textState.getText(), textParty.getText(), cvc.obtCPR().CR);
-                //setError(cvc.obtCC().size()+"");
+                CPC.obtCC().modCongresista(campos[0], textDni.getText(), textName.getText(), textSurname.getText(), Integer.parseInt(textAge.getText()), textCity.getText(), textState.getText(), textParty.getText(), CPC.obtCPR().CR);
+                //setError(CPC.obtCC().size()+"");
                 ListUpdate();
             }
             catch (Exception a) {
@@ -635,14 +635,14 @@ public class PanelCongreso extends PanelLista {
     private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         setDefaultText();
-        cvc.obtCC().eliminarCongreso(cvc.obtCPR().CR);
+        CPC.obtCC().eliminarCongreso(CPC.obtCPR().CR);
         ListUpdate();
     }
 
     private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         Integer n = (Integer)SpinnerNum.getValue();
-        cvc.obtCC().agregarCongresistaRandom(n);
+        CPC.obtCC().agregarCongresistaRandom(n);
         ListUpdate();
 
     }
@@ -678,9 +678,9 @@ public class PanelCongreso extends PanelLista {
 
     private void ListUpdate() {
         String a[] = {"No hay Congresistas"};
-        if (cvc.obtCC().esVacio()) listCongreso.setListData(a);
+        if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
         else {
-            ArrayList<String> aux = cvc.obtCC().obtenerCongresoTotal();
+            ArrayList<String> aux = CPC.obtCC().obtenerCongresoTotal();
             listCongreso.setListData(aux.toArray());
         }
     }
@@ -716,25 +716,25 @@ public class PanelCongreso extends PanelLista {
         //labelStatus.setText(boxSort.getSelectedIndex()+"");
         switch (boxSort.getSelectedIndex()) {
             case 0:
-                cvc.sortByDni();
+                CPC.sortByDni();
                 break;
             case 1:
-                cvc.sortByName();
+                CPC.sortByName();
                 break;
             case 2:
-                cvc.sortBySurName();
+                CPC.sortBySurName();
                 break;
             case 3:
-                cvc.sortByAge();
+                CPC.sortByAge();
                 break;
             case 4:
-                cvc.sortByCity();
+                CPC.sortByCity();
                 break;
             case 5:
-                cvc.sortByState();
+                CPC.sortByState();
                 break;
             case 6:
-                cvc.sortByParty();
+                CPC.sortByParty();
                 break;
         }
         //TODO mejorar, te quedas donde estabas
