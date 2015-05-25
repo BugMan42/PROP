@@ -486,7 +486,9 @@ public class PanelCongreso extends PanelLista {
     }// </editor-fold>
 
     private boolean checkStart(JTextField aux) {
-        return aux.getText().equals("") || aux.getText().charAt(0) == ' ' || aux.getText().charAt(1) == ' ';
+        String saux = aux.getText();
+        int n = saux.length();
+        return saux.equals("") || saux.charAt(0) == ' ' ;
     }
 
     private void clearText(JTextField aux) {
