@@ -619,7 +619,6 @@ public class PanelCongreso extends PanelLista {
             catch (Exception a) {
                 setError(a.getMessage());
             }
-            //cvc.CC.mod
         }
 
     }
@@ -627,6 +626,7 @@ public class PanelCongreso extends PanelLista {
     private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here
         emptyLError();
+        setDefaultText();
         cvc.CC.eliminarCongreso(cvc.CR.CR);
         ListUpdate();
     }
