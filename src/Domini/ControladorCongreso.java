@@ -13,11 +13,13 @@ public class ControladorCongreso {
     private static final int max_lineas_cargar = 300;
 
     private List<Congresista> referencia;
+    private int orden;
     private Congreso c;
 
     public ControladorCongreso(){
         c = new Congreso();
         referencia = new ArrayList<Congresista>();
+        orden = 0;
     }
 
     public int size(){
@@ -32,14 +34,55 @@ public class ControladorCongreso {
         Dni d = new Dni(dni);
         Congresista con = new Congresista(d,nombre,apellido,edad,ciudad,estado,partido);
         c.agregarCongresista(con);
-        referencia.add(con);
+
+        // Insertar ordenadamente en referencia.
+        int pos = 0;
+        switch (orden){
+            case 0: pos = Collections.binarySearch(referencia,con,Congresista.DNI);
+                    break;
+            case 1: pos = Collections.binarySearch(referencia,con,Congresista.NAME);
+                break;
+            case 2: pos = Collections.binarySearch(referencia,con,Congresista.SURNAME);
+                break;
+            case 3: pos = Collections.binarySearch(referencia,con,Congresista.AGE);
+                break;
+            case 4: pos = Collections.binarySearch(referencia,con,Congresista.CITY);
+                break;
+            case 5: pos = Collections.binarySearch(referencia,con,Congresista.STATE);
+                break;
+            case 6: pos = Collections.binarySearch(referencia,con,Congresista.PARTY);
+                break;
+        }
+        // Cuando binarySearch no encuentra el elemento buscado devuelve: (-(insertion point) - 1).
+        pos = pos*-1 -1;
+        referencia.add(pos,con);
     }
 
     public void agregarCongresistaRandom(int n) {
         for (int i = 0; i < n; ++i) {
             c.agregarCongresistaRandom();
         }
+        reordenar();
+    }
+
+    private void reordenar(){
         referencia = c.obtenerCongreso();
+        switch (orden){
+            case 0: sortByDni();
+                break;
+            case 1: sortByName();
+                break;
+            case 2: sortBySurName();
+                break;
+            case 3: sortByAge();
+                break;
+            case 4: sortByCity();
+                break;
+            case 5: sortByState();
+                break;
+            case 6: sortByParty();
+                break;
+        }
     }
 
     public ArrayList<String> obtenerListaID(){
@@ -157,27 +200,32 @@ public class ControladorCongreso {
         cp.cerrarFichero();
     }
 
-
-    /** FUNCIONES QUE HAY QUE IMPLEMENTAR */
     public void sortByDni() {
+        orden = 0;
         Collections.sort(referencia, Congresista.DNI);
     }
     public void sortByName() {
+        orden = 1;
         Collections.sort(referencia, Congresista.NAME);
     }
     public void sortBySurName() {
+        orden = 2;
         Collections.sort(referencia, Congresista.SURNAME);
     }
     public void sortByAge() {
+        orden = 3;
         Collections.sort(referencia, Congresista.AGE);
     }
     public void sortByCity() {
+        orden = 4;
         Collections.sort(referencia, Congresista.CITY);
     }
     public void sortByState() {
+        orden = 5;
         Collections.sort(referencia, Congresista.STATE);
     }
     public void sortByParty() {
+        orden = 6;
         Collections.sort(referencia, Congresista.PARTY);
     }
 
