@@ -740,45 +740,53 @@ public class PanelCongreso extends PanelLista {
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt) {
         try {
-            if (t) {
+            //print("YOLO");
+           // print(boxSearch.getSelectedIndex()+"");
+            /*if (t) {
                 t = false;
                 labelStatus.setVisible(true);
             } else {
                 t = true;
                 labelStatus.setVisible(false);
-            }
+            }*/
             switch (boxSearch.getSelectedIndex()) {
                 case 0:
                     CPC.searchByDni(textSearch.getText());
+                    ListUpdateBusqueda();
                     break;
                 case 1:
                     CPC.searchByName(textSearch.getText());
+                    ListUpdateBusqueda();
                     break;
                 case 2:
                     CPC.searchBySurName(textSearch.getText());
+                    ListUpdateBusqueda();
                     break;
                 case 3:
                     CPC.searchByAge(Integer.parseInt(textSearch.getText()));
+                    ListUpdateBusqueda();
                     break;
                 case 4:
                     CPC.searchByCity(textSearch.getText());
+                    ListUpdateBusqueda();
                     break;
                 case 5:
                     CPC.searchByState(textSearch.getText());
+                    ListUpdateBusqueda();
                     break;
                 case 6:
                     CPC.searchByParty(textSearch.getText());
+                    ListUpdateBusqueda();
                     break;
             }
-            ListUpdateBusqueda();
         }catch (Exception a) {
             labelStatus.setVisible(true);
             labelStatus.setText(a.getMessage());
         }
     }
     private void ListUpdateBusqueda() {
-        String a[] = {"No hay Congresistas que cumplan las condiciones"};
-        if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
+        String a[] = {"Búesqueda sin resultados"};
+        if (CPC.resultados()) listCongreso.setListData(a);
         else {
             ArrayList<String> aux = CPC.obtCC().obtenerBusqueda();
             listCongreso.setListData(aux.toArray());

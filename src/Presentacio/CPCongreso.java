@@ -50,6 +50,9 @@ public class CPCongreso {
     public void sortByParty() {
         CC.sortByParty();
     }
+    public boolean resultados() {
+        return CC.cacheVacia();
+    }
 
     public void searchByDni(String aux) throws Exception {
         CC.searchByDni(aux);

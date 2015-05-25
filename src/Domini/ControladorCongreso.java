@@ -20,6 +20,7 @@ public class ControladorCongreso {
     public ControladorCongreso(){
         c = new Congreso();
         referencia = new ArrayList<Congresista>();
+        cache = new ArrayList<Congresista>();
         orden = 0;
     }
 
@@ -252,6 +253,9 @@ public class ControladorCongreso {
             orden = 6;
         }
     }
+    private void cerr(String str) {
+        System.out.println(str);
+    }
     public void searchByDni(String aux) throws Exception {
         cache.clear();
         cache.add(c.consultarCongresista(new Dni(aux)));
@@ -338,6 +342,10 @@ public class ControladorCongreso {
 
     private int obtindiceRef(Congresista a) {
         return Collections.binarySearch(referencia,a,Congresista.DNI);
+    }
+
+    public boolean cacheVacia() {
+        return cache.size() == 0;
     }
 
 }
