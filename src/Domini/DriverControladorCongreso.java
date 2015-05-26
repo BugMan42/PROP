@@ -114,7 +114,7 @@ public class DriverControladorCongreso {
                         break;
                     case 20:
                         dcc.validar_num_params(params, 3);
-                        dcc.print(dcc.cc.obtenerBloqueCongresista(params[1], Integer.parseInt(params[2])).toString());
+                        dcc.print(String.valueOf(dcc.cc.obtenerBloqueCongresista(params[1], Integer.parseInt(params[2]))));
                         break;
                     case 21:
                         dcc.validar_num_params(params, 2);

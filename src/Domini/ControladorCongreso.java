@@ -321,18 +321,12 @@ public class ControladorCongreso {
         return a;
     }
 
-    public ArrayList<String> obtenerBloqueCongresista(String dni, int tam_bloque) throws Exception {
+    public int obtenerBloqueCongresista(String dni, int tam_bloque) throws Exception {
         Dni d = new Dni(dni);
-        ArrayList<String> bloque = new ArrayList<String>();
         int i = 0;
         while (i<referencia.size() && !referencia.get(i).obtDni().equals(d)) ++i;
-        if (i<referencia.size()) {
-            int inicio = (i/tam_bloque) * tam_bloque;
-            int fin = inicio + tam_bloque;
-            if (fin > referencia.size()) fin = referencia.size();
-            for (i=inicio; i<fin; ++i) bloque.add(referencia.get(i).toString());
-        }
-        return bloque;
+        if (i<referencia.size()) return (i/tam_bloque) * tam_bloque;
+        return -1;
     }
     public ArrayList<String> obtenerBusqueda() {
         ArrayList<String> a = new ArrayList<String>(cache.size());
