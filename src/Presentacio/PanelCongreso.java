@@ -1,9 +1,5 @@
 package Presentacio;
 
-import Domini.Congresista;
-import Domini.ControladorCjtEvento;
-import Domini.ControladorRelaciones;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -638,11 +634,29 @@ public class PanelCongreso extends PanelLista {
 
     private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
-        Integer n = (Integer)SpinnerNum.getValue();
-        CPC.obtCC().agregarCongresistaRandom(n);
-        ListUpdate();
-
+        Thread queryThread = new Thread() {
+            public void run() {
+                Integer n = (Integer)SpinnerNum.getValue();
+                CPC.obtCC().agregarCongresistaRandom(n);
+                ListUpdate();
+            }
+        };
+        queryThread.start();
+        print("yolo funka");
     }
+        /*try {
+            HardRandom aux = new HardRandom();
+            aux.doInBackground();
+            print("exit from thread");
+        }
+        catch (Exception a) {
+            lError.setText(a.getMessage());
+        }
+        //Integer n = (Integer)SpinnerNum.getValue();
+        //CPC.obtCC().agregarCongresistaRandom(n);
+        ListUpdate();*/
+
+
         // Carregant ......
 
     private void bCargarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
@@ -739,7 +753,7 @@ public class PanelCongreso extends PanelLista {
     }
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt) {
-        try {
+        /*try {
             //print("YOLO");
            // print(boxSearch.getSelectedIndex()+"");
             /*if (t) {
@@ -749,6 +763,7 @@ public class PanelCongreso extends PanelLista {
                 t = true;
                 labelStatus.setVisible(false);
             }*/
+        /*
             switch (boxSearch.getSelectedIndex()) {
                 case 0:
                     CPC.searchByDni(textSearch.getText());
@@ -782,6 +797,13 @@ public class PanelCongreso extends PanelLista {
         }catch (Exception a) {
             labelStatus.setVisible(true);
             labelStatus.setText(a.getMessage());
+        }*/
+        try {
+            HardWorker op = new HardWorker();
+            op.doInBackground();
+        } catch (Exception a ) {
+            labelStatus.setVisible(true);
+            labelStatus.setText(a.getMessage());
         }
     }
     private void ListUpdateBusqueda() {
@@ -805,5 +827,85 @@ public class PanelCongreso extends PanelLista {
     protected void textSearchTyped(KeyEvent evt) {
 
     }
+
+    private final class HardWorker extends SwingWorker<Void, Void> {
+        @Override  protected Void doInBackground() throws Exception {
+            //try {
+                switch (boxSearch.getSelectedIndex()) {
+                    case 0:
+                        CPC.searchByDni(textSearch.getText());
+                        ListUpdateBusqueda();
+                        break;
+                    case 1:
+                        CPC.searchByName(textSearch.getText());
+                        ListUpdateBusqueda();
+                        break;
+                    case 2:
+                        CPC.searchBySurName(textSearch.getText());
+                        ListUpdateBusqueda();
+                        break;
+                    case 3:
+                        CPC.searchByAge(Integer.parseInt(textSearch.getText()));
+                        ListUpdateBusqueda();
+                        break;
+                    case 4:
+                        CPC.searchByCity(textSearch.getText());
+                        ListUpdateBusqueda();
+                        break;
+                    case 5:
+                        CPC.searchByState(textSearch.getText());
+                        ListUpdateBusqueda();
+                        break;
+                    case 6:
+                        CPC.searchByParty(textSearch.getText());
+                        ListUpdateBusqueda();
+                        break;
+                }
+            //}
+            /*catch (Exception a) {
+                labelStatus.setVisible(true);
+                labelStatus.setText(a.getMessage());
+            }*/
+            return null;
+        }
+        @Override protected void done() {
+            try {
+                //get the data fetched above, in doInBackground()
+               // List<Quote> quotes = get();
+                if (true) {
+                   // showUpdated(quotes);
+                }
+                else {
+                    //fSummaryView.showStatusMessage("Failed - Please connect to the web.");
+                }
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    private final class HardRandom extends SwingWorker<Void, Void> {
+        @Override  protected Void doInBackground() throws Exception {
+            Integer n = (Integer)SpinnerNum.getValue();
+            CPC.obtCC().agregarCongresistaRandom(n);
+            return null;
+        }
+        @Override protected void done() {
+            try {
+                //get the data fetched above, in doInBackground()
+                // List<Quote> quotes = get();
+                if (true) {
+                    // showUpdated(quotes);
+                }
+                else {
+                    //fSummaryView.showStatusMessage("Failed - Please connect to the web.");
+                }
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
 
 }
