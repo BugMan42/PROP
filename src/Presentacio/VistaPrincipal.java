@@ -21,7 +21,7 @@ public class VistaPrincipal extends JFrame {
     public VistaPrincipal(ControladorPresentacion c)
     {
         cp = c;
-        setMinimumSize(new Dimension(470, 350));
+        setMinimumSize(new Dimension(1100, 600));
         initUI();
 
     }

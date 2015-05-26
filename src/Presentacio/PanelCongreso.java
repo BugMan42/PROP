@@ -6,14 +6,16 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.List;
 
 
 public class PanelCongreso extends PanelLista {
 
     //Referència al controlador de presentació que crea la vista
-    boolean t;
-    private Boolean[] vError;
     CPCongreso CPC;
+    boolean t;
+    private int ItemOnView;
+    private Boolean[] vError;
     //CPRelaciones cpr;
 
     JButton bAgregarCongresista;
@@ -128,6 +130,7 @@ public class PanelCongreso extends PanelLista {
                         String[] campos = dato.split(" ");
 
                         if (campos.length == 7) {
+                            defColorText(Color.BLACK);
                             textDni.setText(campos[0]);
                             textName.setText(campos[1]);
                             textSurname.setText(campos[2]);
@@ -157,11 +160,13 @@ public class PanelCongreso extends PanelLista {
         textName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textName);
+                textName.setForeground(Color.BLACK);
             }
 
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (checkStart(textName)) {
                     textName.setText(def0);
+                    textName.setForeground(Color.GRAY);
                 }
             }
         });
@@ -169,12 +174,14 @@ public class PanelCongreso extends PanelLista {
         textSurname.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textSurname.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
+                textSurname.setForeground(Color.BLACK);
                 clearText(textSurname);
             }
 
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (checkStart(textSurname)) {
                     textSurname.setText(def1);
+                    textSurname.setForeground(Color.GRAY);
                 }
             }
         });
@@ -186,14 +193,17 @@ public class PanelCongreso extends PanelLista {
         lDni.setText("Dni");
 
         textDni.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        textDni.setAutoscrolls(true);
         textDni.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
+                textDni.setForeground(Color.BLACK);
                 clearText(textDni);
             }
 
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (checkStart(textDni)) {
                     textDni.setText(def2);
+                    textDni.setForeground(Color.GRAY);
                 }
             }
         });
@@ -205,11 +215,13 @@ public class PanelCongreso extends PanelLista {
         textAge.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textAge);
+                textAge.setForeground(Color.BLACK);
             }
 
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (checkStart(textAge)) {
                     textAge.setText(def3);
+                    textAge.setForeground(Color.GRAY);
                 }
             }
         });
@@ -220,11 +232,13 @@ public class PanelCongreso extends PanelLista {
         textCity.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textCity.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
+                textCity.setForeground(Color.BLACK);
                 clearText(textCity);
             }
 
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (checkStart(textCity)) {
+                    textCity.setForeground(Color.GRAY);
                     textCity.setText(def4);
                 }
             }
@@ -236,11 +250,13 @@ public class PanelCongreso extends PanelLista {
         textState.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textState.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
+                textState.setForeground(Color.BLACK);
                 clearText(textState);
             }
 
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (checkStart(textState)) {
+                    textState.setForeground(Color.GRAY);
                     textState.setText(def5);
                 }
             }
@@ -252,11 +268,13 @@ public class PanelCongreso extends PanelLista {
         textParty.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textParty.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
+                textParty.setForeground(Color.BLACK);
                 clearText(textParty);
             }
 
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (checkStart(textParty)) {
+                    textParty.setForeground(Color.GRAY);
                     textParty.setText(def6);
                 }
             }
@@ -495,6 +513,7 @@ public class PanelCongreso extends PanelLista {
 
     private void bClearActionPerformed(java.awt.event.ActionEvent evt) {
         setDefaultText();
+        jlist.clearSelection();
     }
 
     private void bAgregarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
@@ -502,8 +521,9 @@ public class PanelCongreso extends PanelLista {
         emptyLError();
         if (validarTodo()) {
             try {
-                CPC.obtCC().agregarCongresista(getTextString(textDni), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty));
+                CPC.obtCC().agregarCongresista(textDni.getText().substring(0, 9), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty));
                 setDefaultText();
+                setMsg("Congresista agregado satisfactoriamente");
                 ListUpdate();
             }
             catch (NumberFormatException a) {
@@ -526,100 +546,75 @@ public class PanelCongreso extends PanelLista {
         else aux2 = aux.getText();
         return aux2;
     }
-    private boolean validarTodo() {
-        boolean change = false;
-        String errores = "";
-        if (!validarJText(textName)) {
-            errores+="Nombre";
-            lName.setForeground(Color.RED);
-            vError[0] = true;
-            change = true;
-        }
-        if (!validarJText(textSurname)) {
-            if (!change) errores+="Apellido";
-            else errores+=", Apellido";
-            lSurname.setForeground(Color.RED);
-            vError[1] = true;
-            change = true;
-        }
-        if (!validarJText(textDni)) {
-            if (!change) errores+="Dni";
-            else errores+=", Dni";
-            lDni.setForeground(Color.RED);
-            vError[2] = true;
-            change = true;
-        }
-        if (!validarJText(textAge)) {
-            if (!change) errores+="Edad";
-            else errores+=", Edad";
-            lAge.setForeground(Color.RED);
-            vError[3] = true;
-        }
-        if (!validarJText(textCity)) {
-            if (!change) errores+="Ciudad";
-            else errores+=", Ciudad";
-            lCity.setForeground(Color.RED);
-            vError[4] = true;
-            change = true;
-        }
-        if (!validarJText(textState)) {
-            if (!change) errores+="Estado";
-            else errores+=", Estado";
-            lState.setForeground(Color.RED);
-            vError[5] = true;
-            change = true;
-        }
-        if (!validarJText(textParty)) {
-            if (!change) errores+="Partido";
-            else errores+=", Partido";
-            lParty.setForeground(Color.RED);
-            vError[6] = true;
-            change = true;
-        }
-        if (change) {
-            setError("Campo "+ errores+" No Valido");
-            return false;
-        }
-        return true;
-    }
+
 
     private void bEliminarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
-        if (validarJText(textDni)) {
+        if (jlist.isSelectionEmpty()) {
+            if (validarJText(textDni)) {
+                try {
+                    CPC.obtCC().eliminarCongresista(textDni.getText().substring(0,9), CPC.obtCPR().CR);
+                    setDefaultText();
+                    setMsg("Congresista eliminado satisfactoriamente");
+                    ListUpdate();
+                }
+                catch (Exception a) {
+                    setError(a.getMessage());
+                }
+            }
+            else {
+                setError("Campo Dni No valido");
+                lDni.setForeground(Color.RED);
+                vError[2] = true;
+            }
+        }
+        else {
             try {
-                CPC.obtCC().eliminarCongresista(textDni.getText(), CPC.obtCPR().CR);
+                //int[] howMany = jlist.getSelectedIndices();
+                List<String> campos = jlist.getSelectedValuesList();
+                for (int i = 0; i < campos.size(); ++i) {
+                    String[] con = campos.get(i).split(" ");
+                    CPC.obtCC().eliminarCongresista(con[0], CPC.obtCPR().CR);
+                }
                 setDefaultText();
+                setMsg("Congresistas eliminados satisfactoriamente");
                 ListUpdate();
             }
             catch (Exception a) {
                 setError(a.getMessage());
             }
         }
-        else {
-            setError("Campo Dni No valido");
-            lDni.setForeground(Color.RED);
-            vError[2] = true;
-        }
-
     }
     private boolean validarJText(JTextField aux) {
         String[] a = aux.getText().split(" ");
         return !(a.length == 0);// && !aux.getText().equals(" ") && !aux.getText().equals("");
     }
+    private boolean validarJTextDni(JTextField aux) {
+        return (aux.getText().length() == 9) || (aux.getText().charAt(9) == ' ');// && !aux.getText().equals(" ") && !aux.getText().equals("");
+    }
 
     private void bModificarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO no funciona
         emptyLError();
-        if (validarTodo()) {
-            String dato = (String) listCongreso.getSelectedValue();
-            String[] campos = dato.split(" ");
-            try {
-                CPC.obtCC().modCongresista(campos[0], textDni.getText(), textName.getText(), textSurname.getText(), Integer.parseInt(textAge.getText()), textCity.getText(), textState.getText(), textParty.getText(), CPC.obtCPR().CR);
-                //setError(CPC.obtCC().size()+"");
-                ListUpdate();
-            }
-            catch (Exception a) {
-                setError(a.getMessage());
+        String dato = (String) listCongreso.getSelectedValue();
+        if (jlist.isSelectionEmpty() || dato.equals("No hay Congresistas")) {
+            setError("Selecciona un Congresista");
+        }
+        else {
+            if (validarTodo()) {
+                //String dato = (String) listCongreso.getSelectedValue();
+                String[] campos = dato.split(" ");
+                try {
+                    CPC.obtCC().modCongresista(campos[0], textDni.getText().substring(0, 9), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty), CPC.obtCPR().CR);
+                    setMsg("Congresista modificado satisfactoriamente");
+                    ListUpdate();
+                }
+                catch (NumberFormatException a) {
+                    setError("La edad tiene que ser un número > 0");
+                }
+                catch (Exception a2) {
+                    setError(a2.getMessage());
+                }
             }
         }
 
@@ -628,8 +623,14 @@ public class PanelCongreso extends PanelLista {
     private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         setDefaultText();
-        CPC.obtCC().eliminarCongreso(CPC.obtCPR().CR);
-        ListUpdate();
+        if (CPC.obtCC().size() != 0) {
+            CPC.obtCC().eliminarCongreso(CPC.obtCPR().CR);
+            setMsg("Congreso eliminado satisfactoriamente");
+            ListUpdate();
+        }
+        else {
+            setError("No hay Congresistas");
+        }
     }
 
     private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
@@ -642,7 +643,7 @@ public class PanelCongreso extends PanelLista {
             }
         };
         queryThread.start();
-        print("yolo funka");
+       // print("yolo funka");
     }
         /*try {
             HardRandom aux = new HardRandom();
@@ -695,6 +696,7 @@ public class PanelCongreso extends PanelLista {
         }
     }
     private void setDefaultText() {
+        defColorText(Color.GRAY);
         textName.setText("Introduzca el Nombre");
         textSurname.setText("Introduzca el Apellido");
         textDni.setText("Introduzca el Dni");
@@ -720,6 +722,11 @@ public class PanelCongreso extends PanelLista {
         lError.setText("");
         lError.setText(str);
         lError.setForeground(Color.RED);
+    }
+    private void setMsg(String str) {
+        lError.setText("");
+        lError.setText(str);
+        lError.setForeground(Color.BLACK);
     }
 
     protected void boxSortActionPerformed(ActionEvent evt) {
@@ -818,11 +825,9 @@ public class PanelCongreso extends PanelLista {
     protected void setBoxSort() {
         boxSort.setModel(new DefaultComboBoxModel(new String[]{"Sort By Dni", "Sort By Nombre", "Sort By Apellido", "Sort By Edad", "Sort By Ciudad", "Sort By Estado", "Sort By Partido"}));
     }
-
     protected void setBoxSearch() {
         boxSearch.setModel(new DefaultComboBoxModel(new String[]{"Search By Dni", "Search By Nombre", "Search By Apellido", "Search By Edad", "Search By Ciudad", "Search By Estado", "Search By Partido"}));
     }
-
     protected void textSearchTyped(KeyEvent evt) {
 
     }
@@ -906,5 +911,70 @@ public class PanelCongreso extends PanelLista {
         }
     }
 
+    private boolean validarTodo() {
+        boolean change = false;
+        String errores = "";
+        if (!validarJText(textName)) {
+            errores+="Nombre";
+            lName.setForeground(Color.RED);
+            vError[0] = true;
+            change = true;
+        }
+        if (!validarJText(textSurname)) {
+            if (!change) errores+="Apellido";
+            else errores+=", Apellido";
+            lSurname.setForeground(Color.RED);
+            vError[1] = true;
+            change = true;
+        }
+        if (!validarJTextDni(textDni)) {
+            if (!change) errores+="Dni";
+            else errores+=", Dni";
+            lDni.setForeground(Color.RED);
+            vError[2] = true;
+            change = true;
+        }
+        if (!validarJText(textAge)) {
+            if (!change) errores+="Edad";
+            else errores+=", Edad";
+            lAge.setForeground(Color.RED);
+            vError[3] = true;
+        }
+        if (!validarJText(textCity)) {
+            if (!change) errores+="Ciudad";
+            else errores+=", Ciudad";
+            lCity.setForeground(Color.RED);
+            vError[4] = true;
+            change = true;
+        }
+        if (!validarJText(textState)) {
+            if (!change) errores+="Estado";
+            else errores+=", Estado";
+            lState.setForeground(Color.RED);
+            vError[5] = true;
+            change = true;
+        }
+        if (!validarJText(textParty)) {
+            if (!change) errores+="Partido";
+            else errores+=", Partido";
+            lParty.setForeground(Color.RED);
+            vError[6] = true;
+            change = true;
+        }
+        if (change) {
+            setError("Campo "+ errores+" No Valido");
+            return false;
+        }
+        return true;
+    }
+    private void defColorText(Color aux) {
+        textName.setForeground(aux);
+        textSurname.setForeground(aux);
+        textDni.setForeground(aux);
+        textAge.setForeground(aux);
+        textCity.setForeground(aux);
+        textState.setForeground(aux);
+        textParty.setForeground(aux);
+    }
 
 }

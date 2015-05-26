@@ -86,6 +86,7 @@ public abstract class PanelLista extends Panel {
 
         textSearch.setFont(new Font("Ubuntu", 0, 17));
         textSearch.setText(defaultTextLabelSearch);
+        textSearch.setForeground(Color.GRAY);
         textSearch.setMinimumSize(new Dimension(83, 30));
         textSearch.setPreferredSize(new Dimension(83, 30));
         textSearch.addKeyListener(new KeyAdapter() {
@@ -97,10 +98,12 @@ public abstract class PanelLista extends Panel {
 
         textSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
+                textSearch.setForeground(Color.BLACK);
                 clearLabelSearch(textSearch);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (textSearch.getText().equals("") || textSearch.getText().charAt(0) == ' ') {
+                    textSearch.setForeground(Color.GRAY);
                     textSearch.setText("Buscar");
                 }
             }
@@ -136,6 +139,7 @@ public abstract class PanelLista extends Panel {
 
 
         JPanel panel = new JPanel();
+        panel.setMinimumSize(new Dimension(525,300));
         GroupLayout leftLayout = new GroupLayout(panel);
         panel.setLayout(leftLayout);
         leftLayout.setAutoCreateGaps(true);
