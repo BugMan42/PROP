@@ -30,6 +30,8 @@ public class CPCongreso {
         return PC;
     }
     public void sortByDni() {
+        //Thread workingThread = new Thread(CC.sortByDni()
+        //{ IsBackground = true };
         CC.sortByDni();
     }
     public void sortByName() {

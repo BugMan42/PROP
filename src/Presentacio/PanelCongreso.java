@@ -785,7 +785,7 @@ public class PanelCongreso extends PanelLista {
         }
     }
     private void ListUpdateBusqueda() {
-        String a[] = {"Búesqueda sin resultados"};
+        String a[] = {"Búsqueda sin resultados"};
         if (CPC.resultados()) listCongreso.setListData(a);
         else {
             ArrayList<String> aux = CPC.obtCC().obtenerBusqueda();

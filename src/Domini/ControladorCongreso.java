@@ -258,18 +258,20 @@ public class ControladorCongreso {
     }
     public void searchByDni(String aux) throws Exception {
         cache.clear();
-        cache.add(c.consultarCongresista(new Dni(aux)));
+        for (int i = 0; i < c.size(); ++i) {
+            if(referencia.get(i).obtDni().toString().startsWith(aux)) cache.add(referencia.get(i));
+        }
     }
     public void searchByName(String aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
-            if(referencia.get(i).obtNombre().contains(aux)) cache.add(referencia.get(i));
+            if(referencia.get(i).obtNombre().startsWith(aux)) cache.add(referencia.get(i));
         }
     }
     public void searchBySurName(String aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
-            if(referencia.get(i).obtApellido().contains(aux)) cache.add(referencia.get(i));
+            if(referencia.get(i).obtApellido().startsWith(aux)) cache.add(referencia.get(i));
         }
     }
     public void searchByAge(int aux) {
@@ -281,20 +283,31 @@ public class ControladorCongreso {
     public void searchByCity(String aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
-            if(referencia.get(i).obtCiudad().contains(aux)) cache.add(referencia.get(i));
+            if(referencia.get(i).obtCiudad().startsWith(aux)) cache.add(referencia.get(i));
         }
     }
     public void searchByState(String aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
-            if(referencia.get(i).obtEstado().contains(aux)) cache.add(referencia.get(i));
+            if(referencia.get(i).obtEstado().startsWith(aux)) cache.add(referencia.get(i));
         }
     }
     public void searchByParty(String aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
-            if(referencia.get(i).obtPartido().contains(aux)) cache.add(referencia.get(i));
+            if(referencia.get(i).obtPartido().startsWith(aux)) cache.add(referencia.get(i));
         }
+    }
+    private boolean searchOptions(String congresista, String prefixe, int op) {
+        switch (op) {
+            case 0:
+                return congresista.startsWith(prefixe);
+            case 1:
+                return congresista.contains(prefixe);
+            case 2:
+                return congresista.contentEquals(prefixe);
+        }
+        return congresista.equals(prefixe);
     }
 
 
@@ -347,5 +360,6 @@ public class ControladorCongreso {
     public boolean cacheVacia() {
         return cache.size() == 0;
     }
+
 
 }
