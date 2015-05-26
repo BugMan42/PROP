@@ -656,7 +656,6 @@ public class PanelCongreso extends PanelLista {
         //CPC.obtCC().agregarCongresistaRandom(n);
         ListUpdate();*/
 
-
         // Carregant ......
 
     private void bCargarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
