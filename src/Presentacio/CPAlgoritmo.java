@@ -1,16 +1,23 @@
 package Presentacio;
 
 
+import Domini.ControladorAlgoritmo;
+
 public class CPAlgoritmo {
 
-    private PanelAlgoritmo pa;
+    private PanelAlgoritmo PA;
+    private ControladorAlgoritmo CA;
 
-    public CPAlgoritmo() {
+
+    public CPAlgoritmo(CPRelaciones cpr) {
+        CA = new ControladorAlgoritmo(cpr.CR);
     }
 
     public PanelAlgoritmo obtPanel() {
-        if (pa == null) pa = new PanelAlgoritmo(this);
-        return pa;
+        if (PA == null) PA = new PanelAlgoritmo(this);
+        return PA;
     }
+
+
 
 }

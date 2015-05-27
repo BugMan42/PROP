@@ -1,16 +1,13 @@
 package Presentacio;
 
-/*import edu.uci.ics.jung.algorithms.layout.CircleLayout;
-import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.SparseGraph;
-import edu.uci.ics.jung.visualization.VisualizationViewer;
-import edu.uci.ics.jung.visualization.control.GraphMouseListener;
-import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
+import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.swingViewer.ViewPanel;
+import org.graphstream.ui.view.Viewer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 /**
  * Clase PanelAlgoritmo
@@ -23,64 +20,45 @@ public class PanelAlgoritmo extends Panel{
     public PanelAlgoritmo(CPAlgoritmo cont) {
         super();
         cpa = cont;
-        //initUI();
+        initUI();
     }
 
     public PanelAlgoritmo() {
         super();
-        //initUI();
+        initUI();
     }
 
-    /*private void initUI()
+    private void initUI()
     {
         //Establecer Layout de PanelAlgoritmo
         GroupLayout gr = new GroupLayout(this);
         setLayout(gr);
 
         //Inicialización de datos
-        Graph<String, Integer> g = new SparseGraph<String, Integer>();
+        System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
 
-        g.addVertex("A");
-        g.addVertex("B");
-        g.addVertex("C");
+        Graph g = new SingleGraph("GOLF");
+        char a = 'a';
+        for (int i = 0; i < 100; ++i)
+        {
+            g.addNode(Character.toString(a));
+            Node n = g.getNode(Character.toString(a));
+            n.addAttribute("ui.label", Character.toString(a));
 
-        g.addEdge(2, "A", "B");
-        g.addEdge(1, "B", "C");
-        g.addEdge(3, "C", "A");
+            ++a;
+        }
 
-        Layout<String,Integer> l = new CircleLayout<String, Integer>(g);
-        l.setSize(new Dimension(300, 300));
+        g.addEdge("Troll", "a", "b");
+        g.addEdge("GG EASY", "c", "z");
+        g.addEdge("LOL", "a", "z");
 
-        VisualizationViewer<String, Integer> vv = new VisualizationViewer<String, Integer>(l);
-        vv.setPreferredSize(new Dimension(350, 350));
-        vv.setVertexToolTipTransformer(new ToStringLabeller<String>());
-        vv.addGraphMouseListener(new GraphMouseListener<String>() {
-            @Override
-            public void graphClicked(String s, MouseEvent mouseEvent) {
-                //if ()
-            }
+        g.addAttribute("ui.antialias");
+        Viewer viewer = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+        viewer.enableAutoLayout();
+        ViewPanel view = viewer.addDefaultView(false);
 
-            @Override
-            public void graphPressed(String s, MouseEvent mouseEvent) {
 
-            }
-
-            @Override
-            public void graphReleased(String s, MouseEvent mouseEvent) {
-
-            }
-        });
-
-        /*
-        String[] initString =
-                { "LOL" };
-
-        String[] initStyles =
-                { "regular" };
-
-        */
-
-        /*UIDefaults defaults = new UIDefaults();
+        UIDefaults defaults = new UIDefaults();
         defaults.put("TextPane[Enabled].backgroundPainter", Color.black);
 
         JLabel l1 = new JLabel("Louvain");
@@ -111,7 +89,7 @@ public class PanelAlgoritmo extends Panel{
         tp3.setEnabled(false);
 
         gr.setHorizontalGroup(gr.createParallelGroup(GroupLayout.Alignment.CENTER)
-                        .addComponent(vv)
+                        .addComponent(view)
                         .addGroup(gr.createSequentialGroup()
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(l1)
@@ -130,7 +108,7 @@ public class PanelAlgoritmo extends Panel{
         );
 
         gr.setVerticalGroup(gr.createSequentialGroup()
-                        .addComponent(vv)
+                        .addComponent(view)
                         .addGroup(gr.createParallelGroup()
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(l1)
@@ -149,7 +127,6 @@ public class PanelAlgoritmo extends Panel{
 
         gr.setAutoCreateGaps(true);
         gr.setAutoCreateContainerGaps(true);
-
-    }*/
+    }
 
 }

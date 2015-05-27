@@ -6,6 +6,7 @@ import Domini.ControladorCongreso;
 import Domini.ControladorRelaciones;
 
 /**
+ * Clase ControladorPresentación
  * Created by bug on 23/03/15.
  */
 public class ControladorPresentacion {
@@ -25,9 +26,9 @@ public class ControladorPresentacion {
 
     public ControladorPresentacion(){
         cpc = new CPCongreso();
-        cpa = new CPAlgoritmo();
         cpe = new CPEventos();
         cpr = new CPRelaciones(cpc, cpe);
+        cpa = new CPAlgoritmo(cpr);
 
         v = new VistaPrincipal(this);
 
