@@ -1,7 +1,5 @@
 package Domini;
 
-import java.util.Random;
-
 /**
  * Created by falc on 20/03/15.
  * Clase Evento
@@ -30,8 +28,8 @@ public abstract class Evento {
         if (!nombre.equals(name)) nombre = name.toUpperCase();
     }
 
-    public void ModFecha (String date) throws Exception {
-        fecha = new Fecha(date);
+    public void ModFecha (Fecha date) throws Exception {
+        fecha = date;
     }
 
     public void ModImportancia(int importance) throws Exception {

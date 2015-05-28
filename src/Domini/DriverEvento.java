@@ -60,7 +60,7 @@ public class DriverEvento {
             case 3:
                 if (aux.length < 2) throw new Exception(ins);
                 if (aux.length > 2) throw new Exception(dem);
-                if (e != null) e.ModFecha(aux[1]);
+                if (e != null) e.ModFecha(new Fecha(aux[1]));
                 else throw new Exception(noExiste);
                 break;
             case 4:
@@ -88,7 +88,7 @@ public class DriverEvento {
             case 8:
                 if (aux.length > 1) throw new Exception(dem);
                 if (e != null) System.out.println(e.ID());
-                else throw new Exception("Evento no existe");
+                else throw new Exception(noExiste);
                 break;
             case 9:
                 if (aux.length > 1) throw new Exception(dem);

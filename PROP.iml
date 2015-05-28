@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="jung2-2_0_1" level="project" />
     <orderEntry type="library" name="GraphStream (2)" level="project" />
+    <orderEntry type="library" name="GraphStream " level="project" />
   </component>
 </module>

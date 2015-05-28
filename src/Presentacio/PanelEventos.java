@@ -22,6 +22,7 @@ public class PanelEventos extends PanelLista {
     private JButton btguardar;
     private JButton btlimpiar;
     private JLabel lbinfo;
+    private JList lista;
 
     public PanelEventos(CPEventos cpEventos) {
         super();
@@ -31,6 +32,22 @@ public class PanelEventos extends PanelLista {
 
     private void inicializar() {
 
+        crearComponentesVista();
+
+        actualizarLista();
+
+        agregarAccionesBotones();
+
+        JPanel right = new JPanel();
+
+        asignaComponentesPanel(right);
+
+        //Obtenemos el SplitPanel de la clase padre y le asignamos el panel a la parte derecha
+        obtSp().setRightComponent(right);
+        crearLayout(right);
+    }
+
+    private void crearComponentesVista() {
         lbnombre = new JLabel("Nombre:");
         ctnombre = new JTextField();
         ctnombre.setText("");
@@ -53,32 +70,21 @@ public class PanelEventos extends PanelLista {
         lbinfo = new JLabel();
         lbinfo.setVisible(false);
 
+        lista = obtJlist();
+    }
+
+    private void actualizarLista() {
+        String info[] = {"No hay eventos creados"};
+        if (cpe.obtCCE().size() == 0) lista.setListData(info);
+        else lista.setListData(cpe.obtCCE().ConsultarTodosEventos().toArray());
+    }
+
+    private void agregarAccionesBotones() {
         btguardar.setText("Guardar");
         btguardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nombre = ctnombre.getText();
-                String fecha = ctfecha.getText();
-                String importanciaStr = ctimportancia.getText();
-                if (!validar(nombre, fecha, importanciaStr, cbtipo.getSelectedIndex())) {
-                    mostrarmensaje("Debe ingresar todos los campos");
-                    return;
-                }
-                try {
-                    int importancia = Integer.parseInt(importanciaStr);
-                    String tipo = (String) cbtipo.getSelectedItem();
-                    limpiarcampos();
-                    if (tipo.equals("Votación")) cpe.obtCCE().AgregarVotacion(nombre, fecha, importancia);
-                    else if (tipo.equals("Reunión Profesional"))
-                        cpe.obtCCE().AgregarReunionProfesional(nombre, fecha, importancia);
-                    else if (tipo.equals("Reunión Personal"))
-                        cpe.obtCCE().AgregarReunionPersonal(nombre, fecha, importancia);
-                    else if (tipo.equals("Acto Oficial")) cpe.obtCCE().AgregarActoOficial(nombre, fecha, importancia);
-                    else if (tipo.equals("Acto No Oficial"))
-                        cpe.obtCCE().AgregarActoNoOficial(nombre, fecha, importancia);
-                } catch (Exception ex) {
-                    mostrarmensaje("Error en el ingreso");
-                }
+                btguardarAccion(e);
             }
         });
 
@@ -89,8 +95,51 @@ public class PanelEventos extends PanelLista {
                 limpiarcampos();
             }
         });
+    }
 
-        JPanel right = new JPanel();
+    private void btguardarAccion(ActionEvent e) {
+        String nombre = ctnombre.getText();
+        String fecha = ctfecha.getText();
+        String importanciaStr = ctimportancia.getText();
+        if (!validar(nombre, fecha, importanciaStr, cbtipo.getSelectedIndex())) {
+            mostrarmensaje("Debe ingresar todos los campos");
+            return;
+        }
+        try {
+            int importancia = Integer.parseInt(importanciaStr);
+            String tipo = (String) cbtipo.getSelectedItem();
+            limpiarcampos();
+            if (tipo.equals("Votación")) cpe.obtCCE().AgregarVotacion(nombre, fecha, importancia);
+            else if (tipo.equals("Reunión Profesional"))
+                cpe.obtCCE().AgregarReunionProfesional(nombre, fecha, importancia);
+            else if (tipo.equals("Reunión Personal"))
+                cpe.obtCCE().AgregarReunionPersonal(nombre, fecha, importancia);
+            else if (tipo.equals("Acto Oficial")) cpe.obtCCE().AgregarActoOficial(nombre, fecha, importancia);
+            else if (tipo.equals("Acto No Oficial"))
+                cpe.obtCCE().AgregarActoNoOficial(nombre, fecha, importancia);
+        } catch (Exception ex) {
+            mostrarmensaje("Error en el ingreso");
+        }
+    }
+
+    private boolean validar(String nombre, String fecha, String importancia, int i) {
+        return !nombre.equals("") && !fecha.equals("") && !importancia.equals("") && i != 0;
+    }
+
+    private void limpiarcampos() {
+        ctnombre.setText("");
+        ctfecha.setText("");
+        ctimportancia.setText("");
+        cbtipo.setSelectedIndex(0);
+        lbinfo.setVisible(false);
+    }
+
+    private void mostrarmensaje(String s) {
+        lbinfo.setText(s);
+        lbinfo.setVisible(true);
+    }
+
+    private void asignaComponentesPanel(JPanel right) {
         right.add(lbnombre);
         right.add(ctnombre);
         right.add(lbfecha);
@@ -102,10 +151,9 @@ public class PanelEventos extends PanelLista {
         right.add(lbinfo);
         right.add(btguardar);
         right.add(btlimpiar);
+    }
 
-        //Obtenemos el SplitPanel de la clase padre y le asignamos el panel a la parte rightecha
-        obtSp().setRightComponent(right);
-
+    private void crearLayout(JPanel right) {
         GroupLayout gl = new GroupLayout(right);
         right.setLayout(gl);
         gl.setAutoCreateGaps(true);
@@ -115,27 +163,31 @@ public class PanelEventos extends PanelLista {
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbnombre)
-                                                        .addComponent(ctnombre, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(ctnombre, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbfecha)
-                                                        .addComponent(ctfecha, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(ctfecha, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
                         )
-                        .addGroup(GroupLayout.Alignment.LEADING,gl.createSequentialGroup()
+                        .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbimportancia)
-                                                        .addComponent(ctimportancia, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(ctimportancia, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbtipo)
-                                                        .addComponent(cbtipo, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(cbtipo, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
                                         )
                         )
-                        .addComponent(lbinfo, GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbinfo, GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
-                                        .addComponent(btguardar)
-                                        .addComponent(btlimpiar)
+                                        .addGroup(gl.createParallelGroup()
+                                                        .addComponent(btguardar)
+                                        )
+                                        .addGroup(gl.createParallelGroup()
+                                                        .addComponent(btlimpiar)
+                                        )
                         )
         );
         gl.setVerticalGroup(
@@ -143,24 +195,24 @@ public class PanelEventos extends PanelLista {
                         .addGroup(gl.createParallelGroup()
                                         .addGroup(gl.createSequentialGroup()
                                                         .addComponent(lbnombre)
-                                                        .addComponent(ctnombre, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(ctnombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                         )
                                         .addGroup(gl.createSequentialGroup()
                                                         .addComponent(lbfecha)
-                                                        .addComponent(ctfecha, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(ctfecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                         )
                         )
                         .addGroup(gl.createParallelGroup()
                                         .addGroup(gl.createSequentialGroup()
                                                         .addComponent(lbimportancia)
-                                                        .addComponent(ctimportancia, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(ctimportancia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                         )
                                         .addGroup(gl.createSequentialGroup()
                                                         .addComponent(lbtipo)
-                                                        .addComponent(cbtipo, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(cbtipo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                         )
                         )
-                        .addComponent(lbinfo, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbinfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addGroup(gl.createParallelGroup()
                                         .addComponent(btguardar)
                                         .addComponent(btlimpiar)
@@ -168,21 +220,6 @@ public class PanelEventos extends PanelLista {
         );
     }
 
-    private void mostrarmensaje(String s) {
-        lbinfo.setText(s);
-        lbinfo.setVisible(true);
-    }
-    private void limpiarcampos() {
-        ctnombre.setText("");
-        ctfecha.setText("");
-        ctimportancia.setText("");
-        cbtipo.setSelectedIndex(0);
-        lbinfo.setVisible(false);
-    }
-
-    private boolean validar(String nombre, String fecha, String importancia, int i) {
-        return !nombre.equals("") && !fecha.equals("") && !importancia.equals("") && i != 0;
-    }
     protected void boxSortActionPerformed(ActionEvent evt) {
 
     }
@@ -203,4 +240,5 @@ public class PanelEventos extends PanelLista {
     }
     //TODO MODIFICAR
     protected void textSearchTyped(KeyEvent evt) {} ;
+
 }
