@@ -891,6 +891,7 @@ public class PanelCongreso extends PanelLista {
                     CPC.searchByState(textSearch.getText());
                     ListUpdateBusqueda();
                     break;
+
                 case 6:
                     CPC.searchByParty(textSearch.getText());
                     ListUpdateBusqueda();
