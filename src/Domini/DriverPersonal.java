@@ -15,7 +15,7 @@ public class DriverPersonal {
     final static String dem = "Demasiados Argumentos";
     final static String ins = "Argumentos Insuficientes";
     final static String noExiste = "La reunionPersonal no ha sido creada";
-    private static Personal p;
+    private static Personal p = null;
 
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);

@@ -18,7 +18,7 @@ public class DriverFecha {
     final static String ins = "Argumentos Insuficientes";
     final static String noExiste = "La fecha no existe";
 
-    private static Fecha f;
+    private static Fecha f = null;
 
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);

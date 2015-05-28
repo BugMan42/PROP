@@ -22,7 +22,7 @@ public class DriverSalida {
     final static String ins = "Argumentos Insuficientes";
     final static String noExiste = "La salida no ha sido creada";
 
-    private static Salida sa;
+    private static Salida sa = null;
 
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);

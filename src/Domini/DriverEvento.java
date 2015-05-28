@@ -23,7 +23,7 @@ public class DriverEvento {
     final static String dem = "Demasiados Argumentos";
     final static String ins = "Argumentos Insuficientes";
     final static String noExiste = "El evento no existe";
-    private static Evento1 e;
+    private static Evento1 e = null;
 
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);

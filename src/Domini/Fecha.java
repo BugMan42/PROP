@@ -1,7 +1,6 @@
 package Domini;
 
 import java.util.Random;
-import java.util.regex.PatternSyntaxException;
 
 /**
  * Created by usuario on 11/04/2015.

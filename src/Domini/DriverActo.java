@@ -14,7 +14,8 @@ public class DriverActo {
     final static String fin = "Gracias por usar este driver. THE END";
     final static String dem = "Demasiados Argumentos";
     final static String ins = "Argumentos Insuficientes";
-    private static Acto1 a;
+    final static String noExiste = "El acto no ha sido creado";
+    private static Acto1 a = null;
 
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);
@@ -45,12 +46,12 @@ public class DriverActo {
             case 2:
                 if (aux.length > 1) throw new Exception(dem);
                 if (a != null) System.out.println(a.toString());
-                else throw new Exception("El acto no ha sido creado");
+                else throw new Exception(noExiste);
                 break;
             case 3:
                 if (aux.length > 1) throw new Exception(dem);
                 if (a != null) System.out.println(a.tipo());
-                else throw new Exception("El acto no ha sido creado");
+                else throw new Exception(noExiste);
                 break;
             case 4:
                 System.out.println(fin);

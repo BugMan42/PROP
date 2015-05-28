@@ -16,7 +16,7 @@ public class DriverOficial {
     final static String ins = "Argumentos Insuficientes";
     final static String noExiste = "El actoOficial no ha sido creado";
 
-    private static Oficial o;
+    private static Oficial o = null;
 
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);
