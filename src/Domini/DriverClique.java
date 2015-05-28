@@ -1,7 +1,6 @@
 package Domini;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -21,7 +20,7 @@ public class DriverClique {
     final static String noExiste = "Clique no existe";
     final static String dem = "Demasiados Argumentos";
     final static String ins = "Argumentos Insuficientes";
-    private static Clique c;
+    private static Clique c = null;
     private static Entrada en;
     private static Salida sa;
     private static int k;

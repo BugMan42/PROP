@@ -16,7 +16,7 @@ public class DriverProfesional {
     final static String ins = "Argumentos Insuficientes";
     final static String noExiste = "La reunionProfesional no ha sido creada";
 
-    private static Profesional p;
+    private static Profesional p = null;
 
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);

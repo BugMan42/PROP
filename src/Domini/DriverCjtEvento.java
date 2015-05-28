@@ -25,7 +25,7 @@ public class DriverCjtEvento {
     final static String ins = "Argumentos Insuficientes";
     final static String noexiste = "El conjunto no existe";
     final static String eventoNoExiste = "El evento no existe";
-    private static CjtEvento cjt;
+    private static CjtEvento cjt = null;
     private static Evento e;
 
     public static void main(String[] args) throws Exception {

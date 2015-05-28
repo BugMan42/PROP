@@ -12,7 +12,7 @@ public class DriverReunion {
     final static String opcion3 = "3 tipo()";
     final static String msg = "Introduzca un numero del 1 al 3. 4 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
-    private static Reunion1 r;
+    private static Reunion1 r = null;
 
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);
