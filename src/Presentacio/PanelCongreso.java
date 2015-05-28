@@ -3,9 +3,12 @@ package Presentacio;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.tools.JavaFileManager;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.*;
 import java.util.List;
 
@@ -756,13 +759,11 @@ public class PanelCongreso extends PanelLista {
     private void bCargarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         int returnVal = chooser.showOpenDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            System.out.println("You chose to open this file: " +
-                    chooser.getSelectedFile().getName());
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
             try {
-                CPC.obtCC().cargar(chooser.getSelectedFile().getAbsolutePath(),CPC.obtCPR().CR);
-            } catch (Exception a ) {
-                lError.setText(a.getMessage());
+                CPC.obtCC().cargar(chooser.getSelectedFile().getAbsolutePath(), CPC.obtCPR().CR);
+            } catch (Exception a) {
+                setError(a.getMessage());
             }
         }
         ListUpdate();
@@ -771,14 +772,15 @@ public class PanelCongreso extends PanelLista {
     private void bGuardarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         emptyLError();
-        int returnVal = chooser.showSaveDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            System.out.println("You chose to open this file: " +
-                    chooser.getSelectedFile().getName());
-            try {
-                CPC.obtCC().guardar(chooser.getSelectedFile().getAbsolutePath());
-            } catch (Exception a ) {
-                lError.setText(a.getMessage());
+        if (CPC.size() == 0) setError("No hay Congresistas");
+        else {
+            int returnVal = chooser.showSaveDialog(this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                try {
+                    CPC.obtCC().guardar(chooser.getSelectedFile().getAbsolutePath());
+                } catch (Exception a) {
+                    setError(a.getMessage());
+                }
             }
         }
     }
@@ -802,7 +804,6 @@ public class PanelCongreso extends PanelLista {
         textParty.setText(def[6]);
         emptyLError();
     }
-
     private void emptyLError() {
         lError.setText(" ");
         lName.setForeground(Color.BLACK);
@@ -813,7 +814,6 @@ public class PanelCongreso extends PanelLista {
         lState.setForeground(Color.BLACK);
         lParty.setForeground(Color.BLACK);
     }
-
     private void setError(String str) {
         lError.setText("");
         lError.setText(str);
@@ -1079,30 +1079,34 @@ public class PanelCongreso extends PanelLista {
         chooser = new JFileChooser();
         UIManager.put("FileChooser.openDialogTitleText", "Cargar Congreso");
         UIManager.put("FileChooser.saveDialogTitleText", "Guardar Congreso");
-        UIManager.put("FileChooser.lookInLabelText", "Buscar en");
-        UIManager.put("FileChooser.saveInLabelText", "Guardar en");
+        UIManager.put("FileChooser.saveInLabelText", "Guardar en:");
+        UIManager.put("FileChooser.lookInLabelText", "Buscar en:");
         UIManager.put("FileChooser.openButtonText", "Cargar");
         UIManager.put("FileChooser.saveButtonText", "Guardar");
         UIManager.put("FileChooser.cancelButtonText", "Cancelar");
-        UIManager.put("FileChooser.fileNameLabelText", "Nombre del archivo");
-        UIManager.put("FileChooser.filesOfTypeLabelText", "Tipo de Fichero");
+        UIManager.put("FileChooser.fileNameLabelText", "Nombre del archivo:");
+        UIManager.put("FileChooser.filesOfTypeLabelText", "Tipo de Fichero:");
         UIManager.put("FileChooser.openButtonToolTipText", "Abrir Fichero seleccionado");
         UIManager.put("FileChooser.saveButtonToolTipText", "Guardar Fichero");
-        UIManager.put("FileChooser.cancelButtonToolTipText","Cancelar");
-        UIManager.put("FileChooser.fileNameHeaderText","Nombre");
+        UIManager.put("FileChooser.cancelButtonToolTipText", "Cancelar");
+        UIManager.put("FileChooser.fileNameHeaderText", "Nombre");
         UIManager.put("FileChooser.upFolderToolTipText", "Subir un nivel en la jerarquía");
-        UIManager.put("FileChooser.homeFolderToolTipText","Escritorio");
-        UIManager.put("FileChooser.newFolderToolTipText","Crear nueva carpeta");
-        UIManager.put("FileChooser.listViewButtonToolTipText","Lista");
-        UIManager.put("FileChooser.newFolderButtonText","CreateNewFolder");
+        UIManager.put("FileChooser.homeFolderToolTipText", "Escritorio");
+        UIManager.put("FileChooser.newFolderToolTipText", "Crear nueva carpeta");
+        UIManager.put("FileChooser.listViewButtonToolTipText", "Lista");
+        UIManager.put("FileChooser.newFolderButtonText", "CreateNewFolder");
         UIManager.put("FileChooser.renameFileButtonText", "RenameFile");
         UIManager.put("FileChooser.deleteFileButtonText", "DeleteFile");
         UIManager.put("FileChooser.filterLabelText", "TypeFiles");
         UIManager.put("FileChooser.detailsViewButtonToolTipText", "Detalles");
-        UIManager.put("FileChooser.fileSizeHeaderText","Tamaño");
+        UIManager.put("FileChooser.fileSizeHeaderText", "Tamaño");
         UIManager.put("FileChooser.fileDateHeaderText", "DataModificación");
         UIManager.put("FileChooser.acceptAllFileFilterText", "Todos los tipos");
         SwingUtilities.updateComponentTreeUI(chooser);
+        chooser.setAcceptAllFileFilterUsed(true);
+        //chooser.addChoosableFileFilter(new FileNameExtensionFilter("Todos los tipos", ".*"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter(".int", "in"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
     }
-
 }

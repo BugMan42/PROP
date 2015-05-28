@@ -29,6 +29,9 @@ public class CPCongreso {
         if (PC == null) PC = new PanelCongreso(this);
         return PC;
     }
+    public int size() {
+        return CC.size();
+    }
     public void sortByDni() {
         //Thread workingThread = new Thread(CC.sortByDni()
         //{ IsBackground = true };
