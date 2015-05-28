@@ -4,6 +4,9 @@ import java.util.*;
 
 
 public class Relaciones {
+    private void cout(String str) {
+        System.out.println(str);
+    }
     private class NodeC {
         private ArrayList<RelacionSimple> eventos;
         public NodeC(RelacionSimple r) {
@@ -20,13 +23,16 @@ public class Relaciones {
             return eventos.get(0).obtCongresista().obtID();
         }
         public void agregarRelacion(RelacionSimple r) throws Exception {
+            boolean found = false;
             int i;
             for (i = 0; i < eventos.size(); ++i) {
                 if (eventos.get(i).obtEvento().ID().equals(r.obtEvento().ID())) {
-                    throw new Exception("Ya existe la RelacionSimple: "+r.toString());
+                    //throw new Exception("Ya existe la RelacionSimple: "+r.toString());
+                    found = true;
                 }
             }
-            eventos.add(i,r);
+            if (!found) eventos.add(i, r);
+            //else cout("ya estaba");
         }
         public void eliminarRelacion(RelacionSimple r) throws Exception {
             for (int i = 0; i < eventos.size(); ++i) {
@@ -70,14 +76,18 @@ public class Relaciones {
             return congresistas.size() == 0;
         }
         public void agregarRelacion(RelacionSimple r) throws Exception {
+            boolean found = false;
             int i;
             for (i = 0; i < congresistas.size(); ++i) {
                 if (congresistas.get(i).obtCongresista().obtID().equals(r.obtCongresista().obtID())) {
-                    throw new Exception("Ya existe la RelacionSimple");
+                    found = true;
+                    // throw new Exception("Ya existe la RelacionSimple");
                 }
             }
-            congresistas.add(i,r);
+            if (!found) congresistas.add(i, r);
+            //else cout("ya estaba");
         }
+
         public void eliminarRelacion(RelacionSimple r) throws Exception {
             for (int i = 0; i < eventos.size(); ++i) {
                 if (congresistas.get(i).obtCongresista().obtID().equals(r.obtCongresista().obtID())) {
@@ -99,12 +109,42 @@ public class Relaciones {
             return aux;
         }
     }
+    private class RelacionesCompuestas {
+        private ArrayList<RelacionCompuestaAnd> AND;
+        private ArrayList<RelacionCompuestaOr> OR;
+        private ArrayList<RelacionCompuestaNot> NOT;
+        public RelacionesCompuestas() {
+            AND = new ArrayList<RelacionCompuestaAnd>();
+            OR = new ArrayList<RelacionCompuestaOr>();
+            NOT = new ArrayList<RelacionCompuestaNot>();
+        }
+        public void agregarOR(RelacionCompuestaOr aux) {
+            OR.add(aux);
+        }
+        public void agregarNOT(RelacionCompuestaNot aux) {
+            NOT.add(aux);
+        }
+        public void agregarAND(RelacionCompuestaAnd aux) {
+            AND.add(aux);
+        }
+        public void eliminarOR(RelacionCompuestaOr aux) {
+            OR.remove(aux);
+        }
+        public void eliminarNOT(RelacionCompuestaNot aux) {
+            NOT.remove(aux);
+        }
+        public void eliminarAND(RelacionCompuestaAnd aux) {
+            AND.remove(aux);
+        }
+    }
     private TST<NodeC> congresistas;
     private TST<NodeE> eventos;
+    private RelacionesCompuestas RC;
 
     public Relaciones() {
         congresistas = new TST<NodeC>();
         eventos = new TST<NodeE>();
+        RC = new RelacionesCompuestas();
     }
     public void agregarRelacion(RelacionSimple r) throws Exception {
         NodeC aux = new NodeC(r);

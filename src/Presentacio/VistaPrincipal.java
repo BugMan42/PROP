@@ -7,12 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.TextAttribute;
 
-/**
- * Created by falc on 7/05/15.
- *
- */
 
-public class VistaPrincipal extends JFrame {
+public class    VistaPrincipal extends JFrame {
 
     //Referència al controlador de presentació que crea la vista
     ControladorPresentacion cp;

@@ -8,5 +8,6 @@
     <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="jung2-2_0_1" level="project" />
+    <orderEntry type="library" name="GraphStream (2)" level="project" />
   </component>
 </module>
