@@ -279,7 +279,7 @@ public class PanelCongreso extends PanelLista {
         });
 
         bClear.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        bClear.setText("Clear");
+        bClear.setText("Limpiar");
         bClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bClearActionPerformed(evt);
