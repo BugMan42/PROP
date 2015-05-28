@@ -855,7 +855,7 @@ public class PanelCongreso extends PanelLista {
         ListUpdate();
     }
     //Modificar para buscar
-    protected  void buttonSearchActionPerformed(ActionEvent evt) {
+    protected  void buttonSearchActionPerformed(ActionEvent evt)    {
         /*try {
             //print("YOLO");
            // print(boxSearch.getSelectedIndex()+"");
@@ -929,6 +929,30 @@ public class PanelCongreso extends PanelLista {
         boxSearch.setToolTipText(" Buscar ");
     }
     protected void textSearchTyped(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            if (textSearch.getText().equals("")) ListUpdate();
+            else {
+                try {
+                    HardWorker op = new HardWorker();
+                    op.doInBackground();
+                } catch (Exception a ) {
+                    labelStatus.setVisible(true);
+                    labelStatus.setText(a.getMessage());
+                }
+            }
+        }
+        else if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+           // textSearch.setText(textSearch.getText().substring(0,text));
+        }
+        else {
+            try {
+                HardWorker op = new HardWorker();
+                op.doInBackground();
+            } catch (Exception a ) {
+                labelStatus.setVisible(true);
+                labelStatus.setText(a.getMessage());
+            }
+        }
 
     }
 

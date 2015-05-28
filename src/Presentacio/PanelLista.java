@@ -73,11 +73,9 @@ public abstract class PanelLista extends Panel {
         jScrollPane1.setViewportView(jlist);
 
         boxSort.setFont(new Font("Ubuntu", 0, 17));
-
-        //boxSort.setModel(new DefaultComboBoxModel(new String[]{"Sort By Dni", "Sort By Nombre", "Sort By Partido"}));
-        setBoxSort();
         boxSort.setMinimumSize(new Dimension(130, 30));
         boxSort.setPreferredSize(new Dimension(130, 30));
+        setBoxSort();
         boxSort.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 boxSortActionPerformed(evt);
