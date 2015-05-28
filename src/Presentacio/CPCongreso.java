@@ -80,5 +80,11 @@ public class CPCongreso {
     public void searchByParty(String aux) {
         CC.searchByParty(aux);
     }
+    public void guardar(String path) throws Exception {
+        CC.guardar(path);
+    }
+    public void cargar(String path) throws Exception {
+        CC.cargar(path,CPR.CR);
+    }
 
 }

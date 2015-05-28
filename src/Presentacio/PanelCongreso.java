@@ -23,7 +23,8 @@ public class PanelCongreso extends PanelLista {
     private Boolean[] vError;
     //CPRelaciones cpr;
 
-    JFileChooser chooser;
+    JFileChooser choosersave;
+    JFileChooser chooserload;
     JButton bAgregarCongresista;
     JButton bAgregarRandom;
     JButton bCargarCongreso;
@@ -758,10 +759,10 @@ public class PanelCongreso extends PanelLista {
 
     private void bCargarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
-        int returnVal = chooser.showOpenDialog(this);
+        int returnVal = chooserload.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             try {
-                CPC.obtCC().cargar(chooser.getSelectedFile().getAbsolutePath(), CPC.obtCPR().CR);
+                CPC.cargar(chooserload.getSelectedFile().getAbsolutePath());
             } catch (Exception a) {
                 setError(a.getMessage());
             }
@@ -774,10 +775,10 @@ public class PanelCongreso extends PanelLista {
         emptyLError();
         if (CPC.size() == 0) setError("No hay Congresistas");
         else {
-            int returnVal = chooser.showSaveDialog(this);
+            int returnVal = choosersave.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 try {
-                    CPC.obtCC().guardar(chooser.getSelectedFile().getAbsolutePath());
+                    CPC.guardar(choosersave.getSelectedFile().getAbsolutePath());
                 } catch (Exception a) {
                     setError(a.getMessage());
                 }
@@ -1076,11 +1077,11 @@ public class PanelCongreso extends PanelLista {
     }
 
     private void cargarFilechoser() {
-        chooser = new JFileChooser();
+        chooserload = new JFileChooser();
+        choosersave = new JFileChooser();
         UIManager.put("FileChooser.openDialogTitleText", "Cargar Congreso");
         UIManager.put("FileChooser.saveDialogTitleText", "Guardar Congreso");
-        UIManager.put("FileChooser.saveInLabelText", "Guardar en:");
-        UIManager.put("FileChooser.lookInLabelText", "Buscar en:");
+        //UIManager.put("FileChooser.saveInLabelText", "Guardar en:");
         UIManager.put("FileChooser.openButtonText", "Cargar");
         UIManager.put("FileChooser.saveButtonText", "Guardar");
         UIManager.put("FileChooser.cancelButtonText", "Cancelar");
@@ -1102,11 +1103,17 @@ public class PanelCongreso extends PanelLista {
         UIManager.put("FileChooser.fileSizeHeaderText", "Tamaño");
         UIManager.put("FileChooser.fileDateHeaderText", "DataModificación");
         UIManager.put("FileChooser.acceptAllFileFilterText", "Todos los tipos");
-        SwingUtilities.updateComponentTreeUI(chooser);
-        chooser.setAcceptAllFileFilterUsed(true);
-        //chooser.addChoosableFileFilter(new FileNameExtensionFilter("Todos los tipos", ".*"));
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter(".int", "in"));
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
+        UIManager.put("FileChooser.lookInLabelText", "Buscar en:");
+        SwingUtilities.updateComponentTreeUI(chooserload);
+        UIManager.put("FileChooser.lookInLabelText", "Guardar en:");
+        SwingUtilities.updateComponentTreeUI(choosersave);
+        chooserload.setAcceptAllFileFilterUsed(true);
+        chooserload.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        chooserload.addChoosableFileFilter(new FileNameExtensionFilter(".int", "in"));
+        chooserload.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
+        choosersave.setAcceptAllFileFilterUsed(true);
+        choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".int", "in"));
+        choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
     }
 }

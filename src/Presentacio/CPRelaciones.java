@@ -21,6 +21,7 @@ public class CPRelaciones {
         cpe.CR = this;
     }
 
+
     public PanelRelaciones obtPanel() {
         if (PR == null) PR = new PanelRelaciones(this);
         return PR;
