@@ -7,10 +7,18 @@ import javax.swing.*;
  */
 public class PanelRelacionesGeneral extends Panel3Listas {
 
-    public PanelRelacionesGeneral(){
+    private CPRelaciones cpr;
+
+    public PanelRelacionesGeneral(CPRelaciones c){
+        cpr = c;
+
         pl1.titulo.setText("Congresistas");
         pl2.titulo.setText("Eventos");
         pl3.titulo.setText("Relaciones");
+    }
+
+    public void actualizar(){
+
     }
 
 }

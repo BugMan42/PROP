@@ -84,7 +84,7 @@ public class CPCongreso {
         CC.guardar(path);
     }
     public void cargar(String path) throws Exception {
-        CC.cargar(path,CPR.CR);
+        CC.cargar(path,CPR.obtCR());
     }
 
 

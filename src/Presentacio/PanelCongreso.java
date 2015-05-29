@@ -649,7 +649,7 @@ public class PanelCongreso extends PanelLista {
         if (jlist.isSelectionEmpty()) {
             if (validarJText(textDni,2)) {
                 try {
-                    CPC.obtCC().eliminarCongresista(textDni.getText().substring(0,9), CPC.obtCPR().CR);
+                    CPC.obtCC().eliminarCongresista(textDni.getText().substring(0,9), CPC.obtCPR().obtCR());
                     setDefaultText();
                     setMsg("Congresista eliminado satisfactoriamente");
                     ListUpdate();
@@ -670,7 +670,7 @@ public class PanelCongreso extends PanelLista {
                 List<String> campos = jlist.getSelectedValuesList();
                 for (int i = 0; i < campos.size(); ++i) {
                     String[] con = campos.get(i).split(" ");
-                    CPC.obtCC().eliminarCongresista(con[0], CPC.obtCPR().CR);
+                    CPC.obtCC().eliminarCongresista(con[0], CPC.obtCPR().obtCR());
                 }
                 setDefaultText();
                 setMsg("Congresistas eliminados satisfactoriamente");
@@ -701,7 +701,7 @@ public class PanelCongreso extends PanelLista {
                 //String dato = (String) listCongreso.getSelectedValue();
                 String[] campos = dato.split(" ");
                 try {
-                    CPC.obtCC().modCongresista(campos[0], textDni.getText().substring(0, 9), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty), CPC.obtCPR().CR);
+                    CPC.obtCC().modCongresista(campos[0], textDni.getText().substring(0, 9), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty), CPC.obtCPR().obtCR());
                     setMsg("Congresista modificado satisfactoriamente");
                     ListUpdate();
                 }
@@ -720,7 +720,7 @@ public class PanelCongreso extends PanelLista {
         emptyLError();
         setDefaultText();
         if (CPC.obtCC().size() != 0) {
-            CPC.obtCC().eliminarCongreso(CPC.obtCPR().CR);
+            CPC.obtCC().eliminarCongreso(CPC.obtCPR().obtCR());
             setMsg("Congreso eliminado satisfactoriamente");
             ListUpdate();
         }
