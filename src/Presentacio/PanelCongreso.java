@@ -3,13 +3,11 @@ package Presentacio;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.tools.JavaFileManager;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 

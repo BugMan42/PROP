@@ -2,22 +2,26 @@ package Domini;
 
 import java.util.Random;
 
-/**
- * Created by usuario on 11/04/2015.
- */
 public class Fecha {
-    static final String error1 = "Fecha no valida";
+    static final String error9 = "Fecha no valida";
+    final static String error1 = "Dia no puede ser inferior a 1 ni mayor que 31";
+    final static String error2 = "Mes no puede ser inferior a 1 ni mayor que 12";
+    final static String error3 = "Año no puede ser inferior a 1";
+    final static String error4 = "Febrero no tiene dia 30 ni 31";
+    final static String error5 = "Dia 29 de febrero solo en años bisiestos";
+    final static String error6 = "El mes no tiene dia 31";
+    final static String error8 = "El formato es dd/mm/yyyy";
     private int[] fecha;
 
     private static boolean Correcto(int dia, int mes, int any) throws Exception{
-        if (dia < 1 || dia > 31) throw new NoValido("Fecha", 1);
-        if (mes <= 0 || mes >= 13) throw new NoValido("Fecha", 2);
-        if (any < 1) throw new NoValido("Fecha", 3);
+        if (dia < 1 || dia > 31) throw new Exception(error9 + "." + error1);
+        if (mes <= 0 || mes >= 13) throw new Exception(error9 + "." + error2);
+        if (any < 1) throw new Exception(error9 + "." + error3);
         if (mes == 2) {
-            if ((dia == 30 || dia == 31)) throw new NoValido("Fecha", 4);
-            if (dia == 29 && ((any % 4 != 0 || any % 100 == 0) && any % 400 != 0)) throw new NoValido("Fecha", 5);
+            if ((dia == 30 || dia == 31)) throw new Exception(error9 + "." + error4);
+            if (dia == 29 && ((any % 4 != 0 || any % 100 == 0) && any % 400 != 0)) throw new Exception(error9 + "." + error5);
         }
-        else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31 ) throw new NoValido("Fecha", 6);
+        else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31 ) throw new Exception(error9 + "." + error6);
         return true;
     }
 
@@ -39,9 +43,8 @@ public class Fecha {
     }
 
     public Fecha(String data) throws Exception {
-        if (data.equals("")) throw new NoValido("Fecha", 7);
         String[] aux = data.split("/");
-        if (aux.length != 3) throw new NoValido("Fecha", 8);
+        if (aux.length != 3) throw new Exception(error9 + "." + error8);
         int dia = Integer.parseInt(aux[0]);
         int mes = Integer.parseInt(aux[1]);
         int año = Integer.parseInt(aux[2]);
