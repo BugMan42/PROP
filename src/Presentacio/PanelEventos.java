@@ -41,6 +41,8 @@ public class PanelEventos extends PanelLista {
 
         crearComponentesVista();
 
+        agregarTextoComponentes();
+
         actualizarLista();
 
         agregarAccionesBotones();
@@ -57,19 +59,13 @@ public class PanelEventos extends PanelLista {
     private void crearComponentesVista() {
         lbnombre = new JLabel("Nombre:");
         ctnombre = new JTextField();
-
         lbfecha = new JLabel("Fecha:");
         ctfecha = new JTextField();
-        ctfecha.setText("");
-
         lbimportancia = new JLabel("Importancia:");
         ctimportancia = new JTextField();
-        ctimportancia.setText("");
-
         lbtipo = new JLabel("Tipo:");
         cbtipo = new JComboBox<String>();
         cbtipo.setModel(new DefaultComboBoxModel<String>(new String[]{"Seleccione un tipo", "Votacion", "ReunionProfesional", "ReunionPersonal", "ActoOficial", "ActoNoOficial"}));
-
         lbinfo = new JLabel();
         lbinfo.setVisible(false);
 
@@ -86,6 +82,36 @@ public class PanelEventos extends PanelLista {
         lista = obtJlist();
     }
 
+    private void agregarTextoComponentes() {
+        lbnombre.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        ctnombre.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        lbfecha.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        ctfecha.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        lbimportancia.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        ctimportancia.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        lbtipo.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        cbtipo.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        lbinfo.setFont(new java.awt.Font("Ubuntu", 0, 18));
+
+
+        btlimpiar.setText("Limpiar Campos");
+        btlimpiar.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        btagregar.setText("Agregar Evento");
+        btagregar.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        bteliminar.setText("Eliminar Evento");
+        bteliminar.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        btagregarRandom.setText("Agregar Evento Random");
+        btagregarRandom.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        btmodificar.setText("Modificar Evento");
+        btmodificar.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        bteliminarTodo.setText("Eliminar CjtEventos");
+        bteliminarTodo.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        btguardarTodo.setText("Guardar CjtEventos");
+        btguardarTodo.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        btcargarTodo.setText("Cargar CjtEventos");
+        btcargarTodo.setFont(new java.awt.Font("Ubuntu", 0, 18));
+    }
+
     private void actualizarLista() {
         String info[] = {"No hay eventos creados"};
         if (cpe.obtCCE().size() == 0) lista.setListData(info);
@@ -96,13 +122,12 @@ public class PanelEventos extends PanelLista {
         lista.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                String s = (String)lista.getSelectedValue();
+                String s = (String) lista.getSelectedValue();
                 String formu[] = s.split("\\s");
                 rellenarFormulario(formu);
             }
         });
 
-        btlimpiar.setText("Limpiar Campos");
         btlimpiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -110,7 +135,6 @@ public class PanelEventos extends PanelLista {
             }
         });
 
-        btagregar.setText("Agregar Evento");
         btagregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -118,7 +142,6 @@ public class PanelEventos extends PanelLista {
             }
         });
 
-        bteliminar.setText("Eliminar Evento");
         bteliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -126,7 +149,6 @@ public class PanelEventos extends PanelLista {
             }
         });
 
-        btagregarRandom.setText("Agregar Evento Random");
         btagregarRandom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -134,7 +156,6 @@ public class PanelEventos extends PanelLista {
             }
         });
 
-        btmodificar.setText("Modificar Evento");
         btmodificar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -142,7 +163,6 @@ public class PanelEventos extends PanelLista {
             }
         });
 
-        bteliminarTodo.setText("Eliminar CjtEventos");
         bteliminarTodo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -150,7 +170,6 @@ public class PanelEventos extends PanelLista {
             }
         });
 
-        btguardarTodo.setText("Guardar CjtEventos");
         btguardarTodo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -158,7 +177,6 @@ public class PanelEventos extends PanelLista {
             }
         });
 
-        btcargarTodo.setText("Cargar CjtEventos");
         btcargarTodo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -280,17 +298,17 @@ public class PanelEventos extends PanelLista {
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbnombre)
-                                                        .addComponent(ctnombre, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(ctnombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbfecha)
-                                                        .addComponent(ctfecha, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(ctfecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
                         )
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbimportancia)
-                                                        .addComponent(ctimportancia, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(ctimportancia, 200, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbtipo)
@@ -304,7 +322,7 @@ public class PanelEventos extends PanelLista {
                                         .addComponent(bteliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         )
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
-                                        .addComponent(contador, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+                                        .addComponent(contador, 225, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btagregarRandom, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         )
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
@@ -312,7 +330,7 @@ public class PanelEventos extends PanelLista {
                                                         .addComponent(btmodificar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(btguardarTodo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
-                                        .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                                         .addComponent(bteliminarTodo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(btcargarTodo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
@@ -347,7 +365,7 @@ public class PanelEventos extends PanelLista {
                                         .addComponent(bteliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
                         )
                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(contador, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
+                                        .addComponent(contador, 34, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
                                         .addComponent(btagregarRandom, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
                         )
                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
