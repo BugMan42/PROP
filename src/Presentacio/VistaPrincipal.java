@@ -205,6 +205,18 @@ public class    VistaPrincipal extends JFrame {
                 }
         );
         JButton bRelaciones = new JButton("Relaciones");
+        bRelaciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remove(pan);
+                pan = cp.getCPR().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
+                repaint();
+
+            }
+        });
         toolbar.add(bRelaciones);
         JButton bAlgoritmo = new JButton("Algoritmo y preferencias");
         bAlgoritmo.addActionListener(new ActionListener() {
