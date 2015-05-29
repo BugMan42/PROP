@@ -38,6 +38,9 @@ public abstract class Panel3Listas extends JPanel {
         jLabel1.setText("Seleccionar voto:");
         jLabel1.setEnabled(false);
 
+        pl1.lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        pl2.lista.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
         JPanel botones = new JPanel();
         botones.setMinimumSize(new Dimension(174, 300));
         GroupLayout layoutb = new GroupLayout(botones);

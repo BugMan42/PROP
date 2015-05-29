@@ -21,7 +21,7 @@ public class PanelListaSimple extends JPanel {
         scrollPane1 = new JScrollPane(lista);
         titulo = new JLabel();
 
-        titulo.setFont(new java.awt.Font("Ubuntu", Font.BOLD, 18)); // NOI18N
+        titulo.setFont(new java.awt.Font("Ubuntu", Font.BOLD, 18));
 
         setMinimumSize(new Dimension(287, 300));
         GroupLayout layout = new GroupLayout(this);
@@ -32,7 +32,8 @@ public class PanelListaSimple extends JPanel {
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(titulo, 20, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(10, 10, 10)
+                                .addComponent(titulo, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 
         );

@@ -16,7 +16,8 @@ public class PanelRelacionesEvento extends Panel3Listas {
     }
 
     public void actualizar(){
-
+        pl1.lista.setListData(cpr.obtEventos());
+        pl2.lista.setListData(cpr.obtCongreso());
     }
 
 }

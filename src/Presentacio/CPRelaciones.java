@@ -36,7 +36,6 @@ public class CPRelaciones {
         cpe.CR = this;
     }
 
-
     public PanelRelaciones obtPanel() {
         if (PR == null) PR = new PanelRelaciones(this);
         switch (pan){
@@ -73,5 +72,9 @@ public class CPRelaciones {
 
     public String[] obtCongreso(){
         return CPC.obtCC().obtCongresoPR().split("\n");
+    }
+
+    public String[] obtEventos(){
+        return CPE.obtCCE().obtEventosPR().split("\n");
     }
 }

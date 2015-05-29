@@ -37,6 +37,7 @@ public class Fecha {
     public Fecha(Random r) {
         //Uso numeros random del [1,28] para el dia.
         //[1,12] para mes y [1,3000] para el año
+        fecha = new int[3];
         fecha[0] = r.nextInt(28)+1;
         fecha[1] = r.nextInt(12)+1;
         fecha[2] = r.nextInt(3000)+1;

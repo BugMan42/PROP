@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 
 public class PanelRelaciones extends JPanel {
 
-    CPRelaciones cpr;
-    JPanel pan;
+    private CPRelaciones cpr;
+    private JPanel pan;
 
     public PanelRelaciones(CPRelaciones cpRelaciones) {
         cpr = cpRelaciones;
@@ -69,6 +69,5 @@ public class PanelRelaciones extends JPanel {
         add(menu, BorderLayout.PAGE_START);
         add(pan, BorderLayout.CENTER);
     }
-
 
 }

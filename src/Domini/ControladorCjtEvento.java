@@ -58,8 +58,8 @@ public class ControladorCjtEvento {
         ce.AgregarEvento(n);
     }
 
-    public void AgregarEventoRandom() throws Exception {
-        ce.AgregarEventoRandom();
+    public void AgregarEventoRandom(int n) throws Exception {
+        for(int i=0; i<n; ++i) ce.AgregarEventoRandom();
     }
 
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo, ControladorRelaciones cr) throws Exception{
@@ -140,6 +140,13 @@ public class ControladorCjtEvento {
             r = cp.leer(max_lineas_cargar);
         }
         cp.cerrarFichero();
+    }
+
+    public String obtEventosPR(){
+        List<Evento> le = ce.ConsultarTodosEventos();
+        String res = "";
+        for(Evento e : le) res += e.tipo()+" "+e.obt_nombre()+" "+e.obt_fecha()+"\n";
+        return res;
     }
 
 }

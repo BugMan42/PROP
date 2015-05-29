@@ -152,7 +152,11 @@ public class PanelEventos extends PanelLista {
         btagregarRandom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btagregarRandomAccion(e);
+                try {
+                    btagregarRandomAccion(e);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
@@ -247,8 +251,8 @@ public class PanelEventos extends PanelLista {
 
     }
 
-    private void btagregarRandomAccion(ActionEvent e) {
-
+    private void btagregarRandomAccion(ActionEvent e) throws Exception {
+        cpe.agregarRandom((Integer)contador.getValue());
     }
 
     private void bteliminarTodoAccion(ActionEvent e) {
