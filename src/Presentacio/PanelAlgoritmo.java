@@ -24,7 +24,7 @@ public class PanelAlgoritmo extends Panel{
     public PanelAlgoritmo(CPAlgoritmo cont) {
         super();
         cpa = cont;
-        initUI();
+        //initUI();
     }
 
     public PanelAlgoritmo() {

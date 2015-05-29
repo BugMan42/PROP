@@ -355,5 +355,12 @@ public class ControladorCongreso {
         return cache.size() == 0;
     }
 
+    public String obtCongresoPR(){
+        List<Congresista> con = c.obtenerCongreso();
+        String res = "";
+        for (Congresista co: con)
+            res += co.obtID()+" "+co.obtNombre()+" "+co.obtApellido()+" "+String.valueOf(co.obtEdad())+"\n";
+        return res;
+    }
 
 }

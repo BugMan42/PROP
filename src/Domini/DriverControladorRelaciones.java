@@ -88,8 +88,8 @@ public class DriverControladorRelaciones {
                         dr.ce.AgregarActoNoOficial(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 13:
-                        if(params.length!=1) throw new Exception(E1);
-                        dr.ce.AgregarEventoRandom();
+                        if(params.length!=2) throw new Exception(E1);
+                        dr.ce.AgregarEventoRandom(Integer.parseInt(params[1]));
                         break;
                     case 14:
                         if(params.length!=1) throw new Exception(E1);
@@ -240,7 +240,7 @@ public class DriverControladorRelaciones {
         print("10 AgregarReunionProfesional(String nombre, String fecha, int importancia)");
         print("11 AgregarActoOficial(String nombre, String fecha, int importancia)");
         print("12 AgregarActoNoOficial(String nombre, String fecha, int importancia)");
-        print("13 AgregarEventoRandom()");
+        print("13 AgregarEventoRandom(int n)");
         print("14 ConsultarTodosEventos()");
         print("15 ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo)");
         print("16 ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva)");

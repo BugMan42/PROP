@@ -1,13 +1,10 @@
 package Domini;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by jose on 15/04/15.
- */
 public class Salida {
+    final static String error11 = "La i tiene que estar entre 0 y el numero de comunidades";
 
     private ArrayList<String> mensajes;
     private ArrayList<Set<Integer>> comunidades;
@@ -49,8 +46,8 @@ public class Salida {
     }
 
 
-    public Set<Integer> comunidad_at(int i) throws NoValido{
-        if (i < 0 || i >= comunidades.size()) throw new NoValido("Indice", 11);
+    public Set<Integer> comunidad_at(int i) throws Exception{
+        if (i < 0 || i >= comunidades.size()) throw new Exception(error11);
         return comunidades.get(i);
     }
 

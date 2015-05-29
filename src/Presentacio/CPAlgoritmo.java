@@ -10,7 +10,7 @@ public class CPAlgoritmo {
 
 
     public CPAlgoritmo(CPRelaciones cpr) {
-        CA = new ControladorAlgoritmo(cpr.CR);
+        CA = new ControladorAlgoritmo(cpr.obtCR());
     }
 
     public PanelAlgoritmo obtPanel() {

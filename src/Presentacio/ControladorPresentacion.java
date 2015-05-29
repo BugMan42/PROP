@@ -53,6 +53,6 @@ public class ControladorPresentacion {
     public CPAlgoritmo getCPA() { return cpa; }
     public CPCongreso getCPC() { return cpc; }
     public CPEventos obtCPE() { return cpe;}
-    public CPRelaciones obtCPR() { return cpr;}
+    public CPRelaciones getCPR() { return cpr;}
 
 }

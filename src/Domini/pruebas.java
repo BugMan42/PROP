@@ -34,7 +34,7 @@ public class pruebas {
            // print(c.size()+"");
            // c.agregarCongresistaRandom();
            // print(c.obtenerCongreso().toString());
-            /*ArrayList<RelacionSimple> Array1 = new ArrayList<RelacionSimple>();
+            ArrayList<RelacionSimple> Array1 = new ArrayList<RelacionSimple>();
             //RelacionSimple R1 = new RelacionSimpleConVoto(C1, E3, a);
             RelacionSimple R2 = new RelacionSimpleSinVoto(C1, E1);
             RelacionSimple R3 = new RelacionSimpleSinVoto(C1, E2);
@@ -48,7 +48,8 @@ public class pruebas {
             RelacionSimple R11 = new RelacionSimpleSinVoto(C2, E4);
             RelacionSimple R12 = new RelacionSimpleSinVoto(C2, E5);
             //RelacionCompuestaAnd R = new RelacionCompuestaAnd(R1, R2);
-            /*Relaciones RR = new Relaciones();
+            Relaciones RR = new Relaciones();
+            RR.agregarRelacion(R2);
             RR.agregarRelacion(R2);
             RR.agregarRelacion(R3);
             //RR.agregarRelacion(R4);

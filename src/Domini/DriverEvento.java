@@ -23,7 +23,7 @@ public class DriverEvento {
     final static String dem = "Demasiados Argumentos";
     final static String ins = "Argumentos Insuficientes";
     final static String noExiste = "El evento no existe";
-    private static Evento1 e;
+    private static Evento1 e = null;
 
     public static void main(String[] args) throws Exception {
         Scanner entrada = new Scanner(System.in);
@@ -60,7 +60,7 @@ public class DriverEvento {
             case 3:
                 if (aux.length < 2) throw new Exception(ins);
                 if (aux.length > 2) throw new Exception(dem);
-                if (e != null) e.ModFecha(aux[1]);
+                if (e != null) e.ModFecha(new Fecha(aux[1]));
                 else throw new Exception(noExiste);
                 break;
             case 4:
@@ -88,7 +88,7 @@ public class DriverEvento {
             case 8:
                 if (aux.length > 1) throw new Exception(dem);
                 if (e != null) System.out.println(e.ID());
-                else throw new Exception("Evento no existe");
+                else throw new Exception(noExiste);
                 break;
             case 9:
                 if (aux.length > 1) throw new Exception(dem);

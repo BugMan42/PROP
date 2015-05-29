@@ -73,11 +73,9 @@ public abstract class PanelLista extends Panel {
         jScrollPane1.setViewportView(jlist);
 
         boxSort.setFont(new Font("Ubuntu", 0, 17));
-
-        //boxSort.setModel(new DefaultComboBoxModel(new String[]{"Sort By Dni", "Sort By Nombre", "Sort By Partido"}));
+        boxSort.setMinimumSize(new Dimension(130, 30));
+        boxSort.setPreferredSize(new Dimension(130, 30));
         setBoxSort();
-        boxSort.setMinimumSize(new Dimension(113, 30));
-        boxSort.setPreferredSize(new Dimension(113, 30));
         boxSort.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 boxSortActionPerformed(evt);
@@ -139,7 +137,7 @@ public abstract class PanelLista extends Panel {
 
 
         JPanel panel = new JPanel();
-        panel.setMinimumSize(new Dimension(525,300));
+        panel.setMinimumSize(new Dimension(410,300));
         GroupLayout leftLayout = new GroupLayout(panel);
         panel.setLayout(leftLayout);
         leftLayout.setAutoCreateGaps(true);
@@ -172,6 +170,7 @@ public abstract class PanelLista extends Panel {
                                 .addGap(3, 3, 3)
                                 .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
         );
+
 
         sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         sp.setLeftComponent(panel);

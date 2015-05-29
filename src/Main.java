@@ -4,9 +4,6 @@ import Presentacio.VistaPrincipal;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by Jose on 10/05/2015.
- */
 public class Main {
 
     private ControladorPresentacion cp;

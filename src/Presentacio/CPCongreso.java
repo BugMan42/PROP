@@ -29,6 +29,9 @@ public class CPCongreso {
         if (PC == null) PC = new PanelCongreso(this);
         return PC;
     }
+    public int size() {
+        return CC.size();
+    }
     public void sortByDni() {
         //Thread workingThread = new Thread(CC.sortByDni()
         //{ IsBackground = true };
@@ -77,5 +80,12 @@ public class CPCongreso {
     public void searchByParty(String aux) {
         CC.searchByParty(aux);
     }
+    public void guardar(String path) throws Exception {
+        CC.guardar(path);
+    }
+    public void cargar(String path) throws Exception {
+        CC.cargar(path,CPR.obtCR());
+    }
+
 
 }

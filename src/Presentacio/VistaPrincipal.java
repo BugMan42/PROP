@@ -7,12 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.font.TextAttribute;
 
-/**
- * Created by falc on 7/05/15.
- *
- */
 
-public class VistaPrincipal extends JFrame {
+public class    VistaPrincipal extends JFrame {
 
     //Referència al controlador de presentació que crea la vista
     ControladorPresentacion cp;
@@ -209,6 +205,18 @@ public class VistaPrincipal extends JFrame {
                 }
         );
         JButton bRelaciones = new JButton("Relaciones");
+        bRelaciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remove(pan);
+                pan = cp.getCPR().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
+                repaint();
+
+            }
+        });
         toolbar.add(bRelaciones);
         JButton bAlgoritmo = new JButton("Algoritmo y preferencias");
         bAlgoritmo.addActionListener(new ActionListener() {

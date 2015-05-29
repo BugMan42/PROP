@@ -20,7 +20,7 @@ public class ControladorCjtEvento {
 
     public void EliminarEvento(String nombre, String fecha, ControladorRelaciones cr) throws Exception{
         if(cr.tieneRelaciones(nombre, fecha)) cr.eliminarRelaciones(nombre, fecha);
-        ce.EliminarEvento(nombre, fecha);
+        ce.EliminarEvento(nombre, new Fecha(fecha));
     }
 
     public void EliminarCjtEvento(ControladorRelaciones cr) throws Exception {
@@ -58,32 +58,32 @@ public class ControladorCjtEvento {
         ce.AgregarEvento(n);
     }
 
-    public void AgregarEventoRandom() throws Exception {
-        ce.AgregarEventoRandom();
+    public void AgregarEventoRandom(int n) throws Exception {
+        for(int i=0; i<n; ++i) ce.AgregarEventoRandom();
     }
 
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo, ControladorRelaciones cr) throws Exception{
         if(cr.tieneRelaciones(nomViejo, fecha)) {
             String id = ConsultarEvento(nomViejo,fecha).ID();
-            ce.ModificarNombreEvento(nomViejo, fecha, nomNuevo);
+            ce.ModificarNombreEvento(nomViejo, new Fecha(fecha), nomNuevo);
             String new_id = ConsultarEvento(nomNuevo, fecha).ID();
             cr.modEvento(id,new_id);
         }
-        else ce.ModificarNombreEvento(nomViejo, fecha, nomNuevo);
+        else ce.ModificarNombreEvento(nomViejo, new Fecha(fecha), nomNuevo);
     }
 
     public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva, ControladorRelaciones cr) throws Exception {
         if(cr.tieneRelaciones(nombre, fechaVieja)){
             String id = ConsultarEvento(nombre,fechaVieja).ID();
-            ce.ModificarFechaEvento(nombre, fechaVieja, fechaNueva);
+            ce.ModificarFechaEvento(nombre, new Fecha(fechaVieja), new Fecha(fechaNueva));
             String new_id = ConsultarEvento(nombre,fechaNueva).ID();
             cr.modEvento(id, new_id);
         }
-        else ce.ModificarFechaEvento(nombre, fechaVieja, fechaNueva);
+        else ce.ModificarFechaEvento(nombre, new Fecha(fechaVieja), new Fecha(fechaNueva));
     }
 
     public void ModificarImpEvento(String nombre, String fecha, int importance) throws Exception {
-        ce.ModificarImpEvento(nombre, fecha, importance);
+        ce.ModificarImpEvento(nombre, new Fecha(fecha), importance);
     }
 
     public List<Evento> ConsultarTodosEventos() {
@@ -91,11 +91,11 @@ public class ControladorCjtEvento {
     }
 
     public Evento ConsultarEvento(String nombre, String fecha) throws Exception{
-        return ce.ConsultarEvento(nombre, fecha);
+        return ce.ConsultarEvento(nombre, new Fecha(fecha));
     }
 
     public boolean ExisteEvento(String nombre, String fecha) throws Exception {
-        return ce.ExisteEvento(nombre, fecha);
+        return ce.ExisteEvento(nombre, new Fecha(fecha));
     }
 
     public int size(){
@@ -140,6 +140,13 @@ public class ControladorCjtEvento {
             r = cp.leer(max_lineas_cargar);
         }
         cp.cerrarFichero();
+    }
+
+    public String obtEventosPR(){
+        List<Evento> le = ce.ConsultarTodosEventos();
+        String res = "";
+        for(Evento e : le) res += e.tipo()+" "+e.obt_nombre()+" "+e.obt_fecha()+"\n";
+        return res;
     }
 
 }
