@@ -101,6 +101,8 @@ public class PanelEventos extends PanelLista {
         btlimpiar.setFont(new java.awt.Font("Ubuntu", 0, 18));
         btagregar.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bteliminar.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        contador.setModel(new SpinnerNumberModel(1, 1, 2000000, 1));
+        contador.setFont(new java.awt.Font("Ubuntu", 0, 18));
         btagregarRandom.setFont(new java.awt.Font("Ubuntu", 0, 18));
         btmodificar.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bteliminarTodo.setFont(new java.awt.Font("Ubuntu", 0, 18));
@@ -277,11 +279,15 @@ public class PanelEventos extends PanelLista {
     }
 
     private void limpiarcampos() {
-        ctnombre.setText("");
-        ctfecha.setText("");
-        ctimportancia.setText("");
+        ctnombre.setText(defecto[0]);
+        ctnombre.setForeground(Color.GRAY);
+        ctfecha.setText(defecto[1]);
+        ctfecha.setForeground(Color.GRAY);
+        ctimportancia.setText(defecto[2]);
+        ctimportancia.setForeground(Color.GRAY);
         cbtipo.setSelectedIndex(0);
         lbinfo.setVisible(false);
+        lista.clearSelection();
     }
 
     private void mostrarmensaje(String s) {
