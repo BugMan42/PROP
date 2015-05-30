@@ -142,7 +142,9 @@ public class PanelRelacionesEvento extends Panel3Listas {
                 if(aux[0].equals("Votacion")) cpr.eliminarVoto(dni,nombre,fecha,aux2[4]);
                 else cpr.eliminarRelacion(dni,nombre,fecha);
             }
-            pl3.lista.setListData(cpr.obtRelaciones(nombre,fecha));
+            String[] s = cpr.obtRelaciones(nombre,fecha);
+            if(s.length>0) pl3.lista.setListData(s);
+            else pl3.lista.setListData(new String[0]);
         }
     }
 

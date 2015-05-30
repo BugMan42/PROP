@@ -128,8 +128,8 @@ public class DriverControladorRelaciones {
                         dr.cr.agregarVoto(params[1], params[2], params[3], params[4]);
                         break;
                     case 23:
-                        if(params.length!=1) throw new Exception(E1);
-                        dr.cr.agregarRelacionRandom();
+                        if(params.length!=2) throw new Exception(E1);
+                        dr.cr.agregarRelacionRandom(Integer.parseInt(params[1]));
                         break;
                     case 24:
                         if(params.length!=4) throw new Exception(E1);
@@ -251,7 +251,7 @@ public class DriverControladorRelaciones {
         print("//////// Relaciones ///////////////////////////");
         print("21 agregarRelacion(String dni, String nombre, String fecha)");
         print("22 agregarVoto(String dni, String nombre, String fecha, String voto)");
-        print("23 agregarRelacionRandom()");
+        print("23 agregarRelacionRandom(int n)");
         print("24 existeRelacion(String dni, String nombre, String fecha)");
         print("25 existeVoto(String dni, String nombre, String fecha, String voto)");
         print("26 tieneRelaciones(String dni)");

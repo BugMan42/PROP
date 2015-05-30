@@ -14,13 +14,14 @@ public abstract class Panel3ListasExt extends JPanel {
     protected JButton bañadir;
     protected JButton beliminar;
     protected JButton bañadirrandom;
+    protected JButton beliminartodas;
     protected JButton bguardar;
     protected JButton bcargar;
     protected JComboBox cbvoto;
     protected JLabel jLabel1;
     protected JLabel jLabel2;
     protected JSpinner nr;
-    protected ArrayList<Integer> sel2, sel3;
+    protected ArrayList<Integer> sel1, sel2, sel3;
 
     public Panel3ListasExt(){
         initGUI();
@@ -36,6 +37,7 @@ public abstract class Panel3ListasExt extends JPanel {
         bañadir = new JButton();
         beliminar = new JButton();
         bañadirrandom = new JButton();
+        beliminartodas = new JButton();
         bguardar = new JButton();
         bcargar = new JButton();
         cbvoto = new JComboBox();
@@ -49,42 +51,71 @@ public abstract class Panel3ListasExt extends JPanel {
         cbvoto.setEnabled(false);
         jLabel1.setText("Seleccionar voto:");
         jLabel1.setEnabled(false);
+        //jLabel2.setText("Nº rel:");
+        bañadirrandom.setText("Añadir aleatorias");
+        beliminartodas.setText("Eliminar todas");
+        bguardar.setText("Guardar");
+        bcargar.setText("Cargar");
 
-        pl1.lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        pl1.lista.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         pl2.lista.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        pl3.lista.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+        nr.setModel(new SpinnerNumberModel(1, 1, 9999999,1));
+        nr.setPreferredSize(new Dimension(100,25));
 
         JPanel botones = new JPanel();
         botones.setMinimumSize(new Dimension(174, 300));
-        GroupLayout layoutb = new GroupLayout(botones);
-        botones.setLayout(layoutb);
-        layoutb.setHorizontalGroup(
-                layoutb.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layoutb.createSequentialGroup()
+        GroupLayout lb = new GroupLayout(botones);
+        botones.setLayout(lb);
+        lb.setHorizontalGroup(
+                lb.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(lb.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(layoutb.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(GroupLayout.Alignment.TRAILING, layoutb.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(27, 27, 27))
-                                        .addGroup(GroupLayout.Alignment.TRAILING, layoutb.createSequentialGroup()
-                                                .addGroup(layoutb.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(cbvoto, GroupLayout.Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(bañadir, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(beliminar, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                                                        .addContainerGap())))
+                                .addGroup(lb.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(bcargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(bguardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(bañadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(beliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cbvoto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(bañadirrandom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(beliminartodas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lb.createSequentialGroup()
+                                                .addGap(0, 17, Short.MAX_VALUE)
+                                                .addGroup(lb.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lb.createSequentialGroup()
+                                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(15, 15, 15))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lb.createSequentialGroup()
+                                                                .addComponent(jLabel2)
+                                                                .addGap(14, 14, 14)
+                                                                .addComponent(nr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(14, 14, 14)))))
+                                .addContainerGap())
         );
-        layoutb.setVerticalGroup(
-                layoutb.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layoutb.createSequentialGroup()
-                                .addGap(80, 80, 80)
+        lb.setVerticalGroup(
+                lb.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(lb.createSequentialGroup()
+                                .addGap(100, 100, 100)
                                 .addComponent(bañadir)
-                                .addGap(18, 18, 18)
+                                .addGap(12, 12, 12)
                                 .addComponent(beliminar)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel1)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbvoto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(273, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbvoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addGroup(lb.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(nr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bañadirrandom)
+                                .addGap(12, 12, 12)
+                                .addComponent(beliminartodas)
+                                .addGap(50, 50, 50)
+                                .addComponent(bguardar)
+                                .addGap(12, 12, 12)
+                                .addComponent(bcargar))
         );
 
 

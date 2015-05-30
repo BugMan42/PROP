@@ -146,6 +146,15 @@ public class Relaciones {
         eventos = new TST<NodeE>();
         RC = new RelacionesCompuestas();
     }
+
+    public boolean esVacio(){
+        return congresistas.esVacio();
+    }
+
+    public int size() throws Exception {
+        return obtTodasLasRelaciones().size();
+    }
+
     public void agregarRelacion(RelacionSimple r) throws Exception {
         NodeC aux = new NodeC(r);
         if (!congresistas.existe(r.obtCongresista().obtID())) {
@@ -165,7 +174,9 @@ public class Relaciones {
         }
     }
     public boolean existeRelacion(RelacionSimple r) throws Exception {
-        return congresistas.obtener(r.obtCongresista().obtID()).existeRelacion(r);
+        if (congresistas.existe(r.obtCongresista().obtID()))
+            return congresistas.obtener(r.obtCongresista().obtID()).existeRelacion(r);
+        return false;
     }
     public boolean tieneRelaciones(Congresista c) throws Exception {
         ArrayList<String> sc = congresistas.consultarClaves();

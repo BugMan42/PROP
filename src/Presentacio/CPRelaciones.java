@@ -49,7 +49,7 @@ public class CPRelaciones {
         return PR;
     }
 
-    public PanelRelacionesGeneral obtPanelRG(){
+    public PanelRelacionesGeneral obtPanelRG() throws Exception {
         if (PRG == null) PRG = new PanelRelacionesGeneral(this);
         pan = 1;
         PRG.actualizar();
@@ -76,6 +76,10 @@ public class CPRelaciones {
 
     public boolean esVacioEventos(){
         return CPE.obtCCE().size()==0;
+    }
+
+    public boolean esVacioRelaciones(){
+        return CR.esVacio();
     }
 
     public String[] obtCongreso(){
@@ -113,6 +117,10 @@ public class CPRelaciones {
         CR.agregarVoto(dni, nombre, fecha, voto);
     }
 
+    public void agregarRelacionRandom(int n) throws Exception {
+        CR.agregarRelacionRandom(n);
+    }
+
     public void eliminarRelacion(String dni, String nombre, String fecha) throws Exception {
         CR.eliminarRelacion(dni,nombre,fecha);
     }
@@ -120,4 +128,9 @@ public class CPRelaciones {
     public void eliminarVoto(String dni, String nombre, String fecha, String voto) throws Exception {
         CR.eliminarVoto(dni, nombre, fecha, voto);
     }
+
+    public void eliminarRelaciones(){
+        CR.eliminarRelaciones();
+    }
+
 }

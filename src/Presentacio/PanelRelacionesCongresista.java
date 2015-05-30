@@ -150,7 +150,9 @@ public class PanelRelacionesCongresista extends Panel3Listas {
                 if(aux[0].equals("Votacion")) cpr.eliminarVoto(dni,nombre,fecha,aux[3]);
                 else cpr.eliminarRelacion(dni,nombre,fecha);
             }
-            pl3.lista.setListData(cpr.obtRelaciones(dni));
+            String[] s = cpr.obtRelaciones(dni);
+            if(s.length>0) pl3.lista.setListData(s);
+            else pl3.lista.setListData(new String[0]);
         }
     }
 

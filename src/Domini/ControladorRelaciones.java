@@ -16,8 +16,6 @@ public class ControladorRelaciones {
     static final private String E2 = "El evento debe ser una Votación.";
     static final private String E3 = "Tipo de voto incorrecto. Tipos disponibles: Abstencion, Blanco, Negativo, " +
             "Nulo y Positivo.";
-    static final private String E4 = "Para crear una relación aleatoria debe existir al menos un congresista " +
-            "en el congreso y un evento en el conjunto de eventos.";
 
 
     private static final int max_lineas_guardar = 300;
@@ -32,6 +30,10 @@ public class ControladorRelaciones {
         c = cc;
         e = ce;
         rs = new Relaciones();
+    }
+
+    public boolean esVacio(){
+        return rs.esVacio();
     }
 
     public void agregarRelacion(String dni, String nombre, String fecha) throws Exception {
@@ -66,31 +68,48 @@ public class ControladorRelaciones {
         rs.agregarRelacion(r);
     }
 
-    public void agregarRelacionRandom() throws Exception {
-        if(!c.esVacio() && e.size() > 0){
+    public void agregarRelacionRandom(int n) throws Exception {
+        int maxr = c.size()*e.size();
+        int nr = rs.size();
+        if(nr < maxr){
             List<Congresista> lc = c.obtenerCongreso();
             List<Evento> le = e.ConsultarTodosEventos();
             Random r = new Random();
-            Congresista con = lc.get(r.nextInt(lc.size()));
-            Evento ev = le.get(r.nextInt(le.size()));
-            if(ev.tipo().equals("Votacion")) {
-                String tipo = "Abstencion";
-                int rand = r.nextInt(5);
-                switch (rand){
-                    case 1: tipo = "Blanco";
-                        break;
-                    case 2: tipo = "Negativo";
-                        break;
-                    case 3: tipo = "Nulo";
-                        break;
-                    case 4: tipo = "Positivo";
-                        break;
+            int i=0;
+            while(nr<maxr && i<n) {
+                Congresista con = lc.get(r.nextInt(lc.size()));
+                Evento ev = le.get(r.nextInt(le.size()));
+                if (ev.tipo().equals("Votacion")) {
+                    String tipo = "Abstencion";
+                    int rand = r.nextInt(5);
+                    switch (rand) {
+                        case 1:
+                            tipo = "Blanco";
+                            break;
+                        case 2:
+                            tipo = "Negativo";
+                            break;
+                        case 3:
+                            tipo = "Nulo";
+                            break;
+                        case 4:
+                            tipo = "Positivo";
+                            break;
+                    }
+                    if(!existeVoto(con.obtID(), ev.obt_nombre(), ev.obt_fecha(), tipo)) {
+                        agregarVoto(con.obtID(), ev.obt_nombre(), ev.obt_fecha(), tipo);
+                        ++i;
+                        ++nr;
+                    }
+                } else {
+                    if(!existeRelacion(con.obtID(), ev.obt_nombre(), ev.obt_fecha())) {
+                        agregarRelacion(con.obtID(), ev.obt_nombre(), ev.obt_fecha());
+                        ++i;
+                        ++nr;
+                    }
                 }
-                agregarVoto(con.obtID(),ev.obt_nombre(),ev.obt_fecha(),tipo);
             }
-            else agregarRelacion(con.obtID(),ev.obt_nombre(),ev.obt_fecha());
         }
-        else throw new Exception(E4);
     }
 
     public boolean existeRelacion(String dni, String nombre, String fecha) throws Exception{
