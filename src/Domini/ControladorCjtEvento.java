@@ -59,7 +59,7 @@ public class ControladorCjtEvento {
     }
 
     public void AgregarEventoRandom(int n) throws Exception {
-        for(int i=0; i<n; ++i) ce.AgregarEventoRandom();
+        ce.AgregarEventoRandom(n);
     }
 
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo, ControladorRelaciones cr) throws Exception{

@@ -89,7 +89,7 @@ public class DriverCjtEvento {
                 break;
             case 8:
                 if (aux.length > 1) throw new Exception(dem);
-                if (cjt != null) cjt.AgregarEventoRandom();
+                if (cjt != null) cjt.AgregarEventoRandom(1);
                 else throw new Exception(noexiste);
                 break;
             case 9:

@@ -8,7 +8,6 @@ import java.util.Random;
  */
 public class CjtEvento {
     private TST<Evento> cjt;
-    private Random r;
 
     private static final String error1 = "El Nombre no es valido";
     private static final String error2 = "La fecha no es valida";
@@ -28,7 +27,6 @@ public class CjtEvento {
 
     public CjtEvento() {
         cjt = new TST<Evento>();
-        r = new Random();
     }
 
     /////////////////////////////////////ELIMINADORA/////////////////////
@@ -41,8 +39,6 @@ public class CjtEvento {
 
     public void EliminarEvento(String nombre, Fecha fecha) throws Exception{
         //Valido(nombre, fecha);
-        //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro
-        // de quitarlos porque sino no se encontrara el objeto
         //Siempre convierto el nombre a mayusculas para evitar errores de no
         // encontrar el elemento
         String name = nombre.toUpperCase();
@@ -61,10 +57,6 @@ public class CjtEvento {
             String oldname = nomViejo.toUpperCase();
             String newname = nomNuevo.toUpperCase();
             if (!nomNuevo.equals(nomViejo)){
-                //En caso de que la fecha tenga numeros que empiecen por 0 me aseguro de quitarlos porque
-                // sino no se encontrara el objeto
-                //String s[] = fecha.split("/");
-                //fecha = Integer.toString(Integer.parseInt(s[0])) + Integer.toString(Integer.parseInt(s[1])) + Integer.toString(Integer.parseInt(s[2]));
                 //Como obtener pasa la referencia al objeto lo modifico y lo pongo correctamente en el
                 // conjunto de acuerdo a su nueva clave
                 Evento aux = cjt.obtener(oldname + fecha.toString());
@@ -72,8 +64,6 @@ public class CjtEvento {
                 cjt.modificar(oldname + fecha.toString(), newname + fecha.toString(), aux);
             }
             else throw new Exception(error4);
-        //}
-        //else throw new Exception(error4);
     }
 
     public void ModificarFechaEvento(String nombre, Fecha fechaVieja, Fecha fechaNueva) throws Exception {
@@ -109,46 +99,52 @@ public class CjtEvento {
         cjt.obtener(name+fecha.toString()).ModImportancia(importance);
     }
 
-    public void AgregarEventoRandom() throws Exception {
+    public void AgregarEventoRandom(int n) throws Exception {
         //Creo un nombre random concatenando letras de
         // la A-Z. 90 y 65 corresponde al codigo
         // ascii de la Z y la A respectivamente
-        String nombre;
-        Fecha f;
-        nombre = "";
-        f = new Fecha(r);
-        for (int i = 0; i < 8; ++i) {
-            int valorEntero = r.nextInt(90-65+1)+65;
-            char c = (char)valorEntero;
-            nombre = nombre + c;
-        }
-        //Uso un numero random [1,10] para importancia
-        int importancia = r.nextInt(10)+1;
-        //Uso un numero random [1,5] para seleccionar el tipo de evento
-        int tipo = r.nextInt(5)+1;
-        Evento e;
-        switch (tipo) {
-            case 1:
-                e = new Votacion(nombre, f, importancia);
-                cjt.insertar(e.ID(), e);
-                break;
-            case 2:
-                e = new Personal(nombre, f, importancia);
-                cjt.insertar(e.ID(), e);
-                break;
-            case 3:
-                e = new Profesional(nombre, f, importancia);
-                cjt.insertar(e.ID(), e);
-                break;
-            case 4:
-                e = new Oficial(nombre, f, importancia);
-                cjt.insertar(e.ID(), e);
-                break;
-            case 5:
-                e =  new NoOficial(nombre, f, importancia);
-                cjt.insertar(e.ID(), e);
-                break;
-            default:
+        for (int contador = 0; contador < n;++contador) {
+            String nombre;
+            Fecha f;
+            nombre = "";
+            Random r = new Random();
+            do {
+                f = new Fecha(r);
+                for (int i = 0; i < 8; ++i) {
+                    int valorEntero = r.nextInt(90 - 65 + 1) + 65;
+                    char c = (char) valorEntero;
+                    nombre = nombre + c;
+                }
+            }
+            while (cjt.existe(nombre + f.toString()));
+            //Uso un numero random [1,10] para importancia
+            int importancia = r.nextInt(10) + 1;
+            //Uso un numero random [1,5] para seleccionar el tipo de evento
+            int tipo = r.nextInt(5) + 1;
+            Evento e;
+            switch (tipo) {
+                case 1:
+                    e = new Votacion(nombre, f, importancia);
+                    cjt.insertar(e.ID(), e);
+                    break;
+                case 2:
+                    e = new Personal(nombre, f, importancia);
+                    cjt.insertar(e.ID(), e);
+                    break;
+                case 3:
+                    e = new Profesional(nombre, f, importancia);
+                    cjt.insertar(e.ID(), e);
+                    break;
+                case 4:
+                    e = new Oficial(nombre, f, importancia);
+                    cjt.insertar(e.ID(), e);
+                    break;
+                case 5:
+                    e = new NoOficial(nombre, f, importancia);
+                    cjt.insertar(e.ID(), e);
+                    break;
+                default:
+            }
         }
     }
 
