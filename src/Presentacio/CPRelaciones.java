@@ -36,7 +36,7 @@ public class CPRelaciones {
         cpe.CR = this;
     }
 
-    public PanelRelaciones obtPanel() {
+    public PanelRelaciones obtPanel() throws Exception {
         if (PR == null) PR = new PanelRelaciones(this);
         switch (pan){
             case 1: PRC.actualizar();
@@ -49,7 +49,7 @@ public class CPRelaciones {
         return PR;
     }
 
-    public PanelRelacionesCongresista obtPanelRC(){
+    public PanelRelacionesCongresista obtPanelRC() throws Exception {
         if (PRC == null) PRC = new PanelRelacionesCongresista(this);
         pan = 1;
         PRC.actualizar();
@@ -76,5 +76,28 @@ public class CPRelaciones {
 
     public String[] obtEventos(){
         return CPE.obtCCE().obtEventosPR().split("\n");
+    }
+
+    public String[] obtRelaciones() throws Exception {
+        return CR.obtRelacionesPR().split("\n");
+    }
+
+    public String[] obtRelaciones(String dni) throws Exception {
+        String[] res;
+        if (CR.tieneRelaciones(dni)) res = CR.obtRelacionesPR(dni).split("\n");
+        else res = new String[0];
+        return res;
+    }
+
+    public void agregarRelacion(String dni, String nombre, String fecha) throws Exception {
+        CR.agregarRelacion(dni,nombre,fecha);
+    }
+
+    public void agregarVoto(String dni, String nombre, String fecha, String voto) throws Exception {
+        CR.agregarVoto(dni, nombre, fecha, voto);
+    }
+
+    public void eliminarRelacion(String dni, String nombre, String fecha) throws Exception {
+        CR.eliminarRelacion(dni,nombre,fecha);
     }
 }

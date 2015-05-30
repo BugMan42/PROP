@@ -209,7 +209,11 @@ public class    VistaPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 remove(pan);
-                pan = cp.getCPR().obtPanel();
+                try {
+                    pan = cp.getCPR().obtPanel();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
                 add(pan);
                 invalidate();
                 revalidate();

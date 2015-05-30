@@ -40,7 +40,7 @@ public class ControladorRelaciones {
         // Jose Modificalo como quieras era para que no petara
         Congresista con = c.consultarCongresista(dni);
         RelacionSimple r;
-        if (ev.tipo().equals("Acto")) {
+        if (ev.tipo().equals("ActoOficial") || ev.tipo().equals("ActoNoOficial")) {
             Acto aux = (Acto) ev;
             r = new RelacionSimpleSinVoto(con,aux);
         }
@@ -102,7 +102,7 @@ public class ControladorRelaciones {
         Congresista con = c.consultarCongresista(dni);
         RelacionSimple r;
         // Modificalo como quieras
-        if (ev.tipo().equals("Acto")) {
+        if (ev.tipo().equals("ActoOficial") || ev.tipo().equals("ActoNoOficial")) {
             Acto aux = (Acto) ev;
             r = new RelacionSimpleSinVoto(con,aux);
         }
@@ -144,7 +144,18 @@ public class ControladorRelaciones {
         Congresista con = c.consultarCongresista(dni);
         Evento ev = e.ConsultarEvento(nombre, fecha);
         RelacionSimple r;
-        if (ev.tipo().equals("Acto")) {
+
+        // Aqui està l'error Guille
+        /*
+        if (ev.tipo().equals("Votacion")) {
+
+            Votacion aux = (Votacion) ev;
+            r = new RelacionSimpleConVoto();
+        }*/
+
+        // això abans era else if
+        // tal com està ara les votacions van a parar al else i sels fa cast de reunion, i peta
+        if (ev.tipo().equals("ActoOficial") || ev.tipo().equals("ActoNoOficial")) {
             Acto aux = (Acto) ev;
             r = new RelacionSimpleSinVoto(con,aux);
         }
@@ -152,7 +163,7 @@ public class ControladorRelaciones {
             Reunion aux = (Reunion) ev;
             r = new RelacionSimpleSinVoto(con,aux);
         }
-       // RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
+        // RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
         rs.eliminarRelacion(r);
     }
 
@@ -207,7 +218,7 @@ public class ControladorRelaciones {
     }
 
     public void modCongresista(String id, String new_id) throws Exception{
-        rs.modCongresista(id,new_id);
+        rs.modCongresista(id, new_id);
     }
 
     public void guardar(String ruta) throws Exception {
@@ -281,6 +292,25 @@ public class ControladorRelaciones {
             for(int j : g.nodosSalida(i))
                 if(i!=j) golf.agregarArista(i,j,g.pesoAristasVertices(i,j));
         return golf;
+    }
+
+    public String obtRelacionesPR() throws Exception {
+        ArrayList<RelacionSimple> lr = rs.obtTodasLasRelaciones();
+        String res = "";
+        for(RelacionSimple rs : lr) res += rs.toString()+"\n";
+        return res;
+    }
+
+    public String obtRelacionesPR(String dni) throws Exception {
+        ArrayList<RelacionSimple> lr = obtRelaciones(dni);
+        String res = "";
+        for(RelacionSimple rs : lr) {
+            Evento e = rs.obtEvento();
+            res += e.tipo()+" "+e.obt_nombre()+" "+e.obt_fecha();
+            if(e.tipo().equals("Votacion")) res += " "+rs.obtVoto().obt_tipo();
+            res += "\n";
+        }
+        return res;
     }
 
 }

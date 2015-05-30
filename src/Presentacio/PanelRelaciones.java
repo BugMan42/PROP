@@ -11,7 +11,7 @@ public class PanelRelaciones extends JPanel {
     private CPRelaciones cpr;
     private JPanel pan;
 
-    public PanelRelaciones(CPRelaciones cpRelaciones) {
+    public PanelRelaciones(CPRelaciones cpRelaciones) throws Exception {
         cpr = cpRelaciones;
         pan = cpr.obtPanelRC();
 
@@ -23,7 +23,11 @@ public class PanelRelaciones extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 remove(pan);
-                pan = cpr.obtPanelRC();
+                try {
+                    pan = cpr.obtPanelRC();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
                 add(pan);
                 invalidate();
                 revalidate();

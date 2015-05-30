@@ -2,6 +2,7 @@ package Presentacio;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by jose on 29/05/15.
@@ -14,6 +15,7 @@ public abstract class Panel3Listas extends JPanel {
     protected JButton beliminar;
     protected JComboBox cbvoto;
     protected JLabel jLabel1;
+    protected ArrayList<Integer> sel2, sel3;
 
     public Panel3Listas(){
         initGUI();
@@ -94,4 +96,10 @@ public abstract class Panel3Listas extends JPanel {
                         .addComponent(sp1, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
     }
+
+    public void activar_voto(boolean b){
+        cbvoto.setEnabled(b);
+        jLabel1.setEnabled(b);
+    }
+
 }
