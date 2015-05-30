@@ -14,14 +14,14 @@ public class Fecha {
     private int[] fecha;
 
     private static boolean Correcto(int dia, int mes, int any) throws Exception{
-        if (dia < 1 || dia > 31) throw new Exception(error9 + "." + error1);
-        if (mes <= 0 || mes >= 13) throw new Exception(error9 + "." + error2);
-        if (any < 1) throw new Exception(error9 + "." + error3);
+        if (dia < 1 || dia > 31) throw new Exception(error9 + " : " + error1);
+        if (mes <= 0 || mes >= 13) throw new Exception(error9 + " : " + error2);
+        if (any < 1) throw new Exception(error9 + ":" + error3);
         if (mes == 2) {
-            if ((dia == 30 || dia == 31)) throw new Exception(error9 + "." + error4);
-            if (dia == 29 && ((any % 4 != 0 || any % 100 == 0) && any % 400 != 0)) throw new Exception(error9 + "." + error5);
+            if ((dia == 30 || dia == 31)) throw new Exception(error9 + " : " + error4);
+            if (dia == 29 && ((any % 4 != 0 || any % 100 == 0) && any % 400 != 0)) throw new Exception(error9 + " : " + error5);
         }
-        else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31 ) throw new Exception(error9 + "." + error6);
+        else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31 ) throw new Exception(error9 + " : " + error6);
         return true;
     }
 
@@ -45,7 +45,7 @@ public class Fecha {
 
     public Fecha(String data) throws Exception {
         String[] aux = data.split("/");
-        if (aux.length != 3) throw new Exception(error9 + "." + error8);
+        if (aux.length != 3) throw new Exception(error9 + " : " + error8);
         int dia = Integer.parseInt(aux[0]);
         int mes = Integer.parseInt(aux[1]);
         int año = Integer.parseInt(aux[2]);

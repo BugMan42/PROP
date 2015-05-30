@@ -7,7 +7,8 @@ package Domini;
 public abstract class Evento {
     static final String error1 = "El nombre no es valido";
     static final String error2 = "La fecha no es valida";
-    static final String error3 = "La importancia no es valida";
+    static final String error3 = "Importancia no es valida";
+    static final String error4 = "Tiene que ser mayor que 0";
 
     private String nombre;
     private Fecha fecha;
@@ -16,7 +17,7 @@ public abstract class Evento {
     //Constructoras
 
     public Evento(String name, Fecha date, int importance) throws Exception {
-        if (importance <= 0) throw new Exception(error3);
+        if (importance <= 0) throw new Exception(error3 + " : " + error4);
         nombre = name.toUpperCase();
         fecha = date;
         importancia = importance;
@@ -33,7 +34,7 @@ public abstract class Evento {
     }
 
     public void ModImportancia(int importance) throws Exception {
-        if (importance <= 0) throw new Exception(error3);
+        if (importance <= 0) throw new Exception(error3 + " : " + error4);
         if (importancia != importance) importancia = importance;
     }
 
