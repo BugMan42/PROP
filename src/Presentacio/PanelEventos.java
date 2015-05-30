@@ -47,7 +47,9 @@ public class PanelEventos extends PanelLista {
 
         actualizarLista();
 
-        agregarAcciones();
+        agregarAccionesJtext();
+
+        agregarAccionesBotones();
 
         JPanel right = new JPanel();
 
@@ -116,16 +118,7 @@ public class PanelEventos extends PanelLista {
         else lista.setListData(cpe.obtCCE().ConsultarTodosEventos().toArray());
     }
 
-    private void agregarAcciones() {
-        lista.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                String s = (String) lista.getSelectedValue();
-                String formu[] = s.split("\\s");
-                rellenarFormulario(formu);
-            }
-        });
-
+    private void agregarAccionesJtext() {
         ctnombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 limpiarTexto(ctnombre, 0);
@@ -165,6 +158,25 @@ public class PanelEventos extends PanelLista {
                     ctimportancia.setText(defecto[2]);
                     ctimportancia.setForeground(Color.GRAY);
                 }
+            }
+        });
+    }
+
+    private void limpiarTexto(JTextField ct, int i) {
+        if (ct.getText().equals(defecto[i])) ct.setText("");
+    }
+
+    private boolean estaVacio(JTextField ct) {
+        return ct.getText().equals("");
+    }
+
+    private void agregarAccionesBotones() {
+        lista.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                String s = (String) lista.getSelectedValue();
+                String formu[] = s.split("\\s");
+                rellenarFormulario(formu);
             }
         });
 
@@ -229,21 +241,12 @@ public class PanelEventos extends PanelLista {
         });
     }
 
-    private void limpiarTexto(JTextField ct, int i) {
-        if (ct.getText().equals(defecto[i])) ct.setText("");
-    }
-
-    private boolean estaVacio(JTextField ct) {
-        return ct.getText().equals("");
-    }
-
     private void rellenarFormulario(String info[]) {
         cbtipo.setSelectedItem(info[0]);
         ctnombre.setText(info[1]);
         ctfecha.setText(info[2]);
         ctimportancia.setText(info[3]);
     }
-
 
     private void btagregarAccion(ActionEvent e) {
         String nombre = ctnombre.getText();
@@ -255,27 +258,40 @@ public class PanelEventos extends PanelLista {
         }
         try {
             int importancia = Integer.parseInt(importanciaStr);
-            String tipo = (String) cbtipo.getSelectedItem();
-            //limpiarcampos();
-            if (tipo.equals("Votación")) cpe.obtCCE().AgregarVotacion(nombre, fecha, importancia);
-            else if (tipo.equals("Reunión Profesional"))
-                cpe.obtCCE().AgregarReunionProfesional(nombre, fecha, importancia);
-            else if (tipo.equals("Reunión Personal"))
-                cpe.obtCCE().AgregarReunionPersonal(nombre, fecha, importancia);
-            else if (tipo.equals("Acto Oficial")) cpe.obtCCE().AgregarActoOficial(nombre, fecha, importancia);
-            else if (tipo.equals("Acto No Oficial")) cpe.obtCCE().AgregarActoNoOficial(nombre, fecha, importancia);
+            switch (cbtipo.getSelectedIndex()) {
+                case 0:
+                    System.out.println("revisa tu codigo");
+                    break;
+                case 1:
+                    cpe.obtCCE().AgregarVotacion(nombre, fecha, importancia);
+                    break;
+                case 2:
+                    cpe.obtCCE().AgregarReunionProfesional(nombre, fecha, importancia);
+                    break;
+                case 3:
+                    cpe.obtCCE().AgregarReunionPersonal(nombre, fecha, importancia);
+                    break;
+                case 4:
+                    cpe.obtCCE().AgregarActoOficial(nombre, fecha, importancia);
+                    break;
+                case 5:
+                    cpe.obtCCE().AgregarActoNoOficial(nombre, fecha, importancia);
+                    break;
+                default:
+                    System.out.println("Imposible");
+            }
         }
-        /*catch (ParseException pe) {
-            mostrarmensaje("En importancia y fecha solo pueden haber numeros");
-        }*/
+        catch (NumberFormatException a) {
+            mostrarmensaje("La fecha y la importancia tiene que tener numeros");
+        }
         catch (Exception ex) {
+            ponerRojo(ex.getMessage());
             mostrarmensaje(ex.getMessage());
-            //ponerRojo(ex.getMessage());
         }
     }
 
     private boolean validar(String nombre, String fecha, String importancia, int i) {
-        return !nombre.equals("") && !fecha.equals("") && !importancia.equals("") && i != 0;
+        return !nombre.equals(defecto[0]) && !fecha.equals(defecto[1]) && !importancia.equals(defecto[2]) && i != 0;
     }
 
     private void limpiarcampos() {
@@ -294,6 +310,18 @@ public class PanelEventos extends PanelLista {
         lbinfo.setText(s);
         lbinfo.setVisible(true);
     }
+
+    private void ponerRojo(String s) {
+        String data[] = s.split(":");
+        if (data.length == 2) {
+            String aux[] = data[0].split("\\s");
+            if (aux[0].equals("Nombre")) ctnombre.setForeground(Color.red);
+            if (aux[0].equals("Fecha")) ctfecha.setForeground(Color.red);
+            else if (aux[0].equals("Importancia")) ctimportancia.setForeground(Color.red);
+        }
+        mostrarmensaje(data[1]);
+    }
+
     /////////////////////////////////////////HACER///////////////////////////////
     private void bteliminarAccion(ActionEvent e) {
 
@@ -319,16 +347,7 @@ public class PanelEventos extends PanelLista {
 
     }
 
-    private void ponerRojo(String s) {
-        String data[] = s.split(".");
-        if (data.length == 2) {
-            String aux[] = data[1].split("\\s");
-            if (aux[0].equals("Nombre")) ctnombre.setForeground(Color.red);
-            if (aux[0].equals("Fecha")) ctfecha.setForeground(Color.red);
-            else if (aux[0].equals("Importancia")) ctimportancia.setForeground(Color.red);
-        }
-        mostrarmensaje(data[0]);
-    }
+
 
     private void asignaComponentesPanel(JPanel right) {
         right.add(lbnombre);
@@ -364,11 +383,11 @@ public class PanelEventos extends PanelLista {
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbimportancia)
-                                                        .addComponent(ctimportancia, 200, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(ctimportancia,GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbtipo)
-                                                        .addComponent(cbtipo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(cbtipo, 220, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
                         )
                         .addComponent(btlimpiar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
