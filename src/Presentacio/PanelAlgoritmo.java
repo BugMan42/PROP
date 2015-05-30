@@ -19,12 +19,12 @@ public class PanelAlgoritmo extends Panel{
 
     CPAlgoritmo cpa;
     private Graph g;
-    private int option;
+    private int option = 0;
 
     public PanelAlgoritmo(CPAlgoritmo cont) {
         super();
         cpa = cont;
-        //initUI();
+        initUI();
     }
 
     public PanelAlgoritmo() {
@@ -44,9 +44,16 @@ public class PanelAlgoritmo extends Panel{
         g = new SingleGraph("GOLF");
 
         g.addAttribute("ui.antialias");
-        g.addAttribute("ui.stylesheet", "node { text-alignment: above; fill-color: blue; }");
-        g.addAttribute("ui.stylesheet", "node.B { fill-color: green; }");
-        g.addAttribute("ui.stylesheet", "node.C { fill-color: red; }");
+
+        g.addAttribute(
+                "ui.stylesheet",
+                "node { text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
+                        "node:selected { stroke-width: 4px; }"+
+                        "node.A { fill-color: blue; }"+
+                        "node.B { fill-color: green; }"+
+                        "node.C { fill-color: red; }"+
+                        "node.D { fill-color: yellow; }"+
+                        "edge { fill-color: #777; }");
         //g.addAttribute("ui.stylesheet", "url('file:///home/falc/IdeaProjects/PROP/src/images/style.css')");
 
         Viewer viewer = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
@@ -64,7 +71,7 @@ public class PanelAlgoritmo extends Panel{
         tp1.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
         tp1.setBackground(Color.black);
         tp1.setEnabled(false);
-        JRadioButton rb1 = new JRadioButton("Louvain");
+        JRadioButton rb1 = new JRadioButton("Girvan-Newman");
         final JButton mostrar1 = new JButton("Mostrar grafo");
         mostrar1.setEnabled(false);
 
@@ -75,7 +82,7 @@ public class PanelAlgoritmo extends Panel{
         tp2.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
         tp2.setBackground(new Color(0,0,102));
         tp2.setEnabled(false);
-        JRadioButton rb2 = new JRadioButton("Girvan-Newman");
+        JRadioButton rb2 = new JRadioButton("Louvain");
         final JButton mostrar2 = new JButton("Mostrar grafo");
         mostrar2.setEnabled(false);
 
@@ -99,8 +106,10 @@ public class PanelAlgoritmo extends Panel{
         buttongroup.add(rb3);
         buttongroup.add(rb4);
 
-        JLabel f_pref = new JLabel("Preferencia:");
-        JTextField pref = new JTextField("0");
+        JLabel l_pref = new JLabel("Preferencia:");
+        final JTextField pref = new JTextField("0");
+        pref.setPreferredSize(new Dimension(100,25));
+        pref.setMaximumSize(new Dimension(200,25));
 
         JButton demo = new JButton("DEMO");
         demo.addActionListener(new ActionListener() {
@@ -156,10 +165,26 @@ public class PanelAlgoritmo extends Panel{
         exe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cpa.execute_algoritm(option);
+                cpa.modParam1(pref.getText());
+                if (option != 0) cpa.execute_algoritm(option);
+
                 if (option == 1) mostrar1.setEnabled(true);
                 else if (option == 2) mostrar2.setEnabled(true);
                 else if (option == 3) mostrar3.setEnabled(true);
+                else if (option == 4)
+                {
+                    mostrar1.setEnabled(true);
+                    mostrar2.setEnabled(true);
+                    mostrar3.setEnabled(true);
+                }
+            }
+        });
+
+        mostrar1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cargarGrafo();
+                mostrar1.setEnabled(false);
             }
         });
 
@@ -168,6 +193,14 @@ public class PanelAlgoritmo extends Panel{
             public void actionPerformed(ActionEvent e) {
                 cargarGrafo();
                 mostrar2.setEnabled(false);
+            }
+        });
+
+        mostrar3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cargarGrafo();
+                mostrar3.setEnabled(false);
             }
         });
 
@@ -188,6 +221,10 @@ public class PanelAlgoritmo extends Panel{
                                                         .addComponent(rb3)
                                                         .addComponent(tp3)
                                                         .addComponent(mostrar3)
+                                        )
+                                        .addGroup(gr.createParallelGroup()
+                                                        .addComponent(l_pref)
+                                                        .addComponent(pref)
                                         )
 
                         )
@@ -215,6 +252,10 @@ public class PanelAlgoritmo extends Panel{
                                                         .addComponent(tp3)
                                                         .addComponent(mostrar3)
                                         )
+                                        .addGroup(gr.createSequentialGroup()
+                                                        .addComponent(l_pref)
+                                                        .addComponent(pref)
+                                        )
                         )
                         .addComponent(rb4)
                         .addComponent(demo)
@@ -228,12 +269,13 @@ public class PanelAlgoritmo extends Panel{
 
     private void cargarGrafo()
     {
+
         int na = cpa.num_aristas();
         for (int i = 0; i < na; i++)
         {
             String is = Integer.toString(i);
             g.addNode(is);
-            g.getNode(is).addAttribute("ui.label", is);
+            g.getNode(i).addAttribute("ui.label", is);
         }
 
         for (int j = 0; j < na; j++) {
@@ -259,10 +301,10 @@ public class PanelAlgoritmo extends Panel{
             String[] cc = c.split(",\\s");
             if (!cc[0].equals("-"))
             {
-                System.out.println(cc.length);
+                //System.out.println(cc.length);
                 for (int l = 0; l < cc.length; l++)
                 {
-                    System.out.println("Node: "+cc[l]+" → "+Character.toString(chargen));
+                    //System.out.println("Node: "+cc[l]+" → "+Character.toString(chargen));
                     g.getNode(cc[l]).addAttribute("ui.class", Character.toString(chargen));
                 }
                 chargen++;

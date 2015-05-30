@@ -58,4 +58,9 @@ public class CPAlgoritmo {
         return CA.next_community();
     }
 
+    public void modParam1(String x)
+    {
+        CA.modParamEntrada(x);
+    }
+
 }

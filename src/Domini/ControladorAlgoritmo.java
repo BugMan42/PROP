@@ -52,7 +52,7 @@ public class ControladorAlgoritmo {
         if (s == 1) alg = new Girvan_Newman(in, out);
         else if (s == 2) alg = new Louvain(in, out);
         else if (s == 3) alg = new Clique(in, out);
-        else if (s == 4) {/*Los tres algoritmos se ejecutarán*/}
+        else if (s == 4) {}
     }
 
 
@@ -134,18 +134,14 @@ public class ControladorAlgoritmo {
     public String next_community()
     {
         String r = null;
-        // Hey Anselmo, te he comentado esto que me petaba
-        /*
+
         try {
             r = out.comunidad_at(i_comm).toString();
             r = r.substring(1,r.length()-1);
-            System.out.println(r);
             ++i_comm;
-        } catch (NoValido noValido) {
-            noValido.printStackTrace();
+        } catch (Exception e) {
             r = "-";
         }
-        */
         return r;
     }
 
