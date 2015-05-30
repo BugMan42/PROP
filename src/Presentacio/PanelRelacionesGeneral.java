@@ -99,46 +99,30 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
 
         bañadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    bAñadirActionPerformed(evt);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                bAñadirActionPerformed(evt);
             }
         });
 
         beliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    bEliminarActionPerformed(evt);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                bEliminarActionPerformed(evt);
             }
         });
 
         bañadirrandom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    bAñadirRandomActionPerformed(evt);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                bAñadirRandomActionPerformed(evt);
             }
         });
 
         beliminartodas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    bEliminarTodasActionPerformed(evt);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                bEliminarTodasActionPerformed(evt);
             }
         });
     }
 
-    public void actualizar() throws Exception {
+    public void actualizar()  {
         if(!cpr.esVacioCongreso()) pl1.lista.setListData(cpr.obtCongreso());
         else pl1.lista.setListData(new String[0]);
         if(!cpr.esVacioEventos()) pl2.lista.setListData(cpr.obtEventos());
@@ -152,7 +136,7 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         return aux[0].equals("Votacion");
     }
 
-    private void bAñadirActionPerformed(ActionEvent evt) throws Exception {
+    private void bAñadirActionPerformed(ActionEvent evt) {
         if(!pl1.lista.isSelectionEmpty() && !pl2.lista.isSelectionEmpty()){
             for (int i : sel1){
                 String dni = pl1.lista.getModel().getElementAt(i).toString().split(" ")[0];
@@ -168,7 +152,7 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         }
     }
 
-    private void bEliminarActionPerformed(ActionEvent evt) throws Exception {
+    private void bEliminarActionPerformed(ActionEvent evt) {
         if(!pl3.lista.isSelectionEmpty()){
             for(int i : sel3){
                 String[] aux = pl3.lista.getModel().getElementAt(i).toString().split(" ");
@@ -180,12 +164,12 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         }
     }
 
-    private void bAñadirRandomActionPerformed(ActionEvent evt) throws Exception {
+    private void bAñadirRandomActionPerformed(ActionEvent evt) {
         cpr.agregarRelacionRandom((Integer)nr.getValue());
         pl3.lista.setListData(cpr.obtRelaciones());
     }
 
-    private void bEliminarTodasActionPerformed(ActionEvent evt) throws Exception {
+    private void bEliminarTodasActionPerformed(ActionEvent evt) {
         if (!cpr.esVacioRelaciones()) {
             cpr.eliminarRelaciones();
             pl3.lista.setListData(new String[0]);

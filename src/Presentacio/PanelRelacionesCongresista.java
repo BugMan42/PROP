@@ -14,11 +14,7 @@ public class PanelRelacionesCongresista extends Panel3Listas {
     private class SH1 implements ListSelectionListener {
         public void valueChanged(ListSelectionEvent e) {
             ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-            if (!lsm.isSelectionEmpty()) try {
-                pl3.lista.setListData(cpr.obtRelaciones(obtDni()));
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
+            if (!lsm.isSelectionEmpty()) pl3.lista.setListData(cpr.obtRelaciones(obtDni()));
             else pl3.lista.setListData(new String[0]);
         }
     }
@@ -91,26 +87,18 @@ public class PanelRelacionesCongresista extends Panel3Listas {
 
         bañadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    bAñadirActionPerformed(evt);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                bAñadirActionPerformed(evt);
             }
         });
 
         beliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    bEliminarActionPerformed(evt);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                bEliminarActionPerformed(evt);
             }
         });
     }
 
-    public void actualizar() throws Exception {
+    public void actualizar() {
         if(!cpr.esVacioCongreso()) pl1.lista.setListData(cpr.obtCongreso());
         else pl1.lista.setListData(new String[0]);
         if(!cpr.esVacioEventos()) pl2.lista.setListData(cpr.obtEventos());
@@ -126,7 +114,7 @@ public class PanelRelacionesCongresista extends Panel3Listas {
         return pl1.lista.getModel().getElementAt(pl1.lista.getSelectedIndex()).toString().split(" ")[0];
     }
 
-    private void bAñadirActionPerformed(ActionEvent evt) throws Exception {
+    private void bAñadirActionPerformed(ActionEvent evt) {
         if(!pl1.lista.isSelectionEmpty() && !pl2.lista.isSelectionEmpty()){
             String dni = obtDni();
             for(int i : sel2){
@@ -140,7 +128,7 @@ public class PanelRelacionesCongresista extends Panel3Listas {
         }
     }
 
-    private void bEliminarActionPerformed(ActionEvent evt) throws Exception {
+    private void bEliminarActionPerformed(ActionEvent evt) {
         if(!pl1.lista.isSelectionEmpty() && !pl3.lista.isSelectionEmpty()){
             String dni = obtDni();
             for(int i : sel3){

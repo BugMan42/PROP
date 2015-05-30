@@ -36,34 +36,41 @@ public class CPRelaciones {
         cpe.CR = this;
     }
 
-    public PanelRelaciones obtPanel() throws Exception {
+    public PanelRelaciones obtPanel() {
         if (PR == null) PR = new PanelRelaciones(this);
-        switch (pan){
-            case 1: PRG.actualizar();
+        try {
+            switch (pan) {
+                case 1:
+                    PRG.actualizar();
                     break;
-            case 2: PRC.actualizar();
+                case 2:
+                    PRC.actualizar();
                     break;
-            case 3: PRE.actualizar();
+                case 3:
+                    PRE.actualizar();
                     break;
+            }
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
         return PR;
     }
 
-    public PanelRelacionesGeneral obtPanelRG() throws Exception {
+    public PanelRelacionesGeneral obtPanelRG() {
         if (PRG == null) PRG = new PanelRelacionesGeneral(this);
         pan = 1;
         PRG.actualizar();
         return PRG;
     }
 
-    public PanelRelacionesCongresista obtPanelRC() throws Exception {
+    public PanelRelacionesCongresista obtPanelRC() {
         if (PRC == null) PRC = new PanelRelacionesCongresista(this);
         pan = 2;
         PRC.actualizar();
         return PRC;
     }
 
-    public PanelRelacionesEvento obtPanelRE() throws Exception {
+    public PanelRelacionesEvento obtPanelRE() {
         if (PRE == null) PRE = new PanelRelacionesEvento(this);
         pan = 3;
         PRE.actualizar();
@@ -91,42 +98,76 @@ public class CPRelaciones {
         return CPE.obtCCE().obtEventosPR().split("\n");
     }
 
-    public String[] obtRelaciones() throws Exception {
-        return CR.obtRelacionesPR().split("\n");
+    public String[] obtRelaciones() {
+        try {
+            return CR.obtRelacionesPR().split("\n");
+        }
+        catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return new String[0];
     }
 
-    public String[] obtRelaciones(String dni) throws Exception {
-        String[] res;
-        if (CR.tieneRelaciones(dni)) res = CR.obtRelacionesPR(dni).split("\n");
-        else res = new String[0];
-        return res;
+    public String[] obtRelaciones(String dni) {
+        try {
+            if (CR.tieneRelaciones(dni)) return CR.obtRelacionesPR(dni).split("\n");
+            else return new String[0];
+        }
+        catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return new String[0];
     }
 
-    public String[] obtRelaciones(String nombre, String fecha) throws Exception {
-        String[] res;
-        if (CR.tieneRelaciones(nombre, fecha)) res = CR.obtRelacionesPR(nombre, fecha).split("\n");
-        else res = new String[0];
-        return res;
+    public String[] obtRelaciones(String nombre, String fecha) {
+         try {
+            if (CR.tieneRelaciones(nombre, fecha)) return CR.obtRelacionesPR(nombre, fecha).split("\n");
+            else return new String[0];
+        }
+        catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return new String[0];
     }
 
-    public void agregarRelacion(String dni, String nombre, String fecha) throws Exception {
-        CR.agregarRelacion(dni,nombre,fecha);
+    public void agregarRelacion(String dni, String nombre, String fecha) {
+        try {
+            CR.agregarRelacion(dni,nombre,fecha);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void agregarVoto(String dni, String nombre, String fecha, String voto) throws Exception {
-        CR.agregarVoto(dni, nombre, fecha, voto);
+    public void agregarVoto(String dni, String nombre, String fecha, String voto) {
+        try {
+            CR.agregarVoto(dni, nombre, fecha, voto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void agregarRelacionRandom(int n) throws Exception {
-        CR.agregarRelacionRandom(n);
+    public void agregarRelacionRandom(int n){
+        try {
+            CR.agregarRelacionRandom(n);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void eliminarRelacion(String dni, String nombre, String fecha) throws Exception {
-        CR.eliminarRelacion(dni,nombre,fecha);
+    public void eliminarRelacion(String dni, String nombre, String fecha) {
+        try {
+            CR.eliminarRelacion(dni, nombre, fecha);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void eliminarVoto(String dni, String nombre, String fecha, String voto) throws Exception {
-        CR.eliminarVoto(dni, nombre, fecha, voto);
+    public void eliminarVoto(String dni, String nombre, String fecha, String voto) {
+        try {
+            CR.eliminarVoto(dni, nombre, fecha, voto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void eliminarRelaciones(){

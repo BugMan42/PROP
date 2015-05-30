@@ -127,7 +127,7 @@ public class    VistaPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 remove(pan);
-                pan = cp.getCPC().obtPanel();
+                pan = cp.obtCPE().obtPanel();
                 add(pan);
                 invalidate();
                 revalidate();
@@ -138,6 +138,17 @@ public class    VistaPrincipal extends JFrame {
 
         JMenuItem mi_rel = new JMenuItem("Relaciones", KeyEvent.VK_R);
         mi_rel.setToolTipText("Editar relaciones");
+        mi_rel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remove(pan);
+                pan = cp.getCPR().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
+                repaint();
+            }
+        });
         menu1_5.add(mi_rel);
 
         JMenuItem mi_alg = new JMenuItem("Algoritmo", KeyEvent.VK_R);
@@ -192,29 +203,23 @@ public class    VistaPrincipal extends JFrame {
         toolbar.add(bCongreso);
         JButton bEventos = new JButton("Eventos");
         toolbar.add(bEventos);
-        bEventos.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        remove(pan);
-                        pan = cp.obtCPE().obtPanel();
-                        add(pan);
-                        invalidate();
-                        revalidate();
-                        repaint();
-                    }
-                }
-        );
+        bEventos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remove(pan);
+                pan = cp.obtCPE().obtPanel();
+                add(pan);
+                invalidate();
+                revalidate();
+                repaint();
+            }
+        });
         JButton bRelaciones = new JButton("Relaciones");
         bRelaciones.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 remove(pan);
-                try {
-                    pan = cp.getCPR().obtPanel();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                pan = cp.getCPR().obtPanel();
                 add(pan);
                 invalidate();
                 revalidate();
