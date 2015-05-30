@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 public class PanelEventos extends PanelLista {
     CPEventos cpe;
 
+    private String[] defecto = {"Introduzca un nombre", "Introduzca una fecha", "Introduzca una importancia"};
+
     private JLabel lbnombre;
     private JTextField ctnombre;
     private JLabel lbfecha;
@@ -41,11 +43,11 @@ public class PanelEventos extends PanelLista {
 
         crearComponentesVista();
 
-        agregarTextoComponentes();
+        agregarFormatoComponentes();
 
         actualizarLista();
 
-        agregarAccionesBotones();
+        agregarAcciones();
 
         JPanel right = new JPanel();
 
@@ -58,57 +60,51 @@ public class PanelEventos extends PanelLista {
 
     private void crearComponentesVista() {
         lbnombre = new JLabel("Nombre:");
-        ctnombre = new JTextField();
+        ctnombre = new JTextField(defecto[0]);
         lbfecha = new JLabel("Fecha:");
-        ctfecha = new JTextField();
+        ctfecha = new JTextField(defecto[1]);
         lbimportancia = new JLabel("Importancia:");
-        ctimportancia = new JTextField();
+        ctimportancia = new JTextField(defecto[2]);
         lbtipo = new JLabel("Tipo:");
         cbtipo = new JComboBox<String>();
         cbtipo.setModel(new DefaultComboBoxModel<String>(new String[]{"Seleccione un tipo", "Votacion", "ReunionProfesional", "ReunionPersonal", "ActoOficial", "ActoNoOficial"}));
         lbinfo = new JLabel();
         lbinfo.setVisible(false);
 
-        btagregar = new JButton();
-        btlimpiar = new JButton();
-        bteliminar = new JButton();
-        btmodificar = new JButton();
-        bteliminarTodo = new JButton();
+        btlimpiar = new JButton("Limpiar Campos");
+        btagregar = new JButton("Agregar Evento");
+        bteliminar = new JButton("Eliminar Evento");
         contador = new JSpinner();
-        btagregarRandom = new JButton();
-        btguardarTodo = new JButton();
-        btcargarTodo = new JButton();
+        btagregarRandom = new JButton("Agregar Evento Random");
+        btmodificar = new JButton("Modificar Evento");
+        bteliminarTodo = new JButton("Eliminar CjtEventos");
+        btguardarTodo = new JButton("Guardar CjtEventos");
+        btcargarTodo = new JButton("Cargar CjtEventos");
 
         lista = obtJlist();
     }
 
-    private void agregarTextoComponentes() {
+    private void agregarFormatoComponentes() {
         lbnombre.setFont(new java.awt.Font("Ubuntu", 0, 18));
         ctnombre.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        ctnombre.setForeground(Color.GRAY);
         lbfecha.setFont(new java.awt.Font("Ubuntu", 0, 18));
         ctfecha.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        ctfecha.setForeground(Color.GRAY);
         lbimportancia.setFont(new java.awt.Font("Ubuntu", 0, 18));
         ctimportancia.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        ctimportancia.setForeground(Color.GRAY);
         lbtipo.setFont(new java.awt.Font("Ubuntu", 0, 18));
         cbtipo.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lbinfo.setFont(new java.awt.Font("Ubuntu", 0, 18));
 
-
-        btlimpiar.setText("Limpiar Campos");
         btlimpiar.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        btagregar.setText("Agregar Evento");
         btagregar.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        bteliminar.setText("Eliminar Evento");
         bteliminar.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        btagregarRandom.setText("Agregar Evento Random");
         btagregarRandom.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        btmodificar.setText("Modificar Evento");
         btmodificar.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        bteliminarTodo.setText("Eliminar CjtEventos");
         bteliminarTodo.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        btguardarTodo.setText("Guardar CjtEventos");
         btguardarTodo.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        btcargarTodo.setText("Cargar CjtEventos");
         btcargarTodo.setFont(new java.awt.Font("Ubuntu", 0, 18));
     }
 
@@ -118,13 +114,55 @@ public class PanelEventos extends PanelLista {
         else lista.setListData(cpe.obtCCE().ConsultarTodosEventos().toArray());
     }
 
-    private void agregarAccionesBotones() {
+    private void agregarAcciones() {
         lista.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 String s = (String) lista.getSelectedValue();
                 String formu[] = s.split("\\s");
                 rellenarFormulario(formu);
+            }
+        });
+
+        ctnombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                limpiarTexto(ctnombre, 0);
+                ctnombre.setForeground(Color.BLACK);
+            }
+
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (estaVacio(ctnombre)) {
+                    ctnombre.setText(defecto[0]);
+                    ctnombre.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        ctfecha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                limpiarTexto(ctfecha, 1);
+                ctfecha.setForeground(Color.BLACK);
+            }
+
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (estaVacio(ctfecha)) {
+                    ctfecha.setText(defecto[1]);
+                    ctfecha.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        ctimportancia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                limpiarTexto(ctimportancia, 2);
+                ctimportancia.setForeground(Color.BLACK);
+            }
+
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (estaVacio(ctimportancia)) {
+                    ctimportancia.setText(defecto[2]);
+                    ctimportancia.setForeground(Color.GRAY);
+                }
             }
         });
 
@@ -187,6 +225,14 @@ public class PanelEventos extends PanelLista {
                 btcargarTodoAccion(e);
             }
         });
+    }
+
+    private void limpiarTexto(JTextField ct, int i) {
+        if (ct.getText().equals(defecto[i])) ct.setText("");
+    }
+
+    private boolean estaVacio(JTextField ct) {
+        return ct.getText().equals("");
     }
 
     private void rellenarFormulario(String info[]) {
@@ -397,11 +443,13 @@ public class PanelEventos extends PanelLista {
     //Modifcar para buscar, guardar como quieras
     //protected abstract void boxSearchActionPerformed(ActionEvent evt);
     protected void setBoxSort() {
-        //boxSort.setModel(new DefaultComboBoxModel(new String[]{"Sort By Dni", "Sort By Nombre", "Sort By Partido"}));
+        boxSort.setModel(new DefaultComboBoxModel<String>(new String[]{"Orden Nombre", "Orden fecha", "Orden importancia"}));
+        boxSort.setToolTipText("Orden de la lista");
     }
     //TODO MODIFICAR
     protected void setBoxSearch() {
-        //boxSearch.setModel(new DefaultComboBoxModel(new String[]{"Search By Dni", "Search By Nombre", "Search By Partido"}));
+        boxSearch.setModel(new DefaultComboBoxModel<String>(new String[]{"Por nombre", "Por fecha", "Por importancia"}));
+        boxSearch.setToolTipText(" Buscar ");
     }
     //TODO MODIFICAR
     protected void textSearchTyped(KeyEvent evt) {}

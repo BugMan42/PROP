@@ -2,9 +2,6 @@ package Domini;
 
 import java.util.Scanner;
 
-/**
- * Created by usuario on 03/05/2015.
- */
 public class DriverCjtEvento {
     final static String menu = "Bienvenido/a al driver de conjunto de eventos";
     final static String opcion1 = "1 CjtEvento()";
@@ -14,7 +11,7 @@ public class DriverCjtEvento {
     final static String opcion5 = "5 ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo)";
     final static String opcion6 = "6 ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva)";
     final static String opcion7 = "7 ModificarImpEvento(String nombre, String fecha, int importance)";
-    final static String opcion8 = "8 AgregarEventoRandom()";
+    final static String opcion8 = "8 AgregarEventoRandom(int n)";
     final static String opcion9 = "9 ConsultarTodosEventos()";
     final static String opcion10 = "10 ConsultarEvento(String nombre, String fecha)";
     final static String opcion11 = "11 ExisteEvento(String nombre, String fecha)";
@@ -88,8 +85,9 @@ public class DriverCjtEvento {
                 else throw new Exception(noexiste);
                 break;
             case 8:
-                if (aux.length > 1) throw new Exception(dem);
-                if (cjt != null) cjt.AgregarEventoRandom(1);
+                if (aux.length < 2) throw new Exception(ins);
+                if (aux.length > 2) throw new Exception(dem);
+                if (cjt != null) cjt.AgregarEventoRandom(Integer.parseInt(aux[1]));
                 else throw new Exception(noexiste);
                 break;
             case 9:
