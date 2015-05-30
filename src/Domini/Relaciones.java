@@ -89,7 +89,7 @@ public class Relaciones {
         }
 
         public void eliminarRelacion(RelacionSimple r) throws Exception {
-            for (int i = 0; i < eventos.size(); ++i) {
+            for (int i = 0; i < congresistas.size(); ++i) {
                 if (congresistas.get(i).obtCongresista().obtID().equals(r.obtCongresista().obtID())) {
                     congresistas.remove(i);
                     return;

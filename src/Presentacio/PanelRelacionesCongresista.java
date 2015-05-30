@@ -19,13 +19,13 @@ public class PanelRelacionesCongresista extends Panel3Listas {
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
+            else pl3.lista.setListData(new String[0]);
         }
     }
 
     private class SH2 implements ListSelectionListener {
         public void valueChanged(ListSelectionEvent e) {
             ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-
             if (lsm.isSelectionEmpty()) {
                 sel2 = new ArrayList<Integer>();
                 activar_voto(false);
@@ -51,7 +51,6 @@ public class PanelRelacionesCongresista extends Panel3Listas {
     private class SH3 implements ListSelectionListener {
         public void valueChanged(ListSelectionEvent e) {
             ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-
             if (lsm.isSelectionEmpty()) {
                 sel3 = new ArrayList<Integer>();
             } else {
@@ -112,8 +111,10 @@ public class PanelRelacionesCongresista extends Panel3Listas {
     }
 
     public void actualizar() throws Exception {
-        pl1.lista.setListData(cpr.obtCongreso());
-        pl2.lista.setListData(cpr.obtEventos());
+        if(!cpr.esVacioCongreso()) pl1.lista.setListData(cpr.obtCongreso());
+        else pl1.lista.setListData(new String[0]);
+        if(!cpr.esVacioEventos()) pl2.lista.setListData(cpr.obtEventos());
+        else pl2.lista.setListData(new String[0]);
     }
 
     private boolean esVotacion(int i){
@@ -128,9 +129,8 @@ public class PanelRelacionesCongresista extends Panel3Listas {
     private void bAñadirActionPerformed(ActionEvent evt) throws Exception {
         if(!pl1.lista.isSelectionEmpty() && !pl2.lista.isSelectionEmpty()){
             String dni = obtDni();
-            int n = sel2.size();
-            for(int i=0; i<n; ++i){
-                String[] aux = pl2.lista.getModel().getElementAt(sel2.get(i)).toString().split(" ");
+            for(int i : sel2){
+                String[] aux = pl2.lista.getModel().getElementAt(i).toString().split(" ");
                 String nombre = aux[1];
                 String fecha = aux[2];
                 if (aux[0].equals("Votacion")) cpr.agregarVoto(dni, nombre, fecha, cbvoto.getModel().getSelectedItem().toString());
@@ -143,9 +143,8 @@ public class PanelRelacionesCongresista extends Panel3Listas {
     private void bEliminarActionPerformed(ActionEvent evt) throws Exception {
         if(!pl1.lista.isSelectionEmpty() && !pl3.lista.isSelectionEmpty()){
             String dni = obtDni();
-            int n = sel3.size();
-            for(int i=0; i<n; ++i){
-                String[] aux = pl3.lista.getModel().getElementAt(sel3.get(i)).toString().split(" ");
+            for(int i : sel3){
+                String[] aux = pl3.lista.getModel().getElementAt(i).toString().split(" ");
                 String nombre = aux[1];
                 String fecha = aux[2];
                 if(aux[0].equals("Votacion")) cpr.eliminarVoto(dni,nombre,fecha,aux[3]);

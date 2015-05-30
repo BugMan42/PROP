@@ -56,7 +56,7 @@ public class CPRelaciones {
         return PRC;
     }
 
-    public PanelRelacionesEvento obtPanelRE(){
+    public PanelRelacionesEvento obtPanelRE() throws Exception {
         if (PRE == null) PRE = new PanelRelacionesEvento(this);
         pan = 2;
         PRE.actualizar();
@@ -70,9 +70,18 @@ public class CPRelaciones {
         return PRG;
     }
 
+    public boolean esVacioCongreso(){
+        return CPC.obtCC().esVacio();
+    }
+
+    public boolean esVacioEventos(){
+        return CPE.obtCCE().size()==0;
+    }
+
     public String[] obtCongreso(){
         return CPC.obtCC().obtCongresoPR().split("\n");
     }
+
 
     public String[] obtEventos(){
         return CPE.obtCCE().obtEventosPR().split("\n");
@@ -85,6 +94,13 @@ public class CPRelaciones {
     public String[] obtRelaciones(String dni) throws Exception {
         String[] res;
         if (CR.tieneRelaciones(dni)) res = CR.obtRelacionesPR(dni).split("\n");
+        else res = new String[0];
+        return res;
+    }
+
+    public String[] obtRelaciones(String nombre, String fecha) throws Exception {
+        String[] res;
+        if (CR.tieneRelaciones(nombre, fecha)) res = CR.obtRelacionesPR(nombre, fecha).split("\n");
         else res = new String[0];
         return res;
     }
@@ -102,6 +118,6 @@ public class CPRelaciones {
     }
 
     public void eliminarVoto(String dni, String nombre, String fecha, String voto) throws Exception {
-        CR.eliminarVoto(dni,nombre,fecha,voto);
+        CR.eliminarVoto(dni, nombre, fecha, voto);
     }
 }

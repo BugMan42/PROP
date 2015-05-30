@@ -311,4 +311,16 @@ public class ControladorRelaciones {
         return res;
     }
 
+    public String obtRelacionesPR(String nombre, String fecha) throws Exception {
+        ArrayList<RelacionSimple> lr = obtRelaciones(nombre, fecha);
+        String res = "";
+        for(RelacionSimple rs : lr) {
+            Congresista c = rs.obtCongresista();
+            res += c.obtID()+" "+c.obtNombre()+" "+c.obtApellido()+" "+c.obtEdad();
+            if(rs.obtEvento().tipo().equals("Votacion")) res += " "+rs.obtVoto().obt_tipo();
+            res += "\n";
+        }
+        return res;
+    }
+
 }

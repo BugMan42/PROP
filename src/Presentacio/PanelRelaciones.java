@@ -40,7 +40,11 @@ public class PanelRelaciones extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 remove(pan);
-                pan = cpr.obtPanelRE();
+                try {
+                    pan = cpr.obtPanelRE();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
                 add(pan);
                 invalidate();
                 revalidate();
