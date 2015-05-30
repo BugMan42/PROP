@@ -42,6 +42,7 @@ public class    VistaPrincipal extends JFrame {
         setTitle("Graph Communities");
         // [this] Operación heredada de JFrame, define el método por defecto para el cierre
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
         /// Barra de menús
         JMenuBar menuBar = new JMenuBar();

@@ -328,6 +328,7 @@ public class ControladorCongreso {
         if (i<referencia.size()) return (i/tam_bloque) * tam_bloque;
         return -1;
     }
+
     public ArrayList<String> obtenerBusqueda() {
         ArrayList<String> a = new ArrayList<String>(cache.size());
         //if (referencia == null) referencia = c.obtenerCongreso();

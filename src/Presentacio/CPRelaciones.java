@@ -100,4 +100,8 @@ public class CPRelaciones {
     public void eliminarRelacion(String dni, String nombre, String fecha) throws Exception {
         CR.eliminarRelacion(dni,nombre,fecha);
     }
+
+    public void eliminarVoto(String dni, String nombre, String fecha, String voto) throws Exception {
+        CR.eliminarVoto(dni,nombre,fecha,voto);
+    }
 }

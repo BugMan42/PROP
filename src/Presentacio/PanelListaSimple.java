@@ -23,7 +23,7 @@ public class PanelListaSimple extends JPanel {
 
         titulo.setFont(new java.awt.Font("Ubuntu", Font.BOLD, 18));
 
-        setMinimumSize(new Dimension(287, 300));
+        setMinimumSize(new Dimension(281, 300));
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setAutoCreateGaps(true);

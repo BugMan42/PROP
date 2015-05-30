@@ -37,7 +37,6 @@ public class ControladorRelaciones {
     public void agregarRelacion(String dni, String nombre, String fecha) throws Exception {
         Evento ev = e.ConsultarEvento(nombre, fecha);
         if(ev.tipo().equals("Votacion")) throw new Exception(E1);
-        // Jose Modificalo como quieras era para que no petara
         Congresista con = c.consultarCongresista(dni);
         RelacionSimple r;
         if (ev.tipo().equals("ActoOficial") || ev.tipo().equals("ActoNoOficial")) {
@@ -54,9 +53,7 @@ public class ControladorRelaciones {
     public void agregarVoto(String dni, String nombre, String fecha, String voto) throws Exception {
         Evento ev = e.ConsultarEvento(nombre, fecha);
         if(!ev.tipo().equals("Votacion")) throw new Exception(E2);
-        //Modificalo como quieras jose..
         Votacion aux = (Votacion) ev;
-
         Congresista con = c.consultarCongresista(dni);
         Voto v;
         if (voto.equals("Abstencion")) v = new Abstencion();
@@ -110,7 +107,6 @@ public class ControladorRelaciones {
             Reunion aux = (Reunion) ev;
             r = new RelacionSimpleSinVoto(con,aux);
         }
-        //RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
         return rs.existeRelacion(r);
     }
 
@@ -144,17 +140,6 @@ public class ControladorRelaciones {
         Congresista con = c.consultarCongresista(dni);
         Evento ev = e.ConsultarEvento(nombre, fecha);
         RelacionSimple r;
-
-        // Aqui està l'error Guille
-        /*
-        if (ev.tipo().equals("Votacion")) {
-
-            Votacion aux = (Votacion) ev;
-            r = new RelacionSimpleConVoto();
-        }*/
-
-        // això abans era else if
-        // tal com està ara les votacions van a parar al else i sels fa cast de reunion, i peta
         if (ev.tipo().equals("ActoOficial") || ev.tipo().equals("ActoNoOficial")) {
             Acto aux = (Acto) ev;
             r = new RelacionSimpleSinVoto(con,aux);
@@ -163,7 +148,20 @@ public class ControladorRelaciones {
             Reunion aux = (Reunion) ev;
             r = new RelacionSimpleSinVoto(con,aux);
         }
-        // RelacionSimple r = new RelacionSimpleSinVoto(con,ev);
+        rs.eliminarRelacion(r);
+    }
+
+    public void eliminarVoto(String dni, String nombre, String fecha, String voto) throws Exception {
+        Congresista con = c.consultarCongresista(dni);
+        Votacion vot = (Votacion)e.ConsultarEvento(nombre, fecha);
+        Voto v;
+        if (voto.equals("Abstencion")) v = new Abstencion();
+        else if (voto.equals("Blanco")) v = new Blanco();
+        else if (voto.equals("Negativo")) v = new Negativo();
+        else if (voto.equals("Nulo")) v = new Nulo();
+        else if (voto.equals("Positivo")) v = new Positivo();
+        else throw new Exception(E3);
+        RelacionSimple r = new RelacionSimpleConVoto(con,vot,v);
         rs.eliminarRelacion(r);
     }
 

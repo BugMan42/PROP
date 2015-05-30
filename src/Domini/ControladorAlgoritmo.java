@@ -134,6 +134,8 @@ public class ControladorAlgoritmo {
     public String next_community()
     {
         String r = null;
+        // Hey Anselmo, te he comentado esto que me petaba
+        /*
         try {
             r = out.comunidad_at(i_comm).toString();
             r = r.substring(1,r.length()-1);
@@ -143,7 +145,7 @@ public class ControladorAlgoritmo {
             noValido.printStackTrace();
             r = "-";
         }
-
+        */
         return r;
     }
 
