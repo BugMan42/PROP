@@ -39,35 +39,35 @@ public class CPRelaciones {
     public PanelRelaciones obtPanel() throws Exception {
         if (PR == null) PR = new PanelRelaciones(this);
         switch (pan){
-            case 1: PRC.actualizar();
+            case 1: PRG.actualizar();
                     break;
-            case 2: PRE.actualizar();
+            case 2: PRC.actualizar();
                     break;
-            case 3: PRG.actualizar();
+            case 3: PRE.actualizar();
                     break;
         }
         return PR;
     }
 
+    public PanelRelacionesGeneral obtPanelRG(){
+        if (PRG == null) PRG = new PanelRelacionesGeneral(this);
+        pan = 1;
+        PRG.actualizar();
+        return PRG;
+    }
+
     public PanelRelacionesCongresista obtPanelRC() throws Exception {
         if (PRC == null) PRC = new PanelRelacionesCongresista(this);
-        pan = 1;
+        pan = 2;
         PRC.actualizar();
         return PRC;
     }
 
     public PanelRelacionesEvento obtPanelRE() throws Exception {
         if (PRE == null) PRE = new PanelRelacionesEvento(this);
-        pan = 2;
+        pan = 3;
         PRE.actualizar();
         return PRE;
-    }
-
-    public PanelRelacionesGeneral obtPanelRG(){
-        if (PRG == null) PRG = new PanelRelacionesGeneral(this);
-        pan = 3;
-        PRG.actualizar();
-        return PRG;
     }
 
     public boolean esVacioCongreso(){

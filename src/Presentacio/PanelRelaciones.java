@@ -13,10 +13,23 @@ public class PanelRelaciones extends JPanel {
 
     public PanelRelaciones(CPRelaciones cpRelaciones) throws Exception {
         cpr = cpRelaciones;
-        pan = cpr.obtPanelRC();
+        pan = cpr.obtPanelRG();
 
         JToolBar menu = new JToolBar("");
         menu.setFloatable(false);
+
+        JButton bTodas = new JButton("Todas las relaciones");
+        bTodas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remove(pan);
+                pan = cpr.obtPanelRG();
+                add(pan);
+                invalidate();
+                revalidate();
+                repaint();
+            }
+        });
 
         JButton bCongresista = new JButton("Por Congresista");
         bCongresista.addActionListener(new ActionListener() {
@@ -52,26 +65,13 @@ public class PanelRelaciones extends JPanel {
             }
         });
 
-        JButton bTodas = new JButton("Mostrar todas");
-        bTodas.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                remove(pan);
-                pan = cpr.obtPanelRG();
-                add(pan);
-                invalidate();
-                revalidate();
-                repaint();
-            }
-        });
-
+        bTodas.setFont(new java.awt.Font("Sans Serif", 0, 17));
         bCongresista.setFont(new java.awt.Font("Sans Serif", 0, 17));
         bEvento.setFont(new java.awt.Font("Sans Serif", 0, 17));
-        bTodas.setFont(new java.awt.Font("Sans Serif", 0, 17));
 
+        menu.add(bTodas);
         menu.add(bCongresista);
         menu.add(bEvento);
-        menu.add(bTodas);
 
         setLayout(new BorderLayout());
         add(menu, BorderLayout.PAGE_START);
