@@ -174,9 +174,11 @@ public class PanelEventos extends PanelLista {
         lista.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                String s = (String) lista.getSelectedValue();
-                String formu[] = s.split("\\s");
-                rellenarFormulario(formu);
+                if (lista.getSelectedIndex() != -1) {
+                    String s = lista.getSelectedValue().toString();
+                    String formu[] = s.split("\\s");
+                    rellenarFormulario(formu);
+                }
             }
         });
 
@@ -243,8 +245,11 @@ public class PanelEventos extends PanelLista {
 
     private void rellenarFormulario(String info[]) {
         cbtipo.setSelectedItem(info[0]);
+        ctnombre.setForeground(Color.BLACK);
         ctnombre.setText(info[1]);
+        ctfecha.setForeground(Color.BLACK);
         ctfecha.setText(info[2]);
+        ctimportancia.setForeground(Color.BLACK);
         ctimportancia.setText(info[3]);
     }
 
@@ -333,6 +338,7 @@ public class PanelEventos extends PanelLista {
 
     private void btagregarRandomAccion(ActionEvent e) throws Exception {
         cpe.agregarRandom((Integer)contador.getValue());
+        actualizarLista();
     }
 
     private void bteliminarTodoAccion(ActionEvent e) {
