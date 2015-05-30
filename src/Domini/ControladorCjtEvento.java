@@ -3,6 +3,7 @@ package Domini;
 
 import Persistencia.ControladorPersistencia;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -147,6 +148,17 @@ public class ControladorCjtEvento {
         String res = "";
         for(Evento e : le) res += e.tipo()+" "+e.obt_nombre()+" "+e.obt_fecha()+"\n";
         return res;
+    }
+
+    public String ConsultarEventoP(String nombre, String fecha) throws Exception {
+        return ce.ConsultarEvento(nombre, new Fecha(fecha)).toString();
+    }
+
+    public List<String> ConsultarTodosEventosP() {
+        List<Evento> aux = ce.ConsultarTodosEventos();
+        List<String> resultado = new ArrayList<String>();
+        for (Evento e : aux) resultado.add(e.toString());
+        return resultado;
     }
 
 }

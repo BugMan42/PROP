@@ -1,12 +1,11 @@
 package Presentacio;
 
 import Domini.ControladorCjtEvento;
-import Domini.ControladorRelaciones;
 
 public class CPEventos {
-    PanelEventos PE;
-    ControladorCjtEvento CCE;
-    CPRelaciones CR;
+    private PanelEventos PE;
+    private ControladorCjtEvento CCE;
+    private CPRelaciones CR;
 
     public CPEventos() {
             CCE = new ControladorCjtEvento();
@@ -19,8 +18,8 @@ public class CPEventos {
 
     public ControladorCjtEvento obtCCE() {return CCE;}
 
-    public void agregarRandom(int n) throws Exception {
-        CCE.AgregarEventoRandom(n);
-    }
+    public void modCR(CPRelaciones cpr) {CR = cpr;}
+
+    public CPRelaciones obtCPR() {return CR;}
 
 }

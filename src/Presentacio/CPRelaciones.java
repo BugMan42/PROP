@@ -1,10 +1,6 @@
 package Presentacio;
 
-import Domini.ControladorCjtEvento;
-import Domini.ControladorCongreso;
 import Domini.ControladorRelaciones;
-
-import java.util.ArrayList;
 
 //Por defecto cambiar si conviene
 public class CPRelaciones {
@@ -26,14 +22,14 @@ public class CPRelaciones {
         CPC = cpc;
         CPE = cpe;
 
-        CR = new ControladorRelaciones(cpc.obtCC(), cpe.CCE);
+        CR = new ControladorRelaciones(cpc.obtCC(), cpe.obtCCE());
         PR = null;
         PRC = null;
         PRE = null;
         PRG = null;
 
         cpc.modCPR(this);
-        cpe.CR = this;
+        cpe.modCR(this);
     }
 
     public PanelRelaciones obtPanel() {

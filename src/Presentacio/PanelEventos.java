@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class PanelEventos extends PanelLista {
     CPEventos cpe;
@@ -70,8 +71,7 @@ public class PanelEventos extends PanelLista {
         lbtipo = new JLabel("Tipo:");
         cbtipo = new JComboBox<String>();
         cbtipo.setModel(new DefaultComboBoxModel<String>(new String[]{"Seleccione un tipo", "Votacion", "ReunionProfesional", "ReunionPersonal", "ActoOficial", "ActoNoOficial"}));
-        lbinfo = new JLabel();
-        lbinfo.setVisible(false);
+        lbinfo = new JLabel(" ");
 
         btlimpiar = new JButton("Limpiar Campos");
         btagregar = new JButton("Agregar Evento");
@@ -115,7 +115,7 @@ public class PanelEventos extends PanelLista {
     private void actualizarLista() {
         String info[] = {"No hay eventos creados"};
         if (cpe.obtCCE().size() == 0) lista.setListData(info);
-        else lista.setListData(cpe.obtCCE().ConsultarTodosEventos().toArray());
+        else lista.setListData(cpe.obtCCE().ConsultarTodosEventosP().toArray());
     }
 
     private void agregarAccionesJtext() {
@@ -175,9 +175,11 @@ public class PanelEventos extends PanelLista {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (lista.getSelectedIndex() != -1) {
-                    String s = lista.getSelectedValue().toString();
-                    String formu[] = s.split("\\s");
-                    rellenarFormulario(formu);
+                    if (!lista.getSelectedValue().equals("No hay eventos creados")) {
+                        String s = (String) lista.getSelectedValue();
+                        String formu[] = s.split("\\s");
+                        rellenarFormulario(formu);
+                    }
                 }
             }
         });
@@ -285,6 +287,8 @@ public class PanelEventos extends PanelLista {
                 default:
                     System.out.println("Imposible");
             }
+            lbinfo.setText(" ");
+            actualizarLista();
         }
         catch (NumberFormatException a) {
             mostrarmensaje("La fecha y la importancia tiene que tener numeros");
@@ -307,13 +311,12 @@ public class PanelEventos extends PanelLista {
         ctimportancia.setText(defecto[2]);
         ctimportancia.setForeground(Color.GRAY);
         cbtipo.setSelectedIndex(0);
-        lbinfo.setVisible(false);
+        lbinfo.setText(" ");
         lista.clearSelection();
     }
 
     private void mostrarmensaje(String s) {
         lbinfo.setText(s);
-        lbinfo.setVisible(true);
     }
 
     private void ponerRojo(String s) {
@@ -324,12 +327,26 @@ public class PanelEventos extends PanelLista {
             if (aux[0].equals("Fecha")) ctfecha.setForeground(Color.red);
             else if (aux[0].equals("Importancia")) ctimportancia.setForeground(Color.red);
         }
-        mostrarmensaje(data[1]);
+        mostrarmensaje(data[0]);
     }
 
     /////////////////////////////////////////HACER///////////////////////////////
     private void bteliminarAccion(ActionEvent e) {
-
+        if (lista.getSelectedIndex() == -1 || lista.getSelectedValue().equals("No hay eventos creados")) mostrarmensaje("Primero selecciona el elemento");
+        else {
+            try {
+                List<String> elementos = lista.getSelectedValuesList();
+                for (String s : elementos) {
+                    String aux[] = s.split(" ");
+                    cpe.obtCCE().EliminarEvento(aux[1], aux[2], cpe.obtCPR().obtCR());
+                }
+                lbinfo.setText(" ");
+                actualizarLista();
+            }
+            catch (Exception ex) {
+                mostrarmensaje(ex.getMessage());
+            }
+        }
     }
 
     private void btmodificarAccion(ActionEvent e) {
@@ -337,7 +354,8 @@ public class PanelEventos extends PanelLista {
     }
 
     private void btagregarRandomAccion(ActionEvent e) throws Exception {
-        cpe.agregarRandom((Integer)contador.getValue());
+        cpe.obtCCE().AgregarEventoRandom((Integer)contador.getValue());
+        lbinfo.setText(" ");
         actualizarLista();
     }
 
@@ -389,7 +407,7 @@ public class PanelEventos extends PanelLista {
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbimportancia)
-                                                        .addComponent(ctimportancia,GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(ctimportancia, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbtipo)
@@ -397,7 +415,7 @@ public class PanelEventos extends PanelLista {
                                         )
                         )
                         .addComponent(btlimpiar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbinfo, GroupLayout.Alignment.CENTER, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbinfo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
                                         .addComponent(btagregar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(bteliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

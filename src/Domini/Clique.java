@@ -2,9 +2,7 @@ package Domini;
 
 import java.util.*;
 
-/**
- * Created by usuario on 04/04/2015.
- */
+
 public class Clique extends Algoritmo {
     final static String error1 = "k no valida. La k minima es 3";
     final static String error2 = "El nodo no pertenece al grafo";
