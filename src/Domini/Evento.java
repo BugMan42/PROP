@@ -30,7 +30,7 @@ public abstract class Evento {
     }
 
     public void ModFecha (Fecha date) throws Exception {
-        fecha = date;
+        if (!fecha.equals(date)) fecha = date;
     }
 
     public void ModImportancia(int importance) throws Exception {

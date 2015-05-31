@@ -1,7 +1,6 @@
 package Domini;
 
 import java.util.Random;
-import java.util.Vector;
 
 public class Dni  {
     private class DNINOVALIDO extends Exception {

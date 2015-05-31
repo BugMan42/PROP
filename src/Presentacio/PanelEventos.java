@@ -71,7 +71,7 @@ public class PanelEventos extends PanelLista {
         lbtipo = new JLabel("Tipo:");
         cbtipo = new JComboBox<String>();
         cbtipo.setModel(new DefaultComboBoxModel<String>(new String[]{"Seleccione un tipo", "Votacion", "ReunionProfesional", "ReunionPersonal", "ActoOficial", "ActoNoOficial"}));
-        lbinfo = new JLabel(" ");
+        lbinfo = new JLabel("Todo correcto y yo que me alegro");
 
         btlimpiar = new JButton("Limpiar Campos");
         btagregar = new JButton("Agregar Evento");
@@ -263,6 +263,11 @@ public class PanelEventos extends PanelLista {
             mostrarmensaje("Debe ingresar todos los campos");
             return;
         }
+        if (!esNumero(importanciaStr)) {
+            ctimportancia.setForeground(Color.red);
+            mostrarmensaje("La importancia tiene que ser un numero");
+            return;
+        }
         try {
             int importancia = Integer.parseInt(importanciaStr);
             switch (cbtipo.getSelectedIndex()) {
@@ -291,16 +296,24 @@ public class PanelEventos extends PanelLista {
             actualizarLista();
         }
         catch (NumberFormatException a) {
-            mostrarmensaje("La fecha y la importancia tiene que tener numeros");
+            mostrarmensaje("La fecha tiene que tener numeros");
         }
         catch (Exception ex) {
             ponerRojo(ex.getMessage());
-            mostrarmensaje(ex.getMessage());
         }
     }
 
     private boolean validar(String nombre, String fecha, String importancia, int i) {
         return !nombre.equals(defecto[0]) && !fecha.equals(defecto[1]) && !importancia.equals(defecto[2]) && i != 0;
+    }
+
+    private boolean esNumero(String s) {
+        int n = s.length();
+        if (s.charAt(0) != '-' && !Character.isDigit((s.charAt(0)))) return false;
+        for (int i = 1; i < n; ++i) {
+            if (!Character.isDigit((s.charAt(i)))) return false;
+        }
+        return true;
     }
 
     private void limpiarcampos() {
@@ -320,14 +333,15 @@ public class PanelEventos extends PanelLista {
     }
 
     private void ponerRojo(String s) {
-        String data[] = s.split(":");
-        if (data.length == 2) {
-            String aux[] = data[0].split("\\s");
-            if (aux[0].equals("Nombre")) ctnombre.setForeground(Color.red);
-            if (aux[0].equals("Fecha")) ctfecha.setForeground(Color.red);
-            else if (aux[0].equals("Importancia")) ctimportancia.setForeground(Color.red);
+        String data[] = s.split("\\s");
+        if (data[0].equals("Nombre")) ctnombre.setForeground(Color.red);
+        else if (data[0].equals("Fecha")) ctfecha.setForeground(Color.red);
+        else if (data[0].equals("Importancia")) ctimportancia.setForeground(Color.red);
+        else if (data[0].equals("Clave")) {
+            ctnombre.setForeground(Color.red);
+            ctfecha.setForeground(Color.red);
         }
-        mostrarmensaje(data[0]);
+        mostrarmensaje(s);
     }
 
     /////////////////////////////////////////HACER///////////////////////////////
@@ -344,13 +358,42 @@ public class PanelEventos extends PanelLista {
                 actualizarLista();
             }
             catch (Exception ex) {
-                mostrarmensaje(ex.getMessage());
+                ponerRojo(ex.getMessage());
             }
         }
     }
 
     private void btmodificarAccion(ActionEvent e) {
-
+        if (lista.getSelectedIndex() == -1 || lista.getSelectedValue().equals("No hay eventos creados")) mostrarmensaje("Primero selecciona el elemento");
+        else {
+            try {
+                int[] indices = lista.getSelectedIndices();
+                if (indices.length > 1) {
+                    mostrarmensaje("Selecciona solo un elemento : nombre");
+                    return;
+                }
+                String evento = (String)lista.getSelectedValue();
+                String[] aux = evento.split("\\s");
+                String nombre = ctnombre.getText();
+                cpe.obtCCE().ModificarNombreEvento(aux[1], aux[2], nombre, cpe.obtCPR().obtCR());
+                aux[1] = nombre;
+                String fecha = ctfecha.getText();
+                cpe.obtCCE().ModificarFechaEvento(nombre, aux[2], fecha, cpe.obtCPR().obtCR());
+                aux[2] = fecha;
+                String importancia = ctimportancia.getText();
+                if (!esNumero(importancia)) {
+                    ctimportancia.setForeground(Color.red);
+                    mostrarmensaje("La importancia tiene que ser un numero");
+                    return;
+                }
+                cpe.obtCCE().ModificarImpEvento(nombre, fecha, Integer.parseInt(importancia));
+                lbinfo.setText(" ");
+                actualizarLista();
+            }
+            catch (Exception ex) {
+                ponerRojo(ex.getMessage());
+            }
+        }
     }
 
     private void btagregarRandomAccion(ActionEvent e) throws Exception {
@@ -360,7 +403,17 @@ public class PanelEventos extends PanelLista {
     }
 
     private void bteliminarTodoAccion(ActionEvent e) {
-
+        try {
+            if (cpe.obtCCE().size() > 0) {
+                cpe.obtCCE().EliminarCjtEvento(cpe.obtCPR().obtCR());
+                actualizarLista();
+                limpiarcampos();
+            }
+            else mostrarmensaje("No se puede eliminar porque no hay eventos");
+        }
+        catch(Exception ex) {
+            mostrarmensaje(ex.getMessage());
+        }
     }
 
     private void btguardarTodoAccion(ActionEvent e) {
@@ -411,17 +464,19 @@ public class PanelEventos extends PanelLista {
                                         )
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbtipo)
-                                                        .addComponent(cbtipo, 220, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(cbtipo, 220, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
                                         )
                         )
                         .addComponent(btlimpiar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbinfo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
+                                        .addComponent(lbinfo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        )
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
                                         .addComponent(btagregar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(bteliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         )
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
-                                        .addComponent(contador, 225, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(contador, 225, 225, Short.MAX_VALUE)
                                         .addComponent(btagregarRandom, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         )
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
@@ -458,7 +513,9 @@ public class PanelEventos extends PanelLista {
                                         )
                         )
                         .addComponent(btlimpiar, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
-                        .addComponent(lbinfo, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(lbinfo, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
+                        )
                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(btagregar, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
                                         .addComponent(bteliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)

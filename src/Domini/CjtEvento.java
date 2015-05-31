@@ -32,7 +32,6 @@ public class CjtEvento {
     /////////////////////////////////////ELIMINADORA/////////////////////
     public void EliminarCjtEvento() {
         cjt.vaciar();
-        cjt = null;
     }
 
     /////////////////////////////////////MODIFICADORAS////////////////////////
@@ -63,7 +62,6 @@ public class CjtEvento {
                 aux.ModNombre(newname);
                 cjt.modificar(oldname + fecha.toString(), newname + fecha.toString(), aux);
             }
-            else throw new Exception(error4);
     }
 
     public void ModificarFechaEvento(String nombre, Fecha fechaVieja, Fecha fechaNueva) throws Exception {
@@ -84,7 +82,6 @@ public class CjtEvento {
             aux.ModFecha(fechaNueva);
             cjt.modificar(name+fechaVieja.toString(), name+fechaNueva.toString(), aux);
         }
-        else throw new Exception(error5);
     }
 
     public void ModificarImpEvento(String nombre, Fecha fecha, int importance) throws Exception {

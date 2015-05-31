@@ -65,6 +65,7 @@ public class ControladorCjtEvento {
 
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo, ControladorRelaciones cr) throws Exception{
         if(cr.tieneRelaciones(nomViejo, fecha)) {
+            System.out.println("LLego hasta el controlador");
             String id = ConsultarEvento(nomViejo,fecha).ID();
             ce.ModificarNombreEvento(nomViejo, new Fecha(fecha), nomNuevo);
             String new_id = ConsultarEvento(nomNuevo, fecha).ID();
