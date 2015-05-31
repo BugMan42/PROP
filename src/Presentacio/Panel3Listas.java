@@ -15,7 +15,6 @@ public abstract class Panel3Listas extends JPanel {
     protected JButton beliminar;
     protected JComboBox cbvoto;
     protected JLabel jLabel1;
-    protected ArrayList<Integer> sel2, sel3;
 
     public Panel3Listas(){
         initGUI();

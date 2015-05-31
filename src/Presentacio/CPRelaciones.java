@@ -5,6 +5,8 @@ import Domini.ControladorRelaciones;
 //Por defecto cambiar si conviene
 public class CPRelaciones {
 
+    private static final int tam_bloque = 30;
+
     private CPCongreso CPC;
     private CPEventos CPE;
     private ControladorRelaciones CR;
@@ -12,6 +14,12 @@ public class CPRelaciones {
     private PanelRelacionesCongresista PRC;
     private PanelRelacionesEvento PRE;
     private PanelRelacionesGeneral PRG;
+    private int RUCon, RUEv, RURel;
+    private int[][] indCon, indEv, indRel;
+    private String[][] bCon;
+    private String[][] bEv;
+    private String[][] bRel;
+
     private int pan;
 
     public ControladorRelaciones obtCR(){
@@ -27,6 +35,10 @@ public class CPRelaciones {
         PRC = null;
         PRE = null;
         PRG = null;
+
+        reiniciarBCon();
+        //reiniciarBEv();
+        //reiniciarBRel();
 
         cpc.modCPR(this);
         cpe.modCR(this);
@@ -89,16 +101,65 @@ public class CPRelaciones {
         return CPC.size();
     }
 
+    public void reiniciarBCon(){
+        RUCon = 1;
+        indCon = new int[2][2];
+        indCon[0][0] = -1;
+        indCon[0][1] = -1;
+        indCon[1][0] = -1;
+        indCon[1][1] = -1;
+        bCon = new String[2][];
+    }
+/*
+    public void reiniciarBEv(){
+        RUEv = 1;
+        indEv[0] = new Pair<Integer, Integer>(-1,-1);
+        indEv[1] = new Pair<Integer, Integer>(-1,-1);
+    }
+    public void reiniciarBRel(){
+        RURel = 1;
+        indRel[0] = new Pair<Integer, Integer>(-1,-1);
+        indRel[1] = new Pair<Integer, Integer>(-1,-1);
+    }*/
+
     public String[] obtCongreso(){
         return CPC.obtCC().obtCongresoPR().split("\n");
     }
 
+    public String obtCongresista(int i){
+        String res;
+        // Comprobar si está en el primer bloque.
+        if (indCon[0][0]<=i && indCon[0][1]>=i){
+            int ini = (i/tam_bloque) * tam_bloque;
+            res = bCon[0][i-ini];
+            RUCon = 0;
+        }
+        // Si está en el segundo.
+        else if (indCon[1][0]<=i && indCon[1][1]>=i){
+            int ini = (i/tam_bloque) * tam_bloque;
+            res = bCon[1][i-ini];
+            RUCon = 1;
+        }
+        // Si no está en ninguno.
+        else {
+            if(RUCon==1) RUCon = 0;
+            else RUCon = 1;
+            int ini = (i/tam_bloque) * tam_bloque;
+            int fin = ini + tam_bloque - 1;
+            indCon[RUCon][0] = ini;
+            indCon[RUCon][1] = fin;
+            bCon[RUCon] = CPC.obtCC().obtBloquePR(i,tam_bloque).split("\n");
+            res = bCon[RUCon][i-ini];
+        }
+        return res;
+    }
+
     public String[] obtBloqueCongreso(int i, int tam){
-        return CPC.obtCC().obtenerBloqueCongresoPR(i,tam).split("\n");
+        return CPC.obtCC().obtenerBloqueCongresoPR(i, tam).split("\n");
     }
 
     public String[] obtEventos(){
-        return CPE.obtCCE().obtEventosPR().split("\n");
+            return CPE.obtCCE().obtEventosPR().split("\n");
     }
 
     public String[] obtRelaciones() {

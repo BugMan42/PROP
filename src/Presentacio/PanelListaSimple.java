@@ -11,22 +11,16 @@ public class PanelListaSimple extends JPanel {
     protected JList lista;
     protected JScrollPane scrollPane1;
     protected JLabel titulo;
-    protected String[] bloque;
-    protected int totalBloques;
-    protected int bloque1, bloque2;
-    protected int tam_bloque2;
-    protected DefaultListModel model;
+    protected ListModel model;
 
     public PanelListaSimple(){
         initGUI();
     }
 
     private void initGUI(){
-        lista = new JList();
+        lista = new JList<String>();
         scrollPane1 = new JScrollPane(lista);
         titulo = new JLabel();
-        bloque = new String[0];
-        bloque1 = bloque2 = -1;
 
         titulo.setFont(new java.awt.Font("Ubuntu", Font.BOLD, 18));
 

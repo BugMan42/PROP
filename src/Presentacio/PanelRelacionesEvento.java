@@ -5,6 +5,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jose on 27/05/15.
@@ -26,46 +27,6 @@ public class PanelRelacionesEvento extends Panel3Listas {
         }
     }
 
-    private class SH2 implements ListSelectionListener {
-        public void valueChanged(ListSelectionEvent e) {
-            ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-            if (lsm.isSelectionEmpty()) {
-                sel2 = new ArrayList<Integer>();
-            } else {
-                // Si el usuario no está ajustando la selección.
-                if (!e.getValueIsAdjusting()) {
-                    sel2 = new ArrayList<Integer>();
-                    // Guardar índices seleccionados.
-                    int minIndex = lsm.getMinSelectionIndex();
-                    int maxIndex = lsm.getMaxSelectionIndex();
-                    for (int i = minIndex; i <= maxIndex; i++) {
-                        if (lsm.isSelectedIndex(i)) sel2.add(i);
-                    }
-                }
-            }
-        }
-    }
-
-    private class SH3 implements ListSelectionListener {
-        public void valueChanged(ListSelectionEvent e) {
-            ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-            if (lsm.isSelectionEmpty()) {
-                sel3 = new ArrayList<Integer>();
-            } else {
-                // Si el usuario no está ajustando la selección.
-                if (!e.getValueIsAdjusting()) {
-                    sel3 = new ArrayList<Integer>();
-                    // Guardar índices seleccionados.
-                    int minIndex = lsm.getMinSelectionIndex();
-                    int maxIndex = lsm.getMaxSelectionIndex();
-                    for (int i = minIndex; i <= maxIndex; i++) {
-                        if (lsm.isSelectedIndex(i)) sel3.add(i);
-                    }
-                }
-            }
-        }
-    }
-
     private CPRelaciones cpr;
 
     public PanelRelacionesEvento(CPRelaciones c){
@@ -80,12 +41,6 @@ public class PanelRelacionesEvento extends Panel3Listas {
 
         ListSelectionModel lsm1 = pl1.lista.getSelectionModel();
         lsm1.addListSelectionListener(new SH1());
-
-        ListSelectionModel lsm2 = pl2.lista.getSelectionModel();
-        lsm2.addListSelectionListener(new SH2());
-
-        ListSelectionModel lsm3 = pl3.lista.getSelectionModel();
-        lsm3.addListSelectionListener(new SH3());
 
         bañadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,8 +67,9 @@ public class PanelRelacionesEvento extends Panel3Listas {
             String[] aux = pl1.lista.getModel().getElementAt(pl1.lista.getSelectedIndex()).toString().split(" ");
             String nombre = aux[1];
             String fecha = aux[2];
-            for(int i : sel2){
-                String dni = pl2.lista.getModel().getElementAt(i).toString().split(" ")[0];
+            List<String> sel2 = pl2.lista.getSelectedValuesList();
+            for(String i : sel2){
+                String dni = i.split(" ")[0];
                 if (aux[0].equals("Votacion")) cpr.agregarVoto(dni, nombre, fecha, cbvoto.getModel().getSelectedItem().toString());
                 else cpr.agregarRelacion(dni,nombre,fecha);
             }
@@ -126,8 +82,9 @@ public class PanelRelacionesEvento extends Panel3Listas {
             String[] aux = pl1.lista.getModel().getElementAt(pl1.lista.getSelectedIndex()).toString().split(" ");
             String nombre = aux[1];
             String fecha = aux[2];
-            for(int i : sel3){
-                String[] aux2 = pl3.lista.getModel().getElementAt(i).toString().split(" ");
+            List<String> sel3 = pl3.lista.getSelectedValuesList();
+            for(String i : sel3){
+                String[] aux2 = i.split(" ");
                 String dni = aux2[0];
                 if(aux[0].equals("Votacion")) cpr.eliminarVoto(dni,nombre,fecha,aux2[4]);
                 else cpr.eliminarRelacion(dni,nombre,fecha);

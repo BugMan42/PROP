@@ -3,82 +3,32 @@ package Presentacio;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jose on 29/05/15.
  */
 public class PanelRelacionesGeneral extends Panel3ListasExt {
 
-    private class SH1 implements ListSelectionListener {
-        public void valueChanged(ListSelectionEvent e) {
-            ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-            if (lsm.isSelectionEmpty()) {
-                sel1 = new ArrayList<Integer>();
-            } else {
-                // Si el usuario no está ajustando la selección.
-                if (!e.getValueIsAdjusting()) {
-                    sel1 = new ArrayList<Integer>();
-                    // Guardar índices seleccionados.
-                    int minIndex = lsm.getMinSelectionIndex();
-                    int maxIndex = lsm.getMaxSelectionIndex();
-                    for (int i = minIndex; i <= maxIndex; i++) {
-                        if (lsm.isSelectedIndex(i)) sel1.add(i);
-                    }
-                }
-            }
-        }
-    }
-
     private class SH2 implements ListSelectionListener {
         public void valueChanged(ListSelectionEvent e) {
             ListSelectionModel lsm = (ListSelectionModel)e.getSource();
             if (lsm.isSelectionEmpty()) {
-                sel2 = new ArrayList<Integer>();
                 activar_voto(false);
             } else {
                 // Si el usuario no está ajustando la selección.
                 if (!e.getValueIsAdjusting()) {
-                    sel2 = new ArrayList<Integer>();
-                    // Guardar índices seleccionados.
-                    int minIndex = lsm.getMinSelectionIndex();
-                    int maxIndex = lsm.getMaxSelectionIndex();
                     activar_voto(false);
-                    for (int i = minIndex; i <= maxIndex; i++) {
-                        if (lsm.isSelectedIndex(i)) {
-                            sel2.add(i);
-                            if(esVotacion(i)) activar_voto(true);
-                        }
-                    }
+                    List<String> sel2 = pl2.lista.getSelectedValuesList();
+                    for (String i : sel2)
+                        if(i.split(" ")[0].equals("Votacion")) activar_voto(true);
                 }
             }
         }
     }
 
-    private class SH3 implements ListSelectionListener {
-        public void valueChanged(ListSelectionEvent e) {
-            ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-            if (lsm.isSelectionEmpty()) {
-                sel3 = new ArrayList<Integer>();
-            } else {
-                // Si el usuario no está ajustando la selección.
-                if (!e.getValueIsAdjusting()) {
-                    sel3 = new ArrayList<Integer>();
-                    // Guardar índices seleccionados.
-                    int minIndex = lsm.getMinSelectionIndex();
-                    int maxIndex = lsm.getMaxSelectionIndex();
-                    for (int i = minIndex; i <= maxIndex; i++) {
-                        if (lsm.isSelectedIndex(i)) sel3.add(i);
-                    }
-                }
-            }
-        }
-    }
-
+    /*
     class AL1 implements AdjustmentListener {
         public void adjustmentValueChanged(AdjustmentEvent e) {
             JScrollBar sb = pl1.scrollPane1.getVerticalScrollBar();
@@ -107,7 +57,7 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
                 }
             }
         }
-    }
+    }*/
 
     private static final int tam_bloque = 30;
     private CPRelaciones cpr;
@@ -117,22 +67,18 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         inicializar();
     }
 
-    public void inicializar(){
+    public void inicializar() {
         pl1.titulo.setText("Congresistas");
         pl2.titulo.setText("Eventos");
         pl3.titulo.setText("Relaciones");
 
-        ListSelectionModel lsm1 = pl1.lista.getSelectionModel();
-        lsm1.addListSelectionListener(new SH1());
-
         ListSelectionModel lsm2 = pl2.lista.getSelectionModel();
         lsm2.addListSelectionListener(new SH2());
 
-        ListSelectionModel lsm3 = pl3.lista.getSelectionModel();
-        lsm3.addListSelectionListener(new SH3());
-
+        /*
         AdjustmentListener al1 = new AL1();
-        pl1.scrollPane1.getVerticalScrollBar().addAdjustmentListener(al1);
+        pl1.scrollPane1.getVerticalScrollBar().addAdjustmentListener(al1);*/
+
 
         bañadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,6 +106,7 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
     }
 
     public void actualizar() {
+        /*
         if (cpr.sizeCongreso()>0){
             pl1.totalBloques = cpr.sizeCongreso()/tam_bloque + 1;
             pl1.bloque = cpr.obtBloqueCongreso(0,tam_bloque);
@@ -168,7 +115,15 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
             pl1.lista.setModel(pl1.model);
             pl1.bloque2 = 0;
         }
-        else pl1.lista.setListData(new String[0]);
+        else pl1.lista.setListData(new String[0]);*/
+
+        pl1.model = new AbstractListModel() {
+            public int getSize() { return cpr.sizeCongreso(); }
+            public Object getElementAt(int index) {
+                System.out.println("obteniendo indice "+index);
+                return cpr.obtCongreso()[index]; }
+        };
+        pl1.lista.setModel(pl1.model);
 
         /*if(!cpr.esVacioCongreso()) pl1.lista.setListData(cpr.obtCongreso());
         else pl1.lista.setListData(new String[0]);*/
@@ -178,17 +133,14 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         else pl3.lista.setListData(new String[0]);
     }
 
-    private boolean esVotacion(int i){
-        String[] aux = pl2.lista.getModel().getElementAt(i).toString().split(" ");
-        return aux[0].equals("Votacion");
-    }
-
     private void bAñadirActionPerformed(ActionEvent evt) {
         if(!pl1.lista.isSelectionEmpty() && !pl2.lista.isSelectionEmpty()){
-            for (int i : sel1){
-                String dni = pl1.lista.getModel().getElementAt(i).toString().split(" ")[0];
-                for (int j : sel2){
-                    String[] aux = pl2.lista.getModel().getElementAt(j).toString().split(" ");
+            List<String> sel1 = pl1.lista.getSelectedValuesList();
+            for (String i : sel1){
+                String dni = i.split(" ")[0];
+                List<String> sel2 = pl2.lista.getSelectedValuesList();
+                for (String j : sel2){
+                    String[] aux = j.split(" ");
                     String nombre = aux[1];
                     String fecha = aux[2];
                     if (aux[0].equals("Votacion")) cpr.agregarVoto(dni, nombre, fecha, cbvoto.getModel().getSelectedItem().toString());
@@ -201,8 +153,9 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
 
     private void bEliminarActionPerformed(ActionEvent evt) {
         if(!pl3.lista.isSelectionEmpty()){
-            for(int i : sel3){
-                String[] aux = pl3.lista.getModel().getElementAt(i).toString().split(" ");
+            List<String> sel3 = pl3.lista.getSelectedValuesList();
+            for(String i : sel3){
+                String[] aux = i.split(" ");
                 if(aux.length==4) cpr.eliminarVoto(aux[0],aux[1],aux[2],aux[3]);
                 else cpr.eliminarRelacion(aux[0],aux[1],aux[2]);
             }
