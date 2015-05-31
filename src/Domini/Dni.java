@@ -6,7 +6,7 @@ import java.util.Vector;
 public class Dni  {
     private class DNINOVALIDO extends Exception {
         public DNINOVALIDO(String s) {
-            super("DNI "+s+" no valido");
+            super("DNI "+s+" no valido: Formato [8 num]+[1letra]");
         }
     }
     /**Formato: 9 caracteres (8 numeros y 1 letra)

@@ -7,7 +7,29 @@ import java.util.ArrayList;
 
 //String key tiene que ser [a---z]+[A----Z]+[0---9]
 // y no puede ser vacia
-public class TST<X>  {
+public class TST<X> implements Iterable<X> {
+    //ArrayList
+    @Override
+    public Iterator<X> iterator() {
+        return null;
+    }
+
+
+    /*@Override
+    public boolean hasNext() {
+        if (position < animal.size())
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public X next() {
+        //Object aniObj = animal.get(position);
+        //position++;
+        return X;
+    }
+*/
 
     //Nodos necesarios internos de la clase
     private class TSTNodo {

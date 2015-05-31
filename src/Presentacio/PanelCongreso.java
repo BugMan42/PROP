@@ -3,11 +3,13 @@ package Presentacio;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.tools.JavaFileManager;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import java.awt.event.*;
+import java.io.File;
+import java.util.*;
 import java.util.List;
 
 
@@ -60,6 +62,8 @@ public class PanelCongreso extends PanelLista {
         }
         CPC = c;
         // Inicializa los componentes de la ventana
+        iniComp();
+        iniFont();
         initGUI();
     }
 
@@ -70,10 +74,34 @@ public class PanelCongreso extends PanelLista {
         //initUI();
 
     }
-    private void initGUI() {
-        cargarFilechoser();
+    private void iniFont() {
+        lName.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        textName.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        lAge.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        textSurname.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        textAge.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        textDni.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        lDni.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        lState.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        textState.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        lError.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        lParty.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        bAgregarCongresista.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        bEliminarCongresista.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        bAgregarRandom.setFont(new java.awt.Font("Ubuntu", 0, 18));
 
-
+        bCargarCongreso.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        bGuardarCongreso.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        bEliminarCongreso.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        SpinnerNum.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        bModificarCongresista.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        textParty.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        bClear.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        lCity.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        textCity.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        lSurname.setFont(new java.awt.Font("Ubuntu", 0, 18));
+    }
+    private void iniComp() {
         lName = new JLabel();
         textName = new JTextField();
         lSurname = new JLabel();
@@ -101,6 +129,12 @@ public class PanelCongreso extends PanelLista {
         bGuardarCongreso = new JButton();
         SpinnerNum = new JSpinner();
         listCongreso = obtJlist();
+    }
+    private void initGUI() {
+        cargarFilechoser();
+
+
+
 
         // setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // Referencias a los objetos superiores
@@ -111,6 +145,8 @@ public class PanelCongreso extends PanelLista {
         setTextLabelStatus("Loading...");
         //labelStatus.setText("cargandoooooo");
         //listCongreso.setListData();
+
+        // functions
 
         //Acción realizada al seleccionar un elemento
         listCongreso.addListSelectionListener(new ListSelectionListener() {
@@ -150,10 +186,7 @@ public class PanelCongreso extends PanelLista {
         setDefaultText();
 
 
-        lName.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lName.setText("Nombre");
-
-        textName.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textName);
@@ -168,7 +201,6 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        textSurname.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textSurname.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 textSurname.setForeground(Color.BLACK);
@@ -183,13 +215,10 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        lSurname.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lSurname.setText("Apellido");
 
-        lDni.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lDni.setText("Dni");
 
-        textDni.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textDni.setAutoscrolls(true);
         textDni.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -205,10 +234,8 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        lAge.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lAge.setText("Edad");
 
-        textAge.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textAge.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 clearText(textAge);
@@ -223,10 +250,8 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        lCity.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lCity.setText("Ciudad");
 
-        textCity.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textCity.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 textCity.setForeground(Color.BLACK);
@@ -241,10 +266,8 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        lState.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lState.setText("Estado");
 
-        textState.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textState.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 textState.setForeground(Color.BLACK);
@@ -259,10 +282,8 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        lParty.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lParty.setText("Partido");
 
-        textParty.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textParty.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 textParty.setForeground(Color.BLACK);
@@ -277,7 +298,6 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        bClear.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bClear.setText("Limpiar");
         bClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,9 +306,7 @@ public class PanelCongreso extends PanelLista {
         });
 
         lError.setText(" ");
-        lError.setFont(new java.awt.Font("Ubuntu", 0, 18));
 
-        bAgregarCongresista.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bAgregarCongresista.setText("AgregarCongresista");
         bAgregarCongresista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,7 +314,6 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        bAgregarRandom.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bAgregarRandom.setText("AgregarRandom");
         bAgregarRandom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -304,7 +321,6 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        bEliminarCongresista.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bEliminarCongresista.setText("EliminarCongresista");
         bEliminarCongresista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -312,15 +328,12 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        bModificarCongresista.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bModificarCongresista.setText("Modificar");
         bModificarCongresista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bModificarCongresistaActionPerformed(evt);
             }
         });
-
-        bEliminarCongreso.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bEliminarCongreso.setText("EliminarCongreso");
         bEliminarCongreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -328,7 +341,6 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        bCargarCongreso.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bCargarCongreso.setText("CargarCongreso");
         bCargarCongreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -336,7 +348,6 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        bGuardarCongreso.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bGuardarCongreso.setText("GuardarCongreso");
         bGuardarCongreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -344,7 +355,6 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        SpinnerNum.setFont(new java.awt.Font("Ubuntu", 0, 18));
         SpinnerNum.setModel(new SpinnerNumberModel(1, 1, 1000000, 1));
         //SpinnerNum.setModel(new SpinnerNumberModel(new SpinnerNumberModel(5.0, 0.0, 9.0, 1.0));
 
@@ -617,7 +627,7 @@ public class PanelCongreso extends PanelLista {
         emptyLError();
         if (validarTodo()) {
             try {
-                CPC.obtCC().agregarCongresista(textDni.getText().substring(0, 9), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty));
+                CPC.obtCC().agregarCongresista(textDni.getText(), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty));
                 setDefaultText();
                 setMsg("Congresista agregado satisfactoriamente");
                 ListUpdate();
@@ -649,7 +659,7 @@ public class PanelCongreso extends PanelLista {
         if (jlist.isSelectionEmpty()) {
             if (validarJText(textDni,2)) {
                 try {
-                    CPC.obtCC().eliminarCongresista(textDni.getText().substring(0,9), CPC.obtCPR().obtCR());
+                    CPC.eliminarCongresista(textDni.getText().substring(0,9));
                     setDefaultText();
                     setMsg("Congresista eliminado satisfactoriamente");
                     ListUpdate();
@@ -670,7 +680,7 @@ public class PanelCongreso extends PanelLista {
                 List<String> campos = jlist.getSelectedValuesList();
                 for (int i = 0; i < campos.size(); ++i) {
                     String[] con = campos.get(i).split(" ");
-                    CPC.obtCC().eliminarCongresista(con[0], CPC.obtCPR().obtCR());
+                    CPC.eliminarCongresista(con[0]);
                 }
                 setDefaultText();
                 setMsg("Congresistas eliminados satisfactoriamente");
@@ -686,7 +696,7 @@ public class PanelCongreso extends PanelLista {
         return (!aux.getText().equals(def[n])) && !(a.length == 0) ;// && !aux.getText().equals(" ") && !aux.getText().equals("");
     }
     private boolean validarJTextDni(JTextField aux) {
-        return ((!aux.getText().equals(def[2])) && aux.getText().length() == 9 || aux.getText().charAt(9) == ' ');// && !aux.getText().equals(" ") && !aux.getText().equals("");
+        return ((!aux.getText().equals(def[2])) );// && !aux.getText().equals(" ") && !aux.getText().equals("");
     }
 
     private void bModificarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
@@ -701,7 +711,7 @@ public class PanelCongreso extends PanelLista {
                 //String dato = (String) listCongreso.getSelectedValue();
                 String[] campos = dato.split(" ");
                 try {
-                    CPC.obtCC().modCongresista(campos[0], textDni.getText().substring(0, 9), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty), CPC.obtCPR().obtCR());
+                    //CPC.obtCC().modCongresista(campos[0], textDni.getText().substring(0, 9), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty), CPC.obtCPR().CR);
                     setMsg("Congresista modificado satisfactoriamente");
                     ListUpdate();
                 }
@@ -719,8 +729,8 @@ public class PanelCongreso extends PanelLista {
     private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         setDefaultText();
-        if (CPC.obtCC().size() != 0) {
-            CPC.obtCC().eliminarCongreso(CPC.obtCPR().obtCR());
+        if (CPC.size() != 0) {
+            CPC.eliminarCongreso();
             setMsg("Congreso eliminado satisfactoriamente");
             ListUpdate();
         }
@@ -731,29 +741,10 @@ public class PanelCongreso extends PanelLista {
 
     private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
-        Thread queryThread = new Thread() {
-            public void run() {
-                Integer n = (Integer)SpinnerNum.getValue();
-                CPC.obtCC().agregarCongresistaRandom(n);
-                ListUpdate();
-            }
-        };
-        queryThread.start();
-       // print("yolo funka");
+        Integer n = (Integer)SpinnerNum.getValue();
+        CPC.agregarCongresistaRandom(n);
+        ListUpdate();
     }
-        /*try {
-            HardRandom aux = new HardRandom();
-            aux.doInBackground();
-            print("exit from thread");
-        }
-        catch (Exception a) {
-            lError.setText(a.getMessage());
-        }
-        //Integer n = (Integer)SpinnerNum.getValue();
-        //CPC.obtCC().agregarCongresistaRandom(n);
-        ListUpdate();*/
-
-        // Carregant ......
 
     private void bCargarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
@@ -788,8 +779,11 @@ public class PanelCongreso extends PanelLista {
         String a[] = {"No hay Congresistas"};
         if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
         else {
-            ArrayList<String> aux = CPC.obtCC().obtenerCongresoTotal();
-            listCongreso.setListData(aux.toArray());
+            //print("hacemos update");
+            //print(System.nanoTime()+"");
+            updatejlist();
+            //ArrayList<String> aux = CPC.obtCC().obtenerCongresoTotal();
+            //listCongreso.setListData(aux.toArray());
         }
     }
     private void setDefaultText() {
@@ -1137,5 +1131,19 @@ public class PanelCongreso extends PanelLista {
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".int", "in"));
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
+    }
+
+
+    private void updatejlist() {
+        //print("dentro de update");
+        ListModel<String> bigData = new AbstractListModel<String>() {
+            public int getSize() { return CPC.size(); }
+            public String getElementAt(int index) {
+                return CPC.obtCongresista(index);
+                //return "Index " + index;
+            }
+        };
+        //listCongreso.setListData();
+        listCongreso.setModel(bigData);
     }
 }

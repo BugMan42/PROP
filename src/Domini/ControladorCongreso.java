@@ -2,6 +2,7 @@ package Domini;
 
 import Persistencia.ControladorPersistencia;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -11,6 +12,7 @@ public class ControladorCongreso {
 
     private static final int max_lineas_guardar = 300;
     private static final int max_lineas_cargar = 300;
+    private static final String sep = "@#@";
 
     private List<Congresista> referencia;
     private List<Congresista> cache;
@@ -26,6 +28,9 @@ public class ControladorCongreso {
 
     public int size(){
         return c.size();
+    }
+    public String obtSep() {
+        return sep;
     }
 
     public boolean esVacio(){
@@ -194,7 +199,6 @@ public class ControladorCongreso {
             cp.cerrarFichero();
         }
     }
-
     public void cargar(String ruta, ControladorRelaciones cr) throws Exception {
         ControladorPersistencia cp = new ControladorPersistencia(ruta);
         cp.abrirLectura();
@@ -264,8 +268,12 @@ public class ControladorCongreso {
     }
     public void searchByName(String aux) {
         cache.clear();
+        //int n = 0;
         for (int i = 0; i < c.size(); ++i) {
-            if(referencia.get(i).obtNombre().startsWith(aux)) cache.add(referencia.get(i));
+            if(referencia.get(i).obtNombre().startsWith(aux)) {
+                cache.add(referencia.get(i));
+               //++n;
+            }
         }
     }
     public void searchBySurName(String aux) {
@@ -361,6 +369,16 @@ public class ControladorCongreso {
         String res = "";
         for (Congresista co: con)
             res += co.obtID()+" "+co.obtNombre()+" "+co.obtApellido()+" "+String.valueOf(co.obtEdad())+"\n";
+        return res;
+    }
+    //1 bloque = 1 string
+    //def bloques de 100 strings
+    public String obtBloque(int bq) {
+        List<Congresista> con = c.obtenerCongreso();
+        String res = "";
+        for (int i = 100*bq; i < con.size();++i) {
+            res += con.get(i).toString() + sep;
+        }
         return res;
     }
 

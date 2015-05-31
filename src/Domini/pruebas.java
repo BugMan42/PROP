@@ -1,14 +1,36 @@
 package Domini;
 
+import Presentacio.CPCongreso;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class pruebas {
 
 
 
     public static void main(String[] args) throws Exception {
+
         try {
-            Congresista C1 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
+            //testcc();
+            testCP();
+            /*
+            TST<Integer> tst = new TST<Integer>();
+            tst.insertar("a",1);
+            tst.insertar("b",2);
+            tst.insertar("c",3);
+            tst.insertar("d",4);
+            tst.insertar("e", 5);
+            print(tst.consultarClaves().toString());
+            print(tst.consultarObjetos().toString());*/
+
+
+
+
+
+
+
+            /*Congresista C1 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
             Congresista C2 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "San Francisco", "CA", "Berkeley");
             Congresista C3 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
             Congresista C4 = new Congresista(new Dni("00000000D"), "Max", "Newman", 87, "Chealsea", "LO", "Democrata");
@@ -90,6 +112,24 @@ public class pruebas {
 
 
 
+    }
+    private static void testcc() throws Exception {
+        ControladorCongreso cr = new ControladorCongreso();
+        cr.agregarCongresistaRandom(500);
+        String aux = cr.obtBloque(0);
+        String[] aux2 = aux.split(cr.obtSep());
+        for (String r:aux2) {
+            print(r);
+        }
+
+
+    }
+    private static void testCP() throws Exception {
+        CPCongreso aux = new CPCongreso();
+        aux.agregarCongresistaRandom(100);
+        for (int i = 0; i < 100; ++i) {
+            print(aux.obtCongresista(i));
+        }
     }
     private static void print(String str) {
         System.out.println(str);
