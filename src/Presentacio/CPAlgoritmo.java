@@ -63,4 +63,9 @@ public class CPAlgoritmo {
         CA.modParamEntrada(x);
     }
 
+    public String next_mensaje()
+    {
+        return CA.next_message();
+    }
+
 }

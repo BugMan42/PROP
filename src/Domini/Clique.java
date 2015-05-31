@@ -15,6 +15,8 @@ public class Clique extends Algoritmo {
         g = in.obtGrafo();
         k = (int)in.obtParam1();
         if (k <= 2) throw new Exception(error1);
+        ejecutar_algoritmo();
+        System.out.println(obtOut().comunidad());
     }
 
     class comunidades {

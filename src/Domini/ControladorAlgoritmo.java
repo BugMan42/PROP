@@ -18,6 +18,7 @@ public class ControladorAlgoritmo {
     private int i_arista = 0;
     private int i_comm = 0;
     private int real_i = 0;
+    private int i_message = 0;
 
     //Referencia a un ControladorRelaciones creado previamente
     private ControladorRelaciones crel;
@@ -145,11 +146,22 @@ public class ControladorAlgoritmo {
         return r;
     }
 
+    public String next_message()
+    {
+        String r;
+        if (i_message < out.mostrarHistorial().size()) r = out.mostrarHistorial().get(i_message);
+        else r = "-";
+        i_message++;
+        return r;
+    }
+
     public void reset_pointers()
     {
         i_arista = 0;
         i_vertex = 0;
         real_i = 0;
+        i_comm = 0;
+        i_message = 0;
     }
 
     public void createDemoGraph()
@@ -181,6 +193,8 @@ public class ControladorAlgoritmo {
             g.agregarArista("5", "4", 2);
             g.agregarArista("4", "6", 8);
             g.agregarArista("6", "4", 8);
+            g.agregarArista("2","5", 10);
+            g.agregarArista("5","2", 10);
 
         } catch (Exception e) {
             e.printStackTrace();

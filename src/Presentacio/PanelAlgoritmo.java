@@ -1,12 +1,14 @@
 package Presentacio;
 
 import org.graphstream.graph.Graph;
-import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.swingViewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +21,8 @@ public class PanelAlgoritmo extends Panel{
 
     CPAlgoritmo cpa;
     private Graph g;
+    private Viewer viewer;
+    private ViewPanel view;
     private int option = 0;
 
     public PanelAlgoritmo(CPAlgoritmo cont) {
@@ -53,46 +57,54 @@ public class PanelAlgoritmo extends Panel{
                         "node.B { fill-color: green; }"+
                         "node.C { fill-color: red; }"+
                         "node.D { fill-color: yellow; }"+
+                        "node.2co { shape: pie-chart; fill-color: blue, green; }"+
+                        "node.3co { shape: pie-chart; fill-color: blue, green, red; }"+
                         "edge { fill-color: #777; }");
-        //g.addAttribute("ui.stylesheet", "url('file:///home/falc/IdeaProjects/PROP/src/images/style.css')");
 
-        Viewer viewer = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+        viewer = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         viewer.enableAutoLayout();
-        ViewPanel view = viewer.addDefaultView(false);
+        view = viewer.addDefaultView(false);
 
 
         UIDefaults defaults = new UIDefaults();
         defaults.put("TextPane[Enabled].backgroundPainter", Color.black);
+        Dimension panel_dim = new Dimension(300, 150);
 
         final JTextPane tp1 = new JTextPane();
         tp1.setForeground(Color.green);
-        tp1.setText("REKT");
         tp1.putClientProperty("Nimbus.Overrides", defaults);
         tp1.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
         tp1.setBackground(Color.black);
         tp1.setEnabled(false);
+        tp1.setEditable(false);
+        tp1.setMaximumSize(panel_dim);
         JRadioButton rb1 = new JRadioButton("Girvan-Newman");
         final JButton mostrar1 = new JButton("Mostrar grafo");
         mostrar1.setEnabled(false);
 
+
         final JTextPane tp2 = new JTextPane();
         tp2.setForeground(new Color(255, 102, 0));
-        tp2.setText("REKT");
         tp2.putClientProperty("Nimbus.Overrides", defaults);
         tp2.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
         tp2.setBackground(new Color(0,0,102));
         tp2.setEnabled(false);
+        tp2.setEditable(false);
+        tp2.setMaximumSize(panel_dim);
+        JScrollPane sp2 = new JScrollPane(tp2);
         JRadioButton rb2 = new JRadioButton("Louvain");
         final JButton mostrar2 = new JButton("Mostrar grafo");
         mostrar2.setEnabled(false);
 
         final JTextPane tp3 = new JTextPane();
         tp3.setForeground(new Color(255, 255, 0));
-        tp3.setText("REKT");
         tp3.putClientProperty("Nimbus.Overrides", defaults);
         tp3.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
         tp3.setBackground(new Color(127, 0, 255));
         tp3.setEnabled(false);
+        tp3.setEditable(false);
+        tp3.setMaximumSize(panel_dim);
+        JScrollPane sp3 = new JScrollPane(tp3);
         JRadioButton rb3 = new JRadioButton("Clique Percolation");
         final JButton mostrar3 = new JButton("Mostrar grafo");
         mostrar3.setEnabled(false);
@@ -166,7 +178,7 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 cpa.modParam1(pref.getText());
-                if (option != 0) cpa.execute_algoritm(option);
+                if (option > 0 && option < 5) cpa.execute_algoritm(option);
 
                 if (option == 1) mostrar1.setEnabled(true);
                 else if (option == 2) mostrar2.setEnabled(true);
@@ -185,6 +197,19 @@ public class PanelAlgoritmo extends Panel{
             public void actionPerformed(ActionEvent e) {
                 cargarGrafo();
                 mostrar1.setEnabled(false);
+                Document doc = new DefaultStyledDocument();
+                try {
+                    String r = cpa.next_mensaje();
+                    while (!r.equals("-")) {
+                        System.out.println(r);
+                        doc.insertString(doc.getLength(), r+"\n", null);
+                        r = cpa.next_mensaje();
+
+                    }
+                } catch (BadLocationException e1) {
+                    e1.printStackTrace();
+                }
+                tp1.setDocument(doc);
             }
         });
 
@@ -193,6 +218,19 @@ public class PanelAlgoritmo extends Panel{
             public void actionPerformed(ActionEvent e) {
                 cargarGrafo();
                 mostrar2.setEnabled(false);
+                Document doc = new DefaultStyledDocument();
+                try {
+                    String r = cpa.next_mensaje();
+                    while (!r.equals("-")) {
+                        doc.insertString(0, r, null);
+                        doc.insertString(0, "\n", null);
+                        r = cpa.next_mensaje();
+                        System.out.println(r);
+                    }
+                } catch (BadLocationException e1) {
+                    e1.printStackTrace();
+                }
+                tp2.setDocument(doc);
             }
         });
 
@@ -201,6 +239,19 @@ public class PanelAlgoritmo extends Panel{
             public void actionPerformed(ActionEvent e) {
                 cargarGrafo();
                 mostrar3.setEnabled(false);
+
+                Document doc = new DefaultStyledDocument();
+                try {
+                    String r = cpa.next_mensaje();
+                    while (!r.equals("-")) {
+                        doc.insertString(doc.getLength(), r+"\n", null);
+                        r = cpa.next_mensaje();
+
+                    }
+                } catch (BadLocationException e1) {
+                    e1.printStackTrace();
+                }
+                tp3.setDocument(doc);
             }
         });
 
@@ -214,12 +265,12 @@ public class PanelAlgoritmo extends Panel{
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb2)
-                                                        .addComponent(tp2)
+                                                        .addComponent(sp2)
                                                         .addComponent(mostrar2)
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb3)
-                                                        .addComponent(tp3)
+                                                        .addComponent(sp3)
                                                         .addComponent(mostrar3)
                                         )
                                         .addGroup(gr.createParallelGroup()
@@ -244,12 +295,12 @@ public class PanelAlgoritmo extends Panel{
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb2)
-                                                        .addComponent(tp2)
+                                                        .addComponent(sp2)
                                                         .addComponent(mostrar2)
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb3)
-                                                        .addComponent(tp3)
+                                                        .addComponent(sp3)
                                                         .addComponent(mostrar3)
                                         )
                                         .addGroup(gr.createSequentialGroup()
@@ -269,6 +320,20 @@ public class PanelAlgoritmo extends Panel{
 
     private void cargarGrafo()
     {
+
+        g.clear();
+        g.addAttribute("ui.antialias");
+        g.addAttribute(
+                "ui.stylesheet",
+                "node { text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
+                        "node:selected { stroke-width: 4px; }"+
+                        "node.A { fill-color: blue; }"+
+                        "node.B { fill-color: green; }"+
+                        "node.C { fill-color: red; }"+
+                        "node.D { fill-color: yellow; }"+
+                        "node.2co { shape: pie-chart; fill-color: blue, green; }"+
+                        "node.3co { shape: pie-chart; fill-color: blue, green, red; }"+
+                        "edge { fill-color: #777; }");
 
         int na = cpa.num_aristas();
         for (int i = 0; i < na; i++)
@@ -310,7 +375,6 @@ public class PanelAlgoritmo extends Panel{
                 chargen++;
             }
         }
-
 
     }
 

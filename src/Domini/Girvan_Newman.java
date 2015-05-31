@@ -403,7 +403,6 @@ public class Girvan_Newman extends Algoritmo{
 
         alg_cc = cc2;
 
-        System.out.println(obtOut().comunidad());
     }
 
 
