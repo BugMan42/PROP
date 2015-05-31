@@ -167,7 +167,7 @@ public class ControladorAlgoritmo {
     public void createDemoGraph()
     {
         Grafo g = new Grafo();
-        for (int i = 0; i < 7; ++i)
+        for (int i = 0; i < 10; ++i)
         {
             try {
                 g.agregarVertice(Integer.toString(i));

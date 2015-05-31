@@ -805,22 +805,23 @@ public class PanelCongreso extends PanelLista {
     private void ListUpdate() {
         String a[] = {"No hay Congresistas"};
         //updatejlist();
-        if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
-        else {
+        //if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
+       // else {
         //long tini=System.currentTimeMillis();
             //print(tini+"");
             //print("antes de update UI");
             //listCongreso.updateUI();
-            //  updatejlist();
+            createjlist();
+            //updatejlist();
 
             // ListModel<String> aux = listCongreso.getModel();
             //ArrayList<String> aux = CPC.obtCC().obtenerCongresoTotal();
             //print("hacemos update");
-            listCongreso.setListData(CPC.obtCC().obtenerCongresoTotal().toArray());
+            //listCongreso.setListData(CPC.obtCC().obtenerCongresoTotal().toArray());
             //print("fin");
         //print(String.valueOf("Tiempo update UI: "+(System.currentTimeMillis()-tini)));
 
-        }
+        //}
     }
     private void setDefaultText() {
         defColorText(Color.GRAY);
@@ -1207,6 +1208,8 @@ public class PanelCongreso extends PanelLista {
                 //return "Index " + index;
             }
         };
+
+        listCongreso.setPrototypeCellValue("Insert"+Long.MAX_VALUE);
         //bigData = new BigData();
         listCongreso.setModel(bigData);
         //listCongreso.setListData();

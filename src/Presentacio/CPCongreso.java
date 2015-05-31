@@ -75,7 +75,7 @@ public class CPCongreso {
         //}
         //else throw new Exception("Solo se pueden agregar congr random con el congreso vacio");
 
-        //refresh(indexa, indexb);
+        refresh(indexa, indexb);
 
         //print("despues");
         //if (n > 100) refresh(0,1);
