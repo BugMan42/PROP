@@ -38,8 +38,15 @@ public class Congreso {
     public void agregarCongresistaRandom()  {
         Random rand = new Random();
         Dni r = new Dni();
+        int i = 0;
         while (tst.existe(r.toString())) {
-            r = new Dni();
+            try {
+                r.cambiarLetra((char) ('A'+ i));
+            } catch (Exception a) {
+
+            }
+            ++i;
+            if (i == 26) r = new Dni();
         }
         int edad = rand.nextInt(62)+18 ;
         int name = rand.nextInt(20);

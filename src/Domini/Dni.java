@@ -17,6 +17,7 @@ public class Dni  {
      * sin importar si es mayuscula o minuscula la ultima letra
      */
     private String dni;
+    private static Random rand;
 
     public Dni(String s) throws Exception {
         if (valido(s)) {
@@ -26,12 +27,28 @@ public class Dni  {
     }
 
     public Dni() {
-        dni = new String();
+       dni =  generarRandom2();
+       // else dni += String.valueOf(rand.nextInt(10));
+    }
+    private String generarRandom() {
+        String dni2 = new String();
         Random rand = new Random();
         for (int i = 0; i < 9; ++i) {
             if (i == 8) dni += (char) ('A'+ rand.nextInt(26));
             else dni += String.valueOf(rand.nextInt(10));
         }
+        return dni2;
+    }
+    private String generarRandom2() {
+        String dni2 = new String();
+        if (rand == null) {
+            rand = new Random();
+            //System.out.println("noooo.");
+        }
+        //Random rand = new Random();
+        dni2+=String.valueOf(rand.nextInt(89999999)+10000000);
+        dni2 += (char) ('A'+ rand.nextInt(26));
+        return dni2;
     }
 
     public void cambiarLetra(char l) throws Exception {

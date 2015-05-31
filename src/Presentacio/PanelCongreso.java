@@ -63,6 +63,7 @@ public class PanelCongreso extends PanelLista {
         CPC = c;
         // Inicializa los componentes de la ventana
         iniComp();
+        updatejlist();
         iniFont();
         initGUI();
     }
@@ -140,7 +141,7 @@ public class PanelCongreso extends PanelLista {
         // Referencias a los objetos superiores
         //JList listCongreso = obtJlist();
 //        final DefaultListModel def = (DefaultListModel) name_list.getModel();
-        ListUpdate();
+        //ListUpdate();
         t = true;
         setTextLabelStatus("Loading...");
         //labelStatus.setText("cargandoooooo");
@@ -741,9 +742,13 @@ public class PanelCongreso extends PanelLista {
 
     private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
-        Integer n = (Integer)SpinnerNum.getValue();
-        CPC.agregarCongresistaRandom(n);
-        ListUpdate();
+        try {
+            Integer n = (Integer)SpinnerNum.getValue();
+            CPC.agregarCongresistaRandom(n);
+            ListUpdate();
+        } catch (Exception a) {
+            setError(a.getMessage());
+        }
     }
 
     private void bCargarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
@@ -777,14 +782,20 @@ public class PanelCongreso extends PanelLista {
 
     private void ListUpdate() {
         String a[] = {"No hay Congresistas"};
-        if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
-        else {
+        //updatejlist();
+        //if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
+        //else {
             //print("hacemos update");
-            //print(System.nanoTime()+"");
-            updatejlist();
+            long tini=System.currentTimeMillis();
+            //print(tini+"");
+            listCongreso.updateUI();
+            //  updatejlist();
+            //ListModel<String> aux = listCongreso.getModel();
             //ArrayList<String> aux = CPC.obtCC().obtenerCongresoTotal();
             //listCongreso.setListData(aux.toArray());
-        }
+            print(String.valueOf("Tiempo update jlist: "+(System.currentTimeMillis()-tini)));
+
+        //}
     }
     private void setDefaultText() {
         defColorText(Color.GRAY);
@@ -1137,13 +1148,18 @@ public class PanelCongreso extends PanelLista {
     private void updatejlist() {
         //print("dentro de update");
         ListModel<String> bigData = new AbstractListModel<String>() {
-            public int getSize() { return CPC.size(); }
+            public int getSize() {
+                if (CPC.size() == 0) return 1;
+                else return CPC.size();
+            }
             public String getElementAt(int index) {
+                if (CPC.size() == 0) return "No hay Congresistas";
                 return CPC.obtCongresista(index);
                 //return "Index " + index;
             }
         };
         //listCongreso.setListData();
         listCongreso.setModel(bigData);
+
     }
 }

@@ -60,13 +60,19 @@ public class CPCongreso {
         refresh(indexa, indexb);
         //TODO falta actualizar bloques
     }
-    public void agregarCongresistaRandom(int n) {
+    public void agregarCongresistaRandom(int n) throws Exception {
         //print("antes de petar");
         long timeini = System.nanoTime();
-        CC.agregarCongresistaRandom(n);
-        print((System.nanoTime()-timeini)/1000000.0 + "");
+        //if (CC.esVacio()) {
+            CC.agregarCongresistaRandom(n);
+        //}
+        //else throw new Exception("Solo se pueden agregar congr random con el congreso vacio");
+        print((System.nanoTime()-timeini)/1000000000.0 + "");
+        refresh(indexa, indexb);
+
         //print("despues");
-        cargarBloqueA(0);
+        //if (n > 100) refresh(0,1);
+       // else cargarBloqueA(0);
        // print("despues");
         //TODO falta actualizar bloques
     }
@@ -101,6 +107,7 @@ public class CPCongreso {
     }
 
     public String obtCongresista(int index) {
+       //print("Debug: obtCongr"+index) ;
        int baux = queBq(index);
        if (estaEnCache(baux)) return obtEnCache(index,baux);
        else {
@@ -109,15 +116,18 @@ public class CPCongreso {
        }
     }
     private void cargarCache(int bq) {
+        print("Cargamos: "+bq);
         if (aIsUp()) {
             if (indexb == -1 || bq < indexa) {
                 bqb = obtBQ(bq).split(obtSep());
                 indexb = bq;
+                print("BQA: "+indexa+" BQB: "+indexb);
                 return;
             }
             if (bq > indexb) {
                 bqa = obtBQ(bq).split(obtSep());
                 indexa = bq;
+                print("BQA: "+indexa+" BQB: "+indexb);
                 return;
             }
         }
@@ -125,14 +135,17 @@ public class CPCongreso {
             if (indexb == -1 || bq > indexa) {
                 bqb = obtBQ(bq).split(obtSep());
                 indexb = bq;
+                print("BQA: "+indexa+" BQB: "+indexb);
                 return;
             }
             if (bq < indexb) {
                 bqa = obtBQ(bq).split(obtSep());
                 indexa = bq;
+                print("BQA: "+indexa+" BQB: "+indexb);
                 return;
             }
         }
+
     }
     public void cargarBloqueA(int ba) {
         bqa = obtBQ(ba).split(obtSep());
@@ -146,7 +159,7 @@ public class CPCongreso {
     public void refresh(int ba, int bb) {
         bqa = obtBQ(ba).split(obtSep());
         indexa = ba;
-        if (bqb != null) {
+        if (indexb != -1) {
             bqb = obtBQ(bb).split(obtSep());
             indexb = bb;
         }

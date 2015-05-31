@@ -65,10 +65,12 @@ public class ControladorCongreso {
         referencia.add(pos, con);
     }
 
-    public void agregarCongresistaRandom(int n) {
-        for (int i = 0; i < n; ++i) {
+    public void agregarCongresistaRandom(long n) {
+
+        for (long i = 0; i < n; ++i) {
             c.agregarCongresistaRandom();
         }
+        //referencia = c.obtenerCongreso();
         reordenar();
     }
 
@@ -76,7 +78,7 @@ public class ControladorCongreso {
         referencia = c.obtenerCongreso();
         switch (orden){
             case 0:
-                sortByDni();
+                //sortByDni();
                 break;
             case 1:
                 sortByName();

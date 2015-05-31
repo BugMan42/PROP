@@ -12,8 +12,10 @@ public class pruebas {
     public static void main(String[] args) throws Exception {
 
         try {
+            testRandomCongreso(500000);
+            //testDNI(100000000);
             //testcc();
-            testCP();
+            //testCP();
             /*
             TST<Integer> tst = new TST<Integer>();
             tst.insertar("a",1);
@@ -130,6 +132,21 @@ public class pruebas {
         for (int i = 0; i < 100; ++i) {
             print(aux.obtCongresista(i));
         }
+    }
+    private static void testDNI(int n) {
+        Dni a;
+        long tini = System.nanoTime();
+        for (int i = 0; i < n; ++i) {
+            a = new Dni();
+            //print(a.toString());
+        }
+        print(String.valueOf("Tiempo en s: "+(System.nanoTime()-tini)/1000000000.0));
+    }
+    private static void testRandomCongreso(int n) {
+        ControladorCongreso a = new ControladorCongreso();
+        long tini = System.nanoTime();
+        a.agregarCongresistaRandom(n);
+        print(String.valueOf("Tiempo en s: " + (System.nanoTime() - tini) / 1000000000.0)+" tamaño: "+a.size());
     }
     private static void print(String str) {
         System.out.println(str);
