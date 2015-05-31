@@ -716,6 +716,8 @@ public class PanelCongreso extends PanelLista {
                     CPC.obtCC().modCongresista(campos[0], textDni.getText(), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty), CPC.obtCPR().obtCR());
                     setMsg("Congresista modificado satisfactoriamente");
                     ListUpdate();
+                    //print("Todavia no ha petado");
+
 
                 }
                 catch (NumberFormatException a) {
@@ -803,15 +805,17 @@ public class PanelCongreso extends PanelLista {
         //updatejlist();
         if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
         else {
-        //print("hacemos update");
         //long tini=System.currentTimeMillis();
-        //print(tini+"");
-        //print("antes de update UI");
-        //listCongreso.updateUI();
-        //  updatejlist();
-        // ListModel<String> aux = listCongreso.getModel();
-        ArrayList<String> aux = CPC.obtCC().obtenerCongresoTotal();
-        listCongreso.setListData(aux.toArray());
+            //print(tini+"");
+            //print("antes de update UI");
+            //listCongreso.updateUI();
+            //  updatejlist();
+
+            // ListModel<String> aux = listCongreso.getModel();
+            ArrayList<String> aux = CPC.obtCC().obtenerCongresoTotal();
+            //print("hacemos update");
+            listCongreso.setListData(aux.toArray());
+            //print("fin");
         //print(String.valueOf("Tiempo update UI: "+(System.currentTimeMillis()-tini)));
 
         }
@@ -936,6 +940,7 @@ public class PanelCongreso extends PanelLista {
         String a[] = {"Búsqueda sin resultados"};
         if (CPC.resultados()) listCongreso.setListData(a);
         else {
+            //print("todavia no");
             ArrayList<String> aux = CPC.obtCC().obtenerBusqueda();
             listCongreso.setListData(aux.toArray());
         }

@@ -307,8 +307,11 @@ public class TST<X> implements Iterable<X> {
             }
             if (!existe(oldKey)) throw new KeyNotExistsTST(oldKey);
             if (existe(newKey)) throw new KeyAlreadyExistsTST(newKey);
+            print("size:"+ N);
             borrar(oldKey);
+            print("size:"+ N);
             insertar(newKey,x);
+            print("size:"+ N);
         }
         else {
             if (x == null) {
@@ -374,6 +377,7 @@ public class TST<X> implements Iterable<X> {
                 if (x == null) x = aux.valor;
                 r = insertar(r, newKey,x,d2);
                 t = t.right;
+                --N;
             }
             else throw new KeyNotExistsTST(key);
         }

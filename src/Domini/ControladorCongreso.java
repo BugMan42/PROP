@@ -132,6 +132,7 @@ public class ControladorCongreso {
     public void modNombreCongresista(String dni, String nombre) throws Exception {
         Dni d = new Dni(dni);
         c.modNombreCongresista(d, nombre);
+        referencia = obtenerCongreso();
     }
 
     public void modApellidoCongresista(String dni, String apellido) throws Exception {
@@ -171,7 +172,9 @@ public class ControladorCongreso {
         if(cr.tieneRelaciones(dni)) cr.modCongresista(dni,dni_nuevo);
         Dni d = new Dni(dni);
         Dni d_nuevo = new Dni(dni_nuevo);
+        //print(size()+"size");
         c.modCongresista(d, d_nuevo, nombre, apellido, edad, ciudad, estado, partido);
+        //print("size: "+size());
     }
 
     public Congresista consultarCongresista(String dni) throws Exception {
@@ -360,11 +363,15 @@ public class ControladorCongreso {
         }
         return a;
     }
+    private void print(String str) {
+        System.out.println(str);
+    }
 
     //Otra que me hacia falta aqui tengo que hablar contigo
     public ArrayList<String> obtenerCongresoTotal() {
         ArrayList<String> a = new ArrayList<String>(c.size());
         if (referencia == null) referencia = c.obtenerCongreso();
+        //print("Capacidad de: "+size());
         for (int i = 0; i < c.size(); ++i) {
             a.add(referencia.get(i).toString());
         }

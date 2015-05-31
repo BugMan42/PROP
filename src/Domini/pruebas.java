@@ -12,27 +12,29 @@ public class pruebas {
     public static void main(String[] args) throws Exception {
 
         try {
-            testRandomCongreso(500000);
+            //testRandomCongreso(500000);
             //testDNI(100000000);
             //testcc();
             //testCP();
-            /*
+
             TST<Integer> tst = new TST<Integer>();
-            tst.insertar("a",1);
-            tst.insertar("b",2);
-            tst.insertar("c",3);
-            tst.insertar("d",4);
-            tst.insertar("e", 5);
-            print(tst.consultarClaves().toString());
-            print(tst.consultarObjetos().toString());*/
+            tst.insertar("abc",1);
+            tst.modificar("abc","b",2);
+            print(tst.size()+"");
+
+            //tst.insertar("b",2);
+            // tst.insertar("c",3);
+            //   tst.insertar("d",4);
+            //tst.insertar("e", 5);
+           // print(tst.consultarObjetos().toString());*/
 
 
 
 
 
+/*
 
-
-            /*Congresista C1 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
+            Congresista C1 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
             Congresista C2 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "San Francisco", "CA", "Berkeley");
             Congresista C3 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
             Congresista C4 = new Congresista(new Dni("00000000D"), "Max", "Newman", 87, "Chealsea", "LO", "Democrata");
@@ -41,6 +43,10 @@ public class pruebas {
             Congresista C7 = new Congresista(new Dni("00000000G"), "Alan", "Turing", 41, "London", "LO", "Liberal");
 
             Congreso c = new Congreso();
+            c.agregarCongresista(C1);
+            c.modCongresista(new Dni("00000000A"),new Dni("00000000b"),"","",12,"","","");
+            print(c.size()+"");
+            /*
             //c.agregarCongresista(C1);
             //c.modCongresista(new Dni("00000000a"), new Dni("00000000a"), "e", "d", 12, "c", "b", "a");
             ControladorCongreso d = new ControladorCongreso();
