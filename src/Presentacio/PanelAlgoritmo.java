@@ -57,8 +57,8 @@ public class PanelAlgoritmo extends Panel{
                         "node.B { fill-color: green; }"+
                         "node.C { fill-color: red; }"+
                         "node.D { fill-color: yellow; }"+
-                        "node.2co { shape: pie-chart; fill-color: blue, green; }"+
-                        "node.3co { shape: pie-chart; fill-color: blue, green, red; }"+
+                        //"node.2co { shape: pie-chart; fill-color: blue, green; }"+
+                        //"node.3co { shape: pie-chart; fill-color: blue, green, red; }"+
                         "edge { fill-color: #777; }");
 
         viewer = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
