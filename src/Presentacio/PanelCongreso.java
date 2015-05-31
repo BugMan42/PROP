@@ -716,6 +716,7 @@ public class PanelCongreso extends PanelLista {
                     CPC.obtCC().modCongresista(campos[0], textDni.getText(), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty), CPC.obtCPR().obtCR());
                     setMsg("Congresista modificado satisfactoriamente");
                     ListUpdate();
+
                 }
                 catch (NumberFormatException a) {
                     setError("La edad tiene que ser un número > 0");
