@@ -21,7 +21,6 @@ public abstract class Panel3ListasExt extends JPanel {
     protected JLabel jLabel1;
     protected JLabel jLabel2;
     protected JSpinner nr;
-    protected ArrayList<Integer> sel1, sel2, sel3;
 
     public Panel3ListasExt(){
         initGUI();

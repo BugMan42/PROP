@@ -323,17 +323,6 @@ public class ControladorCongreso {
         return congresista.equals(prefixe);
     }
 
-
-    //Pre: fin > inicio
-    public ArrayList<String> obtenerBloque(int inicio, int fin) {
-        ArrayList<String> a = new ArrayList<String>(fin-inicio);
-        List<Congresista> b = referencia.subList(inicio,fin);
-        for (int i = 0; i < c.size(); ++i) {
-            a.add(b.get(i).toString());
-        }
-        return a;
-    }
-
     public String obtenerBloqueCongresoPR(int i, int tam) {
         List<Congresista> con = c.obtenerCongreso();
         int j=i*tam;
@@ -393,6 +382,19 @@ public class ControladorCongreso {
             res += co.obtID()+" "+co.obtNombre()+" "+co.obtApellido()+" "+String.valueOf(co.obtEdad())+"\n";
         return res;
     }
+
+    public String obtBloquePR(int i, int tam_bloque){
+        int ini = (i/tam_bloque) * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > size()) fin = size();
+        System.out.println("ini "+ini+" fin "+fin);
+        List<Congresista> con = c.obtenerCongreso().subList(ini,fin);
+        String res = "";
+        for (Congresista co: con)
+            res += co.obtID()+" "+co.obtNombre()+" "+co.obtApellido()+" "+String.valueOf(co.obtEdad())+"\n";
+        return res;
+    }
+
     //1 bloque = 1 string
     //def bloques de 100 strings
     public String obtBloque(int bq) {
