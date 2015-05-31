@@ -747,7 +747,8 @@ public class PanelCongreso extends PanelLista {
     private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         try {
-            long tini = System.currentTimeMillis();
+            //long tini = System.currentTimeMillis();
+            long timeini = System.nanoTime();
             //print("antes de agregar");
             Integer n = (Integer)SpinnerNum.getValue();
             //print("AGREGAR RANDOM");
@@ -760,8 +761,9 @@ public class PanelCongreso extends PanelLista {
             //createjlist();
             //listCongreso.update
             //updatejlist();
-            //print(String.valueOf("Tiempo agregar : " + (System.currentTimeMillis() - tini)));
             ListUpdate();
+            print((System.nanoTime() - timeini) / 1000000000.0 + "");
+            //print(String.valueOf("Tiempo agregar : " + (System.currentTimeMillis() - tini)));
             //print(String.valueOf("Tiempo agregar total: " + (System.currentTimeMillis() - tini)));
             //print(listCongreso.getLastVisibleIndex() + "last index");
             // print(listCongreso.getFirstVisibleIndex()+"last index");
