@@ -710,10 +710,10 @@ public class PanelCongreso extends PanelLista {
         }
         else {
             if (validarTodo()) {
-                //String dato = (String) listCongreso.getSelectedValue();
+               // String dato = (String) listCongreso.getSelectedValue();
                 String[] campos = dato.split(" ");
                 try {
-                    CPC.obtCC().modCongresista(campos[0], textDni.getText().substring(0, 9), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty), CPC.obtCPR().obtCR());
+                    CPC.obtCC().modCongresista(campos[0], textDni.getText(), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty), CPC.obtCPR().obtCR());
                     setMsg("Congresista modificado satisfactoriamente");
                     ListUpdate();
                 }
