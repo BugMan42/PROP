@@ -812,9 +812,9 @@ public class PanelCongreso extends PanelLista {
             //  updatejlist();
 
             // ListModel<String> aux = listCongreso.getModel();
-            ArrayList<String> aux = CPC.obtCC().obtenerCongresoTotal();
+            //ArrayList<String> aux = CPC.obtCC().obtenerCongresoTotal();
             //print("hacemos update");
-            listCongreso.setListData(aux.toArray());
+            listCongreso.setListData(CPC.obtCC().obtenerCongresoTotal().toArray());
             //print("fin");
         //print(String.valueOf("Tiempo update UI: "+(System.currentTimeMillis()-tini)));
 

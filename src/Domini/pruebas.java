@@ -12,11 +12,11 @@ public class pruebas {
     public static void main(String[] args) throws Exception {
 
         try {
-            //testRandomCongreso(500000);
+            testRandomCongreso(1000000);
             //testDNI(100000000);
             //testcc();
             //testCP();
-
+            /*
             TST<Integer> tst = new TST<Integer>();
             tst.insertar("abc",1);
             tst.modificar("abc","b",2);
