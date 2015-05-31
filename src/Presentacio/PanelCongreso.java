@@ -1,14 +1,12 @@
 package Presentacio;
 
 import javax.swing.*;
+import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.tools.JavaFileManager;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.util.*;
 import java.util.List;
 
@@ -23,6 +21,7 @@ public class PanelCongreso extends PanelLista {
     private Boolean[] vError;
     //CPRelaciones cpr;
 
+    AbstractListModel<String> bigData;
     JFileChooser choosersave;
     JFileChooser chooserload;
     JButton bAgregarCongresista;
@@ -63,9 +62,11 @@ public class PanelCongreso extends PanelLista {
         CPC = c;
         // Inicializa los componentes de la ventana
         iniComp();
-        updatejlist();
+        createjlist();
+        //updatejlist();
         iniFont();
         initGUI();
+
     }
 
     public PanelCongreso() {
@@ -129,7 +130,7 @@ public class PanelCongreso extends PanelLista {
         bCargarCongreso = new JButton();
         bGuardarCongreso = new JButton();
         SpinnerNum = new JSpinner();
-        listCongreso = obtJlist();
+        listCongreso = obtJlist();//new JList(bigData);
     }
     private void initGUI() {
         cargarFilechoser();
@@ -743,9 +744,24 @@ public class PanelCongreso extends PanelLista {
     private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         try {
+            long tini = System.currentTimeMillis();
+            //print("antes de agregar");
             Integer n = (Integer)SpinnerNum.getValue();
+            //print("AGREGAR RANDOM");
             CPC.agregarCongresistaRandom(n);
+            //print
+            //BigData aux = (BigData) listCongreso.getModel();
+            //aux.update(0);
+            //print(listCongreso.getFirstVisibleIndex() + " first index");
+            //print(listCongreso.getLastVisibleIndex()+" last index");
+            //createjlist();
+            //listCongreso.update
+            //updatejlist();
+            //print(String.valueOf("Tiempo agregar : " + (System.currentTimeMillis() - tini)));
             ListUpdate();
+            //print(String.valueOf("Tiempo agregar total: " + (System.currentTimeMillis() - tini)));
+            //print(listCongreso.getLastVisibleIndex() + "last index");
+            // print(listCongreso.getFirstVisibleIndex()+"last index");
         } catch (Exception a) {
             setError(a.getMessage());
         }
@@ -783,19 +799,20 @@ public class PanelCongreso extends PanelLista {
     private void ListUpdate() {
         String a[] = {"No hay Congresistas"};
         //updatejlist();
-        //if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
-        //else {
-            //print("hacemos update");
-            long tini=System.currentTimeMillis();
-            //print(tini+"");
-            listCongreso.updateUI();
-            //  updatejlist();
-            //ListModel<String> aux = listCongreso.getModel();
-            //ArrayList<String> aux = CPC.obtCC().obtenerCongresoTotal();
-            //listCongreso.setListData(aux.toArray());
-            print(String.valueOf("Tiempo update jlist: "+(System.currentTimeMillis()-tini)));
+        if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
+        else {
+        //print("hacemos update");
+        //long tini=System.currentTimeMillis();
+        //print(tini+"");
+        //print("antes de update UI");
+        //listCongreso.updateUI();
+        //  updatejlist();
+        // ListModel<String> aux = listCongreso.getModel();
+        ArrayList<String> aux = CPC.obtCC().obtenerCongresoTotal();
+        listCongreso.setListData(aux.toArray());
+        //print(String.valueOf("Tiempo update UI: "+(System.currentTimeMillis()-tini)));
 
-        //}
+        }
     }
     private void setDefaultText() {
         defColorText(Color.GRAY);
@@ -1145,21 +1162,58 @@ public class PanelCongreso extends PanelLista {
     }
 
 
-    private void updatejlist() {
+    class BigData<String> extends AbstractListModel<java.lang.String>
+    {
+        public int getSize() {
+            if (CPC.size() == 0) return 1;
+            else return CPC.size();
+        }
+        public java.lang.String getElementAt(int index) {
+            if (CPC.size() == 0) return "No hay Congresistas";
+            //else if (indexisOutOfBounds(index)) return ""
+            print("index: " + index);
+            return CPC.obtCongresista(index);
+            //return "Index " + index;
+        }
+        protected void fireContentsChanged(Object source, int index0, int index1) {
+            for (int i = index0; i < index1; ++i) update(i);
+        }
+        public void update(int index)
+        {
+            fireContentsChanged(this, index, index);
+        }
+    }
+    private void createjlist() {
         //print("dentro de update");
-        ListModel<String> bigData = new AbstractListModel<String>() {
+        bigData = new AbstractListModel<String>() {
             public int getSize() {
                 if (CPC.size() == 0) return 1;
                 else return CPC.size();
             }
             public String getElementAt(int index) {
                 if (CPC.size() == 0) return "No hay Congresistas";
+                //else if (indexisOutOfBounds(index)) return ""
+                print("index: "+index);
                 return CPC.obtCongresista(index);
                 //return "Index " + index;
             }
         };
-        //listCongreso.setListData();
+        //bigData = new BigData();
         listCongreso.setModel(bigData);
+        //listCongreso.setListData();
+        //listCongreso.setModel(bigData);
+    }
+    private void updatejlist() {
+        listCongreso.setModel(bigData);
+    }
+    private boolean indexisOutOfBounds(int index) {
+        return !CPC.indexVisible(index);
 
+        //}
+        //if (index >= bqarriba && index < bqarriba+99) return true;
+        //print(listCongreso.getLastVisibleIndex()+" last index");
+        //if (listCongreso.getAnchorSelectionIndex())
+
+        //return true;
     }
 }

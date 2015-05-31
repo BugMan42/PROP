@@ -28,6 +28,14 @@ public class CPCongreso {
         indexa = 0;
         indexb = -1;
     }
+    public int obtBQArriba() {
+        if (aIsUp()) return indexa;
+        else return indexb;
+    }
+    public int obtBQAbajo() {
+        if (!aIsUp()) return indexa;
+        else return indexb;
+    }
     public ControladorCongreso obtCC() {
         return CC;
     }
@@ -67,7 +75,7 @@ public class CPCongreso {
             CC.agregarCongresistaRandom(n);
         //}
         //else throw new Exception("Solo se pueden agregar congr random con el congreso vacio");
-        print((System.nanoTime()-timeini)/1000000000.0 + "");
+        //print((System.nanoTime()-timeini)/1000000000.0 + "");
         refresh(indexa, indexb);
 
         //print("despues");
@@ -116,18 +124,18 @@ public class CPCongreso {
        }
     }
     private void cargarCache(int bq) {
-        print("Cargamos: "+bq);
+       // print("Cargamos: "+bq);
         if (aIsUp()) {
             if (indexb == -1 || bq < indexa) {
                 bqb = obtBQ(bq).split(obtSep());
                 indexb = bq;
-                print("BQA: "+indexa+" BQB: "+indexb);
+               // print("BQA: "+indexa+" BQB: "+indexb);
                 return;
             }
             if (bq > indexb) {
                 bqa = obtBQ(bq).split(obtSep());
                 indexa = bq;
-                print("BQA: "+indexa+" BQB: "+indexb);
+                //print("BQA: "+indexa+" BQB: "+indexb);
                 return;
             }
         }
@@ -135,13 +143,13 @@ public class CPCongreso {
             if (indexb == -1 || bq > indexa) {
                 bqb = obtBQ(bq).split(obtSep());
                 indexb = bq;
-                print("BQA: "+indexa+" BQB: "+indexb);
+                //print("BQA: "+indexa+" BQB: "+indexb);
                 return;
             }
             if (bq < indexb) {
                 bqa = obtBQ(bq).split(obtSep());
                 indexa = bq;
-                print("BQA: "+indexa+" BQB: "+indexb);
+                //print("BQA: "+indexa+" BQB: "+indexb);
                 return;
             }
         }
@@ -173,6 +181,9 @@ public class CPCongreso {
     private boolean estaEnCache(int bq) {
         if (bq >= 0) return ((bq == indexa) || (bq == indexb));
         else return false;
+    }
+    public boolean indexVisible(int index) {
+        return estaEnCache(index/100);
     }
     private int queBq(int index) {
         return (index/100);
