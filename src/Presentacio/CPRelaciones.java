@@ -85,10 +85,17 @@ public class CPRelaciones {
         return CR.esVacio();
     }
 
+    public int sizeCongreso(){
+        return CPC.size();
+    }
+
     public String[] obtCongreso(){
         return CPC.obtCC().obtCongresoPR().split("\n");
     }
 
+    public String[] obtBloqueCongreso(int i, int tam){
+        return CPC.obtCC().obtenerBloqueCongresoPR(i,tam).split("\n");
+    }
 
     public String[] obtEventos(){
         return CPE.obtCCE().obtEventosPR().split("\n");

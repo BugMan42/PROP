@@ -11,6 +11,11 @@ public class PanelListaSimple extends JPanel {
     protected JList lista;
     protected JScrollPane scrollPane1;
     protected JLabel titulo;
+    protected String[] bloque;
+    protected int totalBloques;
+    protected int bloque1, bloque2;
+    protected int tam_bloque2;
+    protected DefaultListModel model;
 
     public PanelListaSimple(){
         initGUI();
@@ -20,8 +25,11 @@ public class PanelListaSimple extends JPanel {
         lista = new JList();
         scrollPane1 = new JScrollPane(lista);
         titulo = new JLabel();
+        bloque = new String[0];
+        bloque1 = bloque2 = -1;
 
         titulo.setFont(new java.awt.Font("Ubuntu", Font.BOLD, 18));
+
 
         setMinimumSize(new Dimension(281, 300));
         GroupLayout layout = new GroupLayout(this);

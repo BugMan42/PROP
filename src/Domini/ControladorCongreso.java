@@ -331,6 +331,19 @@ public class ControladorCongreso {
         return a;
     }
 
+    public String obtenerBloqueCongresoPR(int i, int tam) {
+        List<Congresista> con = c.obtenerCongreso();
+        int j=i*tam;
+        int lim = i*tam + tam;
+        String res = "";
+        while (j<con.size() && j<lim){
+            Congresista co = con.get(j);
+            res += co.obtID()+" "+co.obtNombre()+" "+co.obtApellido()+" "+String.valueOf(co.obtEdad())+"\n";
+            ++j;
+        }
+        return res;
+    }
+
     public int obtenerBloqueCongresista(String dni, int tam_bloque) throws Exception {
         Dni d = new Dni(dni);
         int i = 0;
