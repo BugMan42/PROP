@@ -18,7 +18,7 @@ public class PanelListaSimple extends JPanel {
     }
 
     private void initGUI(){
-        lista = new JList<String>();
+        lista = new JList();
         scrollPane1 = new JScrollPane(lista);
         titulo = new JLabel();
 

@@ -5,7 +5,7 @@ import Domini.ControladorRelaciones;
 //Por defecto cambiar si conviene
 public class CPRelaciones {
 
-    private static final int tam_bloque = 30;
+    private static final int tam_bloque = 100;
 
     private CPCongreso CPC;
     private CPEventos CPE;

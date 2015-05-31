@@ -59,7 +59,6 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         }
     }*/
 
-    private static final int tam_bloque = 30;
     private CPRelaciones cpr;
 
     public PanelRelacionesGeneral(CPRelaciones c){
@@ -117,11 +116,13 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         }
         else pl1.lista.setListData(new String[0]);*/
 
-        pl1.model = new AbstractListModel() {
+        cpr.reiniciarBCon();
+        pl1.lista.setPrototypeCellValue("PRUEBA");
+        pl1.model = new AbstractListModel(){
             public int getSize() { return cpr.sizeCongreso(); }
             public Object getElementAt(int index) {
                 System.out.println("obteniendo indice "+index);
-                return cpr.obtCongreso()[index]; }
+                return cpr.obtCongresista(index); }
         };
         pl1.lista.setModel(pl1.model);
 
