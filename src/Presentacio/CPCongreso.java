@@ -75,8 +75,8 @@ public class CPCongreso {
             CC.agregarCongresistaRandom(n);
         //}
         //else throw new Exception("Solo se pueden agregar congr random con el congreso vacio");
-        //print((System.nanoTime()-timeini)/1000000000.0 + "");
-        refresh(indexa, indexb);
+        print((System.nanoTime()-timeini)/1000000000.0 + "");
+        //refresh(indexa, indexb);
 
         //print("despues");
         //if (n > 100) refresh(0,1);
