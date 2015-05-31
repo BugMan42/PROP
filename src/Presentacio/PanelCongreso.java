@@ -794,6 +794,7 @@ public class PanelCongreso extends PanelLista {
                 }
             }
         }
+        ListUpdate();
     }
 
     private void ListUpdate() {
