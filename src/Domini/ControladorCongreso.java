@@ -174,7 +174,7 @@ public class ControladorCongreso {
         Dni d_nuevo = new Dni(dni_nuevo);
         //print(size()+"size");
         c.modCongresista(d, d_nuevo, nombre, apellido, edad, ciudad, estado, partido);
-        //print("size: "+size());
+        reordenar();
     }
 
     public Congresista consultarCongresista(String dni) throws Exception {
