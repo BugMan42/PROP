@@ -202,11 +202,20 @@ public class Clique extends Algoritmo {
                 obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " tiene con clique num: " + Integer.toString(i) + " exactamente estos nodos en comun " + Integer.toString(aux.size()));
                 if (aux.size() == k - 1) {
                     obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " esta en la misma comunidad que " + Integer.toString(i));
-                    if (kc.obtNum() == -1) {
-                        kc.modNum(c.obtUltimo());
-                        c.incUltimo();
+                    if (i < j) {
+                        if (kc.obtNum() == -1) {
+                            kc.modNum(c.obtUltimo());
+                            c.incUltimo();
+                        }
+                        kc1.modNum(kc.obtNum());
                     }
-                    kc1.modNum(kc.obtNum());
+                    else {
+                        if (kc1.obtNum() == -1) {
+                            kc1.modNum(c.obtUltimo());
+                            c.incUltimo();
+                        }
+                        kc.obtNum();
+                    }
                     Set<Integer> conj;
                     if (obtOut().numComunidades() <= kc.obtNum()) {
                         conj = new HashSet<Integer>();
@@ -228,7 +237,7 @@ public class Clique extends Algoritmo {
                     else {
                         conj = obtOut().comunidad_at(kc.obtNum());
                         //Como se pasa por referencia actualizo la comunidad
-                        if (kc1.obtNum() == -1) conj.addAll(kc1.lista());
+                        conj.addAll(kc1.lista());
                     }
                 }
             }
