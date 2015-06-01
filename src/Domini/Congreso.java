@@ -109,7 +109,7 @@ public class Congreso {
         int i = 0;
         ArrayList<Congresista> a = new ArrayList<Congresista>();
         //print("hoasd");
-        while ( i < bloque*tam+ tam) {
+        while ( aux.hasNext() && i < bloque*tam+ tam) {
             //print("hola");
             Congresista an = (Congresista)aux.next();
            // print(an.obtID());
