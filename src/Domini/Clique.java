@@ -132,6 +132,7 @@ public class Clique extends Algoritmo {
         int contador = 0;
         for (Iterator it = g.nodosSalida(i).iterator(); it.hasNext() && (Integer)it.next() < i;) ++contador;
         return contador;
+
     }
 
     /////////////////////////////HACER//////////////////////////
