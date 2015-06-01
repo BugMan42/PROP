@@ -69,7 +69,7 @@ public class PanelEventos extends PanelLista {
     private void crearFile() {
         file= new JFileChooser();
         file.setAcceptAllFileFilterUsed(true);
-        file.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        file.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
         file.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
         file.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
     }
