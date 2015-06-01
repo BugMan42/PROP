@@ -110,9 +110,9 @@ public class Congreso {
         ArrayList<Congresista> a = new ArrayList<Congresista>();
         //print("hoasd");
         while ( i < bloque*tam+ tam) {
-            print("hola");
+            //print("hola");
             Congresista an = (Congresista)aux.next();
-            print(an.obtID());
+           // print(an.obtID());
             if (i >= bloque*tam && i < (bloque*tam)+tam) {
                 a.add(i,an);
             }
