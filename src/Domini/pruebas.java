@@ -134,8 +134,13 @@ public class pruebas {
         //tst.insertar("ab",12);
         TSTIterator a = new TSTIterator(tst);
         String aux = "[";
+        boolean capullos = true;
         while (a.hasNext()) {
-            aux += a.next()+", ";
+            if (capullos) {
+                capullos = false;
+            }
+            else aux+=", ";
+            aux += a.next();
         }
         aux+="]";
         print(aux);
