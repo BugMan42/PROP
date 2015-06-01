@@ -239,11 +239,11 @@ public class ControladorRelaciones {
     }
 
     public void guardar(String ruta) throws Exception {
+        ControladorPersistencia cp = new ControladorPersistencia(ruta);
+        cp.abrirEscritura();
         if (!c.esVacio()) {
-            ControladorPersistencia cp = new ControladorPersistencia(ruta);
-            ArrayList<RelacionSimple> rel = rs.obtTodasLasRelaciones();
-            Iterator<RelacionSimple> it = rel.iterator();
-            cp.abrirEscritura();
+            List<Congresista> cs = c.obtenerCongreso();
+            Iterator<Congresista> it = cs.iterator();
             while (it.hasNext()){
                 String datos = "";
                 int j = 0;
@@ -253,23 +253,87 @@ public class ControladorRelaciones {
                 }
                 cp.escribir(datos);
             }
-            cp.cerrarFichero();
+            cp.escribir("\n");
         }
+        if (e.size()>0) {
+            List<Evento> es = e.ConsultarTodosEventos();
+            Iterator<Evento> it = es.iterator();
+            while (it.hasNext()){
+                String datos = "";
+                int j = 0;
+                while (j < max_lineas_guardar && it.hasNext()){
+                    datos += it.next().toString()+"\n";
+                    ++j;
+                }
+                cp.escribir(datos);
+            }
+            cp.escribir("\n");
+        }
+        if (!rs.esVacio()){
+            ArrayList<RelacionSimple> rel = rs.obtTodasLasRelaciones();
+            Iterator<RelacionSimple> it = rel.iterator();
+            while (it.hasNext()){
+                String datos = "";
+                int j = 0;
+                while (j < max_lineas_guardar && it.hasNext()){
+                    datos += it.next().toString()+"\n";
+                    ++j;
+                }
+                cp.escribir(datos);
+            }
+        }
+        cp.cerrarFichero();
     }
 
     public void cargar(String ruta) throws Exception {
         ControladorPersistencia cp = new ControladorPersistencia(ruta);
         cp.abrirLectura();
-        rs.eliminarRelaciones();
-        String r = cp.leer(max_lineas_cargar);
-        while (!r.equals("")){
-            String[] aux = r.split("\n");
-            for(String con : aux){
-                String[] prm = con.split("\\s");
-                if(prm.length < 4) agregarRelacion(prm[0], prm[1], prm[2]);
-                else agregarVoto(prm[0], prm[1], prm[2], prm[3]);
+        c.eliminarCongreso(this);
+        String[] aux =  cp.leer(max_lineas_cargar).split("\n");
+        int i = 0;
+        while(!aux[i].equals("")) {
+            String[] prm = aux[i].split(" ");
+            c.agregarCongresista(prm[0], prm[1], prm[2], Integer.parseInt(prm[3]), prm[4], prm[5], prm[6]);
+            ++i;
+            if (i==aux.length) {
+                aux =  cp.leer(max_lineas_cargar).split("\n");
+                i = 0;
             }
-            r = cp.leer(max_lineas_cargar);
+        }
+        e.EliminarCjtEvento(this);
+        ++i;
+        if (i==aux.length) {
+            aux =  cp.leer(max_lineas_cargar).split("\n");
+            i = 0;
+        }
+        while(!aux[i].equals("")) {
+            String[] prm = aux[i].split(" ");
+            if(prm[0].equals("Votacion")) e.AgregarVotacion(prm[1], prm[2], Integer.parseInt(prm[3]));
+            else if(prm[0].equals("ReunionPersonal")) e.AgregarReunionPersonal(prm[1], prm[2], Integer.parseInt(prm[3]));
+            else if(prm[0].equals("ReunionProfesional")) e.AgregarReunionProfesional(prm[1],prm[2],Integer.parseInt(prm[3]));
+            else if(prm[0].equals("ActoOficial")) e.AgregarActoOficial(prm[1], prm[2], Integer.parseInt(prm[3]));
+            else if(prm[0].equals("ActoNoOficial")) e.AgregarActoNoOficial(prm[1], prm[2], Integer.parseInt(prm[3]));
+            else throw new Exception(E1+prm[0]);
+            ++i;
+            if (i==aux.length) {
+                aux =  cp.leer(max_lineas_cargar).split("\n");
+                i = 0;
+            }
+        }
+        ++i;
+        if (i==aux.length) {
+            aux =  cp.leer(max_lineas_cargar).split("\n");
+            i = 0;
+        }
+        while(!aux[i].equals("")) {
+            String[] prm = aux[i].split(" ");
+            if(prm.length < 4) agregarRelacion(prm[0], prm[1], prm[2]);
+            else agregarVoto(prm[0], prm[1], prm[2], prm[3]);
+            ++i;
+            if (i==aux.length) {
+                aux =  cp.leer(max_lineas_cargar).split("\n");
+                i = 0;
+            }
         }
         cp.cerrarFichero();
     }

@@ -28,38 +28,8 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         }
     }
 
-    /*
-    class AL1 implements AdjustmentListener {
-        public void adjustmentValueChanged(AdjustmentEvent e) {
-            JScrollBar sb = pl1.scrollPane1.getVerticalScrollBar();
-            if (e.getValueIsAdjusting()) {
-                int pos = sb.getValue();
-                System.out.println("Vertical Scroll Bar changed position to " + (sb.getValue()+sb.getModel().getExtent())+" Maximum: "+sb.getMaximum()+" Size: "+pl1.model.size());
-                int extent = sb.getModel().getExtent();
-                if (pos+extent == sb.getMaximum() && pl1.bloque2 < pl1.totalBloques-1){
-                    ++pl1.bloque1;
-                    ++pl1.bloque2;
-                    System.out.println("bloque2 = "+pl1.bloque2+" totalbloques = "+pl1.totalBloques+" scroll down");
-                    if(pl1.bloque2>1) pl1.model.removeRange(0,tam_bloque-1);
-                    pl1.bloque = cpr.obtBloqueCongreso(pl1.bloque2,tam_bloque);
-                    pl1.tam_bloque2 = pl1.bloque.length;
-                    for (int i=0; i<pl1.bloque.length; ++i) pl1.model.addElement(pl1.bloque[i]);
-                    pl1.lista.setModel(pl1.model);
-                }
-                else if (pos == sb.getMinimum() && pl1.bloque1 > 0){
-                    --pl1.bloque1;
-                    --pl1.bloque2;
-                    System.out.println("bloque1 = "+pl1.bloque1+" totalbloques = "+pl1.totalBloques+" scroll up");
-                    pl1.model.removeRange(pl1.model.size()-pl1.tam_bloque2,pl1.model.size()-1);
-                    pl1.bloque = cpr.obtBloqueCongreso(pl1.bloque1,tam_bloque);
-                    for (int i=pl1.bloque.length-1; i>=0; --i) pl1.model.add(0, pl1.bloque[i]);
-                    pl1.lista.setModel(pl1.model);
-                }
-            }
-        }
-    }*/
-
     private CPRelaciones cpr;
+    private JFileChooser fc;
 
     public PanelRelacionesGeneral(CPRelaciones c){
         cpr = c;
@@ -70,14 +40,10 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         pl1.titulo.setText("Congresistas");
         pl2.titulo.setText("Eventos");
         pl3.titulo.setText("Relaciones");
+        fc = new JFileChooser();
 
         ListSelectionModel lsm2 = pl2.lista.getSelectionModel();
         lsm2.addListSelectionListener(new SH2());
-
-        /*
-        AdjustmentListener al1 = new AL1();
-        pl1.scrollPane1.getVerticalScrollBar().addAdjustmentListener(al1);*/
-
 
         bañadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,32 +68,31 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
                 bEliminarTodasActionPerformed(evt);
             }
         });
+
+        bguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bGuardarActionPerformed(evt);
+            }
+        });
+
+        bcargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCargarActionPerformed(evt);
+            }
+        });
     }
 
     public void actualizar() {
-        /*
-        if (cpr.sizeCongreso()>0){
-            pl1.totalBloques = cpr.sizeCongreso()/tam_bloque + 1;
-            pl1.bloque = cpr.obtBloqueCongreso(0,tam_bloque);
-            pl1.model = new DefaultListModel();
-            for (int i=0; i<pl1.bloque.length; ++i) pl1.model.addElement(pl1.bloque[i]);
-            pl1.lista.setModel(pl1.model);
-            pl1.bloque2 = 0;
-        }
-        else pl1.lista.setListData(new String[0]);*/
-
-        cpr.reiniciarBCon();
+        cpr.reiniciarCacheCon();
         pl1.lista.setPrototypeCellValue("PRUEBA");
         pl1.model = new AbstractListModel(){
             public int getSize() { return cpr.sizeCongreso(); }
             public Object getElementAt(int index) {
                 System.out.println("obteniendo indice "+index);
-                return cpr.obtCongresista(index); }
+                return cpr.obtCongresistaCache(index); }
         };
         pl1.lista.setModel(pl1.model);
 
-        /*if(!cpr.esVacioCongreso()) pl1.lista.setListData(cpr.obtCongreso());
-        else pl1.lista.setListData(new String[0]);*/
         if(!cpr.esVacioEventos()) pl2.lista.setListData(cpr.obtEventos());
         else pl2.lista.setListData(new String[0]);
         if(!cpr.esVacioRelaciones()) pl3.lista.setListData(cpr.obtRelaciones());
@@ -175,6 +140,20 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
             cpr.eliminarRelaciones();
             pl3.lista.setListData(new String[0]);
         }
+    }
+
+    private void bGuardarActionPerformed(ActionEvent evt) {
+        if (!cpr.esVacioRelaciones()) {
+            int op = fc.showSaveDialog(this);
+            if (op == JFileChooser.APPROVE_OPTION)
+                cpr.guardar(fc.getSelectedFile().getAbsolutePath());
+        }
+    }
+
+    private void bCargarActionPerformed(ActionEvent evt) {
+        int op = fc.showOpenDialog(this);
+        if (op == JFileChooser.APPROVE_OPTION)
+            cpr.cargar(fc.getSelectedFile().getAbsolutePath());
     }
 
 }

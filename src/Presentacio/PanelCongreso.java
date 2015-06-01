@@ -802,7 +802,7 @@ public class PanelCongreso extends PanelLista {
         ListUpdate();
     }
 
-    private void ListUpdate() {
+    public void ListUpdate() {
         String a[] = {"No hay Congresistas"};
         //updatejlist();
         //if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
@@ -823,7 +823,7 @@ public class PanelCongreso extends PanelLista {
 
         //}
     }
-    private void setDefaultText() {
+    public void setDefaultText() {
         defColorText(Color.GRAY);
         textName.setText(def[0]);
         textSurname.setText(def[1]);
@@ -834,7 +834,7 @@ public class PanelCongreso extends PanelLista {
         textParty.setText(def[6]);
         emptyLError();
     }
-    private void emptyLError() {
+    public void emptyLError() {
         lError.setText(" ");
         lName.setForeground(Color.BLACK);
         lSurname.setForeground(Color.BLACK);

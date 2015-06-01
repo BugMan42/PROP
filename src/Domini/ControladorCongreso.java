@@ -212,7 +212,7 @@ public class ControladorCongreso {
         while (!r.equals("")){
             String[] aux = r.split("\n");
             for(String con : aux){
-                String[] prm = con.split("\\s");
+                String[] prm = con.split(" ");
                 agregarCongresista(prm[0], prm[1], prm[2], Integer.parseInt(prm[3]), prm[4], prm[5], prm[6]);
             }
             r = cp.leer(max_lineas_cargar);

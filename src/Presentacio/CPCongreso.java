@@ -98,6 +98,23 @@ public class CPCongreso {
         indexa = 0;
         indexb = -1;
     }
+    public void nuevo(){
+        if (CC.size()>0) {
+            CC.eliminarCongreso(CPR.obtCR());
+            bqa = new String[100];
+            bqb = new String[100];
+            indexa = 0;
+            indexb = -1;
+        }
+        actualizar();
+    }
+    public void actualizar(){
+        if(PC!=null) {
+            obtPanel().emptyLError();
+            obtPanel().setDefaultText();
+            obtPanel().ListUpdate();
+        }
+    }
     public String obtBQ(int bq) {
         return CC.obtBloque(bq);
     }

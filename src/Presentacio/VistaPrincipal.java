@@ -13,6 +13,7 @@ public class    VistaPrincipal extends JFrame {
     //Referència al controlador de presentació que crea la vista
     ControladorPresentacion cp;
     JPanel pan;
+    JFileChooser fc;
 
     public VistaPrincipal(ControladorPresentacion c)
     {
@@ -44,6 +45,8 @@ public class    VistaPrincipal extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        fc = new JFileChooser();
+
         /// Barra de menús
         JMenuBar menuBar = new JMenuBar();
 
@@ -58,7 +61,7 @@ public class    VistaPrincipal extends JFrame {
         item1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setTitle("Proyecto ~");
+                cp.nuevo();
             }
         });
         menu1.add(item1);
@@ -66,23 +69,27 @@ public class    VistaPrincipal extends JFrame {
         // Item de menú 2 (Cargar)
         JMenuItem item2 = new JMenuItem("Cargar", KeyEvent.VK_L);
         item2.setToolTipText("Cargar un proyecto");
-        /*item1.addActionListener(new ActionListener() {
+        item2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                int op = fc.showOpenDialog(pan);
+                if (op == JFileChooser.APPROVE_OPTION)
+                    cp.cargar(fc.getSelectedFile().getAbsolutePath());
             }
-        });*/
+        });
         menu1.add(item2);
 
         // Item de menú 3 (Guardar)
         JMenuItem item3 = new JMenuItem("Guardar", KeyEvent.VK_S);
         item3.setToolTipText("Guardar proyecto");
-        /*item1.addActionListener(new ActionListener() {
+        item3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                int op = fc.showSaveDialog(pan);
+                if (op == JFileChooser.APPROVE_OPTION)
+                    cp.guardar(fc.getSelectedFile().getAbsolutePath());
             }
-        });*/
+        });
         menu1.add(item3);
 
         menu1.addSeparator();

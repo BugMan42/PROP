@@ -11,18 +11,12 @@ import Domini.ControladorRelaciones;
  */
 public class ControladorPresentacion {
 
-    /*private ControladorCongreso cc;
-    private ControladorCjtEvento ce;
-    private ControladorAlgoritmo ca;
-    private ControladorRelaciones cr;*/
-
     private CPAlgoritmo cpa;
     private CPCongreso cpc;
     private CPEventos cpe;
     private CPRelaciones cpr;
 
     private VistaPrincipal v;
-    private VistaPrincipal vp;
 
     public ControladorPresentacion(){
         cpc = new CPCongreso();
@@ -31,8 +25,6 @@ public class ControladorPresentacion {
         cpa = new CPAlgoritmo(cpr);
 
         v = new VistaPrincipal(this);
-
-       // / vp = new VistaPrincipal();
     }
 
     public void inicializarPresentacion() {
@@ -40,19 +32,27 @@ public class ControladorPresentacion {
         v.setVisible(true);
     }
 
-    public VistaPrincipal getVista()
-    {
+    public VistaPrincipal getVista() {
         return v;
-    }
-
-    public VistaPrincipal getVistaPrincipal()
-    {
-        return vp;
     }
 
     public CPAlgoritmo getCPA() { return cpa; }
     public CPCongreso getCPC() { return cpc; }
     public CPEventos obtCPE() { return cpe;}
     public CPRelaciones getCPR() { return cpr;}
+
+    public void nuevo(){
+        cpc.nuevo();
+        cpe.nuevo();
+        cpr.actualizar();
+    }
+
+    public void guardar(String ruta){
+        cpr.guardar(ruta);
+    }
+
+    public void cargar(String ruta){
+        cpr.cargar(ruta);
+    }
 
 }

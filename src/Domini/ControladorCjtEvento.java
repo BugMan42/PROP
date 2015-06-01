@@ -24,7 +24,7 @@ public class ControladorCjtEvento {
         ce.EliminarEvento(nombre, new Fecha(fecha));
     }
 
-    public void EliminarCjtEvento(ControladorRelaciones cr) throws Exception {
+    public void EliminarCjtEvento(ControladorRelaciones cr) {
         ce.EliminarCjtEvento();
         cr.eliminarRelaciones();
     }
@@ -131,7 +131,7 @@ public class ControladorCjtEvento {
         while (!r.equals("")){
             String[] aux = r.split("\n");
             for(String con : aux){
-                String[] prm = con.split("\\s");
+                String[] prm = con.split(" ");
                 if(prm[0].equals("Votacion")) AgregarVotacion(prm[1], prm[2], Integer.parseInt(prm[3]));
                 else if(prm[0].equals("ReunionPersonal")) AgregarReunionPersonal(prm[1], prm[2], Integer.parseInt(prm[3]));
                 else if(prm[0].equals("ReunionProfesional")) AgregarReunionProfesional(prm[1],prm[2],Integer.parseInt(prm[3]));

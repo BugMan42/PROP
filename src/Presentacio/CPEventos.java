@@ -22,4 +22,16 @@ public class CPEventos {
 
     public CPRelaciones obtCPR() {return CR;}
 
+    public void nuevo(){
+        if (CCE.size()>0) CCE.EliminarCjtEvento(CR.obtCR());
+        actualizar();
+    }
+
+    public void actualizar(){
+        if(PE!=null){
+            PE.limpiarcampos();
+            PE.actualizarLista();
+        }
+    }
+
 }

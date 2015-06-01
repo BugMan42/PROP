@@ -36,7 +36,7 @@ public class CPRelaciones {
         PRE = null;
         PRG = null;
 
-        reiniciarBCon();
+        reiniciarCacheCon();
         //reiniciarBEv();
         //reiniciarBRel();
 
@@ -46,20 +46,16 @@ public class CPRelaciones {
 
     public PanelRelaciones obtPanel() {
         if (PR == null) PR = new PanelRelaciones(this);
-        try {
-            switch (pan) {
-                case 1:
-                    PRG.actualizar();
-                    break;
-                case 2:
-                    PRC.actualizar();
-                    break;
-                case 3:
-                    PRE.actualizar();
-                    break;
-            }
-        } catch (Exception e1) {
-            e1.printStackTrace();
+        switch (pan) {
+            case 1:
+                PRG.actualizar();
+                break;
+            case 2:
+                PRC.actualizar();
+                break;
+            case 3:
+                PRE.actualizar();
+                break;
         }
         return PR;
     }
@@ -85,6 +81,22 @@ public class CPRelaciones {
         return PRE;
     }
 
+    public void actualizar(){
+        if(PR!=null) {
+            switch (pan) {
+                case 1:
+                    PRG.actualizar();
+                    break;
+                case 2:
+                    PRC.actualizar();
+                    break;
+                case 3:
+                    PRE.actualizar();
+                    break;
+            }
+        }
+    }
+
     public boolean esVacioCongreso(){
         return CPC.obtCC().esVacio();
     }
@@ -101,7 +113,7 @@ public class CPRelaciones {
         return CPC.size();
     }
 
-    public void reiniciarBCon(){
+    public void reiniciarCacheCon(){
         RUCon = 1;
         indCon = new int[2][2];
         indCon[0][0] = -1;
@@ -110,23 +122,28 @@ public class CPRelaciones {
         indCon[1][1] = -1;
         bCon = new String[2][];
     }
-/*
-    public void reiniciarBEv(){
+
+    public void reiniciarCacheEv(){
         RUEv = 1;
-        indEv[0] = new Pair<Integer, Integer>(-1,-1);
-        indEv[1] = new Pair<Integer, Integer>(-1,-1);
+        indEv = new int[2][2];
+        indEv[0][0] = -1;
+        indEv[0][1] = -1;
+        indEv[1][0] = -1;
+        indEv[1][1] = -1;
+        bEv = new String[2][];
     }
-    public void reiniciarBRel(){
+
+    public void reiniciarCacheRel(){
         RURel = 1;
-        indRel[0] = new Pair<Integer, Integer>(-1,-1);
-        indRel[1] = new Pair<Integer, Integer>(-1,-1);
-    }*/
-
-    public String[] obtCongreso(){
-        return CPC.obtCC().obtCongresoPR().split("\n");
+        indRel = new int[2][2];
+        indRel[0][0] = -1;
+        indRel[0][1] = -1;
+        indRel[1][0] = -1;
+        indRel[1][1] = -1;
+        bRel = new String[2][];
     }
 
-    public String obtCongresista(int i){
+    public String obtCongresistaCache(int i){
         String res;
         // Comprobar si está en el primer bloque.
         if (indCon[0][0]<=i && indCon[0][1]>=i){
@@ -152,6 +169,122 @@ public class CPRelaciones {
             res = bCon[RUCon][i-ini];
         }
         return res;
+    }
+
+    public String obtEventoCache(int i){
+        String res;
+        // Comprobar si está en el primer bloque.
+        if (indCon[0][0]<=i && indCon[0][1]>=i){
+            int ini = (i/tam_bloque) * tam_bloque;
+            res = bCon[0][i-ini];
+            RUCon = 0;
+        }
+        // Si está en el segundo.
+        else if (indCon[1][0]<=i && indCon[1][1]>=i){
+            int ini = (i/tam_bloque) * tam_bloque;
+            res = bCon[1][i-ini];
+            RUCon = 1;
+        }
+        // Si no está en ninguno.
+        else {
+            if(RUCon==1) RUCon = 0;
+            else RUCon = 1;
+            int ini = (i/tam_bloque) * tam_bloque;
+            int fin = ini + tam_bloque - 1;
+            indCon[RUCon][0] = ini;
+            indCon[RUCon][1] = fin;
+            bCon[RUCon] = CPC.obtCC().obtBloquePR(i,tam_bloque).split("\n");
+            res = bCon[RUCon][i-ini];
+        }
+        return res;
+    }
+
+    public String obtRelacionesCache(int i, String dni){
+        String res;
+        // Comprobar si está en el primer bloque.
+        if (indCon[0][0]<=i && indCon[0][1]>=i){
+            int ini = (i/tam_bloque) * tam_bloque;
+            res = bCon[0][i-ini];
+            RUCon = 0;
+        }
+        // Si está en el segundo.
+        else if (indCon[1][0]<=i && indCon[1][1]>=i){
+            int ini = (i/tam_bloque) * tam_bloque;
+            res = bCon[1][i-ini];
+            RUCon = 1;
+        }
+        // Si no está en ninguno.
+        else {
+            if(RUCon==1) RUCon = 0;
+            else RUCon = 1;
+            int ini = (i/tam_bloque) * tam_bloque;
+            int fin = ini + tam_bloque - 1;
+            indCon[RUCon][0] = ini;
+            indCon[RUCon][1] = fin;
+            bCon[RUCon] = CPC.obtCC().obtBloquePR(i,tam_bloque).split("\n");
+            res = bCon[RUCon][i-ini];
+        }
+        return res;
+    }
+
+    public String obtRelacionesCache(int i, String nombre, String fecha){
+        String res;
+        // Comprobar si está en el primer bloque.
+        if (indCon[0][0]<=i && indCon[0][1]>=i){
+            int ini = (i/tam_bloque) * tam_bloque;
+            res = bCon[0][i-ini];
+            RUCon = 0;
+        }
+        // Si está en el segundo.
+        else if (indCon[1][0]<=i && indCon[1][1]>=i){
+            int ini = (i/tam_bloque) * tam_bloque;
+            res = bCon[1][i-ini];
+            RUCon = 1;
+        }
+        // Si no está en ninguno.
+        else {
+            if(RUCon==1) RUCon = 0;
+            else RUCon = 1;
+            int ini = (i/tam_bloque) * tam_bloque;
+            int fin = ini + tam_bloque - 1;
+            indCon[RUCon][0] = ini;
+            indCon[RUCon][1] = fin;
+            bCon[RUCon] = CPC.obtCC().obtBloquePR(i,tam_bloque).split("\n");
+            res = bCon[RUCon][i-ini];
+        }
+        return res;
+    }
+
+    public String obtRelaciones(int i){
+        String res;
+        // Comprobar si está en el primer bloque.
+        if (indCon[0][0]<=i && indCon[0][1]>=i){
+            int ini = (i/tam_bloque) * tam_bloque;
+            res = bCon[0][i-ini];
+            RUCon = 0;
+        }
+        // Si está en el segundo.
+        else if (indCon[1][0]<=i && indCon[1][1]>=i){
+            int ini = (i/tam_bloque) * tam_bloque;
+            res = bCon[1][i-ini];
+            RUCon = 1;
+        }
+        // Si no está en ninguno.
+        else {
+            if(RUCon==1) RUCon = 0;
+            else RUCon = 1;
+            int ini = (i/tam_bloque) * tam_bloque;
+            int fin = ini + tam_bloque - 1;
+            indCon[RUCon][0] = ini;
+            indCon[RUCon][1] = fin;
+            bCon[RUCon] = CPC.obtCC().obtBloquePR(i,tam_bloque).split("\n");
+            res = bCon[RUCon][i-ini];
+        }
+        return res;
+    }
+
+    public String[] obtCongreso(){
+        return CPC.obtCC().obtCongresoPR().split("\n");
     }
 
     public String[] obtBloqueCongreso(int i, int tam){
@@ -196,7 +329,7 @@ public class CPRelaciones {
 
     public void agregarRelacion(String dni, String nombre, String fecha) {
         try {
-            CR.agregarRelacion(dni,nombre,fecha);
+            CR.agregarRelacion(dni, nombre, fecha);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -236,6 +369,25 @@ public class CPRelaciones {
 
     public void eliminarRelaciones(){
         CR.eliminarRelaciones();
+    }
+
+    public void guardar(String ruta){
+        try {
+            CR.guardar(ruta);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cargar(String ruta){
+        try {
+            CR.cargar(ruta);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        CPC.actualizar();
+        CPE.actualizar();
+        actualizar();
     }
 
 }

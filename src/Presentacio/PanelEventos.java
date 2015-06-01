@@ -112,7 +112,7 @@ public class PanelEventos extends PanelLista {
         btcargarTodo.setFont(new java.awt.Font("Ubuntu", 0, 18));
     }
 
-    private void actualizarLista() {
+    public void actualizarLista() {
         String info[] = {"No hay eventos creados"};
         if (cpe.obtCCE().size() == 0) lista.setListData(info);
         else lista.setListData(cpe.obtCCE().ConsultarTodosEventosP().toArray());
@@ -316,7 +316,7 @@ public class PanelEventos extends PanelLista {
         return true;
     }
 
-    private void limpiarcampos() {
+    public void limpiarcampos() {
         ctnombre.setText(defecto[0]);
         ctnombre.setForeground(Color.GRAY);
         ctfecha.setText(defecto[1]);
@@ -403,17 +403,12 @@ public class PanelEventos extends PanelLista {
     }
 
     private void bteliminarTodoAccion(ActionEvent e) {
-        try {
-            if (cpe.obtCCE().size() > 0) {
-                cpe.obtCCE().EliminarCjtEvento(cpe.obtCPR().obtCR());
-                actualizarLista();
-                limpiarcampos();
-            }
-            else mostrarmensaje("No se puede eliminar porque no hay eventos");
+        limpiarcampos();
+        if (cpe.obtCCE().size() > 0) {
+            cpe.obtCCE().EliminarCjtEvento(cpe.obtCPR().obtCR());
+            actualizarLista();
         }
-        catch(Exception ex) {
-            mostrarmensaje(ex.getMessage());
-        }
+        else mostrarmensaje("No se puede eliminar porque no hay eventos");
     }
 
     private void btguardarTodoAccion(ActionEvent e) {
