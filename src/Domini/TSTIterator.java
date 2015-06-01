@@ -20,7 +20,9 @@ public class TSTIterator<X> extends TST{
                 stack.push(aux);
             }
         }
-        printstack();
+        //print("stack iniiiii");
+        //printstack();
+        //print(" ");
     }
 
     public boolean hasNext() {
@@ -141,19 +143,20 @@ public class TSTIterator<X> extends TST{
     private void obtenerNext(TSTNodoChar t) {
         if (t != null) {
             //print("dins obtener: " + t.valor);
-            printstack();
-            print("");
+            //printstack();
+            //print("");
             stack.push(t);
             if (t.valor != fin) {
-                int n = stack.size();
+                TSTNodoChar l = (TSTNodoChar)t.left;
+                TSTNodoChar m = (TSTNodoChar)t.middle;
+                TSTNodoChar r = (TSTNodoChar)t.right;
                 obtenerNext((TSTNodoChar) t.left);
-                if (n != stack.size() && stack.peek().valor != fin) {
+                if (l != null && stack.peek().valor == fin) {
 
                 }
                 else {
-                    n = stack.size();
                     obtenerNext((TSTNodoChar)t.middle);
-                    if (n != stack.size() && stack.peek().valor != fin) {
+                    if (m != null && stack.peek().valor == fin) {
 
                     }
                     else {
