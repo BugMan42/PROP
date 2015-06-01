@@ -85,9 +85,11 @@ public class    VistaPrincipal extends JFrame {
         item3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int op = fc.showSaveDialog(pan);
-                if (op == JFileChooser.APPROVE_OPTION)
-                    cp.guardar(fc.getSelectedFile().getAbsolutePath());
+                if (cp.modificado()) {
+                    int op = fc.showSaveDialog(pan);
+                    if (op == JFileChooser.APPROVE_OPTION)
+                        cp.guardar(fc.getSelectedFile().getAbsolutePath());
+                }
             }
         });
         menu1.add(item3);

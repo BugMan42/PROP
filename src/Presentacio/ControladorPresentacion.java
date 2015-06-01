@@ -41,6 +41,10 @@ public class ControladorPresentacion {
     public CPEventos obtCPE() { return cpe;}
     public CPRelaciones getCPR() { return cpr;}
 
+    public boolean modificado(){
+        return !cpc.obtCC().esVacio() || cpe.obtCCE().size()>0;
+    }
+
     public void nuevo(){
         cpc.nuevo();
         cpe.nuevo();

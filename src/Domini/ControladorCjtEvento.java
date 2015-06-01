@@ -151,6 +151,17 @@ public class ControladorCjtEvento {
         return res;
     }
 
+    public String obtBloquePR(int bloque, int tam_bloque){
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > size()) fin = size();
+        List<Evento> le = ce.ConsultarTodosEventos().subList(ini, fin);
+        String res = "";
+        for (Evento e : le)
+            res += e.tipo()+" "+e.obt_nombre()+" "+e.obt_fecha()+"\n";
+        return res;
+    }
+
     public String ConsultarEventoP(String nombre, String fecha) throws Exception {
         return ce.ConsultarEvento(nombre, new Fecha(fecha)).toString();
     }

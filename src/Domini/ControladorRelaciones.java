@@ -36,6 +36,10 @@ public class ControladorRelaciones {
         return rs.esVacio();
     }
 
+    public int size() throws Exception {
+        return rs.size();
+    }
+
     public void agregarRelacion(String dni, String nombre, String fecha) throws Exception {
         Evento ev = e.ConsultarEvento(nombre, fecha);
         if(ev.tipo().equals("Votacion")) throw new Exception(E1);
@@ -379,6 +383,16 @@ public class ControladorRelaciones {
         ArrayList<RelacionSimple> lr = rs.obtTodasLasRelaciones();
         String res = "";
         for(RelacionSimple rs : lr) res += rs.toString()+"\n";
+        return res;
+    }
+
+    public String obtBloquePR(int bloque, int tam_bloque) throws Exception {
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > size()) fin = size();
+        List<RelacionSimple> lr = rs.obtTodasLasRelaciones().subList(ini,fin);
+        String res = "";
+        for (RelacionSimple rs : lr) res += rs.toString()+"\n";
         return res;
     }
 

@@ -383,11 +383,10 @@ public class ControladorCongreso {
         return res;
     }
 
-    public String obtBloquePR(int i, int tam_bloque){
-        int ini = (i/tam_bloque) * tam_bloque;
+    public String obtBloquePR(int bloque, int tam_bloque){
+        int ini = bloque * tam_bloque;
         int fin = ini + tam_bloque;
         if (fin > size()) fin = size();
-        System.out.println("ini "+ini+" fin "+fin);
         List<Congresista> con = c.obtenerCongreso().subList(ini,fin);
         String res = "";
         for (Congresista co: con)
