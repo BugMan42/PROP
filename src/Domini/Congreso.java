@@ -108,10 +108,13 @@ public class Congreso {
         TSTIterator aux = new TSTIterator(tst);
         int i = 0;
         ArrayList<Congresista> a = new ArrayList<Congresista>();
-        while ( i < bloque*tam) {
+        //print("hoasd");
+        while ( i < bloque*tam+ tam) {
+            print("hola");
             Congresista an = (Congresista)aux.next();
-            if (i >= bloque*tam && i < (bloque*tam)+100) {
-                a.add(an);
+            print(an.obtID());
+            if (i >= bloque*tam && i < (bloque*tam)+tam) {
+                a.add(i,an);
             }
             ++i;
         }
