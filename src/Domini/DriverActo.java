@@ -2,9 +2,6 @@ package Domini;
 
 import java.util.Scanner;
 
-/**
- * Created by usuario on 03/05/2015.
- */
 public class DriverActo {
     final static String menu = "Bienvenido/a al driver de acto";
     final static String opcion1 = "1 Acto(String name, Fecha date, int importance)";
@@ -21,6 +18,9 @@ public class DriverActo {
         Scanner entrada = new Scanner(System.in);
         System.out.println(menu);
         ImprimirMenu();
+        /*Pattern p = Pattern.compile(" ");
+        String[] s = p.split("me cago en la prima de la rubia");
+        for (String str : s) System.out.println(str);*/
         do {
             try {
                 Proceso(entrada);

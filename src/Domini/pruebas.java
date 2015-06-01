@@ -2,9 +2,6 @@ package Domini;
 
 import Presentacio.CPCongreso;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public class pruebas {
 
 

@@ -1,9 +1,5 @@
 package Domini;
 
-/**
- * Created by falc on 23/03/15.
- * Clase Algoritmo
- */
 public abstract class Algoritmo {
 
     // Punteros a las clases inicializadas en el Controlador del Algoritmo
@@ -19,7 +15,6 @@ public abstract class Algoritmo {
         in = i;
         obtOut = o;
     }
-
 
     public Entrada obtIn() {
         return in;
