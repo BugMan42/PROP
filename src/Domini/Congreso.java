@@ -110,7 +110,7 @@ public class Congreso {
         ArrayList<Congresista> a = new ArrayList<Congresista>();
         while (aux.hasNext() && i < bloque*tamaño) {
             Congresista an = (Congresista)aux.next();
-            if (i >= bloque*tamaño && i < (bloque*tamaño-1)) {
+            if (i >= bloque*tamaño && i < (bloque*tamaño)) {
                 a.add(an);
             }
             ++i;
