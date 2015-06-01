@@ -104,6 +104,19 @@ public class Congreso {
             tst.obtener(dni.toString()).mod(nombre, apellido, edad, ciudad, estado, partido);
         }
     }
+    public ArrayList<Congresista> obtCongreso(int bloque, int tamaño) {
+        TSTIterator aux = new TSTIterator(tst);
+        int i = 0;
+        ArrayList<Congresista> a = new ArrayList<Congresista>();
+        while (aux.hasNext() && i < bloque*tamaño) {
+            Congresista an = (Congresista)aux.next();
+            if (i >= bloque*tamaño && i < (bloque*tamaño-1)) {
+                a.add(an);
+            }
+            ++i;
+        }
+        return a;
+    }
 
     //Consultoras
     public Congresista consultarCongresista(Dni dni) throws Exception {
