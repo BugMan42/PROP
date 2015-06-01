@@ -131,7 +131,7 @@ public class pruebas {
         //tst.insertar("ab",4);
         //print("a: "+tst.obtener("ab"));
         //tst.insertar("ab",13);
-        //print(tst.consultarClaves()+"");
+        print(tst.consultarObjetos()+"");
         //tst.modificar("ab", "a",14);
         //tst.insertar("ab",12);
         TSTIterator a = new TSTIterator(tst);

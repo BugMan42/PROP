@@ -20,6 +20,7 @@ public class TSTIterator<X> extends TST{
                 stack.push(aux);
             }
         }
+        printstack();
     }
 
     public boolean hasNext() {
@@ -140,8 +141,8 @@ public class TSTIterator<X> extends TST{
     private void obtenerNext(TSTNodoChar t) {
         if (t != null) {
             //print("dins obtener: " + t.valor);
-            //printstack();
-            //print("");
+            printstack();
+            print("");
             stack.push(t);
             if (t.valor != fin) {
                 int n = stack.size();

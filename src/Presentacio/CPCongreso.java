@@ -258,6 +258,7 @@ public class CPCongreso {
 
     public void guardar(String path) throws Exception {
         CC.guardar(path);
+        refresh(indexa, indexb);
     }
     public void cargar(String path) throws Exception {
         CC.cargar(path,CPR.obtCR());
