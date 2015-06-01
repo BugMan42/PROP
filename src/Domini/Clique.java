@@ -9,11 +9,13 @@ public class Clique extends Algoritmo {
     final static String error3 = "El numero de comunidad debe estar entre [0 y numcomunidades - 1]";
     private Grafo g;
     private int k;
-
+    private int th;
     public Clique(Entrada in, Salida out) throws Exception {
         super(in, out);
         g = in.obtGrafo();
         k = (int)in.obtParam1();
+        th = (int)in.obtParam2();
+
         if (k <= 2) throw new Exception(error1);
         ejecutar_algoritmo();
         //System.out.println(obtOut().comunidad());
@@ -106,7 +108,7 @@ public class Clique extends Algoritmo {
                     cliqueOneNode(kc, k - 2, l);
                     ///////////////////////////////////////HACER////////////////////////
                     //agregar valor threshold
-                    if (kc.size() > 0) {
+                    if (kc.size() > 0 && kc.obtPeso() > th) {
                         //obtOut().agregarMensaje("En el nodo num: " + Integer.toString(i) + " se ha creado una clique");
                         c.agregar_clique(kc);
                         ////////////////////FUNCIONA MAL REPARAR///////////////////////////////////////////////
