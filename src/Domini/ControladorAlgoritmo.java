@@ -167,7 +167,7 @@ public class ControladorAlgoritmo {
     public void createDemoGraph()
     {
         Grafo g = new Grafo();
-        for (int i = 0; i < 10; ++i)
+        for (int i = 0; i < 11; ++i)
         {
             try {
                 g.agregarVertice(Integer.toString(i));
@@ -195,6 +195,16 @@ public class ControladorAlgoritmo {
             g.agregarArista("6", "4", 8);
             g.agregarArista("2","5", 10);
             g.agregarArista("5","2", 10);
+            g.agregarArista("7", "8", 3);
+            g.agregarArista("7", "9", 5);
+            g.agregarArista("7", "10", 4);
+            g.agregarArista("8", "9", 6);
+            g.agregarArista("9", "10", 7);
+            g.agregarArista("8", "10", 8);
+            //g.agregarArista("", "", 9);
+            //g.agregarArista("", "", 10);
+            //g.agregarArista("", "", );
+
 
         } catch (Exception e) {
             e.printStackTrace();

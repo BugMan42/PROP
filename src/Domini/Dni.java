@@ -25,6 +25,9 @@ public class Dni  {
         }
         else throw new DNINOVALIDO(s);
     }
+    public Dni(Dni a) {
+        dni = a.dni;
+    }
 
     public Dni() {
        dni =  generarRandom2();

@@ -31,7 +31,7 @@ public class Congresista implements Node {
         Partido = partido;
     }
     public Congresista(Congresista c) {
-        Dni = c.obtDni();
+        Dni = new Dni(Dni);
         Nombre = c.obtNombre();
         Apellido = c.obtApellido();
         Edad = c.obtEdad();
@@ -122,7 +122,15 @@ public class Congresista implements Node {
         return a.obtID().equals(Dni);
     }
 
+    public Congresista clone() {
+        return new Congresista(this);
+    }
 
+
+
+
+
+    /** COMPARATOR */
     public static Comparator<Congresista> DNI = new Comparator<Congresista>() {
         @Override
         public int compare(Congresista o1, Congresista o2) {

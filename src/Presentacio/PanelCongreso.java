@@ -1163,11 +1163,11 @@ public class PanelCongreso extends PanelLista {
         SwingUtilities.updateComponentTreeUI(choosersave);
         chooserload.setAcceptAllFileFilterUsed(true);
         chooserload.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
-        chooserload.addChoosableFileFilter(new FileNameExtensionFilter(".int", "in"));
+        chooserload.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
         chooserload.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
         choosersave.setAcceptAllFileFilterUsed(true);
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
-        choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".int", "in"));
+        choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
     }
 
@@ -1209,7 +1209,7 @@ public class PanelCongreso extends PanelLista {
             }
         };
 
-        listCongreso.setPrototypeCellValue("Insert"+Long.MAX_VALUE);
+        listCongreso.setPrototypeCellValue("If");
         //bigData = new BigData();
         listCongreso.setModel(bigData);
         //listCongreso.setListData();

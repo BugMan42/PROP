@@ -12,9 +12,10 @@ public class pruebas {
     public static void main(String[] args) throws Exception {
 
         try {
-            testRandomCongreso(1000000);
+            //testRandomCongreso(1000000);
             //testDNI(100000000);
             //testcc();
+            testGrafo();
             //testCP();
             /*
             TST<Integer> tst = new TST<Integer>();
@@ -120,6 +121,45 @@ public class pruebas {
 
 
 
+    }
+    private static void testGrafo() throws Exception {
+       // try {
+        Congresista C1 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
+        Congresista C2 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "San Francisco", "CA", "Berkeley");
+        Congresista C3 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
+        Congresista C4 = new Congresista(new Dni("00000000D"), "Max", "Newman", 87, "Chealsea", "LO", "Democrata");
+        Congresista C5 = new Congresista(new Dni("00000000E"), "Allen", "Newll", 65, "San Francisco", "SF", "Pirata");
+        Congresista C6 = new Congresista(new Dni("00000000F"), "Jon-Von", "Neumann", 53, "Budapest", "AU", "Pirata");
+        Congresista C7 = new Congresista(new Dni("00000000G"), "Alan", "Turing", 41, "London", "LO", "Liberal");
+        Edge e1 = new Edge(C1,C2,3);
+        Edge e2 = new Edge(C2,C1,1);
+        Edge e3 = new Edge(C2,C3,3);
+        Edge e4 = new Edge(C4,C3,2);
+        Edge e5 = new Edge(C4,C5,3);
+        Edge e6 = new Edge(C1,C2,5);
+        Edge e7 = new Edge(C7,C2,3);
+
+        GrafoNodoArista<Congresista,Edge> a = new GrafoNodoArista();
+        a.agregarVertice(C1);
+        a.agregarVertice(C2);
+        a.agregarVertice(C3);
+        a.agregarVertice(C4);
+        a.agregarVertice(C5);
+        print("size: " + a.size());
+        a.agregarArista(e1);
+        a.agregarArista(e2);
+        a.agregarArista(e3);
+        a.agregarArista(e4);
+        print("degree "+a.existeAristaPeso(e1));
+
+
+
+        //a.eliminarVertice(C1);
+        print("size: " + a.size());
+        print(a.consultarVertices()+"");
+
+
+        //} catch (Exception)
     }
     private static void testcc() throws Exception {
         ControladorCongreso cr = new ControladorCongreso();

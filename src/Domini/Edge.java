@@ -11,11 +11,14 @@ public class Edge<N extends Node> {
         destino = b;
         peso = c;
     }
+    public Edge clone() {
+        return new Edge(origen.clone(),destino.clone(),peso);
+    }
 
-    public Node obtOrigen() {
+    public N obtOrigen() {
         return origen;
     }
-    public Node obtDestino() {
+    public N obtDestino() {
         return destino;
     }
     public double obtPeso() {
@@ -29,5 +32,8 @@ public class Edge<N extends Node> {
     }
     public void modPeso(double c) {
         peso = c;
+    }
+    public boolean equals(Edge aux) {
+        return origen == aux.origen && destino == aux.destino && peso == aux.peso;
     }
 }
