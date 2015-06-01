@@ -30,7 +30,7 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
     }
 
     private CPRelaciones cpr;
-    private JFileChooser fc;
+    private JFileChooser guardar, cargar;
 
     public PanelRelacionesGeneral(CPRelaciones c){
         cpr = c;
@@ -41,11 +41,22 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         pl1.titulo.setText("Congresistas");
         pl2.titulo.setText("Eventos");
         pl3.titulo.setText("Relaciones");
-        fc = new JFileChooser();
+        guardar = new JFileChooser();
+        cargar = new JFileChooser();
 
-        fc.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
-        fc.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
-        fc.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
+        guardar = new JFileChooser();
+        UIManager.put("FileChooser.lookInLabelText", "Guardar en:");
+        SwingUtilities.updateComponentTreeUI(guardar);
+        guardar.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        guardar.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
+        guardar.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
+
+        cargar = new JFileChooser();
+        UIManager.put("FileChooser.lookInLabelText", "Buscar en:");
+        SwingUtilities.updateComponentTreeUI(cargar);
+        cargar.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        cargar.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
+        cargar.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
 
         ListSelectionModel lsm2 = pl2.lista.getSelectionModel();
         lsm2.addListSelectionListener(new SH2());
@@ -168,16 +179,16 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
 
     private void bGuardarActionPerformed(ActionEvent evt) {
         if (!cpr.esVacioRelaciones()) {
-            int op = fc.showSaveDialog(this);
+            int op = guardar.showSaveDialog(this);
             if (op == JFileChooser.APPROVE_OPTION)
-                cpr.guardar(fc.getSelectedFile().getAbsolutePath());
+                cpr.guardar(guardar.getSelectedFile().getAbsolutePath());
         }
     }
 
     private void bCargarActionPerformed(ActionEvent evt) {
-        int op = fc.showOpenDialog(this);
+        int op = cargar.showOpenDialog(this);
         if (op == JFileChooser.APPROVE_OPTION)
-            cpr.cargar(fc.getSelectedFile().getAbsolutePath());
+            cpr.cargar(cargar.getSelectedFile().getAbsolutePath());
     }
 
 }
