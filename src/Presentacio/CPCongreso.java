@@ -1,7 +1,10 @@
 package Presentacio;
 
+import Domini.Congresista;
 import Domini.ControladorCongreso;
+import Domini.TSTIterator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -139,6 +142,7 @@ public class CPCongreso {
            return obtEnCache(index,baux);
        }
     }
+
     private void cargarCache(int bq) {
        // print("Cargamos: "+bq);
         if (aIsUp()) {
