@@ -397,7 +397,6 @@ public class ControladorCongreso {
     public String obtBloquePR2(int bloque, int tam_bloque){
         int ini = bloque * tam_bloque;
         int fin = ini + tam_bloque;
-        if (fin > size()) fin = size();
         List<Congresista> con = c.obtCongreso(bloque, tam_bloque);
         String res = "";
         for (Congresista co: con)
