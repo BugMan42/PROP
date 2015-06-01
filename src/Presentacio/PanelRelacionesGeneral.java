@@ -3,6 +3,7 @@ package Presentacio;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
@@ -41,6 +42,10 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         pl2.titulo.setText("Eventos");
         pl3.titulo.setText("Relaciones");
         fc = new JFileChooser();
+
+        fc.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        fc.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
+        fc.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
 
         ListSelectionModel lsm2 = pl2.lista.getSelectionModel();
         lsm2.addListSelectionListener(new SH2());
