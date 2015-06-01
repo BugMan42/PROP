@@ -1,6 +1,7 @@
 package Presentacio;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +14,7 @@ public class    VistaPrincipal extends JFrame {
     //Referència al controlador de presentació que crea la vista
     ControladorPresentacion cp;
     JPanel pan;
-    JFileChooser fc;
+    JFileChooser guardar, cargar;
 
     public VistaPrincipal(ControladorPresentacion c)
     {
@@ -45,7 +46,19 @@ public class    VistaPrincipal extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        fc = new JFileChooser();
+        guardar = new JFileChooser();
+        UIManager.put("FileChooser.lookInLabelText", "Guardar en:");
+        SwingUtilities.updateComponentTreeUI(guardar);
+        guardar.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        guardar.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
+        guardar.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
+
+        cargar = new JFileChooser();
+        UIManager.put("FileChooser.lookInLabelText", "Buscar en:");
+        SwingUtilities.updateComponentTreeUI(cargar);
+        cargar.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        cargar.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
+        cargar.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
 
         /// Barra de menús
         JMenuBar menuBar = new JMenuBar();
@@ -72,9 +85,9 @@ public class    VistaPrincipal extends JFrame {
         item2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int op = fc.showOpenDialog(pan);
+                int op = cargar.showOpenDialog(pan);
                 if (op == JFileChooser.APPROVE_OPTION)
-                    cp.cargar(fc.getSelectedFile().getAbsolutePath());
+                    cp.cargar(cargar.getSelectedFile().getAbsolutePath());
             }
         });
         menu1.add(item2);
@@ -86,9 +99,9 @@ public class    VistaPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (cp.modificado()) {
-                    int op = fc.showSaveDialog(pan);
+                    int op = guardar.showSaveDialog(pan);
                     if (op == JFileChooser.APPROVE_OPTION)
-                        cp.guardar(fc.getSelectedFile().getAbsolutePath());
+                        cp.guardar(guardar.getSelectedFile().getAbsolutePath());
                 }
             }
         });

@@ -174,7 +174,7 @@ public class CPRelaciones {
             if(RUCon==1) RUCon = 0;
             else RUCon = 1;
             indCon[RUCon] = bloque;
-            bCon[RUCon] = CPC.obtCC().obtBloquePR(bloque,tam_bloque).split("\n");
+            bCon[RUCon] = CPC.obtCC().obtBloquePR2(bloque,tam_bloque).split("\n");
             int ini = bloque * tam_bloque;
             res = bCon[RUCon][i-ini];
         }

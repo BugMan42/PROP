@@ -3,6 +3,7 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/src/Domini/CjtEvento.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/Domini/Clique.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Domini/Congreso.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/Domini/ControladorCjtEvento.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/Domini/DriverClique.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/Domini/Relaciones.java" charset="UTF-8" />

@@ -394,6 +394,16 @@ public class ControladorCongreso {
         return res;
     }
 
+    public String obtBloquePR2(int bloque, int tam_bloque){
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        List<Congresista> con = c.obtCongreso(bloque, tam_bloque);
+        String res = "";
+        for (Congresista co: con)
+            res += co.obtID()+" "+co.obtNombre()+" "+co.obtApellido()+" "+String.valueOf(co.obtEdad())+"\n";
+        return res;
+    }
+
     //1 bloque = 1 string
     //def bloques de 100 strings
     public String obtBloque(int bq) {

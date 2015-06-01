@@ -1166,11 +1166,11 @@ public class PanelCongreso extends PanelLista {
         UIManager.put("FileChooser.lookInLabelText", "Guardar en:");
         SwingUtilities.updateComponentTreeUI(choosersave);
         chooserload.setAcceptAllFileFilterUsed(true);
-        chooserload.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        chooserload.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
         chooserload.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
         chooserload.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
         choosersave.setAcceptAllFileFilterUsed(true);
-        choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        choosersave.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
     }
