@@ -12,10 +12,11 @@ public class pruebas {
     public static void main(String[] args) throws Exception {
 
         try {
+            testTST();
             //testRandomCongreso(1000000);
             //testDNI(100000000);
             //testcc();
-            testGrafo();
+            //testGrafo();
             //testCP();
             /*
             TST<Integer> tst = new TST<Integer>();
@@ -118,9 +119,28 @@ public class pruebas {
         catch (Exception a) {
             print(a.getMessage());
         }
-
-
-
+    }
+    private static void testTST() throws Exception {
+        TST<Integer> tst = new TST<Integer>();
+        //tst.insertar("cff", 3);
+        tst.insertar("abcd",4);
+        tst.insertar("a",  1);
+        tst.insertar("ab", 2);
+        tst.insertar("bc", 5);
+        tst.insertar("abc",3);
+        //tst.insertar("ab",4);
+        //print("a: "+tst.obtener("ab"));
+        //tst.insertar("ab",13);
+        //print(tst.consultarClaves()+"");
+        //tst.modificar("ab", "a",14);
+        //tst.insertar("ab",12);
+        TSTIterator a = new TSTIterator(tst);
+        while (a.hasNext()) {
+            print(""+a.next());
+        }
+        //print(tst.consultarClaves() + "");
+        //print(tst.consultarObjetos()+ "");
+        //print("a: "+tst.obtener("a"));
     }
     private static void testGrafo() throws Exception {
        // try {
@@ -150,7 +170,7 @@ public class pruebas {
         a.agregarArista(e2);
         a.agregarArista(e3);
         a.agregarArista(e4);
-        print("degree "+a.existeAristaPeso(e1));
+        print("degree " + a.existeAristaPeso(e1));
 
 
 

@@ -1,5 +1,7 @@
 package Presentacio;
 
+import Domini.TST;
+
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
@@ -705,7 +707,8 @@ public class PanelCongreso extends PanelLista {
         // TODO no funciona
         emptyLError();
         String dato = (String) listCongreso.getSelectedValue();
-        if (jlist.isSelectionEmpty() || dato.equals("No hay Congresistas")) {
+        if (listCongreso.getSelectedIndices().length > 1) setError("Selecciona solo uno");
+        else if (jlist.isSelectionEmpty() || dato.equals("No hay Congresistas")) {
             setError("Selecciona un Congresista");
         }
         else {
@@ -730,6 +733,7 @@ public class PanelCongreso extends PanelLista {
         }
 
     }
+
 
     private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
@@ -1133,8 +1137,8 @@ public class PanelCongreso extends PanelLista {
     private void cargarFilechoser() {
         chooserload = new JFileChooser();
         choosersave = new JFileChooser();
-        UIManager.put("FileChooser.openDialogTitleText", "Cargar Congreso");
-        UIManager.put("FileChooser.saveDialogTitleText", "Guardar Congreso");
+        UIManager.put("FileChooser.openDialogTitleText", "Cargar");
+        UIManager.put("FileChooser.saveDialogTitleText", "Guardar");
         //UIManager.put("FileChooser.saveInLabelText", "Guardar en:");
         UIManager.put("FileChooser.openButtonText", "Cargar");
         UIManager.put("FileChooser.saveButtonText", "Guardar");

@@ -14,6 +14,42 @@ public class TST<X> implements Iterable<X> {
         return null;
     }
 
+    /*public class TSTIterator {
+        Stack<TSTNodoChar> stack;
+
+        public TSTIterator(TST tst) {
+            stack = new Stack<TSTNodoChar>();
+            TSTNodoChar aux = tst.root;
+            boolean seguir = true;
+            while (seguir) {
+                stack.push(aux);
+                if (aux.left == null) aux = (TSTNodoChar)aux.middle;
+                else aux = (TSTNodoChar) aux.left;
+                if (aux.valor == fin) {
+                    seguir = false;
+                    stack.push(aux);
+                }
+            }
+        }
+
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+
+        public X next() {
+            TSTNodoChar node = stack.pop();
+            TSTNodoFinal aux = (TSTNodoFinal)node.middle;
+            X x = aux.valor;
+            if (node.right != null) {
+               // node = node.right;
+                while (node != null) {
+                    stack.push(node);
+                    //node = node.left;
+                }
+            }
+            return x;
+        }
+    }
 
     /*@Override
     public boolean hasNext() {
@@ -30,10 +66,10 @@ public class TST<X> implements Iterable<X> {
         return X;
     }
 */
-
+    /*
     //Nodos necesarios internos de la clase
     private class TSTNodo {
-        TSTNodo left, middle, right;
+        public TSTNodo left, middle, right;
 
         public TSTNodo() {
             left = null;
@@ -48,10 +84,11 @@ public class TST<X> implements Iterable<X> {
             super();
             valor = Valor;
         }
+
     }
 
     private class TSTNodoFinal extends TSTNodo {
-        X valor;
+        private X valor;
         public TSTNodoFinal(X x) {
             super();
             valor = x;
@@ -59,13 +96,13 @@ public class TST<X> implements Iterable<X> {
         public void modificar(X x) {
             valor = x;
         }
-    }
+    }*/
 
     //Clase
 
     //Atributos clase
-    private static char fin = '#'; // marca
-    private TSTNodoChar root;
+    protected static char fin = '#'; // marca
+    protected TSTNodoChar root;
     private int N;
 
     public TST() {
@@ -101,7 +138,7 @@ public class TST<X> implements Iterable<X> {
 
         if (auxt.valor == fin) {
             TSTNodoFinal auxt2 = (TSTNodoFinal) t.middle;
-            c.middle = new TSTNodoFinal(X_clone(auxt2.valor));
+            c.middle = new TSTNodoFinal(X_clone((X)auxt2.valor));
         }
         else c.middle = clonar(t.middle, c.middle);
         c.right = clonar(t.right, c.right);
@@ -169,7 +206,7 @@ public class TST<X> implements Iterable<X> {
             if (d < key.length()) return obtener(t.middle, key, d + 1);
             else if (tChar.valor==c) {
                 TSTNodoFinal f = (TSTNodoFinal) t.middle;
-                return f.valor;
+                return (X)f.valor;
             }
             else throw new KeyNotExistsTST(key);
         }
@@ -374,7 +411,7 @@ public class TST<X> implements Iterable<X> {
             if (d < key.length()) t.middle =  obtenerEspecial(r, t.middle, x, key, newKey, d + 1, d2);
             else if (c == tChar.valor) {
                 TSTNodoFinal aux = (TSTNodoFinal) t.middle;
-                if (x == null) x = aux.valor;
+                if (x == null) x = (X)aux.valor;
                 r = insertar(r, newKey,x,d2);
                 t = t.right;
                 --N;
@@ -400,10 +437,11 @@ public class TST<X> implements Iterable<X> {
         print("a: "+tst.obtener("ab"));
         //tst.insertar("ab",13);
         //print(tst.consultarClaves()+"");
-        tst.modificar("ab", "a",14);
-        tst.insertar("ab",12);
+        //tst.modificar("ab", "a",14);
+        //tst.insertar("ab",12);
+        //TSTIterator a = new TSTIterator(tst);
         print(tst.consultarClaves() + "");
-        print("a: "+tst.obtener("a"));
+        //print("a: "+tst.obtener("a"));
 
     }
 
@@ -453,7 +491,7 @@ public class TST<X> implements Iterable<X> {
             TSTNodoChar rChar = (TSTNodoChar)t;
             if (rChar.valor == fin) {
                 TSTNodoFinal f = (TSTNodoFinal) t.middle;
-                v.add(f.valor);
+                v.add((X)f.valor);
             }
             else imprimir2(t.middle, word+rChar.valor, v);
             imprimir2(t.right, word,v);
