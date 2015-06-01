@@ -28,6 +28,7 @@ public class PanelAlgoritmo extends Panel{
     //Lógica interna
     private int option = 0;
     private boolean demo_activated = false;
+    private String[] colors = {"blue", "green", "red", "yellow", "violet", "sienna", "olive", "aqua", "pink"};
 
     public PanelAlgoritmo(CPAlgoritmo cont) {
         super();
@@ -61,8 +62,6 @@ public class PanelAlgoritmo extends Panel{
                         "node.B { fill-color: green; }"+
                         "node.C { fill-color: red; }"+
                         "node.D { fill-color: yellow; }"+
-                        //"node.2co { shape: pie-chart; fill-color: blue, green; }"+
-                        //"node.3co { shape: pie-chart; fill-color: blue, green, red; }"+
                         "edge { fill-color: #777; }");
 
         viewer = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
@@ -130,11 +129,13 @@ public class PanelAlgoritmo extends Panel{
         final JTextField pref = new JTextField("0");
         pref.setPreferredSize(new Dimension(100,25));
         pref.setMaximumSize(new Dimension(200,25));
+        pref.setEnabled(false);
 
         JLabel l_pref2 = new JLabel("Parámetro 2:");
         final JTextField pref2 = new JTextField("0");
         pref2.setPreferredSize(new Dimension(100,25));
         pref2.setMaximumSize(new Dimension(200,25));
+        pref2.setEnabled(false);
 
         JButton demo = new JButton("DEMO");
         demo.addActionListener(new ActionListener() {
@@ -149,6 +150,7 @@ public class PanelAlgoritmo extends Panel{
         rb1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                pref.setEnabled(true);
                 tp1.setEnabled(true);
                 tp2.setEnabled(false);
                 tp3.setEnabled(false);
@@ -160,6 +162,7 @@ public class PanelAlgoritmo extends Panel{
         rb2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                pref.setEnabled(true);
                 tp1.setEnabled(false);
                 tp2.setEnabled(true);
                 tp3.setEnabled(false);
@@ -171,6 +174,7 @@ public class PanelAlgoritmo extends Panel{
         rb3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                pref.setEnabled(true);
                 tp1.setEnabled(false);
                 tp2.setEnabled(false);
                 tp3.setEnabled(true);
@@ -193,6 +197,7 @@ public class PanelAlgoritmo extends Panel{
             public void actionPerformed(ActionEvent e) {
                 cpa.modParam1(pref.getText());
 
+                System.out.println("demo: "+demo_activated);
                 if (!demo_activated) {
                     try {
                         cpa.crearGrafo();
@@ -201,7 +206,11 @@ public class PanelAlgoritmo extends Panel{
                     }
                 }
 
-                if (option > 0 && option < 5) cpa.execute_algoritm(option);
+                if (option > 0 && option < 4) cpa.execute_algoritm(option);
+                else if (option == 4)
+                {
+
+                }
 
                 if (option == 1) mostrar1.setEnabled(true);
                 else if (option == 2) mostrar2.setEnabled(true);
@@ -218,9 +227,6 @@ public class PanelAlgoritmo extends Panel{
         mostrar1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pb1.setMaximum(cpa.num_vertices());
-                pb1.setValue(0);
-                pb1.setStringPainted(true);
 
                 cargarGrafo();
                 mostrar1.setEnabled(false);
@@ -381,6 +387,7 @@ public class PanelAlgoritmo extends Panel{
             g.getNode(i).addAttribute("ui.pie-values", Double.toString(0));
         }
 
+        cpa.reset_pointers();
         for (int j = 0; j < na; j++) {
             cpa.next_vertex();
             String compare = "";
@@ -407,7 +414,7 @@ public class PanelAlgoritmo extends Panel{
                 //System.out.println(cc.length);
                 for (int l = 0; l < cc.length; l++)
                 {
-                    //System.out.println("Node: "+cc[l]+" → "+Character.toString(chargen));
+                    System.out.println("Node: "+cc[l]+" → "+Character.toString(chargen));
                     g.getNode(cc[l]).addAttribute("ui.class", Character.toString(chargen));
 
                     String co = g.getNode(cc[l]).getAttribute("comm");
@@ -426,6 +433,7 @@ public class PanelAlgoritmo extends Panel{
                     }
 
                     g.getNode(cc[l]).addAttribute("ui.pie-values", copie);
+                    System.out.println(g.getNode(cc[l]).getAttribute("ui.fill-color"));
                 }
                 chargen++;
             }

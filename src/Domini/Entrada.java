@@ -12,6 +12,12 @@ public class Entrada {
 
     public Entrada() {}
 
+    public Entrada(Grafo g, double p)
+    {
+        graph = g;
+        param = p;
+    }
+
     public Entrada(Grafo g, double p, double p2)
     {
         graph = g;

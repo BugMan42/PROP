@@ -74,6 +74,11 @@ public class CPAlgoritmo {
         CA.crearGrafo();
     }
 
+    public void reset_pointers()
+    {
+        CA.reset_pointers();
+    }
+
     public String obtLabel(int x)
     {
         String r;

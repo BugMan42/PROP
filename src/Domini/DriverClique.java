@@ -62,7 +62,7 @@ public class DriverClique {
                 break;
             case 3:
                 if (aux.length > 1) throw new Exception(dem);
-                if (c != null) c.ejecutar_algoritmo();
+                if (c != null) {}//c = .ejecutar_algoritmo();
                 else throw new Exception(noExiste);
                 break;
             case 4:
