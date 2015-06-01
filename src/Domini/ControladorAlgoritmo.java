@@ -2,6 +2,7 @@ package Domini;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created on 15/04/15.
@@ -166,6 +167,8 @@ public class ControladorAlgoritmo {
 
     public void createDemoGraph()
     {
+        Random generator = new Random();
+        int n = generator.nextInt(500);
         Grafo g = new Grafo();
         for (int i = 0; i < 11; ++i)
         {
@@ -179,28 +182,49 @@ public class ControladorAlgoritmo {
         try {
             g.agregarArista("0", "1", 1);
             g.agregarArista("1", "0", 1);
+
             g.agregarArista("0", "2", 3);
             g.agregarArista("2", "0", 3);
+
             g.agregarArista("1", "3", 3);
             g.agregarArista("3", "1", 3);
+
             g.agregarArista("2", "3", 1);
             g.agregarArista("3", "2", 1);
+
             g.agregarArista("3", "5", 10);
             g.agregarArista("5", "3", 10);
+
             g.agregarArista("2", "4", 7);
             g.agregarArista("4", "2", 7);
+
             g.agregarArista("4", "5", 2);
             g.agregarArista("5", "4", 2);
+
             g.agregarArista("4", "6", 8);
             g.agregarArista("6", "4", 8);
+
             g.agregarArista("2","5", 10);
             g.agregarArista("5","2", 10);
+
             g.agregarArista("7", "8", 3);
+            g.agregarArista("8", "7", 3);
+
             g.agregarArista("7", "9", 5);
+            g.agregarArista("9", "7", 5);
+
             g.agregarArista("7", "10", 4);
+            g.agregarArista("10", "7", 4);
+
             g.agregarArista("8", "9", 6);
+            g.agregarArista("9", "8", 6);
+
             g.agregarArista("9", "10", 7);
+            g.agregarArista("10", "9", 7);
+
             g.agregarArista("8", "10", 8);
+            g.agregarArista("10", "8", 8);
+
             //g.agregarArista("", "", 9);
             //g.agregarArista("", "", 10);
             //g.agregarArista("", "", );
@@ -211,6 +235,11 @@ public class ControladorAlgoritmo {
         }
 
         in.modGrafo(g);
+    }
+
+    public String obtLabel(int x) throws Exception {
+        String r = in.obtGrafo().fPrima(x);
+        return r;
     }
 
 }

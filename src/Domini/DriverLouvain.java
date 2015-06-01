@@ -17,7 +17,7 @@ public class DriverLouvain {
 
         DriverLouvain dl = new DriverLouvain();
         Grafo g = new Grafo();
-        Entrada in = new Entrada(g,0.000001);
+        Entrada in = new Entrada(g,0.000001, 0.000001);
         Salida out = new Salida();
         Scanner ui = new Scanner(System.in);
         int op;

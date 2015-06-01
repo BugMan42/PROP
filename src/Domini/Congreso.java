@@ -24,13 +24,19 @@ public class Congreso {
 
     //atributs
     private TST<Congresista> tst;
+    private ArrayList<TSTIterator> Cache;
+    private int bloque;
 
     //Creadoras
     public Congreso() {
         tst = new TST<Congresista>();
+        Cache = new ArrayList<TSTIterator>();
+        bloque = 0;
     }
     public void agregarCongresista(Congresista c) throws Exception {
         tst.insertar(c.obtID(), c);
+        Cache = new ArrayList<TSTIterator>();
+        bloque = 0;
     }
     private void print(String str) {
         System.out.println(str);
@@ -56,6 +62,8 @@ public class Congreso {
         try {
             Congresista c = new Congresista(r,nombre[name],apellido[surname],edad,ciudad[city],ciudad[city],partido[part]);
             tst.insertar(c.obtID(), c);
+            Cache = new ArrayList<TSTIterator>();
+            bloque = 0;
         } catch (Exception a) {
             //Do nothing
         }
@@ -63,9 +71,13 @@ public class Congreso {
 
     public void eliminarCongresista(Dni dni) throws Exception {
         tst.borrar(dni.toString());
+        Cache = new ArrayList<TSTIterator>();
+        bloque = 0;
     }
     public void eliminarCongreso() {
         tst.vaciar();
+        Cache = new ArrayList<TSTIterator>();
+        bloque = 0;
     }
 
     //Modificadoras
@@ -73,6 +85,8 @@ public class Congreso {
         if (!dni.equals(dniNuevo)) {
             tst.modificar(dni.toString(), dniNuevo.toString());
             tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
+            Cache = new ArrayList<TSTIterator>();
+            bloque = 0;
         }
     }
     public void modNombreCongresista(Dni dni,String nombre) throws Exception {
@@ -99,28 +113,56 @@ public class Congreso {
             tst.modificar(dni.toString(), dniNuevo.toString());
             //tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
             tst.obtener(dniNuevo.toString()).mod(dniNuevo, nombre, apellido, edad, ciudad, estado, partido);
+            Cache = new ArrayList<TSTIterator>();
+            bloque = 0;
         }
         else {
             tst.obtener(dni.toString()).mod(nombre, apellido, edad, ciudad, estado, partido);
         }
     }
-    public ArrayList<Congresista> obtCongreso(int bloque, int tam) {
+    public ArrayList<Congresista> obtCongreso(int bloq, int tam) {
+        TSTIterator aux;
+        if (Cache.isEmpty()) {
+            Cache.add(new TSTIterator(tst));
+            aux = new TSTIterator(tst);
+        }
+        else {
+            if (Cache.size() > bloq) {
+                aux = Cache.get(bloq);
+            }
+            else {
+                print("wtf");
+                aux = new TSTIterator(tst);
+            }
+        }
+        //TSTIterator aux = new TSTIterator(tst);
+        int i = 0;
+        ArrayList<Congresista> a = new ArrayList<Congresista>();
+        while ( aux.hasNext() && i < tam) {
+            Congresista an = (Congresista)aux.next();
+            // if (i >= bloq*tam && i < (bloq*tam)+tam) {
+            a.add(an);
+            //}
+            ++i;
+        }
+        //if (!(Cache.size() > bloq)) if (i == tam) Cache.add(bloq+1,aux);
+        print("Not yet");
+        return a;
+    }
+    public ArrayList<Congresista> obtCongresoFunciona(int bloq, int tam) {
+        //TSTIterator aux;
         TSTIterator aux = new TSTIterator(tst);
         int i = 0;
         ArrayList<Congresista> a = new ArrayList<Congresista>();
-        //print("hoasd");
-        while ( aux.hasNext() && i < bloque*tam+ tam) {
-            //print("hola");
+        while ( aux.hasNext() && i < bloq*tam+ tam) {
             Congresista an = (Congresista)aux.next();
-           // print(an.obtID());
-            if (i >= bloque*tam && i < (bloque*tam)+tam) {
+            if (i >= bloq*tam && i < (bloq*tam)+tam) {
                 a.add(an);
             }
             ++i;
         }
         return a;
     }
-
     //Consultoras
     public Congresista consultarCongresista(Dni dni) throws Exception {
         return tst.obtener(dni.toString());

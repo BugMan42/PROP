@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * Created by usuario on 28/04/2015.
+ */
 public class DriverClique {
     final static String menu = "Bienvenido/a al driver de clique";
     final static String opcion1 = "1 Clique(Entrada in, Salida out). Usando GrafoPrueba1 y k = 3 si no se cambia.";
@@ -21,7 +24,7 @@ public class DriverClique {
     private static Entrada en;
     private static Salida sa;
     private static int k;
-    private static Grafo g = null;
+    private static Grafo g;
 
     public static void main(String[] args) throws Exception {
         k = 3;
@@ -47,13 +50,10 @@ public class DriverClique {
         switch (Integer.parseInt(aux[0])) {
             case 1:
                 if (aux.length > 1) throw new Exception(dem);
-                if (g == null) crearGrafo(1);
-                en = new Entrada(g, k);
+                crearGrafo(1);
+                en = new Entrada(g, k, 0);
                 sa = new Salida();
-                long ini = System.nanoTime();
                 c = new Clique(en, sa);
-                System.out.println("Tardo");
-                System.out.println((System.nanoTime() - ini)/1000000000.0);
                 break;
             case 2:
                 if (aux.length < 2) throw new Exception(ins);
@@ -62,11 +62,7 @@ public class DriverClique {
                 break;
             case 3:
                 if (aux.length > 1) throw new Exception(dem);
-                if (c != null) {
-
-                    //c.ejecutar_algoritmo();
-
-                }
+                if (c != null) {}//c = .ejecutar_algoritmo();
                 else throw new Exception(noExiste);
                 break;
             case 4:
@@ -192,7 +188,6 @@ public class DriverClique {
         g.agregarArista("0", "2", 1);
         g.agregarArista("0", "3", 1);
         g.agregarArista("1", "2", 1);
-        g.agregarArista("1", "3", 1);
         g.agregarArista("1", "4", 1);
         g.agregarArista("2", "3", 1);
         g.agregarArista("2", "4", 1);
@@ -202,7 +197,6 @@ public class DriverClique {
         g.agregarArista("2", "0", 1);
         g.agregarArista("3", "0", 1);
         g.agregarArista("2", "1", 1);
-        g.agregarArista("3", "1", 1);
         g.agregarArista("4", "1", 1);
         g.agregarArista("3", "2", 1);
         g.agregarArista("4", "2", 1);
