@@ -104,14 +104,17 @@ public class Congreso {
             tst.obtener(dni.toString()).mod(nombre, apellido, edad, ciudad, estado, partido);
         }
     }
-    public ArrayList<Congresista> obtCongreso(int bloque, int tamaño) {
+    public ArrayList<Congresista> obtCongreso(int bloque, int tam) {
         TSTIterator aux = new TSTIterator(tst);
         int i = 0;
         ArrayList<Congresista> a = new ArrayList<Congresista>();
-        while (aux.hasNext() && i < bloque*tamaño) {
+        //print("hoasd");
+        while ( i < bloque*tam+ tam) {
+            //print("hola");
             Congresista an = (Congresista)aux.next();
-            if (i >= bloque*tamaño && i < (bloque*tamaño)) {
-                a.add(an);
+           // print(an.obtID());
+            if (i >= bloque*tam && i < (bloque*tam)+tam) {
+                a.add(i,an);
             }
             ++i;
         }

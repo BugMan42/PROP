@@ -2,6 +2,8 @@ package Domini;
 
 import Presentacio.CPCongreso;
 
+import java.util.List;
+
 public class pruebas {
 
 
@@ -9,10 +11,11 @@ public class pruebas {
     public static void main(String[] args) throws Exception {
 
         try {
-            testTST();
+            //testTST();
             //testRandomCongreso(1000000);
             //testDNI(100000000);
             //testcc();
+            testBloques();
             //testGrafo();
             //testCP();
             /*
@@ -115,6 +118,16 @@ public class pruebas {
         }
         catch (Exception a) {
             print(a.getMessage());
+        }
+    }
+    private static void testBloques() {
+        Congreso a = new Congreso();
+        for (int i = 0; i < 20; ++i) a.agregarCongresistaRandom();
+        List<Congresista> aux = a.obtenerCongreso();
+        List<Congresista> auxx = a.obtCongreso(0,20);
+        //print(auxx.size()+"");
+        for (int i = 0; i < aux.size(); ++i) {
+            print(aux.get(i).obtID() +" ---> "+auxx.get(i).obtDni());
         }
     }
     private static void testTST() throws Exception {
