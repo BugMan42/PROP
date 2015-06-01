@@ -122,9 +122,9 @@ public class pruebas {
     }
     private static void testBloques() {
         Congreso a = new Congreso();
-        for (int i = 0; i < 20; ++i) a.agregarCongresistaRandom();
+        for (int i = 0; i < 100; ++i) a.agregarCongresistaRandom();
         List<Congresista> aux = a.obtenerCongreso();
-        List<Congresista> auxx = a.obtCongreso(0,20);
+        List<Congresista> auxx = a.obtCongreso(0,100);
         //print(auxx.size()+"");
         for (int i = 0; i < aux.size(); ++i) {
             print(aux.get(i).obtID() +" ---> "+auxx.get(i).obtDni());
