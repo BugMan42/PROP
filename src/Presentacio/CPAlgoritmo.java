@@ -7,10 +7,12 @@ public class CPAlgoritmo {
 
     private PanelAlgoritmo PA;
     private ControladorAlgoritmo CA;
-
+    private CPRelaciones CPR;
 
     public CPAlgoritmo(CPRelaciones cpr) {
+
         CA = new ControladorAlgoritmo(cpr.obtCR());
+        CPR = cpr;
     }
 
     public PanelAlgoritmo obtPanel() {
@@ -33,7 +35,7 @@ public class CPAlgoritmo {
     }
 
 
-    public int num_aristas()
+    public int num_vertices()
     {
         return CA.num_vertex_entrada();
     }
@@ -66,6 +68,24 @@ public class CPAlgoritmo {
     public String next_mensaje()
     {
         return CA.next_message();
+    }
+
+    public void crearGrafo() throws Exception {
+        CA.crearGrafo();
+    }
+
+    public String obtLabel(int x)
+    {
+        String r;
+        try
+        {
+            r = CA.obtLabel(x);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            r = "-";
+        }
+        return r;
     }
 
 }

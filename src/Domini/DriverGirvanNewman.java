@@ -15,7 +15,7 @@ public class DriverGirvanNewman {
     public static void main(String[] args) throws Exception {
         ui = new Scanner(System.in);
         Grafo golf = crearGrafo();
-        in = new Entrada(golf, 2);
+        in = new Entrada(golf, 2, 0);
         out = new Salida();
         gn = new Girvan_Newman(in, out);
         ArrayList<String> hist = out.mostrarHistorial();

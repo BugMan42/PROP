@@ -284,7 +284,7 @@ public class DriverControladorRelaciones {
     private void prueba_grafo() throws Exception {
         cr.crearGrafoRelaciones();
         Grafo g = cr.crearGrafoAlgoritmo();
-        Entrada in = new Entrada(g,0.000001);
+        Entrada in = new Entrada(g,0.000001, 0.0000001);
         Salida out = new Salida();
         Louvain l = new Louvain(in, out);
         l.ejecutar_algoritmo();

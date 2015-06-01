@@ -22,7 +22,7 @@ public class DriverAlgoritmo {
     private static Salida out;
 
     public static void main(String[] args) throws ReflectiveOperationException {
-        in = new Entrada(new Grafo(), 2);
+        in = new Entrada(new Grafo(), 0, 0);
         out = new Salida();
         int opcion;
         do {
