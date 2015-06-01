@@ -26,16 +26,16 @@ public abstract class Evento {
     //Modificadoras
 
     public void ModNombre(String name) throws Exception{
-        if (!nombre.equals(name)) nombre = name.toUpperCase();
+        nombre = name.toUpperCase();
     }
 
     public void ModFecha (Fecha date) throws Exception {
-        if (!fecha.equals(date)) fecha = date;
+        fecha = date;
     }
 
     public void ModImportancia(int importance) throws Exception {
         if (importance <= 0) throw new Exception(error3 + " : " + error4);
-        if (importancia != importance) importancia = importance;
+        importancia = importance;
     }
 
     //Consultoras
@@ -54,6 +54,14 @@ public abstract class Evento {
 
     public String ID() {
         return nombre+fecha.toString();
+    }
+
+    public String IDFecha() {
+        return fecha.toString()+nombre;
+    }
+
+    public String IDImp() {
+        return Integer.toString(importancia)+nombre+fecha.toString();
     }
 
     public abstract String toString();

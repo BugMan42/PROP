@@ -14,6 +14,9 @@ public class PanelEventos extends PanelLista {
 
     private String[] defecto = {"Introduzca un nombre", "Introduzca una fecha", "Introduzca una importancia"};
 
+    private JFileChooser guardar;
+    private JFileChooser cargar;
+
     private JLabel lbnombre;
     private JTextField ctnombre;
     private JLabel lbfecha;
@@ -61,7 +64,10 @@ public class PanelEventos extends PanelLista {
         crearLayout(right);
     }
 
+
     private void crearComponentesVista() {
+        guardar = new JFileChooser();
+        cargar = new JFileChooser();
         lbnombre = new JLabel("Nombre:");
         ctnombre = new JTextField(defecto[0]);
         lbfecha = new JLabel("Fecha:");
@@ -84,6 +90,7 @@ public class PanelEventos extends PanelLista {
         btcargarTodo = new JButton("Cargar CjtEventos");
 
         lista = obtJlist();
+        //lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     private void agregarFormatoComponentes() {
@@ -369,17 +376,15 @@ public class PanelEventos extends PanelLista {
             try {
                 int[] indices = lista.getSelectedIndices();
                 if (indices.length > 1) {
-                    mostrarmensaje("Selecciona solo un elemento : nombre");
+                    mostrarmensaje("Selecciona solo un elemento");
                     return;
                 }
                 String evento = (String)lista.getSelectedValue();
                 String[] aux = evento.split("\\s");
                 String nombre = ctnombre.getText();
                 cpe.obtCCE().ModificarNombreEvento(aux[1], aux[2], nombre, cpe.obtCPR().obtCR());
-                aux[1] = nombre;
                 String fecha = ctfecha.getText();
                 cpe.obtCCE().ModificarFechaEvento(nombre, aux[2], fecha, cpe.obtCPR().obtCR());
-                aux[2] = fecha;
                 String importancia = ctimportancia.getText();
                 if (!esNumero(importancia)) {
                     ctimportancia.setForeground(Color.red);
@@ -387,7 +392,7 @@ public class PanelEventos extends PanelLista {
                     return;
                 }
                 cpe.obtCCE().ModificarImpEvento(nombre, fecha, Integer.parseInt(importancia));
-                lbinfo.setText(" ");
+                limpiarcampos();
                 actualizarLista();
             }
             catch (Exception ex) {
@@ -397,9 +402,11 @@ public class PanelEventos extends PanelLista {
     }
 
     private void btagregarRandomAccion(ActionEvent e) throws Exception {
+        long ini = System.currentTimeMillis();
         cpe.obtCCE().AgregarEventoRandom((Integer)contador.getValue());
         lbinfo.setText(" ");
         actualizarLista();
+        System.out.println((System.currentTimeMillis() - ini) / 1000);
     }
 
     private void bteliminarTodoAccion(ActionEvent e) {
@@ -412,14 +419,31 @@ public class PanelEventos extends PanelLista {
     }
 
     private void btguardarTodoAccion(ActionEvent e) {
-
+        if (cpe.obtCCE().size() > 0) {
+            int valor = guardar.showOpenDialog(this);
+            if (valor == JFileChooser.APPROVE_OPTION) {
+                try {
+                    cpe.obtCCE().guardar(guardar.getSelectedFile().getAbsolutePath());
+                }
+                catch (Exception ex) {
+                    mostrarmensaje(ex.getMessage());
+                }
+            }
+        }
+        else mostrarmensaje("No hay eventos");
     }
 
     private void btcargarTodoAccion(ActionEvent e) {
-
+        int returnVal = cargar.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            try {
+                cpe.obtCCE().cargar(cargar.getSelectedFile().getAbsolutePath(), cpe.obtCPR().obtCR());
+            } catch (Exception a) {
+                mostrarmensaje(a.getMessage());
+            }
+        }
+        actualizarLista();
     }
-
-
 
     private void asignaComponentesPanel(JPanel right) {
         right.add(lbnombre);
@@ -550,7 +574,7 @@ public class PanelEventos extends PanelLista {
     //TODO MODIFICAR
     protected void setBoxSearch() {
         boxSearch.setModel(new DefaultComboBoxModel<String>(new String[]{"Por nombre", "Por fecha", "Por importancia"}));
-        boxSearch.setToolTipText(" Buscar ");
+        boxSearch.setToolTipText("Busqueda");
     }
     //TODO MODIFICAR
     protected void textSearchTyped(KeyEvent evt) {}

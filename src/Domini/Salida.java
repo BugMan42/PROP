@@ -20,7 +20,6 @@ public class Salida {
         mensajes.add(s);
     }
 
-
     public String mostrarMensaje()
     {
         if (!mensajes.isEmpty()){
@@ -46,11 +45,10 @@ public class Salida {
     }
 
 
-    public Set<Integer> comunidad_at(int i) throws Exception{
+    public Set<Integer> comunidad_at(int i) throws Exception {
         if (i < 0 || i >= comunidades.size()) throw new Exception(error11);
         return comunidades.get(i);
     }
 
     public int numComunidades() {return comunidades.size();}
-
 }

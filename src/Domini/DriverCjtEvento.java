@@ -98,7 +98,7 @@ public class DriverCjtEvento {
             case 10:
                 if (aux.length < 3) throw new Exception(ins);
                 if (aux.length > 3) throw new Exception(dem);
-                if (cjt != null) System.out.println(cjt.ConsultarEvento(aux[1], new Fecha(aux[2])));
+                if (cjt != null) System.out.println(cjt.ConsultarEvento(aux[1], new Fecha(aux[2])).toString());
                 else throw new Exception(noexiste);
                 break;
             case 11:

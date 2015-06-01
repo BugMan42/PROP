@@ -16,13 +16,15 @@ public class Clique extends Algoritmo {
         k = (int)in.obtParam1();
         if (k <= 2) throw new Exception(error1);
         ejecutar_algoritmo();
-        System.out.println(obtOut().comunidad());
+        //System.out.println(obtOut().comunidad());
     }
 
     class comunidades {
         private ArrayList<k_clique> com;
+        private int ultimo;
         comunidades() {
             com = new ArrayList<k_clique>();
+            ultimo = 0;
         }
         int size() {return com.size();}
         k_clique obt_clique(int i) {
@@ -31,6 +33,8 @@ public class Clique extends Algoritmo {
         void agregar_clique(k_clique k) {
             com.add(k);
         }
+        int obtUltimo() {return ultimo;}
+        void incUltimo() {++ultimo;}
         Iterator<k_clique> iterator(int i) {
             return com.listIterator();
         }
@@ -38,12 +42,10 @@ public class Clique extends Algoritmo {
 
     class k_clique {
         private ArrayList<Integer> c;
-        private boolean com;
         private int num;
         k_clique() {
             c = new ArrayList<Integer>();
-            com = false;
-            num = 0;
+            num = -1;
         }
         int size() {
             return c.size();
@@ -58,8 +60,6 @@ public class Clique extends Algoritmo {
         void eliminar() {
              c.clear();
          }
-        boolean obt_num() {return com;}
-        void mod_num() {com = true;}
         int obtNum() {return num;}
         void modNum(int i) {num = i;}
     }
@@ -71,7 +71,7 @@ public class Clique extends Algoritmo {
         s.add(u);
     }
 
-    public void ejecutar_algoritmo() throws Exception {
+    private void ejecutar_algoritmo() throws Exception {
         comunidades c = new comunidades();
         fase1(c);
         fase2(c);
@@ -114,6 +114,12 @@ public class Clique extends Algoritmo {
         return contador;
     }
 
+    /////////////////////////////HACER//////////////////////////
+    private List<Integer> fusion(List<Integer> l1, List<Integer> l2) {
+        return l1;
+    }
+
+    //////////////////////////////HACER//////////////////////////////
     private void cliqueOneNode(k_clique kc,int k, List<Integer> lista) throws Exception {
         //System.obtOut().println("Mi k es " + Integer.toString(k) + " la lista tiene este numero de elementos " + Integer.toString(lista.size()));
         if (lista.isEmpty() || lista.size() < k) {
@@ -154,13 +160,18 @@ public class Clique extends Algoritmo {
         return candidatos;
     }
 
-    private void fase2(comunidades c) {
-        agregarMensajes(c);
-        for (int i = 0; i < c.size(); ++i) {
-            Set<Integer> s = new HashSet<Integer>();
+    private void fase2(comunidades c) throws Exception{
+        //agregarMensajes(c);
+        int n = c.size();
+        boolean probado[][] = new boolean[n][n];
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) probado[i][j] = false;
+        }
+        for (int i = 0; i < n; ++i) {
+            //Set<Integer> s = new HashSet<Integer>();
             obtOut().agregarMensaje("Tratando clique num: " + Integer.toString(i));
             k_clique kc = c.obt_clique(i);
-            if (!kc.obt_num())buscarCom(c,kc,s,i);
+            if (kc.obtNum() == -1) buscarCom(c,kc,i, probado, n);
         }
     }
 
@@ -175,36 +186,58 @@ public class Clique extends Algoritmo {
     }
 
 
-    private void buscarCom(comunidades c, k_clique kc, Set<Integer> s, int i) {
+    private void buscarCom(comunidades c, k_clique kc, int i, boolean[][] probado, int n) throws Exception {
         obtOut().agregarMensaje("El clique num: " + Integer.toString(i) + " no tiene comunidad aun");
-        kc.mod_num();
+        /*kc.modNum(c.obtUltimo());
+        c.incUltimo();*/
         boolean agregado = false;
-        for (int j = 0; j < c.size(); ++j) {
-            if (i != j) {
+        for (int j = 0; j < n; ++j) {
+            if (i != j && !probado[i][j]) {
+                probado[i][j] = true;
+                probado[j][i] = true;
                 k_clique kc1 = c.obt_clique(j);
                 obtOut().agregarMensaje("Mirando clique num: " + Integer.toString(j) + " para relacionarlo con " + Integer.toString(i));
-                if (kc1.obtNum() == 0) {
-                    obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " no tiene comunidad aun");
-                    ArrayList<Integer> aux = new ArrayList<Integer>(kc.lista());
-                    aux.retainAll(kc1.lista());
-                    obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " tiene con clique num: " + Integer.toString(i) + " exactamente estos nodos en comun " + Integer.toString(aux.size()));
-                    if (aux.size() == k - 1) {
-                        obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " esta en la misma comunidad que " + Integer.toString(i));
-                        kc1.modNum(kc.obtNum());
+                ArrayList<Integer> aux = new ArrayList<Integer>(kc.lista());
+                aux.retainAll(kc1.lista());
+                obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " tiene con clique num: " + Integer.toString(i) + " exactamente estos nodos en comun " + Integer.toString(aux.size()));
+                if (aux.size() == k - 1) {
+                    obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " esta en la misma comunidad que " + Integer.toString(i));
+                    if (kc.obtNum() == -1) {
+                        kc.modNum(c.obtUltimo());
+                        c.incUltimo();
+                    }
+                    kc1.modNum(kc.obtNum());
+                    Set<Integer> conj;
+                    if (obtOut().numComunidades() <= kc.obtNum()) {
+                        conj = new HashSet<Integer>();
                         if (i < j) {
-                            s.addAll(kc.lista());
-                            agregado = true;
-                            s.addAll(kc1.lista());
-                        } else {
-                            s.addAll(kc1.lista());
-                            if (!agregado) s.addAll(kc.lista());
+                            if (!agregado) {
+                                agregado = true;
+                                conj.addAll(kc.lista());
+                            }
+                            conj.addAll(kc1.lista());
                         }
+                        else {
+                            conj.addAll(kc1.lista());
+                            if (!agregado) {
+                                agregado = true;
+                                conj.addAll(kc.lista());
+                            }
+                        }
+                    }
+                    else {
+                        conj = obtOut().comunidad_at(kc.obtNum());
+                        //Como se pasa por referencia actualizo la comunidad
+                        if (kc1.obtNum() == -1) conj.addAll(kc1.lista());
                     }
                 }
             }
+
         }
-        if (!s.isEmpty()) obtOut().agregarComunidad(s);
-        else {
+        if (!agregado) {
+            kc.modNum(c.obtUltimo());
+            c.incUltimo();
+            Set<Integer> s = new HashSet<Integer>();
             s.addAll(kc.lista());
             obtOut().agregarComunidad(s);
         }
