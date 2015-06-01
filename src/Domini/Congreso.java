@@ -114,7 +114,7 @@ public class Congreso {
             Congresista an = (Congresista)aux.next();
            // print(an.obtID());
             if (i >= bloque*tam && i < (bloque*tam)+tam) {
-                a.add(i,an);
+                a.add(an);
             }
             ++i;
         }
