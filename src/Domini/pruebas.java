@@ -125,10 +125,12 @@ public class pruebas {
         for (int i = 0; i < 100; ++i) a.agregarCongresistaRandom();
         List<Congresista> aux = a.obtenerCongreso();
         List<Congresista> auxx = a.obtCongreso(0,100);
+        print("hola");
         //print(auxx.size()+"");
         for (int i = 0; i < aux.size(); ++i) {
             print(aux.get(i).obtID() +" ---> "+auxx.get(i).obtDni());
         }
+        print(a.obtenerListaID()+"");
     }
     private static void testTST() throws Exception {
         TST<Integer> tst = new TST<Integer>();

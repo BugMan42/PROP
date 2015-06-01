@@ -387,7 +387,7 @@ public class ControladorCongreso {
         int ini = bloque * tam_bloque;
         int fin = ini + tam_bloque;
         if (fin > size()) fin = size();
-        List<Congresista> con = c.obtenerCongreso().subList(ini,fin);
+        List<Congresista> con = c.obtenerCongreso().subList(ini, fin);
         String res = "";
         for (Congresista co: con)
             res += co.obtID()+" "+co.obtNombre()+" "+co.obtApellido()+" "+String.valueOf(co.obtEdad())+"\n";
@@ -402,6 +402,17 @@ public class ControladorCongreso {
         String res = "";
         for (Congresista co: con)
             res += co.obtID()+" "+co.obtNombre()+" "+co.obtApellido()+" "+String.valueOf(co.obtEdad())+"\n";
+        return res;
+    }
+
+    public String obtBloquePR3(int bloque, int tam_bloque){
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > size()) fin = size();
+        List<Congresista> con = c.obtCongresoFunciona(bloque, tam_bloque);
+        String res = "";
+        for (Congresista co: con)
+            res += co.toString() + sep;
         return res;
     }
 
