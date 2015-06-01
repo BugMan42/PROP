@@ -21,6 +21,8 @@ public class Girvan_Newman extends Algoritmo{
     //Número de comunidades de alg_graph
     private int alg_cc;
 
+    private int iter = 0;
+
     //Clase privada sólo usada por el algoritmo Girvan-Newman
     private class Node {
         boolean visited;    //Booleano que comprueba si ya se ha visitado el nodo
@@ -97,14 +99,22 @@ public class Girvan_Newman extends Algoritmo{
         data_graph = obtIn().obtGrafo();
         //El grafo que utilizará el algoritmo es una copia de data_graph
         alg_graph = new Grafo(data_graph);
+        long start = System.nanoTime();
         ejecutar_algoritmo();
+        long time = System.nanoTime()-start;
+        System.out.println(time/1000000.0+" seconds");
     }
 
     private void ejecutar_algoritmo() throws Exception {
         //El parámetro de finalización de Girvan-Newman es el número máximo de comunidades
         int limit = (int) obtIn().obtParam1();
         if (limit == 0) limit = 2;
-        while(alg_cc < limit) ejecutar_iteración(alg_graph);
+        while(alg_cc < limit)
+        {
+            ejecutar_iteración(alg_graph);
+            System.out.println(iter);
+            iter++;
+        }
     }
 
 
@@ -128,6 +138,8 @@ public class Girvan_Newman extends Algoritmo{
 
         Eix victim = new Eix(); // Estructura de datos para poder saber la arista que se irá
         victim.weight = Double.NEGATIVE_INFINITY;
+        ArrayList<Eix> eixos = new ArrayList<Eix>();
+        eixos.add(victim);
         //Instanciación de un comparador para aristas
         AristaComparator comp = new AristaComparator();
 
@@ -194,7 +206,7 @@ public class Girvan_Newman extends Algoritmo{
                         //Si no se ha visitado un nodo adyacente...
                         if (!ref_aux.visited) {
                             //Si la distancia del nodo adyacente es mayor a la distancia del nodo más la distancia entre ellos...
-                            if (ref_aux.distance > ref_v.distance + dist){
+                            if (ref_aux.distance > ref_v.distance + dist) {
                                 ref_aux.distance = ref_v.distance + dist;
                                 ref_aux.weight = ref_v.weight;
                             } else if (ref_aux.distance == ref_v.distance + dist) {
@@ -249,9 +261,19 @@ public class Girvan_Newman extends Algoritmo{
                         up.down_total += myWeight;
 
                         if (victim.weight < rel) {
+                            eixos.clear();
                             victim.orig = inode;
                             victim.dest = p;
                             victim.weight = rel;
+                            eixos.add(victim);
+                        }
+                        else if (victim.weight == rel)
+                        {
+                            Eix e = new Eix();
+                            e.dest = p;
+                            e.orig = inode;
+                            e.weight = rel;
+                            eixos.add(e);
                         }
 
                     }
@@ -262,11 +284,16 @@ public class Girvan_Newman extends Algoritmo{
 
         }
 
-        //Eliminamos la arista con mayor intermediación
-        obtOut().agregarMensaje("Arista eliminada: " + data_graph.fPrima(victim.orig) + "--" + data_graph.fPrima(victim.dest));
-        alg_graph.eliminarAristas(victim.orig, victim.dest);
-        alg_graph.eliminarAristas(victim.dest, victim.orig);
-
+        //Eliminamos las aristas con mayor intermediación
+        for (int x = 0; x < eixos.size(); x++) {
+            int a1 = eixos.get(x).orig;
+            int a2 = eixos.get(x).dest;
+            obtOut().agregarMensaje("Arista eliminada: " + data_graph.fPrima(a1) + "--" + data_graph.fPrima(a2));
+            if(alg_graph.existeArista(a1, a2) && alg_graph.existeArista(a2, a1)) {
+                alg_graph.eliminarAristas(a1, a2);
+                alg_graph.eliminarAristas(a2, a1);
+            }
+        }
 
         //SEGUNDA EJECUCIÓN
         for (int ii = 0; ii < N; ++ii) {
