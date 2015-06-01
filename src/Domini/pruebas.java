@@ -125,7 +125,7 @@ public class pruebas {
         tst.insertar("abc",3);
         tst.insertar("ab", 2);
         tst.insertar("a",  1);
-        //tst.insertar("ab",4);
+        tst.insertar("adb",4);
         //print("a: "+tst.obtener("ab"));
         //tst.insertar("ab",13);
         print(tst.consultarObjetos()+"");
