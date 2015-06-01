@@ -785,8 +785,8 @@ public class PanelCongreso extends PanelLista {
             } catch (Exception a) {
                 setError(a.getMessage());
             }
+            ListUpdate();
         }
-        ListUpdate();
     }
 
     private void bGuardarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
@@ -807,7 +807,7 @@ public class PanelCongreso extends PanelLista {
     }
 
     public void ListUpdate() {
-        String a[] = {"No hay Congresistas"};
+        //String a[] = {"No hay Congresistas"};
         //updatejlist();
         //if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
        // else {
@@ -1213,7 +1213,7 @@ public class PanelCongreso extends PanelLista {
             }
         };
 
-        listCongreso.setPrototypeCellValue("If");
+        listCongreso.setPrototypeCellValue("If       ");
         //bigData = new BigData();
         listCongreso.setModel(bigData);
         //listCongreso.setListData();

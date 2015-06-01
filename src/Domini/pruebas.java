@@ -120,21 +120,25 @@ public class pruebas {
     private static void testTST() throws Exception {
         TST<Integer> tst = new TST<Integer>();
         //tst.insertar("cff", 3);
-        tst.insertar("bc", 5);
-        tst.insertar("abcd",4);
-        tst.insertar("abc",3);
-        tst.insertar("ab", 2);
         tst.insertar("a",  1);
-        tst.insertar("adb",4);
+        tst.insertar("ab", 2);
+        tst.insertar("abc", 3);
+        tst.insertar("abcd", 4);
+        tst.insertar("abcdf", 5);
+        tst.insertar("adb",6);
+        tst.insertar("caalshd",7);
         //print("a: "+tst.obtener("ab"));
         //tst.insertar("ab",13);
         print(tst.consultarObjetos()+"");
         //tst.modificar("ab", "a",14);
         //tst.insertar("ab",12);
         TSTIterator a = new TSTIterator(tst);
+        String aux = "[";
         while (a.hasNext()) {
-            print(""+a.next());
+            aux += a.next()+", ";
         }
+        aux+="]";
+        print(aux);
         //print(tst.consultarClaves() + "");
         //print(tst.consultarObjetos()+ "");
         //print("a: "+tst.obtener("a"));
