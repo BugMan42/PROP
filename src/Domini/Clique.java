@@ -43,9 +43,11 @@ public class Clique extends Algoritmo {
     class k_clique {
         private ArrayList<Integer> c;
         private int num;
+        private double peso;
         k_clique() {
             c = new ArrayList<Integer>();
             num = -1;
+            peso = 0;
         }
         int size() {
             return c.size();
@@ -62,6 +64,8 @@ public class Clique extends Algoritmo {
          }
         int obtNum() {return num;}
         void modNum(int i) {num = i;}
+        double obtPeso() {return peso;}
+        void sumaPeso(double s) {peso += s;}
     }
 
     public void insertar_nodo(int u, int i) throws Exception {
@@ -80,32 +84,48 @@ public class Clique extends Algoritmo {
     private void fase1(comunidades c) throws Exception{
         for (Iterator it = g.consultarVertices().iterator(); it.hasNext(); ) {
             int i = (Integer) it.next();
-            obtOut().agregarMensaje("Tratando nodo num: " + Integer.toString(i));
+            //obtOut().agregarMensaje("Tratando nodo num: " + Integer.toString(i));
             int m = g.degreeSalida(i);
-            obtOut().agregarMensaje("Grado de: " + Integer.toString(i) + ": " + Integer.toString(m));
+            //obtOut().agregarMensaje("Grado de: " + Integer.toString(i) + ": " + Integer.toString(m));
             if (m + 1 >= k) {
                 List<Integer> candidatos = g.nodosSalida(i).subList(index_sublista(i), m);
-                obtOut().agregarMensaje("Candidatos");
-                for (int j = 0; j < candidatos.size(); ++j) obtOut().agregarMensaje("Soy el candidato numero " + Integer.toString(candidatos.get(j)));
+                //obtOut().agregarMensaje("Candidatos");
+                //for (int j = 0; j < candidatos.size(); ++j) obtOut().agregarMensaje("Soy el candidato numero " + Integer.toString(candidatos.get(j)));
                 for (Iterator it2 = candidatos.iterator(); it2.hasNext(); ) {
                     k_clique kc = new k_clique();
                     kc.agregar(i);
                     int v = (Integer) it2.next();
+                    //obtOut().agregarMensaje("Mirando nodo num: " + Integer.toString(v));
                     kc.agregar(v);
+                    kc.sumaPeso(g.pesoAristasVertices(i, v));
                     it2.remove();
                     List<Integer> l = new ArrayList<Integer>(candidatos);
                     l.retainAll(g.nodosSalida(v));
-                    obtOut().agregarMensaje("Lista recursividad");
-                    for (int j = 0; j < l.size(); ++j) obtOut().agregarMensaje("Soy el candidato numero " + Integer.toString(candidatos.get(j)));
+                    //obtOut().agregarMensaje("Lista recursividad");
+                    //for (int j = 0; j < l.size(); ++j) obtOut().agregarMensaje("Soy el candidato numero " + Integer.toString(candidatos.get(j)));
                     cliqueOneNode(kc, k - 2, l);
+                    ///////////////////////////////////////HACER////////////////////////
+                    //agregar valor threshold
                     if (kc.size() > 0) {
-                        obtOut().agregarMensaje("En el nodo num: " + Integer.toString(i) + " se ha creado una clique");
+                        //obtOut().agregarMensaje("En el nodo num: " + Integer.toString(i) + " se ha creado una clique");
                         c.agregar_clique(kc);
+                        ////////////////////FUNCIONA MAL REPARAR///////////////////////////////////////////////
+                        for (Iterator it3 = kc.lista().iterator(); it3.hasNext(); ) {
+                            int x = (Integer)it3.next();
+                            if (x != i && x != v) {
+                                kc.sumaPeso(g.pesoAristasVertices(i, x));
+                                kc.sumaPeso(g.pesoAristasVertices(v, x));
+                            }
+                        }
+                        /////////////////////////////////////////////////////////////////////////////
+                        System.out.println("Este es mi peso " + kc.obtPeso());
                     }
-                    obtOut().agregarMensaje("Acabo de quitar el vertice " + Integer.toString(v));
+                    ///////////////////////////////////////////////////////////////////////////
+                    //obtOut().agregarMensaje("Acabo de quitar el vertice " + Integer.toString(v));
                 }
             }
         }
+        //obtOut().agregarMensaje("Num cliques " + Integer.toString(c.size()));
     }
 
     private int index_sublista(int i) throws Exception {
@@ -120,7 +140,7 @@ public class Clique extends Algoritmo {
     }
 
     //////////////////////////////HACER//////////////////////////////
-    private void cliqueOneNode(k_clique kc,int k, List<Integer> lista) throws Exception {
+    private void cliqueOneNode(k_clique kc, int k, List<Integer> lista) throws Exception {
         //System.obtOut().println("Mi k es " + Integer.toString(k) + " la lista tiene este numero de elementos " + Integer.toString(lista.size()));
         if (lista.isEmpty() || lista.size() < k) {
             kc.eliminar();
@@ -136,6 +156,7 @@ public class Clique extends Algoritmo {
             if (g.existeArista(u, v)) {
                 kc.agregar(u);
                 kc.agregar(v);
+                kc.sumaPeso(g.pesoAristasVertices(u, v));
             }
             else kc.eliminar();
             return;
@@ -145,8 +166,16 @@ public class Clique extends Algoritmo {
             //System.obtOut().println("Primer nodo " + Integer.toString(u));
             int v = lista.get(1);
             //System.obtOut().println("Segundo nodo " + Integer.toString(u));
+            kc.sumaPeso(g.pesoAristasVertices(u, v));
             List<Integer> candidatos = listarecursividad(u, v, kc);
-            if (candidatos.size() > 0) cliqueOneNode(kc, k - 2, candidatos);
+            if (candidatos.size() > 0) {
+                for (Iterator it = candidatos.iterator(); it.hasNext(); ) {
+                    int x = (Integer)it.next();
+                    kc.sumaPeso(g.pesoAristasVertices(u, x));
+                    kc.sumaPeso(g.pesoAristasVertices(v, x));
+                }
+                cliqueOneNode(kc, k - 2, candidatos);
+            }
         }
     }
 
@@ -187,7 +216,7 @@ public class Clique extends Algoritmo {
 
 
     private void buscarCom(comunidades c, k_clique kc, int i, boolean[][] probado, int n) throws Exception {
-        obtOut().agregarMensaje("El clique num: " + Integer.toString(i) + " no tiene comunidad aun");
+        //obtOut().agregarMensaje("El clique num: " + Integer.toString(i) + " no tiene comunidad aun");
         /*kc.modNum(c.obtUltimo());
         c.incUltimo();*/
         boolean agregado = false;
@@ -196,12 +225,12 @@ public class Clique extends Algoritmo {
                 probado[i][j] = true;
                 probado[j][i] = true;
                 k_clique kc1 = c.obt_clique(j);
-                obtOut().agregarMensaje("Mirando clique num: " + Integer.toString(j) + " para relacionarlo con " + Integer.toString(i));
+                //obtOut().agregarMensaje("Mirando clique num: " + Integer.toString(j) + " para relacionarlo con " + Integer.toString(i));
                 ArrayList<Integer> aux = new ArrayList<Integer>(kc.lista());
                 aux.retainAll(kc1.lista());
-                obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " tiene con clique num: " + Integer.toString(i) + " exactamente estos nodos en comun " + Integer.toString(aux.size()));
+                //obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " tiene con clique num: " + Integer.toString(i) + " exactamente estos nodos en comun " + Integer.toString(aux.size()));
                 if (aux.size() == k - 1) {
-                    obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " esta en la misma comunidad que " + Integer.toString(i));
+                    //obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " esta en la misma comunidad que " + Integer.toString(i));
                     if (i < j) {
                         if (kc.obtNum() == -1) {
                             kc.modNum(c.obtUltimo());
@@ -214,7 +243,7 @@ public class Clique extends Algoritmo {
                             kc1.modNum(c.obtUltimo());
                             c.incUltimo();
                         }
-                        kc.obtNum();
+                        kc.modNum(kc1.obtNum());
                     }
                     Set<Integer> conj;
                     if (obtOut().numComunidades() <= kc.obtNum()) {
@@ -233,15 +262,17 @@ public class Clique extends Algoritmo {
                                 conj.addAll(kc.lista());
                             }
                         }
+                        obtOut().agregarComunidad(conj);
                     }
                     else {
                         conj = obtOut().comunidad_at(kc.obtNum());
                         //Como se pasa por referencia actualizo la comunidad
-                        conj.addAll(kc1.lista());
+                        if (i < j) conj.addAll(kc1.lista());
+                        else conj.addAll(kc.lista());
+                        agregado = true;
                     }
                 }
             }
-
         }
         if (!agregado) {
             kc.modNum(c.obtUltimo());
