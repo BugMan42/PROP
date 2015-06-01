@@ -25,11 +25,13 @@ public class ControladorRelaciones {
     private ControladorCjtEvento e;
     private Relaciones rs;
     private Grafo g;
+    private ArrayList<String> cache;
 
     public ControladorRelaciones(ControladorCongreso cc, ControladorCjtEvento ce){
         c = cc;
         e = ce;
         rs = new Relaciones();
+        cache = new ArrayList<String>();
     }
 
     public boolean esVacio(){
@@ -38,6 +40,10 @@ public class ControladorRelaciones {
 
     public int size() throws Exception {
         return rs.size();
+    }
+
+    public int sizeCache(){
+        return cache.size();
     }
 
     public void agregarRelacion(String dni, String nombre, String fecha) throws Exception {
@@ -417,6 +423,44 @@ public class ControladorRelaciones {
             if(rs.obtEvento().tipo().equals("Votacion")) res += " "+rs.obtVoto().obt_tipo();
             res += "\n";
         }
+        return res;
+    }
+
+    public void cargarCache(String dni) throws Exception {
+        ArrayList<String> res = new ArrayList<String>();
+        if (tieneRelaciones(dni)) {
+            ArrayList<RelacionSimple> lr = obtRelaciones(dni);
+            for (RelacionSimple rs : lr) {
+                Evento e = rs.obtEvento();
+                String s = e.tipo() + " " + e.obt_nombre() + " " + e.obt_fecha();
+                if (e.tipo().equals("Votacion")) s += " " + rs.obtVoto().obt_tipo();
+                res.add(s);
+            }
+        }
+        cache = res;
+    }
+
+    public void cargarCache(String nombre, String fecha) throws Exception {
+        ArrayList<String> res = new ArrayList<String>();
+        if (tieneRelaciones(nombre, fecha)) {
+            ArrayList<RelacionSimple> lr = obtRelaciones(nombre, fecha);
+            for (RelacionSimple rs : lr) {
+                Congresista c = rs.obtCongresista();
+                String s = c.obtID() + " " + c.obtNombre() + " " + c.obtApellido() + " " + c.obtEdad();
+                if (rs.obtEvento().tipo().equals("Votacion")) s += " " + rs.obtVoto().obt_tipo();
+                res.add(s);
+            }
+        }
+        cache = res;
+    }
+
+    public String obtBloqueCachePR(int bloque, int tam_bloque) throws Exception {
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > sizeCache()) fin = sizeCache();
+        List<String> ls = cache.subList(ini, fin);
+        String res = "";
+        for (String s : ls) res += s+"\n";
         return res;
     }
 

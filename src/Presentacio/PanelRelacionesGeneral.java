@@ -88,7 +88,7 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         pl1.model = new AbstractListModel(){
             public int getSize() { return cpr.sizeCongreso(); }
             public Object getElementAt(int index) {
-                System.out.println("con indice "+index);
+                //System.out.println("con indice "+index);
                 return cpr.obtCongresistaCache(index); }
         };
         pl1.lista.setModel(pl1.model);
@@ -98,18 +98,12 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         pl2.model = new AbstractListModel(){
             public int getSize() { return cpr.sizeEventos(); }
             public Object getElementAt(int index) {
-                System.out.println("ev indice "+index);
+                //System.out.println("ev indice "+index);
                 return cpr.obtEventoCache(index); }
         };
         pl2.lista.setModel(pl2.model);
 
         actualizaListaRelaciones();
-
-        /*
-        if(!cpr.esVacioEventos()) pl2.lista.setListData(cpr.obtEventos());
-        else pl2.lista.setListData(new String[0]);
-        if(!cpr.esVacioRelaciones()) pl3.lista.setListData(cpr.obtRelaciones());
-        else pl3.lista.setListData(new String[0]);*/
     }
 
     private void actualizaListaRelaciones(){
@@ -118,7 +112,7 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         pl3.model = new AbstractListModel(){
             public int getSize() { return cpr.sizeRelaciones(); }
             public Object getElementAt(int index) {
-                System.out.println("rel indice "+index);
+                //System.out.println("rel indice "+index);
                 return cpr.obtRelacionesCache(index); }
         };
         pl3.lista.setModel(pl3.model);

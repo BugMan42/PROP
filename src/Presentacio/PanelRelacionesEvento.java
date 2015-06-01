@@ -17,7 +17,7 @@ public class PanelRelacionesEvento extends Panel3Listas {
             ListSelectionModel lsm = (ListSelectionModel)e.getSource();
             if (!lsm.isSelectionEmpty()) {
                 String[] aux = pl1.lista.getModel().getElementAt(pl1.lista.getSelectedIndex()).toString().split(" ");
-                pl3.lista.setListData(cpr.obtRelaciones(aux[1], aux[2]));
+                actualizaListaRelaciones(aux[1], aux[2]);
                 activar_voto(aux[0].equals("Votacion"));
             }
             else {
@@ -56,10 +56,38 @@ public class PanelRelacionesEvento extends Panel3Listas {
     }
 
     public void actualizar() {
-        if(!cpr.esVacioEventos()) pl1.lista.setListData(cpr.obtEventos());
-        else pl1.lista.setListData(new String[0]);
-        if(!cpr.esVacioCongreso()) pl2.lista.setListData(cpr.obtCongreso());
-        else pl2.lista.setListData(new String[0]);
+        cpr.reiniciarCacheEv();
+        pl1.lista.setPrototypeCellValue("PRUEBA");
+        pl1.model = new AbstractListModel(){
+            public int getSize() { return cpr.sizeEventos(); }
+            public Object getElementAt(int index) {
+                //System.out.println("ev indice "+index);
+                return cpr.obtEventoCache(index); }
+        };
+        pl1.lista.setModel(pl1.model);
+
+        cpr.reiniciarCacheCon();
+        pl2.lista.setPrototypeCellValue("PRUEBA");
+        pl2.model = new AbstractListModel(){
+            public int getSize() { return cpr.sizeCongreso(); }
+            public Object getElementAt(int index) {
+                //System.out.println("con indice "+index);
+                return cpr.obtCongresistaCache(index); }
+        };
+        pl2.lista.setModel(pl2.model);
+    }
+
+    private void actualizaListaRelaciones(String nombre, String fecha){
+        cpr.cargarCache(nombre,fecha);
+        cpr.reiniciarCacheRel();
+        pl3.lista.setPrototypeCellValue("PRUEBA");
+        pl3.model = new AbstractListModel(){
+            public int getSize() { return cpr.sizeResCache(); }
+            public Object getElementAt(int index) {
+                //System.out.println("rel indice "+index);
+                return cpr.obtResCache(index); }
+        };
+        pl3.lista.setModel(pl3.model);
     }
 
     private void bAñadirActionPerformed(ActionEvent evt) {
@@ -73,7 +101,7 @@ public class PanelRelacionesEvento extends Panel3Listas {
                 if (aux[0].equals("Votacion")) cpr.agregarVoto(dni, nombre, fecha, cbvoto.getModel().getSelectedItem().toString());
                 else cpr.agregarRelacion(dni,nombre,fecha);
             }
-            pl3.lista.setListData(cpr.obtRelaciones(nombre,fecha));
+            actualizaListaRelaciones(nombre, fecha);
         }
     }
 
@@ -89,9 +117,7 @@ public class PanelRelacionesEvento extends Panel3Listas {
                 if(aux[0].equals("Votacion")) cpr.eliminarVoto(dni,nombre,fecha,aux2[4]);
                 else cpr.eliminarRelacion(dni,nombre,fecha);
             }
-            String[] s = cpr.obtRelaciones(nombre,fecha);
-            if(s.length>0) pl3.lista.setListData(s);
-            else pl3.lista.setListData(new String[0]);
+            actualizaListaRelaciones(nombre,fecha);
         }
     }
 

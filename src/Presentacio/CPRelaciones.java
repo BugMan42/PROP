@@ -37,8 +37,8 @@ public class CPRelaciones {
         PRG = null;
 
         reiniciarCacheCon();
-        //reiniciarBEv();
-        //reiniciarBRel();
+        reiniciarCacheEv();
+        reiniciarCacheRel();
 
         cpc.modCPR(this);
         cpe.modCR(this);
@@ -124,6 +124,10 @@ public class CPRelaciones {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public int sizeResCache(){
+        return CR.sizeCache();
     }
 
     public void reiniciarCacheCon(){
@@ -234,63 +238,54 @@ public class CPRelaciones {
         }
         return res;
     }
-/*
-    public String obtRelacionesCache(int i, String dni){
+
+    public void cargarCache(String dni){
+        try {
+            CR.cargarCache(dni);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cargarCache(String nombre, String fecha){
+        try {
+            CR.cargarCache(nombre, fecha);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String obtResCache(int i){
         String res;
+        int bloque = i/tam_bloque;
         // Comprobar si está en el primer bloque.
-        if (indCon[0][0]<=i && indCon[0][1]>=i){
-            int ini = (i/tam_bloque) * tam_bloque;
-            res = bCon[0][i-ini];
-            RUCon = 0;
+        if (indRel[0] == bloque){
+            int ini = bloque * tam_bloque;
+            res = bRel[0][i-ini];
+            RURel = 0;
         }
         // Si está en el segundo.
-        else if (indCon[1][0]<=i && indCon[1][1]>=i){
-            int ini = (i/tam_bloque) * tam_bloque;
-            res = bCon[1][i-ini];
-            RUCon = 1;
+        else if (indRel[1] == bloque){
+            int ini = bloque * tam_bloque;
+            res = bRel[1][i-ini];
+            RURel = 1;
         }
         // Si no está en ninguno.
         else {
-            if(RUCon==1) RUCon = 0;
-            else RUCon = 1;
-            int ini = (i/tam_bloque) * tam_bloque;
-            int fin = ini + tam_bloque - 1;
-            indCon[RUCon][0] = ini;
-            indCon[RUCon][1] = fin;
-            bCon[RUCon] = CPC.obtCC().obtBloquePR(i,tam_bloque).split("\n");
-            res = bCon[RUCon][i-ini];
+            if(RURel==1) RURel = 0;
+            else RURel = 1;
+            indRel[RURel] = bloque;
+            try {
+                bRel[RURel] = CR.obtBloqueCachePR(bloque,tam_bloque).split("\n");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            int ini = bloque * tam_bloque;
+            res = bRel[RURel][i-ini];
         }
         return res;
     }
 
-    public String obtRelaciones(int i, String nombre, String fecha){
-        String res;
-        // Comprobar si está en el primer bloque.
-        if (indCon[0][0]<=i && indCon[0][1]>=i){
-            int ini = (i/tam_bloque) * tam_bloque;
-            res = bCon[0][i-ini];
-            RUCon = 0;
-        }
-        // Si está en el segundo.
-        else if (indCon[1][0]<=i && indCon[1][1]>=i){
-            int ini = (i/tam_bloque) * tam_bloque;
-            res = bCon[1][i-ini];
-            RUCon = 1;
-        }
-        // Si no está en ninguno.
-        else {
-            if(RUCon==1) RUCon = 0;
-            else RUCon = 1;
-            int ini = (i/tam_bloque) * tam_bloque;
-            int fin = ini + tam_bloque - 1;
-            indCon[RUCon][0] = ini;
-            indCon[RUCon][1] = fin;
-            bCon[RUCon] = CPC.obtCC().obtBloquePR(i,tam_bloque).split("\n");
-            res = bCon[RUCon][i-ini];
-        }
-        return res;
-    }
-*/
     public String[] obtCongreso(){
         return CPC.obtCC().obtCongresoPR().split("\n");
     }
