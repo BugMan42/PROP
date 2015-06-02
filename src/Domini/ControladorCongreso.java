@@ -262,15 +262,14 @@ public class ControladorCongreso {
             orden = 6;
         }
     }
-    private void cerr(String str) {
-        System.out.println(str);
-    }
+
     public void searchByDni(String aux) throws Exception {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
             if(referencia.get(i).obtDni().toString().startsWith(aux)) cache.add(referencia.get(i));
         }
     }
+
     public void searchByName(String aux) {
         cache.clear();
         //int n = 0;
@@ -281,46 +280,40 @@ public class ControladorCongreso {
             }
         }
     }
+
     public void searchBySurName(String aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
             if(referencia.get(i).obtApellido().startsWith(aux)) cache.add(referencia.get(i));
         }
     }
+
     public void searchByAge(int aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
             if(referencia.get(i).obtEdad() == aux) cache.add(referencia.get(i));
         }
     }
+
     public void searchByCity(String aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
             if(referencia.get(i).obtCiudad().startsWith(aux)) cache.add(referencia.get(i));
         }
     }
+
     public void searchByState(String aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
             if(referencia.get(i).obtEstado().startsWith(aux)) cache.add(referencia.get(i));
         }
     }
+
     public void searchByParty(String aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
             if(referencia.get(i).obtPartido().startsWith(aux)) cache.add(referencia.get(i));
         }
-    }
-    private boolean searchOptions(String congresista, String prefixe, int op) {
-        switch (op) {
-            case 0:
-                return congresista.startsWith(prefixe);
-            case 1:
-                return congresista.contains(prefixe);
-            case 2:
-                return congresista.contentEquals(prefixe);
-        }
-        return congresista.equals(prefixe);
     }
 
     public String obtenerBloqueCongresoPR(int i, int tam) {
@@ -349,20 +342,6 @@ public class ControladorCongreso {
         //if (referencia == null) referencia = c.obtenerCongreso();
         for (int i = 0; i < cache.size(); ++i) {
             a.add(cache.get(i).toString());
-        }
-        return a;
-    }
-    private void print(String str) {
-        System.out.println(str);
-    }
-
-    //Otra que me hacia falta aqui tengo que hablar contigo
-    public ArrayList<String> obtenerCongresoTotal() {
-        ArrayList<String> a = new ArrayList<String>(c.size());
-        if (referencia == null) referencia = c.obtenerCongreso();
-        //print("Capacidad de: "+size());
-        for (int i = 0; i < c.size(); ++i) {
-            a.add(referencia.get(i).toString());
         }
         return a;
     }

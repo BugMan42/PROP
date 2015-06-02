@@ -27,18 +27,15 @@ public class Congreso {
     //atributs
     private TST<Congresista> tst;
     private ArrayList<TSTIterator> Cache;
-    private int bloque;
 
     //Creadoras
     public Congreso() {
         tst = new TST<Congresista>();
         Cache = new ArrayList<TSTIterator>();
-        bloque = 0;
     }
     public void agregarCongresista(Congresista c) throws Exception {
         tst.insertar(c.obtID(), c);
         Cache = new ArrayList<TSTIterator>();
-        bloque = 0;
     }
     private void print(String str) {
         System.out.println(str);
@@ -65,7 +62,6 @@ public class Congreso {
             Congresista c = new Congresista(r,nombre[name],apellido[surname],edad,ciudad[city],ciudad[city],partido[part]);
             tst.insertar(c.obtID(), c);
             Cache = new ArrayList<TSTIterator>();
-            bloque = 0;
         } catch (Exception a) {
             //Do nothing
         }
@@ -74,12 +70,10 @@ public class Congreso {
     public void eliminarCongresista(Dni dni) throws Exception {
         tst.borrar(dni.toString());
         Cache = new ArrayList<TSTIterator>();
-        bloque = 0;
     }
     public void eliminarCongreso() {
         tst.vaciar();
         Cache = new ArrayList<TSTIterator>();
-        bloque = 0;
     }
 
     //Modificadoras
@@ -88,7 +82,6 @@ public class Congreso {
             tst.modificar(dni.toString(), dniNuevo.toString());
             tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
             Cache = new ArrayList<TSTIterator>();
-            bloque = 0;
         }
     }
     public void modNombreCongresista(Dni dni,String nombre) throws Exception {
@@ -116,7 +109,6 @@ public class Congreso {
             //tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
             tst.obtener(dniNuevo.toString()).mod(dniNuevo, nombre, apellido, edad, ciudad, estado, partido);
             Cache = new ArrayList<TSTIterator>();
-            bloque = 0;
         }
         else {
             tst.obtener(dni.toString()).mod(nombre, apellido, edad, ciudad, estado, partido);
@@ -132,7 +124,7 @@ public class Congreso {
                 int j = 0;
                 while (res.hasNext() && j++<tam) res.next();
             }
-            print("Tam cache: "+Cache.size());
+            //print("Tam cache congr: "+Cache.size());
         }
         return new TSTIterator(Cache.get(bloq));
     }
