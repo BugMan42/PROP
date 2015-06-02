@@ -19,14 +19,8 @@ public class ControladorCjtEvento {
         ce = new CjtEvento();
     }
 
-    public void EliminarEvento(String nombre, String fecha, ControladorRelaciones cr) throws Exception{
-        if(cr.tieneRelaciones(nombre, fecha)) cr.eliminarRelaciones(nombre, fecha);
-        ce.EliminarEvento(nombre, new Fecha(fecha));
-    }
-
-    public void EliminarCjtEvento(ControladorRelaciones cr) {
-        ce.EliminarCjtEvento();
-        cr.eliminarRelaciones();
+    public int size(){
+        return ce.size();
     }
 
     public void AgregarVotacion(String nombre, String fecha, int importancia) throws Exception{
@@ -63,6 +57,24 @@ public class ControladorCjtEvento {
         ce.AgregarEventoRandom(n);
     }
 
+    public List<Evento> ConsultarTodosEventos() {
+        return ce.ConsultarTodosEventos();
+    }
+
+    public boolean ExisteEvento(String nombre, String fecha) throws Exception {
+        return ce.ExisteEvento(nombre, new Fecha(fecha));
+    }
+
+    public void EliminarEvento(String nombre, String fecha, ControladorRelaciones cr) throws Exception{
+        if(cr.tieneRelaciones(nombre, fecha)) cr.eliminarRelaciones(nombre, fecha);
+        ce.EliminarEvento(nombre, new Fecha(fecha));
+    }
+
+    public void EliminarCjtEvento(ControladorRelaciones cr) {
+        ce.EliminarCjtEvento();
+        cr.eliminarRelaciones();
+    }
+
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo, ControladorRelaciones cr) throws Exception{
         if(cr.tieneRelaciones(nomViejo, fecha)) {
             System.out.println("LLego hasta el controlador");
@@ -88,20 +100,8 @@ public class ControladorCjtEvento {
         ce.ModificarImpEvento(nombre, new Fecha(fecha), importance);
     }
 
-    public List<Evento> ConsultarTodosEventos() {
-        return ce.ConsultarTodosEventos();
-    }
-
     public Evento ConsultarEvento(String nombre, String fecha) throws Exception{
         return ce.ConsultarEvento(nombre, new Fecha(fecha));
-    }
-
-    public boolean ExisteEvento(String nombre, String fecha) throws Exception {
-        return ce.ExisteEvento(nombre, new Fecha(fecha));
-    }
-
-    public int size(){
-        return ce.size();
     }
 
     public void guardar(String ruta) throws Exception {
@@ -152,18 +152,11 @@ public class ControladorCjtEvento {
     }
 
     public String obtBloquePR(int bloque, int tam_bloque){
-        int ini = bloque * tam_bloque;
-        int fin = ini + tam_bloque;
-        if (fin > size()) fin = size();
-        List<Evento> le = ce.ConsultarTodosEventos().subList(ini, fin);
+        List<Evento> ev = ce.obtEventos(bloque, tam_bloque);
         String res = "";
-        for (Evento e : le)
+        for (Evento e: ev)
             res += e.tipo()+" "+e.obt_nombre()+" "+e.obt_fecha()+"\n";
         return res;
-    }
-
-    public String ConsultarEventoP(String nombre, String fecha) throws Exception {
-        return ce.ConsultarEvento(nombre, new Fecha(fecha)).toString();
     }
 
     public List<String> ConsultarTodosEventosP() {

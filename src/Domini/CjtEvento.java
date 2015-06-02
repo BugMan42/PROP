@@ -1,5 +1,6 @@
 package Domini;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -10,6 +11,8 @@ public class CjtEvento {
     private TST<Evento> cjt;
     private TST<Evento> cjtFecha;
     private TST<Evento> cjtImp;
+    private ArrayList<TSTIterator> Cache;
+
 
     private static final String error1 = "El Nombre no es valido";
     private static final String error2 = "La fecha no es valida";
@@ -22,6 +25,7 @@ public class CjtEvento {
 
     public CjtEvento() {
         cjt = new TST<Evento>();
+        Cache = new ArrayList<TSTIterator>();
         /*cjtFecha = new TST<Evento>();
         cjtImp = new TST<Evento>();*/
     }
@@ -29,6 +33,7 @@ public class CjtEvento {
     /////////////////////////////////////ELIMINADORA/////////////////////
     public void EliminarCjtEvento() {
         cjt.vaciar();
+        Cache = new ArrayList<TSTIterator>();
         /*cjtFecha.vaciar();
         cjtImp.vaciar();*/
     }
@@ -40,6 +45,7 @@ public class CjtEvento {
         // encontrar el elemento
         String name = nombre.toUpperCase();
         cjt.borrar(name + fecha.toString());
+        Cache = new ArrayList<TSTIterator>();
         /*cjtFecha.borrar(fecha.toString() + name);
         //Ineficiente hacer de nuevo//////////////////////////////
         //Evento aux = cjt.obtener(name + fecha.toString());
@@ -49,6 +55,7 @@ public class CjtEvento {
 
     public void AgregarEvento(Evento e) throws Exception{
         cjt.insertar(e.ID(), e);
+        Cache = new ArrayList<TSTIterator>();
         /*cjtFecha.insertar(e.IDFecha(), e);
         cjtImp.insertar(e.IDImp(), e);*/
     }
@@ -63,6 +70,7 @@ public class CjtEvento {
                 Evento aux = cjt.obtener(oldname + fecha.toString());
                 aux.ModNombre(newname);
                 cjt.modificar(oldname + fecha.toString(), newname + fecha.toString(), aux);
+                Cache = new ArrayList<TSTIterator>();
                 /*aux = cjtFecha.obtener(fecha.toString() + oldname);
                 aux.ModNombre(newname);
                 cjtFecha.modificar(fecha.toString() + oldname, fecha.toString() + newname, aux);
@@ -82,6 +90,7 @@ public class CjtEvento {
             Evento aux = cjt.obtener(name + fechaVieja.toString());
             aux.ModFecha(fechaNueva);
             cjt.modificar(name + fechaVieja.toString(), name + fechaNueva.toString(), aux);
+            Cache = new ArrayList<TSTIterator>();
             /*aux = cjtFecha.obtener(fechaVieja.toString() + name);
             aux.ModFecha(fechaNueva);
             cjt.modificar(fechaVieja.toString() + name,fechaNueva.toString()+ name, aux);
@@ -101,6 +110,33 @@ public class CjtEvento {
         Evento aux = cjtImp.obtener(Integer.toString(OldImp) + name + fecha.toString());
         aux.ModImportancia(NewImp);
         cjtImp.modificar(Integer.toString(OldImp)+name+fecha.toString(),Integer.toString(NewImp)+name+fecha.toString(), aux);*/
+    }
+
+    private TSTIterator desplazarIterador(int bloq, int tam){
+        // Rellenar con los iteradores de todos los bloques.
+        if (Cache.isEmpty()){
+            TSTIterator res = new TSTIterator(cjt);
+            int lim = (size()-1)/tam;
+            for(int i = 0; i <= lim; ++i){
+                Cache.add(new TSTIterator(res));
+                int j = 0;
+                while (res.hasNext() && j++<tam) res.next();
+            }
+            //System.out.println("Tam cache ev: " + Cache.size());
+        }
+        return new TSTIterator(Cache.get(bloq));
+    }
+
+    public ArrayList<Evento> obtEventos(int bloq, int tam) {
+        TSTIterator aux = desplazarIterador(bloq,tam);
+        int i = 0;
+        ArrayList<Evento> a = new ArrayList<Evento>();
+        while ( aux.hasNext() && i < tam) {
+            Evento an = (Evento)aux.next();
+            a.add(an);
+            ++i;
+        }
+        return a;
     }
 
     public void AgregarEventoRandom(int n) throws Exception {
@@ -154,6 +190,7 @@ public class CjtEvento {
 
     private void insertar(Evento e) throws Exception {
         cjt.insertar(e.ID(), e);
+        Cache = new ArrayList<TSTIterator>();
         /*cjtFecha.insertar(e.IDFecha(), e);
         cjtImp.insertar(e.IDImp(), e);*/
     }
