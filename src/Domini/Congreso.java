@@ -1,5 +1,7 @@
 package Domini;
 
+import sun.rmi.runtime.Log;
+
 import java.util.*;
 
 public class Congreso {
@@ -123,16 +125,14 @@ public class Congreso {
     private TSTIterator desplazarIterador(int bloq, int tam){
         // Rellenar con los iteradores de todos los bloques.
         if (Cache.isEmpty()){
-            Cache.add(new TSTIterator(tst));
-            int i = Cache.size()-1;
-            TSTIterator res = new TSTIterator(Cache.get(i));
-            for(; i < size(); ++i){
+            TSTIterator res = new TSTIterator(tst);
+            int lim = (size()-1)/tam;
+            for(int i = 0; i <= lim; ++i){
+                Cache.add(new TSTIterator(res));
                 int j = 0;
                 while (res.hasNext() && j++<tam) res.next();
-                ++i;
-                // Falta copiar iterador res y añadir copia a Cache. (Cache.add())
-                Cache.add(new TSTIterator(res));
             }
+            print("Tam cache: "+Cache.size());
         }
         return new TSTIterator(Cache.get(bloq));
     }

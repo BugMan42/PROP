@@ -359,7 +359,7 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        SpinnerNum.setModel(new SpinnerNumberModel(1, 1, 1000000, 1));
+        SpinnerNum.setModel(new SpinnerNumberModel(1, 1, 10000000, 1));
         //SpinnerNum.setModel(new SpinnerNumberModel(new SpinnerNumberModel(5.0, 0.0, 9.0, 1.0));
 
 
@@ -1202,7 +1202,10 @@ public class PanelCongreso extends PanelLista {
         bigData = new AbstractListModel<String>() {
             public int getSize() {
                 if (CPC.size() == 0) return 1;
-                else return CPC.size();
+                else{
+                    setMsg(CPC.size()+"");
+                    return CPC.size();
+                }
             }
             public String getElementAt(int index) {
                 if (CPC.size() == 0) return "No hay Congresistas";
