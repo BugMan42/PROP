@@ -363,7 +363,7 @@ public class PanelAlgoritmo extends Panel{
         g.addAttribute("ui.antialias");
         g.addAttribute(
                 "ui.stylesheet",
-                "node { shape: pie-chart; size: 0.5gu; text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
+                "node { shape: pie-chart; size: 15px; text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
                         "node:selected { stroke-width: 4px; }"+
                         "edge { fill-color: #777; }");
 
@@ -425,7 +425,7 @@ public class PanelAlgoritmo extends Panel{
                     for (int i = 0; i <= nodo_com; i++)
                     {
                         copie[i] = Double.toString(corel);
-                        if (i < nodo_com)
+                        if (k < nodo_com)
                         {
                             ncopie[i] = scopie[i];
                             int prop = Integer.parseInt((String) scopie[i]);
