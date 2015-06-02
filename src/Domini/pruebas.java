@@ -2,6 +2,7 @@ package Domini;
 
 import Presentacio.CPCongreso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class pruebas {
@@ -22,7 +23,8 @@ public class pruebas {
 
         try {
             //testTST2();
-            testPrefix();
+            testCongresista();
+            //testPrefix();
             //testGrafo2();
             //testit();
             //testTST();
@@ -182,6 +184,19 @@ public class pruebas {
             Congresista a = (Congresista) ex.get(i);
             print(a.obtID());
         }
+    }
+    private static void testCongresista() throws Exception {
+        ArrayList<Integer> a = new ArrayList<Integer>();
+        a.add(1);
+        TST<ArrayList<Integer> > tst = new TST<ArrayList<Integer>>();
+        tst.insertarSinExc("a", a);
+        ArrayList<Integer> algo = new ArrayList<Integer>();
+        algo.add(2);
+        TST<Integer> tst1 = new TST<Integer>();
+        tst1.insertarSinExc("a",1);
+        print(tst1.obtener("a")+"");
+        print(""+tst1.insertarSinExc("a",2));
+
     }
     private static void testBloques() {
         Congreso a = new Congreso();

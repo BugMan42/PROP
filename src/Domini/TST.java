@@ -181,6 +181,46 @@ public class TST<X> implements Iterable<X> {
         }
         return t;
     }
+
+
+    public X insertarSinExc(String key, X x) {
+        List<X> aux = new ArrayList<X>();
+        root = (TSTNodoChar) insertarSinExc(root, key, x, 0,aux);
+        if (aux.isEmpty()) return x;
+        else return aux.get(0);
+
+    }
+    //La creacion/recorrido del tst se hace mediante la comparacion de caracteres
+    //es decir segun el caracter del nodo y el caracter de la string
+    //Si es menor se recorre hacia la izquierda si no hacia la derecha
+    //si es igual seguimos por el nodo del medio
+    private TSTNodo insertarSinExc(TSTNodo t, String key, X x, int l,List<X> v) {
+        char c;
+        if (l < key.length()) c = key.charAt(l);
+        else c = fin;
+
+        if (t == null) {
+            t = new TSTNodoChar(c);
+            if (c == fin) {
+                t.middle = new TSTNodoFinal(x);
+                ++N;
+            }
+            else t.middle = insertarSinExc(t.middle,key,x,l+1,v);
+        }
+        else {
+            TSTNodoChar tChar = (TSTNodoChar) t;
+            if (c == fin && tChar.valor == fin) {
+                TSTNodoFinal F = (TSTNodoFinal)t.middle;
+                //print("yesss");
+                v.add((X)F.valor);
+                return t;
+            }
+            if (c < tChar.valor) t.left = insertarSinExc(t.left, key, x, l,v);
+            else if (c > tChar.valor) t.right = insertarSinExc(t.right, key, x, l,v);
+            else t.middle = insertarSinExc(t.middle,key,x,l+1,v);
+        }
+        return t;
+    }
 //#######################################################################################
 /**###################################OBTENER###########################################*/
 //#######################################################################################
