@@ -22,8 +22,9 @@ public class pruebas {
     public static void main(String[] args) throws Exception {
 
         try {
+            testsCaches();
             //testTST2();
-            testCongresista();
+            //testCongresista();
             //testPrefix();
             //testGrafo2();
             //testit();
@@ -193,11 +194,41 @@ public class pruebas {
         ArrayList<Integer> algo = new ArrayList<Integer>();
         algo.add(2);
         TST<Integer> tst1 = new TST<Integer>();
-        tst1.insertarSinExc("a",1);
-        print(tst1.obtener("a")+"");
+        //tst1.insertarSinExc("a",1);
+        //print(tst1.obtener("a")+"");
         print(""+tst1.insertarSinExc("a",2));
+    }
+
+    private static void testsCaches() throws Exception {
+        Congresista C1 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
+        Congresista C11 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 86, "SanFrancisco", "NT", "Berkeley");
+        Congresista C2 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "SanFrancisco", "NT", "Berkeley");
+        //Congresista C3 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
+        //Congresista C4 = new Congresista(new Dni("00000000D"), "Max", "Newman", 87, "Chealsea", "LO", "Democrata");
+        //Congresista C5 = new Congresista(new Dni("00000000E"), "Allen", "Newll", 65, "San Francisco", "SF", "Pirata");
+        //Congresista C6 = new Congresista(new Dni("00000000F"), "Jon-Von", "Neumann", 53, "Budapest", "AU", "Pirata");
+        //Congresista C7 = new Congresista(new Dni("00000000G"), "Alan", "Turing", 41, "London", "LO", "Liberal");
+        Congreso a = new Congreso();
+        //for (int i = 0; i < 10; ++i) a.agregarCongresistaRandom();
+        a.agregarCongresista(C1);
+        a.agregarCongresista(C2);
+        a.modCongresista(C1,C11);
+        //a.agregarCongresista(C3);
+        //a.agregarCongresista(C4);
+        //a.agregarCongresista(C5);
+        //a.agregarCongresista(C6);
+        //a.agregarCongresista(C7);
+
+        print(a.obtenerListaID() + "");
+        print(a.obtenerListaNombre() + "");
+        print(a.obtenerListaApellido() + "");
+        print(a.obtenerListaEdad() + "");
+        print(a.obtenerListaCiudad() + "");
+        print(a.obtenerListaEstado() + "");
+        print(a.obtenerListaPartido() + "");
 
     }
+
     private static void testBloques() {
         Congreso a = new Congreso();
         for (int i = 0; i < 100; ++i) a.agregarCongresistaRandom();
