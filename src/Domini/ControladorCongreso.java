@@ -117,7 +117,7 @@ public class ControladorCongreso {
     public void eliminarCongresista(String dni, ControladorRelaciones cr) throws Exception {
         if(cr.tieneRelaciones(dni)) cr.eliminarRelaciones(dni);
         Dni d = new Dni(dni);
-        c.eliminarCongresista(c.consultarCongresista(d));
+        c.eliminarCongresista(d);
         //guarrada util
         referencia.remove(obtindiceRef(new Congresista(d, "", "", 1, "", "", "")));
 
@@ -128,7 +128,7 @@ public class ControladorCongreso {
         cr.eliminarRelaciones();
         referencia.clear();
     }
-/*
+
     public void modNombreCongresista(String dni, String nombre) throws Exception {
         Dni d = new Dni(dni);
         c.modNombreCongresista(d, nombre);
@@ -166,18 +166,31 @@ public class ControladorCongreso {
         Dni d_nuevo = new Dni(dni_nuevo);
         c.modDniCongresista(d, d_nuevo);
     }
-*/
+
     public void modCongresista(String dni, String dni_nuevo, String nombre, String apellido, int edad, String ciudad,
                                String estado, String partido, ControladorRelaciones cr) throws  Exception{
         if(cr.tieneRelaciones(dni)) cr.modCongresista(dni,dni_nuevo);
         Dni d = new Dni(dni);
         Dni d_nuevo = new Dni(dni_nuevo);
         //print(size()+"size");
-        Congresista con = c.consultarCongresista(dni);
-        Congresista con2 = new Congresista(d_nuevo, nombre, apellido, edad, ciudad, estado, partido);
+        c.modCongresista(d, d_nuevo, nombre, apellido, edad, ciudad, estado, partido);
+        reordenar();
+    }
+
+    // GUILLE, LA FUNCIÓN QUE ME HAS PEDIDO
+    /*
+    public void modCongresista(String dni, String dni_nuevo, String nombre, String nombre_nuevo, String apellido,
+                               String apellido_nuevo, int edad, int edad_nuevo, String ciudad, String ciudad_nuevo,
+                               String estado, String estado_nuevo, String partido, String partido_nuevo, ControladorRelaciones cr) throws  Exception{
+        if(cr.tieneRelaciones(dni)) cr.modCongresista(dni,dni_nuevo);
+        Dni d = new Dni(dni);
+        Dni d_nuevo = new Dni(dni_nuevo);
+        Congresista con = new Congresista(d, nombre, apellido, edad, ciudad, estado, partido);
+        Congresista con2 = new Congresista(d_nuevo, nombre_nuevo, apellido_nuevo, edad_nuevo, ciudad_nuevo, estado_nuevo, partido_nuevo);
         c.modCongresista(con,con2);
         reordenar();
     }
+    */
 
     public Congresista consultarCongresista(String dni) throws Exception {
         Dni d = new Dni(dni);
@@ -289,33 +302,40 @@ public class ControladorCongreso {
             if(referencia.get(i).obtApellido().startsWith(aux)) cache.add(referencia.get(i));
         }
     }
-
     public void searchByAge(int aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
             if(referencia.get(i).obtEdad() == aux) cache.add(referencia.get(i));
         }
     }
-
     public void searchByCity(String aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
             if(referencia.get(i).obtCiudad().startsWith(aux)) cache.add(referencia.get(i));
         }
     }
-
     public void searchByState(String aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
             if(referencia.get(i).obtEstado().startsWith(aux)) cache.add(referencia.get(i));
         }
     }
-
     public void searchByParty(String aux) {
         cache.clear();
         for (int i = 0; i < c.size(); ++i) {
             if(referencia.get(i).obtPartido().startsWith(aux)) cache.add(referencia.get(i));
         }
+    }
+    private boolean searchOptions(String congresista, String prefixe, int op) {
+        switch (op) {
+            case 0:
+                return congresista.startsWith(prefixe);
+            case 1:
+                return congresista.contains(prefixe);
+            case 2:
+                return congresista.contentEquals(prefixe);
+        }
+        return congresista.equals(prefixe);
     }
 
     public String obtenerBloqueCongresoPR(int i, int tam) {
@@ -344,6 +364,20 @@ public class ControladorCongreso {
         //if (referencia == null) referencia = c.obtenerCongreso();
         for (int i = 0; i < cache.size(); ++i) {
             a.add(cache.get(i).toString());
+        }
+        return a;
+    }
+    private void print(String str) {
+        System.out.println(str);
+    }
+
+    //Otra que me hacia falta aqui tengo que hablar contigo
+    public ArrayList<String> obtenerCongresoTotal() {
+        ArrayList<String> a = new ArrayList<String>(c.size());
+        if (referencia == null) referencia = c.obtenerCongreso();
+        //print("Capacidad de: "+size());
+        for (int i = 0; i < c.size(); ++i) {
+            a.add(referencia.get(i).toString());
         }
         return a;
     }
