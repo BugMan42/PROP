@@ -3,6 +3,9 @@ package Domini;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Created by usuario on 26/04/2015.
+ */
 public class CjtEvento {
     private TST<Evento> cjt;
     private TST<Evento> cjtFecha;
@@ -175,7 +178,8 @@ public class CjtEvento {
         return cjt.obtener(name+fecha.toString());
     }
 
-    public boolean ExisteEvento(String nombre, Fecha fecha) throws Exception {
+    public boolean ExisteEvento(String nombre, String fecha) throws Exception {
+       
         //Siempre convierto el nombre a mayusculas para evitar errores de no encontrar el elemento
         String name = nombre.toUpperCase();
         return cjt.existe(name+fecha.toString());

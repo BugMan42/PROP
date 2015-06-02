@@ -43,6 +43,7 @@ public class Clique extends Algoritmo {
     }
 
     class k_clique {
+
         private ArrayList<Integer> c;
         private int num;
         private double peso;
