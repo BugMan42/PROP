@@ -797,7 +797,7 @@ public class PanelCongreso extends PanelLista {
             int returnVal = choosersave.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 try {
-                    CPC.guardar(choosersave.getSelectedFile().getAbsolutePath());
+                    CPC.guardar(choosersave.getSelectedFile().getAbsolutePath()+choosersave.getFileFilter().getDescription());
                 } catch (Exception a) {
                     setError(a.getMessage());
                 }

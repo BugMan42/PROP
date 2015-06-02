@@ -70,6 +70,7 @@ public class    VistaPrincipal extends JFrame {
 
         // Item de menú 1 (Nuevo)
         JMenuItem item1 = new JMenuItem("Nuevo", KeyEvent.VK_N);
+        item1.setIcon(new ImageIcon("images/new.png"));
         item1.setToolTipText("Nuevo proyecto");
         item1.addActionListener(new ActionListener() {
             @Override
@@ -80,8 +81,9 @@ public class    VistaPrincipal extends JFrame {
         menu1.add(item1);
 
         // Item de menú 2 (Cargar)
-        JMenuItem item2 = new JMenuItem("Cargar", KeyEvent.VK_L);
-        item2.setToolTipText("Cargar un proyecto");
+        JMenuItem item2 = new JMenuItem("Abrir", KeyEvent.VK_L);
+        item2.setIcon(new ImageIcon("images/load.png"));
+        item2.setToolTipText("Abrir un proyecto");
         item2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -94,6 +96,7 @@ public class    VistaPrincipal extends JFrame {
 
         // Item de menú 3 (Guardar)
         JMenuItem item3 = new JMenuItem("Guardar", KeyEvent.VK_S);
+        item3.setIcon(new ImageIcon("images/save.gif"));
         item3.setToolTipText("Guardar proyecto");
         item3.addActionListener(new ActionListener() {
             @Override
@@ -101,7 +104,7 @@ public class    VistaPrincipal extends JFrame {
                 if (cp.modificado()) {
                     int op = guardar.showSaveDialog(pan);
                     if (op == JFileChooser.APPROVE_OPTION)
-                        cp.guardar(guardar.getSelectedFile().getAbsolutePath());
+                        cp.guardar(guardar.getSelectedFile().getAbsolutePath()+guardar.getFileFilter().getDescription());
                 }
             }
         });

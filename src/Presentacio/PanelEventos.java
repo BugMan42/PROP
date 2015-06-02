@@ -72,10 +72,14 @@ public class PanelEventos extends PanelLista {
         guardar = new JFileChooser();
         cargar = new JFileChooser();
 
+        UIManager.put("FileChooser.lookInLabelText", "Buscar en:");
+        SwingUtilities.updateComponentTreeUI(cargar);
         cargar.setAcceptAllFileFilterUsed(true);
         cargar.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
         cargar.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
         cargar.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
+        UIManager.put("FileChooser.lookInLabelText", "Guardar en:");
+        SwingUtilities.updateComponentTreeUI(guardar);
         guardar.setAcceptAllFileFilterUsed(true);
         guardar.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
         guardar.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
@@ -440,7 +444,7 @@ public class PanelEventos extends PanelLista {
             int valor = guardar.showSaveDialog(this);
             if (valor == JFileChooser.APPROVE_OPTION) {
                 try {
-                    cpe.obtCCE().guardar(guardar.getSelectedFile().getAbsolutePath());
+                    cpe.obtCCE().guardar(guardar.getSelectedFile().getAbsolutePath()+guardar.getFileFilter().getDescription());
                 }
                 catch (Exception ex) {
                     mostrarmensaje(ex.getMessage());

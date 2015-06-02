@@ -181,7 +181,7 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         if (!cpr.esVacioRelaciones()) {
             int op = guardar.showSaveDialog(this);
             if (op == JFileChooser.APPROVE_OPTION)
-                cpr.guardar(guardar.getSelectedFile().getAbsolutePath());
+                cpr.guardar(guardar.getSelectedFile().getAbsolutePath()+guardar.getFileFilter().getDescription());
         }
     }
 
