@@ -34,7 +34,6 @@ public class DriverClique {
         do {
             try {
                 Proceso(entrada);
-
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
