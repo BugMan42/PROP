@@ -64,6 +64,10 @@ public class CPAlgoritmo {
     {
         CA.modParamEntrada(x);
     }
+    public void modParam2(String x)
+    {
+        CA.modParam2Entrada(x);
+    }
 
     public String next_mensaje()
     {

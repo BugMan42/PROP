@@ -26,8 +26,6 @@ public class ControladorAlgoritmo {
 
     public ControladorAlgoritmo(ControladorRelaciones cr)
     {
-        out = new Salida();
-        in = new Entrada();
         crel = cr;
     }
 
@@ -43,6 +41,11 @@ public class ControladorAlgoritmo {
         in.modParam1(Double.parseDouble(p));
     }
 
+    public void modParam2Entrada(String p) // Serán Strings
+    {
+        in.modParam2(Double.parseDouble(p));
+    }
+
     /*
     * Selección de algoritmo
     * Pre:  s contiene una de las 3 opciones disponibles.
@@ -51,6 +54,8 @@ public class ControladorAlgoritmo {
     */
     public void seleccionAlgoritmo(int s) throws Exception
     {
+        out = new Salida();
+        in = new Entrada();
         if (s == 1) alg = new Girvan_Newman(in, out);
         else if (s == 2) alg = new Louvain(in, out);
         else if (s == 3) alg = new Clique(in, out);
@@ -135,7 +140,7 @@ public class ControladorAlgoritmo {
 
     public String next_community()
     {
-        String r = null;
+        String r;
 
         try {
             r = out.comunidad_at(i_comm).toString();
@@ -238,8 +243,7 @@ public class ControladorAlgoritmo {
     }
 
     public String obtLabel(int x) throws Exception {
-        String r = in.obtGrafo().fPrima(x);
-        return r;
+        return in.obtGrafo().fPrima(x);
     }
 
 }

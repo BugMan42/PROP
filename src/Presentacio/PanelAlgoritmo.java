@@ -81,6 +81,8 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void buttonReleased(String id) {
                 System.out.println("Button released on node "+id);
+                g.getNode(id).addAttribute("ui.clicked");
+
             }
         });
         fromViewer.addSink(g);
@@ -205,7 +207,7 @@ public class PanelAlgoritmo extends Panel{
         pref.setMaximumSize(new Dimension(200,25));
         pref.setEnabled(false);
 
-        JLabel l_pref2 = new JLabel("Parámetro 2:");
+        final JLabel l_pref2 = new JLabel("Parámetro 2:");
         final JTextField pref2 = new JTextField("0");
         pref2.setPreferredSize(new Dimension(100,25));
         pref2.setMaximumSize(new Dimension(200,25));
@@ -226,6 +228,8 @@ public class PanelAlgoritmo extends Panel{
             public void actionPerformed(ActionEvent e) {
                 pref.setEnabled(true);
                 l_pref.setText("Nº comunidades:");
+                pref2.setEnabled(false);
+                pref2.setVisible(false);
                 tp1.setEnabled(true);
                 tp2.setEnabled(false);
                 tp3.setEnabled(false);
@@ -239,6 +243,8 @@ public class PanelAlgoritmo extends Panel{
             public void actionPerformed(ActionEvent e) {
                 pref.setEnabled(true);
                 l_pref.setText("Modularidad:");
+                pref2.setEnabled(false);
+                pref2.setVisible(false);
                 tp1.setEnabled(false);
                 tp2.setEnabled(true);
                 tp3.setEnabled(false);
@@ -251,7 +257,10 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 pref.setEnabled(true);
+                l_pref.setText("K:");
                 pref2.setEnabled(true);
+                pref2.setVisible(true);
+                l_pref2.setText("Threshold");
                 tp1.setEnabled(false);
                 tp2.setEnabled(false);
                 tp3.setEnabled(true);
@@ -273,6 +282,7 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 cpa.modParam1(pref.getText());
+                cpa.modParam2(pref2.getText());
 
                 System.out.println("demo: "+demo_activated);
                 if (!demo_activated) {
@@ -371,18 +381,18 @@ public class PanelAlgoritmo extends Panel{
                         .addGroup(gr.createSequentialGroup()
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb1)
-                                                        .addComponent(sp1)
+                                                        .addComponent(sp1, 100, 150, 150)
                                                         .addComponent(mostrar1)
                                                 //.addComponent(pb1)
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb2)
-                                                        .addComponent(sp2)
+                                                        .addComponent(sp2, 100, 150, 150)
                                                         .addComponent(mostrar2)
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb3)
-                                                        .addComponent(sp3)
+                                                        .addComponent(sp3, 100, 150, 150)
                                                         .addComponent(mostrar3)
                                         )
                                         .addGroup(gr.createParallelGroup()
@@ -444,6 +454,7 @@ public class PanelAlgoritmo extends Panel{
                 "ui.stylesheet",
                 "node { shape: pie-chart; size: 15px; text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
                         "node:selected { stroke-width: 4px; }"+
+                        "node:clicked { stroke-width: 4px; }"+
                         "edge { fill-color: #777; }");
 
         int na = cpa.num_vertices();
