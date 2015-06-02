@@ -87,25 +87,25 @@ public class Clique extends Algoritmo {
     private void fase1(comunidades c) throws Exception{
         for (Iterator it = g.consultarVertices().iterator(); it.hasNext(); ) {
             int i = (Integer) it.next();
-            //obtOut().agregarMensaje("Tratando nodo num: " + Integer.toString(i));
+            obtOut().agregarMensaje("Tratando nodo num: " + Integer.toString(i));
             int m = g.degreeSalida(i);
-            //obtOut().agregarMensaje("Grado de: " + Integer.toString(i) + ": " + Integer.toString(m));
+            obtOut().agregarMensaje("Grado de: " + Integer.toString(i) + ": " + Integer.toString(m));
             if (m + 1 >= k) {
                 List<Integer> candidatos = g.nodosSalida(i).subList(index_sublista(i), m);
-                //obtOut().agregarMensaje("Candidatos");
-                //for (int j = 0; j < candidatos.size(); ++j) obtOut().agregarMensaje("Soy el candidato numero " + Integer.toString(candidatos.get(j)));
+                obtOut().agregarMensaje("Candidatos");
+                for (int j = 0; j < candidatos.size(); ++j) obtOut().agregarMensaje("Soy el candidato numero " + Integer.toString(candidatos.get(j)));
                 for (Iterator it2 = candidatos.iterator(); it2.hasNext(); ) {
                     k_clique kc = new k_clique();
                     kc.agregar(i);
                     int v = (Integer) it2.next();
-                    //obtOut().agregarMensaje("Mirando nodo num: " + Integer.toString(v));
+                    obtOut().agregarMensaje("Mirando nodo num: " + Integer.toString(v));
                     kc.agregar(v);
                     kc.sumaPeso(g.pesoAristasVertices(i, v));
                     it2.remove();
                     List<Integer> l = new ArrayList<Integer>(candidatos);
                     l.retainAll(g.nodosSalida(v));
-                    //obtOut().agregarMensaje("Lista recursividad");
-                    //for (int j = 0; j < l.size(); ++j) obtOut().agregarMensaje("Soy el candidato numero " + Integer.toString(candidatos.get(j)));
+                    obtOut().agregarMensaje("Lista recursividad");
+                    for (int j = 0; j < l.size(); ++j) obtOut().agregarMensaje("Soy el candidato numero " + Integer.toString(candidatos.get(j)));
                     cliqueOneNode(kc, k - 2, l);
                     ///////////////////////////////////////HACER////////////////////////
                     //agregar valor threshold
@@ -119,9 +119,9 @@ public class Clique extends Algoritmo {
                                 kc.sumaPeso(g.pesoAristasVertices(v, x));
                             }
                         }
+                        obtOut().agregarMensaje("Este es mi peso " + kc.obtPeso());
                         if (kc.obtPeso() > th) c.agregar_clique(kc);
                         /////////////////////////////////////////////////////////////////////////////
-                        System.out.println("Este es mi peso " + kc.obtPeso());
                     }
                     ///////////////////////////////////////////////////////////////////////////
                     //obtOut().agregarMensaje("Acabo de quitar el vertice " + Integer.toString(v));
@@ -224,7 +224,7 @@ public class Clique extends Algoritmo {
 
 
     private void buscarCom(comunidades c, k_clique kc, int i, boolean[][] probado, int n) throws Exception {
-        //obtOut().agregarMensaje("El clique num: " + Integer.toString(i) + " no tiene comunidad aun");
+        obtOut().agregarMensaje("El clique num: " + Integer.toString(i) + " no tiene comunidad aun");
         /*kc.modNum(c.obtUltimo());
         c.incUltimo();*/
         boolean agregado = false;
@@ -233,12 +233,12 @@ public class Clique extends Algoritmo {
                 probado[i][j] = true;
                 probado[j][i] = true;
                 k_clique kc1 = c.obt_clique(j);
-                //obtOut().agregarMensaje("Mirando clique num: " + Integer.toString(j) + " para relacionarlo con " + Integer.toString(i));
+                obtOut().agregarMensaje("Mirando clique num: " + Integer.toString(j) + " para relacionarlo con " + Integer.toString(i));
                 ArrayList<Integer> aux = new ArrayList<Integer>(kc.lista());
                 aux.retainAll(kc1.lista());
-                //obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " tiene con clique num: " + Integer.toString(i) + " exactamente estos nodos en comun " + Integer.toString(aux.size()));
+                obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " tiene con clique num: " + Integer.toString(i) + " exactamente estos nodos en comun " + Integer.toString(aux.size()));
                 if (aux.size() == k - 1) {
-                    //obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " esta en la misma comunidad que " + Integer.toString(i));
+                    obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " esta en la misma comunidad que " + Integer.toString(i));
                     if (i < j) {
                         if (kc.obtNum() == -1) {
                             kc.modNum(c.obtUltimo());
