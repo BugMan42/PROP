@@ -112,7 +112,7 @@ public class Girvan_Newman extends Algoritmo{
         while(alg_cc < limit)
         {
             ejecutar_iteración(alg_graph);
-            System.out.println(alg_cc/limit);
+            //System.out.println(alg_cc/limit);
             iter++;
         }
     }
