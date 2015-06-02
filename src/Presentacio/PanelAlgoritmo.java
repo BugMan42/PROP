@@ -121,7 +121,7 @@ public class PanelAlgoritmo extends Panel{
         buttongroup.add(rb3);
         buttongroup.add(rb4);
 
-        JLabel l_pref = new JLabel("Parámetro 1:");
+        final JLabel l_pref = new JLabel("Parámetro 1:");
         final JTextField pref = new JTextField("0");
         pref.setPreferredSize(new Dimension(100,25));
         pref.setMaximumSize(new Dimension(200,25));
@@ -147,6 +147,7 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 pref.setEnabled(true);
+                l_pref.setText("Nº comunidades:");
                 tp1.setEnabled(true);
                 tp2.setEnabled(false);
                 tp3.setEnabled(false);
@@ -159,6 +160,7 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 pref.setEnabled(true);
+                l_pref.setText("Modularidad:");
                 tp1.setEnabled(false);
                 tp2.setEnabled(true);
                 tp3.setEnabled(false);
@@ -171,6 +173,7 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 pref.setEnabled(true);
+                pref2.setEnabled(true);
                 tp1.setEnabled(false);
                 tp2.setEnabled(false);
                 tp3.setEnabled(true);
@@ -230,7 +233,7 @@ public class PanelAlgoritmo extends Panel{
                 try {
                     String r = cpa.next_mensaje();
                     while (!r.equals("-")) {
-                        System.out.println(r);
+                        //System.out.println(r);
                         doc.insertString(doc.getLength(), r+"\n", null);
                         r = cpa.next_mensaje();
 
@@ -255,7 +258,7 @@ public class PanelAlgoritmo extends Panel{
                         doc.insertString(0, r, null);
                         doc.insertString(0, "\n", null);
                         r = cpa.next_mensaje();
-                        System.out.println(r);
+                        //System.out.println(r);
                     }
                 } catch (BadLocationException e1) {
                     e1.printStackTrace();
@@ -360,7 +363,7 @@ public class PanelAlgoritmo extends Panel{
         g.addAttribute("ui.antialias");
         g.addAttribute(
                 "ui.stylesheet",
-                "node { shape: pie-chart; text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
+                "node { shape: pie-chart; size: 0.5gu; text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
                         "node:selected { stroke-width: 4px; }"+
                         "edge { fill-color: #777; }");
 
@@ -437,7 +440,7 @@ public class PanelAlgoritmo extends Panel{
                     }
                     fc += ";";
 
-                    System.out.println(fc);
+                    //System.out.println(fc);
                     g.getNode(cc[l]).addAttribute("ui.pie-values", copie);
                     g.getNode(cc[l]).addAttribute("ui.style", fc);
                     g.getNode(cc[l]).addAttribute("nco", ncopie);
