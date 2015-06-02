@@ -117,7 +117,7 @@ public class ControladorCongreso {
     public void eliminarCongresista(String dni, ControladorRelaciones cr) throws Exception {
         if(cr.tieneRelaciones(dni)) cr.eliminarRelaciones(dni);
         Dni d = new Dni(dni);
-        c.eliminarCongresista(d);
+        c.eliminarCongresista(c.consultarCongresista(d));
         //guarrada util
         referencia.remove(obtindiceRef(new Congresista(d, "", "", 1, "", "", "")));
 
@@ -128,7 +128,7 @@ public class ControladorCongreso {
         cr.eliminarRelaciones();
         referencia.clear();
     }
-
+/*
     public void modNombreCongresista(String dni, String nombre) throws Exception {
         Dni d = new Dni(dni);
         c.modNombreCongresista(d, nombre);
@@ -166,14 +166,16 @@ public class ControladorCongreso {
         Dni d_nuevo = new Dni(dni_nuevo);
         c.modDniCongresista(d, d_nuevo);
     }
-
+*/
     public void modCongresista(String dni, String dni_nuevo, String nombre, String apellido, int edad, String ciudad,
                                String estado, String partido, ControladorRelaciones cr) throws  Exception{
         if(cr.tieneRelaciones(dni)) cr.modCongresista(dni,dni_nuevo);
         Dni d = new Dni(dni);
         Dni d_nuevo = new Dni(dni_nuevo);
         //print(size()+"size");
-        c.modCongresista(d, d_nuevo, nombre, apellido, edad, ciudad, estado, partido);
+        Congresista con = c.consultarCongresista(dni);
+        Congresista con2 = new Congresista(d_nuevo, nombre, apellido, edad, ciudad, estado, partido);
+        c.modCongresista(con,con2);
         reordenar();
     }
 
