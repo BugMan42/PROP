@@ -121,16 +121,12 @@ public class Congreso {
         }
     }
     private TSTIterator desplazarIterador(int bloq, int tam){
-        // Rellenar con los iteradores de todos los bloques hasta bloq.
-        if (Cache.size()<=bloq){
-            print("Bloque: "+bloq);
-            if(Cache.isEmpty()) {
-                Cache.add(new TSTIterator(tst));
-            }
+        // Rellenar con los iteradores de todos los bloques.
+        if (Cache.isEmpty()){
+            Cache.add(new TSTIterator(tst));
             int i = Cache.size()-1;
             TSTIterator res = new TSTIterator(Cache.get(i));
-            for(; i<= bloq; ++i){
-                print("Bloque: "+i);
+            for(; i < size(); ++i){
                 int j = 0;
                 while (res.hasNext() && j++<tam) res.next();
                 ++i;
@@ -151,7 +147,6 @@ public class Congreso {
             //}
             ++i;
         }
-        print("Not yet");
         return a;
     }
     public ArrayList<Congresista> obtCongresoFunciona(int bloq, int tam) {
