@@ -286,50 +286,6 @@ public class CPRelaciones {
         return res;
     }
 
-    public String[] obtCongreso(){
-        return CPC.obtCC().obtCongresoPR().split("\n");
-    }
-
-    public String[] obtBloqueCongreso(int i, int tam){
-        return CPC.obtCC().obtenerBloqueCongresoPR(i, tam).split("\n");
-    }
-
-    public String[] obtEventos(){
-            return CPE.obtCCE().obtEventosPR().split("\n");
-    }
-
-    public String[] obtRelaciones() {
-        try {
-            return CR.obtRelacionesPR().split("\n");
-        }
-        catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        return new String[0];
-    }
-
-    public String[] obtRelaciones(String dni) {
-        try {
-            if (CR.tieneRelaciones(dni)) return CR.obtRelacionesPR(dni).split("\n");
-            else return new String[0];
-        }
-        catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        return new String[0];
-    }
-
-    public String[] obtRelaciones(String nombre, String fecha) {
-         try {
-            if (CR.tieneRelaciones(nombre, fecha)) return CR.obtRelacionesPR(nombre, fecha).split("\n");
-            else return new String[0];
-        }
-        catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        return new String[0];
-    }
-
     public void agregarRelacion(String dni, String nombre, String fecha) {
         try {
             CR.agregarRelacion(dni, nombre, fecha);

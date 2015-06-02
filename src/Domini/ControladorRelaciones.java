@@ -79,8 +79,9 @@ public class ControladorRelaciones {
     }
 
     public void agregarRelacionRandom(int n) throws Exception {
-        int maxr = c.size()*e.size();
+        long maxr = (long)c.size()*(long)e.size();
         int nr = rs.size();
+        //System.out.println("maxr="+maxr+" nr="+nr);
         if(nr < maxr){
             List<Congresista> lc = c.obtenerCongreso();
             List<Evento> le = e.ConsultarTodosEventos();
@@ -385,13 +386,6 @@ public class ControladorRelaciones {
         return golf;
     }
 
-    public String obtRelacionesPR() throws Exception {
-        ArrayList<RelacionSimple> lr = rs.obtTodasLasRelaciones();
-        String res = "";
-        for(RelacionSimple rs : lr) res += rs.toString()+"\n";
-        return res;
-    }
-
     public String obtBloquePR(int bloque, int tam_bloque) throws Exception {
         int ini = bloque * tam_bloque;
         int fin = ini + tam_bloque;
@@ -399,30 +393,6 @@ public class ControladorRelaciones {
         List<RelacionSimple> lr = rs.obtTodasLasRelaciones().subList(ini,fin);
         String res = "";
         for (RelacionSimple rs : lr) res += rs.toString()+"\n";
-        return res;
-    }
-
-    public String obtRelacionesPR(String dni) throws Exception {
-        ArrayList<RelacionSimple> lr = obtRelaciones(dni);
-        String res = "";
-        for(RelacionSimple rs : lr) {
-            Evento e = rs.obtEvento();
-            res += e.tipo()+" "+e.obt_nombre()+" "+e.obt_fecha();
-            if(e.tipo().equals("Votacion")) res += " "+rs.obtVoto().obt_tipo();
-            res += "\n";
-        }
-        return res;
-    }
-
-    public String obtRelacionesPR(String nombre, String fecha) throws Exception {
-        ArrayList<RelacionSimple> lr = obtRelaciones(nombre, fecha);
-        String res = "";
-        for(RelacionSimple rs : lr) {
-            Congresista c = rs.obtCongresista();
-            res += c.obtID()+" "+c.obtNombre()+" "+c.obtApellido()+" "+c.obtEdad();
-            if(rs.obtEvento().tipo().equals("Votacion")) res += " "+rs.obtVoto().obt_tipo();
-            res += "\n";
-        }
         return res;
     }
 
