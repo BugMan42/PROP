@@ -188,18 +188,18 @@ public class DriverClique {
         g.agregarArista("0", "2", 1);
         g.agregarArista("0", "3", 1);
         g.agregarArista("1", "2", 1);
+        g.agregarArista("1", "3", 1);
         g.agregarArista("1", "4", 1);
         g.agregarArista("2", "3", 1);
-        g.agregarArista("2", "4", 1);
         g.agregarArista("3", "4", 1);
 
         g.agregarArista("1", "0", 1);
         g.agregarArista("2", "0", 1);
         g.agregarArista("3", "0", 1);
         g.agregarArista("2", "1", 1);
+        g.agregarArista("3", "1", 1);
         g.agregarArista("4", "1", 1);
         g.agregarArista("3", "2", 1);
-        g.agregarArista("4", "2", 1);
         g.agregarArista("4", "3", 1);
     }
 

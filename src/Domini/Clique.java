@@ -109,9 +109,8 @@ public class Clique extends Algoritmo {
                     cliqueOneNode(kc, k - 2, l);
                     ///////////////////////////////////////HACER////////////////////////
                     //agregar valor threshold
-                    if (kc.size() > 0 && kc.obtPeso() > th) {
+                    if (kc.size() > 0) {
                         //obtOut().agregarMensaje("En el nodo num: " + Integer.toString(i) + " se ha creado una clique");
-                        c.agregar_clique(kc);
                         ////////////////////FUNCIONA MAL REPARAR///////////////////////////////////////////////
                         for (Iterator it3 = kc.lista().iterator(); it3.hasNext(); ) {
                             int x = (Integer)it3.next();
@@ -120,6 +119,7 @@ public class Clique extends Algoritmo {
                                 kc.sumaPeso(g.pesoAristasVertices(v, x));
                             }
                         }
+                        if (kc.obtPeso() > th) c.agregar_clique(kc);
                         /////////////////////////////////////////////////////////////////////////////
                         System.out.println("Este es mi peso " + kc.obtPeso());
                     }
@@ -173,12 +173,16 @@ public class Clique extends Algoritmo {
             kc.sumaPeso(g.pesoAristasVertices(u, v));
             List<Integer> candidatos = listarecursividad(u, v, kc);
             if (candidatos.size() > 0) {
-                for (Iterator it = candidatos.iterator(); it.hasNext(); ) {
-                    int x = (Integer)it.next();
-                    kc.sumaPeso(g.pesoAristasVertices(u, x));
-                    kc.sumaPeso(g.pesoAristasVertices(v, x));
-                }
                 cliqueOneNode(kc, k - 2, candidatos);
+                if (kc.lista().size() > 0) {
+                    for (Iterator it = kc.lista().iterator(); it.hasNext(); ) {
+                        int x = (Integer)it.next();
+                        if (x != u && x != v) {
+                            kc.sumaPeso(g.pesoAristasVertices(u, x));
+                            kc.sumaPeso(g.pesoAristasVertices(v, x));
+                        }
+                    }
+                }
             }
         }
     }

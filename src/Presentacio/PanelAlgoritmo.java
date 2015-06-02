@@ -397,14 +397,14 @@ public class PanelAlgoritmo extends Panel{
         for (int k = 0; k < nc; k++)
         {
             String c = cpa.next_community();
-            System.out.println(k);
+            System.out.println("comunidad: "+k);
             String[] cc = c.split(",\\s");
             if (!cc[0].equals("-"))
             {
                 //System.out.println(cc.length);
                 for (int l = 0; l < cc.length; l++)
                 {
-
+                     System.out.println(cc[l]);
                     String co = g.getNode(cc[l]).getAttribute("comm");
                     int nodo_com = Integer.parseInt(co);
                     g.getNode(cc[l]).addAttribute("comm", Integer.toString(nodo_com+1));
