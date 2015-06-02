@@ -178,7 +178,7 @@ public class ControladorCongreso {
     }
 
     // GUILLE, LA FUNCIÓN QUE ME HAS PEDIDO
-    /*
+
     public void modCongresista(String dni, String dni_nuevo, String nombre, String nombre_nuevo, String apellido,
                                String apellido_nuevo, int edad, int edad_nuevo, String ciudad, String ciudad_nuevo,
                                String estado, String estado_nuevo, String partido, String partido_nuevo, ControladorRelaciones cr) throws  Exception{
@@ -190,7 +190,7 @@ public class ControladorCongreso {
         c.modCongresista(con,con2);
         reordenar();
     }
-    */
+
 
     public Congresista consultarCongresista(String dni) throws Exception {
         Dni d = new Dni(dni);

@@ -31,7 +31,7 @@ public class Congresista implements Node {
         Partido = partido;
     }
     public Congresista(Congresista c) {
-        Dni = new Dni(Dni);
+        Dni = new Dni(c.Dni);
         Nombre = c.obtNombre();
         Apellido = c.obtApellido();
         Edad = c.obtEdad();
@@ -119,7 +119,7 @@ public class Congresista implements Node {
     }
 
     public boolean equals(Congresista a) {
-        return a.obtID().equals(Dni);
+        return a.obtDni().equals(Dni);
     }
 
     public Congresista clone() {

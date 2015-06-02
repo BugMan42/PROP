@@ -19,7 +19,6 @@ public class PanelCongreso extends PanelLista {
     //Referència al controlador de presentació que crea la vista
     CPCongreso CPC;
     boolean t;
-    private int ItemOnView;
     private Boolean[] vError;
     //CPRelaciones cpr;
 
