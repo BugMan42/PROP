@@ -21,12 +21,15 @@ public class pruebas {
     public static void main(String[] args) throws Exception {
 
         try {
+            //testTST2();
+            testPrefix();
+            //testGrafo2();
             //testit();
             //testTST();
             //testRandomCongreso(1000000);
             //testDNI(100000000);
             //testcc();
-            testBloques1();
+           // testBloques1();
             //testGrafo();;
             //testCP();
             /*
@@ -131,11 +134,60 @@ public class pruebas {
             print(a.getMessage());
         }
     }
+    private static void testGrafo2() throws Exception {
+        Grafo g = new Grafo();
+        g.agregarVertice("0");
+        g.agregarVertice("1");
+        g.agregarVertice("2");
+        g.agregarVertice("3");
+        g.agregarVertice("4");
+
+        g.agregarArista("0", "1", 1);
+        g.agregarArista("0", "2", 1);
+        g.agregarArista("0", "3", 1);
+        g.agregarArista("1", "2", 1);
+        g.agregarArista("1", "3", 1);
+        g.agregarArista("1", "4", 1);
+        g.agregarArista("1", "0", 1);
+        g.agregarArista("2", "0", 1);
+        g.agregarArista("2", "1", 1);
+        g.agregarArista("2", "3", 1);
+        g.agregarArista("3", "4", 1);
+        g.agregarArista("3", "0", 1);
+        g.agregarArista("3", "1", 1);
+        g.agregarArista("3", "2", 1);
+        g.agregarArista("4", "1", 1);
+        g.agregarArista("4", "3", 1);
+        print("sal0: " + g.degreeSalida(0));
+        print("sal1: " + g.degreeSalida(1));
+        print("sal2: " + g.degreeSalida(2));
+        print("sal3: " + g.degreeSalida(3));
+        print("sal4: " + g.degreeSalida(4));
+        print("ent0: " + g.degreeEntrada(0));
+        print("ent1: " + g.degreeEntrada(1));
+        print("ent2: " + g.degreeEntrada(2));
+        print("ent3: " + g.degreeEntrada(3));
+        print("ent4: " + g.degreeEntrada(4));
+
+
+
+        print(g.consultarVertices()+"");
+    }
+    private static void testPrefix() {
+        Congreso aux = new Congreso();
+        for (int i = 0; i < 100; ++i) aux.agregarCongresistaRandom();
+        print(aux.obtenerListaID()+"");
+        List<Congresista> ex = aux.searchPrefix("15");
+        for (int i = 0; i < ex.size(); ++i) {
+            Congresista a = (Congresista) ex.get(i);
+            print(a.obtID());
+        }
+    }
     private static void testBloques() {
         Congreso a = new Congreso();
         for (int i = 0; i < 100; ++i) a.agregarCongresistaRandom();
         List<Congresista> aux = a.obtenerCongreso();
-        List<Congresista> auxx = a.obtCongreso(0,100);
+        List<Congresista> auxx = a.obtCongreso(0, 100);
         for (int i = 0; i < aux.size(); ++i) {
             print(aux.get(i).obtID() +" ---> "+auxx.get(i).obtDni());
         }
@@ -163,7 +215,7 @@ public class pruebas {
        // tst.insertar("adb",6);
         //print("a: "+tst.obtener("ab"));
         //tst.insertar("ab",13);
-        print(tst.consultarClaves()+"");
+        print(tst.consultarClaves() + "");
         //tst.modificar("ab", "a",14);
         //tst.insertar("ab",12);
         TSTIterator a = new TSTIterator(tst);
@@ -241,7 +293,7 @@ public class pruebas {
         print("ite0: "+it.next());
         print("ite1: " + it.next());
         print("ite0: "+it2.next());
-        print("ite1: "+it2.next());
+        print("ite1: " + it2.next());
     }
     private static void testCP() throws Exception {
         CPCongreso aux = new CPCongreso();
@@ -264,6 +316,22 @@ public class pruebas {
         long tini = System.nanoTime();
         a.agregarCongresistaRandom(n);
         print(String.valueOf("Tiempo en s: " + (System.nanoTime() - tini) / 1000000000.0)+" tamaño: "+a.size());
+    }
+    private static void testTST2() throws Exception{
+        TST<Integer> tst = new TST<Integer>();
+        tst.insertar("b",2);
+        tst.insertar("abc", 1);
+        tst.insertar("a", 2);
+        tst.insertar("abcd", 1);
+        tst.insertar("abcder", 1);
+        tst.insertar("aadsfcasdv", 1);
+
+        List<Integer> aux = tst.prefijo("ab");
+        print(aux+"");
+        /*for (int i = 0; i < aux.size(); ++i) {
+            print(aux.get(i)+"");
+        }*/
+
     }
     private static void print(String str) {
         System.out.println(str);

@@ -460,7 +460,7 @@ public class TST<X> implements Iterable<X> {
     }*/
     public ArrayList<String> consultarClaves() {
         ArrayList<String> v = new ArrayList<String>();
-        imprimir(root, "",v);
+        imprimir(root, "", v);
         return v;
     }
     private void imprimir(TSTNodo r, String word, ArrayList<String> v) {
@@ -493,8 +493,40 @@ public class TST<X> implements Iterable<X> {
                 TSTNodoFinal f = (TSTNodoFinal) t.middle;
                 v.add((X)f.valor);
             }
-            else imprimir2(t.middle, word+rChar.valor, v);
-            imprimir2(t.right, word,v);
+            else imprimir2(t.middle, word + rChar.valor, v);
+            imprimir2(t.right, word, v);
+        }
+    }
+    public List<X> prefijo(String key) {
+        return obtenerPrefijo(root, key, 0);
+    }
+    // Se obtiene el objeto con clave key
+    // si no esta ese lanza excepcion
+    // el caso en que no esta es cuando llegamos a un nodo null
+    private List<X> obtenerPrefijo(TSTNodo t,String key,int d) {
+        if (t == null) return null;
+
+        char c;
+        if (d < key.length()) c = key.charAt(d);
+        else c = fin;
+
+        TSTNodoChar tChar = (TSTNodoChar) t;
+        //print("char que toca: "+c+" char actual: "+tChar.valor+" d: "+d+"key length: "+key.length());
+        if (tChar.valor > c) return obtenerPrefijo(t.left, key, d);
+        else if (tChar.valor < c) return obtenerPrefijo(t.right, key, d);
+        else {
+            ++d;
+            if (d < key.length()) return obtenerPrefijo(t.middle, key, d);
+            else {
+                List<X> aux = new LinkedList<X>();
+                imprimir2(t.middle,"",aux);
+                return aux;
+            //else if (tChar.valor==c) {
+            }
+                //TSTNodoFinal f = (TSTNodoFinal) t.middle;
+
+            //}
+            //else throw new KeyNotExistsTST(key);
         }
     }
 

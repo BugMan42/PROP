@@ -161,6 +161,9 @@ public class Congreso {
         }
         return a;
     }
+    public List<Congresista> searchPrefix(String prefix) {
+        return tst.prefijo(prefix);
+    }
     //Consultoras
     public Congresista consultarCongresista(Dni dni) throws Exception {
         return tst.obtener(dni.toString());
