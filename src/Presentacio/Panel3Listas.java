@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by jose on 29/05/15.
  */
-public abstract class Panel3Listas extends JPanel {
+public abstract class Panel3Listas extends Panel {
 
     protected JSplitPane sp1, sp2, sp3;
     protected PanelListaSimple pl1, pl2, pl3;

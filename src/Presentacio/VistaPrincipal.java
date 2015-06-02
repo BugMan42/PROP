@@ -83,7 +83,7 @@ public class    VistaPrincipal extends JFrame {
         // Item de menú 2 (Cargar)
         JMenuItem item2 = new JMenuItem("Abrir", KeyEvent.VK_L);
         item2.setIcon(new ImageIcon("images/load.png"));
-        item2.setToolTipText("Abrir un proyecto");
+        item2.setToolTipText("Abrir proyecto");
         item2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,7 +104,7 @@ public class    VistaPrincipal extends JFrame {
                 if (cp.modificado()) {
                     int op = guardar.showSaveDialog(pan);
                     if (op == JFileChooser.APPROVE_OPTION)
-                        cp.guardar(guardar.getSelectedFile().getAbsolutePath()+guardar.getFileFilter().getDescription());
+                        cp.guardar(guardar.getSelectedFile().getAbsolutePath() + guardar.getFileFilter().getDescription());
                 }
             }
         });

@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class PanelRelaciones extends JPanel {
+public class PanelRelaciones extends Panel {
 
     private CPRelaciones cpr;
     private JPanel pan;
