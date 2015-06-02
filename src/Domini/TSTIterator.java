@@ -9,7 +9,7 @@ public class TSTIterator<X> extends TST{
     public TSTIterator(TSTIterator aux) {
         stack = new Stack<TSTNodoChar>();
         for (int i = 0; i < aux.size();++i) {
-           stack.add(i,(TSTNodoChar)aux.stack.get(i));
+           stack.add(i,new TSTNodoChar((TSTNodoChar)aux.stack.get(i)));
         }
         n = aux.n;
     }
