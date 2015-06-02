@@ -102,17 +102,17 @@ public class Girvan_Newman extends Algoritmo{
         long start = System.nanoTime();
         ejecutar_algoritmo();
         long time = System.nanoTime()-start;
-        System.out.println(time/1000000.0+" seconds");
+        System.out.println(time/1000000000.0+" seconds");
     }
 
     private void ejecutar_algoritmo() throws Exception {
         //El parámetro de finalización de Girvan-Newman es el número máximo de comunidades
         int limit = (int) obtIn().obtParam1();
-        if (limit == 0) limit = 2;
+        if (limit == 0) limit = 1;
         while(alg_cc < limit)
         {
             ejecutar_iteración(alg_graph);
-            System.out.println(iter);
+            System.out.println(alg_cc/limit);
             iter++;
         }
     }

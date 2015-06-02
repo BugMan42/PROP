@@ -12,7 +12,7 @@ import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Arc2D;
+import java.util.Random;
 
 /**
  * Clase PanelAlgoritmo
@@ -28,7 +28,7 @@ public class PanelAlgoritmo extends Panel{
     //Lógica interna
     private int option = 0;
     private boolean demo_activated = false;
-    private String[] colors = {"blue", "green", "red", "yellow", "violet", "sienna", "olive", "aqua", "pink"};
+    private String[] colors = {"blue", "green", "red", "yellow", "#B280B2", "sienna", "tan", "turquoise", "pink", "khaki", "orange", "seagreen", "darkmagenta", "#574926"};
 
     public PanelAlgoritmo(CPAlgoritmo cont) {
         super();
@@ -58,10 +58,6 @@ public class PanelAlgoritmo extends Panel{
                 "ui.stylesheet",
                 "node { text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
                         "node:selected { stroke-width: 4px; }"+
-                        "node.A { fill-color: blue; }"+
-                        "node.B { fill-color: green; }"+
-                        "node.C { fill-color: red; }"+
-                        "node.D { fill-color: yellow; }"+
                         "edge { fill-color: #777; }");
 
         viewer = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
@@ -366,15 +362,6 @@ public class PanelAlgoritmo extends Panel{
                 "ui.stylesheet",
                 "node { shape: pie-chart; text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
                         "node:selected { stroke-width: 4px; }"+
-                        "node.A { fill-color: blue; }"+
-                        "node.B { fill-color: green; }"+
-                        "node.C { fill-color: red; }"+
-                        "node.D { fill-color: yellow; }"+
-                        "node.E { fill-color: violet; }"+
-                        "node.F { fill-color: sienna; }"+
-                        "node.G { fill-color: olive; }"+
-                        "node.H { fill-color: aqua; }"+
-                        "node.I { fill-color: pink; }"+
                         "edge { fill-color: #777; }");
 
         int na = cpa.num_vertices();
@@ -384,7 +371,7 @@ public class PanelAlgoritmo extends Panel{
             g.addNode(is);
             g.getNode(i).addAttribute("ui.label", cpa.obtLabel(i));
             g.getNode(i).addAttribute("comm", Integer.toString(0));
-            g.getNode(i).addAttribute("ui.pie-values", Double.toString(0));
+            g.getNode(i).addAttribute("ui.pie-values", Double.toString(1.0));
         }
 
         cpa.reset_pointers();
@@ -407,38 +394,74 @@ public class PanelAlgoritmo extends Panel{
         for (int k = 0; k < nc; k++)
         {
             String c = cpa.next_community();
-            //System.out.println(c);
+            System.out.println(k);
             String[] cc = c.split(",\\s");
             if (!cc[0].equals("-"))
             {
                 //System.out.println(cc.length);
                 for (int l = 0; l < cc.length; l++)
                 {
-                    System.out.println("Node: "+cc[l]+" → "+Character.toString(chargen));
-                    g.getNode(cc[l]).addAttribute("ui.class", Character.toString(chargen));
 
                     String co = g.getNode(cc[l]).getAttribute("comm");
+                    int nodo_com = Integer.parseInt(co);
+                    g.getNode(cc[l]).addAttribute("comm", Integer.toString(nodo_com+1));
 
-                    int coco = Integer.parseInt(co);
+                    Double corel =  1.0 / (nodo_com + 1);
 
-                    g.getNode(cc[l]).addAttribute("comm", Integer.toString(coco+1));
+                    Object[] copie = new Object[nodo_com+1];
 
-                    Double corel = Double.valueOf(1/(coco+1));
-
-                    Object[] copie = new Object[coco+1];
-
-                    for (int i = 0; i < coco+1; i++)
-                    {
-                        copie[i] = Double.toString(corel);
+                    Object[] ncopie = new Object[nodo_com+1];
+                    Object[] scopie;
+                    if (g.getNode(cc[l]).hasArray("nco")) scopie = g.getNode(cc[l]).getAttribute("nco");
+                    else {
+                        scopie = new String[1];
+                        scopie[0] = g.getNode(cc[l]).getAttribute("nco");
                     }
 
+                    String fc = "fill-color: ";
+                    for (int i = 0; i <= nodo_com; i++)
+                    {
+                        copie[i] = Double.toString(corel);
+                        if (i < nodo_com)
+                        {
+                            ncopie[i] = scopie[i];
+                            int prop = Integer.parseInt((String) scopie[i]);
+                            fc += colors[prop]+", ";
+                        }
+                        else
+                        {
+                            ncopie[i] = Integer.toString(k);
+                            if (i < colors.length) fc += colors[k];
+                            else fc += obtColorRandom();
+                        }
+                    }
+                    fc += ";";
+
+                    System.out.println(fc);
                     g.getNode(cc[l]).addAttribute("ui.pie-values", copie);
-                    System.out.println(g.getNode(cc[l]).getAttribute("ui.fill-color"));
+                    g.getNode(cc[l]).addAttribute("ui.style", fc);
+                    g.getNode(cc[l]).addAttribute("nco", ncopie);
+
                 }
-                chargen++;
             }
         }
 
+    }
+
+    private String obtColorRandom()
+    {
+        String values = "0123456789ABCDEF";
+        String[] letras = values.split("");
+        String color = "#";
+        Random gen = new Random();
+        for (int i = 0; i < 6; ++i)
+        {
+            int rand = gen.nextInt(16)+1;
+            System.out.println(rand+" "+letras[rand]);
+
+            color += letras[rand];
+        }
+        return color;
     }
 
 }
