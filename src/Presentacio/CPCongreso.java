@@ -119,7 +119,7 @@ public class CPCongreso {
         }
     }
     public String obtBQ(int bq) {
-        return CC.obtBloquePR3(bq,100);
+        return CC.obtBloquePR2(bq,100);
     }
     public String[] obtBqMenor() {
         if (aIsUp()) return bqa;
