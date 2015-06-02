@@ -1207,7 +1207,7 @@ public class PanelCongreso extends PanelLista {
             public String getElementAt(int index) {
                 if (CPC.size() == 0) return "No hay Congresistas";
                 //else if (indexisOutOfBounds(index)) return ""
-                print("index: "+index);
+                //print("index: "+index);
                 return CPC.obtCongresista(index);
                 //return "Index " + index;
             }

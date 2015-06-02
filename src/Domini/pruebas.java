@@ -5,18 +5,29 @@ import Presentacio.CPCongreso;
 import java.util.List;
 
 public class pruebas {
+    private static void testBloques1() {
+        Congreso a = new Congreso();
+        for (int i = 0; i < 100; ++i) a.agregarCongresistaRandom();
+        List<Congresista> auxx = a.obtCongreso(0,20);
+        List<Congresista> aux = a.obtenerCongreso();
+        for (int i = 0; i < auxx.size(); ++i) {
+            print(aux.get(i).obtID() +" ---> "+auxx.get(i).obtDni());
+        }
+        print(a.obtenerListaID()+"");
+    }
 
 
 
     public static void main(String[] args) throws Exception {
 
         try {
+            //testit();
             //testTST();
             //testRandomCongreso(1000000);
             //testDNI(100000000);
             //testcc();
-            testBloques();
-            //testGrafo();
+            testBloques1();
+            //testGrafo();;
             //testCP();
             /*
             TST<Integer> tst = new TST<Integer>();
@@ -125,9 +136,17 @@ public class pruebas {
         for (int i = 0; i < 100; ++i) a.agregarCongresistaRandom();
         List<Congresista> aux = a.obtenerCongreso();
         List<Congresista> auxx = a.obtCongreso(0,100);
-        print("hola");
-        //print(auxx.size()+"");
         for (int i = 0; i < aux.size(); ++i) {
+            print(aux.get(i).obtID() +" ---> "+auxx.get(i).obtDni());
+        }
+        print(a.obtenerListaID()+"");
+    }
+    private static void testBloques2() {
+        Congreso a = new Congreso();
+        for (int i = 0; i < 100; ++i) a.agregarCongresistaRandom();
+        List<Congresista> auxx = a.obtCongreso(0, 20);
+        List<Congresista> aux = a.obtenerCongreso();
+        for (int i = 0; i < 20; ++i) {
             print(aux.get(i).obtID() +" ---> "+auxx.get(i).obtDni());
         }
         print(a.obtenerListaID()+"");
@@ -210,8 +229,19 @@ public class pruebas {
         for (String r:aux2) {
             print(r);
         }
-
-
+    }
+    private static void testit() throws Exception {
+        TST<Integer> tst = new TST<Integer>();
+        tst.insertar("a", 1);
+        tst.insertar("b", 2);
+        tst.insertar("c", 3);
+        tst.insertar("d", 4);
+        TSTIterator it = new TSTIterator(tst);
+        TSTIterator it2 = new TSTIterator(it);
+        print("ite0: "+it.next());
+        print("ite1: " + it.next());
+        print("ite0: "+it2.next());
+        print("ite1: "+it2.next());
     }
     private static void testCP() throws Exception {
         CPCongreso aux = new CPCongreso();

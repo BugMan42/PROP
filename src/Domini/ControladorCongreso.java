@@ -403,7 +403,7 @@ public class ControladorCongreso {
     }
 
     public String obtBloquePR3(int bloque, int tam_bloque){
-        List<Congresista> con = c.obtCongresoFunciona(bloque, tam_bloque);
+        List<Congresista> con = c.obtCongreso(bloque, tam_bloque);
         String res = "";
         for (Congresista co: con)
             res += co.toString() + sep;

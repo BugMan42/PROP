@@ -123,10 +123,14 @@ public class Congreso {
     private TSTIterator desplazarIterador(int bloq, int tam){
         // Rellenar con los iteradores de todos los bloques hasta bloq.
         if (Cache.size()<=bloq){
-            if(Cache.isEmpty()) Cache.add(new TSTIterator(tst));
+            print("Bloque: "+bloq);
+            if(Cache.isEmpty()) {
+                Cache.add(new TSTIterator(tst));
+            }
             int i = Cache.size()-1;
-            TSTIterator res = Cache.get(i);
+            TSTIterator res = new TSTIterator(Cache.get(i));
             for(; i<= bloq; ++i){
+                print("Bloque: "+i);
                 int j = 0;
                 while (res.hasNext() && j++<tam) res.next();
                 ++i;
@@ -134,23 +138,9 @@ public class Congreso {
                 Cache.add(new TSTIterator(res));
             }
         }
-        return Cache.get(bloq);
+        return new TSTIterator(Cache.get(bloq));
     }
-    public ArrayList<Congresista> obtCongreso(int bloq, int tam) {/*
-        TSTIterator aux;
-        if (Cache.isEmpty()) {
-            Cache.add(new TSTIterator(tst));
-            aux = new TSTIterator(tst);
-        }
-        else {
-            if (Cache.size() > bloq) {
-                aux = Cache.get(bloq);
-            }
-            else {
-                print("wtf");
-                aux = new TSTIterator(tst);
-            }
-        }*/
+    public ArrayList<Congresista> obtCongreso(int bloq, int tam) {
         TSTIterator aux = desplazarIterador(bloq,tam);
         int i = 0;
         ArrayList<Congresista> a = new ArrayList<Congresista>();
@@ -161,7 +151,6 @@ public class Congreso {
             //}
             ++i;
         }
-        //if (!(Cache.size() > bloq)) if (i == tam) Cache.add(bloq+1,aux);
         print("Not yet");
         return a;
     }
