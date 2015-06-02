@@ -431,7 +431,7 @@ public class PanelAlgoritmo extends Panel{
                         else
                         {
                             ncopie[i] = Integer.toString(k);
-                            if (i < colors.length) fc += colors[k];
+                            if (k < colors.length) fc += colors[k];
                             else fc += obtColorRandom();
                         }
                     }
