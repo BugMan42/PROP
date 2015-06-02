@@ -32,6 +32,13 @@ public class TSTIterator<X> extends TST{
         //print(" ");
     }
 
+    /*
+    public TSTIterator(TSTIterator it){
+        stack = new Stack<TSTNodoChar>();
+        stack.addAll(it.stack);
+        n = it.n;
+    }*/
+
     public boolean hasNext() {
         return n > 0;
     }
