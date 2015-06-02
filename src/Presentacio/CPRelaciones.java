@@ -2,6 +2,8 @@ package Presentacio;
 
 import Domini.ControladorRelaciones;
 
+import javax.swing.*;
+
 //Por defecto cambiar si conviene
 public class CPRelaciones {
 
@@ -334,7 +336,10 @@ public class CPRelaciones {
         try {
             CR.guardar(ruta);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(obtPanel(),
+                    "Se ha producido un error al guardar el proyecto.",
+                    "Guardar proyecto",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -342,7 +347,10 @@ public class CPRelaciones {
         try {
             CR.cargar(ruta);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(obtPanel(),
+                    "Se ha producido un error al cargar el proyecto.",
+                    "Abrir proyecto",
+                    JOptionPane.ERROR_MESSAGE);
         }
         CPC.actualizar();
         CPE.actualizar();
