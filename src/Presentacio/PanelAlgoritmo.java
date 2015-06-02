@@ -4,14 +4,16 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.swingViewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
+import org.graphstream.ui.view.ViewerListener;
+import org.graphstream.ui.view.ViewerPipe;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.Random;
 
 /**
@@ -58,11 +60,87 @@ public class PanelAlgoritmo extends Panel{
                 "ui.stylesheet",
                 "node { text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
                         "node:selected { stroke-width: 4px; }"+
+                        "node:clicked { stroke-width: 4px; }"+
                         "edge { fill-color: #777; }");
 
         viewer = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         viewer.enableAutoLayout();
         view = viewer.addDefaultView(false);
+
+        final ViewerPipe fromViewer = viewer.newViewerPipe();
+        fromViewer.addViewerListener(new ViewerListener() {
+            @Override
+            public void viewClosed(String viewName) {
+            }
+
+            @Override
+            public void buttonPushed(String id) {
+                System.out.println("Button pushed on node "+id);
+            }
+
+            @Override
+            public void buttonReleased(String id) {
+                System.out.println("Button released on node "+id);
+            }
+        });
+        fromViewer.addSink(g);
+
+        view.addMouseListener(new MouseInputListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Click");
+                System.out.println(e.getButton());
+                fromViewer.pump();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                fromViewer.pump();
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+            }
+        });
+
+        view.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                double scale = view.getCamera().getViewPercent();
+                int notches = e.getWheelRotation();
+                if (notches > 0)
+                {
+                    scale *=  (double)notches * 1.25;
+                    view.getCamera().setViewPercent(scale);
+                }
+                else
+                {
+                    scale *= (double)notches * 0.75;
+                    view.getCamera().setViewPercent(-scale);
+                }
+            }
+        });
         //view.setMinimumSize(new Dimension(getWidth()/2, getHeight()/2));
 
 
@@ -355,6 +433,7 @@ public class PanelAlgoritmo extends Panel{
 
         gr.setAutoCreateGaps(true);
         gr.setAutoCreateContainerGaps(true);
+
     }
 
     private void cargarGrafo()
