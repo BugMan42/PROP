@@ -15,7 +15,8 @@ public class PanelEventos extends PanelLista {
 
     private String[] defecto = {"Introduzca un nombre", "Introduzca una fecha", "Introduzca una importancia"};
 
-    private JFileChooser file;
+    private JFileChooser guardar;
+    private JFileChooser cargar;
 
     private JLabel lbnombre;
     private JTextField ctnombre;
@@ -67,11 +68,18 @@ public class PanelEventos extends PanelLista {
     }
 
     private void crearFile() {
-        file= new JFileChooser();
-        file.setAcceptAllFileFilterUsed(true);
-        file.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
-        file.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
-        file.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
+
+        guardar = new JFileChooser();
+        cargar = new JFileChooser();
+
+        cargar.setAcceptAllFileFilterUsed(true);
+        cargar.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        cargar.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
+        cargar.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
+        guardar.setAcceptAllFileFilterUsed(true);
+        guardar.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        guardar.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
+        guardar.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
     }
 
 
@@ -429,10 +437,10 @@ public class PanelEventos extends PanelLista {
 
     private void btguardarTodoAccion(ActionEvent e) {
         if (cpe.obtCCE().size() > 0) {
-            int valor = file.showSaveDialog(this);
+            int valor = guardar.showSaveDialog(this);
             if (valor == JFileChooser.APPROVE_OPTION) {
                 try {
-                    cpe.obtCCE().guardar(file.getSelectedFile().getAbsolutePath());
+                    cpe.obtCCE().guardar(guardar.getSelectedFile().getAbsolutePath());
                 }
                 catch (Exception ex) {
                     mostrarmensaje(ex.getMessage());
@@ -443,10 +451,10 @@ public class PanelEventos extends PanelLista {
     }
 
     private void btcargarTodoAccion(ActionEvent e) {
-        int returnVal = file.showOpenDialog(this);
+        int returnVal = cargar.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             try {
-                cpe.obtCCE().cargar(file.getSelectedFile().getAbsolutePath(), cpe.obtCPR().obtCR());
+                cpe.obtCCE().cargar(cargar.getSelectedFile().getAbsolutePath(), cpe.obtCPR().obtCR());
             } catch (Exception a) {
                 mostrarmensaje(a.getMessage());
             }

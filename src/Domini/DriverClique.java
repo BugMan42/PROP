@@ -13,7 +13,7 @@ public class DriverClique {
     final static String opcion2 = "2 Elegir k";
     final static String opcion3 = "3 ejecutar_algoritmo()";
     final static String opcion4 = "4 CrearGrafoPrueba(). Sin argumentos";
-    final static String opcion5 = "5 SeleccionarGrafoPrueba(int i). 1 <= i <= 7";
+    final static String opcion5 = "5 SeleccionarGrafoPrueba(int i). 1 <= i <= 8";
     final static String opcion6 = "6 Mostrar comunidades";
     final static String msg = "Introduzca un numero del 1 al 6. 7 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
@@ -139,8 +139,11 @@ public class DriverClique {
             case 7:
                 grafo7();
                 break;
+            case 8:
+                grafo8();
+                break;
             default:
-                System.out.println("La i tiene que estar entre 1 y 7");
+                System.out.println("La i tiene que estar entre 1 y 8");
         }
     }
 
@@ -261,6 +264,7 @@ public class DriverClique {
         g.agregarVertice("6");
         g.agregarVertice("7");
         g.agregarVertice("8");
+        g.agregarVertice("9");
 
         g.agregarArista("0", "1", 1);
         g.agregarArista("0", "3", 1);
@@ -373,6 +377,32 @@ public class DriverClique {
         g.agregarArista("10", "9", 1);
         g.agregarArista("11", "10", 1);
         g.agregarArista("12", "11", 1);
+    }
+
+    private static void grafo8() throws Exception {
+        g.agregarVertice("0");
+        g.agregarVertice("1");
+        g.agregarVertice("2");
+        g.agregarVertice("3");
+        g.agregarVertice("4");
+
+        g.agregarArista("0", "1", 1);
+        g.agregarArista("0", "2", 1);
+        g.agregarArista("0", "3", 1);
+        g.agregarArista("1", "2", 1);
+        g.agregarArista("1", "4", 1);
+        g.agregarArista("2", "3", 1);
+        g.agregarArista("2", "4", 1);
+        g.agregarArista("3", "4", 1);
+
+        g.agregarArista("1", "0", 1);
+        g.agregarArista("2", "0", 1);
+        g.agregarArista("3", "0", 1);
+        g.agregarArista("2", "1", 1);
+        g.agregarArista("4", "1", 1);
+        g.agregarArista("3", "2", 1);
+        g.agregarArista("4", "2", 1);
+        g.agregarArista("4", "3", 1);
     }
 
     private static void ImprimirMenu() {
