@@ -92,42 +92,19 @@ public class Congreso {
     }
     private void agregarEnTsts(Congresista con) throws Exception {
         tstNombre.insertar(con.obtNombre()+con.obtID(), con);
-        tstApellido.insertarSinExc(con.obtApellido() + con.obtID(), con);
-        tstEdad.insertarSinExc(String.valueOf(con.obtEdad())+con.obtID(), con);
-        tstCiudad.insertarSinExc(con.obtCiudad()+con.obtID(), con);
-        tstEstado.insertarSinExc(con.obtEstado()+con.obtID(), con);
-        tstPartido.insertarSinExc(con.obtPartido()+con.obtID(), con);
-        // if (b.size() > 1) b.insertar(con);
-        //if (c.size() > 1) c.insertar(con);
-        //if (d.size() > 1) d.insertar(con);
-        //if (e.size() > 1) e.insertar(con);
-        //if (f.size() > 1) f.insertar(con);
+        tstApellido.insertar(con.obtApellido() + con.obtID(), con);
+        tstEdad.insertar(String.valueOf(con.obtEdad())+con.obtID(), con);
+        tstCiudad.insertar(con.obtCiudad()+con.obtID(), con);
+        tstEstado.insertar(con.obtEstado()+con.obtID(), con);
+        tstPartido.insertar(con.obtPartido()+con.obtID(), con);
     }
     private void borrarEnTsts(Congresista con) throws Exception {
-        tstNombre.borrar(con.obtNombre()+con.obtID());
-        //Congresista a = tstNombre.obtener(con.obtNombre());
-        //a.eliminarCongresista(con);
-        //if (a.isEmpty()) tstNombre.borrar(con.obtNombre());
-
-        tstApellido.borrar(con.obtApellido()+con.obtID());
-        //b.eliminarCongresista(con);
-        //if (b.isEmpty()) tstApellido.borrar(con.obtApellido());
-
+        tstNombre.borrar(con.obtNombre() + con.obtID());
+        tstApellido.borrar(con.obtApellido() + con.obtID());
         tstEdad.borrar(String.valueOf(con.obtEdad()) + con.obtID());
-       // c.eliminarCongresista(con);
-        //if (c.isEmpty()) tstEdad.borrar(String.valueOf(con.obtEdad()));
-
-        tstCiudad.obtener(con.obtCiudad()+con.obtID());
-        //d.eliminarCongresista(con);
-        //if (d.isEmpty()) tstCiudad.borrar(con.obtCiudad());
-
+        tstCiudad.borrar(con.obtCiudad() + con.obtID());
         tstEstado.borrar(con.obtEstado() + con.obtID());
-        //e.eliminarCongresista(con);
-        //if (e.isEmpty()) tstEstado.obtener(con.obtEstado());
-
-        tstPartido.obtener(con.obtPartido()+con.obtID());
-        //f.eliminarCongresista(con);
-        //if (f.isEmpty()) tstPartido.borrar(con.obtPartido());
+        tstPartido.borrar(con.obtPartido()+con.obtID());
     }
     /** TODO testear */
     public void agregarCongresista(Congresista c) throws Exception {
@@ -169,10 +146,10 @@ public class Congreso {
        // borrarEnTsts(c);
     }
     /**TODO testear */
-    public void eliminarCongresistaNAIS(Congresista c) throws Exception {
+    public void eliminarCongresista(Congresista c) throws Exception {
         tst.borrar(c.obtDni().toString());
-        reiniciarCaches();
         borrarEnTsts(c);
+        reiniciarCaches();
     }
     public void eliminarCongreso() {
         tst.vaciar();
@@ -483,6 +460,25 @@ public class Congreso {
     public List<Congresista> searchPrefix(String prefix) {
         return tst.prefijo(prefix);
     }
+    public List<Congresista> searchPrefixNombre(String prefix) {
+        return tstNombre.prefijo(prefix);
+    }
+    public List<Congresista> searchPrefixApellido(String prefix) {
+        return tstApellido.prefijo(prefix);
+    }
+    public List<Congresista> searchPrefixEdad(String prefix) {
+        return tstEdad.prefijo(prefix);
+    }
+    public List<Congresista> searchPrefixCiudad(String prefix) {
+        return tstCiudad.prefijo(prefix);
+    }
+    public List<Congresista> searchPrefixEstado(String prefix) {
+        return tstEstado.prefijo(prefix);
+    }
+    public List<Congresista> searchPrefixPartido(String prefix) {
+        return tstPartido.prefijo(prefix);
+    }
+
 
 
 
