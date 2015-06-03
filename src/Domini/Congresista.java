@@ -63,6 +63,15 @@ public class Congresista implements Node {
     public void modPartido(String partido) {
         Partido = partido;
     }
+    public void mod(Congresista a) {
+        Dni = a.Dni;
+        Nombre = a.Nombre;
+        Apellido = a.Apellido;
+        Edad = a.Edad;
+        Ciudad = a.Ciudad;
+        Estado = a.Estado;
+        Partido = a.Partido;
+    }
     public void mod(Dni dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
         if (!EdadValida(edad)) throw new EdadNoValida(edad);
         Dni = dni;

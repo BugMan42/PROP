@@ -78,6 +78,12 @@ public class CPCongreso {
         CC.agregarCongresista(dni, name, surname, age, city, state, party);
         refresh(indexa, indexb);
     }
+    public void modCongresista(String dni, String dni_nuevo, String nombre, String nombre_nuevo, String apellido,
+                               String apellido_nuevo, int edad, int edad_nuevo, String ciudad, String ciudad_nuevo,
+                               String estado, String estado_nuevo, String partido, String partido_nuevo) throws  Exception{
+        CC.modCongresista(dni,dni_nuevo,nombre,nombre_nuevo,apellido,apellido_nuevo,edad,edad_nuevo,ciudad,ciudad_nuevo,estado,estado_nuevo,partido,partido_nuevo,CPR.obtCR());
+        refresh(indexa,indexb);
+    }
     public void agregarCongresistaRandom(int n) throws Exception {
         CC.agregarCongresistaRandom(n);
         //print("he agregado");
@@ -300,7 +306,7 @@ public class CPCongreso {
         //refresh(indexa, indexb);
     }
     public void cargar(String path) throws Exception {
-        CC.cargar(path,CPR.obtCR());
+        CC.cargar(path, CPR.obtCR());
         if (CC.size() > 100) refresh(0,1);
         else refresh(0, -1);
     }
