@@ -100,7 +100,7 @@ public class PanelEventos extends PanelLista {
         lbtipo = new JLabel("Tipo:");
         cbtipo = new JComboBox<String>();
         cbtipo.setModel(new DefaultComboBoxModel<String>(new String[]{"Seleccione un tipo", "Votacion", "ReunionProfesional", "ReunionPersonal", "ActoOficial", "ActoNoOficial"}));
-        lbinfo = new JLabel("Todo correcto y yo que me alegro");
+        lbinfo = new JLabel(" ");
 
         btlimpiar = new JButton("Limpiar Campos");
         btagregar = new JButton("Agregar Evento");
@@ -143,7 +143,7 @@ public class PanelEventos extends PanelLista {
     }
 
     public void actualizarLista() {
-        bloque = new AbstractListModel<String>() {
+        /*bloque = new AbstractListModel<String>() {
             @Override
             public int getSize() {
                 if (cpe.obtCCE().size() == 0) return 1;
@@ -152,12 +152,13 @@ public class PanelEventos extends PanelLista {
 
             @Override
             public String getElementAt(int index) {
+                  if (cpe.obtCCE().size() == 0) return "No hay eventos creados";
                   return cpe.obtEvento(index);
             }
-        };
-        /*String info[] = {"No hay eventos creados"};
+        };*/
+        String info[] = {"No hay eventos creados"};
         if (cpe.obtCCE().size() == 0) lista.setListData(info);
-        else lista.setListData(cpe.obtCCE().ConsultarTodosEventosP().toArray()); */
+        else lista.setListData(cpe.obtCCE().ConsultarTodosEventosP().toArray());
     }
 
     private void agregarAccionesJtext() {
