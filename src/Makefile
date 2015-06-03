@@ -15,22 +15,25 @@ R2 = $(subst $(C2)/,$(empty),$(S2))
 S3 = $(wildcard $(C3)/*.java)
 R3 = $(subst $(C3)/,$(empty),$(S3))
 
-CLASS1 = $(S1:%.java=%.class)
-CLASS2 = $(S2:%.java=%.class)
-CLASS3 = $(S3:%.java=%.class)
+CLASS1 = $(S1:.java=.class)
+CLASS2 = $(S2:.java=.class)
+CLASS3 = $(S3:.java=.class)
 
-CLASSPATH = GraphStream/gs-core-1.3.jar:GraphStream/gs-ui-1.3.jar
-SOURCEPATH = .
+CL1 = $(R1:.java=.class)
+CL2 = $(R2:.java=.class)
+CL3 = $(R3:.java=.class)
+
+CLASSPATH = .:./gs-ui-1.3.jar:./gs-core-1.3.jar:./gs-algo-1.3.jar
 
 all: $(CLASS1) $(CLASS2) $(CLASS3)
 
 clean: 
-	rm	 $(CLASS1)
-	rm	 $(CLASS2)
-	rm	 $(CLASS3)
+	rm $(CL1)
+	rm $(CL2)
+	rm $(CL3)
 	
 %.class: %.java
-	javac -classpath $(CLASSPATH) -sourcepath $(SOURCEPATH) $<
+	javac -classpath $(CLASSPATH) $<
 
 print-%: ; @echo $* = $($*)
 

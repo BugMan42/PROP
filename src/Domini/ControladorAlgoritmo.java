@@ -26,6 +26,7 @@ public class ControladorAlgoritmo {
 
     public ControladorAlgoritmo(ControladorRelaciones cr)
     {
+        in = new Entrada();
         crel = cr;
     }
 
@@ -55,7 +56,6 @@ public class ControladorAlgoritmo {
     public void seleccionAlgoritmo(int s) throws Exception
     {
         out = new Salida();
-        in = new Entrada();
         if (s == 1) alg = new Girvan_Newman(in, out);
         else if (s == 2) alg = new Louvain(in, out);
         else if (s == 3) alg = new Clique(in, out);
@@ -230,9 +230,6 @@ public class ControladorAlgoritmo {
             g.agregarArista("8", "10", 8);
             g.agregarArista("10", "8", 8);
 
-            //g.agregarArista("", "", 9);
-            //g.agregarArista("", "", 10);
-            //g.agregarArista("", "", );
 
 
         } catch (Exception e) {

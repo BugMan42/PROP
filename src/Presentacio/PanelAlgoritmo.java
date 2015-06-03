@@ -8,7 +8,7 @@ import org.graphstream.ui.view.ViewerListener;
 import org.graphstream.ui.view.ViewerPipe;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputListener;
+import javax.swing.event.MouseInputAdapter;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
@@ -31,6 +31,7 @@ public class PanelAlgoritmo extends Panel{
     private int option = 0;
     private boolean demo_activated = false;
     private String[] colors = {"blue", "green", "red", "yellow", "#B280B2", "sienna", "tan", "turquoise", "pink", "khaki", "orange", "seagreen", "darkmagenta", "#574926"};
+    private String node_id_sel = "";
 
     public PanelAlgoritmo(CPAlgoritmo cont) {
         super();
@@ -81,49 +82,32 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void buttonReleased(String id) {
                 System.out.println("Button released on node "+id);
-                g.getNode(id).addAttribute("ui.clicked");
+                node_id_sel = id;
 
             }
         });
         fromViewer.addSink(g);
 
-        view.addMouseListener(new MouseInputListener() {
+        view.addMouseListener(new MouseInputAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Click");
-                System.out.println(e.getButton());
                 fromViewer.pump();
+                if (e.getButton() == MouseEvent.BUTTON1)
+                {
+
+                }
+                else if (e.getButton() == MouseEvent.BUTTON2)
+                {
+                    double[] xyz = org.graphstream.algorithm.Toolkit.nodePosition(g, node_id_sel);
+                    view.getCamera().setViewCenter(xyz[0], xyz[1], xyz[2]);
+                }
+                else if (e.getButton() == MouseEvent.BUTTON3)
+                {
+
+                }
             }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                fromViewer.pump();
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent e) {
-
-            }
         });
 
         view.addMouseWheelListener(new MouseWheelListener() {
@@ -212,6 +196,12 @@ public class PanelAlgoritmo extends Panel{
         pref2.setPreferredSize(new Dimension(100,25));
         pref2.setMaximumSize(new Dimension(200,25));
         pref2.setEnabled(false);
+        l_pref2.setVisible(false);
+
+        JPanel info = new JPanel();
+        JLabel name = new JLabel("Nombre y Apellidos: ");
+        JLabel name_data = new JLabel();
+
 
         JButton demo = new JButton("DEMO");
         demo.addActionListener(new ActionListener() {
@@ -261,6 +251,7 @@ public class PanelAlgoritmo extends Panel{
                 pref2.setEnabled(true);
                 pref2.setVisible(true);
                 l_pref2.setText("Threshold");
+                l_pref2.setVisible(true);
                 tp1.setEnabled(false);
                 tp2.setEnabled(false);
                 tp3.setEnabled(true);
@@ -381,18 +372,18 @@ public class PanelAlgoritmo extends Panel{
                         .addGroup(gr.createSequentialGroup()
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb1)
-                                                        .addComponent(sp1, 100, 150, 150)
+                                                        .addComponent(sp1)
                                                         .addComponent(mostrar1)
                                                 //.addComponent(pb1)
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb2)
-                                                        .addComponent(sp2, 100, 150, 150)
+                                                        .addComponent(sp2)
                                                         .addComponent(mostrar2)
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb3)
-                                                        .addComponent(sp3, 100, 150, 150)
+                                                        .addComponent(sp3)
                                                         .addComponent(mostrar3)
                                         )
                                         .addGroup(gr.createParallelGroup()
@@ -414,18 +405,18 @@ public class PanelAlgoritmo extends Panel{
                         .addGroup(gr.createParallelGroup()
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb1)
-                                                        .addComponent(sp1, 100, 150, 150)
+                                                        .addComponent(sp1, 100, 100, 100)
                                                         .addComponent(mostrar1)
                                                 //.addComponent(pb1)
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb2)
-                                                        .addComponent(sp2, 100, 150, 150)
+                                                        .addComponent(sp2, 100, 100, 100)
                                                         .addComponent(mostrar2)
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb3)
-                                                        .addComponent(sp3, 100, 150, 150)
+                                                        .addComponent(sp3, 100, 100, 100)
                                                         .addComponent(mostrar3)
                                         )
                                         .addGroup(gr.createSequentialGroup()
