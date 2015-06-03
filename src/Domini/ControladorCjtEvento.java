@@ -201,7 +201,23 @@ public class ControladorCjtEvento {
             res += e.toString()+"\n";
         return res;
     }
+/*
+    public String obtBloquePF(int bloque, int tamanio) {
+        List<Evento> ev = ce.obtEventosF(bloque, tamanio);
+        String res = "";
+        for (Evento e: ev)
+            res += e.toString()+"\n";
+        return res;
+    }
 
+    public String obtBloquePI(int bloque, int tamanio) {
+        List<Evento> ev = ce.obtEventosI(bloque, tamanio);
+        String res = "";
+        for (Evento e: ev)
+            res += e.toString()+"\n";
+        return res;
+    }
+*/
     public List<String> ConsultarTodosEventosP() {
         List<Evento> aux = ce.ConsultarTodosEventos();
         List<String> resultado = new ArrayList<String>();
