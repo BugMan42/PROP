@@ -81,16 +81,12 @@ public class CPCongreso {
     public void modCongresista(String dni, String dni_nuevo, String nombre, String nombre_nuevo, String apellido,
                                String apellido_nuevo, int edad, int edad_nuevo, String ciudad, String ciudad_nuevo,
                                String estado, String estado_nuevo, String partido, String partido_nuevo) throws  Exception{
-        CC.modCongresista(dni,dni_nuevo,nombre,nombre_nuevo,apellido,apellido_nuevo,edad,edad_nuevo,ciudad,ciudad_nuevo,estado,estado_nuevo,partido,partido_nuevo,CPR.obtCR());
+        CC.modCongresista(dni, dni_nuevo, nombre, nombre_nuevo, apellido, apellido_nuevo, edad, edad_nuevo, ciudad, ciudad_nuevo, estado, estado_nuevo, partido, partido_nuevo, CPR.obtCR());
         refresh(indexa,indexb);
     }
     public void agregarCongresistaRandom(int n) throws Exception {
         CC.agregarCongresistaRandom(n);
-        //print("he agregado");
         refresh(indexa, indexb);
-        //print("final refresh");
-        //print(bqa[0]);
-        //print(bqa.length+"");
     }
     private void print(String str) {
         System.out.println(str);
@@ -100,6 +96,11 @@ public class CPCongreso {
         refresh(indexa, indexb);
         //TODO falta actualizar bloques
     }
+    public void eliminarCongresista(String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
+        CC.eliminarCongresista(dni,nombre,apellido,edad,ciudad,estado,partido,CPR.obtCR());
+        refresh(indexa, indexb);
+    }
+
     public void eliminarCongreso() {
         CC.eliminarCongreso(CPR.obtCR());
         bqa = new String[100];

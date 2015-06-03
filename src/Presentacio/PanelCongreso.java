@@ -508,7 +508,7 @@ public class PanelCongreso extends PanelLista {
         emptyLError();
         if (validarTodo()) {
             try {
-                CPC.obtCC().agregarCongresista(textDni.getText(), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty));
+                CPC.agregarCongresista(textDni.getText(), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty));
                 setDefaultText();
                 setMsg("Congresista agregado satisfactoriamente");
                 ListUpdate();
@@ -536,22 +536,7 @@ public class PanelCongreso extends PanelLista {
     private void bEliminarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         if (jlist.isSelectionEmpty()) {
-            if (validarJText(textDni,2)) {
-                try {
-                    CPC.eliminarCongresista(textDni.getText().substring(0,9));
-                    setDefaultText();
-                    setMsg("Congresista eliminado satisfactoriamente");
-                    ListUpdate();
-                }
-                catch (Exception a) {
-                    setError(a.getMessage());
-                }
-            }
-            else {
-                setError("Campo Dni No valido");
-                lDni.setForeground(Color.RED);
-                vError[2] = true;
-            }
+            setError("Selecciona un Congresista");
         }
         else {
             try {
@@ -559,10 +544,10 @@ public class PanelCongreso extends PanelLista {
                 List<String> campos = jlist.getSelectedValuesList();
                 for (int i = 0; i < campos.size(); ++i) {
                     String[] con = campos.get(i).split(" ");
-                    CPC.eliminarCongresista(con[0]);
+                    CPC.eliminarCongresista(con[0],con[1],con[2],Integer.valueOf(con[3]),con[4],con[5],con[6]);
                 }
                 setDefaultText();
-                setMsg("Congresistas eliminados satisfactoriamente");
+                setMsg("Congresista/s eliminados satisfactoriamente");
                 ListUpdate();
             }
             catch (Exception a) {
@@ -591,7 +576,7 @@ public class PanelCongreso extends PanelLista {
                // String dato = (String) listCongreso.getSelectedValue();
                 String[] campos = dato.split(" ");
                 try {
-                    CPC.modCongresista(campos[0], textDni.getText(),campos[1], getTextString(textName), campos[2],getTextString(textSurname), Integer.valueOf(campos[3]),Integer.parseInt(textAge.getText()),campos[4], getTextString(textCity),campos[5], getTextString(textState), campos[6],getTextString(textParty));
+                    CPC.modCongresista(campos[0], textDni.getText(), campos[1], getTextString(textName), campos[2], getTextString(textSurname), Integer.valueOf(campos[3]), Integer.parseInt(textAge.getText()), campos[4], getTextString(textCity), campos[5], getTextString(textState), campos[6], getTextString(textParty));
                     setMsg("Congresista modificado satisfactoriamente");
                     ListUpdate();
                     //print("Todavia no ha petado");

@@ -41,7 +41,7 @@ public class ControladorCongreso {
         Dni d = new Dni(dni);
         Congresista con = new Congresista(d,nombre,apellido,edad,ciudad,estado,partido);
         c.agregarCongresista(con);
-
+        /*
         // Insertar ordenadamente en referencia.
         int pos = 0;
         switch (orden){
@@ -62,7 +62,7 @@ public class ControladorCongreso {
         }
         // Cuando binarySearch no encuentra el elemento buscado devuelve: (-(insertion point) - 1).
         pos = pos*-1 -1;
-        referencia.add(pos, con);
+        referencia.add(pos, con);*/
     }
 
     public void agregarCongresistaRandom(long n) {
@@ -114,12 +114,18 @@ public class ControladorCongreso {
     }
 
     public void eliminarCongresista(String dni, ControladorRelaciones cr) throws Exception {
-        if(cr.tieneRelaciones(dni)) cr.eliminarRelaciones(dni);
+        //deprecated
+        /*if(cr.tieneRelaciones(dni)) cr.eliminarRelaciones(dni);
         Dni d = new Dni(dni);
         c.eliminarCongresista(d);
         //guarrada util
-        referencia.remove(obtindiceRef(new Congresista(d, "", "", 1, "", "", "")));
-
+        referencia.remove(obtindiceRef(new Congresista(d, "", "", 1, "", "", "")));*/
+    }
+    public void eliminarCongresista(String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido, ControladorRelaciones cr) throws Exception {
+        if(cr.tieneRelaciones(dni)) cr.eliminarRelaciones(dni);
+        Congresista a = new Congresista(new Dni(dni),nombre,apellido,edad,ciudad,estado,partido);
+        c.eliminarCongresista(a);
+        referencia.remove(obtindiceRef(new Congresista(new Dni(dni), "", "", 1, "", "", "")));
     }
 
     public void eliminarCongreso(ControladorRelaciones cr) {
