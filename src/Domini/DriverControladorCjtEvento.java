@@ -32,7 +32,7 @@ public class DriverControladorCjtEvento {
                 switch (op) {
                     case 0:
                         if(params.length!=3) throw new Exception(E1);
-                        dce.ce.EliminarEvento(params[1],params[2],dce.cr);
+                        //dce.ce.EliminarEvento(params[1],params[2],dce.cr);
                         break;
                     case 1:
                         if(params.length!=1) throw new Exception(E1);
@@ -64,15 +64,15 @@ public class DriverControladorCjtEvento {
                         break;
                     case 8:
                         if(params.length!=4) throw new Exception(E1);
-                        dce.ce.ModificarNombreEvento(params[1],params[2],params[3], dce.cr);
+                        //dce.ce.ModificarNombreEvento(params[1],params[2],params[3], dce.cr);
                         break;
                     case 9:
                         if(params.length!=4) throw new Exception(E1);
-                        dce.ce.ModificarFechaEvento(params[1], params[2], params[3], dce.cr);
+                        //dce.ce.ModificarFechaEvento(params[1], params[2], params[3], dce.cr);
                         break;
                     case 10:
                         if(params.length!=4) throw new Exception(E1);
-                        dce.ce.ModificarImpEvento(params[1], params[2], Integer.parseInt(params[3]));
+                        //dce.ce.ModificarImpEvento(params[1], params[2], Integer.parseInt(params[3]));
                         break;
                     case 11:
                         if(params.length!=1) throw new Exception(E1);

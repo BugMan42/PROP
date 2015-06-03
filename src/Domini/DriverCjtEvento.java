@@ -57,8 +57,8 @@ public class DriverCjtEvento {
             case 3:
                 if (aux.length < 3) throw new Exception(ins);
                 if (aux.length > 3) throw new Exception(dem);
-                if (cjt != null) cjt.EliminarEvento(aux[1], new Fecha(aux[2]));
-                else throw new Exception(noexiste);
+                //if (cjt != null) cjt.EliminarEvento(aux[1], new Fecha(aux[2]));
+                //else throw new Exception(noexiste);
                 break;
             case 4:
                 if (aux.length > 1) throw new Exception(dem);
@@ -69,20 +69,20 @@ public class DriverCjtEvento {
             case 5:
                 if (aux.length < 4) throw new Exception(ins);
                 if (aux.length > 4) throw new Exception(dem);
-                if (cjt != null) cjt.ModificarNombreEvento(aux[1], new Fecha(aux[2]), aux[3]);
-                else throw new Exception(noexiste);
+                //if (cjt != null) cjt.ModificarNombreEvento(aux[1], new Fecha(aux[2]), aux[3]);
+                //else throw new Exception(noexiste);
                 break;
             case 6:
                 if (aux.length < 4) throw new Exception(ins);
                 if (aux.length > 4) throw new Exception(dem);
-                if (cjt != null)cjt.ModificarFechaEvento(aux[1], new Fecha(aux[2]), new Fecha(aux[3]));
-                else throw new Exception(noexiste);
+                //if (cjt != null)cjt.ModificarFechaEvento(aux[1], new Fecha(aux[2]), new Fecha(aux[3]));
+                //else throw new Exception(noexiste);
                 break;
             case 7:
                 if (aux.length < 4) throw new Exception(ins);
                 if (aux.length > 4) throw new Exception(dem);
-                if (cjt != null)cjt.ModificarImpEvento(aux[1], new Fecha(aux[2]), Integer.parseInt(aux[3]));
-                else throw new Exception(noexiste);
+                //if (cjt != null)cjt.ModificarImpEvento(aux[1], new Fecha(aux[2]), Integer.parseInt(aux[3]));
+                //else throw new Exception(noexiste);
                 break;
             case 8:
                 if (aux.length < 2) throw new Exception(ins);

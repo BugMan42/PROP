@@ -97,15 +97,15 @@ public class DriverControladorRelaciones {
                         break;
                     case 15:
                         if(params.length!=4) throw new Exception(E1);
-                        dr.ce.ModificarNombreEvento(params[1], params[2], params[3], dr.cr);
+                        //dr.ce.ModificarNombreEvento(params[1], params[2], params[3], dr.cr);
                         break;
                     case 16:
                         if(params.length!=4) throw new Exception(E1);
-                        dr.ce.ModificarFechaEvento(params[1], params[2], params[3], dr.cr);
+                        //dr.ce.ModificarFechaEvento(params[1], params[2], params[3], dr.cr);
                         break;
                     case 17:
                         if(params.length!=3) throw new Exception(E1);
-                        dr.ce.EliminarEvento(params[1], params[2], dr.cr);
+                        //dr.ce.EliminarEvento(params[1], params[2], dr.cr);
                         break;
                     case 18:
                         if(params.length!=1) throw new Exception(E1);

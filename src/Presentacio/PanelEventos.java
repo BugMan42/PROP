@@ -310,11 +310,7 @@ public class PanelEventos extends PanelLista {
             mostrarmensaje("Debe ingresar todos los campos");
             return;
         }
-        if (!esNumero(importanciaStr)) {
-            ctimportancia.setForeground(Color.red);
-            mostrarmensaje("La importancia tiene que ser un numero");
-            return;
-        }
+        if (!validarImp(importanciaStr)) return;
         try {
             int importancia = Integer.parseInt(importanciaStr);
             switch (cbtipo.getSelectedIndex()) {
@@ -391,6 +387,15 @@ public class PanelEventos extends PanelLista {
         mostrarmensaje(s);
     }
 
+    private boolean validarImp(String s) {
+        if (!esNumero(s)) {
+            ctimportancia.setForeground(Color.red);
+            mostrarmensaje("La importancia tiene que ser un numero");
+            return false;
+        }
+        return true;
+    }
+
     /////////////////////////////////////////HACER///////////////////////////////
     private void bteliminarAccion(ActionEvent e) {
         if (lista.getSelectedIndex() == -1 || lista.getSelectedValue().equals("No hay eventos creados")) mostrarmensaje("Primero selecciona el elemento");
@@ -399,7 +404,7 @@ public class PanelEventos extends PanelLista {
                 List<String> elementos = lista.getSelectedValuesList();
                 for (String s : elementos) {
                     String aux[] = s.split(" ");
-                    cpe.obtCCE().EliminarEvento(aux[1], aux[2], cpe.obtCPR().obtCR());
+                    cpe.obtCCE().EliminarEvento(aux[1], aux[2], Integer.parseInt(aux[3]), cpe.obtCPR().obtCR());
                 }
                 lbinfo.setText(" ");
                 actualizarLista();
@@ -419,19 +424,15 @@ public class PanelEventos extends PanelLista {
                     mostrarmensaje("Selecciona solo un elemento");
                     return;
                 }
-                String evento = (String)lista.getSelectedValue();
+                String evento = (String) lista.getSelectedValue();
                 String[] aux = evento.split("\\s");
                 String nombre = ctnombre.getText();
-                cpe.obtCCE().ModificarNombreEvento(aux[1], aux[2], nombre, cpe.obtCPR().obtCR());
                 String fecha = ctfecha.getText();
-                cpe.obtCCE().ModificarFechaEvento(nombre, aux[2], fecha, cpe.obtCPR().obtCR());
                 String importancia = ctimportancia.getText();
-                if (!esNumero(importancia)) {
-                    ctimportancia.setForeground(Color.red);
-                    mostrarmensaje("La importancia tiene que ser un numero");
-                    return;
-                }
-                cpe.obtCCE().ModificarImpEvento(nombre, fecha, Integer.parseInt(importancia));
+                if (!validarImp(importancia)) return;
+                cpe.obtCCE().ModificarNombreEvento(aux[1], aux[2], nombre, Integer.parseInt(aux[3]), cpe.obtCPR().obtCR());
+                cpe.obtCCE().ModificarFechaEvento(nombre, aux[2], fecha, Integer.parseInt(aux[3]), cpe.obtCPR().obtCR());
+                cpe.obtCCE().ModificarImpEvento(nombre, fecha, Integer.parseInt(aux[3]), Integer.parseInt(importancia));
                 limpiarcampos();
                 actualizarLista();
             }

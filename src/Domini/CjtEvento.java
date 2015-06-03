@@ -4,63 +4,51 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by usuario on 26/04/2015.
- */
 public class CjtEvento {
     private TST<Evento> cjt;
     private TST<Evento> cjtFecha;
     private TST<Evento> cjtImp;
     private ArrayList<TSTIterator> Cache;
-
-
-    private static final String error1 = "El Nombre no es valido";
-    private static final String error2 = "La fecha no es valida";
-    private static final String error3 = "El evento no es valido";
-    private static final String error4 = "El nuevo nombre no es valido";
-    private static final String error5 = "La Fecha nueva no es valida";
-    private static final String error6 = "El nombre Nombre no valido";
+    private ArrayList<TSTIterator> CacheF;
+    private ArrayList<TSTIterator> CacheI;
 
     //////////////////////////////////////CREADORA////////////////////////
 
     public CjtEvento() {
         cjt = new TST<Evento>();
-        Cache = new ArrayList<TSTIterator>();
-        /*cjtFecha = new TST<Evento>();
-        cjtImp = new TST<Evento>();*/
+        cjtFecha = new TST<Evento>();
+        cjtImp = new TST<Evento>();
+        restaurar();
     }
 
     /////////////////////////////////////ELIMINADORA/////////////////////
     public void EliminarCjtEvento() {
         cjt.vaciar();
-        Cache = new ArrayList<TSTIterator>();
-        /*cjtFecha.vaciar();
-        cjtImp.vaciar();*/
+        cjtFecha.vaciar();
+        cjtImp.vaciar();
+        restaurar();
     }
 
     /////////////////////////////////////MODIFICADORAS////////////////////////
 
-    public void EliminarEvento(String nombre, Fecha fecha) throws Exception{
+    public void EliminarEvento(String nombre, Fecha fecha, int imp) throws Exception{
         //Siempre convierto el nombre a mayusculas para evitar errores de no
         // encontrar el elemento
         String name = nombre.toUpperCase();
         cjt.borrar(name + fecha.toString());
-        Cache = new ArrayList<TSTIterator>();
-        /*cjtFecha.borrar(fecha.toString() + name);
-        //Ineficiente hacer de nuevo//////////////////////////////
-        //Evento aux = cjt.obtener(name + fecha.toString());
-        cjtImp.borrar(Integer.toString(importancia) + name + fecha.toString());*/
-        ///////////////////////////////////////////////////
+        cjtFecha.borrar(fecha.toString() + name);
+        cjtImp.borrar(Integer.toString(imp) + name + fecha.toString());
+        restaurar();
     }
 
     public void AgregarEvento(Evento e) throws Exception{
         cjt.insertar(e.ID(), e);
-        Cache = new ArrayList<TSTIterator>();
-        /*cjtFecha.insertar(e.IDFecha(), e);
-        cjtImp.insertar(e.IDImp(), e);*/
+        cjtFecha.insertar(e.IDFecha(), e);
+        cjtImp.insertar(e.IDImp(), e);
+        restaurar();
     }
 
-    public void ModificarNombreEvento(String nomViejo, Fecha fecha, String nomNuevo) throws Exception {
+    public void ModificarNombreEvento(String nomViejo, Fecha fecha, String nomNuevo, int imp) throws Exception {
         //Siempre convierto el nombre a mayusculas para evitar errores de no encontrar el elemento
             String oldname = nomViejo.toUpperCase();
             String newname = nomNuevo.toUpperCase();
@@ -70,18 +58,14 @@ public class CjtEvento {
                 Evento aux = cjt.obtener(oldname + fecha.toString());
                 aux.ModNombre(newname);
                 cjt.modificar(oldname + fecha.toString(), newname + fecha.toString(), aux);
-                Cache = new ArrayList<TSTIterator>();
-                /*aux = cjtFecha.obtener(fecha.toString() + oldname);
-                aux.ModNombre(newname);
-                cjtFecha.modificar(fecha.toString() + oldname, fecha.toString() + newname, aux);
-                aux = cjtImp.obtener(Integer.toString(importancia)+oldname+fecha.toString());
-                aux.ModNombre(newname);
-                cjtImp.modificar(Integer.toString(importancia) + oldname + fecha.toString(), Integer.toString(importancia) + newname + fecha.toString(), aux);*/
+                cjtFecha.modificar(fecha.toString() + oldname, fecha.toString() + newname);
+                cjtImp.modificar(Integer.toString(imp) + oldname + fecha.toString(), Integer.toString(imp) + newname + fecha.toString());
+                restaurar();
             }
         //Si es igual nomViejo a nomNuevo no se hace nada no se hace nada
     }
 
-    public void ModificarFechaEvento(String nombre, Fecha fechaVieja, Fecha fechaNueva) throws Exception {
+    public void ModificarFechaEvento(String nombre, Fecha fechaVieja, Fecha fechaNueva, int imp) throws Exception {
         if (!fechaVieja.equals(fechaNueva)) {
             //Siempre convierto el nombre a mayusculas para evitar errores de no encontrar el elemento
             String name = nombre.toUpperCase();
@@ -90,26 +74,20 @@ public class CjtEvento {
             Evento aux = cjt.obtener(name + fechaVieja.toString());
             aux.ModFecha(fechaNueva);
             cjt.modificar(name + fechaVieja.toString(), name + fechaNueva.toString(), aux);
-            Cache = new ArrayList<TSTIterator>();
-            /*aux = cjtFecha.obtener(fechaVieja.toString() + name);
-            aux.ModFecha(fechaNueva);
-            cjt.modificar(fechaVieja.toString() + name,fechaNueva.toString()+ name, aux);
-            aux = cjtImp.obtener(Integer.toString(importancia)+ name + fechaVieja.toString());
-            aux.ModFecha(fechaNueva);
-            cjtImp.modificar(Integer.toString(importancia)+ name+fechaVieja.toString(),Integer.toString(importancia)+name+fechaNueva.toString(), aux);*/
+            cjtFecha.modificar(name + fechaVieja.toString(), name + fechaNueva.toString());
+            cjtImp.modificar(Integer.toString(imp)+ name+fechaVieja.toString(),Integer.toString(imp)+name+fechaNueva.toString());
+            restaurar();
         }
         //Si es igual fechaVieja a fechaNueva no se hace nada
     }
 
-    public void ModificarImpEvento(String nombre, Fecha fecha, int NewImp) throws Exception {
+    public void ModificarImpEvento(String nombre, Fecha fecha, int OldImp, int NewImp) throws Exception {
         //Siempre convierto el nombre a mayusculas para evitar errores de no encontrar el elemento
         String name = nombre.toUpperCase();
         //Como el tst devuelve la refencia al objeto directamente puedo cambiarle los atributos
         cjt.obtener(name+fecha.toString()).ModImportancia(NewImp);
-        /*cjtFecha.obtener(fecha.toString() + name).ModImportancia(NewImp);
-        Evento aux = cjtImp.obtener(Integer.toString(OldImp) + name + fecha.toString());
-        aux.ModImportancia(NewImp);
-        cjtImp.modificar(Integer.toString(OldImp)+name+fecha.toString(),Integer.toString(NewImp)+name+fecha.toString(), aux);*/
+        cjtImp.modificar(Integer.toString(OldImp)+name+fecha.toString(),Integer.toString(NewImp)+name+fecha.toString());
+        restaurar();
     }
 
     private TSTIterator desplazarIterador(int bloq, int tam){
@@ -127,16 +105,76 @@ public class CjtEvento {
         return new TSTIterator(Cache.get(bloq));
     }
 
+    private TSTIterator desplazarIteradorF(int bloq, int tam){
+        // Rellenar con los iteradores de todos los bloques.
+        if (CacheF.isEmpty()){
+            TSTIterator res = new TSTIterator(cjtFecha);
+            int lim = (size()-1)/tam;
+            for(int i = 0; i <= lim; ++i){
+                CacheF.add(new TSTIterator(res));
+                int j = 0;
+                while (res.hasNext() && j++<tam) res.next();
+            }
+            //System.out.println("Tam cache ev: " + Cache.size());
+        }
+        return new TSTIterator(CacheF.get(bloq));
+    }
+
+    private TSTIterator desplazarIteradorI(int bloq, int tam){
+        // Rellenar con los iteradores de todos los bloques.
+        if (CacheI.isEmpty()){
+            TSTIterator res = new TSTIterator(cjtImp);
+            int lim = (size()-1)/tam;
+            for(int i = 0; i <= lim; ++i){
+                CacheI.add(new TSTIterator(res));
+                int j = 0;
+                while (res.hasNext() && j++<tam) res.next();
+            }
+            //System.out.println("Tam cache ev: " + Cache.size());
+        }
+        return new TSTIterator(CacheI.get(bloq));
+    }
+
     public ArrayList<Evento> obtEventos(int bloq, int tam) {
         TSTIterator aux = desplazarIterador(bloq,tam);
         int i = 0;
         ArrayList<Evento> a = new ArrayList<Evento>();
-        while ( aux.hasNext() && i < tam) {
+        while (aux.hasNext() && i < tam) {
             Evento an = (Evento)aux.next();
             a.add(an);
             ++i;
         }
         return a;
+    }
+
+    public ArrayList<Evento> obtEventosF(int bloq, int tam) {
+        TSTIterator aux = desplazarIteradorF(bloq, tam);
+        int i = 0;
+        ArrayList<Evento> a = new ArrayList<Evento>();
+        while (aux.hasNext() && i < tam) {
+            Evento an = (Evento)aux.next();
+            a.add(an);
+            ++i;
+        }
+        return a;
+    }
+
+    public ArrayList<Evento> obtEventosI(int bloq, int tam) {
+        TSTIterator aux = desplazarIteradorI(bloq,tam);
+        int i = 0;
+        ArrayList<Evento> a = new ArrayList<Evento>();
+        while (aux.hasNext() && i < tam) {
+            Evento an = (Evento)aux.next();
+            a.add(an);
+            ++i;
+        }
+        return a;
+    }
+
+    private void restaurar() {
+        Cache = new ArrayList<TSTIterator>();
+        CacheF = new ArrayList<TSTIterator>();
+        CacheI = new ArrayList<TSTIterator>();
     }
 
     public void AgregarEventoRandom(int n) throws Exception {
@@ -165,34 +203,28 @@ public class CjtEvento {
             switch (tipo) {
                 case 1:
                     e = new Votacion(nombre, f, importancia);
-                    insertar(e);
+                    AgregarEvento(e);
                     break;
                 case 2:
                     e = new Personal(nombre, f, importancia);
-                    insertar(e);
+                    AgregarEvento(e);
                     break;
                 case 3:
                     e = new Profesional(nombre, f, importancia);
-                    insertar(e);
+                    AgregarEvento(e);
                     break;
                 case 4:
                     e = new Oficial(nombre, f, importancia);
-                    insertar(e);
+                    AgregarEvento(e);
                     break;
                 case 5:
                     e = new NoOficial(nombre, f, importancia);
-                    insertar(e);
+                    AgregarEvento(e);
                     break;
                 default:
             }
+            restaurar();
         }
-    }
-
-    private void insertar(Evento e) throws Exception {
-        cjt.insertar(e.ID(), e);
-        Cache = new ArrayList<TSTIterator>();
-        /*cjtFecha.insertar(e.IDFecha(), e);
-        cjtImp.insertar(e.IDImp(), e);*/
     }
 
     //Consultoras
