@@ -23,12 +23,12 @@ public class Congresista implements Node {
     public Congresista (Dni dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
         if (!EdadValida(edad)) throw new EdadNoValida(edad);
         Dni = dni;
-        Nombre = nombre;
-        Apellido = apellido;
+        Nombre = nombre.toUpperCase();
+        Apellido = apellido.toUpperCase();
         Edad = edad;
-        Ciudad = ciudad;
-        Estado = estado;
-        Partido = partido;
+        Ciudad = ciudad.toUpperCase();
+        Estado = estado.toUpperCase();
+        Partido = partido.toUpperCase();
     }
     public Congresista(Congresista c) {
         Dni = new Dni(c.Dni);
@@ -45,23 +45,23 @@ public class Congresista implements Node {
         Dni = dni;
     }
     public void modNombre(String nombre) {
-        Nombre = nombre;
+        Nombre = nombre.toUpperCase();
     }
     public void modApellido(String apellido) {
-        Apellido = apellido;
+        Apellido = apellido.toUpperCase();
     }
     public void modEdad(int edad) throws Exception {
         if (!EdadValida(edad)) throw new EdadNoValida(edad);
         else Edad = edad;
     }
     public void modCiudad(String ciudad) {
-        Ciudad = ciudad;
+        Ciudad = ciudad.toUpperCase();
     }
     public void modEstado(String estado) {
-        Estado = estado;
+        Estado = estado.toUpperCase();
     }
     public void modPartido(String partido) {
-        Partido = partido;
+        Partido = partido.toUpperCase();
     }
     public void mod(Congresista a) {
         Dni = a.Dni;
@@ -75,21 +75,21 @@ public class Congresista implements Node {
     public void mod(Dni dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
         if (!EdadValida(edad)) throw new EdadNoValida(edad);
         Dni = dni;
-        Nombre = nombre;
-        Apellido = apellido;
+        Nombre = nombre.toUpperCase();
+        Apellido = apellido.toUpperCase();
         Edad = edad;
-        Ciudad = ciudad;
-        Estado = estado;
-        Partido = partido;
+        Ciudad = ciudad.toUpperCase();
+        Estado = estado.toUpperCase();
+        Partido = partido.toUpperCase();
     }
     public void mod(String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
         if (!EdadValida(edad)) throw new EdadNoValida(edad);
-        Nombre = nombre;
-        Apellido = apellido;
+        Nombre = nombre.toUpperCase();
+        Apellido = apellido.toUpperCase();
         Edad = edad;
-        Ciudad = ciudad;
-        Estado = estado;
-        Partido = partido;
+        Ciudad = ciudad.toUpperCase();
+        Estado = estado.toUpperCase();
+        Partido = partido.toUpperCase();
     }
 
     //Consultoras

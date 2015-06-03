@@ -16,10 +16,10 @@ public class Congreso {
         }
     }
     //static
-    private static String[] nombre = {"Arif", "Konrad", "Edsger","Gordon","Kevin","Richard","Max","Linus","Allen","Jon-Von", "Sophie","Alan","David","Arif","Zaman","Tim","Sergey","Larry","Mark","Bill"};
-    private static String[] apellido = {"Dijkstra", "Neumamnn", "Zuse","A.Wagner","Moore","Bell","Hamming","Cohen","Newman","Knuth","Allen","Torvalds","Warwick","Neumann","Stallman","Turing","Zaman","Goodger","Gates","Zuckerberg"};
-    private static String[] ciudad = {"LN", "Paris", "Islamabad","Bcn","Tokio","Washington","Seattle","NY", "SF","Chicago","Alexandria","Annapolis","Haifa","Louvain","Toronto","Berlin"};
-    private static String[] partido = {"Republicano","Democrata","Libre","Pirata"};
+    private static String[] nombre = {"ARIF", "KONRAD", "EDSGER","GORDON","KEVIN","RICHARD","MAX","LINUS","ALLEN","JONVON", "SOPHIE","ALAN","DAVID","ARIF","ZAMAN","TIM","SEGEY","LARRY","MARK","BILL"};
+    private static String[] apellido = {"DIJKSTRA", "NEUMANN", "ZUSE","AWAGNER","MOORE","BELL","HAMMING","COHEN","NEWMAN","KNUTH","ALLEN","TORVALDS","WARWICK","NEUMANN","STALLMAN","TURING","ZAMAN","GOODGER","GATES","ZUCKERBERG"};
+    private static String[] ciudad = {"LN", "PARIS", "ISLAMABAD","BCN","TOKIO","WASHINGTON","SEATTLE","NY", "SF","CHICAGO","ALEXANDRIA","ANNAPOLIS","HAIFA","LOUVAIN","TORONTO","BERLIN"};
+    private static String[] partido = {"REP","DEM","LIBRE","PIRATA"};
 
     /*private class Congresistas {
         private List<Congresista> datos;
@@ -104,13 +104,13 @@ public class Congreso {
         tstEdad.borrar(String.valueOf(con.obtEdad()) + con.obtID());
         tstCiudad.borrar(con.obtCiudad() + con.obtID());
         tstEstado.borrar(con.obtEstado() + con.obtID());
-        tstPartido.borrar(con.obtPartido()+con.obtID());
+        tstPartido.borrar(con.obtPartido() + con.obtID());
     }
     /** TODO testear */
     public void agregarCongresista(Congresista c) throws Exception {
         tst.insertar(c.obtID(), c);
-        reiniciarCaches();
         agregarEnTsts(c);
+        reiniciarCaches();
     }
     /** **/
     public void agregarCongresistaRandom()  {
@@ -134,8 +134,8 @@ public class Congreso {
         try {
             Congresista c = new Congresista(r,nombre[name],apellido[surname],edad,ciudad[city],ciudad[city],partido[part]);
             tst.insertar(c.obtID(), c);
-            reiniciarCaches();
             agregarEnTsts(c);
+            reiniciarCaches();
         } catch (Exception a) {
             //Do nothing
         }
@@ -150,6 +150,7 @@ public class Congreso {
         tst.borrar(c.obtDni().toString());
         borrarEnTsts(c);
         reiniciarCaches();
+        if (size() == 0) eliminarCongreso();
     }
     public void eliminarCongreso() {
         tst.vaciar();

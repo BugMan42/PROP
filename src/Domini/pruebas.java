@@ -18,23 +18,55 @@ public class pruebas {
     }
     private static void testCong() throws Exception {
         Congresista C1 = new Congresista(new Dni("00000000A"), "a", "b", 1, "c", "d", "f");
-        Congresista C2 = new Congresista(new Dni("00000000A"), "b", "b", 1, "c", "d", "f");
-        //Congresista C3 = new Congresista(new Dni("00000000A"), "a", "b", 2, "c", "d", "f");
+        Congresista C2 = new Congresista(new Dni("00000000h"), "b", "b", 1, "c", "d", "f");
+        Congresista C11 = new Congresista(new Dni("00000000g"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
+        Congresista C22 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "San Francisco", "CA", "Berkeley");
+        Congresista C3 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
+        Congresista C4 = new Congresista(new Dni("00000000D"), "Max", "Newman", 87, "Chealsea", "LO", "Democrata");
+        Congresista C5 = new Congresista(new Dni("00000000E"), "Allen", "Newll", 65, "San Francisco", "SF", "Pirata");
+        Congresista C6 = new Congresista(new Dni("00000000F"), "Jon-Von", "Neumann", 53, "Budapest", "AU", "Pirata");
+        Congresista C7 = new Congresista(new Dni("00000000G"), "Alan", "Turing", 41, "London", "LO", "Liberal");
         Congreso a = new Congreso();
         a.agregarCongresista(C1);
-        a.modCongresista(C1,C2);
+        a.agregarCongresista(C2);
+        a.agregarCongresista(C3);
+        a.agregarCongresista(C4);
+        a.agregarCongresista(C5);
+        //a.eliminarCongresista(C1);
         //a.modCongresista(C2,C3);
-        print(a.obtenerCongreso() + "");
-        //print(a.obtenerListaID() + "");
-        print(a.obtenerListaNombre1() + "");
-        print(a.obtCongresoNombre(0,1).toString());
+        a.eliminarCongresista(C4);
+        a.eliminarCongresista(C5);
+        a.eliminarCongresista(C3);
+        for (Congresista b:a.obtenerCongreso()) print(b.toString() + "");
+        print("");
+        for (Congresista b:a.obtenerListaApellido1()) print(b.toString() + "");
+        print("");
+        for (Congresista b:a.obtCongresoEstado(0,100)) print(b.toString()+"");// + "");
+       // print(a.obtenerListaNombre1() + "");
+        //print(a.obtCongresoNombre(0,1).toString());
         //print(a.obtenerListaApellido1() + "");
         //print(a.obtenerListaEdad1() + "");
         //print(a.obtenerListaCiudad1() + "");
         //print(a.obtenerListaEstado1() + "");
         //print(a.obtenerListaPartido1() + "");
-    }
 
+    }
+    private static void testn() throws Exception {
+        Grafo a = new Grafo();
+        a.agregarVertice("0");
+        a.agregarVertice("1");
+        a.agregarVertice("2");
+        a.agregarArista("0", "1", 1);
+        a.agregarArista("1","0",1);
+        a.agregarArista("0","1",1);
+        a.agregarArista("1","2",1);
+        a.agregarArista("2","1",1);
+        a.agregarArista("2","0",1);
+        a.agregarArista("0","2",1);
+        //Entrada
+        //Louvain b = new Louvain();
+
+    }
 
 
     public static void main(String[] args) throws Exception {
@@ -368,7 +400,7 @@ public class pruebas {
         CPCongreso aux = new CPCongreso();
         aux.agregarCongresistaRandom(100);
         for (int i = 0; i < 100; ++i) {
-            print(aux.obtCongresista(i));
+            //print(aux.obtCongresista(i));
         }
     }
     private static void testDNI(int n) {

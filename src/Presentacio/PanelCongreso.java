@@ -542,13 +542,19 @@ public class PanelCongreso extends PanelLista {
             try {
                 //int[] howMany = jlist.getSelectedIndices();
                 List<String> campos = jlist.getSelectedValuesList();
-                for (int i = 0; i < campos.size(); ++i) {
-                    String[] con = campos.get(i).split(" ");
-                    CPC.eliminarCongresista(con[0],con[1],con[2],Integer.valueOf(con[3]),con[4],con[5],con[6]);
+                if (campos.size() == CPC.size()) {
+                    CPC.eliminarCongreso();
+                }
+                else {
+                    for (int i = 0; i < campos.size(); ++i) {
+                        String[] con = campos.get(i).split(" ");
+                        CPC.eliminarCongresista(con[0],con[1],con[2],Integer.valueOf(con[3]),con[4],con[5],con[6]);
+                    }
                 }
                 setDefaultText();
                 setMsg("Congresista/s eliminados satisfactoriamente");
                 ListUpdate();
+
             }
             catch (Exception a) {
                 setError(a.getMessage());
@@ -902,7 +908,7 @@ public class PanelCongreso extends PanelLista {
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
     }
-    private void createjlist() {
+    /*private void createjlist() {
         bigData = new AbstractListModel<String>() {
             public int getSize() {
                 if (CPC.size() == 0) return 1;
@@ -919,7 +925,7 @@ public class PanelCongreso extends PanelLista {
         };
         listCongreso.setPrototypeCellValue("If ----------- ");
         listCongreso.setModel(bigData);
-    }
+    }*/
     private void updateJList(int orden) {
         CPC.modOrder(orden);
        // print(CPC.obtCongresista(0));
@@ -931,14 +937,11 @@ public class PanelCongreso extends PanelLista {
             public String getElementAt(int index) {
                 //print("index: "+index);
                 if (CPC.size() == 0) return "No hay Congresistas";
-                return CPC.obtCongresista(index);
+                return CPC.obtCongresistaCache(index);
                 //return "Index " + index;
             }
         };
         listCongreso.setPrototypeCellValue("If ----------- ");
         listCongreso.setModel(bigData);
-    }
-    private boolean indexisOutOfBounds(int index) {
-        return !CPC.indexVisible(index);
     }
 }
