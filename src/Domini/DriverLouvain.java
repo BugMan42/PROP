@@ -31,6 +31,7 @@ public class DriverLouvain {
                     case 0:
                         if (params.length != 2) throw new Exception(E1);
                         g.agregarVertice(params[1]);
+                        System.out.println("nodos:"+g.V() );
                         break;
                     case 1:
                         if (params.length != 4) throw new Exception(E1);
@@ -43,7 +44,6 @@ public class DriverLouvain {
                     case 3:
                         if (params.length != 1) throw new Exception(E1);
                         Louvain l = new Louvain(in,out);
-                        l.ejecutar_algoritmo();
                         for (String a : out.mostrarHistorial()) dl.print(a);
                         break;
                 }
