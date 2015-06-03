@@ -145,7 +145,7 @@ public class PanelEventos extends PanelLista {
     }
 
     public void actualizarLista() {
-        lista.setPrototypeCellValue("Renderizando lista");
+        lista.setPrototypeCellValue(" ");
         bloque = new AbstractListModel<String>() {
             @Override
             public int getSize() {
@@ -447,7 +447,7 @@ public class PanelEventos extends PanelLista {
         cpe.obtCCE().AgregarEventoRandom((Integer)contador.getValue());
         lbinfo.setText(" ");
         actualizarLista();
-        System.out.println((System.currentTimeMillis() - ini) / 1000);
+        //System.out.println((System.currentTimeMillis() - ini) / 1000);
     }
 
     private void bteliminarTodoAccion(ActionEvent e) {

@@ -83,11 +83,13 @@ public class CjtEvento {
 
     public void ModificarImpEvento(String nombre, Fecha fecha, int OldImp, int NewImp) throws Exception {
         //Siempre convierto el nombre a mayusculas para evitar errores de no encontrar el elemento
-        String name = nombre.toUpperCase();
-        //Como el tst devuelve la refencia al objeto directamente puedo cambiarle los atributos
-        cjt.obtener(name+fecha.toString()).ModImportancia(NewImp);
-        cjtImp.modificar(Integer.toString(OldImp)+name+fecha.toString(),Integer.toString(NewImp)+name+fecha.toString());
-        restaurar();
+        if (OldImp != NewImp) {
+            String name = nombre.toUpperCase();
+            //Como el tst devuelve la refencia al objeto directamente puedo cambiarle los atributos
+            cjt.obtener(name+fecha.toString()).ModImportancia(NewImp);
+            cjtImp.modificar(Integer.toString(OldImp)+name+fecha.toString(),Integer.toString(NewImp)+name+fecha.toString());
+            restaurar();
+        }
     }
 
     private TSTIterator desplazarIterador(int bloq, int tam){

@@ -41,10 +41,14 @@ public class CPEventos {
         int bloque = indice/tamanioBloque;
         if (bloque == indiceA) {
             ultimo = 0;
+            System.out.println("Este es el bloqueA if que contiene:");
+            for (int i = 0; i < bloqueA.length; ++i) System.out.println(bloqueA[i]);
             return bloqueA[(indice%tamanioBloque)];
         }
         else if (bloque == indiceB) {
             ultimo = 1;
+            System.out.println("Este es el bloqueB if que contiene:");
+            for (int i = 0; i < bloqueB.length; ++i) System.out.println(bloqueB[i]);
             return bloqueB[(indice%tamanioBloque)];
         }
         else {
@@ -52,12 +56,16 @@ public class CPEventos {
                 ultimo = 1;
                 indiceB = bloque;
                 bloqueB = CCE.obtBloqueP(bloque, tamanioBloque).split("\n");
+                System.out.println("Este es el bloqueB else que contiene:");
+                for (int i = 0; i < bloqueB.length; ++i) System.out.println(bloqueB[i]);
                 return bloqueB[(indice%tamanioBloque)];
             }
             else {
                 ultimo = 0;
                 indiceA = bloque;
                 bloqueA = CCE.obtBloqueP(bloque, tamanioBloque).split("\n");
+                System.out.println("Este es el bloqueA else que contiene:");
+                for (int i = 0; i < bloqueA.length; ++i) System.out.println(bloqueA[i]);
                 return bloqueA[(indice%tamanioBloque)];
             }
 
