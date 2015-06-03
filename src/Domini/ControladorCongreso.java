@@ -141,16 +141,14 @@ public class ControladorCongreso {
 
 
 
-    public void searchByDni(String aux) throws Exception {
+    public void searchByDni(String aux) {
         cacheBusqueda.clear();
         cacheBusqueda = c.searchPrefixDni(aux.toUpperCase());
     }
-
     public void searchByName(String aux) {
         cacheBusqueda.clear();
         cacheBusqueda = c.searchPrefixNombre(aux.toUpperCase());
     }
-
     public void searchBySurName(String aux) {
         cacheBusqueda.clear();
         cacheBusqueda = c.searchPrefixApellido(aux.toUpperCase());

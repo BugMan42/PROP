@@ -72,7 +72,8 @@ public class pruebas {
     public static void main(String[] args) throws Exception {
 
         try {
-            testCong();
+            testsCaches();
+            //testCong();
             //testsCaches();
             //testTST2();
             //testCongresista();
@@ -264,22 +265,27 @@ public class pruebas {
         Congreso a = new Congreso();
         //for (int i = 0; i < 10; ++i) a.agregarCongresistaRandom();
         a.agregarCongresista(C1);
-        //a.agregarCongresista(C11);
-        //a.agregarCongresista(C111);
-        //a.agregarCongresista(C2);
-        //a.agregarCongresista(C3);
-        //a.agregarCongresista(C4);
-        //a.agregarCongresista(C5);
-        //a.agregarCongresista(C6);
-        //a.agregarCongresista(C7);
+        a.agregarCongresista(C11);
+        a.agregarCongresista(C111);
+        a.agregarCongresista(C2);
+        a.agregarCongresista(C3);
+        a.agregarCongresista(C4);
+        a.agregarCongresista(C5);
+        a.agregarCongresista(C6);
+        a.agregarCongresista(C7);
+        ControladorCongreso con = new ControladorCongreso();
+        con.agregarCongresistaRandom(50);
+        print(con.size()+"");
+        con.searchByDni("1");
+        //print(con.);
 
-        print(a.obtenerListaID().size() + "");
+        /*print(a.obtenerListaID().size() + "");
         print(a.obtenerListaNombre().size() + "");
         print(a.obtenerListaApellido().size() + "");
         print(a.obtenerListaEdad().size() + "");
         print(a.obtenerListaCiudad().size() + "");
         print(a.obtenerListaEstado().size() + "");
-        print(a.obtenerListaPartido().size() + "");
+        print(a.obtenerListaPartido().size() + "");*/
 
     }
 

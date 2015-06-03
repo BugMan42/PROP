@@ -93,10 +93,10 @@ public class Congreso {
     private void agregarEnTsts(Congresista con) throws Exception {
         tstNombre.insertar(con.obtNombre()+con.obtID(), con);
         tstApellido.insertar(con.obtApellido() + con.obtID(), con);
-        tstEdad.insertar(String.valueOf(con.obtEdad())+con.obtID(), con);
-        tstCiudad.insertar(con.obtCiudad()+con.obtID(), con);
-        tstEstado.insertar(con.obtEstado()+con.obtID(), con);
-        tstPartido.insertar(con.obtPartido()+con.obtID(), con);
+        tstEdad.insertar(String.valueOf(con.obtEdad()) + con.obtID(), con);
+        tstCiudad.insertar(con.obtCiudad() + con.obtID(), con);
+        tstEstado.insertar(con.obtEstado() + con.obtID(), con);
+        tstPartido.insertar(con.obtPartido() + con.obtID(), con);
     }
     private void borrarEnTsts(Congresista con) throws Exception {
         tstNombre.borrar(con.obtNombre() + con.obtID());
@@ -459,7 +459,8 @@ public class Congreso {
         return a;
     }*/
     public List<Congresista> searchPrefixDni(String prefix) {
-        return tst.prefijo(prefix);
+        List<Congresista> aux = tst.prefijo(prefix);
+        return aux;
     }
     public List<Congresista> searchPrefixNombre(String prefix) {
         return tstNombre.prefijo(prefix);
