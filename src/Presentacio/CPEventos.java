@@ -27,6 +27,10 @@ public class CPEventos {
         actualizar();
     }
 
+    public String obtEvento(int indice){
+         return "";
+    }
+
     public void actualizar(){
         if(PE!=null){
             PE.limpiarcampos();

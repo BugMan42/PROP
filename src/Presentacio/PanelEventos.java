@@ -18,6 +18,8 @@ public class PanelEventos extends PanelLista {
     private JFileChooser guardar;
     private JFileChooser cargar;
 
+    private AbstractListModel<String> bloque;
+
     private JLabel lbnombre;
     private JTextField ctnombre;
     private JLabel lbfecha;
@@ -141,9 +143,21 @@ public class PanelEventos extends PanelLista {
     }
 
     public void actualizarLista() {
-        String info[] = {"No hay eventos creados"};
+        bloque = new AbstractListModel<String>() {
+            @Override
+            public int getSize() {
+                if (cpe.obtCCE().size() == 0) return 1;
+                else return cpe.obtCCE().size();
+            }
+
+            @Override
+            public String getElementAt(int index) {
+                  return cpe.obtEvento(index);
+            }
+        };
+        /*String info[] = {"No hay eventos creados"};
         if (cpe.obtCCE().size() == 0) lista.setListData(info);
-        else lista.setListData(cpe.obtCCE().ConsultarTodosEventosP().toArray());
+        else lista.setListData(cpe.obtCCE().ConsultarTodosEventosP().toArray()); */
     }
 
     private void agregarAccionesJtext() {
