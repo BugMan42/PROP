@@ -128,7 +128,7 @@ public class ControladorCongreso {
         cr.eliminarRelaciones();
         referencia.clear();
     }
-
+    /*
     public void modNombreCongresista(String dni, String nombre) throws Exception {
         Dni d = new Dni(dni);
         c.modNombreCongresista(d, nombre);
@@ -165,7 +165,7 @@ public class ControladorCongreso {
         Dni d = new Dni(dni);
         Dni d_nuevo = new Dni(dni_nuevo);
         c.modDniCongresista(d, d_nuevo);
-    }
+    }*/
 
     public void modCongresista(String dni, String dni_nuevo, String nombre, String apellido, int edad, String ciudad,
                                String estado, String partido, ControladorRelaciones cr) throws  Exception{
