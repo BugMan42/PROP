@@ -209,7 +209,8 @@ public class CPRelaciones {
         int bloque = i/tam_bloque;
         // Comprobar si está en el primer bloque.
         if (indRel[0] == bloque){
-            res = bRel[0][i%tam_bloque];
+            int ini = bloque * tam_bloque;
+            res = bRel[0][i-ini];
             RURel = 0;
         }
         // Si está en el segundo.

@@ -24,7 +24,7 @@ public class DriverClique {
     private static Entrada en;
     private static Salida sa;
     private static int k;
-    private static Grafo g;
+    private static Grafo g = null;
 
     public static void main(String[] args) throws Exception {
         k = 3;
@@ -50,8 +50,8 @@ public class DriverClique {
         switch (Integer.parseInt(aux[0])) {
             case 1:
                 if (aux.length > 1) throw new Exception(dem);
-                crearGrafo(1);
-                en = new Entrada(g, k, 0);
+                if (g == null) crearGrafo(1);
+                en = new Entrada(g, k, 7);
                 sa = new Salida();
                 c = new Clique(en, sa);
                 break;
@@ -201,6 +201,13 @@ public class DriverClique {
         g.agregarArista("4", "1", 1);
         g.agregarArista("3", "2", 1);
         g.agregarArista("4", "3", 1);
+
+        /*System.out.println(g.degreeSalida(0));
+        System.out.println(g.degreeSalida(1));
+        System.out.println(g.degreeSalida(2));
+        System.out.println(g.degreeSalida(3));
+        System.out.println(g.degreeSalida(4));
+        */
     }
 
     private static void grafo3() throws Exception {

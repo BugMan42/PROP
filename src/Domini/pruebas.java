@@ -16,13 +16,32 @@ public class pruebas {
         }
         print(a.obtenerListaID()+"");
     }
+    private static void testCong() throws Exception {
+        Congresista C1 = new Congresista(new Dni("00000000A"), "a", "b", 1, "c", "d", "f");
+        Congresista C2 = new Congresista(new Dni("00000000A"), "b", "b", 1, "c", "d", "f");
+        //Congresista C3 = new Congresista(new Dni("00000000A"), "a", "b", 2, "c", "d", "f");
+        Congreso a = new Congreso();
+        a.agregarCongresista(C1);
+        a.modCongresista(C1,C2);
+        //a.modCongresista(C2,C3);
+        print(a.obtenerCongreso() + "");
+        //print(a.obtenerListaID() + "");
+        print(a.obtenerListaNombre1() + "");
+        print(a.obtCongresoNombre(0,1).toString());
+        //print(a.obtenerListaApellido1() + "");
+        //print(a.obtenerListaEdad1() + "");
+        //print(a.obtenerListaCiudad1() + "");
+        //print(a.obtenerListaEstado1() + "");
+        //print(a.obtenerListaPartido1() + "");
+    }
 
 
 
     public static void main(String[] args) throws Exception {
 
         try {
-            testsCaches();
+            testCong();
+            //testsCaches();
             //testTST2();
             //testCongresista();
             //testPrefix();
@@ -213,14 +232,14 @@ public class pruebas {
         Congreso a = new Congreso();
         //for (int i = 0; i < 10; ++i) a.agregarCongresistaRandom();
         a.agregarCongresista(C1);
-        a.agregarCongresista(C11);
-        a.agregarCongresista(C111);
-        a.agregarCongresista(C2);
-        a.agregarCongresista(C3);
-        a.agregarCongresista(C4);
-        a.agregarCongresista(C5);
-        a.agregarCongresista(C6);
-        a.agregarCongresista(C7);
+        //a.agregarCongresista(C11);
+        //a.agregarCongresista(C111);
+        //a.agregarCongresista(C2);
+        //a.agregarCongresista(C3);
+        //a.agregarCongresista(C4);
+        //a.agregarCongresista(C5);
+        //a.agregarCongresista(C6);
+        //a.agregarCongresista(C7);
 
         print(a.obtenerListaID().size() + "");
         print(a.obtenerListaNombre().size() + "");

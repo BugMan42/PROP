@@ -233,77 +233,61 @@ public class Congreso {
     //TODO testear
     public void modCongresista(Congresista origina, Congresista nuevo) throws Exception {
         Congresista original = new Congresista(origina);
+        //print(original.toString());
+        //print(nuevo.toString());
        // print("modificando");
-        if (!original.obtDni().equals(nuevo.obtDni())) {
+        if (!original.obtID().equals(nuevo.obtID())) {
+            print("has entrado en dni dif");
             tst.modificar(original.obtDni().toString(), nuevo.obtDni().toString());
-            tst.obtener(nuevo.obtDni().toString()).mod(nuevo.obtDni(), nuevo.obtNombre(), nuevo.obtApellido(), nuevo.obtEdad(), nuevo.obtCiudad(), nuevo.obtEstado(), nuevo.obtPartido());
-            if (!original.obtNombre().equals(nuevo.obtNombre())) {
-                tstNombre.borrar(original.obtNombre()+original.obtID());
-                tstNombre.insertar(nuevo.obtNombre()+nuevo.obtID(),nuevo);
-
-            }
-            if (!original.obtApellido().equals(nuevo.obtApellido())) {
-                tstApellido.borrar(original.obtApellido()+original.obtID());
-                tstApellido.insertar(nuevo.obtApellido()+nuevo.obtID(),nuevo);
-
-            }
-            if (original.obtEdad() != nuevo.obtEdad()) {
-                tstEdad.borrar(original.obtEdad()+original.obtID());
-                tstEdad.insertar(nuevo.obtEdad()+nuevo.obtID(),nuevo);
-
-            }
-            if (!original.obtCiudad().equals(nuevo.obtCiudad())) {
-                tstCiudad.borrar(original.obtCiudad()+original.obtID());
-                tstCiudad.insertar(nuevo.obtCiudad()+nuevo.obtID(),nuevo);
-
-            }
-            if (!original.obtEstado().equals(nuevo.obtEstado())) {
-                tstEstado.borrar(original.obtEstado()+original.obtID());
-                tstEstado.insertar(nuevo.obtEstado()+nuevo.obtID(),nuevo);
-
-            }
-            if (!original.obtPartido().equals(nuevo.obtPartido())) {
-                tstPartido.borrar(original.obtPartido()+original.obtID());
-                tstPartido.insertar(nuevo.obtPartido()+nuevo.obtID(),nuevo);
-
-            }
-            reiniciarCaches();
+            Congresista aux = tst.obtener(nuevo.obtDni().toString());
+            aux.mod(nuevo.obtDni(), nuevo.obtNombre(), nuevo.obtApellido(), nuevo.obtEdad(), nuevo.obtCiudad(), nuevo.obtEstado(), nuevo.obtPartido());
+            tstNombre.borrar(original.obtNombre() + original.obtID());
+            tstNombre.insertar(nuevo.obtNombre() + nuevo.obtID(), aux);
+            tstApellido.borrar(original.obtApellido()+original.obtID());
+            tstApellido.insertar(nuevo.obtApellido()+nuevo.obtID(),aux);
+            tstEdad.borrar(original.obtEdad()+original.obtID());
+            tstEdad.insertar(nuevo.obtEdad()+nuevo.obtID(), aux);
+            tstCiudad.borrar(original.obtCiudad()+original.obtID());
+            tstCiudad.insertar(nuevo.obtCiudad()+nuevo.obtID(),aux);
+            tstEstado.borrar(original.obtEstado()+original.obtID());
+            tstEstado.insertar(nuevo.obtEstado()+nuevo.obtID(),aux);
+            tstPartido.borrar(original.obtPartido()+original.obtID());
+            tstPartido.insertar(nuevo.obtPartido()+nuevo.obtID(),aux);
         }
         else { //dnis iguales
-            //print("Modificando");
-            //print(original.toString());
-            //print(nuevo.toString());
-            tst.obtener(original.obtDni().toString()).mod(nuevo.obtNombre(), nuevo.obtApellido(), nuevo.obtEdad(), nuevo.obtCiudad(), nuevo.obtEstado(), nuevo.obtPartido());
+            //print("has entrat en dni igual");
+            Congresista aux = tst.obtener(original.obtDni().toString());
+            aux.mod(nuevo.obtNombre(), nuevo.obtApellido(), nuevo.obtEdad(), nuevo.obtCiudad(), nuevo.obtEstado(), nuevo.obtPartido());
             if (!original.obtNombre().equals(nuevo.obtNombre())) {
-                tstNombre.borrar(original.obtNombre()+original.obtID());
-                tstNombre.insertar(nuevo.obtNombre()+nuevo.obtID(),nuevo);
+                tstNombre.borrar(original.obtNombre() + original.obtID());
+                tstNombre.insertar(nuevo.obtNombre()+nuevo.obtID(), aux);
             }
             if (!original.obtApellido().equals(nuevo.obtApellido())) {
                 tstApellido.borrar(original.obtApellido()+original.obtID());
-                tstApellido.insertar(nuevo.obtApellido()+nuevo.obtID(),nuevo);
+                tstApellido.insertar(nuevo.obtApellido()+nuevo.obtID(),aux);
             }
             if (original.obtEdad() != nuevo.obtEdad()) {
                 tstEdad.borrar(original.obtEdad()+original.obtID());
-                tstEdad.insertar(nuevo.obtEdad()+nuevo.obtID(),nuevo);
+                tstEdad.insertar(nuevo.obtEdad()+nuevo.obtID(), aux);
 
             }
             if (!original.obtCiudad().equals(nuevo.obtCiudad())) {
                 tstCiudad.borrar(original.obtCiudad()+original.obtID());
-                tstCiudad.insertar(nuevo.obtCiudad()+nuevo.obtID(),nuevo);
+                tstCiudad.insertar(nuevo.obtCiudad()+nuevo.obtID(),aux);
 
             }
             if (!original.obtEstado().equals(nuevo.obtEstado())) {
                 tstEstado.borrar(original.obtEstado()+original.obtID());
-                tstEstado.insertar(nuevo.obtEstado()+nuevo.obtID(),nuevo);
+                tstEstado.insertar(nuevo.obtEstado()+nuevo.obtID(),aux);
 
             }
             if (!original.obtPartido().equals(nuevo.obtPartido())) {
                 tstPartido.borrar(original.obtPartido()+original.obtID());
-                tstPartido.insertar(nuevo.obtPartido()+nuevo.obtID(),nuevo);
+                tstPartido.insertar(nuevo.obtPartido()+nuevo.obtID(),aux);
 
             }
-            reiniciarCaches();
         }
+        reiniciarCaches();
     }
 
     private TSTIterator desplazarIterador(int bloq, int tam){
@@ -390,7 +374,7 @@ public class Congreso {
         return a;
     }
     public ArrayList<Congresista> obtCongresoEstado(int bloq, int tam) {
-        TSTIterator aux = desplazarIteradorUniversal(tstEstado,CacheEstado, bloq, tam);
+        TSTIterator aux = desplazarIteradorUniversal(tstEstado, CacheEstado, bloq, tam);
         int i = 0;
         ArrayList<Congresista> a = new ArrayList<Congresista>();
         while ( aux.hasNext() && i < tam) {
@@ -462,6 +446,25 @@ public class Congreso {
     }
     public ArrayList<String> obtenerListaPartido() {
         return tstPartido.consultarClaves();
+    }
+
+    public List<Congresista> obtenerListaNombre1() {
+        return tstNombre.consultarObjetos();
+    }
+    public List<Congresista> obtenerListaApellido1() {
+        return tstApellido.consultarObjetos();
+    }
+    public List<Congresista> obtenerListaEdad1() {
+        return tstEdad.consultarObjetos();
+    }
+    public List<Congresista> obtenerListaCiudad1() {
+        return tstCiudad.consultarObjetos();
+    }
+    public List<Congresista> obtenerListaEstado1() {
+        return tstEstado.consultarObjetos();
+    }
+    public List<Congresista> obtenerListaPartido1() {
+        return tstPartido.consultarObjetos();
     }
     /*public ArrayList<Congresista> obtCongresoFunciona(int bloq, int tam) {
         //TSTIterator aux;

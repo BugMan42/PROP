@@ -591,7 +591,7 @@ public class PanelCongreso extends PanelLista {
                // String dato = (String) listCongreso.getSelectedValue();
                 String[] campos = dato.split(" ");
                 try {
-                    CPC.obtCC().modCongresista(campos[0], textDni.getText(), getTextString(textName), getTextString(textSurname), Integer.parseInt(textAge.getText()), getTextString(textCity), getTextString(textState), getTextString(textParty), CPC.obtCPR().obtCR());
+                    CPC.modCongresista(campos[0], textDni.getText(),campos[1], getTextString(textName), campos[2],getTextString(textSurname), Integer.valueOf(campos[3]),Integer.parseInt(textAge.getText()),campos[4], getTextString(textCity),campos[5], getTextString(textState), campos[6],getTextString(textParty));
                     setMsg("Congresista modificado satisfactoriamente");
                     ListUpdate();
                     //print("Todavia no ha petado");
