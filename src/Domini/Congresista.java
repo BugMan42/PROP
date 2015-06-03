@@ -133,8 +133,7 @@ public class Congresista implements Node {
     /** COMPARATOR */
     public static Comparator<Congresista> DNI = new Comparator<Congresista>() {
         @Override
-        public int compare(Congresista o1, Congresista o2) {
-            return o1.Dni.toString().compareTo(o2.Dni.toString());
+        public int compare(Congresista o1, Congresista o2) {return o1.Dni.toString().compareTo(o2.Dni.toString());
         }
     };
     public static Comparator<Congresista> NAME = new Comparator<Congresista>() {
@@ -145,15 +144,12 @@ public class Congresista implements Node {
     };
     public static Comparator<Congresista> SURNAME = new Comparator<Congresista>() {
         @Override
-        public int compare(Congresista o1, Congresista o2) {
-            return o1.Apellido.compareTo(o2.Apellido);
+        public int compare(Congresista o1, Congresista o2) {return o1.Apellido.compareTo(o2.Apellido);
         }
     };
     public static Comparator<Congresista> AGE = new Comparator<Congresista>() {
         @Override
-        public int compare(Congresista o1, Congresista o2) {
-            return Integer.valueOf(o1.Edad).compareTo(o2.Edad);
-        }
+        public int compare(Congresista o1, Congresista o2) {return Integer.valueOf(o1.Edad).compareTo(o2.Edad);}
     };
     public static Comparator<Congresista> CITY = new Comparator<Congresista>() {
         @Override

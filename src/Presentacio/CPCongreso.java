@@ -14,6 +14,7 @@ public class CPCongreso {
     private ControladorCongreso CC;
     private CPRelaciones CPR;
 
+    private int order;
     private String[] bqa;
     private String[] bqb;
     private int indexa;
@@ -28,8 +29,17 @@ public class CPCongreso {
         CC = new ControladorCongreso();
         bqa = new String[100];
         bqb = null;
+        order = 0;
         indexa = 0;
         indexb = -1;
+    }
+    public void modOrder(int ord) {
+        order = ord;
+        bqa = new String[100];
+        bqb = null;
+        indexa = 0;
+        indexb = -1;
+        refresh(0,-1);
     }
     public int obtBQArriba() {
         if (aIsUp()) return indexa;
@@ -51,7 +61,6 @@ public class CPCongreso {
     public void modCPR(CPRelaciones aux) {
         CPR = aux;
     }
-
     public PanelCongreso obtPanel() {
         if (PC == null) PC = new PanelCongreso(this);
         return PC;
@@ -59,32 +68,23 @@ public class CPCongreso {
     public int size() {
         return CC.size();
     }
-    private void cargarbqb(int bq) {
+    /*private void cargarbqb(int bq) {
         bqb = CC.obtBloque(bq).split(CC.obtSep());
     }
     private void cargarbqa(int bq) {
         bqa = CC.obtBloque(bq).split(CC.obtSep());
-    }
-
+    }*/
     public void agregarCongresista(String dni, String name, String surname, int age, String city, String state, String party) throws Exception{
         CC.agregarCongresista(dni, name, surname, age, city, state, party);
         refresh(indexa, indexb);
-        //TODO falta actualizar bloques
     }
     public void agregarCongresistaRandom(int n) throws Exception {
-        //print("antes de petar");
-        //if (CC.esVacio()) {
         CC.agregarCongresistaRandom(n);
-        //}
-        //else throw new Exception("Solo se pueden agregar congr random con el congreso vacio");
-
+        //print("he agregado");
         refresh(indexa, indexb);
-
-        //print("despues");
-        //if (n > 100) refresh(0,1);
-       // else cargarBloqueA(0);
-       // print("despues");
-        //TODO falta actualizar bloques
+        //print("final refresh");
+        //print(bqa[0]);
+        //print(bqa.length+"");
     }
     private void print(String str) {
         System.out.println(str);
@@ -100,6 +100,7 @@ public class CPCongreso {
         bqb = new String[100];
         indexa = 0;
         indexb = -1;
+        order = 0;
     }
     public void nuevo(){
         if (CC.size()>0) {
@@ -108,6 +109,7 @@ public class CPCongreso {
             bqb = new String[100];
             indexa = 0;
             indexb = -1;
+            order = 0;
         }
         actualizar();
     }
@@ -117,6 +119,25 @@ public class CPCongreso {
             obtPanel().setDefaultText();
             obtPanel().ListUpdate();
         }
+    }
+    public String obtBQOrden(int bq) {
+        switch (order) {
+            case 0: //DNI
+                return CC.obtBloquePR2(bq,100);
+            case 1: //Nombre
+                return CC.obtBloqueNombre(bq, 100);
+            case 2: //Apellido
+                return CC.obtBloqueApellido(bq, 100);
+            case 3: //Edad
+                return CC.obtBloqueEdad(bq,100);
+            case 4: //Ciudad
+                return CC.obtBloqueCiudad(bq, 100);
+            case 5: //Estado
+                return CC.obtBloqueEstado(bq, 100);
+            case 6: // Partido
+                return CC.obtBloquePartido(bq,100);
+        }
+        return CC.obtBloqueDNI(bq, 100);
     }
     public String obtBQ(int bq) {
         return CC.obtBloquePR2(bq,100);
@@ -132,28 +153,41 @@ public class CPCongreso {
     public String obtSep() {
         return CC.obtSep();
     }
-
     public String obtCongresista(int index) {
        //print("Debug: obtCongr"+index) ;
        int baux = queBq(index);
-       if (estaEnCache(baux)) return obtEnCache(index,baux);
+       if (estaEnCache(baux)) {
+           //print("dentro de obtener: "+index);
+           return obtEnCache(index,baux);
+       }
        else {
            cargarCache(baux);
            return obtEnCache(index,baux);
        }
     }
-
+    public String obtCongresistaAct(int index) {
+       // print("obetnemos");
+        int baux = queBq(index);
+        if (estaEnCache(baux)) {
+            //print("esta en cache");
+            return obtEnCache(index,baux);
+        }
+        else {
+            cargarCache(baux);
+            return obtEnCache(index,baux);
+        }
+    }
     private void cargarCache(int bq) {
        // print("Cargamos: "+bq);
         if (aIsUp()) {
             if (indexb == -1 || bq < indexa) {
-                bqb = obtBQ(bq).split(obtSep());
+                bqb = obtBQOrden(bq).split(obtSep());
                 indexb = bq;
                // print("BQA: "+indexa+" BQB: "+indexb);
                 return;
             }
             if (bq > indexb) {
-                bqa = obtBQ(bq).split(obtSep());
+                bqa = obtBQOrden(bq).split(obtSep());
                 indexa = bq;
                 //print("BQA: "+indexa+" BQB: "+indexb);
                 return;
@@ -161,13 +195,13 @@ public class CPCongreso {
         }
         else {
             if (indexb == -1 || bq > indexa) {
-                bqb = obtBQ(bq).split(obtSep());
+                bqb = obtBQOrden(bq).split(obtSep());
                 indexb = bq;
                 //print("BQA: "+indexa+" BQB: "+indexb);
                 return;
             }
             if (bq < indexb) {
-                bqa = obtBQ(bq).split(obtSep());
+                bqa = obtBQOrden(bq).split(obtSep());
                 indexa = bq;
                 //print("BQA: "+indexa+" BQB: "+indexb);
                 return;
@@ -175,25 +209,28 @@ public class CPCongreso {
         }
 
     }
-    public void cargarBloqueA(int ba) {
+   /* public void cargarBloqueA(int ba) {
         bqa = obtBQ(ba).split(obtSep());
         indexa = ba;
     }
-
     public void cargarBloqueB(int bb) {
         bqb = obtBQ(bb).split(obtSep());
         indexb = bb;
-    }
+    }*/
     public void refresh(int ba, int bb) {
-        bqa = obtBQ(ba).split(obtSep());
+        bqa = obtBQOrden(ba).split(obtSep());
+        //print("en refresh: "+bqa[0].toString());
         indexa = ba;
         if (indexb != -1) {
-            bqb = obtBQ(bb).split(obtSep());
+            bqb = obtBQOrden(bb).split(obtSep());
             indexb = bb;
         }
     }
     private String obtEnCache(int index, int bq) {
+        //print("obtener en cache:"+order);
         if (indexa == bq) {
+            //print("indexa");
+           // print(bqa[0].toString());
             return bqa[(index%100)];
         }
         else return bqb[(index%100)];
@@ -211,8 +248,6 @@ public class CPCongreso {
 
     /**SORT */
     public void sortByDni() {
-        //Thread workingThread = new Thread(CC.sortByDni()
-        //{ IsBackground = true };
         CC.sortByDni();
     }
     public void sortByName() {
@@ -262,10 +297,12 @@ public class CPCongreso {
 
     public void guardar(String path) throws Exception {
         CC.guardar(path);
-        refresh(indexa, indexb);
+        //refresh(indexa, indexb);
     }
     public void cargar(String path) throws Exception {
         CC.cargar(path,CPR.obtCR());
+        if (CC.size() > 100) refresh(0,1);
+        else refresh(0, -1);
     }
 
 

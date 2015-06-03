@@ -18,10 +18,10 @@ public class Congreso {
     //static
     private static String[] nombre = {"Arif", "Konrad", "Edsger","Gordon","Kevin","Richard","Max","Linus","Allen","Jon-Von", "Sophie","Alan","David","Arif","Zaman","Tim","Sergey","Larry","Mark","Bill"};
     private static String[] apellido = {"Dijkstra", "Neumamnn", "Zuse","A.Wagner","Moore","Bell","Hamming","Cohen","Newman","Knuth","Allen","Torvalds","Warwick","Neumann","Stallman","Turing","Zaman","Goodger","Gates","Zuckerberg"};
-    private static String[] ciudad = {"Londres", "Paris", "Islamabad","Barcelona","Tokio","Washington","Seattle","New-York", "San-Francisco","Chicago","Alexandria","Annapolis","Haifa","Louvain","Toronto","Berlin"};
+    private static String[] ciudad = {"LN", "Paris", "Islamabad","Bcn","Tokio","Washington","Seattle","NY", "SF","Chicago","Alexandria","Annapolis","Haifa","Louvain","Toronto","Berlin"};
     private static String[] partido = {"Republicano","Democrata","Libre","Pirata"};
 
-    private class Congresistas {
+    /*private class Congresistas {
         private List<Congresista> datos;
         Congresistas(Congresista a) {
             datos = new LinkedList<Congresista>();
@@ -49,15 +49,15 @@ public class Congreso {
                 }
             }
         }
-    }
+    }*/
     //atributs
     private TST<Congresista> tst;
-    private TST<Congresistas> tstNombre;
-    private TST<Congresistas> tstApellido;
-    private TST<Congresistas> tstEdad;
-    private TST<Congresistas> tstCiudad;
-    private TST<Congresistas> tstEstado;
-    private TST<Congresistas> tstPartido;
+    private TST<Congresista> tstNombre;
+    private TST<Congresista> tstApellido;
+    private TST<Congresista> tstEdad;
+    private TST<Congresista> tstCiudad;
+    private TST<Congresista> tstEstado;
+    private TST<Congresista> tstPartido;
 
     private ArrayList<TSTIterator> Cache;
     private ArrayList<TSTIterator> CacheNombre;
@@ -83,51 +83,51 @@ public class Congreso {
     }
     private void inicializar() {
         tst = new TST<Congresista>();
-        tstNombre = new TST<Congresistas>();
-        tstApellido = new TST<Congresistas>();
-        tstEdad = new TST<Congresistas>();
-        tstCiudad = new TST<Congresistas>();
-        tstEstado = new TST<Congresistas>();
-        tstPartido = new TST<Congresistas>();
+        tstNombre = new TST<Congresista>();
+        tstApellido = new TST<Congresista>();
+        tstEdad = new TST<Congresista>();
+        tstCiudad = new TST<Congresista>();
+        tstEstado = new TST<Congresista>();
+        tstPartido = new TST<Congresista>();
     }
-    private void agregarEnTsts(Congresista con) {
-        Congresistas a = tstNombre.insertarSinExc(con.obtNombre(), new Congresistas(con));
-        if (a.size() > 1) a.insertar(con);
-        Congresistas b = tstApellido.insertarSinExc(con.obtApellido(), new Congresistas(con));
-        if (b.size() > 1) b.insertar(con);
-        Congresistas c = tstEdad.insertarSinExc(String.valueOf(con.obtEdad()), new Congresistas(con));
-        if (c.size() > 1) c.insertar(con);
-        Congresistas d = tstCiudad.insertarSinExc(con.obtCiudad(), new Congresistas(con));
-        if (d.size() > 1) d.insertar(con);
-        Congresistas e = tstEstado.insertarSinExc(con.obtEstado(), new Congresistas(con));
-        if (e.size() > 1) e.insertar(con);
-        Congresistas f = tstPartido.insertarSinExc(con.obtPartido(), new Congresistas(con));
-        if (f.size() > 1) f.insertar(con);
+    private void agregarEnTsts(Congresista con) throws Exception {
+        tstNombre.insertar(con.obtNombre()+con.obtID(), con);
+        tstApellido.insertarSinExc(con.obtApellido() + con.obtID(), con);
+        tstEdad.insertarSinExc(String.valueOf(con.obtEdad())+con.obtID(), con);
+        tstCiudad.insertarSinExc(con.obtCiudad()+con.obtID(), con);
+        tstEstado.insertarSinExc(con.obtEstado()+con.obtID(), con);
+        tstPartido.insertarSinExc(con.obtPartido()+con.obtID(), con);
+        // if (b.size() > 1) b.insertar(con);
+        //if (c.size() > 1) c.insertar(con);
+        //if (d.size() > 1) d.insertar(con);
+        //if (e.size() > 1) e.insertar(con);
+        //if (f.size() > 1) f.insertar(con);
     }
     private void borrarEnTsts(Congresista con) throws Exception {
-        Congresistas a = tstNombre.obtener(con.obtNombre());
-        a.eliminarCongresista(con);
-        if (a.isEmpty()) tstNombre.borrar(con.obtNombre());
+        tstNombre.borrar(con.obtNombre()+con.obtID());
+        //Congresista a = tstNombre.obtener(con.obtNombre());
+        //a.eliminarCongresista(con);
+        //if (a.isEmpty()) tstNombre.borrar(con.obtNombre());
 
-        Congresistas b = tstApellido.obtener(con.obtApellido());
-        b.eliminarCongresista(con);
-        if (b.isEmpty()) tstApellido.borrar(con.obtApellido());
+        tstApellido.borrar(con.obtApellido()+con.obtID());
+        //b.eliminarCongresista(con);
+        //if (b.isEmpty()) tstApellido.borrar(con.obtApellido());
 
-        Congresistas c = tstEdad.obtener(String.valueOf(con.obtEdad()));
-        c.eliminarCongresista(con);
-        if (c.isEmpty()) tstEdad.borrar(String.valueOf(con.obtEdad()));
+        tstEdad.borrar(String.valueOf(con.obtEdad()) + con.obtID());
+       // c.eliminarCongresista(con);
+        //if (c.isEmpty()) tstEdad.borrar(String.valueOf(con.obtEdad()));
 
-        Congresistas d = tstCiudad.obtener(con.obtCiudad());
-        d.eliminarCongresista(con);
-        if (d.isEmpty()) tstCiudad.borrar(con.obtCiudad());
+        tstCiudad.obtener(con.obtCiudad()+con.obtID());
+        //d.eliminarCongresista(con);
+        //if (d.isEmpty()) tstCiudad.borrar(con.obtCiudad());
 
-        Congresistas e = tstEstado.obtener(con.obtEstado());
-        e.eliminarCongresista(con);
-        if (e.isEmpty()) tstEstado.obtener(con.obtEstado());
+        tstEstado.borrar(con.obtEstado() + con.obtID());
+        //e.eliminarCongresista(con);
+        //if (e.isEmpty()) tstEstado.obtener(con.obtEstado());
 
-        Congresistas f = tstPartido.obtener(con.obtPartido());
-        f.eliminarCongresista(con);
-        if (f.isEmpty()) tstPartido.borrar(con.obtPartido());
+        tstPartido.obtener(con.obtPartido()+con.obtID());
+        //f.eliminarCongresista(con);
+        //if (f.isEmpty()) tstPartido.borrar(con.obtPartido());
     }
     /** TODO testear */
     public void agregarCongresista(Congresista c) throws Exception {
@@ -185,6 +185,7 @@ public class Congreso {
         reiniciarCaches();
     }
     //Modificadoras
+    /*
     public void modDniCongresista(Dni dni, Dni dniNuevo) throws Exception {
         if (!dni.equals(dniNuevo)) {
             tst.modificar(dni.toString(), dniNuevo.toString());
@@ -192,7 +193,6 @@ public class Congreso {
             reiniciarCaches();
         }
     }
-
     public void modNombreCongresista(Dni dni,String nombre) throws Exception {
         tst.obtener(dni.toString()).modNombre(nombre);
         reiniciarCaches();
@@ -216,7 +216,7 @@ public class Congreso {
     public void modPartidoCongresista(Dni dni,String partido) throws Exception {
         tst.obtener(dni.toString()).modPartido(partido);
         reiniciarCaches();
-    }
+    }*/
     public void modCongresista(Dni dni,Dni dniNuevo , String nombre, String apellido,
                                int edad, String ciudad, String estado, String partido) throws  Exception{
         if (!dni.equals(dniNuevo)) {
@@ -238,57 +238,33 @@ public class Congreso {
             tst.modificar(original.obtDni().toString(), nuevo.obtDni().toString());
             tst.obtener(nuevo.obtDni().toString()).mod(nuevo.obtDni(), nuevo.obtNombre(), nuevo.obtApellido(), nuevo.obtEdad(), nuevo.obtCiudad(), nuevo.obtEstado(), nuevo.obtPartido());
             if (!original.obtNombre().equals(nuevo.obtNombre())) {
-                //print("he entrado en nombre");
-                Congresistas a = tstNombre.obtener(original.obtNombre());
-                a.eliminarCongresista(nuevo);
-                if (a.isEmpty()) tstNombre.borrar(original.obtNombre());
-                Congresistas aa = tstNombre.insertarSinExc(nuevo.obtNombre(), new Congresistas(nuevo));
-                if (a.size() > 1) a.insertar(nuevo);
+                tstNombre.borrar(original.obtNombre()+original.obtID());
+                tstNombre.insertar(nuevo.obtNombre()+nuevo.obtID(),nuevo);
 
             }
             if (!original.obtApellido().equals(nuevo.obtApellido())) {
-                //print("he entrado en apellido");
-                Congresistas b = tstApellido.obtener(original.obtApellido());
-                b.eliminarCongresista(nuevo);
-                if (b.isEmpty()) tstApellido.borrar(original.obtApellido());
-                Congresistas bb = tstApellido.insertarSinExc(nuevo.obtApellido(), new Congresistas(nuevo));
-                if (b.size() > 1) b.insertar(nuevo);
+                tstApellido.borrar(original.obtApellido()+original.obtID());
+                tstApellido.insertar(nuevo.obtApellido()+nuevo.obtID(),nuevo);
 
             }
             if (original.obtEdad() != nuevo.obtEdad()) {
-                //print("he entrado en edad "+nuevo.obtEdad()+" edad orig "+original.obtEdad());
-                Congresistas c = tstEdad.obtener(String.valueOf(original.obtEdad()));
-                c.eliminarCongresista(nuevo);
-                if (c.isEmpty()) tstEdad.borrar(String.valueOf(original.obtEdad()));
-                Congresistas cc = tstEdad.insertarSinExc(String.valueOf(nuevo.obtEdad()), new Congresistas(nuevo));
-                if (c.size() > 1) c.insertar(nuevo);
+                tstEdad.borrar(original.obtEdad()+original.obtID());
+                tstEdad.insertar(nuevo.obtEdad()+nuevo.obtID(),nuevo);
 
             }
             if (!original.obtCiudad().equals(nuevo.obtCiudad())) {
-                //print("he entrado en ciudad");
-                Congresistas d = tstCiudad.obtener(original.obtCiudad());
-                d.eliminarCongresista(nuevo);
-                if (d.isEmpty()) tstCiudad.borrar(original.obtCiudad());
-                Congresistas dd = tstCiudad.insertarSinExc(nuevo.obtCiudad(), new Congresistas(nuevo));
-                if (d.size() > 1) d.insertar(nuevo);
+                tstCiudad.borrar(original.obtCiudad()+original.obtID());
+                tstCiudad.insertar(nuevo.obtCiudad()+nuevo.obtID(),nuevo);
 
             }
             if (!original.obtEstado().equals(nuevo.obtEstado())) {
-                //print("he entrado en estado");
-                Congresistas e = tstEstado.obtener(original.obtEstado());
-                e.eliminarCongresista(nuevo);
-                if (e.isEmpty()) tstEstado.obtener(original.obtEstado());
-                Congresistas ee = tstEstado.insertarSinExc(nuevo.obtEstado(), new Congresistas(nuevo));
-                if (e.size() > 1) e.insertar(nuevo);
+                tstEstado.borrar(original.obtEstado()+original.obtID());
+                tstEstado.insertar(nuevo.obtEstado()+nuevo.obtID(),nuevo);
 
             }
             if (!original.obtPartido().equals(nuevo.obtPartido())) {
-                //print("he entrado en partido");
-                Congresistas f = tstPartido.obtener(original.obtPartido());
-                f.eliminarCongresista(nuevo);
-                if (f.isEmpty()) tstPartido.borrar(original.obtPartido());
-                Congresistas ff = tstPartido.insertarSinExc(nuevo.obtPartido(), new Congresistas(nuevo));
-                if (f.size() > 1) f.insertar(nuevo);
+                tstPartido.borrar(original.obtPartido()+original.obtID());
+                tstPartido.insertar(nuevo.obtPartido()+nuevo.obtID(),nuevo);
 
             }
             reiniciarCaches();
@@ -299,67 +275,36 @@ public class Congreso {
             //print(nuevo.toString());
             tst.obtener(original.obtDni().toString()).mod(nuevo.obtNombre(), nuevo.obtApellido(), nuevo.obtEdad(), nuevo.obtCiudad(), nuevo.obtEstado(), nuevo.obtPartido());
             if (!original.obtNombre().equals(nuevo.obtNombre())) {
-                //print("he entrado en nombre");
-                Congresistas a = tstNombre.obtener(original.obtNombre());
-                a.eliminarCongresista(nuevo);
-                if (a.isEmpty()) tstNombre.borrar(original.obtNombre());
-                Congresistas aa = tstNombre.insertarSinExc(nuevo.obtNombre(), new Congresistas(nuevo));
-                if (a.size() > 1) a.insertar(nuevo);
-
+                tstNombre.borrar(original.obtNombre()+original.obtID());
+                tstNombre.insertar(nuevo.obtNombre()+nuevo.obtID(),nuevo);
             }
             if (!original.obtApellido().equals(nuevo.obtApellido())) {
-                print("he entrado en apellido");
-                Congresistas b = tstApellido.obtener(original.obtApellido());
-                b.eliminarCongresista(nuevo);
-                if (b.isEmpty()) tstApellido.borrar(original.obtApellido());
-                Congresistas bb = tstApellido.insertarSinExc(nuevo.obtApellido(), new Congresistas(nuevo));
-                if (b.size() > 1) b.insertar(nuevo);
-
+                tstApellido.borrar(original.obtApellido()+original.obtID());
+                tstApellido.insertar(nuevo.obtApellido()+nuevo.obtID(),nuevo);
             }
             if (original.obtEdad() != nuevo.obtEdad()) {
-                //print("he entrado en edad");
-                //print("he entrado en edad "+nuevo.obtEdad()+" edad orig "+original.obtEdad());
-                Congresistas c = tstEdad.obtener(String.valueOf(original.obtEdad()));
-                //print(c.obtDatos()+"");
-                c.eliminarCongresista(nuevo);
-                if (c.isEmpty()) tstEdad.borrar(String.valueOf(original.obtEdad()));
-                Congresistas cc = tstEdad.insertarSinExc(String.valueOf(nuevo.obtEdad()), new Congresistas(nuevo));
-                if (c.size() > 1) c.insertar(nuevo);
+                tstEdad.borrar(original.obtEdad()+original.obtID());
+                tstEdad.insertar(nuevo.obtEdad()+nuevo.obtID(),nuevo);
 
             }
             if (!original.obtCiudad().equals(nuevo.obtCiudad())) {
-                //print("he entrado en ciudad");
-                Congresistas d = tstCiudad.obtener(original.obtCiudad());
-                d.eliminarCongresista(nuevo);
-                if (d.isEmpty()) tstCiudad.borrar(original.obtCiudad());
-                Congresistas dd = tstCiudad.insertarSinExc(nuevo.obtCiudad(), new Congresistas(nuevo));
-                if (d.size() > 1) d.insertar(nuevo);
+                tstCiudad.borrar(original.obtCiudad()+original.obtID());
+                tstCiudad.insertar(nuevo.obtCiudad()+nuevo.obtID(),nuevo);
 
             }
             if (!original.obtEstado().equals(nuevo.obtEstado())) {
-                //print("he entrado en estado");
-                Congresistas e = tstEstado.obtener(original.obtEstado());
-                e.eliminarCongresista(nuevo);
-                if (e.isEmpty()) tstEstado.obtener(original.obtEstado());
-                Congresistas ee = tstEstado.insertarSinExc(nuevo.obtEstado(), new Congresistas(nuevo));
-                if (e.size() > 1) e.insertar(nuevo);
+                tstEstado.borrar(original.obtEstado()+original.obtID());
+                tstEstado.insertar(nuevo.obtEstado()+nuevo.obtID(),nuevo);
 
             }
             if (!original.obtPartido().equals(nuevo.obtPartido())) {
-                //print("he entrado en partido");
-                Congresistas f = tstPartido.obtener(original.obtPartido());
-                f.eliminarCongresista(nuevo);
-                if (f.isEmpty()) tstPartido.borrar(original.obtPartido());
-                Congresistas ff = tstPartido.insertarSinExc(nuevo.obtPartido(), new Congresistas(nuevo));
-                if (f.size() > 1) f.insertar(nuevo);
+                tstPartido.borrar(original.obtPartido()+original.obtID());
+                tstPartido.insertar(nuevo.obtPartido()+nuevo.obtID(),nuevo);
 
             }
             reiniciarCaches();
         }
     }
-
-
-
 
     private TSTIterator desplazarIterador(int bloq, int tam){
         // Rellenar con los iteradores de todos los bloques.
@@ -386,9 +331,86 @@ public class Congreso {
         }
         return a;
     }
+    private TSTIterator desplazarIteradorUniversal(TST<Congresista> t, ArrayList<TSTIterator> cache,int bloq, int tam){
+        if (cache.isEmpty()){
+            TSTIterator res = new TSTIterator(t);
+            int lim = (size()-1)/tam;
+            for(int i = 0; i <= lim; ++i){
+                cache.add(new TSTIterator(res));
+                int j = 0;
+                while (res.hasNext() && j++<tam) res.next();
+            }
+            //print("Tam cache congr: "+Cache.size());
+        }
+        return new TSTIterator(cache.get(bloq));
+    }
 
-
-
+    public ArrayList<Congresista> obtCongresoNombre(int bloq, int tam) {
+        TSTIterator aux = desplazarIteradorUniversal(tstNombre,CacheNombre, bloq, tam);
+        int i = 0;
+        ArrayList<Congresista> a = new ArrayList<Congresista>();
+        while ( aux.hasNext() && i < tam) {
+            Congresista an = (Congresista)aux.next();
+            a.add(an);
+            ++i;
+        }
+        return a;
+    }
+    public ArrayList<Congresista> obtCongresoApellido(int bloq, int tam) {
+        TSTIterator aux = desplazarIteradorUniversal(tstApellido,CacheApellido, bloq, tam);
+        int i = 0;
+        ArrayList<Congresista> a = new ArrayList<Congresista>();
+        while ( aux.hasNext() && i < tam) {
+            Congresista an = (Congresista)aux.next();
+            a.add(an);
+            ++i;
+        }
+        return a;
+    }
+    public ArrayList<Congresista> obtCongresoEdad(int bloq, int tam) {
+        TSTIterator aux = desplazarIteradorUniversal(tstEdad,CacheEdad, bloq, tam);
+        int i = 0;
+        ArrayList<Congresista> a = new ArrayList<Congresista>();
+        while ( aux.hasNext() && i < tam) {
+            Congresista an = (Congresista)aux.next();
+            a.add(an);
+            ++i;
+        }
+        return a;
+    }
+    public ArrayList<Congresista> obtCongresoCiudad(int bloq, int tam) {
+        TSTIterator aux = desplazarIteradorUniversal(tstCiudad,CacheCiudad, bloq, tam);
+        int i = 0;
+        ArrayList<Congresista> a = new ArrayList<Congresista>();
+        while ( aux.hasNext() && i < tam) {
+            Congresista an = (Congresista)aux.next();
+            a.add(an);
+            ++i;
+        }
+        return a;
+    }
+    public ArrayList<Congresista> obtCongresoEstado(int bloq, int tam) {
+        TSTIterator aux = desplazarIteradorUniversal(tstEstado,CacheEstado, bloq, tam);
+        int i = 0;
+        ArrayList<Congresista> a = new ArrayList<Congresista>();
+        while ( aux.hasNext() && i < tam) {
+            Congresista an = (Congresista)aux.next();
+            a.add(an);
+            ++i;
+        }
+        return a;
+    }
+    public ArrayList<Congresista> obtCongresoPartido(int bloq, int tam) {
+        TSTIterator aux = desplazarIteradorUniversal(tstPartido,CachePartido, bloq, tam);
+        int i = 0;
+        ArrayList<Congresista> a = new ArrayList<Congresista>();
+        while ( aux.hasNext() && i < tam) {
+            Congresista an = (Congresista)aux.next();
+            a.add(an);
+            ++i;
+        }
+        return a;
+    }
 
     //Consultoras
     public Congresista consultarCongresista(Dni dni) throws Exception {

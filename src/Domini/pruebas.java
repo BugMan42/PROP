@@ -32,7 +32,7 @@ public class pruebas {
             //testRandomCongreso(1000000);
             //testDNI(100000000);
             //testcc();
-           // testBloques1();
+            //testBloques();
             //testGrafo();;
             //testCP();
             /*
@@ -201,41 +201,45 @@ public class pruebas {
 
     private static void testsCaches() throws Exception {
         Congresista C1 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
-        Congresista C11 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 86, "SanFrancisco", "NT", "Berkeley");
+        Congresista C11 = new Congresista(new Dni("00000001A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
+        Congresista C111 = new Congresista(new Dni("00000011A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
+        //Congresista C11 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 86, "SanFrancisco", "NT", "Berkeley");
         Congresista C2 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "SanFrancisco", "NT", "Berkeley");
-        //Congresista C3 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
-        //Congresista C4 = new Congresista(new Dni("00000000D"), "Max", "Newman", 87, "Chealsea", "LO", "Democrata");
-        //Congresista C5 = new Congresista(new Dni("00000000E"), "Allen", "Newll", 65, "San Francisco", "SF", "Pirata");
-        //Congresista C6 = new Congresista(new Dni("00000000F"), "Jon-Von", "Neumann", 53, "Budapest", "AU", "Pirata");
-        //Congresista C7 = new Congresista(new Dni("00000000G"), "Alan", "Turing", 41, "London", "LO", "Liberal");
+        Congresista C3 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
+        Congresista C4 = new Congresista(new Dni("00000000D"), "Max", "Newman", 87, "Chealsea", "LO", "Democrata");
+        Congresista C5 = new Congresista(new Dni("00000000E"), "Allen", "Newll", 65, "San Francisco", "SF", "Pirata");
+        Congresista C6 = new Congresista(new Dni("00000000F"), "Jon-Von", "Neumann", 53, "Budapest", "AU", "Pirata");
+        Congresista C7 = new Congresista(new Dni("00000000G"), "Alan", "Turing", 41, "London", "LO", "Liberal");
         Congreso a = new Congreso();
         //for (int i = 0; i < 10; ++i) a.agregarCongresistaRandom();
         a.agregarCongresista(C1);
+        a.agregarCongresista(C11);
+        a.agregarCongresista(C111);
         a.agregarCongresista(C2);
-        a.modCongresista(C1,C11);
-        //a.agregarCongresista(C3);
-        //a.agregarCongresista(C4);
-        //a.agregarCongresista(C5);
-        //a.agregarCongresista(C6);
-        //a.agregarCongresista(C7);
+        a.agregarCongresista(C3);
+        a.agregarCongresista(C4);
+        a.agregarCongresista(C5);
+        a.agregarCongresista(C6);
+        a.agregarCongresista(C7);
 
-        print(a.obtenerListaID() + "");
-        print(a.obtenerListaNombre() + "");
-        print(a.obtenerListaApellido() + "");
-        print(a.obtenerListaEdad() + "");
-        print(a.obtenerListaCiudad() + "");
-        print(a.obtenerListaEstado() + "");
-        print(a.obtenerListaPartido() + "");
+        print(a.obtenerListaID().size() + "");
+        print(a.obtenerListaNombre().size() + "");
+        print(a.obtenerListaApellido().size() + "");
+        print(a.obtenerListaEdad().size() + "");
+        print(a.obtenerListaCiudad().size() + "");
+        print(a.obtenerListaEstado().size() + "");
+        print(a.obtenerListaPartido().size() + "");
 
     }
 
     private static void testBloques() {
         Congreso a = new Congreso();
-        for (int i = 0; i < 100; ++i) a.agregarCongresistaRandom();
+        for (int i = 0; i < 20; ++i) a.agregarCongresistaRandom();
+        //print(a.obtenerListaNombre()+"");
         List<Congresista> aux = a.obtenerCongreso();
-        List<Congresista> auxx = a.obtCongreso(0, 100);
-        for (int i = 0; i < aux.size(); ++i) {
-            print(aux.get(i).obtID() +" ---> "+auxx.get(i).obtDni());
+        List<Congresista> auxx = a.obtCongresoNombre(0, 20);
+        for (int i = 0; i < auxx.size(); ++i) {
+            print(aux.get(i).obtNombre() +" ---> "+auxx.get(i).obtNombre());
         }
         print(a.obtenerListaID()+"");
     }

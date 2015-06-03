@@ -7,96 +7,7 @@ import java.util.ArrayList;
 
 //String key tiene que ser [a---z]+[A----Z]+[0---9]
 // y no puede ser vacia
-public class TST<X> implements Iterable<X> {
-    //ArrayList
-    @Override
-    public Iterator<X> iterator() {
-        return null;
-    }
-
-    /*public class TSTIterator {
-        Stack<TSTNodoChar> stack;
-
-        public TSTIterator(TST tst) {
-            stack = new Stack<TSTNodoChar>();
-            TSTNodoChar aux = tst.root;
-            boolean seguir = true;
-            while (seguir) {
-                stack.push(aux);
-                if (aux.left == null) aux = (TSTNodoChar)aux.middle;
-                else aux = (TSTNodoChar) aux.left;
-                if (aux.valor == fin) {
-                    seguir = false;
-                    stack.push(aux);
-                }
-            }
-        }
-
-        public boolean hasNext() {
-            return !stack.isEmpty();
-        }
-
-        public X next() {
-            TSTNodoChar node = stack.pop();
-            TSTNodoFinal aux = (TSTNodoFinal)node.middle;
-            X x = aux.valor;
-            if (node.right != null) {
-               // node = node.right;
-                while (node != null) {
-                    stack.push(node);
-                    //node = node.left;
-                }
-            }
-            return x;
-        }
-    }
-
-    /*@Override
-    public boolean hasNext() {
-        if (position < animal.size())
-            return true;
-        else
-            return false;
-    }
-
-    @Override
-    public X next() {
-        //Object aniObj = animal.get(position);
-        //position++;
-        return X;
-    }
-*/
-    /*
-    //Nodos necesarios internos de la clase
-    private class TSTNodo {
-        public TSTNodo left, middle, right;
-
-        public TSTNodo() {
-            left = null;
-            middle = null;
-            right = null;
-        }
-    }
-
-    private class TSTNodoChar extends TSTNodo {
-        char valor;
-        public TSTNodoChar(char Valor) {
-            super();
-            valor = Valor;
-        }
-
-    }
-
-    private class TSTNodoFinal extends TSTNodo {
-        private X valor;
-        public TSTNodoFinal(X x) {
-            super();
-            valor = x;
-        }
-        public void modificar(X x) {
-            valor = x;
-        }
-    }*/
+public class TST<X>  {
 
     //Clase
 
@@ -515,8 +426,7 @@ public class TST<X> implements Iterable<X> {
             imprimir(r.right, word, v);
         }
     }
-    //Utilizamos una lista inmodificable para
-    //asegurarnos que no nos pueden modificar nada
+    //Utilizamos una lista  para
     public List<X> consultarObjetos() {
         List<X> v = new ArrayList<X>();
         imprimir2(root, "", v);

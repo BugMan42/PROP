@@ -28,7 +28,6 @@ public class Dni  {
     public Dni(Dni a) {
         dni = a.dni;
     }
-
     public Dni() {
        dni =  generarRandom2();
        // else dni += String.valueOf(rand.nextInt(10));
@@ -53,22 +52,19 @@ public class Dni  {
         dni2 += (char) ('A'+ rand.nextInt(26));
         return dni2;
     }
-
     public void cambiarLetra(char l) throws Exception {
         if (!Character.isLetter(l)) throw new Exception("l tiene que ser una letra");
         dni = dni.substring(0, dni.length()-1);
         dni += l;
         dni.toUpperCase();
     }
-
     private String trad(String d) {
         if (java.lang.Character.isLowerCase(d.charAt(8))) {
             d = d.toUpperCase();
         }
         return d;
     }
-
-    void modDni(String s) throws Exception {
+    public void modDni(String s) throws Exception {
         if (valido(s)) {
             dni = trad(s);
         }
@@ -83,15 +79,12 @@ public class Dni  {
         }
         return Character.isLetter(d.charAt(8));
     }
-
     public String toString() {
         return dni;
     }
-
     public boolean equals(Dni D) {
         return D.dni.equals(dni);
     }
-
     public void print(String str) {
         System.out.println(str);
     }

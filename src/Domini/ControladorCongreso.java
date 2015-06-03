@@ -413,6 +413,55 @@ public class ControladorCongreso {
             res += co.toString() + sep;
         return res;
     }
+    public String obtBloqueDNI(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongreso(bloque, tam_bloque);
+        String res = "";
+        for (Congresista co: con)
+            res += co.toString() + sep;
+        return res;
+    }
+    public String obtBloqueNombre(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoNombre(bloque, tam_bloque);
+        String res = "";
+        for (Congresista co: con)
+            res += co.toString() + sep;
+        return res;
+    }
+    public String obtBloqueApellido(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoApellido(bloque, tam_bloque);
+        String res = "";
+        for (Congresista co: con)
+            res += co.toString() + sep;
+        return res;
+    }
+    public String obtBloqueEdad(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoEdad(bloque, tam_bloque);
+        String res = "";
+        for (Congresista co: con)
+            res += co.toString() + sep;
+        return res;
+    }
+    public String obtBloqueCiudad(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoCiudad(bloque, tam_bloque);
+        String res = "";
+        for (Congresista co: con)
+            res += co.toString() + sep;
+        return res;
+    }
+    public String obtBloqueEstado(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoEstado(bloque, tam_bloque);
+        String res = "";
+        for (Congresista co: con)
+            res += co.toString() + sep;
+        return res;
+    }
+    public String obtBloquePartido(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoPartido(bloque, tam_bloque);
+        String res = "";
+        for (Congresista co: con)
+            res += co.toString() + sep;
+        return res;
+    }
 
     //1 bloque = 1 string
     //def bloques de 100 strings

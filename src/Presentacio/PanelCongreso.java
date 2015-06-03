@@ -20,7 +20,6 @@ public class PanelCongreso extends PanelLista {
     CPCongreso CPC;
     boolean t;
     private Boolean[] vError;
-    //CPRelaciones cpr;
 
     AbstractListModel<String> bigData;
     JFileChooser choosersave;
@@ -63,18 +62,9 @@ public class PanelCongreso extends PanelLista {
         CPC = c;
         // Inicializa los componentes de la ventana
         iniComp();
-        createjlist();
-        //updatejlist();
+        updateJList(0);
         iniFont();
         initGUI();
-
-    }
-
-    public PanelCongreso() {
-
-        super();
-        // Inicializa los componentes de la ventana
-        //initUI();
 
     }
     private void iniFont() {
@@ -358,7 +348,7 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
-        SpinnerNum.setModel(new SpinnerNumberModel(1, 1, 10000000, 1));
+        SpinnerNum.setModel(new SpinnerNumberModel(1, 1, 50000000, 1));
         //SpinnerNum.setModel(new SpinnerNumberModel(new SpinnerNumberModel(5.0, 0.0, 9.0, 1.0));
 
 
@@ -390,15 +380,10 @@ public class PanelCongreso extends PanelLista {
 
         //Obtenemos el SplitPanel de la clase padre y le asignamos el panel a la parte rightecha
         obtSp().setRightComponent(right);
-
-
         //GroupLayout gr = new GroupLayout(right);
         //right.setLayout(gr);
         //gr.setAutoCreateGaps(true);
         //gr.setAutoCreateContainerGaps(true);
-
-
-
         //TODO
         GroupLayout layout = new GroupLayout(right);
         right.setLayout(layout);
@@ -501,132 +486,25 @@ public class PanelCongreso extends PanelLista {
                                         .addComponent(bGuardarCongreso))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lError, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29))
-        );
-       /*
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(lError)
-                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lParty, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(textCity, GroupLayout.Alignment.LEADING)
-                                        .addComponent(lCity, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(textDni, GroupLayout.Alignment.LEADING)
-                                        .addComponent(lDni, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(textName, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                                        .addComponent(lName, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(textParty, GroupLayout.Alignment.LEADING))
-                                .addGap(14, 14, 14)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(textState)
-                                        .addComponent(filler1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lState, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lSurname, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(bClear, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(textAge, GroupLayout.Alignment.LEADING)
-                                                        .addComponent(textSurname, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                                                        .addComponent(lAge, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addGap(2, 2, 2))))
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addComponent(bCargarCongreso, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(SpinnerNum)
-                                        .addComponent(bModificarCongresista, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(bAgregarCongresista, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(bEliminarCongresista, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(bEliminarCongreso, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(bGuardarCongreso, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(bAgregarRandom, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lName, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lSurname))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(textName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(textSurname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lDni)
-                                        .addComponent(lAge))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(textDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(textAge, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lCity)
-                                        .addComponent(lState))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(textCity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(textState, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lParty)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(textParty, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(bClear))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(filler1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                                .addComponent(lError, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(bAgregarCongresista)
-                                        .addComponent(bEliminarCongresista))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(bModificarCongresista)
-                                        .addComponent(bEliminarCongreso))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(bAgregarRandom)
-                                        .addComponent(SpinnerNum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(bCargarCongreso)
-                                        .addComponent(bGuardarCongreso))
-                                .addGap(30, 30, Short.MAX_VALUE))
-        );*/
-
-    }// </editor-fold>
+                                .addGap(29, 29, 29)));
+    }
 
     private boolean checkStart(JTextField aux) {
         String saux = aux.getText();
         int n = saux.length();
         return saux.equals("") || saux.charAt(0) == ' ' ;
     }
-
     private void clearText(JTextField aux) {
         if (!aux.getText().equals("") && aux.getText().charAt(0) == 'I') aux.setText("");
     }
-
-
     private void print(String str) {
         System.out.println(str);
     }
-
     private void bClearActionPerformed(java.awt.event.ActionEvent evt) {
         setDefaultText();
         jlist.clearSelection();
     }
-
     private void bAgregarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
         emptyLError();
         if (validarTodo()) {
             try {
@@ -655,8 +533,6 @@ public class PanelCongreso extends PanelLista {
         else aux2 = aux.getText();
         return aux2;
     }
-
-
     private void bEliminarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         if (jlist.isSelectionEmpty()) {
@@ -719,8 +595,6 @@ public class PanelCongreso extends PanelLista {
                     setMsg("Congresista modificado satisfactoriamente");
                     ListUpdate();
                     //print("Todavia no ha petado");
-
-
                 }
                 catch (NumberFormatException a) {
                     setError("La edad tiene que ser un número > 0");
@@ -732,8 +606,6 @@ public class PanelCongreso extends PanelLista {
         }
 
     }
-
-
     private void bEliminarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         setDefaultText();
@@ -746,35 +618,18 @@ public class PanelCongreso extends PanelLista {
             setError("No hay Congresistas");
         }
     }
-
     private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         try {
-            //long tini = System.currentTimeMillis();
-            long timeini = System.nanoTime();
-            //print("antes de agregar");
+            //long timeini = System.nanoTime();
             Integer n = (Integer)SpinnerNum.getValue();
-            //print("AGREGAR RANDOM");
             CPC.agregarCongresistaRandom(n);
-            //print
-            //BigData aux = (BigData) listCongreso.getModel();
-            //aux.update(0);
-            //print(listCongreso.getFirstVisibleIndex() + " first index");
-            //print(listCongreso.getLastVisibleIndex()+" last index");
-            //createjlist();
-            //listCongreso.update
-            //updatejlist();
             ListUpdate();
-            print((System.nanoTime() - timeini) / 1000000000.0 + "");
-            //print(String.valueOf("Tiempo agregar : " + (System.currentTimeMillis() - tini)));
-            //print(String.valueOf("Tiempo agregar total: " + (System.currentTimeMillis() - tini)));
-            //print(listCongreso.getLastVisibleIndex() + "last index");
-            // print(listCongreso.getFirstVisibleIndex()+"last index");
+            //print((System.nanoTime() - timeini) / 1000000000.0 + "");
         } catch (Exception a) {
             setError(a.getMessage());
         }
     }
-
     private void bCargarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         int returnVal = chooserload.showOpenDialog(this);
@@ -787,7 +642,6 @@ public class PanelCongreso extends PanelLista {
             ListUpdate();
         }
     }
-
     private void bGuardarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         emptyLError();
@@ -804,27 +658,10 @@ public class PanelCongreso extends PanelLista {
         }
         ListUpdate();
     }
-
     public void ListUpdate() {
-        //String a[] = {"No hay Congresistas"};
-        //updatejlist();
-        //if (CPC.obtCC().esVacio()) listCongreso.setListData(a);
-       // else {
-        //long tini=System.currentTimeMillis();
-            //print(tini+"");
-            //print("antes de update UI");
-            //listCongreso.updateUI();
-            createjlist();
-            //updatejlist();
-
-            // ListModel<String> aux = listCongreso.getModel();
-            //ArrayList<String> aux = CPC.obtCC().obtenerCongresoTotal();
-            //print("hacemos update");
-            //listCongreso.setListData(CPC.obtCC().obtenerCongresoTotal().toArray());
-            //print("fin");
-        //print(String.valueOf("Tiempo update UI: "+(System.currentTimeMillis()-tini)));
-
-        //}
+        //print(boxSort.getSelectedIndex()+"");
+        updateJList(boxSort.getSelectedIndex());
+            //createjlist();
     }
     public void setDefaultText() {
         defColorText(Color.GRAY);
@@ -888,52 +725,6 @@ public class PanelCongreso extends PanelLista {
     }
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt)    {
-        /*try {
-            //print("YOLO");
-           // print(boxSearch.getSelectedIndex()+"");
-            /*if (t) {
-                t = false;
-                labelStatus.setVisible(true);
-            } else {
-                t = true;
-                labelStatus.setVisible(false);
-            }*/
-        /*
-            switch (boxSearch.getSelectedIndex()) {
-                case 0:
-                    CPC.searchByDni(textSearch.getText());
-                    ListUpdateBusqueda();
-                    break;
-                case 1:
-                    CPC.searchByName(textSearch.getText());
-                    ListUpdateBusqueda();
-                    break;
-                case 2:
-                    CPC.searchBySurName(textSearch.getText());
-                    ListUpdateBusqueda();
-                    break;
-                case 3:
-                    CPC.searchByAge(Integer.parseInt(textSearch.getText()));
-                    ListUpdateBusqueda();
-                    break;
-                case 4:
-                    CPC.searchByCity(textSearch.getText());
-                    ListUpdateBusqueda();
-                    break;
-                case 5:
-                    CPC.searchByState(textSearch.getText());
-                    ListUpdateBusqueda();
-                    break;
-
-                case 6:
-                    CPC.searchByParty(textSearch.getText());
-                    ListUpdateBusqueda();
-                    break;
-            }
-        }catch (Exception a) {
-            labelStatus.setVisible(true);
-            labelStatus.setText(a.getMessage());
-        }*/
         try {
             HardWorker op = new HardWorker();
             op.doInBackground();
@@ -951,8 +742,6 @@ public class PanelCongreso extends PanelLista {
             listCongreso.setListData(aux.toArray());
         }
     }
-    //Modifcar para buscar, guardar como quieras
-    //protected abstract void boxSearchActionPerformed(ActionEvent evt);
     protected void setBoxSort() {
         boxSort.setModel(new DefaultComboBoxModel(new String[]{"Orden Dni", "por Nombre", "por Apellido", "por Edad", "por Ciudad", "por Estado", "por Partido"}));
         boxSort.setToolTipText(" Ordenar ");
@@ -988,10 +777,8 @@ public class PanelCongreso extends PanelLista {
         }
 
     }
-
     private final class HardWorker extends SwingWorker<Void, Void> {
         @Override  protected Void doInBackground() throws Exception {
-            //try {
                 switch (boxSearch.getSelectedIndex()) {
                     case 0:
                         CPC.searchByDni(textSearch.getText());
@@ -1022,49 +809,7 @@ public class PanelCongreso extends PanelLista {
                         ListUpdateBusqueda();
                         break;
                 }
-            //}
-            /*catch (Exception a) {
-                labelStatus.setVisible(true);
-                labelStatus.setText(a.getMessage());
-            }*/
             return null;
-        }
-        @Override protected void done() {
-            try {
-                //get the data fetched above, in doInBackground()
-               // List<Quote> quotes = get();
-                if (true) {
-                   // showUpdated(quotes);
-                }
-                else {
-                    //fSummaryView.showStatusMessage("Failed - Please connect to the web.");
-                }
-            }
-            catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-    private final class HardRandom extends SwingWorker<Void, Void> {
-        @Override  protected Void doInBackground() throws Exception {
-            Integer n = (Integer)SpinnerNum.getValue();
-            CPC.obtCC().agregarCongresistaRandom(n);
-            return null;
-        }
-        @Override protected void done() {
-            try {
-                //get the data fetched above, in doInBackground()
-                // List<Quote> quotes = get();
-                if (true) {
-                    // showUpdated(quotes);
-                }
-                else {
-                    //fSummaryView.showStatusMessage("Failed - Please connect to the web.");
-                }
-            }
-            catch (Exception ex) {
-                ex.printStackTrace();
-            }
         }
     }
     private boolean validarTodo() {
@@ -1132,7 +877,6 @@ public class PanelCongreso extends PanelLista {
         textState.setForeground(aux);
         textParty.setForeground(aux);
     }
-
     private void cargarFilechoser() {
         chooserload = new JFileChooser();
         choosersave = new JFileChooser();
@@ -1173,65 +917,43 @@ public class PanelCongreso extends PanelLista {
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
     }
-
-
-    class BigData<String> extends AbstractListModel<java.lang.String>
-    {
-        public int getSize() {
-            if (CPC.size() == 0) return 1;
-            else return CPC.size();
-        }
-        public java.lang.String getElementAt(int index) {
-            if (CPC.size() == 0) return "No hay Congresistas";
-            //else if (indexisOutOfBounds(index)) return ""
-            print("index: " + index);
-            return CPC.obtCongresista(index);
-            //return "Index " + index;
-        }
-        protected void fireContentsChanged(Object source, int index0, int index1) {
-            for (int i = index0; i < index1; ++i) update(i);
-        }
-        public void update(int index)
-        {
-            fireContentsChanged(this, index, index);
-        }
-    }
     private void createjlist() {
-        //print("dentro de update");
         bigData = new AbstractListModel<String>() {
             public int getSize() {
                 if (CPC.size() == 0) return 1;
                 else{
-                    setMsg(CPC.size()+"");
+                    //setMsg(CPC.size()+"");
                     return CPC.size();
                 }
             }
             public String getElementAt(int index) {
                 if (CPC.size() == 0) return "No hay Congresistas";
-                //else if (indexisOutOfBounds(index)) return ""
-                //print("index: "+index);
                 return CPC.obtCongresista(index);
                 //return "Index " + index;
             }
         };
-
-        listCongreso.setPrototypeCellValue("If       ");
-        //bigData = new BigData();
+        listCongreso.setPrototypeCellValue("If ----------- ");
         listCongreso.setModel(bigData);
-        //listCongreso.setListData();
-        //listCongreso.setModel(bigData);
     }
-    private void updatejlist() {
+    private void updateJList(int orden) {
+        CPC.modOrder(orden);
+       // print(CPC.obtCongresista(0));
+        bigData = new AbstractListModel<String>() {
+            public int getSize() {
+                if (CPC.size() == 0) return 1;
+                else return CPC.size();
+            }
+            public String getElementAt(int index) {
+                //print("index: "+index);
+                if (CPC.size() == 0) return "No hay Congresistas";
+                return CPC.obtCongresista(index);
+                //return "Index " + index;
+            }
+        };
+        listCongreso.setPrototypeCellValue("If ----------- ");
         listCongreso.setModel(bigData);
     }
     private boolean indexisOutOfBounds(int index) {
         return !CPC.indexVisible(index);
-
-        //}
-        //if (index >= bqarriba && index < bqarriba+99) return true;
-        //print(listCongreso.getLastVisibleIndex()+" last index");
-        //if (listCongreso.getAnchorSelectionIndex())
-
-        //return true;
     }
 }

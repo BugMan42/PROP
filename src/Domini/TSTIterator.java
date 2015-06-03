@@ -8,19 +8,8 @@ public class TSTIterator<X> extends TST{
 
     public TSTIterator(TSTIterator aux) {
         stack = new Stack<TSTNodoChar>();
-        /*for (int i = 0; i < aux.stack.size(); ++i) {
-            TSTNodoChar a = (TSTNodoChar)aux.stack.get(i);
-            stack.add(i,a);
-        }
-        for (int i = 0; i < stack.size(); ++i) {
-            TSTNodoChar a = (TSTNodoChar)stack.get(i);
-            print("i:" + i + " " + a.valor);
-        }*/
         stack.addAll(aux.stack);
         n = aux.n;
-        //printstack();
-        //print(n+"");
-        //print("i: ");
     }
     public TSTIterator(TST tst) {
         stack = new Stack<TSTNodoChar>();
@@ -36,17 +25,8 @@ public class TSTIterator<X> extends TST{
                 stack.push(aux);
             }
         }
-        //print("stack iniiiii");
-        //printstack();
-        //print(" ");
     }
 
-    /*
-    public TSTIterator(TSTIterator it){
-        stack = new Stack<TSTNodoChar>();
-        stack.addAll(it.stack);
-        n = it.n;
-    }*/
 
     public boolean hasNext() {
         return n > 0;
