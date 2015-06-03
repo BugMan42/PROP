@@ -161,14 +161,12 @@ public class CPRelaciones {
         int bloque = i/tam_bloque;
         // Comprobar si está en el primer bloque.
         if (indCon[0] == bloque){
-            int ini = bloque * tam_bloque;
-            res = bCon[0][i-ini];
+            res = bCon[0][i%tam_bloque];
             RUCon = 0;
         }
         // Si está en el segundo.
         else if (indCon[1] == bloque){
-            int ini = bloque * tam_bloque;
-            res = bCon[1][i-ini];
+            res = bCon[1][i%tam_bloque];
             RUCon = 1;
         }
         // Si no está en ninguno.
@@ -177,8 +175,7 @@ public class CPRelaciones {
             else RUCon = 1;
             indCon[RUCon] = bloque;
             bCon[RUCon] = CPC.obtCC().obtBloquePR(bloque,tam_bloque).split("\n");
-            int ini = bloque * tam_bloque;
-            res = bCon[RUCon][i-ini];
+            res = bCon[RUCon][i%tam_bloque];
         }
         return res;
     }
@@ -188,14 +185,12 @@ public class CPRelaciones {
         int bloque = i/tam_bloque;
         // Comprobar si está en el primer bloque.
         if (indEv[0] == bloque){
-            int ini = bloque * tam_bloque;
-            res = bEv[0][i-ini];
+            res = bEv[0][i%tam_bloque];
             RUEv = 0;
         }
         // Si está en el segundo.
         else if (indEv[1] == bloque){
-            int ini = bloque * tam_bloque;
-            res = bEv[1][i-ini];
+            res = bEv[1][i%tam_bloque];
             RUEv = 1;
         }
         // Si no está en ninguno.
@@ -204,8 +199,7 @@ public class CPRelaciones {
             else RUEv = 1;
             indEv[RUEv] = bloque;
             bEv[RUEv] = CPE.obtCCE().obtBloquePR(bloque,tam_bloque).split("\n");
-            int ini = bloque * tam_bloque;
-            res = bEv[RUEv][i-ini];
+            res = bEv[RUEv][i%tam_bloque];
         }
         return res;
     }
@@ -215,14 +209,12 @@ public class CPRelaciones {
         int bloque = i/tam_bloque;
         // Comprobar si está en el primer bloque.
         if (indRel[0] == bloque){
-            int ini = bloque * tam_bloque;
-            res = bRel[0][i-ini];
+            res = bRel[0][i%tam_bloque];
             RURel = 0;
         }
         // Si está en el segundo.
         else if (indRel[1] == bloque){
-            int ini = bloque * tam_bloque;
-            res = bRel[1][i-ini];
+            res = bRel[1][i%tam_bloque];
             RURel = 1;
         }
         // Si no está en ninguno.
@@ -235,8 +227,7 @@ public class CPRelaciones {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            int ini = bloque * tam_bloque;
-            res = bRel[RURel][i-ini];
+            res = bRel[RURel][i%tam_bloque];
         }
         return res;
     }
@@ -262,14 +253,12 @@ public class CPRelaciones {
         int bloque = i/tam_bloque;
         // Comprobar si está en el primer bloque.
         if (indRel[0] == bloque){
-            int ini = bloque * tam_bloque;
-            res = bRel[0][i-ini];
+            res = bRel[0][i%tam_bloque];
             RURel = 0;
         }
         // Si está en el segundo.
         else if (indRel[1] == bloque){
-            int ini = bloque * tam_bloque;
-            res = bRel[1][i-ini];
+            res = bRel[1][i%tam_bloque];
             RURel = 1;
         }
         // Si no está en ninguno.
@@ -282,8 +271,7 @@ public class CPRelaciones {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            int ini = bloque * tam_bloque;
-            res = bRel[RURel][i-ini];
+            res = bRel[RURel][i%tam_bloque];
         }
         return res;
     }
