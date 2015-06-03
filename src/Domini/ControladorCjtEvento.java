@@ -77,7 +77,7 @@ public class ControladorCjtEvento {
 
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo, ControladorRelaciones cr) throws Exception{
         if(cr.tieneRelaciones(nomViejo, fecha)) {
-            System.out.println("LLego hasta el controlador");
+            //System.out.println("LLego hasta el controlador");
             String id = ConsultarEvento(nomViejo,fecha).ID();
             ce.ModificarNombreEvento(nomViejo, new Fecha(fecha), nomNuevo);
             String new_id = ConsultarEvento(nomNuevo, fecha).ID();
@@ -156,6 +156,14 @@ public class ControladorCjtEvento {
         String res = "";
         for (Evento e: ev)
             res += e.tipo()+" "+e.obt_nombre()+" "+e.obt_fecha()+"\n";
+        return res;
+    }
+
+    public String obtBloqueP(int bloque, int tamanio) {
+        List<Evento> ev = ce.obtEventos(bloque, tamanio);
+        String res = "";
+        for (Evento e: ev)
+            res += e.toString()+"\n";
         return res;
     }
 
