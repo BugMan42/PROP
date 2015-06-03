@@ -42,10 +42,10 @@ public class DriverControladorRelaciones {
                         if(params.length!=1) throw new Exception(E1);
                         dr.print(dr.cc.obtenerCongreso().toString());
                         break;
-                    case 2:
+                    /*case 2:
                         if(params.length!=3) throw new Exception(E1);
                         dr.cc.modDniCongresista(params[1], params[2], dr.cr);
-                        break;
+                        break;*/
                     case 3:
                         if(params.length!=9) throw new Exception(E1);
                         dr.cc.modCongresista(params[1], params[2], params[3], params[4], Integer.parseInt(params[5]),

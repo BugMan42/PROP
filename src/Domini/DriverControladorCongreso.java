@@ -63,6 +63,7 @@ public class DriverControladorCongreso {
                         dcc.validar_num_params(params, 1);
                         dcc.cc.eliminarCongreso(dcc.cr);
                         break;
+                    /*
                     case 8:
                         dcc.validar_num_params(params,3);
                         dcc.cc.modNombreCongresista(params[1], params[2]);
@@ -91,6 +92,7 @@ public class DriverControladorCongreso {
                         dcc.validar_num_params(params,3);
                         dcc.cc.modDniCongresista(params[1], params[2], dcc.cr);
                         break;
+                        */
                     case 15:
                         dcc.validar_num_params(params,9);
                         dcc.cc.modCongresista(params[1], params[2], params[3], params[4], Integer.parseInt(params[5]),

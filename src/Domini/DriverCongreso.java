@@ -87,6 +87,7 @@ public class DriverCongreso {
             case 3:
                 C.eliminarCongreso();
                 break;
+            /*
             case 4:
                 if (aux.length < 3) throw new ArgumentosInsuficientes();
                 C.modDniCongresista(new Dni(aux[1]), new Dni(aux[2]));
@@ -115,6 +116,7 @@ public class DriverCongreso {
                 if (aux.length < 3) throw new ArgumentosInsuficientes();
                 C.modPartidoCongresista(new Dni(aux[1]), aux[2]);
                 break;
+                */
             case 11:
                 if (aux.length < 9) throw new ArgumentosInsuficientes();
                 C.modCongresista(new Dni(aux[1]), new Dni(aux[2]), aux[3],
@@ -139,7 +141,7 @@ public class DriverCongreso {
                 C.eliminarCongreso();
                 C.agregarCongresista(new Congresista(new Dni("20901724z"), "James", "Stuart", 12, "BCN", "BCN", "Podemos"));
                 Congresista a = C.copiaConsultarCongresista(new Dni("20901724z"));
-                C.modApellidoCongresista(new Dni("20901724z"),"PERE");
+                //C.modApellidoCongresista(new Dni("20901724z"),"PERE");
                 print(a.toString());
                 print(C.consultarCongresista(new Dni("20901724z"))+"");
                 break;
