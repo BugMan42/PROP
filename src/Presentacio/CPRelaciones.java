@@ -346,4 +346,8 @@ public class CPRelaciones {
         actualizar();
     }
 
+    public String obtCongresista(String dni) {
+        return CPC.obtCongresista(dni);
+    }
+
 }
