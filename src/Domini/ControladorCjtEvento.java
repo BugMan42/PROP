@@ -70,6 +70,12 @@ public class ControladorCjtEvento {
         ce.EliminarEvento(nombre, new Fecha(fecha));
     }
 
+    /*
+    public void EliminarEvento(String nombre, String fecha, int imp, ControladorRelaciones cr) throws Exception{
+        if(cr.tieneRelaciones(nombre, fecha)) cr.eliminarRelaciones(nombre, fecha);
+        ce.EliminarEvento(nombre, new Fecha(fecha), imp);
+    }*/
+
     public void EliminarCjtEvento(ControladorRelaciones cr) {
         ce.EliminarCjtEvento();
         cr.eliminarRelaciones();
@@ -86,6 +92,18 @@ public class ControladorCjtEvento {
         else ce.ModificarNombreEvento(nomViejo, new Fecha(fecha), nomNuevo);
     }
 
+    /*
+    public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo, ControladorRelaciones cr) throws Exception{
+        if(cr.tieneRelaciones(nomViejo, fecha)) {
+            //System.out.println("LLego hasta el controlador");
+            String id = ConsultarEvento(nomViejo,fecha).ID();
+            ce.ModificarNombreEvento(nomViejo, new Fecha(fecha), int imp, nomNuevo);
+            String new_id = ConsultarEvento(nomNuevo, fecha).ID();
+            cr.modEvento(id,new_id);
+        }
+        else ce.ModificarNombreEvento(nomViejo, new Fecha(fecha),int imp, nomNuevo);
+    }*/
+
     public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva, ControladorRelaciones cr) throws Exception {
         if(cr.tieneRelaciones(nombre, fechaVieja)){
             String id = ConsultarEvento(nombre,fechaVieja).ID();
@@ -96,9 +114,26 @@ public class ControladorCjtEvento {
         else ce.ModificarFechaEvento(nombre, new Fecha(fechaVieja), new Fecha(fechaNueva));
     }
 
+    /*
+    public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva, ControladorRelaciones cr) throws Exception {
+        if(cr.tieneRelaciones(nombre, fechaVieja)){
+            String id = ConsultarEvento(nombre,fechaVieja).ID();
+            ce.ModificarFechaEvento(nombre, new Fecha(fechaVieja), int imp, new Fecha(fechaNueva));
+            String new_id = ConsultarEvento(nombre,fechaNueva).ID();
+            cr.modEvento(id, new_id);
+        }
+        else ce.ModificarFechaEvento(nombre, new Fecha(fechaVieja), int imp, new Fecha(fechaNueva));
+    }
+    */
+
     public void ModificarImpEvento(String nombre, String fecha, int importance) throws Exception {
         ce.ModificarImpEvento(nombre, new Fecha(fecha), importance);
     }
+
+    /*
+    public void ModificarImpEvento(String nombre, String fecha, int imp, int imp_nueva) throws Exception {
+        ce.ModificarImpEvento(nombre, new Fecha(fecha), imp, imp_nueva);
+    }*/
 
     public Evento ConsultarEvento(String nombre, String fecha) throws Exception{
         return ce.ConsultarEvento(nombre, new Fecha(fecha));

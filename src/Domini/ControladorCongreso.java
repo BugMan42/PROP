@@ -66,7 +66,6 @@ public class ControladorCongreso {
     }
 
     public void agregarCongresistaRandom(long n) {
-
         for (long i = 0; i < n; ++i) {
             c.agregarCongresistaRandom();
         }
@@ -195,6 +194,11 @@ public class ControladorCongreso {
     public Congresista consultarCongresista(String dni) throws Exception {
         Dni d = new Dni(dni);
         return c.consultarCongresista(d);
+    }
+
+    public String consultarStringCongresista(String dni) throws Exception {
+        Dni d = new Dni(dni);
+        return c.consultarCongresista(d).toString();
     }
 
     public String toString() {

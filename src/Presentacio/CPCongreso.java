@@ -171,6 +171,14 @@ public class CPCongreso {
            return obtEnCache(index,baux);
        }
     }
+    public String obtCongresista(String dni) {
+        try {
+            return CC.consultarStringCongresista(dni);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
     public String obtCongresistaAct(int index) {
        // print("obetnemos");
         int baux = queBq(index);
