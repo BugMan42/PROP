@@ -120,12 +120,14 @@ public class PanelEventos extends PanelLista {
         lbnombre.setFont(new java.awt.Font("Ubuntu", 0, 18));
         ctnombre.setFont(new java.awt.Font("Ubuntu", 0, 18));
         ctnombre.setForeground(Color.GRAY);
+        ctnombre.setMinimumSize(new Dimension(225, 34));
         lbfecha.setFont(new java.awt.Font("Ubuntu", 0, 18));
         ctfecha.setFont(new java.awt.Font("Ubuntu", 0, 18));
         ctfecha.setForeground(Color.GRAY);
         lbimportancia.setFont(new java.awt.Font("Ubuntu", 0, 18));
         ctimportancia.setFont(new java.awt.Font("Ubuntu", 0, 18));
         ctimportancia.setForeground(Color.GRAY);
+        ctimportancia.setMinimumSize(new Dimension(225, 34));
         lbtipo.setFont(new java.awt.Font("Ubuntu", 0, 18));
         cbtipo.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lbinfo.setFont(new java.awt.Font("Ubuntu", 0, 18));
@@ -143,7 +145,8 @@ public class PanelEventos extends PanelLista {
     }
 
     public void actualizarLista() {
-        /*bloque = new AbstractListModel<String>() {
+        lista.setPrototypeCellValue("Renderizando lista");
+        bloque = new AbstractListModel<String>() {
             @Override
             public int getSize() {
                 if (cpe.obtCCE().size() == 0) return 1;
@@ -155,10 +158,11 @@ public class PanelEventos extends PanelLista {
                   if (cpe.obtCCE().size() == 0) return "No hay eventos creados";
                   return cpe.obtEvento(index);
             }
-        };*/
-        String info[] = {"No hay eventos creados"};
+        };
+        lista.setModel(bloque);
+        /*String info[] = {"No hay eventos creados"};
         if (cpe.obtCCE().size() == 0) lista.setListData(info);
-        else lista.setListData(cpe.obtCCE().ConsultarTodosEventosP().toArray());
+        else lista.setListData(cpe.obtCCE().ConsultarTodosEventosP().toArray());*/
     }
 
     private void agregarAccionesJtext() {
@@ -523,9 +527,7 @@ public class PanelEventos extends PanelLista {
                                         )
                         )
                         .addComponent(btlimpiar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
-                                        .addComponent(lbinfo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        )
+                        .addGap(14,14,14)
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
                                         .addComponent(btagregar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(bteliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -543,6 +545,9 @@ public class PanelEventos extends PanelLista {
                                                         .addComponent(bteliminarTodo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(btcargarTodo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
+                        )
+                        .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
+                                        .addComponent(lbinfo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         )
         );
         gl.setVerticalGroup(
@@ -568,9 +573,7 @@ public class PanelEventos extends PanelLista {
                                         )
                         )
                         .addComponent(btlimpiar, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
-                        .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lbinfo, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
-                        )
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(btagregar, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
                                         .addComponent(bteliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
@@ -588,6 +591,9 @@ public class PanelEventos extends PanelLista {
                                                         .addComponent(bteliminarTodo, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
                                                         .addComponent(btcargarTodo, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
                                         )
+                        )
+                        .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(lbinfo, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
                         )
         );
     }

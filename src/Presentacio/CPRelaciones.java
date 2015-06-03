@@ -214,7 +214,7 @@ public class CPRelaciones {
         String res;
         int bloque = i/tam_bloque;
         // Comprobar si está en el primer bloque.
-        if (indRel[0] == bloque){
+        if (indRel[0] == bloque) {
             int ini = bloque * tam_bloque;
             res = bRel[0][i-ini];
             RURel = 0;

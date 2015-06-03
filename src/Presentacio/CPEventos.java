@@ -14,11 +14,11 @@ public class CPEventos {
 
     public CPEventos() {
         CCE = new ControladorCjtEvento();
-        indiceA = 0;
+        indiceA = -1;
         indiceB = -1;
-        bloqueA = new String[100];
-        bloqueB = new String[100];
-        ultimo = 0;
+        bloqueA = new String[tamanioBloque];
+        bloqueB = new String[tamanioBloque];
+        ultimo = -1;
     }
 
     public PanelEventos obtPanel() {

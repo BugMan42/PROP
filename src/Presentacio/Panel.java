@@ -1,12 +1,8 @@
 package Presentacio;
 
 import javax.swing.*;
-import java.awt.*;
 
-/**
- * Clase Panel
- * Created by falc on 21/05/15.
- */
+
 public class Panel extends JPanel {
 
     private VistaPrincipal vis;

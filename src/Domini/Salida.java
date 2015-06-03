@@ -15,6 +15,11 @@ public class Salida {
         comunidades = new ArrayList<Set<Integer>>();
     }
 
+    public void eliminarSalida() {
+        mensajes.clear();
+        comunidades.clear();
+    }
+
     public void agregarMensaje(String s)
     {
         mensajes.add(s);
