@@ -688,29 +688,6 @@ public class PanelCongreso extends PanelLista {
 
     protected void boxSortActionPerformed(ActionEvent evt) {
         //labelStatus.setText(boxSort.getSelectedIndex()+"");
-        switch (boxSort.getSelectedIndex()) {
-            case 0:
-                CPC.sortByDni();
-                break;
-            case 1:
-                CPC.sortByName();
-                break;
-            case 2:
-                CPC.sortBySurName();
-                break;
-            case 3:
-                CPC.sortByAge();
-                break;
-            case 4:
-                CPC.sortByCity();
-                break;
-            case 5:
-                CPC.sortByState();
-                break;
-            case 6:
-                CPC.sortByParty();
-                break;
-        }
         //TODO mejorar, te quedas donde estabas
         ListUpdate();
     }

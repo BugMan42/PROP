@@ -85,7 +85,7 @@ public class CPCongreso {
         if (CC.size()>0) {
             CC.eliminarCongreso(CPR.obtCR());
             reiniciarCache();
-            order = 0;
+            //order = 0;
         }
         actualizar();
     }
@@ -158,30 +158,9 @@ public class CPCongreso {
     }
 
 
-    /**SORT */
-    public void sortByDni() {
-        CC.sortByDni();
-    }
-    public void sortByName() {
-        CC.sortByName();
-    }
-    public void sortBySurName() {
-        CC.sortBySurName();
-    }
-    public void sortByAge() {
-        CC.sortByAge();
-    }
-    public void sortByCity() {
-        CC.sortByCity();
-    }
-    public void sortByState() {
-        CC.sortByState();
-    }
-    public void sortByParty() {
-        CC.sortByParty();
-    }
+
     public boolean resultados() {
-        return CC.cacheVacia();
+        return CC.cacheBusquedaVacia();
     }
 
     /**Buscar*/

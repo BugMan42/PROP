@@ -55,10 +55,6 @@ public class DriverControladorCongreso {
                         dcc.validar_num_params(params, 2);
                         dcc.print(Boolean.toString(dcc.cc.contieneCongresista(params[1])));
                         break;
-                    case 6:
-                        dcc.validar_num_params(params, 2);
-                        dcc.cc.eliminarCongresista(params[1],dcc.cr);
-                        break;
                     case 7:
                         dcc.validar_num_params(params, 1);
                         dcc.cc.eliminarCongreso(dcc.cr);
@@ -114,41 +110,9 @@ public class DriverControladorCongreso {
                         dcc.validar_num_params(params, 2);
                         dcc.cc.cargar(params[1], dcc.cr);
                         break;
-                    case 20:
-                        dcc.validar_num_params(params, 3);
-                        dcc.print(String.valueOf(dcc.cc.obtenerBloqueCongresista(params[1], Integer.parseInt(params[2]))));
-                        break;
                     case 21:
                         dcc.validar_num_params(params, 2);
                         dcc.cc.agregarCongresistaRandom(Integer.parseInt(params[1]));
-                        break;
-                    case 22:
-                        dcc.validar_num_params(params, 1);
-                        dcc.cc.sortByDni();
-                        break;
-                    case 23:
-                        dcc.validar_num_params(params, 1);
-                        dcc.cc.sortByName();
-                        break;
-                    case 24:
-                        dcc.validar_num_params(params, 1);
-                        dcc.cc.sortBySurName();
-                        break;
-                    case 25:
-                        dcc.validar_num_params(params, 1);
-                        dcc.cc.sortByAge();
-                        break;
-                    case 26:
-                        dcc.validar_num_params(params, 1);
-                        dcc.cc.sortByCity();
-                        break;
-                    case 27:
-                        dcc.validar_num_params(params, 1);
-                        dcc.cc.sortByState();
-                        break;
-                    case 28:
-                        dcc.validar_num_params(params, 1);
-                        dcc.cc.sortByParty();
                         break;
                 }
             }

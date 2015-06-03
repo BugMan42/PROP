@@ -458,7 +458,7 @@ public class Congreso {
         }
         return a;
     }*/
-    public List<Congresista> searchPrefix(String prefix) {
+    public List<Congresista> searchPrefixDni(String prefix) {
         return tst.prefijo(prefix);
     }
     public List<Congresista> searchPrefixNombre(String prefix) {

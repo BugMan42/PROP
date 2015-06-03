@@ -51,10 +51,6 @@ public class DriverControladorRelaciones {
                         dr.cc.modCongresista(params[1], params[2], params[3], params[4], Integer.parseInt(params[5]),
                                 params[6], params[7], params[8], dr.cr);
                         break;
-                    case 4:
-                        if(params.length!=2) throw new Exception(E1);
-                        dr.cc.eliminarCongresista(params[1], dr.cr);
-                        break;
                     case 5:
                         if(params.length!=1) throw new Exception(E1);
                         dr.cc.eliminarCongreso(dr.cr);

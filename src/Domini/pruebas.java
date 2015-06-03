@@ -231,11 +231,11 @@ public class pruebas {
         Congreso aux = new Congreso();
         for (int i = 0; i < 100; ++i) aux.agregarCongresistaRandom();
         print(aux.obtenerListaID()+"");
-        List<Congresista> ex = aux.searchPrefix("15");
-        for (int i = 0; i < ex.size(); ++i) {
+        //List<Congresista> ex = aux.searchPrefix("15");
+        /*for (int i = 0; i < ex.size(); ++i) {
             Congresista a = (Congresista) ex.get(i);
             print(a.obtID());
-        }
+        }*/
     }
     private static void testCongresista() throws Exception {
         ArrayList<Integer> a = new ArrayList<Integer>();
