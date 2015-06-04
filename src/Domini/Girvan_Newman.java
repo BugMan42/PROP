@@ -99,10 +99,8 @@ public class Girvan_Newman extends Algoritmo{
         data_graph = obtIn().obtGrafo();
         //El grafo que utilizará el algoritmo es una copia de data_graph
         alg_graph = new Grafo(data_graph);
-        long start = System.nanoTime();
+
         ejecutar_algoritmo();
-        long time = System.nanoTime()-start;
-        System.out.println(time/1000000000.0+" seconds");
     }
 
     private void ejecutar_algoritmo() throws Exception {

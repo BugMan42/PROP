@@ -351,8 +351,8 @@ public class ControladorRelaciones {
 
     public void crearGrafoRelaciones() throws Exception {
         g = new Grafo();
-        ArrayList<Congresista> c = obtCongresistas();
-        for(Congresista con : c) g.agregarVertice(con.obtID());
+        List<Congresista> lc = c.obtenerCongreso();
+        for(Congresista con : lc) g.agregarVertice(con.obtID());
         ArrayList<RelacionSimple> r = obtTodasLasRelaciones();
         for(RelacionSimple re : r){
             String origen = re.obtCongresista().obtID();

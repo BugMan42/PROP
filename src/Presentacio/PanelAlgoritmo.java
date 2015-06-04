@@ -50,6 +50,8 @@ public class PanelAlgoritmo extends Panel{
     private JLabel dni_data;
     private JTextField community_data;
 
+    private JLabel time_data;
+
     public PanelAlgoritmo(CPAlgoritmo cont) {
         super();
         cpa = cont;
@@ -198,6 +200,8 @@ public class PanelAlgoritmo extends Panel{
         l_pref2.setVisible(false);
         pref2.setVisible(false);
 
+        time_data = new JLabel("");
+
         //Panel informació nodes
         final JPanel info = new JPanel();
         info.setLayout(new GridBagLayout());
@@ -333,13 +337,14 @@ public class PanelAlgoritmo extends Panel{
 
 
                 } else if (e.getButton() == MouseEvent.BUTTON2) {
+                    System.out.println("PROP NIGHT");
+
+                } else if (e.getButton() == MouseEvent.BUTTON3) {
                     Point a = view.getLocationOnScreen();
                     Point b = e.getLocationOnScreen();
                     Point3 c = view.getCamera().transformPxToGu(b.getX()-a.getX(),b.getY()-a.getY());
                     view.getCamera().setViewCenter(c.x, c.y, c.z);
-                } else if (e.getButton() == MouseEvent.BUTTON3) {
 
-                    ///System.out.println("PROP NIGHT");
                 }
 
             }
@@ -362,6 +367,10 @@ public class PanelAlgoritmo extends Panel{
                 tp2.setText("");
                 tp3.setText("");
 
+                pb1.setValue(0);
+                pb2.setValue(0);
+                pb3.setValue(0);
+
                 option = 1;
             }
         });
@@ -380,6 +389,10 @@ public class PanelAlgoritmo extends Panel{
                 tp3.setEnabled(false);
                 tp1.setText("");
                 tp3.setText("");
+
+                pb1.setValue(0);
+                pb2.setValue(0);
+                pb3.setValue(0);
 
                 option = 2;
             }
@@ -400,6 +413,10 @@ public class PanelAlgoritmo extends Panel{
                 tp3.setEnabled(true);
                 tp1.setText("");
                 tp2.setText("");
+
+                pb1.setValue(0);
+                pb2.setValue(0);
+                pb3.setValue(0);
                 option = 3;
             }
         });
@@ -412,11 +429,15 @@ public class PanelAlgoritmo extends Panel{
                 cpa.modParam1(pref.getText());
                 cpa.modParam2(pref2.getText());
 
+                long start = System.nanoTime();
                 try {
                     cpa.crearGrafo();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
+                long time = System.nanoTime()-start;
+                String lulz = time/1000000000.0+" seconds";
+                time_data.setText(lulz);
 
                 if (option > 0 && option < 4) cpa.execute_algoritm(option);
 
@@ -529,7 +550,6 @@ public class PanelAlgoritmo extends Panel{
                     protected Void doInBackground() throws Exception {
                         setProgress(0);
                         cargarGrafo();
-                        setProgress(50);
                         mostrar3.setEnabled(false);
                         Document doc = new DefaultStyledDocument();
                         try {
@@ -600,7 +620,9 @@ public class PanelAlgoritmo extends Panel{
                                         )
 
                         )
-                        .addComponent(exe)
+                        .addGroup(gr.createSequentialGroup()
+                                .addComponent(exe)
+                                .addComponent(time_data))
 
         );
 
@@ -635,7 +657,9 @@ public class PanelAlgoritmo extends Panel{
                                         .addComponent(mostrar2)
                                         .addComponent(mostrar3)
                         )
-                        .addComponent(exe)
+                        .addGroup(gr.createParallelGroup()
+                                .addComponent(exe)
+                                .addComponent(time_data))
 
         );
 
