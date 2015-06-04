@@ -57,16 +57,19 @@ public class CPCongreso {
     }
     public void agregarCongresista(String dni, String name, String surname, int age, String city, String state, String party) throws Exception {
         CC.agregarCongresista(dni, name, surname, age, city, state, party);
+        reiniciarCache();
         //refresh(indexa, indexb);
     }
     public void modCongresista(String dni, String dni_nuevo, String nombre, String nombre_nuevo, String apellido,
                                String apellido_nuevo, int edad, int edad_nuevo, String ciudad, String ciudad_nuevo,
                                String estado, String estado_nuevo, String partido, String partido_nuevo) throws Exception {
         CC.modCongresista(dni, dni_nuevo, nombre, nombre_nuevo, apellido, apellido_nuevo, edad, edad_nuevo, ciudad, ciudad_nuevo, estado, estado_nuevo, partido, partido_nuevo, CPR.obtCR());
+        reiniciarCache();
        // refresh(indexa,indexb);
     }
     public void agregarCongresistaRandom(int n) throws Exception {
         CC.agregarCongresistaRandom(n);
+        reiniciarCache();
         //refresh(indexa, indexb);
     }
     private void print(String str) {
@@ -74,6 +77,7 @@ public class CPCongreso {
     }
     public void eliminarCongresista(String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido) throws Exception {
         CC.eliminarCongresista(dni,nombre,apellido,edad,ciudad,estado,partido,CPR.obtCR());
+        reiniciarCache();
         //refresh(indexa, indexb);
     }
 
