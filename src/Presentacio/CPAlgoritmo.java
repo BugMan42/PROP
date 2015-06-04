@@ -97,4 +97,9 @@ public class CPAlgoritmo {
         return r;
     }
 
+    public String obtCongresista(String x)
+    {
+        return CPR.obtCongresista(x);
+    }
+
 }

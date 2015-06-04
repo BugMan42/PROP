@@ -91,8 +91,8 @@ public class DriverControladorCongreso {
                         */
                     case 15:
                         dcc.validar_num_params(params,9);
-                        dcc.cc.modCongresista(params[1], params[2], params[3], params[4], Integer.parseInt(params[5]),
-                                params[6], params[7], params[8], dcc.cr);
+                        //dcc.cc.modCongresista(params[1], params[2], params[3], params[4], Integer.parseInt(params[5]),
+                                //params[6], params[7], params[8], dcc.cr);
                         break;
                     case 16:
                         dcc.validar_num_params(params,2);

@@ -17,6 +17,7 @@ public class ControladorPresentacion {
     private CPRelaciones cpr;
 
     private VistaPrincipal v;
+    private PanelAyuda pa;
 
     public ControladorPresentacion(){
         cpc = new CPCongreso();
@@ -34,6 +35,11 @@ public class ControladorPresentacion {
 
     public VistaPrincipal getVista() {
         return v;
+    }
+
+    public PanelAyuda obtPanelAyuda() {
+        if (pa == null) pa = new PanelAyuda();
+        return pa;
     }
 
     public CPAlgoritmo getCPA() { return cpa; }

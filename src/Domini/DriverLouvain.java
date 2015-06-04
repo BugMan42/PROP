@@ -31,7 +31,6 @@ public class DriverLouvain {
                     case 0:
                         if (params.length != 2) throw new Exception(E1);
                         g.agregarVertice(params[1]);
-                        System.out.println("nodos:"+g.V() );
                         break;
                     case 1:
                         if (params.length != 4) throw new Exception(E1);

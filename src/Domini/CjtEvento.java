@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class CjtEvento {
+    static final char separador = '-';
     private TST<Evento> cjt;
     private TST<Evento> cjtFecha;
     private TST<Evento> cjtImp;
@@ -35,16 +36,19 @@ public class CjtEvento {
         //Siempre convierto el nombre a mayusculas para evitar errores de no
         // encontrar el elemento
         String name = nombre.toUpperCase();
-        cjt.borrar(name + fecha.toString());
-        cjtFecha.borrar(fecha.toString() + name);
-        cjtImp.borrar(Integer.toString(imp) + name + fecha.toString());
+        cjt.borrar(name +separador+ fecha.alReves());
+        cjtFecha.borrar(fecha.alReves() +separador+ name);
+        cjtImp.borrar(Integer.toString(imp)+separador + name +separador+ fecha.alReves());
         restaurar();
     }
 
     public void AgregarEvento(Evento e) throws Exception{
-        cjt.insertar(e.ID(), e);
+        cjt.insertar(e.IDN(), e);
+        //System.out.println(cjt);
         cjtFecha.insertar(e.IDFecha(), e);
+        //System.out.println(cjtFecha);
         cjtImp.insertar(e.IDImp(), e);
+        //System.out.println(cjtImp);
         restaurar();
     }
 
@@ -55,11 +59,11 @@ public class CjtEvento {
             if (!nomNuevo.equals(nomViejo)){
                 //Como obtener pasa la referencia al objeto lo modifico y lo pongo correctamente en el
                 // conjunto de acuerdo a su nueva clave
-                Evento aux = cjt.obtener(oldname + fecha.toString());
+                Evento aux = cjt.obtener(oldname +separador+ fecha.alReves());
                 aux.ModNombre(newname);
-                cjt.modificar(oldname + fecha.toString(), newname + fecha.toString(), aux);
-                cjtFecha.modificar(fecha.toString() + oldname, fecha.toString() + newname);
-                cjtImp.modificar(Integer.toString(imp) + oldname + fecha.toString(), Integer.toString(imp) + newname + fecha.toString());
+                cjt.modificar(oldname +separador+ fecha.alReves(), newname +separador+ fecha.alReves(), aux);
+                cjtFecha.modificar(fecha.alReves() +separador+ oldname, fecha.alReves() +separador+ newname);
+                cjtImp.modificar(Integer.toString(imp)+separador + oldname + separador+ fecha.alReves(), Integer.toString(imp)+separador + newname + separador+ fecha.alReves());
                 restaurar();
             }
         //Si es igual nomViejo a nomNuevo no se hace nada no se hace nada
@@ -71,11 +75,11 @@ public class CjtEvento {
             String name = nombre.toUpperCase();
             //Como obtener pasa la referencia al objeto lo modifico y lo pongo correctamente en el
             // conjunto de acuerdo a su nueva clave
-            Evento aux = cjt.obtener(name + fechaVieja.toString());
+            Evento aux = cjt.obtener(name + separador+ fechaVieja.alReves());
             aux.ModFecha(fechaNueva);
-            cjt.modificar(name + fechaVieja.toString(), name + fechaNueva.toString(), aux);
-            cjtFecha.modificar(name + fechaVieja.toString(), name + fechaNueva.toString());
-            cjtImp.modificar(Integer.toString(imp)+ name+fechaVieja.toString(),Integer.toString(imp)+name+fechaNueva.toString());
+            cjt.modificar(name + separador+fechaVieja.alReves(), name + separador+fechaNueva.alReves(), aux);
+            cjtFecha.modificar(name + separador+fechaVieja.alReves(), name + separador+fechaNueva.alReves());
+            cjtImp.modificar(Integer.toString(imp)+separador+ name+separador+fechaVieja.alReves(),Integer.toString(imp)+separador+name+separador+fechaNueva.alReves());
             restaurar();
         }
         //Si es igual fechaVieja a fechaNueva no se hace nada
@@ -86,8 +90,8 @@ public class CjtEvento {
         if (OldImp != NewImp) {
             String name = nombre.toUpperCase();
             //Como el tst devuelve la refencia al objeto directamente puedo cambiarle los atributos
-            cjt.obtener(name+fecha.toString()).ModImportancia(NewImp);
-            cjtImp.modificar(Integer.toString(OldImp)+name+fecha.toString(),Integer.toString(NewImp)+name+fecha.toString());
+            cjt.obtener(name+separador+fecha.alReves()).ModImportancia(NewImp);
+            cjtImp.modificar(Integer.toString(OldImp) +separador+ name + separador+fecha.alReves(), Integer.toString(NewImp)+separador + name +separador+ fecha.alReves());
             restaurar();
         }
     }
@@ -196,7 +200,7 @@ public class CjtEvento {
                     nombre = nombre + c;
                 }
             }
-            while (cjt.existe(nombre + f.toString()));
+            while (cjt.existe(nombre +separador+ f.alReves()));
             //Uso un numero random [1,10] para importancia
             int importancia = r.nextInt(10) + 1;
             //Uso un numero random [1,5] para seleccionar el tipo de evento
@@ -246,14 +250,14 @@ public class CjtEvento {
     public Evento ConsultarEvento(String nombre, Fecha fecha) throws Exception {
         //Siempre convierto el nombre a mayusculas para evitar errores de no encontrar el elemento
         String name = nombre.toUpperCase();
-        return cjt.obtener(name+fecha.toString());
+        return cjt.obtener(name+separador+fecha.alReves());
     }
 
     public boolean ExisteEvento(String nombre, Fecha fecha) throws Exception {
        
         //Siempre convierto el nombre a mayusculas para evitar errores de no encontrar el elemento
         String name = nombre.toUpperCase();
-        return cjt.existe(name+fecha.toString());
+        return cjt.existe(name+separador+fecha.alReves());
     }
 
     public int size() {

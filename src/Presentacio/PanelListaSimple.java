@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * Created by jose on 29/05/15.
  */
-public class PanelListaSimple extends JPanel {
+public class PanelListaSimple extends Panel {
 
     protected JList lista;
     protected JScrollPane scrollPane1;
