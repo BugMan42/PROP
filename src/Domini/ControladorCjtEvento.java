@@ -14,9 +14,15 @@ public class ControladorCjtEvento {
     private static final int max_lineas_cargar = 300;
 
     private CjtEvento ce;
+    private ArrayList<String> busqueda;
 
     public ControladorCjtEvento() {
         ce = new CjtEvento();
+        resetearCache();
+    }
+
+    private void resetearCache() {
+        busqueda = new ArrayList<String>();
     }
 
     public int size(){
@@ -216,6 +222,39 @@ public class ControladorCjtEvento {
         for (Evento e: ev)
             res += e.toString()+"\n";
         return res;
+    }
+
+    public String obtBloqueBN(String prefijo) {
+        resetearCache();
+        busqueda = ce.busquedaNombre(prefijo);
+        if (busqueda.size() == 0) return "";
+        else {
+            String res = "";
+            for (String s : busqueda) res += s + "\n";
+            return res;
+        }
+    }
+
+    public String obtBloqueBF(String prefijo) {
+        resetearCache();
+        busqueda = ce.busquedaNombre(prefijo);
+        if (busqueda.size() == 0) return "";
+        else {
+            String res = "";
+            for (String s : busqueda) res += s + "\n";
+            return res;
+        }
+    }
+
+    public String obtBloqueBI(String prefijo) {
+        resetearCache();
+        busqueda = ce.busquedaImp(prefijo);
+        if (busqueda.size() == 0) return "";
+        else {
+            String res = "";
+            for (String s : busqueda) res += s + "\n";
+            return res;
+        }
     }
 
     public List<String> ConsultarTodosEventosP() {

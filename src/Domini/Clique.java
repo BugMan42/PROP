@@ -109,14 +109,16 @@ public class Clique extends Algoritmo {
                     //for (int j = 0; j < l.size(); ++j) obtOut().agregarMensaje("Soy el candidato numero " + Integer.toString(candidatos.get(j)));
                     cliqueOneNode(kc, k - 2, l);
                     if (kc.size() > 0) {
-                        kc.sumaPeso(g.pesoAristasVertices(i, v));
-                        for (Iterator it3 = kc.lista().iterator(); it3.hasNext(); ) {
-                            int x = (Integer)it3.next();
-                            if (x != i && x != v) {
-                                kc.sumaPeso(g.pesoAristasVertices(i, x));
-                                kc.sumaPeso(g.pesoAristasVertices(v, x));
+                        try {kc.sumaPeso(g.pesoAristasVertices(i, v));
+                            for (Iterator it3 = kc.lista().iterator(); it3.hasNext(); ) {
+                                int x = (Integer)it3.next();
+                                if (x != i && x != v) {
+                                    kc.sumaPeso(g.pesoAristasVertices(i, x));
+                                    kc.sumaPeso(g.pesoAristasVertices(v, x));
+                                }
                             }
                         }
+                        catch (Exception ex) {}
                         obtOut().agregarMensaje("La clique tiene peso: " + kc.obtPeso());
                         if (kc.obtPeso() > th) {
                             c.agregar_clique(kc);
@@ -164,7 +166,10 @@ public class Clique extends Algoritmo {
             if (g.existeArista(u, v)) {
                 kc.agregar(u);
                 kc.agregar(v);
-                kc.sumaPeso(g.pesoAristasVertices(u, v));
+                try {
+                    kc.sumaPeso(g.pesoAristasVertices(u, v));
+                }
+                catch (Exception ex) {}
             }
             else kc.eliminar();
             return;
@@ -179,14 +184,17 @@ public class Clique extends Algoritmo {
             if (candidatos.size() > 0) {
                 cliqueOneNode(kc, k - 2, candidatos);
                 if (kc.lista().size() > 0) {
-                    kc.sumaPeso(g.pesoAristasVertices(u, v));
-                    for (Iterator it = kc.lista().iterator(); it.hasNext(); ) {
-                        int x = (Integer)it.next();
-                        if (x != u && x != v) {
-                            kc.sumaPeso(g.pesoAristasVertices(u, x));
-                            kc.sumaPeso(g.pesoAristasVertices(v, x));
+                    try {
+                        kc.sumaPeso(g.pesoAristasVertices(u, v));
+                        for (Iterator it = kc.lista().iterator(); it.hasNext(); ) {
+                            int x = (Integer) it.next();
+                            if (x != u && x != v) {
+                                kc.sumaPeso(g.pesoAristasVertices(u, x));
+                                kc.sumaPeso(g.pesoAristasVertices(v, x));
+                            }
                         }
                     }
+                    catch (Exception ex) {}
                 }
             }
         }

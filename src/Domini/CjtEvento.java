@@ -250,17 +250,47 @@ public class CjtEvento {
     public Evento ConsultarEvento(String nombre, Fecha fecha) throws Exception {
         //Siempre convierto el nombre a mayusculas para evitar errores de no encontrar el elemento
         String name = nombre.toUpperCase();
-        return cjt.obtener(name+separador+fecha.alReves());
+        return cjt.obtener(name + separador + fecha.alReves());
     }
 
     public boolean ExisteEvento(String nombre, Fecha fecha) throws Exception {
        
         //Siempre convierto el nombre a mayusculas para evitar errores de no encontrar el elemento
         String name = nombre.toUpperCase();
-        return cjt.existe(name+separador+fecha.alReves());
+        return cjt.existe(name + separador + fecha.alReves());
     }
 
     public int size() {
         return cjt.size();
+    }
+
+    public ArrayList<String> busquedaNombre(String prefijo) {
+        List<Evento> aux = cjt.prefijo(prefijo);
+        if (aux.size() == 0) return new ArrayList<String>();
+        else {
+            ArrayList<String> resultado = new ArrayList<String>();
+            for (Evento e : aux) resultado.add(e.toString());
+            return resultado;
+        }
+    }
+
+    public ArrayList<String> busquedaFecha(String prefijo) {
+        List<Evento> aux = cjtFecha.prefijo(prefijo);
+        if (aux.size() == 0) return new ArrayList<String>();
+        else {
+            ArrayList<String> resultado = new ArrayList<String>();
+            for (Evento e : aux) resultado.add(e.toString());
+            return resultado;
+        }
+    }
+
+    public ArrayList<String> busquedaImp(String prefijo) {
+        List<Evento> aux = cjtImp.prefijo(prefijo);
+        if (aux.size() == 0) return new ArrayList<String>();
+        else {
+            ArrayList<String> resultado = new ArrayList<String>();
+            for (Evento e : aux) resultado.add(e.toString());
+            return resultado;
+        }
     }
 }
