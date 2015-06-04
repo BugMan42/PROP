@@ -182,7 +182,6 @@ public class PanelCongreso extends PanelLista {
 
         setDefaultText();
 
-
         lName.setText("Nombre");
         textName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -195,6 +194,11 @@ public class PanelCongreso extends PanelLista {
                     textName.setText(def[0]);
                     textName.setForeground(Color.GRAY);
                 }
+            }
+        });
+        textName.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                dynamicSearch(1,textName,evt);
             }
         });
 
@@ -211,9 +215,13 @@ public class PanelCongreso extends PanelLista {
                 }
             }
         });
+        textSurname.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                dynamicSearch(2,textSurname,evt);
+            }
+        });
 
         lSurname.setText("Apellido");
-
         lDni.setText("Dni");
 
         textDni.setAutoscrolls(true);
@@ -228,6 +236,11 @@ public class PanelCongreso extends PanelLista {
                     textDni.setText(def[2]);
                     textDni.setForeground(Color.GRAY);
                 }
+            }
+        });
+        textDni.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                dynamicSearch(0,textDni,evt);
             }
         });
 
@@ -246,6 +259,11 @@ public class PanelCongreso extends PanelLista {
                 }
             }
         });
+        textAge.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                dynamicSearch(3,textAge,evt);
+            }
+        });
 
         lCity.setText("Ciudad");
 
@@ -260,6 +278,11 @@ public class PanelCongreso extends PanelLista {
                     textCity.setForeground(Color.GRAY);
                     textCity.setText(def[4]);
                 }
+            }
+        });
+        textCity.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                dynamicSearch(4,textCity, evt);
             }
         });
 
@@ -278,6 +301,11 @@ public class PanelCongreso extends PanelLista {
                 }
             }
         });
+        textState.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                dynamicSearch(5,textState, evt);
+            }
+        });
 
         lParty.setText("Partido");
 
@@ -294,6 +322,13 @@ public class PanelCongreso extends PanelLista {
                 }
             }
         });
+        textParty.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                dynamicSearch(6,textParty,evt);
+                //clearLabelSearch(textSearch);
+                //textSearchTyped(evt);
+            }
+        });
 
         bClear.setText("Limpiar");
         bClear.addActionListener(new java.awt.event.ActionListener() {
@@ -304,21 +339,21 @@ public class PanelCongreso extends PanelLista {
 
         lError.setText(" ");
 
-        bAgregarCongresista.setText("AgregarCongresista");
+        bAgregarCongresista.setText("Agregar Congresista");
         bAgregarCongresista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAgregarCongresistaActionPerformed(evt);
             }
         });
 
-        bAgregarRandom.setText("AgregarRandom");
+        bAgregarRandom.setText("Agregar Random");
         bAgregarRandom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAgregarRandomActionPerformed(evt);
             }
         });
 
-        bEliminarCongresista.setText("EliminarCongresista");
+        bEliminarCongresista.setText("Eliminar Congresista");
         bEliminarCongresista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bEliminarCongresistaActionPerformed(evt);
@@ -331,21 +366,21 @@ public class PanelCongreso extends PanelLista {
                 bModificarCongresistaActionPerformed(evt);
             }
         });
-        bEliminarCongreso.setText("EliminarCongreso");
+        bEliminarCongreso.setText("Eliminar Congreso");
         bEliminarCongreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bEliminarCongresoActionPerformed(evt);
             }
         });
 
-        bCargarCongreso.setText("CargarCongreso");
+        bCargarCongreso.setText("Cargar Congreso");
         bCargarCongreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCargarCongresoActionPerformed(evt);
             }
         });
 
-        bGuardarCongreso.setText("GuardarCongreso");
+        bGuardarCongreso.setText("Guardar Congreso");
         bGuardarCongreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bGuardarCongresoActionPerformed(evt);
@@ -692,6 +727,26 @@ public class PanelCongreso extends PanelLista {
         //TODO mejorar, te quedas donde estabas
         ListUpdate();
     }
+    private void dynamicSearch(int which,JTextField aux,KeyEvent evt) {
+        String buscar = aux.getText();
+        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            if (buscar.equals("")) {
+                labelStatus.setVisible(false);
+                labelStatus.setText("");
+                ListUpdate();
+            }
+            else {
+                Search(buscar,which);
+                labelStatus.setVisible(true);
+                labelStatus.setText("Congresistas encontrados: "+CPC.sizeBusqueda());
+            }
+        }
+        else {
+            Search(buscar,which);
+            labelStatus.setVisible(true);
+            labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
+        }
+    }
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt)    {
         //Search(textSearch.getText());
@@ -734,6 +789,41 @@ public class PanelCongreso extends PanelLista {
             Search(buscar);
             labelStatus.setVisible(true);
             labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
+        }
+
+    }
+    private void Search(String buscar,int w) {
+        if (!buscar.isEmpty()) {
+            switch (w) {
+                case 0:
+                    CPC.searchByDni(buscar);
+                    ListUpdateBusqueda();
+                    break;
+                case 1:
+                    CPC.searchByName(buscar);
+                    ListUpdateBusqueda();
+                    break;
+                case 2:
+                    CPC.searchBySurName(buscar);
+                    ListUpdateBusqueda();
+                    break;
+                case 3:
+                    CPC.searchByAge(buscar);
+                    ListUpdateBusqueda();
+                    break;
+                case 4:
+                    CPC.searchByCity(buscar);
+                    ListUpdateBusqueda();
+                    break;
+                case 5:
+                    CPC.searchByState(textSearch.getText().toUpperCase());
+                    ListUpdateBusqueda();
+                    break;
+                case 6:
+                    CPC.searchByParty(textSearch.getText().toUpperCase());
+                    ListUpdateBusqueda();
+                    break;
+            }
         }
 
     }
