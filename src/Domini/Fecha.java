@@ -63,6 +63,8 @@ public class Fecha {
 
     public String toString() {return Integer.toString(fecha[0]) + Integer.toString(fecha[1]) + Integer.toString(fecha[2]);}
 
+    public String alReves() {return Integer.toString(fecha[2]) + "/" + Integer.toString(fecha[1]) + "/" + Integer.toString(fecha[0]);}
+
     public boolean equals(Fecha f) {
         return fecha[0] == f.fecha[0] && fecha[1] == f.fecha[1] && fecha[2] == f.fecha[2];
     }

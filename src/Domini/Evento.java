@@ -55,17 +55,21 @@ public abstract class Evento {
 
     public String ID() {
         //return nombre+fecha.toString();
-        return  nombre+separador+fecha.ConsultarFecha();
+        return  nombre+fecha.toString();
+    }
+
+    public String IDN() {
+        return nombre+separador+fecha.alReves();
     }
 
     public String IDFecha() {
-        return fecha.ConsultarFecha()+separador+nombre;
+        return fecha.alReves()+separador+nombre;
         //return fecha.toString()+nombre;
     }
 
     public String IDImp() {
         //return Integer.toString(importancia)+nombre+fecha.ConsultarFecha();
-        return Integer.toString(importancia)+separador+nombre+fecha.ConsultarFecha();
+        return Integer.toString(importancia)+separador+nombre+fecha.alReves();
     }
 
     public abstract String toString();
