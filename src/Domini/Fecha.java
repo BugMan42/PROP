@@ -67,5 +67,6 @@ public class Fecha {
 
     public boolean equals(Fecha f) {
         return fecha[0] == f.fecha[0] && fecha[1] == f.fecha[1] && fecha[2] == f.fecha[2];
+
     }
 }
