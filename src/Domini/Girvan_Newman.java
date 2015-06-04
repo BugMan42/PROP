@@ -388,7 +388,7 @@ public class Girvan_Newman extends Algoritmo{
             }
 
             //Pesos en grafo
-            int endRoute = route.size();
+            /*int endRoute = route.size();
             for (int z = 0; z < endRoute; ++z)
             {
                 int p = route.pollLast();
@@ -413,7 +413,7 @@ public class Girvan_Newman extends Algoritmo{
                     }
                 }
 
-            }
+            }*/
 
 
         }

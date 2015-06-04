@@ -12,10 +12,13 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Random;
 
 /**
@@ -34,6 +37,10 @@ public class PanelAlgoritmo extends Panel{
     private String[] colors = {"blue", "green", "red", "yellow", "#B280B2", "sienna", "tan", "turquoise", "pink", "khaki",
             "orange", "seagreen", "darkmagenta", "#574926", "cadetblue", "palegreen", "maroon"};
     private String node_id_sel = "";
+
+    private JProgressBar pb1;
+    private JProgressBar pb2;
+    private JProgressBar pb3;
 
     public PanelAlgoritmo(CPAlgoritmo cont) {
         super();
@@ -124,6 +131,9 @@ public class PanelAlgoritmo extends Panel{
         JRadioButton rb1 = new JRadioButton("Girvan-Newman");
         final JButton mostrar1 = new JButton("Mostrar grafo");
         mostrar1.setEnabled(false);
+        pb1 = new JProgressBar(0, 100);
+        pb1.setValue(0);
+        pb1.setStringPainted(true);
 
 
         final JTextPane tp2 = new JTextPane();
@@ -138,8 +148,9 @@ public class PanelAlgoritmo extends Panel{
         JRadioButton rb2 = new JRadioButton("Louvain");
         final JButton mostrar2 = new JButton("Mostrar grafo");
         mostrar2.setEnabled(false);
-        final JProgressBar pb1 = new JProgressBar();
-
+        pb2 = new JProgressBar(0, 100);
+        pb2.setValue(0);
+        pb2.setStringPainted(true);
 
         final JTextPane tp3 = new JTextPane();
         tp3.setForeground(new Color(255, 255, 0));
@@ -153,6 +164,9 @@ public class PanelAlgoritmo extends Panel{
         JRadioButton rb3 = new JRadioButton("Clique Percolation");
         final JButton mostrar3 = new JButton("Mostrar grafo");
         mostrar3.setEnabled(false);
+        pb3 = new JProgressBar(0, 100);
+        pb3.setValue(0);
+        pb3.setStringPainted(true);
 
         JButton exe = new JButton("Ejecutar");
 
@@ -220,37 +234,42 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String[] s = community_data.getText().split(",\\s");
-                int n = s.length;
-                g.getNode(node_id_sel).addAttribute("comm", Integer.toString(n));
-                g.getNode(node_id_sel).addAttribute("nco", new Object[]{s});
-
-                Double corel =  1.0 / n;
-
-                Object[] copie = new Object[n];
-
-                String fc = "fill-color: ";
-                for (int i = 0; i < n; i++)
+                if (s[0].equals("Sin comunidad"))
                 {
-                    copie[i] = Double.toString(corel);
-                    if (i < n-1)
-                    {
-                        int prop = Integer.parseInt(s[i]);
-                        if (prop < colors.length) fc += colors[prop]+", ";
-                        else fc += obtColorRandom()+", ";
-                    }
-                    else
-                    {
-                        int prop = Integer.parseInt(s[i]);
-                        if (prop < colors.length) fc += colors[prop];
-                        else fc += obtColorRandom();
-
-                    }
+                    g.getNode(node_id_sel).addAttribute("comm", Integer.toString(0));
+                    g.getNode(node_id_sel).removeAttribute("nco");
+                    g.getNode(node_id_sel).removeAttribute("ui.pie-values");
+                    g.getNode(node_id_sel).addAttribute("ui.style", "fill-color: #CCC;");
                 }
-                fc += ";";
+                else {
+                    int n = s.length;
+                    g.getNode(node_id_sel).addAttribute("comm", Integer.toString(n));
+                    g.getNode(node_id_sel).addAttribute("nco", new Object[]{s});
 
-                //System.out.println(fc);
-                g.getNode(node_id_sel).addAttribute("ui.pie-values", copie);
-                g.getNode(node_id_sel).addAttribute("ui.style", fc);
+                    Double corel = 1.0 / n;
+
+                    Object[] copie = new Object[n];
+
+                    String fc = "fill-color: ";
+                    for (int i = 0; i < n; i++) {
+                        copie[i] = Double.toString(corel);
+                        if (i < n - 1) {
+                            int prop = Integer.parseInt(s[i]);
+                            if (prop < colors.length) fc += colors[prop] + ", ";
+                            else fc += obtColorRandom() + ", ";
+                        } else {
+                            int prop = Integer.parseInt(s[i]);
+                            if (prop < colors.length) fc += colors[prop];
+                            else fc += obtColorRandom();
+
+                        }
+                    }
+                    fc += ";";
+
+                    //System.out.println(fc);
+                    g.getNode(node_id_sel).addAttribute("ui.pie-values", copie);
+                    g.getNode(node_id_sel).addAttribute("ui.style", fc);
+                }
 
             }
         });
@@ -290,6 +309,7 @@ public class PanelAlgoritmo extends Panel{
                             }
                             //System.out.println(sc);
                             community_data.setText(sc);
+                            community_data.setCaretPosition(0);
                             okay.setEnabled(true);
                         }
                         catch (Exception exc){
@@ -402,23 +422,44 @@ public class PanelAlgoritmo extends Panel{
         mostrar1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                cargarGrafo();
-                mostrar1.setEnabled(false);
-                Document doc = new DefaultStyledDocument();
-                try {
-                    String r = cpa.next_mensaje();
-                    while (!r.equals("-")) {
-                        //System.out.println(r);
-                        doc.insertString(doc.getLength(), r+"\n", null);
-                        r = cpa.next_mensaje();
+                SwingWorker<Void, Void> sw1 = new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() throws Exception {
+                        setProgress(0);
+                        cargarGrafo();
+                        setProgress(50);
+                        mostrar1.setEnabled(false);
+                        Document doc = new DefaultStyledDocument();
+                        try {
+                            String r = cpa.next_mensaje();
+                            while (!r.equals("-")) {
+                                //System.out.println(r);
+                                doc.insertString(doc.getLength(), r+"\n", null);
+                                r = cpa.next_mensaje();
 
+                            }
+                        } catch (BadLocationException e1) {
+                            e1.printStackTrace();
+                        }
+                        tp1.setDocument(doc);
+                        setProgress(100);
+                        return null;
                     }
-                } catch (BadLocationException e1) {
-                    e1.printStackTrace();
-                }
-                tp1.setDocument(doc);
+                };
+
+                sw1.addPropertyChangeListener(new PropertyChangeListener() {
+                    @Override
+                    public void propertyChange(PropertyChangeEvent evt) {
+                        if ("progress" == evt.getPropertyName()) {
+                            int progress = (Integer) evt.getNewValue();
+                            pb1.setIndeterminate(false);
+                            pb1.setValue(progress);
+                        }
+                    }
+                });
+
+                sw1.execute();
 
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
@@ -428,22 +469,46 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                cargarGrafo();
-                mostrar2.setEnabled(false);
-                Document doc = new DefaultStyledDocument();
-                try {
-                    String r = cpa.next_mensaje();
-                    while (!r.equals("-")) {
-                        doc.insertString(0, r, null);
-                        doc.insertString(0, "\n", null);
-                        r = cpa.next_mensaje();
-                        //System.out.println(r);
+
+                SwingWorker<Void, Void> sw2 = new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() throws Exception {
+                        setProgress(0);
+                        cargarGrafo();
+                        setProgress(50);
+                        mostrar2.setEnabled(false);
+                        Document doc = new DefaultStyledDocument();
+                        try {
+                            String r = cpa.next_mensaje();
+                            while (!r.equals("-")) {
+                                //System.out.println(r);
+                                doc.insertString(doc.getLength(), r+"\n", null);
+                                r = cpa.next_mensaje();
+
+                            }
+                        } catch (BadLocationException e1) {
+                            e1.printStackTrace();
+                        }
+                        tp2.setDocument(doc);
+                        setProgress(100);
+                        return null;
                     }
-                } catch (BadLocationException e1) {
-                    e1.printStackTrace();
-                }
-                tp2.setDocument(doc);
+                };
+
+                sw2.addPropertyChangeListener(new PropertyChangeListener() {
+                    @Override
+                    public void propertyChange(PropertyChangeEvent evt) {
+                        if ("progress" == evt.getPropertyName()) {
+                            int progress = (Integer) evt.getNewValue();
+                            pb2.setIndeterminate(false);
+                            pb2.setValue(progress);
+                        }
+                    }
+                });
+
+                sw2.execute();
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
             }
         });
 
@@ -451,21 +516,43 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                cargarGrafo();
-                mostrar3.setEnabled(false);
+                SwingWorker<Void, Void> sw3 = new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() throws Exception {
+                        setProgress(0);
+                        cargarGrafo();
+                        setProgress(50);
+                        mostrar3.setEnabled(false);
+                        Document doc = new DefaultStyledDocument();
+                        try {
+                            String r = cpa.next_mensaje();
+                            while (!r.equals("-")) {
+                                //System.out.println(r);
+                                doc.insertString(doc.getLength(), r+"\n", null);
+                                r = cpa.next_mensaje();
 
-                Document doc = new DefaultStyledDocument();
-                try {
-                    String r = cpa.next_mensaje();
-                    while (!r.equals("-")) {
-                        doc.insertString(doc.getLength(), r+"\n", null);
-                        r = cpa.next_mensaje();
-
+                            }
+                        } catch (BadLocationException e1) {
+                            e1.printStackTrace();
+                        }
+                        tp3.setDocument(doc);
+                        setProgress(100);
+                        return null;
                     }
-                } catch (BadLocationException e1) {
-                    e1.printStackTrace();
-                }
-                tp3.setDocument(doc);
+                };
+
+                sw3.addPropertyChangeListener(new PropertyChangeListener() {
+                    @Override
+                    public void propertyChange(PropertyChangeEvent evt) {
+                        if ("progress" == evt.getPropertyName()) {
+                            int progress = (Integer) evt.getNewValue();
+                            pb3.setIndeterminate(false);
+                            pb3.setValue(progress);
+                        }
+                    }
+                });
+
+                sw3.execute();
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         });
@@ -481,17 +568,19 @@ public class PanelAlgoritmo extends Panel{
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb1)
                                                         .addComponent(sp1, 100, 150, (int) (width / 4))
+                                                        .addComponent(pb1)
                                                         .addComponent(mostrar1)
-                                                //.addComponent(pb1)
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb2)
                                                         .addComponent(sp2, 100, 150, (int) (width / 4))
+                                                        .addComponent(pb2)
                                                         .addComponent(mostrar2)
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb3)
                                                         .addComponent(sp3, 100, 150, (int) (width / 4))
+                                                        .addComponent(pb3)
                                                         .addComponent(mostrar3)
                                         )
                                         .addGroup(gr.createParallelGroup()
@@ -513,14 +602,17 @@ public class PanelAlgoritmo extends Panel{
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb1)
                                                         .addComponent(sp1, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
+                                                        .addComponent(pb1)
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb2)
                                                         .addComponent(sp2, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
+                                                        .addComponent(pb2)
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb3)
                                                         .addComponent(sp3, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
+                                                        .addComponent(pb3)
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(l_pref)

@@ -1,5 +1,6 @@
 package Presentacio;
 
+import scala.xml.PrettyPrinter;
 import sun.awt.VerticalBagLayout;
 
 import javax.swing.*;
@@ -26,5 +27,8 @@ public class PanelAyuda extends Panel {
 
         JLabel vc2 = new JLabel("Botón central del ratón: Centrar vista en punto");
         add(vc2);
+
+        JLabel vc3 = new JLabel("Botón derecho del ratón: \"PROP NIGHT\"");
+        add(vc3);
     }
 }
