@@ -690,7 +690,7 @@ public class PanelCongreso extends PanelLista {
     protected void boxSortActionPerformed(ActionEvent evt) {
         //labelStatus.setText(boxSort.getSelectedIndex()+"");
         //TODO mejorar, te quedas donde estabas
-        //ListUpdate();
+        ListUpdate();
     }
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt)    {
