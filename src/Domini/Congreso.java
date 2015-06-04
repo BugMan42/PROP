@@ -162,39 +162,6 @@ public class Congreso {
         tstPartido.vaciar();
         reiniciarCaches();
     }
-    //Modificadoras
-    /*
-    public void modDniCongresista(Dni dni, Dni dniNuevo) throws Exception {
-        if (!dni.equals(dniNuevo)) {
-            tst.modificar(dni.toString(), dniNuevo.toString());
-            tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
-            reiniciarCaches();
-        }
-    }
-    public void modNombreCongresista(Dni dni,String nombre) throws Exception {
-        tst.obtener(dni.toString()).modNombre(nombre);
-        reiniciarCaches();
-    }
-    public void modApellidoCongresista(Dni dni,String apellido) throws Exception {
-        tst.obtener(dni.toString()).modApellido(apellido);
-        reiniciarCaches();
-    }
-    public void modEdadCongresista(Dni dni,int edad) throws Exception {
-        tst.obtener(dni.toString()).modEdad(edad);
-        reiniciarCaches();
-    }
-    public void modCiudadCongresista(Dni dni,String ciudad) throws Exception {
-        tst.obtener(dni.toString()).modCiudad(ciudad);
-        reiniciarCaches();
-    }
-    public void modEstadoCongresista(Dni dni,String estado) throws Exception {
-        tst.obtener(dni.toString()).modEstado(estado);
-        reiniciarCaches();
-    }
-    public void modPartidoCongresista(Dni dni,String partido) throws Exception {
-        tst.obtener(dni.toString()).modPartido(partido);
-        reiniciarCaches();
-    }*/
     public void modCongresista(Dni dni,Dni dniNuevo , String nombre, String apellido,
                                int edad, String ciudad, String estado, String partido) throws  Exception{
         if (!dni.equals(dniNuevo)) {
@@ -252,23 +219,20 @@ public class Congreso {
             if (!original.obtCiudad().equals(nuevo.obtCiudad())) {
                 tstCiudad.borrar(original.obtCiudad()+original.obtID());
                 tstCiudad.insertar(nuevo.obtCiudad()+nuevo.obtID(),aux);
-
             }
             if (!original.obtEstado().equals(nuevo.obtEstado())) {
                 tstEstado.borrar(original.obtEstado()+original.obtID());
                 tstEstado.insertar(nuevo.obtEstado()+nuevo.obtID(),aux);
-
             }
             if (!original.obtPartido().equals(nuevo.obtPartido())) {
                 tstPartido.borrar(original.obtPartido()+original.obtID());
                 tstPartido.insertar(nuevo.obtPartido()+nuevo.obtID(),aux);
-
             }
         }
         reiniciarCaches();
     }
 
-    private TSTIterator desplazarIterador(int bloq, int tam){
+    private TSTIterator desplazarIterador(int bloq, int tam) {
         // Rellenar con los iteradores de todos los bloques.
         if (Cache.isEmpty()){
             TSTIterator res = new TSTIterator(tst);

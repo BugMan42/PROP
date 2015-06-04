@@ -18,14 +18,26 @@ public class TSTIterator<X> extends TST{
         boolean seguir = aux != null;
         while (seguir) {
             stack.push(aux);
-            if (aux.left == null) aux = (TSTNodoChar)aux.middle;
+            if (aux.left == null) {
+                if (aux.middle == null) aux = (TSTNodoChar)aux.right;
+                else aux = (TSTNodoChar)aux.middle;
+            }
             else aux = (TSTNodoChar) aux.left;
-            if (aux.valor == fin) {
+            if (aux != null && aux.valor == fin) {
                 seguir = false;
                 stack.push(aux);
             }
         }
     }
+    /*
+    stack.push(aux);
+            if (aux.left == null) aux = (TSTNodoChar)aux.middle;
+            else aux = (TSTNodoChar) aux.left;
+            if (aux != null && aux.valor == fin) {
+                seguir = false;
+                stack.push(aux);
+            }
+     */
 
 
     public boolean hasNext() {

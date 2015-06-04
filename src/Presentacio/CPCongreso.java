@@ -199,8 +199,7 @@ public class CPCongreso {
     }
     public void cargar(String path) throws Exception {
         CC.cargar(path, CPR.obtCR());
-        //if (CC.size() > 100) refresh(0,1);
-        //else refresh(0, -1);
+        reiniciarCache();
     }
 
 
