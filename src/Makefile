@@ -23,7 +23,7 @@ CL1 = $(R1:.java=.class)
 CL2 = $(R2:.java=.class)
 CL3 = $(R3:.java=.class)
 
-CLASSPATH = .:./gs-ui-1.3.jar:./gs-core-1.3.jar:./gs-algo-1.3.jar
+CLASSPATH = GraphStream/gs-ui-1.3.jar:GraphStream/gs-core-1.3.jar:GraphStream/gs-algo-1.3.jar
 
 all: $(CLASS1) $(CLASS2) $(CLASS3)
 
