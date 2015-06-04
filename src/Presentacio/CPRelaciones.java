@@ -16,6 +16,7 @@ public class CPRelaciones {
     private PanelRelacionesCongresista PRC;
     private PanelRelacionesEvento PRE;
     private PanelRelacionesGeneral PRG;
+    private PanelRelacionesCompuestas PRCO;
     private int RUCon, RUEv, RURel;
     private int[] indCon, indEv, indRel;
     private String[][] bCon;
@@ -37,6 +38,7 @@ public class CPRelaciones {
         PRC = null;
         PRE = null;
         PRG = null;
+        PRCO = null;
 
         reiniciarCacheCon();
         reiniciarCacheEv();
@@ -57,6 +59,9 @@ public class CPRelaciones {
                 break;
             case 3:
                 PRE.actualizar();
+                break;
+            case 4:
+                PRCO.actualizar();
                 break;
         }
         return PR;
@@ -83,6 +88,13 @@ public class CPRelaciones {
         return PRE;
     }
 
+    public PanelRelacionesCompuestas obtPanelRCO() {
+        if (PRCO == null) PRCO = new PanelRelacionesCompuestas(this);
+        pan = 4;
+        PRCO.actualizar();
+        return PRCO;
+    }
+
     public void actualizar(){
         if(PR!=null) {
             switch (pan) {
@@ -94,6 +106,9 @@ public class CPRelaciones {
                     break;
                 case 3:
                     PRE.actualizar();
+                    break;
+                case 4:
+                    PRCO.actualizar();
                     break;
             }
         }

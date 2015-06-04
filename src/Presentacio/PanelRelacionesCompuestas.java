@@ -7,4 +7,20 @@ import java.util.List;
  */
 public class PanelRelacionesCompuestas extends Panel3Listas {
 
+    private CPRelaciones cpr;
+
+    public PanelRelacionesCompuestas(CPRelaciones c){
+        cpr = c;
+        inicializar();
+    }
+
+    private void inicializar(){
+        pl1.titulo.setText("Congresistas");
+        pl2.titulo.setText("Eventos");
+        pl3.titulo.setText("Relaciones compuestas");
+    }
+
+    public void actualizar(){
+
+    }
 }
