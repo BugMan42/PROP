@@ -19,7 +19,7 @@ public class    VistaPrincipal extends JFrame {
     public VistaPrincipal(ControladorPresentacion c)
     {
         cp = c;
-        setMinimumSize(new Dimension(1070, 600));
+        setMinimumSize(new Dimension(1070, 620));
         initUI();
 
     }
@@ -67,6 +67,7 @@ public class    VistaPrincipal extends JFrame {
 
         JMenu menu1 = new JMenu("Archivo");
         menu1.setMnemonic(KeyEvent.VK_A);
+        menu1.setFont(new Font("Ubuntu", 0, 18));
 
         // Item de menú 1 (Nuevo)
         JMenuItem item1 = new JMenuItem("Nuevo", KeyEvent.VK_N);
@@ -128,7 +129,8 @@ public class    VistaPrincipal extends JFrame {
         menuBar.add(menu1);
 
         JMenu menu1_5 = new JMenu("Editar");
-        //menu1_5.putClientProperty(TextAttribute.SIZE, 18);
+        menu1_5.setFont(new Font("Ubuntu", 0, 18));
+
 
         JMenuItem mi_cong = new JMenuItem("Congreso", KeyEvent.VK_C);
        // mi_cong.putClientProperty(TextAttribute.SIZE, 18);
@@ -197,6 +199,7 @@ public class    VistaPrincipal extends JFrame {
         /// Menú 2 (Ayuda)
 
         JMenu menu2 = new JMenu("Ayuda");
+        menu2.setFont(new Font("Ubuntu", 0, 18));
 
         JMenuItem item5 = new JMenuItem("Ayuda", KeyEvent.VK_H);
         item5.setToolTipText("Consulta la ayuda");
