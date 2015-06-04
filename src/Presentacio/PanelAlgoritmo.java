@@ -31,7 +31,8 @@ public class PanelAlgoritmo extends Panel{
 
     //Lógica interna
     private int option = 0;
-    private String[] colors = {"blue", "green", "red", "yellow", "#B280B2", "sienna", "tan", "turquoise", "pink", "khaki", "orange", "seagreen", "darkmagenta", "#574926", "cadetblue"};
+    private String[] colors = {"blue", "green", "red", "yellow", "#B280B2", "sienna", "tan", "turquoise", "pink", "khaki",
+            "orange", "seagreen", "darkmagenta", "#574926", "cadetblue", "palegreen", "maroon"};
     private String node_id_sel = "";
 
     public PanelAlgoritmo(CPAlgoritmo cont) {
@@ -61,9 +62,7 @@ public class PanelAlgoritmo extends Panel{
         g.addAttribute(
                 "ui.stylesheet",
                 "node { text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
-                        "node:selected { stroke-width: 4px; }"+
-                        "node:clicked { stroke-width: 4px; }"+
-                        "edge { fill-color: #777; }");
+                        "node:selected { stroke-width: 4px; }");
 
         viewer = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         viewer.enableAutoLayout();
@@ -163,6 +162,7 @@ public class PanelAlgoritmo extends Panel{
         buttongroup.add(rb3);
 
         final JLabel l_pref = new JLabel("Parámetro 1:");
+        l_pref.setMaximumSize(new Dimension(200,20));
         final JTextField pref = new JTextField("0");
         pref.setPreferredSize(new Dimension(100,20));
         pref.setMaximumSize(new Dimension(200,20));
@@ -311,6 +311,7 @@ public class PanelAlgoritmo extends Panel{
                     view.getCamera().setViewCenter(c.x, c.y, c.z);
                 } else if (e.getButton() == MouseEvent.BUTTON3) {
 
+                    System.out.println("PROP NIGHT");
                 }
 
             }
@@ -511,15 +512,15 @@ public class PanelAlgoritmo extends Panel{
                         .addGroup(gr.createParallelGroup()
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb1)
-                                                        .addComponent(sp1, (int) (height / 6), (int) (height / 6), (int) (height / 3))
+                                                        .addComponent(sp1, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb2)
-                                                        .addComponent(sp2, (int) (height / 6), (int) (height / 6), (int) (height / 3))
+                                                        .addComponent(sp2, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb3)
-                                                        .addComponent(sp3, (int) (height / 6), (int) (height / 6), (int) (height / 3))
+                                                        .addComponent(sp3, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(l_pref)
