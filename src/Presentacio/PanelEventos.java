@@ -608,6 +608,7 @@ public class PanelEventos extends PanelLista {
     //TODO MODIFICAR
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt) {
+        String busqueda = textSearch.getText();
 
     }
     //TODO MODIFICAR
@@ -623,6 +624,37 @@ public class PanelEventos extends PanelLista {
         boxSearch.setToolTipText("Busqueda");
     }
     //TODO MODIFICAR
-    protected void textSearchTyped(KeyEvent evt) {}
+    protected void textSearchTyped(KeyEvent evt) {
+        /*String busqueda = textSearch.getText();
+        if (busqueda.equals("")) {
+            labelStatus.setVisible(false);
+            labelStatus.setText("");
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            if (busqueda.equals("")) {
+                labelStatus.setVisible(false);
+                labelStatus.setText("");
+                actualizarLista();
+            }
+            else {
+                int op = obtBoxSearch().getSelectedIndex();
+                switch (op) {
+                    case 0:
+                        cpe.obtCCE().obtBloqueBN(busqueda);
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        break;
+                }
+                labelStatus.setVisible(true);
+                labelStatus.setText("Eventos encontrados: "+cpe.obtCCE().size());
+            }
+        }
+*/
+    }
 
 }

@@ -57,13 +57,28 @@ public class PanelRelaciones extends Panel {
             }
         });
 
+        JButton bCompuestas = new JButton("Relaciones compuestas");
+        bCompuestas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remove(pan);
+                pan = cpr.obtPanelRCO();
+                add(pan);
+                invalidate();
+                revalidate();
+                repaint();
+            }
+        });
+
         bTodas.setFont(new java.awt.Font("Sans Serif", 0, 17));
         bCongresista.setFont(new java.awt.Font("Sans Serif", 0, 17));
         bEvento.setFont(new java.awt.Font("Sans Serif", 0, 17));
+        bCompuestas.setFont(new java.awt.Font("Sans Serif", 0, 17));
 
         menu.add(bTodas);
         menu.add(bCongresista);
         menu.add(bEvento);
+        //menu.add(bCompuestas);
 
         setLayout(new BorderLayout());
         add(menu, BorderLayout.PAGE_START);
