@@ -136,11 +136,11 @@ public class ControladorCongreso {
 
 
     public void searchByDni(String aux) {
-        print("en busqueda");
+        //print("en busqueda");
         cacheBusqueda.clear();
-        print("antes de buscar");
+        //print("antes de buscar");
         cacheBusqueda = c.searchPrefixDni(aux.toUpperCase());
-        print("hemos buscado");
+        //print("hemos buscado");
         //print("size busqueda: "+cacheBusqueda.size());
     }
     public List<Congresista> obtCache() {
