@@ -274,9 +274,15 @@ public class pruebas {
         a.agregarCongresista(C6);
         a.agregarCongresista(C7);
         ControladorCongreso con = new ControladorCongreso();
-        con.agregarCongresistaRandom(50);
-        print(con.size()+"");
+        con.agregarCongresista("00000000a","a","a",12,"a","a","a");
+        con.agregarCongresista("10000000a","c","a",12,"a","a", "a");
+        con.agregarCongresista("20000000a","a","a",12,"a","a","a");
+        con.agregarCongresista("00000000d","c","a",12,"a","a","a");
+        con.agregarCongresista("00000000b","c","a",12,"a","a","a");
+
+        //print(con.size()+"");
         con.searchByDni("1");
+        print(con.obtCache().toString());
         //print(con.);
 
         /*print(a.obtenerListaID().size() + "");

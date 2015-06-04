@@ -162,28 +162,31 @@ public class CPCongreso {
     public boolean resultados() {
         return CC.cacheBusquedaVacia();
     }
+    public int sizeBusqueda() {
+        return CC.sizeBusqueda();
+    }
 
     /**Buscar*/
-    public void searchByDni(String aux) throws Exception {
-        CC.searchByDni(aux);
+    public void searchByDni(String aux)  {
+        if (!aux.isEmpty()) CC.searchByDni(aux);
     }
     public void searchByName(String aux) {
-        CC.searchByName(aux);
+        if (!aux.isEmpty()) CC.searchByName(aux);
     }
     public void searchBySurName(String aux) {
-        CC.searchBySurName(aux);
+        if (!aux.isEmpty()) CC.searchBySurName(aux);
     }
-    public void searchByAge(int aux) {
-        CC.searchByAge(aux);
+    public void searchByAge(String aux) {
+        if (!aux.isEmpty())  CC.searchByAge(aux);
     }
     public void searchByCity(String aux) {
-        CC.searchByCity(aux);
+        if (!aux.isEmpty())  CC.searchByCity(aux);
     }
     public void searchByState(String aux) {
-        CC.searchByState(aux);
+        if (!aux.isEmpty()) CC.searchByState(aux);
     }
     public void searchByParty(String aux) {
-        CC.searchByParty(aux);
+        if (!aux.isEmpty()) CC.searchByParty(aux);
     }
 
     public void guardar(String path) throws Exception {

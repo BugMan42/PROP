@@ -1,6 +1,7 @@
 package Domini;
 
 import Persistencia.ControladorPersistencia;
+import scala.Array;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -139,11 +140,21 @@ public class ControladorCongreso {
         cp.cerrarFichero();
     }
 
+    public int sizeBusqueda() {
+        return cacheBusqueda.size();
+    }
 
 
     public void searchByDni(String aux) {
+        print("en busqueda");
         cacheBusqueda.clear();
+        print("antes de buscar");
         cacheBusqueda = c.searchPrefixDni(aux.toUpperCase());
+        print("hemos buscado");
+        //print("size busqueda: "+cacheBusqueda.size());
+    }
+    public List<Congresista> obtCache() {
+        return cacheBusqueda;
     }
     public void searchByName(String aux) {
         cacheBusqueda.clear();
@@ -153,7 +164,7 @@ public class ControladorCongreso {
         cacheBusqueda.clear();
         cacheBusqueda = c.searchPrefixApellido(aux.toUpperCase());
     }
-    public void searchByAge(int aux) {
+    public void searchByAge(String aux) {
         cacheBusqueda.clear();
         cacheBusqueda = c.searchPrefixEdad(String.valueOf(aux));
     }
@@ -197,7 +208,8 @@ public class ControladorCongreso {
     }
 
     public boolean cacheBusquedaVacia() {
-        return cacheBusqueda.size() == 0;
+        if (cacheBusqueda == null) return true;
+        else return cacheBusqueda.size() == 0;
     }
 
     public String obtCongresoPR(){

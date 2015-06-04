@@ -88,7 +88,7 @@ public abstract class PanelLista extends Panel {
         textSearch.setMinimumSize(new Dimension(83, 30));
         textSearch.setPreferredSize(new Dimension(83, 30));
         textSearch.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent evt) {
+            public void keyReleased(KeyEvent evt) {
                 //clearLabelSearch(textSearch);
                 textSearchTyped(evt);
             }

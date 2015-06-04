@@ -20,6 +20,8 @@ public class PanelCongreso extends PanelLista {
     CPCongreso CPC;
     boolean t;
     private Boolean[] vError;
+    int tamSearch;
+    //private String buscar;
 
     AbstractListModel<String> bigData;
     JFileChooser choosersave;
@@ -65,6 +67,8 @@ public class PanelCongreso extends PanelLista {
         updateJList(0);
         iniFont();
         initGUI();
+        tamSearch = 0;
+        //buscar = "";
 
     }
     private void iniFont() {
@@ -568,7 +572,6 @@ public class PanelCongreso extends PanelLista {
     private boolean validarJTextDni(JTextField aux) {
         return ((!aux.getText().equals(def[2])) );// && !aux.getText().equals(" ") && !aux.getText().equals("");
     }
-
     private void bModificarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO no funciona
         emptyLError();
@@ -650,9 +653,7 @@ public class PanelCongreso extends PanelLista {
         ListUpdate();
     }
     public void ListUpdate() {
-        //print(boxSort.getSelectedIndex()+"");
         updateJList(boxSort.getSelectedIndex());
-            //createjlist();
     }
     public void setDefaultText() {
         defColorText(Color.GRAY);
@@ -689,17 +690,13 @@ public class PanelCongreso extends PanelLista {
     protected void boxSortActionPerformed(ActionEvent evt) {
         //labelStatus.setText(boxSort.getSelectedIndex()+"");
         //TODO mejorar, te quedas donde estabas
-        ListUpdate();
+        //ListUpdate();
     }
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt)    {
-        try {
-            HardWorker op = new HardWorker();
-            op.doInBackground();
-        } catch (Exception a ) {
-            labelStatus.setVisible(true);
-            labelStatus.setText(a.getMessage());
-        }
+        Search(textSearch.getText());
+        labelStatus.setVisible(true);
+        labelStatus.setText("Size"+CPC.size());
     }
     private void ListUpdateBusqueda() {
         String a[] = {"Búsqueda sin resultados"};
@@ -707,6 +704,7 @@ public class PanelCongreso extends PanelLista {
         else {
             //print("todavia no");
             ArrayList<String> aux = CPC.obtCC().obtenerBusqueda();
+            print(aux.size()+"");
             listCongreso.setListData(aux.toArray());
         }
     }
@@ -719,66 +717,61 @@ public class PanelCongreso extends PanelLista {
         boxSearch.setToolTipText(" Buscar ");
     }
     protected void textSearchTyped(KeyEvent evt) {
-        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            if (textSearch.getText().equals("")) ListUpdate();
-            else {
-                try {
-                    HardWorker op = new HardWorker();
-                    op.doInBackground();
-                } catch (Exception a ) {
-                    labelStatus.setVisible(true);
-                    labelStatus.setText(a.getMessage());
-                }
+        String buscar = textSearch.getText();
+        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+            if (buscar.equals("")) {
+                labelStatus.setVisible(false);
+                labelStatus.setText("");
+                ListUpdate();
             }
-        }
-        else if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-           // textSearch.setText(textSearch.getText().substring(0,text));
+            else {
+                Search(buscar);
+                labelStatus.setVisible(true);
+                labelStatus.setText("Congresistas encontrados: "+CPC.sizeBusqueda());
+            }
         }
         else {
-            try {
-                HardWorker op = new HardWorker();
-                op.doInBackground();
-            } catch (Exception a ) {
-                labelStatus.setVisible(true);
-                labelStatus.setText(a.getMessage());
-            }
+            Search(buscar);
+            labelStatus.setVisible(true);
+            labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
         }
 
     }
-    private final class HardWorker extends SwingWorker<Void, Void> {
-        @Override  protected Void doInBackground() throws Exception {
-                switch (boxSearch.getSelectedIndex()) {
-                    case 0:
-                        CPC.searchByDni(textSearch.getText());
-                        ListUpdateBusqueda();
-                        break;
-                    case 1:
-                        CPC.searchByName(textSearch.getText());
-                        ListUpdateBusqueda();
-                        break;
-                    case 2:
-                        CPC.searchBySurName(textSearch.getText());
-                        ListUpdateBusqueda();
-                        break;
-                    case 3:
-                        CPC.searchByAge(Integer.parseInt(textSearch.getText()));
-                        ListUpdateBusqueda();
-                        break;
-                    case 4:
-                        CPC.searchByCity(textSearch.getText());
-                        ListUpdateBusqueda();
-                        break;
-                    case 5:
-                        CPC.searchByState(textSearch.getText());
-                        ListUpdateBusqueda();
-                        break;
-                    case 6:
-                        CPC.searchByParty(textSearch.getText());
-                        ListUpdateBusqueda();
-                        break;
-                }
-            return null;
+
+    private void Search(String buscar) {
+        if (!buscar.isEmpty()) {
+            switch (boxSearch.getSelectedIndex()) {
+                case 0:
+                    CPC.searchByDni(buscar);
+                    ListUpdateBusqueda();
+                    break;
+                case 1:
+                    CPC.searchByName(buscar);
+                    ListUpdateBusqueda();
+                    break;
+                case 2:
+                    CPC.searchBySurName(buscar);
+                    ListUpdateBusqueda();
+                    break;
+                case 3:
+                    CPC.searchByAge(buscar);
+                    ListUpdateBusqueda();
+                    break;
+                case 4:
+                    CPC.searchByCity(buscar);
+                    ListUpdateBusqueda();
+                    break;
+                case 5:
+                    CPC.searchByState(textSearch.getText().toUpperCase());
+                    ListUpdateBusqueda();
+                    break;
+                case 6:
+                    CPC.searchByParty(textSearch.getText().toUpperCase());
+                    ListUpdateBusqueda();
+                    break;
+            }
         }
+
     }
     private boolean validarTodo() {
         boolean change = false;
@@ -836,6 +829,25 @@ public class PanelCongreso extends PanelLista {
         }
         return true;
     }
+    private void updateJList(int orden) {
+        CPC.modOrder(orden);
+       // print(CPC.obtCongresista(0));
+        bigData = new AbstractListModel<String>() {
+            public int getSize() {
+                if (CPC.size() == 0) return 1;
+                else return CPC.size();
+            }
+            public String getElementAt(int index) {
+                //print("index: "+index);
+                if (CPC.size() == 0) return "No hay Congresistas";
+                return CPC.obtCongresistaCache(index);
+                //return "Index " + index;
+            }
+        };
+        listCongreso.setPrototypeCellValue("If ----------- ");
+        listCongreso.setModel(bigData);
+    }
+
     private void defColorText(Color aux) {
         textName.setForeground(aux);
         textSurname.setForeground(aux);
@@ -884,41 +896,5 @@ public class PanelCongreso extends PanelLista {
         choosersave.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
-    }
-    /*private void createjlist() {
-        bigData = new AbstractListModel<String>() {
-            public int getSize() {
-                if (CPC.size() == 0) return 1;
-                else{
-                    //setMsg(CPC.size()+"");
-                    return CPC.size();
-                }
-            }
-            public String getElementAt(int index) {
-                if (CPC.size() == 0) return "No hay Congresistas";
-                return CPC.obtCongresista(index);
-                //return "Index " + index;
-            }
-        };
-        listCongreso.setPrototypeCellValue("If ----------- ");
-        listCongreso.setModel(bigData);
-    }*/
-    private void updateJList(int orden) {
-        CPC.modOrder(orden);
-       // print(CPC.obtCongresista(0));
-        bigData = new AbstractListModel<String>() {
-            public int getSize() {
-                if (CPC.size() == 0) return 1;
-                else return CPC.size();
-            }
-            public String getElementAt(int index) {
-                //print("index: "+index);
-                if (CPC.size() == 0) return "No hay Congresistas";
-                return CPC.obtCongresistaCache(index);
-                //return "Index " + index;
-            }
-        };
-        listCongreso.setPrototypeCellValue("If ----------- ");
-        listCongreso.setModel(bigData);
     }
 }
