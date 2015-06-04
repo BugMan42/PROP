@@ -146,6 +146,7 @@ public class PanelEventos extends PanelLista {
 
     public void actualizarLista() {
         lista.setPrototypeCellValue(" ");
+        cpe.refrescar();
         bloque = new AbstractListModel<String>() {
             @Override
             public int getSize() {
@@ -368,6 +369,7 @@ public class PanelEventos extends PanelLista {
         ctimportancia.setForeground(Color.GRAY);
         cbtipo.setSelectedIndex(0);
         lbinfo.setText(" ");
+        contador.setValue(1);
         lista.clearSelection();
     }
 
@@ -444,10 +446,10 @@ public class PanelEventos extends PanelLista {
 
     private void btagregarRandomAccion(ActionEvent e) throws Exception {
         long ini = System.currentTimeMillis();
-        cpe.obtCCE().AgregarEventoRandom((Integer)contador.getValue());
+        cpe.obtCCE().AgregarEventoRandom((Integer) contador.getValue());
         lbinfo.setText(" ");
         actualizarLista();
-        //System.out.println((System.currentTimeMillis() - ini) / 1000);
+        System.out.println((System.currentTimeMillis() - ini) / 1000);
     }
 
     private void bteliminarTodoAccion(ActionEvent e) {
@@ -600,7 +602,8 @@ public class PanelEventos extends PanelLista {
     }
 
     protected void boxSortActionPerformed(ActionEvent evt) {
-
+        cpe.ModOrden(boxSort.getSelectedIndex());
+        actualizarLista();
     }
     //TODO MODIFICAR
     //Modificar para buscar
