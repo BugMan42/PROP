@@ -78,7 +78,7 @@ public class ControladorCongreso {
         Dni d_nuevo = new Dni(dni_nuevo);
         Congresista con = new Congresista(d, nombre, apellido, edad, ciudad, estado, partido);
         Congresista con2 = new Congresista(d_nuevo, nombre_nuevo, apellido_nuevo, edad_nuevo, ciudad_nuevo, estado_nuevo, partido_nuevo);
-        c.modCongresista(con,con2);
+        c.modCongresista(con, con2);
     }
 
 
@@ -136,11 +136,11 @@ public class ControladorCongreso {
 
 
     public void searchByDni(String aux) {
-        print("en busqueda");
+        //print("en busqueda");
         cacheBusqueda.clear();
-        print("antes de buscar");
+        //print("antes de buscar");
         cacheBusqueda = c.searchPrefixDni(aux.toUpperCase());
-        print("hemos buscado");
+        //print("hemos buscado");
         //print("size busqueda: "+cacheBusqueda.size());
     }
     public List<Congresista> obtCache() {
@@ -272,6 +272,16 @@ public class ControladorCongreso {
         String res = "";
         for (Congresista co: con)
             res += co.toString() + sep;
+        return res;
+    }
+
+    public String obtBloqueCacheBusqueda(int bloque, int tam_bloque){
+        String res = "";
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > cacheBusqueda.size()) fin = cacheBusqueda.size();
+        List<Congresista> lc = cacheBusqueda.subList(ini, fin);
+        for (Congresista c : lc) res += c.toString()+"\n";
         return res;
     }
 
