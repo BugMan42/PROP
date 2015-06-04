@@ -759,9 +759,26 @@ public class PanelCongreso extends PanelLista {
         else {
             //print("todavia no");
             ArrayList<String> aux = CPC.obtCC().obtenerBusqueda();
-            print(aux.size()+"");
+           // print(aux.size()+"");
             listCongreso.setListData(aux.toArray());
         }
+        //ListUpdateBusqueda2();
+    }
+    private void ListUpdateBusqueda2() {
+        ListModel bigData2 = new AbstractListModel<String>() {
+            public int getSize() {
+                if (CPC.sizeBusqueda() == 0) return 1;
+                else return CPC.sizeBusqueda();
+            }
+            public String getElementAt(int index) {
+                //print("index: "+index);
+                if (CPC.sizeBusqueda() == 0) return "Búsqueda sin resultados";
+                return CPC.obtCongresistaBusqueda(index);
+                //return "Index " + index;
+            }
+        };
+        listCongreso.setPrototypeCellValue("If ----------- ");
+        listCongreso.setModel(bigData2);
     }
     protected void setBoxSort() {
         boxSort.setModel(new DefaultComboBoxModel(new String[]{"Orden Dni", "por Nombre", "por Apellido", "por Edad", "por Ciudad", "por Estado", "por Partido"}));

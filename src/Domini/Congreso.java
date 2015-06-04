@@ -91,20 +91,20 @@ public class Congreso {
         tstPartido = new TST<Congresista>();
     }
     private void agregarEnTsts(Congresista con) throws Exception {
-        tstNombre.insertar(con.obtNombre()+con.obtID(), con);
-        tstApellido.insertar(con.obtApellido() + con.obtID(), con);
-        tstEdad.insertar(String.valueOf(con.obtEdad()) + con.obtID(), con);
-        tstCiudad.insertar(con.obtCiudad() + con.obtID(), con);
-        tstEstado.insertar(con.obtEstado() + con.obtID(), con);
-        tstPartido.insertar(con.obtPartido() + con.obtID(), con);
+        tstNombre.insertar(con.obtNombre()+"-"+ con.obtID(), con);
+        tstApellido.insertar(con.obtApellido() +"-"+  con.obtID(), con);
+        tstEdad.insertar(String.valueOf(con.obtEdad()) + "-"+ con.obtID(), con);
+        tstCiudad.insertar(con.obtCiudad() +"-"+ con.obtID(), con);
+        tstEstado.insertar(con.obtEstado() +"-"+  con.obtID(), con);
+        tstPartido.insertar(con.obtPartido() +"-"+  con.obtID(), con);
     }
     private void borrarEnTsts(Congresista con) throws Exception {
-        tstNombre.borrar(con.obtNombre() + con.obtID());
-        tstApellido.borrar(con.obtApellido() + con.obtID());
-        tstEdad.borrar(String.valueOf(con.obtEdad()) + con.obtID());
-        tstCiudad.borrar(con.obtCiudad() + con.obtID());
-        tstEstado.borrar(con.obtEstado() + con.obtID());
-        tstPartido.borrar(con.obtPartido() + con.obtID());
+        tstNombre.borrar(con.obtNombre() +"-"+  con.obtID());
+        tstApellido.borrar(con.obtApellido() +"-"+  con.obtID());
+        tstEdad.borrar(String.valueOf(con.obtEdad()) +"-"+  con.obtID());
+        tstCiudad.borrar(con.obtCiudad() +"-"+  con.obtID());
+        tstEstado.borrar(con.obtEstado() +"-"+  con.obtID());
+        tstPartido.borrar(con.obtPartido() +"-"+  con.obtID());
     }
     /** TODO testear */
     public void agregarCongresista(Congresista c) throws Exception {
@@ -186,47 +186,47 @@ public class Congreso {
             tst.modificar(original.obtDni().toString(), nuevo.obtDni().toString());
             Congresista aux = tst.obtener(nuevo.obtDni().toString());
             aux.mod(nuevo.obtDni(), nuevo.obtNombre(), nuevo.obtApellido(), nuevo.obtEdad(), nuevo.obtCiudad(), nuevo.obtEstado(), nuevo.obtPartido());
-            tstNombre.borrar(original.obtNombre() + original.obtID());
-            tstNombre.insertar(nuevo.obtNombre() + nuevo.obtID(), aux);
-            tstApellido.borrar(original.obtApellido()+original.obtID());
-            tstApellido.insertar(nuevo.obtApellido()+nuevo.obtID(),aux);
-            tstEdad.borrar(original.obtEdad()+original.obtID());
-            tstEdad.insertar(nuevo.obtEdad()+nuevo.obtID(), aux);
-            tstCiudad.borrar(original.obtCiudad()+original.obtID());
-            tstCiudad.insertar(nuevo.obtCiudad()+nuevo.obtID(),aux);
-            tstEstado.borrar(original.obtEstado()+original.obtID());
-            tstEstado.insertar(nuevo.obtEstado()+nuevo.obtID(),aux);
-            tstPartido.borrar(original.obtPartido()+original.obtID());
-            tstPartido.insertar(nuevo.obtPartido()+nuevo.obtID(),aux);
+            tstNombre.borrar(original.obtNombre() +"-"+  original.obtID());
+            tstNombre.insertar(nuevo.obtNombre() +"-"+  nuevo.obtID(), aux);
+            tstApellido.borrar(original.obtApellido()+"-"+ original.obtID());
+            tstApellido.insertar(nuevo.obtApellido()+"-"+ nuevo.obtID(),aux);
+            tstEdad.borrar(original.obtEdad()+"-"+ original.obtID());
+            tstEdad.insertar(nuevo.obtEdad()+"-"+ nuevo.obtID(), aux);
+            tstCiudad.borrar(original.obtCiudad()+"-"+ original.obtID());
+            tstCiudad.insertar(nuevo.obtCiudad()+"-"+ nuevo.obtID(),aux);
+            tstEstado.borrar(original.obtEstado()+"-"+ original.obtID());
+            tstEstado.insertar(nuevo.obtEstado()+"-"+ nuevo.obtID(),aux);
+            tstPartido.borrar(original.obtPartido()+"-"+ original.obtID());
+            tstPartido.insertar(nuevo.obtPartido()+"-"+ nuevo.obtID(),aux);
         }
         else { //dnis iguales
             //print("has entrat en dni igual");
             Congresista aux = tst.obtener(original.obtDni().toString());
             aux.mod(nuevo.obtNombre(), nuevo.obtApellido(), nuevo.obtEdad(), nuevo.obtCiudad(), nuevo.obtEstado(), nuevo.obtPartido());
             if (!original.obtNombre().equals(nuevo.obtNombre())) {
-                tstNombre.borrar(original.obtNombre() + original.obtID());
-                tstNombre.insertar(nuevo.obtNombre()+nuevo.obtID(), aux);
+                tstNombre.borrar(original.obtNombre() +"-"+  original.obtID());
+                tstNombre.insertar(nuevo.obtNombre()+"-"+ nuevo.obtID(), aux);
             }
             if (!original.obtApellido().equals(nuevo.obtApellido())) {
-                tstApellido.borrar(original.obtApellido()+original.obtID());
-                tstApellido.insertar(nuevo.obtApellido()+nuevo.obtID(),aux);
+                tstApellido.borrar(original.obtApellido()+"-"+ original.obtID());
+                tstApellido.insertar(nuevo.obtApellido()+"-"+ nuevo.obtID(),aux);
             }
             if (original.obtEdad() != nuevo.obtEdad()) {
-                tstEdad.borrar(original.obtEdad()+original.obtID());
-                tstEdad.insertar(nuevo.obtEdad()+nuevo.obtID(), aux);
+                tstEdad.borrar(original.obtEdad()+"-"+ original.obtID());
+                tstEdad.insertar(nuevo.obtEdad()+"-"+ nuevo.obtID(), aux);
 
             }
             if (!original.obtCiudad().equals(nuevo.obtCiudad())) {
-                tstCiudad.borrar(original.obtCiudad()+original.obtID());
-                tstCiudad.insertar(nuevo.obtCiudad()+nuevo.obtID(),aux);
+                tstCiudad.borrar(original.obtCiudad()+"-"+ original.obtID());
+                tstCiudad.insertar(nuevo.obtCiudad()+"-"+ nuevo.obtID(),aux);
             }
             if (!original.obtEstado().equals(nuevo.obtEstado())) {
-                tstEstado.borrar(original.obtEstado()+original.obtID());
-                tstEstado.insertar(nuevo.obtEstado()+nuevo.obtID(),aux);
+                tstEstado.borrar(original.obtEstado()+"-"+ original.obtID());
+                tstEstado.insertar(nuevo.obtEstado()+"-"+ nuevo.obtID(),aux);
             }
             if (!original.obtPartido().equals(nuevo.obtPartido())) {
-                tstPartido.borrar(original.obtPartido()+original.obtID());
-                tstPartido.insertar(nuevo.obtPartido()+nuevo.obtID(),aux);
+                tstPartido.borrar(original.obtPartido() +"-"+  original.obtID());
+                tstPartido.insertar(nuevo.obtPartido()+"-"+ nuevo.obtID(),aux);
             }
         }
         reiniciarCaches();
