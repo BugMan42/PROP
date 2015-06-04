@@ -42,6 +42,14 @@ public class PanelAlgoritmo extends Panel{
     private JProgressBar pb2;
     private JProgressBar pb3;
 
+    private JTextPane tp1;
+    private JTextPane tp2;
+    private JTextPane tp3;
+
+    private JLabel name_data;
+    private JLabel dni_data;
+    private JTextField community_data;
+
     public PanelAlgoritmo(CPAlgoritmo cont) {
         super();
         cpa = cont;
@@ -119,7 +127,7 @@ public class PanelAlgoritmo extends Panel{
 
 
         //Dimension panel_dim = new Dimension(200, 100);
-        final JTextPane tp1 = new JTextPane();
+        tp1 = new JTextPane();
         tp1.setForeground(Color.green);
         tp1.putClientProperty("Nimbus.Overrides", defaults);
         tp1.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
@@ -136,7 +144,7 @@ public class PanelAlgoritmo extends Panel{
         pb1.setStringPainted(true);
 
 
-        final JTextPane tp2 = new JTextPane();
+        tp2 = new JTextPane();
         tp2.setForeground(new Color(255, 102, 0));
         tp2.putClientProperty("Nimbus.Overrides", defaults);
         tp2.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
@@ -152,7 +160,7 @@ public class PanelAlgoritmo extends Panel{
         pb2.setValue(0);
         pb2.setStringPainted(true);
 
-        final JTextPane tp3 = new JTextPane();
+        tp3 = new JTextPane();
         tp3.setForeground(new Color(255, 255, 0));
         tp3.putClientProperty("Nimbus.Overrides", defaults);
         tp3.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
@@ -203,7 +211,7 @@ public class PanelAlgoritmo extends Panel{
         gbc.ipadx = 2;
         info.add(name, gbc);
 
-        final JLabel name_data = new JLabel();
+        name_data = new JLabel();
         gbc.gridx = 1;
         gbc.gridy = 0;
         info.add(name_data, gbc);
@@ -213,7 +221,7 @@ public class PanelAlgoritmo extends Panel{
         gbc.gridy = 1;
         info.add(dni, gbc);
 
-        final JLabel dni_data = new JLabel();
+        dni_data = new JLabel();
         gbc.gridx = 1;
         gbc.gridy = 1;
         info.add(dni_data, gbc);
@@ -223,7 +231,7 @@ public class PanelAlgoritmo extends Panel{
         gbc.gridy = 2;
         info.add(community, gbc);
 
-        final JTextField community_data = new JTextField();
+        community_data = new JTextField();
         gbc.gridx = 0;
         gbc.gridy = 3;
         info.add(community_data, gbc);
@@ -331,7 +339,7 @@ public class PanelAlgoritmo extends Panel{
                     view.getCamera().setViewCenter(c.x, c.y, c.z);
                 } else if (e.getButton() == MouseEvent.BUTTON3) {
 
-                    System.out.println("PROP NIGHT");
+                    ///System.out.println("PROP NIGHT");
                 }
 
             }
@@ -643,7 +651,7 @@ public class PanelAlgoritmo extends Panel{
         g.addAttribute(
                 "ui.stylesheet",
                 "node { shape: pie-chart; size: 17.5px; text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
-                        "node:selected { stroke-width: 4px; }"+
+                        "node:selected { stroke-width: 4px; stroke-color: black; }"+
                         "node:clicked { stroke-width: 4px; stroke-color: black; }"+
                         "edge { fill-color: #777; }");
 
@@ -742,6 +750,23 @@ public class PanelAlgoritmo extends Panel{
             color += letras[rand];
         }
         return color;
+    }
+
+    public void nuevo()
+    {
+        g.clear();
+        tp1.setText("");
+        tp2.setText("");
+        tp3.setText("");
+
+        pb1.setValue(0);
+        pb2.setValue(0);
+        pb3.setValue(0);
+
+        name_data.setText("");
+        dni_data.setText("");
+        community_data.setText("");
+
     }
 
 }

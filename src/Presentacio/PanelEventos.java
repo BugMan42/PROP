@@ -449,7 +449,7 @@ public class PanelEventos extends PanelLista {
         cpe.obtCCE().AgregarEventoRandom((Integer) contador.getValue());
         lbinfo.setText(" ");
         actualizarLista();
-        System.out.println((System.currentTimeMillis() - ini) / 1000);
+        //System.out.println((System.currentTimeMillis() - ini) / 1000);
     }
 
     private void bteliminarTodoAccion(ActionEvent e) {
