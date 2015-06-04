@@ -118,11 +118,8 @@ public class Girvan_Newman extends Algoritmo{
     }
 
 
-    public void ejecutar_iteración() throws Exception {
-        ejecutar_iteración(alg_graph);
-    }
 
-    public void ejecutar_iteración(Grafo g) throws Exception {
+    private void ejecutar_iteración(Grafo g) throws Exception {
         int N = g.V(); //Número de vértices del grafo
         int cc = 0; //Número componentes conexos en la primera ejecución del algoritmo de Dijkstra
         int cc2 = 0; //Número de componentes conexos en la segunda ejecución del algoritmo de Dijkstra

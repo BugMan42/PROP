@@ -200,6 +200,17 @@ public class    VistaPrincipal extends JFrame {
 
         JMenuItem item5 = new JMenuItem("Ayuda", KeyEvent.VK_H);
         item5.setToolTipText("Consulta la ayuda");
+        item5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                remove(pan);
+                pan = cp.obtPanelAyuda();
+                add(pan);
+                invalidate();
+                revalidate();
+                repaint();
+            }
+        });
         menu2.add(item5);
 
         menuBar.add(menu2);
