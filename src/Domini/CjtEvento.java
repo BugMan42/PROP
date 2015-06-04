@@ -38,6 +38,7 @@ public class CjtEvento {
         String name = nombre.toUpperCase();
         cjt.borrar(name +separador+ fecha.alReves());
         cjtFecha.borrar(fecha.alReves() +separador+ name);
+        //System.out.println(cjtImp.consultarClaves().toString());
         cjtImp.borrar(Integer.toString(imp)+separador + name +separador+ fecha.alReves());
         restaurar();
     }

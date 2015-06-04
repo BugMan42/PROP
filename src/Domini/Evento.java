@@ -69,7 +69,7 @@ public abstract class Evento {
 
     public String IDImp() {
         //return Integer.toString(importancia)+nombre+fecha.ConsultarFecha();
-        return Integer.toString(importancia)+separador+nombre+fecha.alReves();
+        return Integer.toString(importancia)+separador+nombre+separador+fecha.alReves();
     }
 
     public abstract String toString();
