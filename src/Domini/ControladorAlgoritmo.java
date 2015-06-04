@@ -59,7 +59,6 @@ public class ControladorAlgoritmo {
         if (s == 1) alg = new Girvan_Newman(in, out);
         else if (s == 2) alg = new Louvain(in, out);
         else if (s == 3) alg = new Clique(in, out);
-        else if (s == 4) {}
     }
 
 
@@ -67,17 +66,6 @@ public class ControladorAlgoritmo {
     public Salida obtSalida()
     {
         return out;
-    }
-
-
-    public void guardar()
-    {
-
-    }
-
-    public void cargar()
-    {
-
     }
 
     //Funciones para exportar el grafo a Capa de Presentación
@@ -241,6 +229,11 @@ public class ControladorAlgoritmo {
 
     public String obtLabel(int x) throws Exception {
         return in.obtGrafo().fPrima(x);
+    }
+
+    public void guardar_salida(String ruta)
+    {
+
     }
 
 }
