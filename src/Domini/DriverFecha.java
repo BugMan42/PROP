@@ -1,5 +1,6 @@
 package Domini;
 
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -12,7 +13,9 @@ public class DriverFecha {
     final static String opcion3 = "3 ConsultarFecha()";
     final static String opcion4 = "4 ToString()";
     final static String opcion5 = "5 equals(Fecha f)";
-    final static String msg = "Introduzca un numero del 1 al 5. 6 para salir";
+    final static String opcion6 = "6 alReves()";
+    final static String opcion7 = "7 Fecha(Random r). Sin parametros";
+    final static String msg = "Introduzca un numero del 1 al 7. 8 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
     final static String dem = "Demasiados Argumentos";
     final static String ins = "Argumentos Insuficientes";
@@ -73,6 +76,16 @@ public class DriverFecha {
                 else throw new Exception(noExiste);
                 break;
             case 6:
+                if (aux.length > 1) throw new Exception(dem);
+                if (f != null) System.out.println(f.alReves());
+                else throw new Exception(noExiste);
+                break;
+            case 7:
+                if (aux.length > 1) throw new Exception(dem);
+                Random r = new Random();
+                f = new Fecha(r);
+                break;
+            case 8:
                 System.out.println(fin);
                 System.exit(0);
                 break;
@@ -88,6 +101,8 @@ public class DriverFecha {
         System.out.println(opcion3);
         System.out.println(opcion4);
         System.out.println(opcion5);
+        System.out.println(opcion6);
+        System.out.println(opcion7);
         System.out.println(msg);
     }
 }

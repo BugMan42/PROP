@@ -6,7 +6,7 @@ public class Fecha {
     static final String error9 = "Fecha no valida";
     final static String error1 = "Dia no puede ser inferior a 1 ni mayor que 31";
     final static String error2 = "Mes no puede ser inferior a 1 ni mayor que 12";
-    final static String error3 = "Año no puede ser inferior a 1";
+    final static String error3 = "Año no puede ser inferior a 1 ni mayor que 3000";
     final static String error4 = "Febrero no tiene dia 30 ni 31";
     final static String error5 = "Dia 29 de febrero solo en años bisiestos";
     final static String error6 = "El mes no tiene dia 31";
@@ -35,12 +35,12 @@ public class Fecha {
     }
 
     public Fecha(Random r) {
-        //Uso numeros random del [1,28] para el dia.
-        //[1,12] para mes y [1,3000] para el año
+        //Uso numeros random del [1,27] para el dia.
+        //[1,12] para mes y [1,2999] para el año
         fecha = new int[3];
-        fecha[0] = r.nextInt(28)+1;
-        fecha[1] = r.nextInt(12)+1;
-        fecha[2] = r.nextInt(3000)+1;
+        fecha[0] = r.nextInt(27)+1;
+        fecha[1] = r.nextInt(11)+1;
+        fecha[2] = r.nextInt(2999)+1;
     }
 
     public Fecha(String data) throws Exception {
@@ -63,7 +63,20 @@ public class Fecha {
 
     public String toString() {return Integer.toString(fecha[0]) + Integer.toString(fecha[1]) + Integer.toString(fecha[2]);}
 
-    public String alReves() {return Integer.toString(fecha[2]) + "/" + Integer.toString(fecha[1]) + "/" + Integer.toString(fecha[0]);}
+    public String alReves() {
+        String any = Integer.toString(fecha[2]);
+        String mes = Integer.toString(fecha[1]);
+        String dia = Integer.toString(fecha[0]);
+        if (any.length() < 4) {
+            int n = 4 - any.length();
+            for (int i = 0; i < n;++i) {
+                any = "0"+any;
+            }
+        }
+        if (mes.length() < 2) mes = "0"+mes;
+        if (dia.length() < 2) dia = "0"+dia;
+        return any + "/" + mes + "/" + dia;
+    }
 
     public boolean equals(Fecha f) {
         return fecha[0] == f.fecha[0] && fecha[1] == f.fecha[1] && fecha[2] == f.fecha[2];
