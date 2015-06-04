@@ -459,28 +459,40 @@ public class Congreso {
         return a;
     }*/
     public List<Congresista> searchPrefixDni(String prefix) {
-        print("prefix"+prefix.toString());
+        //print("prefix"+prefix.toString());
         List<Congresista> aux = tst.prefijo(prefix);
         if (aux == null) return new ArrayList<Congresista>();
         return aux;
     }
     public List<Congresista> searchPrefixNombre(String prefix) {
-        return tstNombre.prefijo(prefix);
+        List<Congresista> aux = tstNombre.prefijo(prefix);
+        if (aux == null) return new ArrayList<Congresista>();
+        return aux;
     }
     public List<Congresista> searchPrefixApellido(String prefix) {
-        return tstApellido.prefijo(prefix);
+        List<Congresista> aux = tstApellido.prefijo(prefix);
+        if (aux == null) return new ArrayList<Congresista>();
+        return aux;
     }
     public List<Congresista> searchPrefixEdad(String prefix) {
-        return tstEdad.prefijo(prefix);
+        List<Congresista> aux = tstEdad.prefijo(prefix);
+        if (aux == null) return new ArrayList<Congresista>();
+        return aux;
     }
     public List<Congresista> searchPrefixCiudad(String prefix) {
-        return tstCiudad.prefijo(prefix);
+        List<Congresista> aux = tstCiudad.prefijo(prefix);
+        if (aux == null) return new ArrayList<Congresista>();
+        return aux;
     }
     public List<Congresista> searchPrefixEstado(String prefix) {
-        return tstEstado.prefijo(prefix);
+        List<Congresista> aux = tstEstado.prefijo(prefix);
+        if (aux == null) return new ArrayList<Congresista>();
+        return aux;
     }
     public List<Congresista> searchPrefixPartido(String prefix) {
-        return tstPartido.prefijo(prefix);
+        List<Congresista> aux = tstPartido.prefijo(prefix);
+        if (aux == null) return new ArrayList<Congresista>();
+        return aux;
     }
 
 
