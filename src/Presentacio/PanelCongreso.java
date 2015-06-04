@@ -728,7 +728,7 @@ public class PanelCongreso extends PanelLista {
         ListUpdate();
     }
     private void dynamicSearch(int which,JTextField aux,KeyEvent evt) {
-        if (listCongreso.isSelectionEmpty()) {
+        if (listCongreso.isSelectionEmpty() && CPC.size()!= 0) {
             String buscar = aux.getText();
             if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
                 if (buscar.equals("")) {
