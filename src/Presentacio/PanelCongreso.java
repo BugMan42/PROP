@@ -565,7 +565,7 @@ public class PanelCongreso extends PanelLista {
         String[] campos = aux.getText().split(" ");
         if (campos.length != 1) {
             for (int i = 0; i < campos.length; ++i) {
-                if (i != 0) aux2 += "-";
+                if (i != 0) aux2 += "";
                 aux2 += (campos[i]);
             }
         }
@@ -728,23 +728,25 @@ public class PanelCongreso extends PanelLista {
         ListUpdate();
     }
     private void dynamicSearch(int which,JTextField aux,KeyEvent evt) {
-        String buscar = aux.getText();
-        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-            if (buscar.equals("")) {
-                labelStatus.setVisible(false);
-                labelStatus.setText("");
-                ListUpdate();
+        if (listCongreso.isSelectionEmpty()) {
+            String buscar = aux.getText();
+            if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                if (buscar.equals("")) {
+                    labelStatus.setVisible(false);
+                    labelStatus.setText("");
+                    ListUpdate();
+                }
+                else {
+                    Search(buscar,which);
+                    labelStatus.setVisible(true);
+                    labelStatus.setText("Congresistas encontrados: "+CPC.sizeBusqueda());
+                }
             }
             else {
                 Search(buscar,which);
                 labelStatus.setVisible(true);
-                labelStatus.setText("Congresistas encontrados: "+CPC.sizeBusqueda());
+                labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
             }
-        }
-        else {
-            Search(buscar,which);
-            labelStatus.setVisible(true);
-            labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
         }
     }
     //Modificar para buscar
