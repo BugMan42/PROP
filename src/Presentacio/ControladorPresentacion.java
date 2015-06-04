@@ -55,6 +55,7 @@ public class ControladorPresentacion {
         cpc.nuevo();
         cpe.nuevo();
         cpr.actualizar();
+        cpa.nuevo();
     }
 
     public void guardar(String ruta){

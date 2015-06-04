@@ -102,4 +102,9 @@ public class CPAlgoritmo {
         return CPR.obtCongresista(x);
     }
 
+    public void nuevo()
+    {
+        PA.nuevo();
+    }
+
 }
