@@ -9,6 +9,7 @@ public abstract class Evento {
     static final String error2 = "La fecha no es valida";
     static final String error3 = "Importancia no es valida";
     static final String error4 = "Tiene que ser mayor que 0";
+    static final char separador = '-';
 
     private String nombre;
     private Fecha fecha;
@@ -53,15 +54,18 @@ public abstract class Evento {
     }
 
     public String ID() {
-        return nombre+fecha.toString();
+        //return nombre+fecha.toString();
+        return  nombre+separador+fecha.ConsultarFecha();
     }
 
     public String IDFecha() {
-        return fecha.toString()+nombre;
+        return fecha.ConsultarFecha()+separador+nombre;
+        //return fecha.toString()+nombre;
     }
 
     public String IDImp() {
-        return Integer.toString(importancia)+nombre+fecha.toString();
+        //return Integer.toString(importancia)+nombre+fecha.ConsultarFecha();
+        return Integer.toString(importancia)+separador+nombre+fecha.ConsultarFecha();
     }
 
     public abstract String toString();

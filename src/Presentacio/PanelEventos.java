@@ -336,7 +336,7 @@ public class PanelEventos extends PanelLista {
                 default:
                     System.out.println("Imposible");
             }
-            lbinfo.setText(" ");
+            limpiarcampos();
             actualizarLista();
         }
         catch (NumberFormatException a) {
