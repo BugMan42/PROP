@@ -694,9 +694,9 @@ public class PanelCongreso extends PanelLista {
     }
     //Modificar para buscar
     protected  void buttonSearchActionPerformed(ActionEvent evt)    {
-        Search(textSearch.getText());
-        labelStatus.setVisible(true);
-        labelStatus.setText("Size"+CPC.size());
+        //Search(textSearch.getText());
+        //labelStatus.setVisible(true);
+        //labelStatus.setText("Size"+CPC.size());
     }
     private void ListUpdateBusqueda() {
         String a[] = {"Búsqueda sin resultados"};
