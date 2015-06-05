@@ -133,18 +133,12 @@ public class ControladorCongreso {
     public int sizeBusqueda() {
         return cacheBusqueda.size();
     }
-
-
-    public void searchByDni(String aux) {
-        //print("en busqueda");
-        cacheBusqueda.clear();
-        //print("antes de buscar");
-        cacheBusqueda = c.searchPrefixDni(aux.toUpperCase());
-        //print("hemos buscado");
-        //print("size busqueda: "+cacheBusqueda.size());
-    }
     public List<Congresista> obtCache() {
         return cacheBusqueda;
+    }
+    public void searchByDni(String aux) {
+        cacheBusqueda.clear();
+        cacheBusqueda = c.searchPrefixDni(aux.toUpperCase());
     }
     public void searchByName(String aux) {
         cacheBusqueda.clear();
@@ -202,31 +196,15 @@ public class ControladorCongreso {
         else return cacheBusqueda.size() == 0;
     }
 
-    public String obtCongresoPR(){
-        List<Congresista> con = c.obtenerCongreso();
-        String res = "";
-        for (Congresista co: con)
-            res += co.obtID()+" "+co.obtNombre()+" "+co.obtApellido()+" "+String.valueOf(co.obtEdad())+"\n";
-        return res;
-    }
-
     public String obtBloquePR(int bloque, int tam_bloque){
-        List<Congresista> con = c.obtCongreso(bloque, tam_bloque);
+        List<Congresista> con = c.obtCongresoDni(bloque, tam_bloque);
         String res = "";
         for (Congresista co: con)
             res += co.obtID()+" "+co.obtNombre()+" "+co.obtApellido()+" "+String.valueOf(co.obtEdad())+"\n";
-        return res;
-    }
-
-    public String obtBloquePR2(int bloque, int tam_bloque){
-        List<Congresista> con = c.obtCongreso(bloque, tam_bloque);
-        String res = "";
-        for (Congresista co: con)
-            res += co.toString() + sep;
         return res;
     }
     public String obtBloqueDNI(int bloque, int tam_bloque){
-        List<Congresista> con = c.obtCongreso(bloque, tam_bloque);
+        List<Congresista> con = c.obtCongresoDni(bloque, tam_bloque);
         String res = "";
         for (Congresista co: con)
             res += co.toString() + sep;
@@ -236,42 +214,42 @@ public class ControladorCongreso {
         List<Congresista> con = c.obtCongresoNombre(bloque, tam_bloque);
         String res = "";
         for (Congresista co: con)
-            res += co.toString() + sep;
+            res += co.toStringByName() + sep;
         return res;
     }
     public String obtBloqueApellido(int bloque, int tam_bloque){
         List<Congresista> con = c.obtCongresoApellido(bloque, tam_bloque);
         String res = "";
         for (Congresista co: con)
-            res += co.toString() + sep;
+            res += co.toStringBySurname() + sep;
         return res;
     }
     public String obtBloqueEdad(int bloque, int tam_bloque){
         List<Congresista> con = c.obtCongresoEdad(bloque, tam_bloque);
         String res = "";
         for (Congresista co: con)
-            res += co.toString() + sep;
+            res += co.toStringByAge() + sep;
         return res;
     }
     public String obtBloqueCiudad(int bloque, int tam_bloque){
         List<Congresista> con = c.obtCongresoCiudad(bloque, tam_bloque);
         String res = "";
         for (Congresista co: con)
-            res += co.toString() + sep;
+            res += co.toStringByCity() + sep;
         return res;
     }
     public String obtBloqueEstado(int bloque, int tam_bloque){
         List<Congresista> con = c.obtCongresoEstado(bloque, tam_bloque);
         String res = "";
         for (Congresista co: con)
-            res += co.toString() + sep;
+            res += co.toStringByState() + sep;
         return res;
     }
     public String obtBloquePartido(int bloque, int tam_bloque){
         List<Congresista> con = c.obtCongresoPartido(bloque, tam_bloque);
         String res = "";
         for (Congresista co: con)
-            res += co.toString() + sep;
+            res += co.toStringByParty() + sep;
         return res;
     }
 
@@ -281,7 +259,9 @@ public class ControladorCongreso {
         int fin = ini + tam_bloque;
         if (fin > cacheBusqueda.size()) fin = cacheBusqueda.size();
         List<Congresista> lc = cacheBusqueda.subList(ini, fin);
-        for (Congresista c : lc) res += c.toString()+"\n";
+        for (Congresista c : lc) {
+            res += c.toString()+sep;
+        }
         return res;
     }
 
@@ -295,5 +275,76 @@ public class ControladorCongreso {
         }
         return res;
     }
+    public String obtBloqueCacheBusquedaDni(int bloque, int tam_bloque){
+        String res = "";
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > cacheBusqueda.size()) fin = cacheBusqueda.size();
+        for (int i = ini; i < fin; ++i) {
+            res+=cacheBusqueda.get(i).toString()+sep;
+        }
+        return res;
+    }
+    public String obtBloqueCacheBusquedaNombre(int bloque, int tam_bloque){
+        String res = "";
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > cacheBusqueda.size()) fin = cacheBusqueda.size();
+        for (int i = ini; i < fin; ++i) {
+            res+=cacheBusqueda.get(i).toStringByName()+sep;
+        }
+        return res;
+    }
+    public String obtBloqueCacheBusquedaApellido(int bloque, int tam_bloque){
+        String res = "";
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > cacheBusqueda.size()) fin = cacheBusqueda.size();
+        for (int i = ini; i < fin; ++i) {
+            res+=cacheBusqueda.get(i).toStringBySurname()+sep;
+        }
+        return res;
+    }
+    public String obtBloqueCacheBusquedaEdad(int bloque, int tam_bloque){
+        String res = "";
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > cacheBusqueda.size()) fin = cacheBusqueda.size();
+        for (int i = ini; i < fin; ++i) {
+            res+=cacheBusqueda.get(i).toStringByAge()+sep;
+        }
+        return res;
+    }
+    public String obtBloqueCacheBusquedaCiudad(int bloque, int tam_bloque){
+        String res = "";
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > cacheBusqueda.size()) fin = cacheBusqueda.size();
+        for (int i = ini; i < fin; ++i) {
+            res+=cacheBusqueda.get(i).toStringByCity()+sep;
+        }
+        return res;
+    }
+    public String obtBloqueCacheBusquedaEstado(int bloque, int tam_bloque){
+        String res = "";
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > cacheBusqueda.size()) fin = cacheBusqueda.size();
+        for (int i = ini; i < fin; ++i) {
+            res+=cacheBusqueda.get(i).toStringByState()+sep;
+        }
+        return res;
+    }
+    public String obtBloqueCacheBusquedaPartido(int bloque, int tam_bloque){
+        String res = "";
+        int ini = bloque * tam_bloque;
+        int fin = ini + tam_bloque;
+        if (fin > cacheBusqueda.size()) fin = cacheBusqueda.size();
+        for (int i = ini; i < fin; ++i) {
+            res+=cacheBusqueda.get(i).toStringByParty()+sep;
+        }
+        return res;
+    }
+
 
 }

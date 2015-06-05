@@ -114,11 +114,50 @@ public class Congresista implements Node {
     public String obtPartido() {
         return Partido;
     }
+
+    //funciones para tst ID
     public String obtID() {
         return Dni.toString();
     }
+    public String obtIDName() {
+        return Nombre+"-"+Dni.toString();
+    }
+    public String obtIDSurname() {
+        return Apellido+"-"+Dni.toString();
+    }
+    public String obtIDAge() {
+        return String.valueOf(Edad)+"-"+Dni.toString();
+    }
+    public String obtIDCity() {
+        return Ciudad+"-"+Dni.toString();
+    }
+    public String obtIDState() {
+        return Estado+"-"+Dni.toString();
+    }
+    public String obtIDParty() {
+        return Partido+"-"+Dni.toString();
+    }
+
     public String toString() {
         return Dni+" "+Nombre+" "+Apellido+" "+Edad+" "+Ciudad+" "+Estado+" "+Partido;
+    }
+    public String toStringByName() {
+        return Nombre+" "+Apellido+" "+Dni+" "+Edad+" "+Ciudad+" "+Estado+" "+Partido;
+    }
+    public String toStringBySurname() {
+        return Apellido+" "+Nombre+" "+Dni+" "+Edad+" "+Ciudad+" "+Estado+" "+Partido;
+    }
+    public String toStringByAge() {
+        return Edad+" "+Dni+" "+Nombre+" "+Apellido+" "+Ciudad+" "+Estado+" "+Partido;
+    }
+    public String toStringByCity() {
+        return Ciudad+" "+Dni+" "+Nombre+" "+Apellido+" "+Edad+" "+Estado+" "+Partido;
+    }
+    public String toStringByState() {
+        return Estado+" "+Dni+" "+Nombre+" "+Apellido+" "+Edad+" "+Ciudad+" "+Partido;
+    }
+    public String toStringByParty() {
+        return Partido+" "+Dni+" "+Nombre+" "+Apellido+" "+Edad+" "+Ciudad+" "+Estado;
     }
 
     //Valida la edad: Comprueba si
@@ -126,11 +165,9 @@ public class Congresista implements Node {
     private static boolean EdadValida(int n) {
         return n > 0;
     }
-
     public boolean equals(Congresista a) {
-        return a.obtDni().equals(Dni);
+        return a.Dni.toString().equals(Dni.toString());
     }
-
     public Congresista clone() {
         return new Congresista(this);
     }

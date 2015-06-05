@@ -62,13 +62,11 @@ public class PanelCongreso extends PanelLista {
             vError[i] = false;
         }
         CPC = c;
-        // Inicializa los componentes de la ventana
         iniComp();
         updateJList(0);
         iniFont();
         initGUI();
         tamSearch = 0;
-        //buscar = "";
 
     }
     private void iniFont() {
@@ -86,7 +84,6 @@ public class PanelCongreso extends PanelLista {
         bAgregarCongresista.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bEliminarCongresista.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bAgregarRandom.setFont(new java.awt.Font("Ubuntu", 0, 18));
-
         bCargarCongreso.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bGuardarCongreso.setFont(new java.awt.Font("Ubuntu", 0, 18));
         bEliminarCongreso.setFont(new java.awt.Font("Ubuntu", 0, 18));
@@ -125,57 +122,19 @@ public class PanelCongreso extends PanelLista {
         bCargarCongreso = new JButton();
         bGuardarCongreso = new JButton();
         SpinnerNum = new JSpinner();
-        listCongreso = obtJlist();//new JList(bigData);
+        listCongreso = obtJlist();
     }
     private void initGUI() {
         cargarFilechoser();
 
-
-
-
-        // setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        // Referencias a los objetos superiores
-        //JList listCongreso = obtJlist();
-//        final DefaultListModel def = (DefaultListModel) name_list.getModel();
-        //ListUpdate();
         t = true;
-        setTextLabelStatus("Loading...");
-        //labelStatus.setText("cargandoooooo");
-        //listCongreso.setListData();
-
-        // functions
-
+        //setTextLabelStatus("Loading...");
         //Acción realizada al seleccionar un elemento
         listCongreso.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-
-                    if (listCongreso.getSelectedIndex() == -1) {
-                        //No selection, disable fire button.
-                        //acceptButton.setEnabled(false);
-
-                    } else {
-                        emptyLError();
-                        String dato = (String) listCongreso.getSelectedValue();
-                        //errorField.setText("#" + name_list.getSelectedIndex());
-                        // Del congresista a los campos
-                        String[] campos = dato.split(" ");
-
-                        if (campos.length == 7) {
-                            defColorText(Color.BLACK);
-                            textDni.setText(campos[0]);
-                            textName.setText(campos[1]);
-                            textSurname.setText(campos[2]);
-                            textAge.setText(campos[3]);
-                            textCity.setText(campos[4]);
-                            textState.setText(campos[5]);
-                            textParty.setText(campos[6]);
-                        } else {
-                            //wtf
-                            //nameField.setText(campos[0]);
-                        }
-                    }
+                    congresistaSeleccionado();
                 }
             }
         });
@@ -325,8 +284,6 @@ public class PanelCongreso extends PanelLista {
         textParty.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent evt) {
                 dynamicSearch(6,textParty,evt);
-                //clearLabelSearch(textSearch);
-                //textSearchTyped(evt);
             }
         });
 
@@ -528,6 +485,49 @@ public class PanelCongreso extends PanelLista {
                                 .addGap(29, 29, 29)));
     }
 
+    private void congresistaSeleccionado() {
+        if (!(listCongreso.getSelectedIndex() == -1)) {
+            emptyLError();
+            String dato = (String) listCongreso.getSelectedValue();
+            String[] campos = dato.split(" ");
+            if (campos.length == 7) {
+                int order = boxSort.getSelectedIndex();
+                defColorText(Color.BLACK);
+                switch (order) {
+                    case 0:
+                        setTexts(campos[0],campos[1],campos[2],campos[3],campos[4],campos[5],campos[6]);
+                        break;
+                    case 1:
+                        setTexts(campos[2],campos[0],campos[1],campos[3],campos[4],campos[5],campos[6]);
+                        break;
+                    case 2:
+                        setTexts(campos[2],campos[1],campos[0],campos[3],campos[4],campos[5],campos[6]);
+                        break;
+                    case 3:
+                        setTexts(campos[1],campos[2],campos[3],campos[0],campos[4],campos[5],campos[6]);
+                        break;
+                    case 4:
+                        setTexts(campos[1],campos[2],campos[3],campos[4],campos[0],campos[5],campos[6]);
+                        break;
+                    case 5:
+                        setTexts(campos[1],campos[2],campos[3],campos[4],campos[5],campos[0],campos[6]);
+                        break;
+                    case 6:
+                        setTexts(campos[1],campos[2],campos[3],campos[4],campos[5],campos[6],campos[0]);
+                        break;
+                }
+            }
+        }
+    }
+    private void setTexts(String dni, String name, String surname, String age, String city, String state, String party) {
+        textDni.setText(dni);
+        textName.setText(name);
+        textSurname.setText(surname);
+        textAge.setText(age);
+        textCity.setText(city);
+        textState.setText(state);
+        textParty.setText(party);
+    }
     private boolean checkStart(JTextField aux) {
         String saux = aux.getText();
         int n = saux.length();
@@ -672,7 +672,6 @@ public class PanelCongreso extends PanelLista {
         }
     }
     private void bGuardarCongresoActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
         emptyLError();
         if (CPC.size() == 0) setError("No hay Congresistas");
         else {
@@ -723,8 +722,6 @@ public class PanelCongreso extends PanelLista {
     }
 
     protected void boxSortActionPerformed(ActionEvent evt) {
-        //labelStatus.setText(boxSort.getSelectedIndex()+"");
-        //TODO mejorar, te quedas donde estabas
         ListUpdate();
     }
     private void dynamicSearch(int which,JTextField aux,KeyEvent evt) {
@@ -750,21 +747,17 @@ public class PanelCongreso extends PanelLista {
         }
     }
     //Modificar para buscar
-    protected  void buttonSearchActionPerformed(ActionEvent evt)    {
-        //Search(textSearch.getText());
-        //labelStatus.setVisible(true);
-        //labelStatus.setText("Size"+CPC.size());
+    protected  void buttonSearchActionPerformed(ActionEvent evt) {
+        //do nothing
     }
     private void ListUpdateBusqueda() {
-        String a[] = {"Búsqueda sin resultados"};
+       /*String a[] = {"Búsqueda sin resultados"};
         if (CPC.resultados()) listCongreso.setListData(a);
         else {
-            //print("todavia no");
             ArrayList<String> aux = CPC.obtCC().obtenerBusqueda();
-           // print(aux.size()+"");
             listCongreso.setListData(aux.toArray());
-        }
-        //ListUpdateBusqueda2();
+        }*/
+        ListUpdateBusqueda2();
     }
     private void ListUpdateBusqueda2() {
         ListModel bigData2 = new AbstractListModel<String>() {

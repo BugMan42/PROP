@@ -121,19 +121,19 @@ public class CPCongreso {
     public String obtBQOrden(int bq) {
         switch (order) {
             case 0: //DNI
-                return CC.obtBloqueDNI(bq,100);
+                return CC.obtBloqueDNI(bq,tamBloque);
             case 1: //Nombre
-                return CC.obtBloqueNombre(bq, 100);
+                return CC.obtBloqueNombre(bq, tamBloque);
             case 2: //Apellido
-                return CC.obtBloqueApellido(bq, 100);
+                return CC.obtBloqueApellido(bq, tamBloque);
             case 3: //Edad
-                return CC.obtBloqueEdad(bq,100);
+                return CC.obtBloqueEdad(bq,tamBloque);
             case 4: //Ciudad
-                return CC.obtBloqueCiudad(bq, 100);
+                return CC.obtBloqueCiudad(bq, tamBloque);
             case 5: //Estado
-                return CC.obtBloqueEstado(bq, 100);
+                return CC.obtBloqueEstado(bq, tamBloque);
             case 6: // Partido
-                return CC.obtBloquePartido(bq,100);
+                return CC.obtBloquePartido(bq,tamBloque);
         }
         return CC.obtBloqueDNI(bq, 100);
     }
@@ -173,10 +173,29 @@ public class CPCongreso {
             if(RUConB==1) RUConB = 0;
             else RUConB = 1;
             indConB[RUConB] = bloque;
-            bConB[RUConB] = CC.obtBloqueCacheBusqueda(bloque,tamBloque).split(obtSep());
+            bConB[RUConB] = obtBQBusqueda(bloque).split(obtSep());
             res = bConB[RUConB][i%tamBloque];
         }
         return res;
+    }
+    public String obtBQBusqueda(int bq) {
+        switch (order) {
+            case 0: // Dni
+                return CC.obtBloqueCacheBusquedaDni(bq,tamBloque);
+            case 1: // Nombre
+                return CC.obtBloqueCacheBusquedaNombre(bq, tamBloque);
+            case 2: // Apellido
+                return CC.obtBloqueCacheBusquedaApellido(bq, tamBloque);
+            case 3: // Edad
+                return CC.obtBloqueCacheBusquedaEdad(bq,tamBloque);
+            case 4: // Ciudad
+                return CC.obtBloqueCacheBusquedaCiudad(bq, tamBloque);
+            case 5: // Estado
+                return CC.obtBloqueCacheBusquedaEstado(bq, tamBloque);
+            case 6: // Partido
+                return CC.obtBloqueCacheBusquedaPartido(bq,tamBloque);
+        }
+        return CC.obtBloqueCacheBusquedaDni(bq, tamBloque);
     }
 
     public String obtSep() {

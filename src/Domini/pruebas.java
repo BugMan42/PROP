@@ -9,7 +9,7 @@ public class pruebas {
     private static void testBloques1() {
         Congreso a = new Congreso();
         for (int i = 0; i < 100; ++i) a.agregarCongresistaRandom();
-        List<Congresista> auxx = a.obtCongreso(0,20);
+        List<Congresista> auxx = a.obtCongresoDni(0,20);
         List<Congresista> aux = a.obtenerCongreso();
         for (int i = 0; i < auxx.size(); ++i) {
             print(aux.get(i).obtID() +" ---> "+auxx.get(i).obtDni());
@@ -39,7 +39,7 @@ public class pruebas {
         a.eliminarCongresista(C3);
         for (Congresista b:a.obtenerCongreso()) print(b.toString() + "");
         print("");
-        for (Congresista b:a.obtenerListaApellido1()) print(b.toString() + "");
+        for (Congresista b:a.obtenerListaApellido()) print(b.toString() + "");
         print("");
         for (Congresista b:a.obtCongresoEstado(0,100)) print(b.toString()+"");// + "");
        // print(a.obtenerListaNombre1() + "");
@@ -309,7 +309,7 @@ public class pruebas {
     private static void testBloques2() {
         Congreso a = new Congreso();
         for (int i = 0; i < 100; ++i) a.agregarCongresistaRandom();
-        List<Congresista> auxx = a.obtCongreso(0, 20);
+        List<Congresista> auxx = a.obtCongresoDni(0, 20);
         List<Congresista> aux = a.obtenerCongreso();
         for (int i = 0; i < 20; ++i) {
             print(aux.get(i).obtID() +" ---> "+auxx.get(i).obtDni());
