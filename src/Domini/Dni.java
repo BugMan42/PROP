@@ -3,7 +3,7 @@ package Domini;
 import java.util.Random;
 
 public class Dni  {
-    private class DNINOVALIDO extends Exception {
+    public class DNINOVALIDO extends Exception {
         public DNINOVALIDO(String s) {
             super("DNI "+s+" no valido: Formato [8 num]+[1letra]");
         }

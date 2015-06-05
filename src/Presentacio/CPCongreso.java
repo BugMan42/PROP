@@ -72,7 +72,6 @@ public class CPCongreso {
         CC.agregarCongresista(dni, name, surname, age, city, state, party);
         reiniciarCache();
         reiniciarBusqueda();
-        //refresh(indexa, indexb);
     }
     public void modCongresista(String dni, String dni_nuevo, String nombre, String nombre_nuevo, String apellido,
                                String apellido_nuevo, int edad, int edad_nuevo, String ciudad, String ciudad_nuevo,
@@ -80,13 +79,11 @@ public class CPCongreso {
         CC.modCongresista(dni, dni_nuevo, nombre, nombre_nuevo, apellido, apellido_nuevo, edad, edad_nuevo, ciudad, ciudad_nuevo, estado, estado_nuevo, partido, partido_nuevo, CPR.obtCR());
         reiniciarCache();
         reiniciarBusqueda();
-       // refresh(indexa,indexb);
     }
     public void agregarCongresistaRandom(int n) throws Exception {
         CC.agregarCongresistaRandom(n);
         reiniciarCache();
         reiniciarBusqueda();
-        //refresh(indexa, indexb);
     }
     private void print(String str) {
         System.out.println(str);
@@ -95,7 +92,6 @@ public class CPCongreso {
         CC.eliminarCongresista(dni,nombre,apellido,edad,ciudad,estado,partido,CPR.obtCR());
         reiniciarCache();
         reiniciarBusqueda();
-        //refresh(indexa, indexb);
     }
 
     public void eliminarCongreso() {
@@ -108,7 +104,6 @@ public class CPCongreso {
             CC.eliminarCongreso(CPR.obtCR());
             reiniciarCache();
             reiniciarBusqueda();
-            //order = 0;
         }
         actualizar();
     }
@@ -210,9 +205,6 @@ public class CPCongreso {
             return "";
         }
     }
-
-
-
     public boolean resultados() {
         return CC.cacheBusquedaVacia();
     }

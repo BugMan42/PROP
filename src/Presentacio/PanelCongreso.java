@@ -1,5 +1,7 @@
 package Presentacio;
 
+import Domini.Congresista;
+import Domini.Dni;
 import Domini.TST;
 
 import javax.swing.*;
@@ -554,9 +556,18 @@ public class PanelCongreso extends PanelLista {
             }
             catch (NumberFormatException a) {
                 setError("La edad tiene que ser un número > 0");
+                lAge.setForeground(Color.RED);
             }
-            catch (Exception a2) {
-                setError(a2.getMessage());
+            catch (Congresista.EdadNoValida a) {
+                setError("La edad tiene que ser un número > 0");
+                lAge.setForeground(Color.RED);
+            }
+            catch (Dni.DNINOVALIDO a) {
+                setError(a.getMessage());
+                lDni.setForeground(Color.RED);
+            }
+            catch (Exception a) {
+                setError(a.getMessage());
             }
         }
     }
@@ -627,6 +638,15 @@ public class PanelCongreso extends PanelLista {
                 }
                 catch (NumberFormatException a) {
                     setError("La edad tiene que ser un número > 0");
+                    lAge.setForeground(Color.RED);
+                }
+                catch (Congresista.EdadNoValida a) {
+                    setError("La edad tiene que ser un número > 0");
+                    lAge.setForeground(Color.RED);
+                }
+                catch (Dni.DNINOVALIDO a) {
+                    setError(a.getMessage());
+                    lDni.setForeground(Color.RED);
                 }
                 catch (Exception a2) {
                     setError(a2.getMessage());
@@ -650,11 +670,9 @@ public class PanelCongreso extends PanelLista {
     private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
         try {
-            //long timeini = System.nanoTime();
             Integer n = (Integer)SpinnerNum.getValue();
             CPC.agregarCongresistaRandom(n);
             ListUpdate();
-            //print((System.nanoTime() - timeini) / 1000000000.0 + "");
         } catch (Exception a) {
             setError(a.getMessage());
         }
@@ -750,26 +768,23 @@ public class PanelCongreso extends PanelLista {
     protected  void buttonSearchActionPerformed(ActionEvent evt) {
         //do nothing
     }
-    private void ListUpdateBusqueda() {
+    private void ListUpdateBusqueda2() {
        /*String a[] = {"Búsqueda sin resultados"};
         if (CPC.resultados()) listCongreso.setListData(a);
         else {
             ArrayList<String> aux = CPC.obtCC().obtenerBusqueda();
             listCongreso.setListData(aux.toArray());
         }*/
-        ListUpdateBusqueda2();
     }
-    private void ListUpdateBusqueda2() {
+    private void ListUpdateBusqueda() {
         ListModel bigData2 = new AbstractListModel<String>() {
             public int getSize() {
                 if (CPC.sizeBusqueda() == 0) return 1;
                 else return CPC.sizeBusqueda();
             }
             public String getElementAt(int index) {
-                //print("index: "+index);
                 if (CPC.sizeBusqueda() == 0) return "Búsqueda sin resultados";
                 return CPC.obtCongresistaBusqueda(index);
-                //return "Index " + index;
             }
         };
         listCongreso.setPrototypeCellValue("If ----------- ");
@@ -837,7 +852,6 @@ public class PanelCongreso extends PanelLista {
                     break;
             }
         }
-
     }
 
     private void Search(String buscar) {
@@ -940,10 +954,8 @@ public class PanelCongreso extends PanelLista {
                 else return CPC.size();
             }
             public String getElementAt(int index) {
-                //print("index: "+index);
                 if (CPC.size() == 0) return "No hay Congresistas";
                 return CPC.obtCongresistaCache(index);
-                //return "Index " + index;
             }
         };
         listCongreso.setPrototypeCellValue("If ----------- ");
@@ -964,7 +976,6 @@ public class PanelCongreso extends PanelLista {
         choosersave = new JFileChooser();
         UIManager.put("FileChooser.openDialogTitleText", "Cargar");
         UIManager.put("FileChooser.saveDialogTitleText", "Guardar");
-        //UIManager.put("FileChooser.saveInLabelText", "Guardar en:");
         UIManager.put("FileChooser.openButtonText", "Cargar");
         UIManager.put("FileChooser.saveButtonText", "Guardar");
         UIManager.put("FileChooser.cancelButtonText", "Cancelar");

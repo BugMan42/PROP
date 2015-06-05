@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public class Congresista implements Node {
 
-    private class EdadNoValida extends Exception {
+    public class EdadNoValida extends Exception {
         public EdadNoValida(int edad) {
             super("Edad "+edad+" no Valida");
         }

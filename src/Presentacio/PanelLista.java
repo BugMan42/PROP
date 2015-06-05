@@ -109,7 +109,6 @@ public abstract class PanelLista extends Panel {
 
         setBoxSearch();
         boxSearch.setFont(new Font("Ubuntu", 0, 17));
-        //boxSearch.setModel(new DefaultComboBoxModel(new String[]{"Search By Dni", "Search By Nombre", "Search By Partido"}));
         boxSearch.setToolTipText("");
         boxSearch.setMinimumSize(new Dimension(134, 28));
         boxSearch.setPreferredSize(new Dimension(134, 30));
