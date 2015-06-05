@@ -42,6 +42,7 @@ public class CPCongreso {
         CC = new ControladorCongreso();
         reiniciarCache();
         reiniciarBusqueda();
+        order = 0;
     }
     public void modOrder(int ord) {
         order = ord;
