@@ -370,7 +370,7 @@ public class pruebas {
         a.agregarVertice(C3);
         a.agregarVertice(C4);
         a.agregarVertice(C5);
-        print("size: " + a.size());
+        print("size: " + a.V());
         a.agregarArista(e1);
         a.agregarArista(e2);
         a.agregarArista(e3);
@@ -380,7 +380,7 @@ public class pruebas {
 
 
         //a.eliminarVertice(C1);
-        print("size: " + a.size());
+        print("size: " + a.V());
         print(a.consultarVertices()+"");
 
 

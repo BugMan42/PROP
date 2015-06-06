@@ -38,6 +38,7 @@ public class TST<X>  {
 //#######################################################################################
     //Se intenta clonar el objeto X
     public TST(TST t) throws Exception {
+        N = t.N;
         root = (TSTNodoChar) clonar(t.root, root);
     }
     private TSTNodo clonar(TSTNodo t, TSTNodo c) throws Exception {
@@ -487,8 +488,9 @@ public class TST<X>  {
                 for (Method m : x.getClass().getMethods())
                     if (m.getName().equals("clone") && // No aseguramos que tiene un clon() apropiado
                             m.getParameterTypes().length == 0 &&
-                            m.getReturnType().getName().equals("java.lang.Object"))
+                            m.getReturnType().getName().equals("java.lang.Object")) {
                         return (X) m.invoke(x); // Invocamos clone si no copia
+                    }
         return x;
     }
 

@@ -33,9 +33,6 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         public boolean esVacio() {
             return aristas.isEmpty();
         }
-        /*public int obtenerAdy() {
-            return ady;
-        }*/
         public void agregarArista(E e) {
             aristas.add(e);
         }
@@ -78,7 +75,6 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
                 if (a.peso == oldPeso) a.modPeso(newPeso);
             }
         }
-
         public V obtOrigen() {
             if (aristas.isEmpty()) return null;
             else return (V) aristas.get(0).obtOrigen();
@@ -87,7 +83,7 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
             if (aristas.isEmpty()) return null;
             else return (V) aristas.get(0).obtDestino();
         }
-        }
+    }
     // entrada = antecesores(las aristas que entran al nodo) ---> Nodo
     // salida = sucesores(las aristas que salen del nodo) Nodo ---->
     private class EdgesVertex {
@@ -103,8 +99,19 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
             entrada = new LinkedList<Edges>();
             salida = new LinkedList<Edges>();
         }
-        public EdgesVertex(EdgesVertex aux,VertexTst aux2) {
-            map = aux2;
+        public EdgesVertex(EdgesVertex aux) {
+            map = aux.map;
+            entrada = new ArrayList<Edges>();
+            salida = new ArrayList<Edges>();
+            for (int i = 0; i < aux.entrada.size(); ++i) {
+                entrada.add(i,new Edges(aux.entrada.get(i)));
+            }
+            for (int i = 0; i < aux.salida.size(); ++i) {
+                salida.add(i, new Edges(aux.salida.get(i)));
+            }
+        }
+        public EdgesVertex(VertexTst aux1,EdgesVertex aux) {
+            map = aux1;
             entrada = new ArrayList<Edges>();
             salida = new ArrayList<Edges>();
             for (int i = 0; i < aux.entrada.size(); ++i) {
@@ -325,7 +332,7 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
 
 
     }
-    private class VertexTst {
+    private class VertexTst implements Cloneable{
         V v;
         int map;
         public VertexTst(V v1, int map1) {
@@ -350,28 +357,33 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
 
     }
 //##############################################################################
+//##############################################################################
+//##############################################################################
+
     private TST<VertexTst> vertices;
     private ArrayList<EdgesVertex> aristas;
     private PriorityQueue<Integer> vacios;
 
     public GrafoNodoArista() {
         vertices = new TST<VertexTst>();              // almacena los objetos v
-        aristas = new ArrayList<EdgesVertex>(); // lista de adyacencia
-        vacios = new PriorityQueue<Integer>();   // para reaprovechar
+        aristas = new ArrayList<EdgesVertex>();       // lista de adyacencia
+        vacios = new PriorityQueue<Integer>();        // para reaprovechar
     }
     public GrafoNodoArista(GrafoNodoArista g) throws Exception {
         aristas = new ArrayList<EdgesVertex>();
         vacios = new PriorityQueue<Integer>();
-        vertices = new TST<VertexTst>();
+        //vertices = new TST<VertexTst>();
         vertices = new TST(g.vertices);
         for (int i = 0; i < g.aristas.size(); ++i) {
             EdgesVertex a = (EdgesVertex) g.aristas.get(i);
-            aristas.add(i, new EdgesVertex(a, vertices.obtener(a.obtenerClave())));
+            aristas.add(i, new EdgesVertex(vertices.obtener(a.obtenerClave()),a));
         }
         if (!g.vacios.isEmpty()) vacios = new PriorityQueue<Integer>(g.vacios);
     }
-    public int size() {
-        return aristas.size()-vacios.size();
+    public int V() {
+        return vertices.size();
+        //print(vertices.size()+"size");
+        //return aristas.size()-vacios.size();
     }
     public int f(V v) throws Exception {
         try {
@@ -396,11 +408,6 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         return aristas.get(v).obtenerMap().obtV();
     }
 
-    public int obtNext() {
-        ArrayList<V> a = new ArrayList<V>();
-        ArrayList<V> b = (ArrayList<V>)a.clone();
-        return 1;
-    }
     private int nextIndice() {
         if(vacios.isEmpty()) return aristas.size();
         else return vacios.peek();
@@ -427,30 +434,29 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         if (!indexValido(v)) throw new VerticeNotFound(v);
         return aristas.get(v).degreeSalida();
     }
-//################################VERTICES###############################################33
-
-    public void addNodo(V v) throws Exception {
-        int aux = obtNext();
-        VertexTst a = new VertexTst(v,aux);
-        vertices.insertar(v.obtID(), a);
-        aristas.set(aux,new EdgesVertex(a));
-
-    }
+/** ####################################################################################################################
+ *  ####################################################################################################################
+ *  #############################################  VERTICES  ###########################################################
+ *  ####################################################################################################################
+ *  ####################################################################################################################
+*/
+    /** Alta */
     public void agregarVertice(V v) throws Exception{
         int aux = nextIndice();
+        //print("Indice: "+aux);
         insertarVerticeInterno(v, aux);
         aristas.add(aux, new EdgesVertex(vertices.obtener(v.obtID())));
         if (!vacios.isEmpty() && aux == vacios.peek()) vacios.poll();
     }
     private void insertarVerticeInterno(V v, int aux) throws Exception {
         try {
-            vertices.insertar(v.obtID(), new VertexTst(v,aux)); // Si esta petara
+            vertices.insertar(v.obtID(), new VertexTst(v, aux)); // Si esta petara
         } catch (Exception a) {
             throw new VerticeAlreadyExists(v.obtID());
         }
-
     }
 
+    /** Baja */
     public void eliminarVertice(V v) throws Exception{
         try {
             eliminarVertice(vertices.obtener(v.obtID()).obtMap());
@@ -459,7 +465,6 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
             throw new VerticeNotFound(v.obtID());
         }
     }
-    //TODO ELIMINAR vertice complejo
     public void eliminarVertice(int v) throws  Exception {
         if (indexValido(v)) {
             vertices.borrar(fPrima(v));
@@ -470,7 +475,6 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
                 aristas.clear();
                 vacios.clear();
             }
-            //print(vacios+"");
         }
         else throw new VerticeNotFound(v);
     }
@@ -484,8 +488,20 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
             aristas.get(aux.get(i)).eliminarAristasEntrada(v);
         }
     }
+    /** Modificacion */
+    public void modificarVertice(V old, V neww) throws Exception {
+        try {
+            vertices.modificar(old.obtID(),neww.obtID());
+            vertices.obtener(neww.obtID()).modV(neww);
+        }
+        catch(Exception a) {
+            if (a.getClass().equals(KeyNotExistsTST.class)) throw new VerticeNotFound(old.obtID());
+            if (a.getClass().equals(KeyAlreadyExistsTST.class)) throw new VerticeAlreadyExists(neww.obtID());
+        }
+    }
+    /** Consulta */
 
-    public ArrayList<Integer> consultarVertices() {
+    public ArrayList<Integer> consultarVerticesNum() {
         ArrayList<Integer> Array = new ArrayList<Integer>();
         for(int i = 0; i < aristas.size(); ++i) {
             if (! (aristas.get(i) == null)) {
@@ -494,7 +510,8 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         }
         return Array;
     }
-    public ArrayList<V> consultarVerticesID() {
+
+    public ArrayList<V> consultarVertices() {
         ArrayList<V> Array = new ArrayList<V>();
         for(int i = 0; i < aristas.size(); ++i) {
             if (! (aristas.get(i) == null)) {
@@ -509,37 +526,21 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
     public boolean existeVertice(int v) {
         return indexValido(v);
     }
-    public void modificarClaveVertice(String idVieja, V v) throws Exception {
-        //if (!existeVertice(idVieja)) throw new VerticeAlreadyExists();
-        try {
-            vertices.modificar(idVieja,v.obtID());
-            vertices.obtener(v.obtID()).modV(v);
-            //aristas.get(f(idNueva)).modificarClave(idNueva);
-        }
-        catch(Exception a) {
-            if (a.getClass().equals(KeyNotExistsTST.class)) throw new VerticeNotFound(idVieja);
-            if (a.getClass().equals(KeyAlreadyExistsTST.class)) throw new VerticeAlreadyExists(v.obtID());
-            //throw new VerticeAlreadyExists(idNueva);
-        }
-    }
-    public void modificarClaveVertice(String idVieja, String idNueva) throws Exception {
-        //if (!existeVertice(idVieja)) throw new VerticeAlreadyExists();
-        try {
-            vertices.modificar(idVieja, idNueva);
-            //vertices.obtener(v.obtID()).modV(v);
-            //aristas.get(f(idNueva)).modificarClave(idNueva);
-        }
-        catch(Exception a) {
-            if (a.getClass().equals(KeyNotExistsTST.class)) throw new VerticeNotFound(idVieja);
-            if (a.getClass().equals(KeyAlreadyExistsTST.class)) throw new VerticeAlreadyExists(idNueva);
-            //throw new VerticeAlreadyExists(idNueva);
-        }
-    }
-    /*public V obtVertice(int a) throws Exception {
+    public V obtVertice(int a) throws Exception {
         if (indexValido(a)) return aristas.get(a).obtenerMap().obtV();
-        else
-    }*/
-/**########################################################################3 */
+        else throw new VerticeNotFound(""+a);
+    }
+    // Only for debug purposes
+    private void printNodes() {
+        print("size: "+vertices.size());
+        for (int i = 0; i < aristas.size(); ++i) {
+            EdgesVertex aux = aristas.get(i);
+            if (aux != null) {
+                print("Node: "+aux.obtenerMap().obtV().obtID() + " i: "+aux.obtenerMap().obtMap());
+            }
+        }
+    }
+    /**########################################################################3 */
 
 
     public void agregarArista(E e) throws Exception {
@@ -587,37 +588,16 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         if (!indexValido(fin)) throw new VerticeNotFound(fin);
         aristas.get(fin).eliminarAristaEntrada(origen,e);
         aristas.get(origen).eliminarAristaSalida(fin, e);
-        //eliminarArista(f((V)e.obtOrigen()), f(fin), peso);
 
     }
-    /*
-    public void eliminarArista(int origen,int fin,double peso) throws Exception {
-        if (!indexValido(origen)) throw new VerticeNotFound(origen);
-        if (!indexValido(fin)) throw new VerticeNotFound(fin);
-        aristas.get(fin).eliminarAristaEntrada(origen, peso);
-        aristas.get(origen).eliminarAristaSalida(fin, peso);
-    }*/
     public boolean existeArista(V A, V B) throws Exception {
-        //if (!indexValido(origen)) throw new VerticeNotFound(origen);
-        //if (!indexValido(fin)) throw new VerticeNotFound(fin);
         return aristas.get(f(A)).existeAristaSalida(B) && aristas.get(f(B)).existeAristaEntrada(A);
-
-        //return existeArista(f(A), f(B));
     }
-   /* public boolean existeArista(int origen, int fin) throws Exception {
-        if (!indexValido(origen)) throw new VerticeNotFound(origen);
-        if (!indexValido(fin)) throw new VerticeNotFound(fin);
-        return aristas.get(origen).existeAristaSalida(fin) && aristas.get(fin).existeAristaEntrada(origen);
-    }*/
+
     public boolean existeAristaPeso(E e) throws Exception {
         return aristas.get(f((V)e.obtOrigen())).existeAristaSalida(e) && aristas.get(f((V)e.obtDestino())).existeAristaEntrada(e);
         //return existeAristaPeso(f(origen),f(fin),peso);
     }
-    /*public boolean existeAristaPeso(int origen, int fin, double peso) throws Exception {
-        if (!indexValido(origen)) throw new VerticeNotFound(origen);
-        if (!indexValido(fin)) throw new VerticeNotFound(fin);
-        return aristas.get(origen).existeAristaSalida(fin,peso) && aristas.get(fin).existeAristaEntrada(origen,peso);
-    }*/
 
 //#####################################################################################33
 
@@ -628,8 +608,40 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         print(vertices.consultarClaves()+"");
     }
 
-    public static void main(String[] args) throws Exception{
-        GrafoNodoArista<Congresista,Edge> a = new GrafoNodoArista<Congresista,Edge>();
+    private static  class Nodo implements Node {
+        private String id;
+
+        public Nodo(String id2) {
+            id = id2;
+        }
+
+        @Override
+        public String obtID() {
+            return id;
+        }
+
+        @Override
+        public Node clone() {
+            return new Nodo(id);
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        GrafoNodoArista<Nodo,Edge> grafo = new GrafoNodoArista<Nodo, Edge>();
+        Nodo a = new Nodo("a");
+        Nodo b = new Nodo("b");
+        Nodo c = new Nodo("c");
+        Nodo d = new Nodo("d");
+        Nodo e = new Nodo("e");
+
+        grafo.agregarVertice(a);
+        grafo.agregarVertice(b);
+        grafo.agregarVertice(c);
+        GrafoNodoArista<Nodo,Edge> copia = new GrafoNodoArista<Nodo, Edge>(grafo);
+
+        print("V: "+grafo.V());
+
+        /*GrafoNodoArista<Congresista,Edge> a = new GrafoNodoArista<Congresista,Edge>();
         Congresista C1 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
         Congresista C2 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "San Francisco", "CA", "Berkeley");
         Congresista C3 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
@@ -642,7 +654,7 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         a.agregarVertice(C3);
         a.agregarVertice(C4);
         //print();
-        a.printNodos();
+        a.printNodos();*/
     }
 
 }
