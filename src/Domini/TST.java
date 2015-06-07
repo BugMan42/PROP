@@ -431,7 +431,6 @@ public class TST<X>  {
     public List<X> consultarObjetos() {
         List<X> v = new ArrayList<X>();
         imprimir2(root, "", v);
-        //List<X> aux = Collections.unmodifiableList(v);
         return v;
     }
     //Funcion muy semejante a imprimir solo que costruimos una
@@ -451,9 +450,7 @@ public class TST<X>  {
     public List<X> prefijo(String key) {
         return obtenerPrefijo(root, key, 0);
     }
-    // Se obtiene el objeto con clave key
-    // si no esta ese lanza excepcion
-    // el caso en que no esta es cuando llegamos a un nodo null
+
     private List<X> obtenerPrefijo(TSTNodo t,String key,int d) {
         if (t == null) return null;
 
@@ -462,7 +459,6 @@ public class TST<X>  {
         else c = fin;
 
         TSTNodoChar tChar = (TSTNodoChar) t;
-        //print("char que toca: "+c+" char actual: "+tChar.valor+" d: "+d+"key length: "+key.length());
         if (tChar.valor > c) return obtenerPrefijo(t.left, key, d);
         else if (tChar.valor < c) return obtenerPrefijo(t.right, key, d);
         else {
@@ -472,16 +468,11 @@ public class TST<X>  {
                 List<X> aux = new LinkedList<X>();
                 imprimir2(t.middle,"",aux);
                 return aux;
-            //else if (tChar.valor==c) {
             }
-                //TSTNodoFinal f = (TSTNodoFinal) t.middle;
-
-            //}
-            //else throw new KeyNotExistsTST(key);
         }
     }
 
-    //funcion que recorre el "arbol del objeto" para ver si contiene la funcion cloanar
+    //funcion que recorre el "arbol del objeto" para ver si contiene la funcion clonar
     private X X_clone(X x) throws Exception {
         for (Class i : x.getClass().getInterfaces())
             if (i.getName().equals("java.lang.Cloneable")) //Nos aseguramos que tiene la interfaz cloneable
