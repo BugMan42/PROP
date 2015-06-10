@@ -752,14 +752,12 @@ public class PanelCongreso extends PanelLista {
                     ListUpdate();
                 }
                 else {
-                    CPC.reiniciarBusqueda();
                     Search(buscar, which);
                     labelStatus.setVisible(true);
                     labelStatus.setText("Congresistas encontrados: "+CPC.sizeBusqueda());
                 }
             }
             else {
-                CPC.reiniciarBusqueda();
                 Search(buscar, which);
                 labelStatus.setVisible(true);
                 labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
@@ -803,6 +801,7 @@ public class PanelCongreso extends PanelLista {
     }
     protected void textSearchTyped(KeyEvent evt) {
         String buscar = textSearch.getText();
+        int which = boxSearch.getSelectedIndex();
         if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
             if (buscar.equals("")) {
                 labelStatus.setVisible(false);
@@ -810,13 +809,13 @@ public class PanelCongreso extends PanelLista {
                 ListUpdate();
             }
             else {
-                Search(buscar);
+                Search(buscar,which);
                 labelStatus.setVisible(true);
                 labelStatus.setText("Congresistas encontrados: "+CPC.sizeBusqueda());
             }
         }
         else {
-            Search(buscar);
+            Search(buscar,which);
             labelStatus.setVisible(true);
             labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
         }
@@ -824,8 +823,7 @@ public class PanelCongreso extends PanelLista {
     }
     private void Search(String buscar,int w) {
         if (!buscar.isEmpty()) {
-            //CPC.reiniciarBusqueda();
-            //print("Reiniciem busqueda: busqueda: "+buscar);
+            CPC.reiniciarBusqueda();
             switch (w) {
                 case 0:
                     CPC.searchByDni(buscar);
@@ -859,42 +857,6 @@ public class PanelCongreso extends PanelLista {
         }
     }
 
-    private void Search(String buscar) {
-        if (!buscar.isEmpty()) {
-            CPC.reiniciarBusqueda();
-            switch (boxSearch.getSelectedIndex()) {
-                case 0:
-                    CPC.searchByDni(buscar);
-                    ListUpdateBusqueda();
-                    break;
-                case 1:
-                    CPC.searchByName(buscar);
-                    ListUpdateBusqueda();
-                    break;
-                case 2:
-                    CPC.searchBySurName(buscar);
-                    ListUpdateBusqueda();
-                    break;
-                case 3:
-                    CPC.searchByAge(buscar);
-                    ListUpdateBusqueda();
-                    break;
-                case 4:
-                    CPC.searchByCity(buscar);
-                    ListUpdateBusqueda();
-                    break;
-                case 5:
-                    CPC.searchByState(buscar);
-                    ListUpdateBusqueda();
-                    break;
-                case 6:
-                    CPC.searchByParty(buscar);
-                    ListUpdateBusqueda();
-                    break;
-            }
-        }
-
-    }
     private boolean validarTodo() {
         boolean change = false;
         String errores = "";
