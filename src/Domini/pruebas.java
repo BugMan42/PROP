@@ -375,6 +375,7 @@ public class pruebas {
         a.agregarArista(e2);
         a.agregarArista(e3);
         a.agregarArista(e4);
+        a.consultarVertices();
         //print("degree " + a.existeAristaPeso(e1));
 
 

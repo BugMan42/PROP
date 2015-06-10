@@ -752,13 +752,15 @@ public class PanelCongreso extends PanelLista {
                     ListUpdate();
                 }
                 else {
-                    Search(buscar,which);
+                    CPC.reiniciarBusqueda();
+                    Search(buscar, which);
                     labelStatus.setVisible(true);
                     labelStatus.setText("Congresistas encontrados: "+CPC.sizeBusqueda());
                 }
             }
             else {
-                Search(buscar,which);
+                CPC.reiniciarBusqueda();
+                Search(buscar, which);
                 labelStatus.setVisible(true);
                 labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
             }
@@ -769,7 +771,8 @@ public class PanelCongreso extends PanelLista {
         //do nothing
     }
     private void ListUpdateBusqueda2() {
-       /*String a[] = {"Búsqueda sin resultados"};
+        /*
+       String a[] = {"Búsqueda sin resultados"};
         if (CPC.resultados()) listCongreso.setListData(a);
         else {
             ArrayList<String> aux = CPC.obtCC().obtenerBusqueda();
@@ -821,6 +824,8 @@ public class PanelCongreso extends PanelLista {
     }
     private void Search(String buscar,int w) {
         if (!buscar.isEmpty()) {
+            //CPC.reiniciarBusqueda();
+            //print("Reiniciem busqueda: busqueda: "+buscar);
             switch (w) {
                 case 0:
                     CPC.searchByDni(buscar);
@@ -843,11 +848,11 @@ public class PanelCongreso extends PanelLista {
                     ListUpdateBusqueda();
                     break;
                 case 5:
-                    CPC.searchByState(textSearch.getText().toUpperCase());
+                    CPC.searchByState(buscar);
                     ListUpdateBusqueda();
                     break;
                 case 6:
-                    CPC.searchByParty(textSearch.getText().toUpperCase());
+                    CPC.searchByParty(buscar);
                     ListUpdateBusqueda();
                     break;
             }
@@ -856,6 +861,7 @@ public class PanelCongreso extends PanelLista {
 
     private void Search(String buscar) {
         if (!buscar.isEmpty()) {
+            CPC.reiniciarBusqueda();
             switch (boxSearch.getSelectedIndex()) {
                 case 0:
                     CPC.searchByDni(buscar);
@@ -878,11 +884,11 @@ public class PanelCongreso extends PanelLista {
                     ListUpdateBusqueda();
                     break;
                 case 5:
-                    CPC.searchByState(textSearch.getText().toUpperCase());
+                    CPC.searchByState(buscar);
                     ListUpdateBusqueda();
                     break;
                 case 6:
-                    CPC.searchByParty(textSearch.getText().toUpperCase());
+                    CPC.searchByParty(buscar);
                     ListUpdateBusqueda();
                     break;
             }
