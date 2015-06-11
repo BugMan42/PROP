@@ -23,7 +23,6 @@ public class PanelCongreso extends PanelLista {
     boolean t;
     private Boolean[] vError;
     int tamSearch;
-    //private String buscar;
 
     AbstractListModel<String> bigData;
     JFileChooser choosersave;
@@ -130,7 +129,6 @@ public class PanelCongreso extends PanelLista {
         cargarFilechoser();
 
         t = true;
-        //setTextLabelStatus("Loading...");
         //Acción realizada al seleccionar un elemento
         listCongreso.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -159,7 +157,7 @@ public class PanelCongreso extends PanelLista {
         });
         textName.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent evt) {
-                dynamicSearch(1,textName,evt);
+                dynamicSearch(1, textName, evt);
             }
         });
 
@@ -178,7 +176,7 @@ public class PanelCongreso extends PanelLista {
         });
         textSurname.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent evt) {
-                dynamicSearch(2,textSurname,evt);
+                dynamicSearch(2, textSurname, evt);
             }
         });
 
@@ -201,7 +199,7 @@ public class PanelCongreso extends PanelLista {
         });
         textDni.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent evt) {
-                dynamicSearch(0,textDni,evt);
+                dynamicSearch(0, textDni, evt);
             }
         });
 
@@ -222,7 +220,7 @@ public class PanelCongreso extends PanelLista {
         });
         textAge.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent evt) {
-                dynamicSearch(3,textAge,evt);
+                dynamicSearch(3, textAge, evt);
             }
         });
 
@@ -243,7 +241,7 @@ public class PanelCongreso extends PanelLista {
         });
         textCity.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent evt) {
-                dynamicSearch(4,textCity, evt);
+                dynamicSearch(4, textCity, evt);
             }
         });
 
@@ -264,7 +262,7 @@ public class PanelCongreso extends PanelLista {
         });
         textState.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent evt) {
-                dynamicSearch(5,textState, evt);
+                dynamicSearch(5, textState, evt);
             }
         });
 
@@ -285,7 +283,7 @@ public class PanelCongreso extends PanelLista {
         });
         textParty.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent evt) {
-                dynamicSearch(6,textParty,evt);
+                dynamicSearch(6, textParty, evt);
             }
         });
 
@@ -346,8 +344,15 @@ public class PanelCongreso extends PanelLista {
             }
         });
 
+
         SpinnerNum.setModel(new SpinnerNumberModel(1, 1, 50000000, 1));
-        //SpinnerNum.setModel(new SpinnerNumberModel(new SpinnerNumberModel(5.0, 0.0, 9.0, 1.0));
+        ((JSpinner.DefaultEditor)SpinnerNum.getEditor()).getTextField().addKeyListener((new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    agregarRandom();
+                }
+            }
+        }));
 
 
         JPanel right = new JPanel();
@@ -590,7 +595,6 @@ public class PanelCongreso extends PanelLista {
         }
         else {
             try {
-                //int[] howMany = jlist.getSelectedIndices();
                 List<String> campos = jlist.getSelectedValuesList();
                 if (campos.size() == CPC.size()) {
                     CPC.eliminarCongreso();
@@ -668,6 +672,9 @@ public class PanelCongreso extends PanelLista {
         }
     }
     private void bAgregarRandomActionPerformed(java.awt.event.ActionEvent evt) {
+        agregarRandom();
+    }
+    private void agregarRandom() {
         emptyLError();
         try {
             Integer n = (Integer)SpinnerNum.getValue();
@@ -740,6 +747,8 @@ public class PanelCongreso extends PanelLista {
     }
 
     protected void boxSortActionPerformed(ActionEvent evt) {
+        setDefaultText();
+        emptyLError();
         ListUpdate();
     }
     private void dynamicSearch(int which,JTextField aux,KeyEvent evt) {
