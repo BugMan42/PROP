@@ -112,11 +112,6 @@ public abstract class PanelLista extends Panel {
         boxSearch.setToolTipText("");
         boxSearch.setMinimumSize(new Dimension(134, 28));
         boxSearch.setPreferredSize(new Dimension(134, 30));
-        /*boxSearch.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                boxSearchActionPerformed(evt);
-            }
-        });*/
 
         buttonSearch.setIcon(new ImageIcon(getClass().getResource("/images/search25.png"))); // NOI18N
         buttonSearch.setMaximumSize(new Dimension(17, 17));
@@ -129,8 +124,6 @@ public abstract class PanelLista extends Panel {
         });
 
         labelStatus.setFont(new java.awt.Font("Ubuntu", 0, 17));
-        //labelStatus.setEnabled(false);
-        //labelStatus.setFocusable(false);
         labelStatus.setVisible(false);
         labelStatus.setForeground(Color.BLACK);
 
