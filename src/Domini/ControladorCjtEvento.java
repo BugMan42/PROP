@@ -29,6 +29,8 @@ public class ControladorCjtEvento {
         return ce.size();
     }
 
+    public int sizeB() {return busqueda.size();}
+
     public void AgregarVotacion(String nombre, String fecha, int importancia) throws Exception{
         Fecha f = new Fecha(fecha);
         Votacion v = new Votacion(nombre, f, importancia);
@@ -230,6 +232,7 @@ public class ControladorCjtEvento {
         if (busqueda.size() == 0) return "";
         else {
             String res = "";
+            //System.out.println();
             for (String s : busqueda) res += s + "\n";
             return res;
         }
@@ -256,6 +259,7 @@ public class ControladorCjtEvento {
             return res;
         }
     }
+
 
     public List<String> ConsultarTodosEventosP() {
         List<Evento> aux = ce.ConsultarTodosEventos();

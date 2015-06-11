@@ -156,8 +156,8 @@ public class PanelEventos extends PanelLista {
 
             @Override
             public String getElementAt(int index) {
-                  if (cpe.obtCCE().size() == 0) return "No hay eventos creados";
-                  return cpe.obtEvento(index);
+                if (cpe.obtCCE().size() == 0) return "No hay eventos creados";
+                return cpe.obtEvento(index);
             }
         };
         lista.setModel(bloque);
@@ -338,11 +338,9 @@ public class PanelEventos extends PanelLista {
             }
             limpiarcampos();
             actualizarLista();
-        }
-        catch (NumberFormatException a) {
+        } catch (NumberFormatException a) {
             mostrarmensaje("La fecha tiene que tener numeros");
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ponerRojo(ex.getMessage());
         }
     }
@@ -400,7 +398,8 @@ public class PanelEventos extends PanelLista {
 
     /////////////////////////////////////////HACER///////////////////////////////
     private void bteliminarAccion(ActionEvent e) {
-        if (lista.getSelectedIndex() == -1 || lista.getSelectedValue().equals("No hay eventos creados")) mostrarmensaje("Primero selecciona el elemento");
+        if (lista.getSelectedIndex() == -1 || lista.getSelectedValue().equals("No hay eventos creados"))
+            mostrarmensaje("Primero selecciona el elemento");
         else {
             try {
                 List<String> elementos = lista.getSelectedValuesList();
@@ -410,15 +409,15 @@ public class PanelEventos extends PanelLista {
                 }
                 lbinfo.setText(" ");
                 actualizarLista();
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ponerRojo(ex.getMessage());
             }
         }
     }
 
     private void btmodificarAccion(ActionEvent e) {
-        if (lista.getSelectedIndex() == -1 || lista.getSelectedValue().equals("No hay eventos creados")) mostrarmensaje("Primero selecciona el elemento");
+        if (lista.getSelectedIndex() == -1 || lista.getSelectedValue().equals("No hay eventos creados"))
+            mostrarmensaje("Primero selecciona el elemento");
         else {
             try {
                 int[] indices = lista.getSelectedIndices();
@@ -437,8 +436,7 @@ public class PanelEventos extends PanelLista {
                 cpe.obtCCE().ModificarImpEvento(nombre, fecha, Integer.parseInt(aux[3]), Integer.parseInt(importancia));
                 limpiarcampos();
                 actualizarLista();
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ponerRojo(ex.getMessage());
             }
         }
@@ -457,8 +455,7 @@ public class PanelEventos extends PanelLista {
         if (cpe.obtCCE().size() > 0) {
             cpe.obtCCE().EliminarCjtEvento(cpe.obtCPR().obtCR());
             actualizarLista();
-        }
-        else mostrarmensaje("No se puede eliminar porque no hay eventos");
+        } else mostrarmensaje("No se puede eliminar porque no hay eventos");
     }
 
     private void btguardarTodoAccion(ActionEvent e) {
@@ -466,14 +463,12 @@ public class PanelEventos extends PanelLista {
             int valor = guardar.showSaveDialog(this);
             if (valor == JFileChooser.APPROVE_OPTION) {
                 try {
-                    cpe.obtCCE().guardar(guardar.getSelectedFile().getAbsolutePath()+guardar.getFileFilter().getDescription());
-                }
-                catch (Exception ex) {
+                    cpe.obtCCE().guardar(guardar.getSelectedFile().getAbsolutePath() + guardar.getFileFilter().getDescription());
+                } catch (Exception ex) {
                     mostrarmensaje(ex.getMessage());
                 }
             }
-        }
-        else mostrarmensaje("No hay eventos");
+        } else mostrarmensaje("No hay eventos");
     }
 
     private void btcargarTodoAccion(ActionEvent e) {
@@ -530,7 +525,7 @@ public class PanelEventos extends PanelLista {
                                         )
                         )
                         .addComponent(btlimpiar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(14,14,14)
+                        .addGap(14, 14, 14)
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
                                         .addComponent(btagregar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(bteliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -605,12 +600,35 @@ public class PanelEventos extends PanelLista {
         cpe.ModOrden(boxSort.getSelectedIndex());
         actualizarLista();
     }
+
     //TODO MODIFICAR
     //Modificar para buscar
-    protected  void buttonSearchActionPerformed(ActionEvent evt) {
+    protected void buttonSearchActionPerformed(ActionEvent evt) {
         String busqueda = textSearch.getText();
-
+        if (busqueda.equals("")) {
+            labelStatus.setVisible(false);
+            labelStatus.setText("");
+            actualizarLista();
+        }
+        else {
+            int op = obtBoxSearch().getSelectedIndex();
+            switch (op) {
+                case 0:
+                    actualizarListaB(0, busqueda);
+                    break;
+                case 1:
+                    actualizarListaB(1, busqueda);
+                    break;
+                case 2:
+                    actualizarListaB(2, busqueda);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
+
+
     //TODO MODIFICAR
     //Modifcar para buscar, guardar como quieras
     //protected abstract void boxSearchActionPerformed(ActionEvent evt);
@@ -624,6 +642,11 @@ public class PanelEventos extends PanelLista {
         boxSearch.setToolTipText("Busqueda");
     }
     //TODO MODIFICAR
+
+    public String obtPrefijo() {
+        return textSearch.getText();
+    }
+
     protected void textSearchTyped(KeyEvent evt) {
         /*String busqueda = textSearch.getText();
         if (busqueda.equals("")) {
@@ -634,27 +657,77 @@ public class PanelEventos extends PanelLista {
             if (busqueda.equals("")) {
                 labelStatus.setVisible(false);
                 labelStatus.setText("");
-                actualizarLista();
+                actualizarListaB(0, "");
             }
             else {
                 int op = obtBoxSearch().getSelectedIndex();
                 switch (op) {
                     case 0:
-                        cpe.obtCCE().obtBloqueBN(busqueda);
+                        actualizarListaB(0, busqueda);
                         break;
                     case 1:
-
+                        actualizarListaB(1, busqueda);
                         break;
                     case 2:
+                        actualizarListaB(2, busqueda);
                         break;
                     default:
                         break;
                 }
-                labelStatus.setVisible(true);
-                labelStatus.setText("Eventos encontrados: "+cpe.obtCCE().size());
             }
         }
-*/
+        else {
+            int op = obtBoxSearch().getSelectedIndex();
+            switch (op) {
+                case 0:
+                    actualizarListaB(0, busqueda);
+                    break;
+                case 1:
+                    actualizarListaB(1, busqueda);
+                    break;
+                case 2:
+                    actualizarListaB(2, busqueda);
+                    break;
+                default:
+                    break;
+            }
+        }*/
+    }
+
+    public void actualizarListaB(int i, String prefijo) {
+        /*lista.setPrototypeCellValue(" ");
+        cpe.refrescarB();
+        bloque = new AbstractListModel<String>() {
+            @Override
+            public int getSize() {
+                if (cpe.obtCCE().sizeB() == 0) return 1;
+                else return cpe.obtCCE().sizeB();
+            }
+            @Override
+            public String getElementAt(int index) {
+                if (cpe.obtCCE().sizeB() == 0) return "No hay coincidencias";
+                return cpe.obtEventoB(index);
+            }
+        };
+        lista.setModel(bloque);*/
+        String info[] = {"No hay coincidencias"};
+        if (cpe.obtCCE().sizeB() == 0 || prefijo.equals("")) lista.setListData(info);
+        else {
+            switch (i) {
+                case 0:
+                cpe.ModOrdenB(0);
+                lista.setListData(cpe.obtBloqueB(prefijo));
+                    break;
+                case 1:
+                    cpe.ModOrdenB(1);
+                    lista.setListData(cpe.obtBloqueB(prefijo));
+                    break;
+                case 2:
+                    cpe.ModOrdenB(0);
+                    lista.setListData(cpe.obtBloqueB(prefijo));
+                    break;
+            }
+        }
     }
 
 }

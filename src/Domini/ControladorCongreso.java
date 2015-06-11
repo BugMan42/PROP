@@ -1,11 +1,8 @@
 package Domini;
 
 import Persistencia.ControladorPersistencia;
-import scala.Array;
 
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 

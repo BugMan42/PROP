@@ -79,7 +79,7 @@ public class CjtEvento {
             Evento aux = cjt.obtener(name + separador+ fechaVieja.alReves());
             aux.ModFecha(fechaNueva);
             cjt.modificar(name + separador+fechaVieja.alReves(), name + separador+fechaNueva.alReves(), aux);
-            cjtFecha.modificar(name + separador+fechaVieja.alReves(), name + separador+fechaNueva.alReves());
+            cjtFecha.modificar(fechaVieja.alReves()+separador + name,  fechaNueva.alReves() + separador +name);
             cjtImp.modificar(Integer.toString(imp)+separador+ name+separador+fechaVieja.alReves(),Integer.toString(imp)+separador+name+separador+fechaNueva.alReves());
             restaurar();
         }

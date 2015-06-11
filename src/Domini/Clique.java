@@ -292,6 +292,7 @@ public class Clique extends Algoritmo {
                         if (i < j) {
                             obtOut().agregarMensaje("La clique num: " + Integer.toString(j) + " esta en la comunidad " + Integer.toString(kc.obtNum()));
                             conj.addAll(kc1.lista());
+
                         }
                         else {
                             obtOut().agregarMensaje("La clique num: " + Integer.toString(i) + " esta en la comunidad " + Integer.toString(kc.obtNum()));

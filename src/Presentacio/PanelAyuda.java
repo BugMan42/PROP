@@ -1,8 +1,5 @@
 package Presentacio;
 
-import scala.xml.PrettyPrinter;
-import sun.awt.VerticalBagLayout;
-
 import javax.swing.*;
 import java.awt.*;
 
