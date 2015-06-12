@@ -15,7 +15,6 @@ public class CPEventos {
     private int ultB;
     private String[] bloqueC, bloqueD;
     private int indiceC, indiceD;
-    private int ordenB;
 
     public CPEventos() {
         CCE = new ControladorCjtEvento();
@@ -27,24 +26,17 @@ public class CPEventos {
         refrescarB();
         bloqueC = new String[100];
         bloqueD = new String[100];
-        ordenB = 0;
     }
 
     public void ModOrden(int i) {
         if (i < 0 || i > 2) System.out.println("Orden incorrecto tiene que estar entre 0 y 2");
         else if (i != orden) {
             refrescar();
+            refrescarB();
             orden = i;
         }
     }
 
-    public void ModOrdenB(int i) {
-        if (i < 0 || i > 2) System.out.println("Orden incorrecto tiene que estar entre 0 y 2");
-        else if (i != ordenB) {
-            refrescarB();
-            ordenB = i;
-        }
-    }
 
     public PanelEventos obtPanel() {
         if (PE == null) PE = new PanelEventos(this);
@@ -63,14 +55,14 @@ public class CPEventos {
         indiceD = -1;
     }
 
-    public String[] obtBloqueB(String prefijo) {
+    public String[] obtBloqueB(int bloque) {
         switch (orden) {
             case 0:
-                return CCE.obtBloqueBN(prefijo).split("\n");
+                return CCE.obtBloqueBN(bloque, tamanioBloque).split("\n");
             case 1:
-                return CCE.obtBloqueBF(prefijo).split("\n");
+                return CCE.obtBloqueBF(bloque, tamanioBloque).split("\n");
             case 2:
-                return CCE.obtBloqueBI(prefijo).split("\n");
+                return CCE.obtBloqueBI(bloque, tamanioBloque).split("\n");
             default:
                 return new String[1];
         }
@@ -85,6 +77,8 @@ public class CPEventos {
     public void nuevo(){
         if (CCE.size()>0) CCE.EliminarCjtEvento(CR.obtCR());
         actualizar();
+        refrescar();
+        refrescarB();
     }
 
     private String[] obtBloque(int bloque) {
@@ -106,14 +100,10 @@ public class CPEventos {
         int bloque = indice/tamanioBloque;
         if (bloque == indiceA) {
             ultimo = 0;
-            //System.out.println("Este es el bloqueA if que contiene:");
-            //for (int i = 0; i < bloqueA.length; ++i) System.out.println(bloqueA[i]);
             return bloqueA[(indice%tamanioBloque)];
         }
         else if (bloque == indiceB) {
             ultimo = 1;
-            //System.out.println("Este es el bloqueB if que contiene:");
-            //for (int i = 0; i < bloqueB.length; ++i) System.out.println(bloqueB[i]);
             return bloqueB[(indice%tamanioBloque)];
         }
         else {
@@ -121,33 +111,25 @@ public class CPEventos {
                 ultimo = 1;
                 indiceB = bloque;
                 bloqueB = obtBloque(bloque);
-                //System.out.println("Este es el bloqueB else que contiene:");
-                //for (int i = 0; i < bloqueB.length; ++i) System.out.println(bloqueB[i]);
                 return bloqueB[(indice%tamanioBloque)];
             }
             else {
                 ultimo = 0;
                 indiceA = bloque;
                 bloqueA = obtBloque(bloque);
-                //System.out.println("Este es el bloqueA else que contiene:");
-                //for (int i = 0; i < bloqueA.length; ++i) System.out.println(bloqueA[i]);
                 return bloqueA[(indice%tamanioBloque)];
             }
         }
     }
 
-    /*public String obtEventoB(int indice) {
+    public String obtEventoB(int indice) {
         int bloque = indice/tamanioBloque;
         if (bloque == indiceC) {
             ultB = 0;
-            //System.out.println("Este es el bloqueA if que contiene:");
-            //for (int i = 0; i < bloqueA.length; ++i) System.out.println(bloqueA[i]);
             return bloqueC[(indice%tamanioBloque)];
         }
         else if (bloque == indiceD) {
             ultimo = 1;
-            //System.out.println("Este es el bloqueB if que contiene:");
-            //for (int i = 0; i < bloqueB.length; ++i) System.out.println(bloqueB[i]);
             return bloqueD[(indice%tamanioBloque)];
         }
         else {
@@ -155,20 +137,15 @@ public class CPEventos {
                 ultB = 1;
                 indiceD = bloque;
                 bloqueD = obtBloqueB(bloque);
-                //System.out.println("Este es el bloqueB else que contiene:");
-                //for (int i = 0; i < bloqueB.length; ++i) System.out.println(bloqueB[i]);
-                return bloqueD[(indice%tamanioBloque)];
-            }
-            else {
+                return bloqueD[(indice % tamanioBloque)];
+            } else {
                 ultB = 0;
                 indiceC = bloque;
                 bloqueC = obtBloqueB(bloque);
-                //System.out.println("Este es el bloqueA else que contiene:");
-                //for (int i = 0; i < bloqueA.length; ++i) System.out.println(bloqueA[i]);
-                return bloqueC[(indice%tamanioBloque)];
+                return bloqueC[(indice % tamanioBloque)];
             }
         }
-    }*/
+    }
 
 
 

@@ -74,6 +74,10 @@ public abstract class Evento {
 
     public abstract String toString();
 
+    public abstract String toStringF();
+
+    public abstract String toStringI();
+
     public int obt_importancia() {
         return importancia;
     }
