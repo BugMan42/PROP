@@ -78,7 +78,7 @@ public class PanelRelaciones extends Panel {
         menu.add(bTodas);
         menu.add(bCongresista);
         menu.add(bEvento);
-        //menu.add(bCompuestas);
+        menu.add(bCompuestas);
 
         setLayout(new BorderLayout());
         add(menu, BorderLayout.PAGE_START);
