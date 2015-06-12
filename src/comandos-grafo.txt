@@ -1,3 +1,4 @@
 Visita x
-AñadirVertice x
+AñadirVertice x  --> mejor agregar por si acaso
 AñadirArista x y z
+EliminarArista x z peso ??

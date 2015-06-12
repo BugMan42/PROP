@@ -382,7 +382,7 @@ public class TST<X>  {
 
     public static void main(String[] args) throws Exception {
         TST<Integer> tst = new TST<Integer>();
-        tst.insertar("abcd",12);
+        tst.insertar("abcd", 12);
         tst.insertar("abc",12);
         tst.insertar("b",12);
         tst.insertar("ab",12);
@@ -427,6 +427,40 @@ public class TST<X>  {
             imprimir(r.right, word, v);
         }
     }
+    public List<String> clavesPrefijoConStop(String prefix, char stop, int threshold) {
+        ArrayList<String> v = new ArrayList<String>();
+        return imprimir0(root, prefix,0,stop,threshold);
+    }
+    private List<String> imprimir0(TSTNodo t,String key,int d,char stop,int threshold) {
+        if (t == null) return null;
+
+        char c;
+        if (d < key.length()) c = key.charAt(d);
+        else c = fin;
+
+        TSTNodoChar tChar = (TSTNodoChar) t;
+        if (tChar.valor > c) return imprimir0(t.left, key, d,stop,threshold);
+        else if (tChar.valor < c) return imprimir0(t.right, key, d,stop,threshold);
+        else {
+            ++d;
+            if (d < key.length()) return imprimir0(t.middle, key, d,stop,threshold);
+            else {
+                List<String> aux = new LinkedList<String>();
+                imprimir3(t.middle, key, aux,stop,threshold);
+                return aux;
+            }
+        }
+    }
+    private void imprimir3(TSTNodo r, String word, List<String> v,char stop,int threshold) {
+        if (r != null && v.size() < threshold) {
+            imprimir3(r.left, word, v, stop, threshold);
+            TSTNodoChar rChar = (TSTNodoChar)r;
+            if (rChar.valor == fin || rChar.valor == stop) v.add(word);
+            else imprimir3(r.middle, word + rChar.valor, v,stop,threshold);
+            imprimir3(r.right, word, v,stop,threshold);
+        }
+    }
+
     //Utilizamos una lista  para
     public List<X> consultarObjetos() {
         List<X> v = new ArrayList<X>();

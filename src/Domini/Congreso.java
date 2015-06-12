@@ -21,35 +21,6 @@ public class Congreso {
     private static String[] ciudad = {"LN", "PARIS", "ISLAMABAD","BCN","TOKIO","WASHINGTON","SEATTLE","NY", "SF","CHICAGO","ALEXANDRIA","ANNAPOLIS","HAIFA","LOUVAIN","TORONTO","BERLIN"};
     private static String[] partido = {"REP","DEM","LIBRE","PIRATA"};
 
-    /*private class Congresistas {
-        private List<Congresista> datos;
-        Congresistas(Congresista a) {
-            datos = new LinkedList<Congresista>();
-            datos.add(a);
-        }
-        public int size() {
-            return datos.size();
-        }
-        public List<Congresista> obtDatos() {
-            return datos;
-        }
-        public void insertar(Congresista a) {
-            //for (int i = 0; i < datos.size(); ++i) {
-            datos.add(a);
-            //}
-        }
-        public boolean isEmpty() {
-            return datos.isEmpty();
-        }
-        public void eliminarCongresista(Congresista a) {
-            //datos.remove(a);
-            for (int i = 0; i < datos.size(); ++i) {
-                if (datos.get(i).obtDni().equals(a.obtDni())) {
-                    datos.remove(i);
-                }
-            }
-        }
-    }*/
     //atributs
     private TST<Congresista> tst;
     private TST<Congresista> tstNombre;
@@ -166,7 +137,6 @@ public class Congreso {
                                int edad, String ciudad, String estado, String partido) throws  Exception{
         if (!dni.equals(dniNuevo)) {
             tst.modificar(dni.toString(), dniNuevo.toString());
-            //tst.obtener(dniNuevo.toString()).modDni(dniNuevo);
             tst.obtener(dniNuevo.toString()).mod(dniNuevo, nombre, apellido, edad, ciudad, estado, partido);
             reiniciarCaches();
         }
@@ -353,6 +323,9 @@ public class Congreso {
     }
     public List<Congresista> obtenerListaPartido() {
         return tstPartido.consultarObjetos();
+    }
+    public TST<Congresista> obtenerTSTNombre() {
+        return tstNombre;
     }
     public List<Congresista> searchPrefixDni(String prefix) {
         List<Congresista> aux = tst.prefijo(prefix);
