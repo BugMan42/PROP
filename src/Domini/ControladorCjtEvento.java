@@ -84,6 +84,8 @@ public class ControladorCjtEvento {
     public void EliminarEvento(String nombre, String fecha, int imp, ControladorRelaciones cr) throws Exception{
         if(cr.tieneRelaciones(nombre, fecha)) cr.eliminarRelaciones(nombre, fecha);
         ce.EliminarEvento(nombre, new Fecha(fecha), imp);
+        //if (ExisteEvento(nombre, fecha)) System.out.println("Aun sigo existiendo revisa");
+        //else System.out.println("Ya no existo revisa error en otra parte");
     }
 
     public void EliminarCjtEvento(ControladorRelaciones cr) {

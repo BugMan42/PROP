@@ -32,16 +32,34 @@ public class CjtEvento {
 
     /////////////////////////////////////MODIFICADORAS////////////////////////
 
-    public void EliminarEvento(String nombre, Fecha fecha, int imp) throws Exception{
+    public void EliminarEvento(String nombre, Fecha fecha, int imp) throws Exception {
         //Siempre convierto el nombre a mayusculas para evitar errores de no
         // encontrar el elemento
         String name = nombre.toUpperCase();
-        cjt.borrar(name +separador+ fecha.alReves());
-        cjtFecha.borrar(fecha.alReves() +separador+ name);
-        //System.out.println(cjtImp.consultarClaves().toString());
-        cjtImp.borrar(Integer.toString(imp)+separador + name +separador+ fecha.alReves());
+        cjt.borrar(name + separador + fecha.alReves());
+        //if (cjt.existe(name + separador + fecha.alReves())) System.out.println("Aun sigo existiendo revisa Cjt");
+        //else System.out.println("Ya no existo revisa error en otra parte Cjt");
+        cjtFecha.borrar(fecha.alReves() + separador + name);
+        //if (cjtFecha.existe(fecha.alReves() + separador + name)) System.out.println("Aun sigo existiendo revisa Cjt");
+        //else System.out.println("Ya no existo revisa error en otra parte Cjt");
+        cjtImp.borrar(arreglarImp(imp) + separador + name + separador + fecha.alReves());
+        //if (cjtImp.existe(arreglarImp(imp) + separador + name + separador + fecha.alReves()))
+            //System.out.println("Aun sigo existiendo revisa Cjt");
+       // else System.out.println("Ya no existo revisa error en otra parte Cjt");
         restaurar();
     }
+
+    private String arreglarImp(int impo) {
+        String imp = Integer.toString(impo);
+        if(imp.length()<4) {
+            int n = 4 - imp.length();
+            for (int i = 0; i < n; ++i) {
+                imp = "0" + imp;
+            }
+        }
+        return imp;
+    }
+
 
     public void AgregarEvento(Evento e) throws Exception{
         cjt.insertar(e.IDN(), e);
@@ -64,7 +82,7 @@ public class CjtEvento {
                 aux.ModNombre(newname);
                 cjt.modificar(oldname +separador+ fecha.alReves(), newname +separador+ fecha.alReves(), aux);
                 cjtFecha.modificar(fecha.alReves() +separador+ oldname, fecha.alReves() +separador+ newname);
-                cjtImp.modificar(Integer.toString(imp)+separador + oldname + separador+ fecha.alReves(), Integer.toString(imp)+separador + newname + separador+ fecha.alReves());
+                cjtImp.modificar(arreglarImp(imp)+separador + oldname + separador+ fecha.alReves(), arreglarImp(imp)+separador + newname + separador+ fecha.alReves());
                 restaurar();
             }
         //Si es igual nomViejo a nomNuevo no se hace nada no se hace nada
@@ -80,7 +98,7 @@ public class CjtEvento {
             aux.ModFecha(fechaNueva);
             cjt.modificar(name + separador+fechaVieja.alReves(), name + separador+fechaNueva.alReves(), aux);
             cjtFecha.modificar(fechaVieja.alReves()+separador + name,  fechaNueva.alReves() + separador +name);
-            cjtImp.modificar(Integer.toString(imp)+separador+ name+separador+fechaVieja.alReves(),Integer.toString(imp)+separador+name+separador+fechaNueva.alReves());
+            cjtImp.modificar(arreglarImp(imp)+separador+ name+separador+fechaVieja.alReves(),arreglarImp(imp)+separador+name+separador+fechaNueva.alReves());
             restaurar();
         }
         //Si es igual fechaVieja a fechaNueva no se hace nada
@@ -92,7 +110,7 @@ public class CjtEvento {
             String name = nombre.toUpperCase();
             //Como el tst devuelve la refencia al objeto directamente puedo cambiarle los atributos
             cjt.obtener(name+separador+fecha.alReves()).ModImportancia(NewImp);
-            cjtImp.modificar(Integer.toString(OldImp) +separador+ name + separador+fecha.alReves(), Integer.toString(NewImp)+separador + name +separador+ fecha.alReves());
+            cjtImp.modificar(arreglarImp(OldImp) +separador+ name + separador+fecha.alReves(), arreglarImp(NewImp)+separador + name +separador+ fecha.alReves());
             restaurar();
         }
     }

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Calendar;
 import java.util.List;
 
 public class PanelEventos extends PanelLista {
@@ -125,15 +126,16 @@ public class PanelEventos extends PanelLista {
         ctnombre.setForeground(Color.GRAY);
         ctnombre.setMinimumSize(new Dimension(225, 34));
         lbfecha.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        dia.setModel(new SpinnerNumberModel(1, 1, 31, 1));
+        Calendar c = Calendar.getInstance();
+        dia.setModel(new SpinnerNumberModel(c.get(Calendar.DATE), 1, 31, 1));
         dia.setFont(new java.awt.Font("Ubuntu", 0, 18));
         dia.setForeground(Color.BLACK);
         dia.setMinimumSize(new Dimension(75, 34));
-        mes.setModel(new SpinnerNumberModel(1, 1, 12, 1));
+        mes.setModel(new SpinnerNumberModel(c.get(Calendar.MONTH)+1, 1, 12, 1));
         mes.setFont(new java.awt.Font("Ubuntu", 0, 18));
         mes.setForeground(Color.BLACK);
         dia.setMinimumSize(new Dimension(75, 34));
-        any.setModel(new SpinnerNumberModel(1, 1, 9999, 1));
+        any.setModel(new SpinnerNumberModel(c.get(Calendar.YEAR), 1, 9999, 1));
         any.setFont(new java.awt.Font("Ubuntu", 0, 18));
         any.setForeground(Color.BLACK);
         dia.setMinimumSize(new Dimension(75, 34));
@@ -370,9 +372,11 @@ public class PanelEventos extends PanelLista {
             }
             limpiarcampos();
             actualizarLista();
-        } catch (NumberFormatException a) {
+        }
+        catch (NumberFormatException a) {
             mostrarmensaje("La fecha tiene que tener numeros");
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             ponerRojo(ex.getMessage());
         }
     }
@@ -402,18 +406,23 @@ public class PanelEventos extends PanelLista {
     public void limpiarcampos() {
         ctnombre.setText(defecto[0]);
         ctnombre.setForeground(Color.GRAY);
-        dia.setForeground(Color.BLACK);
-        dia.setValue(1);
-        mes.setForeground(Color.BLACK);
-        mes.setValue(1);
-        any.setForeground(Color.BLACK);
-        any.setValue(1);
+        restaurarFecha();
         ctimportancia.setText(defecto[1]);
         ctimportancia.setForeground(Color.GRAY);
         cbtipo.setSelectedIndex(0);
         lbinfo.setText(" ");
         contador.setValue(1);
         lista.clearSelection();
+    }
+
+    private void restaurarFecha() {
+        Calendar c = Calendar.getInstance();
+        dia.setValue(c.get(Calendar.DATE));
+        dia.setForeground(Color.BLACK);
+        mes.setForeground(Color.BLACK);
+        mes.setValue(c.get(Calendar.MONTH)+1);
+        any.setForeground(Color.BLACK);
+        any.setValue(c.get(Calendar.YEAR));
     }
 
     private void mostrarmensaje(String s) {
@@ -429,6 +438,9 @@ public class PanelEventos extends PanelLista {
             mes.setForeground(Color.red);
             any.setForeground(Color.red);
         }
+        else if(data[0].equals("Mes")) {
+            mes.setForeground(Color.red);
+        }
         else if (data[0].equals("Importancia")) ctimportancia.setForeground(Color.red);
         else if (data[0].equals("Clave")) {
             ctnombre.setForeground(Color.red);
@@ -437,7 +449,8 @@ public class PanelEventos extends PanelLista {
             any.setForeground(Color.red);
             clave = true;
         }
-        if (!clave) mostrarmensaje(s);
+        //if (!clave)
+            mostrarmensaje(s);
     }
 
 
@@ -450,7 +463,7 @@ public class PanelEventos extends PanelLista {
             try {
                 List<String> elementos = lista.getSelectedValuesList();
                 for (String s : elementos) {
-                    String aux[] = s.split(" ");
+                    String aux[] = parametrosOrden(s);
                     cpe.obtCCE().EliminarEvento(aux[1], aux[2], Integer.parseInt(aux[3]), cpe.obtCPR().obtCR());
                 }
                 lbinfo.setText(" ");
@@ -460,6 +473,29 @@ public class PanelEventos extends PanelLista {
             }
         }
     }
+
+    private String[] parametrosOrden(String s) {
+        String[] aux = s.split(" ");
+        //System.out.println("Mis parametros son: " + aux[0] + " " + aux[1] + " " + aux[2] + " "+ aux[3]);
+        String c;
+        switch (cpe.obtOrden()) {
+            case 1:
+                c = aux[1];
+                aux[1] = aux[2];
+                aux[2] = c;
+                //System.out.println("Han sido reordenados asi: " + aux[0] + " " + aux[1] + " " + aux[2] + " "+ aux[3]);
+                break;
+            case 2:
+                c = aux[1];
+                aux[1] = aux[2];
+                aux[2] = aux[3];
+                aux[3] = c;
+                System.out.println("Han sido reordenados asi: " + aux[0] + " " + aux[1] + " " + aux[2] + " "+ aux[3]);
+                break;
+        }
+        return aux;
+    }
+
 
     private void btmodificarAccion(ActionEvent e) {
         if (lista.getSelectedIndex() == -1 || lista.getSelectedValue().equals("No hay eventos creados"))
@@ -472,7 +508,7 @@ public class PanelEventos extends PanelLista {
                     return;
                 }
                 String evento = (String) lista.getSelectedValue();
-                String[] aux = evento.split("\\s");
+                String[] aux = parametrosOrden(evento);
                 String nombre = ctnombre.getText();
                 String fecha = dia.getValue() + "/" + mes.getValue() + "/" + any.getValue();
                 String importancia = ctimportancia.getText();
