@@ -13,6 +13,14 @@ public class Personal extends Reunion{
         return "ReunionPersonal " + obt_nombre() + " " + obt_fecha() + " " + Integer.toString(obt_importancia());
     }
 
+    public String toStringF() {
+        return "ReunionPersonal " + obt_fecha() + " " + obt_nombre() + " " + Integer.toString(obt_importancia());
+    }
+
+    public String toStringI() {
+        return "ReunionPersonal " + Integer.toString(obt_importancia()) + " " + obt_nombre() + " " + obt_fecha();
+    }
+
     public String tipo(){
         return "ReunionPersonal";
     }

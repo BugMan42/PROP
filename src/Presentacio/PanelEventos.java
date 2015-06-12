@@ -604,7 +604,7 @@ public class PanelEventos extends PanelLista {
     //TODO MODIFICAR
     //Modificar para buscar
     protected void buttonSearchActionPerformed(ActionEvent evt) {
-        String busqueda = textSearch.getText();
+        /*String busqueda = textSearch.getText();
         if (busqueda.equals("")) {
             labelStatus.setVisible(false);
             labelStatus.setText("");
@@ -625,7 +625,7 @@ public class PanelEventos extends PanelLista {
                 default:
                     break;
             }
-        }
+        }*/
     }
 
 
@@ -648,54 +648,55 @@ public class PanelEventos extends PanelLista {
     }
 
     protected void textSearchTyped(KeyEvent evt) {
-        /*String busqueda = textSearch.getText();
+        String busqueda = textSearch.getText();
         if (busqueda.equals("")) {
             labelStatus.setVisible(false);
             labelStatus.setText("");
+            actualizarLista();
         }
         if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
             if (busqueda.equals("")) {
                 labelStatus.setVisible(false);
                 labelStatus.setText("");
-                actualizarListaB(0, "");
+                actualizarLista();
             }
             else {
                 int op = obtBoxSearch().getSelectedIndex();
                 switch (op) {
                     case 0:
-                        actualizarListaB(0, busqueda);
+                        cpe.obtCCE().buscarBN(busqueda);
                         break;
                     case 1:
-                        actualizarListaB(1, busqueda);
+                        cpe.obtCCE().buscarBF(busqueda);
                         break;
                     case 2:
-                        actualizarListaB(2, busqueda);
-                        break;
-                    default:
+                        cpe.obtCCE().buscarBI(busqueda);
                         break;
                 }
+                actualizarListaB();
             }
         }
         else {
             int op = obtBoxSearch().getSelectedIndex();
             switch (op) {
                 case 0:
-                    actualizarListaB(0, busqueda);
+                    cpe.obtCCE().buscarBN(busqueda);
                     break;
                 case 1:
-                    actualizarListaB(1, busqueda);
+                    cpe.obtCCE().buscarBF(busqueda);
                     break;
                 case 2:
-                    actualizarListaB(2, busqueda);
+                    cpe.obtCCE().buscarBI(busqueda);
                     break;
                 default:
                     break;
             }
-        }*/
+            actualizarListaB();
+        }
     }
 
-    public void actualizarListaB(int i, String prefijo) {
-        /*lista.setPrototypeCellValue(" ");
+    public void actualizarListaB() {
+        lista.setPrototypeCellValue(" ");
         cpe.refrescarB();
         bloque = new AbstractListModel<String>() {
             @Override
@@ -709,8 +710,8 @@ public class PanelEventos extends PanelLista {
                 return cpe.obtEventoB(index);
             }
         };
-        lista.setModel(bloque);*/
-        String info[] = {"No hay coincidencias"};
+        lista.setModel(bloque);
+        /*String info[] = {"No hay coincidencias"};
         if (cpe.obtCCE().sizeB() == 0 || prefijo.equals("")) lista.setListData(info);
         else {
             switch (i) {
@@ -727,7 +728,7 @@ public class PanelEventos extends PanelLista {
                     lista.setListData(cpe.obtBloqueB(prefijo));
                     break;
             }
-        }
+        }*/
     }
 
 }

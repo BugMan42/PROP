@@ -15,10 +15,12 @@ public class ControladorCjtEvento {
 
     private CjtEvento ce;
     private ArrayList<String> busqueda;
+    private int orden;
 
     public ControladorCjtEvento() {
         ce = new CjtEvento();
         resetearCache();
+        orden = 0;
     }
 
     private void resetearCache() {
@@ -226,21 +228,9 @@ public class ControladorCjtEvento {
         return res;
     }
 
-    public String obtBloqueBN(String prefijo) {
+    public String obtBloqueBN(int bloque, int tamanio) {
         resetearCache();
-        busqueda = ce.busquedaNombre(prefijo);
-        if (busqueda.size() == 0) return "";
-        else {
-            String res = "";
-            //System.out.println();
-            for (String s : busqueda) res += s + "\n";
-            return res;
-        }
-    }
-
-    public String obtBloqueBF(String prefijo) {
-        resetearCache();
-        busqueda = ce.busquedaNombre(prefijo);
+        //busqueda = ce.busquedaNombre(prefijo);
         if (busqueda.size() == 0) return "";
         else {
             String res = "";
@@ -249,9 +239,20 @@ public class ControladorCjtEvento {
         }
     }
 
-    public String obtBloqueBI(String prefijo) {
+    public String obtBloqueBF(int bloque, int tamanio) {
         resetearCache();
-        busqueda = ce.busquedaImp(prefijo);
+        int inicio = bloque*tamanio;
+        int fin = inicio + tamanio;
+        if (fin > busqueda.size()) fin = busqueda.size();
+        String res = "";
+        for (int i = inicio; i < fin; ++i) res += busqueda.get(i) + "\n";
+        return res;
+    }
+
+    public String obtBloqueBI(int bloque, int tamanio) {
+        resetearCache();
+        //
+        // busqueda = ce.busquedaImp(prefijo);
         if (busqueda.size() == 0) return "";
         else {
             String res = "";
@@ -260,6 +261,18 @@ public class ControladorCjtEvento {
         }
     }
 
+    public void buscarBN(String prefijo) {
+        resetearCache();
+
+    }
+
+    public void buscarBF(String prefijo) {
+        resetearCache();
+    }
+
+    public void buscarBI(String prefijo) {
+        resetearCache();
+    }
 
     public List<String> ConsultarTodosEventosP() {
         List<Evento> aux = ce.ConsultarTodosEventos();
