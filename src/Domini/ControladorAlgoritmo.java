@@ -57,7 +57,7 @@ public class ControladorAlgoritmo {
     {
         out = new Salida();
         if (s == 1) alg = new Girvan_Newman(in, out);
-        else if (s == 2) alg = new Louvain(in, out);
+        else if (s == 2) alg = new LouvainPrueba(in, out);
         else if (s == 3) alg = new Clique(in, out);
     }
 
