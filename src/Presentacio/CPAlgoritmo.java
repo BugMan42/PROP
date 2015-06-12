@@ -107,4 +107,7 @@ public class CPAlgoritmo {
         PA.nuevo();
     }
 
+    public void actualizarPanel(boolean b){
+        PA.actualizar(b);
+    }
 }

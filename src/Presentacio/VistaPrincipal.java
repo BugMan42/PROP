@@ -190,6 +190,14 @@ public class    VistaPrincipal extends JFrame {
                 revalidate();
                 repaint();
 
+                try {
+                    cp.getCPA().crearGrafo();
+                    cp.getCPA().actualizarPanel(false);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+
+
             }
         });
         menu1_5.add(mi_alg);
@@ -277,6 +285,13 @@ public class    VistaPrincipal extends JFrame {
                 invalidate();
                 revalidate();
                 repaint();
+
+                try {
+                    cp.getCPA().crearGrafo();
+                    cp.getCPA().actualizarPanel(false);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
 
             }
         });

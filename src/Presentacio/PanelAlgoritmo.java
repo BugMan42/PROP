@@ -1,6 +1,7 @@
 package Presentacio;
 
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.geom.Point3;
 import org.graphstream.ui.swingViewer.ViewPanel;
@@ -27,7 +28,7 @@ import java.util.Random;
 public class PanelAlgoritmo extends Panel{
 
     CPAlgoritmo cpa;
-    private Graph g;
+    private Graph g = new SingleGraph("");
     private Viewer viewer;
     private ViewPanel view;
 
@@ -71,14 +72,13 @@ public class PanelAlgoritmo extends Panel{
         //Inicialización de datos
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
 
-        g = new SingleGraph("GOLF");
-
         g.addAttribute("ui.antialias");
-
         g.addAttribute(
                 "ui.stylesheet",
-                "node { text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
-                        "node:selected { stroke-width: 4px; }");
+                "node { shape: pie-chart; size: 17.5px; text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
+                        "node:selected { stroke-width: 4px; stroke-color: black; }"+
+                        "node:clicked { stroke-width: 4px; stroke-color: black; }"+
+                        "edge { fill-color: #777; }");
 
         viewer = new Viewer(g, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         viewer.enableAutoLayout();
@@ -104,6 +104,7 @@ public class PanelAlgoritmo extends Panel{
         });
         fromViewer.addSink(g);
 
+        //<editor-fold desc="Implementación Zoom">
         // Zoom con rueda ratón
         view.addMouseWheelListener(new MouseWheelListener() {
             @Override
@@ -122,6 +123,7 @@ public class PanelAlgoritmo extends Panel{
                 }
             }
         });
+        //</editor-fold>
 
         UIDefaults defaults = new UIDefaults();
         defaults.put("TextPane[Enabled].backgroundPainter", Color.black);
@@ -139,6 +141,8 @@ public class PanelAlgoritmo extends Panel{
         JScrollPane sp1 = new JScrollPane(tp1);
         JRadioButton rb1 = new JRadioButton("Girvan-Newman");
         final JButton mostrar1 = new JButton("Mostrar grafo");
+        JButton up1 = new JButton(new ImageIcon(getClass().getResource("/images/up.png")));
+        JButton down1 = new JButton(new ImageIcon(getClass().getResource("/images/down.png")));
         mostrar1.setEnabled(false);
         pb1 = new JProgressBar(0, 100);
         pb1.setValue(0);
@@ -201,6 +205,7 @@ public class PanelAlgoritmo extends Panel{
 
         time_data = new JLabel("");
 
+        //<editor-fold desc="Panel Información Nodo">
         //Panel informació nodes
         final JPanel info = new JPanel();
         info.setLayout(new GridBagLayout());
@@ -289,6 +294,7 @@ public class PanelAlgoritmo extends Panel{
         info.add(okay,gbc);
 
         add(info);
+        //</editor-fold>
 
         view.addMouseListener(new MouseInputAdapter() {
             @Override
@@ -336,7 +342,7 @@ public class PanelAlgoritmo extends Panel{
 
 
                 } else if (e.getButton() == MouseEvent.BUTTON2) {
-                    System.out.println("PROP NIGHT");
+                    //System.out.println("PROP NIGHT");
 
                 } else if (e.getButton() == MouseEvent.BUTTON3) {
                     Point a = view.getLocationOnScreen();
@@ -421,6 +427,7 @@ public class PanelAlgoritmo extends Panel{
         });
 
 
+        //<editor-fold desc="Acción Botón Ejecutar">
         exe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -429,16 +436,10 @@ public class PanelAlgoritmo extends Panel{
                 cpa.modParam2(pref2.getText());
 
                 long start = System.nanoTime();
-                try {
-                    cpa.crearGrafo();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                long time = System.nanoTime()-start;
-                String lulz = time/1000000000.0+" seconds";
-                time_data.setText(lulz);
-
                 if (option > 0 && option < 4) cpa.execute_algoritm(option);
+                long time = System.nanoTime()-start;
+                String lulz = time/1000+" microseconds";
+                time_data.setText(lulz);
 
                 if (option == 1) mostrar1.setEnabled(true);
                 else if (option == 2) mostrar2.setEnabled(true);
@@ -446,6 +447,7 @@ public class PanelAlgoritmo extends Panel{
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         });
+        //</editor-fold>
 
         mostrar1.addActionListener(new ActionListener() {
             @Override
@@ -479,7 +481,7 @@ public class PanelAlgoritmo extends Panel{
                 sw1.addPropertyChangeListener(new PropertyChangeListener() {
                     @Override
                     public void propertyChange(PropertyChangeEvent evt) {
-                        if ("progress" == evt.getPropertyName()) {
+                        if ("progress".equals(evt.getPropertyName())) {
                             int progress = (Integer) evt.getNewValue();
                             pb1.setIndeterminate(false);
                             pb1.setValue(progress);
@@ -526,7 +528,7 @@ public class PanelAlgoritmo extends Panel{
                 sw2.addPropertyChangeListener(new PropertyChangeListener() {
                     @Override
                     public void propertyChange(PropertyChangeEvent evt) {
-                        if ("progress" == evt.getPropertyName()) {
+                        if ("progress".equals(evt.getPropertyName())) {
                             int progress = (Integer) evt.getNewValue();
                             pb2.setIndeterminate(false);
                             pb2.setValue(progress);
@@ -549,6 +551,7 @@ public class PanelAlgoritmo extends Panel{
                     protected Void doInBackground() throws Exception {
                         setProgress(0);
                         cargarGrafo();
+                        setProgress(50);
                         mostrar3.setEnabled(false);
                         Document doc = new DefaultStyledDocument();
                         try {
@@ -571,7 +574,7 @@ public class PanelAlgoritmo extends Panel{
                 sw3.addPropertyChangeListener(new PropertyChangeListener() {
                     @Override
                     public void propertyChange(PropertyChangeEvent evt) {
-                        if ("progress" == evt.getPropertyName()) {
+                        if ("progress".equals(evt.getPropertyName())) {
                             int progress = (Integer) evt.getNewValue();
                             pb3.setIndeterminate(false);
                             pb3.setValue(progress);
@@ -584,7 +587,7 @@ public class PanelAlgoritmo extends Panel{
             }
         });
 
-        // Dimensiones de la pantalla
+        //<editor-fold desc="Distribución en pantalla">
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double width = screenSize.getWidth();
         double height = screenSize.getHeight();
@@ -595,19 +598,23 @@ public class PanelAlgoritmo extends Panel{
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb1)
                                                         .addComponent(sp1, 100, 150, (int) (width / 4))
-                                                        .addComponent(pb1)
-                                                        .addComponent(mostrar1)
+                                                        .addComponent(pb1, 100, 150, (int) (width / 4))
+                                                        .addGroup(gr.createSequentialGroup()
+                                                                .addComponent(mostrar1)
+                                                                        .addComponent(up1)
+                                                                        .addComponent(down1)
+                                                        )
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb2)
                                                         .addComponent(sp2, 100, 150, (int) (width / 4))
-                                                        .addComponent(pb2)
+                                                        .addComponent(pb2, 100, 150, (int) (width / 4))
                                                         .addComponent(mostrar2)
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb3)
                                                         .addComponent(sp3, 100, 150, (int) (width / 4))
-                                                        .addComponent(pb3)
+                                                        .addComponent(pb3, 100, 150, (int) (width / 4))
                                                         .addComponent(mostrar3)
                                         )
                                         .addGroup(gr.createParallelGroup()
@@ -653,6 +660,8 @@ public class PanelAlgoritmo extends Panel{
                         )
                         .addGroup(gr.createParallelGroup()
                                         .addComponent(mostrar1)
+                                        .addComponent(up1)
+                                        .addComponent(down1)
                                         .addComponent(mostrar2)
                                         .addComponent(mostrar3)
                         )
@@ -664,32 +673,88 @@ public class PanelAlgoritmo extends Panel{
 
         gr.setAutoCreateGaps(true);
         gr.setAutoCreateContainerGaps(true);
+        //</editor-fold>
+    }
 
+    //Crea los nodos necesarios que existen en el grafo
+    public void actualizar(boolean clear)
+    {
+        if (clear)
+        {
+            g.clear();
+            g.addAttribute("ui.antialias");
+            g.addAttribute(
+                    "ui.stylesheet",
+                    "node { shape: pie-chart; size: 17.5px; text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
+                            "node:selected { stroke-width: 4px; stroke-color: black; }"+
+                            "node:clicked { stroke-width: 4px; stroke-color: black; }"+
+                            "edge { fill-color: #777; }");
+        }
+
+
+        final int nn = g.getNodeCount();
+        final int nv = cpa.num_vertices();
+        final int na = nv-nn;
+        final int n = na/2;
+
+        if (na > 0) {
+
+        //<editor-fold desc="Creación de nodos">
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                for (int z = n; z < na; ++z)
+                {
+                    System.out.println("Thread » " + (z+nn));
+                    String is = Integer.toString(z+nn);
+                    Node p = g.addNode(is);
+                    p.addAttribute("ui.label", cpa.obtLabel(z+nn));
+                    p.addAttribute("comm", Integer.toString(0));
+                    p.addAttribute("ui.pie-values", Double.toString(1.0));
+
+                }
+            }
+        });
+        t.start();
+
+        Thread u = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < na/2; i++)
+                {
+                    System.out.println("Main » "+(i+nn));
+                    String is = Integer.toString(i+nn);
+                    Node q = g.addNode(is);
+                    q.addAttribute("ui.label", cpa.obtLabel(i+nn));
+                    q.addAttribute("comm", Integer.toString(0));
+                    q.addAttribute("ui.pie-values", Double.toString(1.0));
+                }
+            }
+        });
+        u.start();
+
+        try {
+            t.join();
+            u.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //</editor-fold>
+
+        }
+
+        System.out.println("Nodos creados");
     }
 
     private void cargarGrafo()
     {
-        g.clear();
-        g.addAttribute("ui.antialias");
-        g.addAttribute(
-                "ui.stylesheet",
-                "node { shape: pie-chart; size: 17.5px; text-alignment: above; fill-color: #CCC; stroke-mode: plain; stroke-color: #999; }"+
-                        "node:selected { stroke-width: 4px; stroke-color: black; }"+
-                        "node:clicked { stroke-width: 4px; stroke-color: black; }"+
-                        "edge { fill-color: #777; }");
-
-        int na = cpa.num_vertices();
-        for (int i = 0; i < na; i++)
-        {
-            String is = Integer.toString(i);
-            g.addNode(is);
-            g.getNode(i).addAttribute("ui.label", cpa.obtLabel(i));
-            g.getNode(i).addAttribute("comm", Integer.toString(0));
-            g.getNode(i).addAttribute("ui.pie-values", Double.toString(1.0));
-        }
+        final int na = cpa.num_vertices();
 
         cpa.reset_pointers();
         for (int j = 0; j < na; j++) {
+            System.out.println("Creando aristas → "+j);
             cpa.next_vertex();
             String compare = "";
             while (!compare.equals("-")) {
@@ -789,6 +854,7 @@ public class PanelAlgoritmo extends Panel{
         name_data.setText("");
         dni_data.setText("");
         community_data.setText("");
+        time_data.setText("");
 
     }
 
