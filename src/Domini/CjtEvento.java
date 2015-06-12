@@ -266,32 +266,26 @@ public class CjtEvento {
     }
 
     public ArrayList<String> busquedaNombre(String prefijo) {
-        List<Evento> aux = cjt.prefijo(prefijo);
-        if (aux.size() == 0) return new ArrayList<String>();
-        else {
-            ArrayList<String> resultado = new ArrayList<String>();
-            for (Evento e : aux) resultado.add(e.toString());
-            return resultado;
-        }
+        List<Evento> aux = cjt.prefijo(prefijo.toUpperCase());
+        if (aux == null) return new ArrayList<String>();
+        ArrayList<String> resultado = new ArrayList<String>();
+        for (Evento e : aux) resultado.add(e.toString());
+        return resultado;
     }
 
     public ArrayList<String> busquedaFecha(String prefijo) {
         List<Evento> aux = cjtFecha.prefijo(prefijo);
-        if (aux.size() == 0) return new ArrayList<String>();
-        else {
-            ArrayList<String> resultado = new ArrayList<String>();
-            for (Evento e : aux) resultado.add(e.toString());
-            return resultado;
-        }
+        if (aux == null) return new ArrayList<String>();
+        ArrayList<String> resultado = new ArrayList<String>();
+        for (Evento e : aux) resultado.add(e.toStringF());
+        return resultado;
     }
 
     public ArrayList<String> busquedaImp(String prefijo) {
         List<Evento> aux = cjtImp.prefijo(prefijo);
-        if (aux.size() == 0) return new ArrayList<String>();
-        else {
-            ArrayList<String> resultado = new ArrayList<String>();
-            for (Evento e : aux) resultado.add(e.toString());
-            return resultado;
-        }
+        if (aux == null) return new ArrayList<String>();
+        ArrayList<String> resultado = new ArrayList<String>();
+        for (Evento e : aux) resultado.add(e.toStringI());
+        return resultado;
     }
 }

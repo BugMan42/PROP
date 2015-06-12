@@ -13,7 +13,7 @@ import java.util.List;
 public class PanelEventos extends PanelLista {
     CPEventos cpe;
 
-    private String[] defecto = {"Introduzca un nombre", "Introduzca una fecha", "Introduzca una importancia"};
+    private String[] defecto = {"Introduzca un nombre", "Introduzca una importancia"};
 
     private JFileChooser guardar;
     private JFileChooser cargar;
@@ -23,7 +23,9 @@ public class PanelEventos extends PanelLista {
     private JLabel lbnombre;
     private JTextField ctnombre;
     private JLabel lbfecha;
-    private JTextField ctfecha;
+    private JSpinner dia;
+    private JSpinner mes;
+    private JSpinner any;
     private JLabel lbimportancia;
     private JTextField ctimportancia;
     private JLabel lbtipo;
@@ -94,9 +96,11 @@ public class PanelEventos extends PanelLista {
         lbnombre = new JLabel("Nombre:");
         ctnombre = new JTextField(defecto[0]);
         lbfecha = new JLabel("Fecha:");
-        ctfecha = new JTextField(defecto[1]);
+        dia = new JSpinner();
+        mes = new JSpinner();
+        any = new JSpinner();
         lbimportancia = new JLabel("Importancia:");
-        ctimportancia = new JTextField(defecto[2]);
+        ctimportancia = new JTextField(defecto[1]);
         lbtipo = new JLabel("Tipo:");
         cbtipo = new JComboBox<String>();
         cbtipo.setModel(new DefaultComboBoxModel<String>(new String[]{"Seleccione un tipo", "Votacion", "ReunionProfesional", "ReunionPersonal", "ActoOficial", "ActoNoOficial"}));
@@ -113,7 +117,6 @@ public class PanelEventos extends PanelLista {
         btcargarTodo = new JButton("Cargar CjtEventos");
 
         lista = obtJlist();
-        //lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     private void agregarFormatoComponentes() {
@@ -122,8 +125,18 @@ public class PanelEventos extends PanelLista {
         ctnombre.setForeground(Color.GRAY);
         ctnombre.setMinimumSize(new Dimension(225, 34));
         lbfecha.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        ctfecha.setFont(new java.awt.Font("Ubuntu", 0, 18));
-        ctfecha.setForeground(Color.GRAY);
+        dia.setModel(new SpinnerNumberModel(1, 1, 31, 1));
+        dia.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        dia.setForeground(Color.BLACK);
+        dia.setMinimumSize(new Dimension(75, 34));
+        mes.setModel(new SpinnerNumberModel(1, 1, 12, 1));
+        mes.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        mes.setForeground(Color.BLACK);
+        dia.setMinimumSize(new Dimension(75, 34));
+        any.setModel(new SpinnerNumberModel(1, 1, 9999, 1));
+        any.setFont(new java.awt.Font("Ubuntu", 0, 18));
+        any.setForeground(Color.BLACK);
+        dia.setMinimumSize(new Dimension(75, 34));
         lbimportancia.setFont(new java.awt.Font("Ubuntu", 0, 18));
         ctimportancia.setFont(new java.awt.Font("Ubuntu", 0, 18));
         ctimportancia.setForeground(Color.GRAY);
@@ -181,7 +194,7 @@ public class PanelEventos extends PanelLista {
             }
         });
 
-        ctfecha.addFocusListener(new java.awt.event.FocusAdapter() {
+        /*ctfecha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 limpiarTexto(ctfecha, 1);
                 ctfecha.setForeground(Color.BLACK);
@@ -193,17 +206,17 @@ public class PanelEventos extends PanelLista {
                     ctfecha.setForeground(Color.GRAY);
                 }
             }
-        });
+        });*/
 
         ctimportancia.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                limpiarTexto(ctimportancia, 2);
+                limpiarTexto(ctimportancia, 1);
                 ctimportancia.setForeground(Color.BLACK);
             }
 
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (estaVacio(ctimportancia)) {
-                    ctimportancia.setText(defecto[2]);
+                    ctimportancia.setText(defecto[1]);
                     ctimportancia.setForeground(Color.GRAY);
                 }
             }
@@ -218,6 +231,7 @@ public class PanelEventos extends PanelLista {
         return ct.getText().equals("");
     }
 
+
     private void agregarAccionesBotones() {
         lista.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -231,7 +245,6 @@ public class PanelEventos extends PanelLista {
                 }
             }
         });
-
         btlimpiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -295,19 +308,38 @@ public class PanelEventos extends PanelLista {
 
     private void rellenarFormulario(String info[]) {
         cbtipo.setSelectedItem(info[0]);
+        switch (cpe.obtOrden()) {
+            case 0:
+                rellenar(info, 1, 2, 3);
+                break;
+            case 1:
+                rellenar(info, 2, 1, 3);
+                break;
+            case 2:
+                rellenar(info, 2, 3, 1);
+                break;
+            default:
+                System.out.println("Caso imposible detectado en rellenarFormulario PanelEventos");
+                break;
+        }
+    }
+
+    private void rellenar(String[] s, int nombre, int fecha, int imp) {
         ctnombre.setForeground(Color.BLACK);
-        ctnombre.setText(info[1]);
-        ctfecha.setForeground(Color.BLACK);
-        ctfecha.setText(info[2]);
+        ctnombre.setText(s[nombre]);
+        String[] aux = s[fecha].split("/");
+        dia.setValue(Integer.parseInt(aux[0]));
+        mes.setValue(Integer.parseInt(aux[1]));
+        any.setValue(Integer.parseInt(aux[2]));
         ctimportancia.setForeground(Color.BLACK);
-        ctimportancia.setText(info[3]);
+        ctimportancia.setText(s[imp]);
     }
 
     private void btagregarAccion(ActionEvent e) {
         String nombre = ctnombre.getText();
-        String fecha = ctfecha.getText();
+        String fecha = dia.getValue() + "/" + mes.getValue() + "/" + any.getValue();
         String importanciaStr = ctimportancia.getText();
-        if (!validar(nombre, fecha, importanciaStr, cbtipo.getSelectedIndex())) {
+        if (!validar(nombre , importanciaStr, cbtipo.getSelectedIndex())) {
             mostrarmensaje("Debe ingresar todos los campos");
             return;
         }
@@ -345,8 +377,17 @@ public class PanelEventos extends PanelLista {
         }
     }
 
-    private boolean validar(String nombre, String fecha, String importancia, int i) {
-        return !nombre.equals(defecto[0]) && !fecha.equals(defecto[1]) && !importancia.equals(defecto[2]) && i != 0;
+    private boolean validar(String nombre, String importancia, int i) {
+        return !nombre.equals(defecto[0]) && !importancia.equals(defecto[1]) && i != 0;
+    }
+
+    private boolean validarImp(String s) {
+        if (!esNumero(s)) {
+            ctimportancia.setForeground(Color.red);
+            mostrarmensaje("La importancia tiene que ser un numero");
+            return false;
+        }
+        return true;
     }
 
     private boolean esNumero(String s) {
@@ -361,9 +402,13 @@ public class PanelEventos extends PanelLista {
     public void limpiarcampos() {
         ctnombre.setText(defecto[0]);
         ctnombre.setForeground(Color.GRAY);
-        ctfecha.setText(defecto[1]);
-        ctfecha.setForeground(Color.GRAY);
-        ctimportancia.setText(defecto[2]);
+        dia.setForeground(Color.BLACK);
+        dia.setValue(1);
+        mes.setForeground(Color.BLACK);
+        mes.setValue(1);
+        any.setForeground(Color.BLACK);
+        any.setValue(1);
+        ctimportancia.setText(defecto[1]);
         ctimportancia.setForeground(Color.GRAY);
         cbtipo.setSelectedIndex(0);
         lbinfo.setText(" ");
@@ -377,24 +422,25 @@ public class PanelEventos extends PanelLista {
 
     private void ponerRojo(String s) {
         String data[] = s.split("\\s");
+        boolean clave = false;
         if (data[0].equals("Nombre")) ctnombre.setForeground(Color.red);
-        else if (data[0].equals("Fecha")) ctfecha.setForeground(Color.red);
+        else if (data[0].equals("Fecha")) {
+            dia.setForeground(Color.red);
+            mes.setForeground(Color.red);
+            any.setForeground(Color.red);
+        }
         else if (data[0].equals("Importancia")) ctimportancia.setForeground(Color.red);
         else if (data[0].equals("Clave")) {
             ctnombre.setForeground(Color.red);
-            ctfecha.setForeground(Color.red);
+            dia.setForeground(Color.red);
+            mes.setForeground(Color.red);
+            any.setForeground(Color.red);
+            clave = true;
         }
-        mostrarmensaje(s);
+        if (!clave) mostrarmensaje(s);
     }
 
-    private boolean validarImp(String s) {
-        if (!esNumero(s)) {
-            ctimportancia.setForeground(Color.red);
-            mostrarmensaje("La importancia tiene que ser un numero");
-            return false;
-        }
-        return true;
-    }
+
 
     /////////////////////////////////////////HACER///////////////////////////////
     private void bteliminarAccion(ActionEvent e) {
@@ -428,7 +474,7 @@ public class PanelEventos extends PanelLista {
                 String evento = (String) lista.getSelectedValue();
                 String[] aux = evento.split("\\s");
                 String nombre = ctnombre.getText();
-                String fecha = ctfecha.getText();
+                String fecha = dia.getValue() + "/" + mes.getValue() + "/" + any.getValue();
                 String importancia = ctimportancia.getText();
                 if (!validarImp(importancia)) return;
                 cpe.obtCCE().ModificarNombreEvento(aux[1], aux[2], nombre, Integer.parseInt(aux[3]), cpe.obtCPR().obtCR());
@@ -487,14 +533,23 @@ public class PanelEventos extends PanelLista {
         right.add(lbnombre);
         right.add(ctnombre);
         right.add(lbfecha);
-        right.add(ctfecha);
+        right.add(dia);
+        right.add(mes);
+        right.add(any);
         right.add(lbimportancia);
         right.add(ctimportancia);
         right.add(lbtipo);
         right.add(cbtipo);
-        right.add(lbinfo);
-        right.add(btagregar);
         right.add(btlimpiar);
+        right.add(btagregar);
+        right.add(bteliminar);
+        right.add(contador);
+        right.add(btagregarRandom);
+        right.add(btmodificar);
+        right.add(bteliminarTodo);
+        right.add(btguardarTodo);
+        right.add(btcargarTodo);
+        right.add(lbinfo);
     }
 
     private void crearLayout(JPanel right) {
@@ -507,11 +562,15 @@ public class PanelEventos extends PanelLista {
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbnombre)
-                                                        .addComponent(ctnombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(ctnombre, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         )
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(lbfecha)
-                                                        .addComponent(ctfecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
+                                                                        .addComponent(dia, 69, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(mes, 69, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(any, 69, 69, Short.MAX_VALUE)
+                                                        )
                                         )
                         )
                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
@@ -557,7 +616,11 @@ public class PanelEventos extends PanelLista {
                                         )
                                         .addGroup(GroupLayout.Alignment.LEADING, gl.createSequentialGroup()
                                                         .addComponent(lbfecha)
-                                                        .addComponent(ctfecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                                                        .addComponent(dia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(mes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(any, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                        )
                                         )
                         )
                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -597,8 +660,10 @@ public class PanelEventos extends PanelLista {
     }
 
     protected void boxSortActionPerformed(ActionEvent evt) {
-        cpe.ModOrden(boxSort.getSelectedIndex());
+        int op = boxSort.getSelectedIndex();
+        cpe.ModOrden(op);
         actualizarLista();
+        //boxSearch.setSelectedIndex(op);
     }
 
     //TODO MODIFICAR
@@ -643,36 +708,44 @@ public class PanelEventos extends PanelLista {
     }
     //TODO MODIFICAR
 
-    public String obtPrefijo() {
-        return textSearch.getText();
+    protected void boxSearchActionPerformed(ActionEvent e) {
+        int op = boxSearch.getSelectedIndex();
+        cpe.ModOrden(op);
+        //boxSort.setSelectedIndex(op);
+        actualizarListaB();
     }
 
     protected void textSearchTyped(KeyEvent evt) {
         String busqueda = textSearch.getText();
         if (busqueda.equals("")) {
             labelStatus.setVisible(false);
-            labelStatus.setText("");
+            labelStatus.setText("Num. eventos encontrados: 0");
             actualizarLista();
         }
         if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
             if (busqueda.equals("")) {
                 labelStatus.setVisible(false);
-                labelStatus.setText("");
+                labelStatus.setText("Num. eventos encontrados: 0");
                 actualizarLista();
             }
             else {
                 int op = obtBoxSearch().getSelectedIndex();
                 switch (op) {
                     case 0:
+                        cpe.ModOrden(0);
                         cpe.obtCCE().buscarBN(busqueda);
                         break;
                     case 1:
+                        cpe.ModOrden(1);
                         cpe.obtCCE().buscarBF(busqueda);
                         break;
                     case 2:
+                        cpe.ModOrden(2);
                         cpe.obtCCE().buscarBI(busqueda);
                         break;
                 }
+                labelStatus.setVisible(true);
+                labelStatus.setText("Num. eventos encontrados: " + Integer.toString(cpe.obtCCE().sizeB()));
                 actualizarListaB();
             }
         }
@@ -680,17 +753,22 @@ public class PanelEventos extends PanelLista {
             int op = obtBoxSearch().getSelectedIndex();
             switch (op) {
                 case 0:
+                    cpe.ModOrden(0);
                     cpe.obtCCE().buscarBN(busqueda);
                     break;
                 case 1:
+                    cpe.ModOrden(1);
                     cpe.obtCCE().buscarBF(busqueda);
                     break;
                 case 2:
+                    cpe.ModOrden(2);
                     cpe.obtCCE().buscarBI(busqueda);
                     break;
                 default:
                     break;
             }
+            labelStatus.setVisible(true);
+            labelStatus.setText("Num. eventos encontrados: " + Integer.toString(cpe.obtCCE().sizeB()));
             actualizarListaB();
         }
     }

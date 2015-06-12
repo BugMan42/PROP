@@ -99,6 +99,7 @@ public abstract class PanelLista extends Panel {
                 textSearch.setForeground(Color.BLACK);
                 clearLabelSearch(textSearch);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (textSearch.getText().equals("") || textSearch.getText().charAt(0) == ' ') {
                     textSearch.setForeground(Color.GRAY);
@@ -112,6 +113,12 @@ public abstract class PanelLista extends Panel {
         boxSearch.setToolTipText("");
         boxSearch.setMinimumSize(new Dimension(134, 28));
         boxSearch.setPreferredSize(new Dimension(134, 30));
+        boxSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boxSearchActionPerformed(e);
+            }
+        });
 
         buttonSearch.setIcon(new ImageIcon(getClass().getResource("/images/search25.png"))); // NOI18N
         buttonSearch.setMaximumSize(new Dimension(17, 17));
@@ -202,5 +209,5 @@ public abstract class PanelLista extends Panel {
 
     protected abstract void textSearchTyped(KeyEvent evt) ;
 
-
+    protected abstract void boxSearchActionPerformed(ActionEvent e);
 }

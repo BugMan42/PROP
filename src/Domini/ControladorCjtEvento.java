@@ -15,12 +15,12 @@ public class ControladorCjtEvento {
 
     private CjtEvento ce;
     private ArrayList<String> busqueda;
-    private int orden;
+    //private int orden;
 
     public ControladorCjtEvento() {
         ce = new CjtEvento();
         resetearCache();
-        orden = 0;
+        //orden = 0;
     }
 
     private void resetearCache() {
@@ -216,7 +216,7 @@ public class ControladorCjtEvento {
         List<Evento> ev = ce.obtEventosF(bloque, tamanio);
         String res = "";
         for (Evento e: ev)
-            res += e.toString()+"\n";
+            res += e.toStringF()+"\n";
         return res;
     }
 
@@ -224,23 +224,20 @@ public class ControladorCjtEvento {
         List<Evento> ev = ce.obtEventosI(bloque, tamanio);
         String res = "";
         for (Evento e: ev)
-            res += e.toString()+"\n";
+            res += e.toStringI()+"\n";
         return res;
     }
 
     public String obtBloqueBN(int bloque, int tamanio) {
-        resetearCache();
-        //busqueda = ce.busquedaNombre(prefijo);
-        if (busqueda.size() == 0) return "";
-        else {
-            String res = "";
-            for (String s : busqueda) res += s + "\n";
-            return res;
-        }
+        int inicio = bloque*tamanio;
+        int fin = inicio + tamanio;
+        if (fin > busqueda.size()) fin = busqueda.size();
+        String res = "";
+        for (int i = inicio; i < fin; ++i) res += busqueda.get(i) + "\n";
+        return res;
     }
 
     public String obtBloqueBF(int bloque, int tamanio) {
-        resetearCache();
         int inicio = bloque*tamanio;
         int fin = inicio + tamanio;
         if (fin > busqueda.size()) fin = busqueda.size();
@@ -250,8 +247,6 @@ public class ControladorCjtEvento {
     }
 
     public String obtBloqueBI(int bloque, int tamanio) {
-        resetearCache();
-        //
         // busqueda = ce.busquedaImp(prefijo);
         if (busqueda.size() == 0) return "";
         else {
@@ -263,15 +258,17 @@ public class ControladorCjtEvento {
 
     public void buscarBN(String prefijo) {
         resetearCache();
-
+        busqueda = ce.busquedaNombre(prefijo);
     }
 
     public void buscarBF(String prefijo) {
         resetearCache();
+        busqueda = ce.busquedaFecha(prefijo);
     }
 
     public void buscarBI(String prefijo) {
         resetearCache();
+        busqueda = ce.busquedaImp(prefijo);
     }
 
     public List<String> ConsultarTodosEventosP() {

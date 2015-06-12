@@ -1,9 +1,9 @@
 package Domini;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 //String key tiene que ser [a---z]+[A----Z]+[0---9]
 // y no puede ser vacia
@@ -453,7 +453,6 @@ public class TST<X>  {
 
     private List<X> obtenerPrefijo(TSTNodo t,String key,int d) {
         if (t == null) return null;
-
         char c;
         if (d < key.length()) c = key.charAt(d);
         else c = fin;

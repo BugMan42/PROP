@@ -1,12 +1,6 @@
 package Domini;
 
-/**
- * Created by falc on 20/03/15.
- * Clase Evento
- */
 public abstract class Evento {
-    static final String error1 = "El nombre no es valido";
-    static final String error2 = "La fecha no es valida";
     static final String error3 = "Importancia no es valida";
     static final String error4 = "Tiene que ser mayor que 0";
     static final char separador = '-';
@@ -18,7 +12,7 @@ public abstract class Evento {
     //Constructoras
 
     public Evento(String name, Fecha date, int importance) throws Exception {
-        if (importance <= 0) throw new Exception(error3 + " : " + error4);
+        if (importance <= 0 || importance > 9999) throw new Exception(error3 + " : " + error4);
         nombre = name.toUpperCase();
         fecha = date;
         importancia = importance;
@@ -68,8 +62,14 @@ public abstract class Evento {
     }
 
     public String IDImp() {
-        //return Integer.toString(importancia)+nombre+fecha.ConsultarFecha();
-        return Integer.toString(importancia)+separador+nombre+separador+fecha.alReves();
+        String imp = Integer.toString(importancia);
+        if (imp.length() < 4) {
+            int n = 4 - imp.length();
+            for (int i = 0; i < n;++i) {
+                imp = "0"+imp;
+            }
+        }
+        return imp+separador+nombre+separador+fecha.alReves();
     }
 
     public abstract String toString();

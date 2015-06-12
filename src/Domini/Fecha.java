@@ -7,21 +7,21 @@ public class Fecha {
     final static String error1 = "Dia no puede ser inferior a 1 ni mayor que 31";
     final static String error2 = "Mes no puede ser inferior a 1 ni mayor que 12";
     final static String error3 = "Año no puede ser inferior a 1 ni mayor que 3000";
-    final static String error4 = "Febrero no tiene dia 30 ni 31";
+    final static String error4 = "Mes febrero no tiene dia 30 ni 31";
     final static String error5 = "Dia 29 de febrero solo en años bisiestos";
-    final static String error6 = "El mes no tiene dia 31";
+    final static String error6 = "Mes no tiene dia 31";
     final static String error8 = "El formato es dd/mm/yyyy";
     private int[] fecha;
 
     private static boolean Correcto(int dia, int mes, int any) throws Exception{
-        if (dia < 1 || dia > 31) throw new Exception(error9 + " : " + error1);
-        if (mes <= 0 || mes >= 13) throw new Exception(error9 + " : " + error2);
-        if (any < 1) throw new Exception(error9 + ":" + error3);
+        if (dia < 1 || dia > 31) throw new Exception(error1);
+        if (mes <= 0 || mes >= 13) throw new Exception(error2);
+        if (any < 1 || any > 9999) throw new Exception(error3);
         if (mes == 2) {
-            if ((dia == 30 || dia == 31)) throw new Exception(error9 + " : " + error4);
-            if (dia == 29 && ((any % 4 != 0 || any % 100 == 0) && any % 400 != 0)) throw new Exception(error9 + " : " + error5);
+            if ((dia == 30 || dia == 31)) throw new Exception(error4);
+            if (dia == 29 && ((any % 4 != 0 || any % 100 == 0) && any % 400 != 0)) throw new Exception(error5);
         }
-        else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31 ) throw new Exception(error9 + " : " + error6);
+        else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31 ) throw new Exception(error6);
         return true;
     }
 
@@ -36,11 +36,11 @@ public class Fecha {
 
     public Fecha(Random r) {
         //Uso numeros random del [1,27] para el dia.
-        //[1,12] para mes y [1,2999] para el año
+        //[1,12] para mes y [1,9999] para el año
         fecha = new int[3];
-        fecha[0] = r.nextInt(27)+1;
-        fecha[1] = r.nextInt(11)+1;
-        fecha[2] = r.nextInt(2999)+1;
+        fecha[0] = r.nextInt(28)+1;
+        fecha[1] = r.nextInt(12)+1;
+        fecha[2] = r.nextInt(9999)+1;
     }
 
     public Fecha(String data) throws Exception {

@@ -37,6 +37,8 @@ public class CPEventos {
         }
     }
 
+    public int obtOrden() {return orden;}
+
 
     public PanelEventos obtPanel() {
         if (PE == null) PE = new PanelEventos(this);
@@ -60,9 +62,9 @@ public class CPEventos {
             case 0:
                 return CCE.obtBloqueBN(bloque, tamanioBloque).split("\n");
             case 1:
-                return CCE.obtBloqueBF(bloque, tamanioBloque).split("\n");
+                return CCE.obtBloqueBN(bloque, tamanioBloque).split("\n");
             case 2:
-                return CCE.obtBloqueBI(bloque, tamanioBloque).split("\n");
+                return CCE.obtBloqueBN(bloque, tamanioBloque).split("\n");
             default:
                 return new String[1];
         }

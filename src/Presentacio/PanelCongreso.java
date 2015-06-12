@@ -2,16 +2,15 @@ package Presentacio;
 
 import Domini.Congresista;
 import Domini.Dni;
-import Domini.TST;
 
 import javax.swing.*;
-import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 
@@ -806,6 +805,11 @@ public class PanelCongreso extends PanelLista {
         boxSearch.setModel(new DefaultComboBoxModel(new String[]{"Busca Dni", "por Nombre", "por Apellido", "por Edad", "por Ciudad", "por Estado", "por Partido"}));
         boxSearch.setToolTipText(" Buscar ");
     }
+    ////////////////////////HACER///////////////////////////////
+    protected void boxSearchActionPerformed(ActionEvent e) {
+
+    }
+    ///////////////////////HACER//////////////////////////////////
     protected void textSearchTyped(KeyEvent evt) {
         String buscar = textSearch.getText();
         int which = boxSearch.getSelectedIndex();
