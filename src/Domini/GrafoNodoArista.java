@@ -263,7 +263,6 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
 
         double pesoAristasVertice(V v) throws Exception {
             for(int i = 0; i < salida.size(); ++i) {
-                //print(salida.get(i).total()+" "+i);
                 if(salida.get(i).obtFin().equals(v)) {
                     return salida.get(i).total();
                 }
@@ -564,6 +563,15 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         aristas.get(origen).modificarSalida(e, newPeso);
         aristas.get(fin).modificarEntrada(e, newPeso);
     }
+    /*public List<E> obtenerAristas(V origen1, V fin1) throws Exception {
+        int origen = f(origen1);
+        int fin = f(fin1);
+        //aristas.get(origen).obtene
+    }*/
+    public double pesoAristasVertice(V origen1, V fin1) throws Exception {
+        int origen = f(origen1);
+        return aristas.get(origen).pesoAristasVertice(fin1);
+    }
 
 
     /** Consulta */
@@ -593,12 +601,12 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
     }
 
 
-        /** ####################################################################################################################
-         *  ####################################################################################################################
-         *  #############################################  CONSULTA  ###########################################################
-         *  ####################################################################################################################
-         *  ####################################################################################################################
-         */
+/** ####################################################################################################################
+ *  ####################################################################################################################
+ *  #############################################  CONSULTA  ###########################################################
+ *  ####################################################################################################################
+ *  ####################################################################################################################
+ */
     
     private void printDebug() {
         print("printDebug");
