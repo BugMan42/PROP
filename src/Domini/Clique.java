@@ -89,11 +89,11 @@ public class Clique extends Algoritmo {
     private void fase1(comunidades c) throws Exception{
         for (Iterator it = g.consultarVertices().iterator(); it.hasNext(); ) {
             int i = (Integer) it.next();
-            obtOut().agregarMensaje("Tratando nodo num: " + Integer.toString(i));
+            obtOut().agregarMensaje("Visita " + Integer.toString(i));
             int m = g.degreeSalida(i);
             //obtOut().agregarMensaje("Grado de: " + Integer.toString(i) + ": " + Integer.toString(m));
             if (m + 1 >= k) {
-                List<Integer> candidatos = g.nodosSalida(i).subList(index_sublista(i), m);
+                List<Integer> candidatos = new ArrayList<Integer>(g.nodosSalida(i)).subList(index_sublista(i), m);
                 //obtOut().agregarMensaje("Candidatos");
                 //for (int j = 0; j < candidatos.size(); ++j) obtOut().agregarMensaje("Soy el candidato numero " + Integer.toString(candidatos.get(j)));
                 for (Iterator it2 = candidatos.iterator(); it2.hasNext(); ) {
@@ -146,7 +146,6 @@ public class Clique extends Algoritmo {
         boolean salir = false;
 
         return l1;
-
     }
 
     //////////////////////////////HACER//////////////////////////////
