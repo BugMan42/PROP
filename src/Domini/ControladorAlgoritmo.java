@@ -97,6 +97,15 @@ public class ControladorAlgoritmo {
         return result;
     }
 
+    public void mod_i_vertex(int i)
+    {
+        if (i > 0 && i < in.obtGrafo().V())
+        {
+            i_vertex = i;
+            i_arista = 0;
+        }
+    }
+
     public String next_arista()
     {
         String result = Integer.toString(real_i);

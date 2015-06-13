@@ -45,6 +45,11 @@ public class CPAlgoritmo {
         return CA.next_vertex();
     }
 
+    public void mod_vertex_it(int i)
+    {
+        CA.mod_i_vertex(i);
+    }
+
     public String next_arista()
     {
         return CA.next_arista();

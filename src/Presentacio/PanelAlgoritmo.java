@@ -2,6 +2,7 @@ package Presentacio;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
+import org.graphstream.graph.implementations.Graphs;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.geom.Point3;
 import org.graphstream.ui.swingViewer.ViewPanel;
@@ -28,7 +29,7 @@ import java.util.Random;
 public class PanelAlgoritmo extends Panel{
 
     CPAlgoritmo cpa;
-    private Graph g = new SingleGraph("");
+    private volatile Graph g = new SingleGraph("");
     private Viewer viewer;
     private ViewPanel view;
 
@@ -129,6 +130,7 @@ public class PanelAlgoritmo extends Panel{
         defaults.put("TextPane[Enabled].backgroundPainter", Color.black);
 
 
+        //<editor-fold desc="Columna 1 (GN)">
         //Dimension panel_dim = new Dimension(200, 100);
         tp1 = new JTextPane();
         tp1.setForeground(Color.green);
@@ -147,8 +149,9 @@ public class PanelAlgoritmo extends Panel{
         pb1 = new JProgressBar(0, 100);
         pb1.setValue(0);
         pb1.setStringPainted(true);
+        //</editor-fold>
 
-
+        //<editor-fold desc="Columna 2 (Lv)">
         tp2 = new JTextPane();
         tp2.setForeground(new Color(255, 102, 0));
         tp2.putClientProperty("Nimbus.Overrides", defaults);
@@ -164,7 +167,9 @@ public class PanelAlgoritmo extends Panel{
         pb2 = new JProgressBar(0, 100);
         pb2.setValue(0);
         pb2.setStringPainted(true);
+        //</editor-fold>
 
+        //<editor-fold desc="Columna 3 (CP)">
         tp3 = new JTextPane();
         tp3.setForeground(new Color(255, 255, 0));
         tp3.putClientProperty("Nimbus.Overrides", defaults);
@@ -180,8 +185,10 @@ public class PanelAlgoritmo extends Panel{
         pb3 = new JProgressBar(0, 100);
         pb3.setValue(0);
         pb3.setStringPainted(true);
+        //</editor-fold>
 
-        JButton exe = new JButton("Ejecutar");
+        final JButton exe = new JButton("Ejecutar");
+        exe.setEnabled(false);
 
         ButtonGroup buttongroup = new ButtonGroup();
         buttongroup.add(rb1);
@@ -342,7 +349,7 @@ public class PanelAlgoritmo extends Panel{
 
 
                 } else if (e.getButton() == MouseEvent.BUTTON2) {
-                    //System.out.println("PROP NIGHT");
+                    System.out.println("PROP NIGHT");
 
                 } else if (e.getButton() == MouseEvent.BUTTON3) {
                     Point a = view.getLocationOnScreen();
@@ -376,6 +383,8 @@ public class PanelAlgoritmo extends Panel{
                 pb2.setValue(0);
                 pb3.setValue(0);
 
+                exe.setEnabled(true);
+
                 option = 1;
             }
         });
@@ -398,6 +407,8 @@ public class PanelAlgoritmo extends Panel{
                 pb1.setValue(0);
                 pb2.setValue(0);
                 pb3.setValue(0);
+
+                exe.setEnabled(true);
 
                 option = 2;
             }
@@ -422,6 +433,9 @@ public class PanelAlgoritmo extends Panel{
                 pb1.setValue(0);
                 pb2.setValue(0);
                 pb3.setValue(0);
+
+                exe.setEnabled(true);
+
                 option = 3;
             }
         });
@@ -679,7 +693,14 @@ public class PanelAlgoritmo extends Panel{
     //Crea los nodos necesarios que existen en el grafo
     public void actualizar(boolean clear)
     {
-        if (clear)
+        final int nn = g.getNodeCount();
+        final int nv = cpa.num_vertices();
+        int na = nv-nn;
+        final int n = na/2;
+
+        System.out.println("V_graf: "+nn+", V_total: "+nv+", ð: "+na+".");
+
+        if (clear || na < 0)
         {
             g.clear();
             g.addAttribute("ui.antialias");
@@ -689,26 +710,25 @@ public class PanelAlgoritmo extends Panel{
                             "node:selected { stroke-width: 4px; stroke-color: black; }"+
                             "node:clicked { stroke-width: 4px; stroke-color: black; }"+
                             "edge { fill-color: #777; }");
+            if (na < 0) na = nv;
         }
-
-
-        final int nn = g.getNodeCount();
-        final int nv = cpa.num_vertices();
-        final int na = nv-nn;
-        final int n = na/2;
 
         if (na > 0) {
 
         //<editor-fold desc="Creación de nodos">
+            final int limit = na;
+
+            final Graph g1 = Graphs.synchronizedGraph(g);
+
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
 
-                for (int z = n; z < na; ++z)
+                for (int z = n; z < limit; ++z)
                 {
-                    System.out.println("Thread » " + (z+nn));
+                    System.out.println("T » " + (z+nn));
                     String is = Integer.toString(z+nn);
-                    Node p = g.addNode(is);
+                    Node p = g1.addNode(is);
                     p.addAttribute("ui.label", cpa.obtLabel(z+nn));
                     p.addAttribute("comm", Integer.toString(0));
                     p.addAttribute("ui.pie-values", Double.toString(1.0));
@@ -721,11 +741,11 @@ public class PanelAlgoritmo extends Panel{
         Thread u = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < na/2; i++)
+                for (int i = 0; i < n; i++)
                 {
-                    System.out.println("Main » "+(i+nn));
+                    System.out.println("U » "+(i+nn));
                     String is = Integer.toString(i+nn);
-                    Node q = g.addNode(is);
+                    Node q = g1.addNode(is);
                     q.addAttribute("ui.label", cpa.obtLabel(i+nn));
                     q.addAttribute("comm", Integer.toString(0));
                     q.addAttribute("ui.pie-values", Double.toString(1.0));
@@ -743,9 +763,11 @@ public class PanelAlgoritmo extends Panel{
 
         //</editor-fold>
 
+        System.out.println("Nodos creados");
+
         }
 
-        System.out.println("Nodos creados");
+
     }
 
     private void cargarGrafo()
@@ -754,8 +776,8 @@ public class PanelAlgoritmo extends Panel{
 
         cpa.reset_pointers();
         for (int j = 0; j < na; j++) {
-            System.out.println("Creando aristas → "+j);
-            cpa.next_vertex();
+            String q = cpa.next_vertex();
+            System.out.println("Creando aristas → "+j+"; "+q);
             String compare = "";
             while (!compare.equals("-")) {
                 String r = cpa.next_arista();

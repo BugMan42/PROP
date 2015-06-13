@@ -283,7 +283,7 @@ public class Girvan_Newman extends Algoritmo{
         for (int x = 0; x < eixos.size(); x++) {
             int a1 = eixos.get(x).orig;
             int a2 = eixos.get(x).dest;
-            obtOut().agregarMensaje("Arista eliminada: " + data_graph.fPrima(a1) + "--" + data_graph.fPrima(a2));
+            obtOut().agregarMensaje("EliminarArista " + data_graph.fPrima(a1) + " " + data_graph.fPrima(a2));
             if(alg_graph.existeArista(a1, a2) && alg_graph.existeArista(a2, a1)) {
                 alg_graph.eliminarAristas(a1, a2);
                 alg_graph.eliminarAristas(a2, a1);
@@ -420,7 +420,7 @@ public class Girvan_Newman extends Algoritmo{
         if (cc2 > cc)
         {
             int d_cc = cc2 - cc;
-            if (d_cc == 1 && alg_cc != 0) obtOut().agregarMensaje("Ha surgido una nueva comunidad.");
+            if (d_cc == 1 && alg_cc != 0) obtOut().agregarMensaje("NuevaComunidad.");
         }
 
         alg_cc = cc2;
