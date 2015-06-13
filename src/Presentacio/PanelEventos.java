@@ -698,6 +698,8 @@ public class PanelEventos extends PanelLista {
     protected void boxSortActionPerformed(ActionEvent evt) {
         int op = boxSort.getSelectedIndex();
         cpe.ModOrden(op);
+        labelStatus.setVisible(false);
+        //labelStatus.setText("Num. eventos encontrados: 0");
         actualizarLista();
         //boxSearch.setSelectedIndex(op);
     }
@@ -748,36 +750,75 @@ public class PanelEventos extends PanelLista {
         int op = boxSearch.getSelectedIndex();
         cpe.ModOrden(op);
         //boxSort.setSelectedIndex(op);
-        actualizarListaB();
+        busqueda();
     }
 
-    protected void textSearchTyped(KeyEvent evt) {
+    private void busqueda() {
         String busqueda = textSearch.getText();
         if (busqueda.equals("")) {
             labelStatus.setVisible(false);
-            labelStatus.setText("Num. eventos encontrados: 0");
+            //labelStatus.setText("Num. eventos encontrados: 0");
+            actualizarLista();
+        }
+        else {
+            int op = obtBoxSearch().getSelectedIndex();
+            switch (op) {
+                case 0:
+                    if (cpe.obtOrden()!= 0) {
+                        cpe.ModOrden(0);
+                        cpe.obtCCE().buscarBN(busqueda);
+                    }
+                    break;
+                case 1:
+                    cpe.ModOrden(1);
+                    cpe.obtCCE().buscarBF(busqueda);
+                    break;
+                case 2:
+                    cpe.ModOrden(2);
+                    cpe.obtCCE().buscarBI(busqueda);
+                    break;
+                default:
+                    break;
+            }
+            labelStatus.setVisible(true);
+            labelStatus.setText("Num. eventos encontrados: " + Integer.toString(cpe.obtCCE().sizeB()));
+            actualizarListaB();
+        }
+    }
+
+    private void busquedaDin(KeyEvent evt) {
+        String busqueda = textSearch.getText();
+        if (busqueda.equals("")) {
+            labelStatus.setVisible(false);
+            //labelStatus.setText("Num. eventos encontrados: 0");
             actualizarLista();
         }
         if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
             if (busqueda.equals("")) {
                 labelStatus.setVisible(false);
-                labelStatus.setText("Num. eventos encontrados: 0");
+                //labelStatus.setText("Num. eventos encontrados: 0");
                 actualizarLista();
             }
             else {
                 int op = obtBoxSearch().getSelectedIndex();
                 switch (op) {
                     case 0:
-                        cpe.ModOrden(0);
-                        cpe.obtCCE().buscarBN(busqueda);
+                        if (cpe.obtOrden() != 0) {
+                            cpe.ModOrden(0);
+                            cpe.obtCCE().buscarBN(busqueda);
+                        }
                         break;
                     case 1:
-                        cpe.ModOrden(1);
-                        cpe.obtCCE().buscarBF(busqueda);
+                        if (cpe.obtOrden() != 1) {
+                            cpe.ModOrden(1);
+                            cpe.obtCCE().buscarBF(busqueda);
+                        }
                         break;
                     case 2:
-                        cpe.ModOrden(2);
-                        cpe.obtCCE().buscarBI(busqueda);
+                        if (cpe.obtOrden() != 2) {
+                            cpe.ModOrden(2);
+                            cpe.obtCCE().buscarBI(busqueda);
+                        }
                         break;
                 }
                 labelStatus.setVisible(true);
@@ -807,6 +848,10 @@ public class PanelEventos extends PanelLista {
             labelStatus.setText("Num. eventos encontrados: " + Integer.toString(cpe.obtCCE().sizeB()));
             actualizarListaB();
         }
+    }
+
+    protected void textSearchTyped(KeyEvent evt) {
+        busquedaDin(evt);
     }
 
     public void actualizarListaB() {

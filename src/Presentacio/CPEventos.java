@@ -29,7 +29,7 @@ public class CPEventos {
     }
 
     public void ModOrden(int i) {
-        if (i < 0 || i > 2) System.out.println("Orden incorrecto tiene que estar entre 0 y 2");
+        if (i < -1 || i > 2) System.out.println("Orden incorrecto tiene que estar entre 0 y 2");
         else if (i != orden) {
             refrescar();
             refrescarB();

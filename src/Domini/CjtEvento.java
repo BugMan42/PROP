@@ -300,10 +300,22 @@ public class CjtEvento {
     }
 
     public ArrayList<String> busquedaImp(String prefijo) {
-        List<Evento> aux = cjtImp.prefijo(prefijo);
+        String imp = arreglarImpString(prefijo);
+        List<Evento> aux = cjtImp.prefijo(imp);
         if (aux == null) return new ArrayList<String>();
         ArrayList<String> resultado = new ArrayList<String>();
         for (Evento e : aux) resultado.add(e.toStringI());
         return resultado;
+    }
+
+    private String arreglarImpString(String prefijo) {
+        String imp = prefijo;
+        if(imp.length()<4) {
+            int n = 4 - imp.length();
+            for (int i = 0; i < n; ++i) {
+                imp = "0" + imp;
+            }
+        }
+        return imp;
     }
 }
