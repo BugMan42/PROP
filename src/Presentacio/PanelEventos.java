@@ -889,5 +889,9 @@ public class PanelEventos extends PanelLista {
             }
         }*/
     }
+    /** TE PUEDE HACER FALTA*/
+    protected void textSearchFocusLost() {
+
+    }
 
 }

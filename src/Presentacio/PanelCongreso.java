@@ -814,7 +814,15 @@ public class PanelCongreso extends PanelLista {
     }
     ////////////////////////HACER///////////////////////////////
     protected void boxSearchActionPerformed(ActionEvent e) {
-
+        String buscar = textSearch.getText();
+        if (!buscar.equals(defaultTextLabelSearch)) {
+            textSearch.setText(actualSearch);
+            int which = boxSearch.getSelectedIndex();
+            Search(actualSearch, which);
+            labelStatus.setVisible(true);
+            labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
+            setAutocompletar(actualSearch, which);
+        }
     }
     ///////////////////////HACER//////////////////////////////////
     protected void textSearchTyped(KeyEvent evt) {
@@ -920,9 +928,7 @@ public class PanelCongreso extends PanelLista {
             searchPopMenu.setVisible(true);
             textSearch.setText(aux[0]);
             textSearch.setSelectionStart(buscar.length());
-            //sizeAuto = aux.length;
             selectedAuto = 0;
-           // searchPopMenu.setSelected(searchPopMenu.getComponent(0));
             ((JMenuItem) searchPopMenu.getComponent(0)).setArmed(true);
 
         }
@@ -1086,5 +1092,14 @@ public class PanelCongreso extends PanelLista {
         choosersave.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".in", "in"));
         choosersave.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
+    }
+
+    protected void textSearchFocusLost() {
+        print("entro el focus lost");
+        searchPopMenu.setVisible(false);
+        print("print actual search"+actualSearch);
+        if (!textSearch.getText().equals(defaultTextLabelSearch)) {
+            textSearch.setText(actualSearch);
+        }
     }
 }

@@ -103,6 +103,7 @@ public abstract class PanelLista extends Panel {
                 if (textSearch.getText().equals("") || textSearch.getText().charAt(0) == ' ') {
                     textSearch.setForeground(Color.GRAY);
                     textSearch.setText("Buscar");
+                    textSearchFocusLost();
                 }
             }
         });
@@ -186,6 +187,8 @@ public abstract class PanelLista extends Panel {
 
         //pack();
     }
+
+    protected  abstract void textSearchFocusLost();
 
     protected void clearLabelSearch(JTextField aux) {
         if (aux.getText().equals(defaultTextLabelSearch)) aux.setText("");

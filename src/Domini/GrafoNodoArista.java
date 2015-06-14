@@ -6,9 +6,6 @@ import java.util.*;
 public class GrafoNodoArista<V extends Node, E extends Edge> {
 
 
-
-
-
     private class Edges {
         LinkedList<E> aristas;
         int mapOrigen;
@@ -328,6 +325,13 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
             }
             return new ArrayList<E>();
         }
+        List<E> obtenerAristasSalida()  {
+            List<E> aux = new ArrayList<E>();
+            for(int i = 0; i < salida.size(); ++i) {
+                aux.addAll(salida.get(i).listaAristas());
+            }
+            return aux;
+        }
 
 
     }
@@ -606,6 +610,13 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         int fin = f(v);
         return aristas.get(fin).obtenerNodosEntrada();
     }
+    public List<E> obtenerAristas() {
+        List<E> aux = new ArrayList<E>();
+        for (int i = 0; i < aristas.size(); ++i) {
+            aux.addAll(aristas.get(i).obtenerAristasSalida());
+        }
+        return aux;
+    }
 
 
 /** ####################################################################################################################
@@ -614,6 +625,8 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
  *  ####################################################################################################################
  *  ####################################################################################################################
  */
+
+
     
     private void printDebug() {
         print("printDebug");
