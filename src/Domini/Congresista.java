@@ -163,7 +163,7 @@ public class Congresista implements Node {
     //Valida la edad: Comprueba si
     //el parametro n es un entero > 0
     private static boolean EdadValida(int n) {
-        return n > 0;
+        return n > 10 && n < 100;
     }
     public boolean equals(Congresista a) {
         return a.Dni.toString().equals(Dni.toString());

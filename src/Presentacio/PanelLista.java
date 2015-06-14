@@ -60,7 +60,6 @@ public abstract class PanelLista extends Panel {
 
     private void initGUI() {
 
-
         jScrollPane1 = new JScrollPane();
         jlist = new JList();
         boxSort = new JComboBox();

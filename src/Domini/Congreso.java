@@ -362,6 +362,30 @@ public class Congreso {
         if (aux == null) return new ArrayList<Congresista>();
         return aux;
     }
+    public List<String> searchPrefixNameDni(String prefix, char stop, int fin) {
+        return tst.clavesPrefijoConStop(prefix,stop,fin);
+    }
+    public List<String> searchPrefixNameNombre(String prefix, char stop, int fin) {
+        return tstNombre.clavesPrefijoConStop(prefix,stop,fin);
+    }
+    public List<String> searchPrefixNameApellido(String prefix, char stop, int fin) {
+        return tstApellido.clavesPrefijoConStop(prefix,stop,fin);
+    }
+    public List<String> searchPrefixNameEdad(String prefix, char stop, int fin) {
+        return tstEdad.clavesPrefijoConStop(prefix,stop,fin);
+    }
+    public List<String> searchPrefixNameCiudad(String prefix, char stop, int fin) {
+        return tstCiudad.clavesPrefijoConStop(prefix,stop,fin);
+    }
+    public List<String> searchPrefixNameEstado(String prefix, char stop, int fin) {
+        return tstEstado.clavesPrefijoConStop(prefix,stop,fin);
+    }
+    public List<String> searchPrefixNamePartido(String prefix, char stop, int fin) {
+        return tstPartido.clavesPrefijoConStop(prefix,stop,fin);
+    }
+
+
+
 
 
 

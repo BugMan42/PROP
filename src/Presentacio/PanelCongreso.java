@@ -22,7 +22,11 @@ public class PanelCongreso extends PanelLista {
     boolean t;
     private Boolean[] vError;
     int tamSearch;
+    private String textBusq;
+    private String actualSearch;
+    private int selectedAuto;
 
+    JPopupMenu searchPopMenu;
     AbstractListModel<String> bigData;
     JFileChooser choosersave;
     JFileChooser chooserload;
@@ -67,9 +71,12 @@ public class PanelCongreso extends PanelLista {
         iniFont();
         initGUI();
         tamSearch = 0;
+        selectedAuto = 0;
 
     }
     private void iniFont() {
+        textBusq = "";
+        actualSearch = "";
         lName.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textName.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lAge.setFont(new java.awt.Font("Ubuntu", 0, 18));
@@ -96,6 +103,7 @@ public class PanelCongreso extends PanelLista {
         lSurname.setFont(new java.awt.Font("Ubuntu", 0, 18));
     }
     private void iniComp() {
+        searchPopMenu = new JPopupMenu();
         lName = new JLabel();
         textName = new JTextField();
         lSurname = new JLabel();
@@ -622,7 +630,6 @@ public class PanelCongreso extends PanelLista {
         return ((!aux.getText().equals(def[2])) );// && !aux.getText().equals(" ") && !aux.getText().equals("");
     }
     private void bModificarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO no funciona
         emptyLError();
         String dato = (String) listCongreso.getSelectedValue();
         if (listCongreso.getSelectedIndices().length > 1) setError("Selecciona solo uno");
@@ -818,19 +825,106 @@ public class PanelCongreso extends PanelLista {
                 labelStatus.setVisible(false);
                 labelStatus.setText("");
                 ListUpdate();
+                searchPopMenu.setVisible(false);
+                actualSearch = "";
             }
             else {
-                Search(buscar,which);
+                //print("entrem aqui");
+                Search(buscar, which);
                 labelStatus.setVisible(true);
-                labelStatus.setText("Congresistas encontrados: "+CPC.sizeBusqueda());
+                labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
+                actualSearch = actualSearch.substring(0,actualSearch.length()-1);
+                if (actualSearch.equals("")) {
+                    labelStatus.setVisible(false);
+                    labelStatus.setText("");
+                    ListUpdate();
+                    searchPopMenu.setVisible(false);
+                    textSearch.setText(actualSearch);
+                }
+                else {
+                    textSearch.setText(actualSearch);
+                    setAutocompletar(actualSearch, which);
+                }
             }
         }
+        else if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            up();
+        }
+        else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            down();
+        }
+        else if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+            searchPopMenu.setVisible(false);
+            actualSearch = textSearch.getText();
+        }
+        else if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
+            searchPopMenu.setVisible(false);
+        }
+        else if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            actualSearch = textSearch.getText();
+            textSearch.setSelectionStart(actualSearch.length());
+            searchPopMenu.setVisible(false);
+            //textSearch.setCaretPosition(actualSearch.length());
+        }
         else {
-            Search(buscar,which);
+            actualSearch+=evt.getKeyChar();
+            Search(buscar, which);
             labelStatus.setVisible(true);
             labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
+            setAutocompletar(buscar,which);
+        }
+    }
+    private void up() {
+        if (searchPopMenu.isVisible()) {
+            int n = searchPopMenu.getSubElements().length;
+            if (n != 0 && selectedAuto != 0) {
+                ((JMenuItem) searchPopMenu.getComponent(selectedAuto)).setArmed(false);
+                selectedAuto--;
+                ((JMenuItem) searchPopMenu.getComponent(selectedAuto)).setArmed(true);
+                String sel = ((JMenuItem) searchPopMenu.getComponent(selectedAuto)).getText();
+                textSearch.setText(sel);
+                textSearch.setSelectionStart(actualSearch.length());
+            }
+        }
+    }
+    private void down() {
+        if (searchPopMenu.isVisible()) {
+            int n = searchPopMenu.getSubElements().length;
+            if (n != 0 && selectedAuto != 2) {
+                ((JMenuItem) searchPopMenu.getComponent(selectedAuto)).setArmed(false);
+                selectedAuto++;
+                ((JMenuItem) searchPopMenu.getComponent(selectedAuto)).setArmed(true);
+                String sel = ((JMenuItem) searchPopMenu.getComponent(selectedAuto)).getText();
+                textSearch.setText(sel);
+                textSearch.setSelectionStart(actualSearch.length());
+            }
         }
 
+    }
+    private void setAutocompletar(String buscar, int which) {
+        String[] aux = CPC.obtAutocompletar(buscar,which);
+        if (aux != null && aux.length >= 1) {
+            searchPopMenu = new JPopupMenu();
+            searchPopMenu.setFocusable(false);
+            searchPopMenu.setFont(new Font("Ubuntu", 0, 20));
+            int i = 0;
+            for (; i < aux.length; ++i) {
+                searchPopMenu.add(aux[i]);
+            }
+            searchPopMenu.setPopupSize(textSearch.getWidth(), 25 * aux.length);
+            searchPopMenu.show(textSearch, 0, textSearch.getHeight());
+            searchPopMenu.setVisible(true);
+            textSearch.setText(aux[0]);
+            textSearch.setSelectionStart(buscar.length());
+            //sizeAuto = aux.length;
+            selectedAuto = 0;
+           // searchPopMenu.setSelected(searchPopMenu.getComponent(0));
+            ((JMenuItem) searchPopMenu.getComponent(0)).setArmed(true);
+
+        }
+        else {
+            searchPopMenu.setVisible(false);
+        }
     }
     private void Search(String buscar,int w) {
         if (!buscar.isEmpty()) {

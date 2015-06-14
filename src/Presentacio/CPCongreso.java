@@ -13,7 +13,7 @@ public class CPCongreso {
     private static final int tamBloque = 100;
 
     private PanelCongreso PC;
-    private ControladorCongreso CC;
+    public ControladorCongreso CC;
     private CPRelaciones CPR;
 
     private int order;
@@ -233,6 +233,40 @@ public class CPCongreso {
     }
     public void searchByParty(String aux) {
         if (!aux.isEmpty()) CC.searchByParty(aux);
+    }
+
+    /**Autocompletar*/
+    public String[] obtAutocompletar(String prefix ,int index) {
+        String res = "";
+        switch (index) {
+            case 0:
+                res = CC.obtAutocompletarDni(prefix,3);
+                break;
+            case 1:
+                res = CC.obtAutocompletarNombre(prefix,3);
+                break;
+            case 2:
+                res = CC.obtAutocompletarApellido(prefix,3);
+                break;
+            case 3:
+                res = CC.obtAutocompletarEdad(prefix,3);
+                break;
+            case 4:
+                res = CC.obtAutocompletarCiudad(prefix,3);
+                break;
+            case 5:
+                res = CC.obtAutocompletarEstado(prefix,3);
+                break;
+            case 6:
+                res = CC.obtAutocompletarPartido(prefix,3);
+                break;
+        }
+        if (!res.equals("")) {
+            return res.split(CC.obtSep());
+        }
+        else {
+            return null;
+        }
     }
 
     public void guardar(String path) throws Exception {

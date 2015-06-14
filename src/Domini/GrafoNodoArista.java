@@ -267,7 +267,7 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
                     return salida.get(i).total();
                 }
             }
-            throw new Exception("No existe ninguna arista con este destino"+v.obtID());
+            throw new Exception("No existe ninguna arista con este destino "+v.obtID());
         }
         double totalPesoEntrada () {
             double a = 0.0;
@@ -674,10 +674,10 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         grafo.agregarVertice(c);
         grafo.agregarVertice(d);
         //grafo.printDebug();
-        grafo.agregarArista(ad);
-        grafo.agregarArista(ab);
+        //grafo.agregarArista(ad);
         //grafo.agregarArista(ab);
-        grafo.agregarArista(ab);
+        //grafo.agregarArista(ab);
+       // grafo.agregarArista(ab);
         grafo.agregarArista(ac);
         print("Peso a b: "+grafo.pesoAristasVertice(a,b));
         /*grafo.printDebug();

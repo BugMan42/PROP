@@ -12,7 +12,7 @@ public class ControladorCongreso {
     private static final int max_lineas_cargar = 300;
     private static final String sep = "@#@";
     private List<Congresista> cacheBusqueda;
-    private Congreso c;
+    public Congreso c;
 
     public ControladorCongreso(){
         c = new Congreso();
@@ -339,6 +339,76 @@ public class ControladorCongreso {
         if (fin > cacheBusqueda.size()) fin = cacheBusqueda.size();
         for (int i = ini; i < fin; ++i) {
             res+=cacheBusqueda.get(i).toStringByParty()+sep;
+        }
+        return res;
+    }
+    public String obtAutocompletarDni(String text, int tam) {
+        String res = "";
+        List<String> aux = c.searchPrefixNameDni(text,'-',3);
+        if (aux != null) {
+            for (int i = 0; i < aux.size(); ++i) {
+                res += aux.get(i)+sep;
+            }
+        }
+        return res;
+    }
+    public String obtAutocompletarNombre(String text, int tam) {
+        String res = "";
+        List<String> aux = c.searchPrefixNameNombre(text, '-', 3);
+        if (aux != null) {
+            for (int i = 0; i < aux.size(); ++i) {
+                res += aux.get(i)+sep;
+            }
+        }
+        return res;
+    }
+    public String obtAutocompletarApellido(String text, int tam) {
+        String res = "";
+        List<String> aux = c.searchPrefixNameApellido(text, '-', 3);
+        if (aux != null) {
+            for (int i = 0; i < aux.size(); ++i) {
+                res += aux.get(i)+sep;
+            }
+        }
+        return res;
+    }
+    public String obtAutocompletarEdad(String text, int tam) {
+        String res = "";
+        List<String> aux = c.searchPrefixNameEdad(text, '-', 3);
+        if (aux != null) {
+            for (int i = 0; i < aux.size(); ++i) {
+                res += aux.get(i)+sep;
+            }
+        }
+        return res;
+    }
+    public String obtAutocompletarCiudad(String text, int tam) {
+        String res = "";
+        List<String> aux = c.searchPrefixNameCiudad(text, '-', 3);
+        if (aux != null) {
+            for (int i = 0; i < aux.size(); ++i) {
+                res += aux.get(i)+sep;
+            }
+        }
+        return res;
+    }
+    public String obtAutocompletarEstado(String text, int tam) {
+        String res = "";
+        List<String> aux = c.searchPrefixNameEstado(text, '-', 3);
+        if (aux != null) {
+            for (int i = 0; i < aux.size(); ++i) {
+                res += aux.get(i)+sep;
+            }
+        }
+        return res;
+    }
+    public String obtAutocompletarPartido(String text, int tam) {
+        String res = "";
+        List<String> aux = c.searchPrefixNamePartido(text, '-', 3);
+        if (aux != null) {
+            for (int i = 0; i < aux.size(); ++i) {
+                res += aux.get(i)+sep;
+            }
         }
         return res;
     }
