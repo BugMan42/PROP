@@ -902,7 +902,7 @@ public class PanelCongreso extends PanelLista {
 
     }
     private void setAutocompletar(String buscar, int which) {
-        String[] aux = CPC.obtAutocompletar(buscar,which);
+        String[] aux = CPC.obtAutocompletar(buscar.toUpperCase(),which);
         if (aux != null && aux.length >= 1) {
             searchPopMenu = new JPopupMenu();
             searchPopMenu.setFocusable(false);
