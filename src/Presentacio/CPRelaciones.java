@@ -16,12 +16,16 @@ public class CPRelaciones {
     private PanelRelacionesCongresista PRC;
     private PanelRelacionesEvento PRE;
     private PanelRelacionesGeneral PRG;
-    private PanelRelacionesCompuestas PRCO;
+    private PanelRCConjuntos PRCC;
+    private PanelRCOperaciones PRCO;
     private int RUCon, RUEv, RURel;
     private int[] indCon, indEv, indRel;
     private String[][] bCon;
     private String[][] bEv;
     private String[][] bRel;
+    private String[] conj;
+    private String[] comp;
+    private String[] cong;
 
     private int pan;
 
@@ -38,6 +42,7 @@ public class CPRelaciones {
         PRC = null;
         PRE = null;
         PRG = null;
+        PRCC = null;
         PRCO = null;
 
         reiniciarCacheCon();
@@ -61,6 +66,9 @@ public class CPRelaciones {
                 PRE.actualizar();
                 break;
             case 4:
+                PRCC.actualizar();
+                break;
+            case 5:
                 PRCO.actualizar();
                 break;
         }
@@ -88,9 +96,16 @@ public class CPRelaciones {
         return PRE;
     }
 
-    public PanelRelacionesCompuestas obtPanelRCO() {
-        if (PRCO == null) PRCO = new PanelRelacionesCompuestas(this);
+    public PanelRCConjuntos obtPanelRCC() {
+        if (PRCC == null) PRCC = new PanelRCConjuntos(this);
         pan = 4;
+        PRCC.actualizar();
+        return PRCC;
+    }
+
+    public PanelRCOperaciones obtPanelRCO() {
+        if (PRCO == null) PRCO = new PanelRCOperaciones(this);
+        pan = 5;
         PRCO.actualizar();
         return PRCO;
     }
@@ -108,6 +123,9 @@ public class CPRelaciones {
                     PRE.actualizar();
                     break;
                 case 4:
+                    PRCC.actualizar();
+                    break;
+                case 5:
                     PRCO.actualizar();
                     break;
             }
@@ -145,6 +163,111 @@ public class CPRelaciones {
 
     public int sizeResCache(){
         return CR.sizeCache();
+    }
+
+    public int sizeConjuntos(){
+        return conj.length;
+    }
+
+    public void cargarConjuntos(){
+        conj = CR.consultarConjuntos().split("\n");
+    }
+
+    public String obtConjunto(int i){
+        return conj[i];
+    }
+
+    public int sizeCompuestas(){
+        return comp.length;
+    }
+
+    public void cargarCompuestas(){
+        comp = CR.consultarCompuestas().split("\n");
+    }
+
+    public String obtCompuesta(int i){
+        return comp[i];
+    }
+
+    public int sizeCongresistasComp(){
+        return cong.length;
+    }
+
+    public void cargarCongresistasComp(int id){
+        cong = CR.consultarCongresistasComp(id).split("\n");
+        if (cong.length==1 && cong[0]=="") cong = new String[0];
+    }
+
+    public String obtCongresistaComp(int i){
+        return cong[i];
+    }
+
+    public String obtDescripcionComp(int id){
+        return CR.consultarDescripcionComp(id);
+    }
+
+    public void agregarConjuntoSinVoto(String nombre, String fecha, String congresistas) {
+        try {
+            CR.agregarConjuntoSinVoto(nombre,fecha,congresistas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void agregarConjuntoConVoto(String nombre, String fecha, String voto, String congresistas) {
+        try {
+            CR.agregarConjuntoConVoto(nombre, fecha, voto, congresistas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void agregarCompuestaAnd(int i, int d){
+        try {
+            CR.agregarCompuestaAnd(i, d);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void agregarCompuestaOr(int i, int d){
+        try {
+            CR.agregarCompuestaOr(i, d);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void agregarCompuestaNot(int id){
+        try {
+            CR.agregarCompuestaNot(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deshacerCompuesta(int id){
+        try {
+            CR.deshacerCompuesta(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deshacerTodasCompuestas() {
+        try {
+            CR.deshacerTodasCompuestas();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void eliminarConjunto(int id){
+        try {
+            CR.eliminarConjunto(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void reiniciarCacheCon(){

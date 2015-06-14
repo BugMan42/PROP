@@ -353,6 +353,7 @@ public class ControladorRelaciones {
         g = new Grafo();
         List<Congresista> lc = c.obtenerCongreso();
         for(Congresista con : lc) g.agregarVertice(con.obtID());
+        // Rel. simples
         ArrayList<RelacionSimple> r = obtTodasLasRelaciones();
         for(RelacionSimple re : r){
             String origen = re.obtCongresista().obtID();
@@ -373,6 +374,17 @@ public class ControladorRelaciones {
                 for (Congresista cone : ce)
                     if (!origen.equals(cone.obtID()))
                         g.agregarArista(origen, cone.obtID(), re.obtEvento().obt_importancia());
+            }
+        }
+        // Rel. compuestas
+        ArrayList<ArrayList<Congresista>> alc = rs.obtConjuntosComp();
+        for(ArrayList<Congresista> al : alc){
+            for(Congresista con : al){
+                String origen = con.obtID();
+                for(Congresista con2 : al){
+                    String fin = con2.obtID();
+                    if(!origen.equals(fin)) g.agregarArista(origen,fin,1.0);
+                }
             }
         }
     }
@@ -432,6 +444,114 @@ public class ControladorRelaciones {
         String res = "";
         for (String s : ls) res += s+"\n";
         return res;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Conjuntos (Relaciones Compuestas)
+
+    public int sizeConjuntos(){
+        return rs.sizeConjuntos();
+    }
+
+    public void agregarConjuntoSinVoto(String nombre, String fecha, String congresistas) throws Exception {
+        Evento ev = e.ConsultarEvento(nombre,fecha);
+        if(ev.tipo().equals("Votacion")) throw new Exception(E1);
+        String[] aux = congresistas.split("\n");
+        ArrayList<Congresista> lc = new ArrayList<Congresista>();
+        for(int i=0; i<aux.length; ++i){
+            Congresista con = c.consultarCongresista(aux[i]);
+            lc.add(con);
+        }
+        if(ev.tipo().equals("ActoOficial") || ev.tipo().equals("ActoNoOficial")) {
+            RelacionCompuesta1 rc = new RCConjuntoSinVoto(lc, (Acto) ev);
+            rs.agregarConjunto((RCConjunto) rc);
+        }
+        else {
+            RelacionCompuesta1 rc = new RCConjuntoSinVoto(lc, (Reunion) ev);
+            rs.agregarConjunto((RCConjunto) rc);
+        }
+    }
+
+    public void agregarConjuntoConVoto(String nombre, String fecha, String voto, String congresistas) throws Exception {
+        Evento ev = e.ConsultarEvento(nombre,fecha);
+        if(!ev.tipo().equals("Votacion")) throw new Exception(E2);
+        String[] aux = congresistas.split("\n");
+        ArrayList<Congresista> lc = new ArrayList<Congresista>();
+        for(int i=0; i<aux.length; ++i){
+            Congresista con = c.consultarCongresista(aux[i]);
+            lc.add(con);
+        }
+        Voto v;
+        if (voto.equals("Abstencion")) v = new Abstencion();
+        else if (voto.equals("Blanco")) v = new Blanco();
+        else if (voto.equals("Negativo")) v = new Negativo();
+        else if (voto.equals("Nulo")) v = new Nulo();
+        else if (voto.equals("Positivo")) v = new Positivo();
+        else throw new Exception(E3);
+        RelacionCompuesta1 rc = new RCConjuntoConVoto(lc, (Votacion) ev, v);
+        rs.agregarConjunto((RCConjunto) rc);
+    }
+
+    public String consultarConjuntos(){
+        String res = "";
+        ArrayList<RelacionCompuesta1> lrc = rs.obtConjuntos();
+        for(RelacionCompuesta1 rc : lrc) res += rc+"\n";
+        return res;
+    }
+
+    public void agregarCompuestaAnd(int i, int d) throws Exception {
+        RelacionCompuesta1 hi = rs.obtCompuesta(i);
+        RelacionCompuesta1 hd = rs.obtCompuesta(d);
+        RCAnd and = new RCAnd(hi,hd);
+        rs.agregarCompuesta(and);
+        rs.eliminarCompuesta(i);
+        rs.eliminarCompuesta(d);
+    }
+
+    public void agregarCompuestaOr(int i, int d) throws Exception {
+        RelacionCompuesta1 hi = rs.obtCompuesta(i);
+        RelacionCompuesta1 hd = rs.obtCompuesta(d);
+        RCOr or = new RCOr(hi,hd);
+        rs.agregarCompuesta(or);
+        rs.eliminarCompuesta(i);
+        rs.eliminarCompuesta(d);
+    }
+
+    public void agregarCompuestaNot(int id) throws Exception {
+        RelacionCompuesta1 rc = rs.obtCompuesta(id);
+        RCNot not = new RCNot(rc, c);
+        rs.agregarCompuesta(not);
+        rs.eliminarCompuesta(id);
+    }
+
+    public void deshacerCompuesta(int id) throws Exception {
+        rs.deshacerCompuesta(id);
+    }
+
+    public void deshacerTodasCompuestas() throws Exception {
+        rs.deshacerTodasCompuestas();
+    }
+
+    public String consultarCompuestas(){
+        String res = "";
+        ArrayList<RelacionCompuesta1> lrc = rs.obtCompuestas();
+        for(RelacionCompuesta1 rc : lrc) res += rc+"\n";
+        return res;
+    }
+
+    public String consultarCongresistasComp(int id){
+        String res = "";
+        ArrayList<Congresista> lc = rs.obtCongresistasComp(id);
+        for(Congresista co : lc) res += co.obtID()+" "+co.obtNombre()+" "+co.obtApellido()+" "+String.valueOf(co.obtEdad())+"\n";
+        return res;
+    }
+
+    public String consultarDescripcionComp(int id){
+        return rs.consultarDescripcionComp(id);
+    }
+
+    public void eliminarConjunto(int id) throws Exception {
+        rs.eliminarConjunto(id);
     }
 
 }

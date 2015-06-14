@@ -109,6 +109,7 @@ public class Relaciones {
             return aux;
         }
     }
+    /*
     private class RelacionesCompuestas {
         private ArrayList<RelacionCompuestaAnd> AND;
         private ArrayList<RelacionCompuestaOr> OR;
@@ -136,15 +137,20 @@ public class Relaciones {
         public void eliminarAND(RelacionCompuestaAnd aux) {
             AND.remove(aux);
         }
-    }
+    }*/
     private TST<NodeC> congresistas;
     private TST<NodeE> eventos;
-    private RelacionesCompuestas RC;
+    //private RelacionesCompuestas RC;
+
+    private ArrayList<RelacionCompuesta1> conjuntos;
+    private ArrayList<RelacionCompuesta1> compuestas;
 
     public Relaciones() {
         congresistas = new TST<NodeC>();
         eventos = new TST<NodeE>();
-        RC = new RelacionesCompuestas();
+        //RC = new RelacionesCompuestas();
+        conjuntos = new ArrayList<RelacionCompuesta1>();
+        compuestas = new ArrayList<RelacionCompuesta1>();
     }
 
     public boolean esVacio(){
@@ -254,4 +260,123 @@ public class Relaciones {
         congresistas.borrar(id);
         congresistas.insertar(new_id,nc);
     }
+
+    public int sizeConjuntos(){
+        return conjuntos.size();
+    }
+
+    public void agregarConjunto(RCConjunto conj){
+        conjuntos.add(conj);
+        compuestas.add(conj);
+    }
+
+    public ArrayList<RelacionCompuesta1> obtConjuntos(){
+        return conjuntos;
+    }
+
+    public void eliminarConjunto(int id) throws Exception {
+        for(int i=0; i<conjuntos.size(); ++i){
+            if(conjuntos.get(i).obtId()==id){
+                conjuntos.remove(i);
+                deshacerCompuestaConj(id);
+                return;
+            }
+        }
+    }
+
+    public int sizeCompuestas(){
+        return compuestas.size();
+    }
+
+    public void agregarCompuesta(RelacionCompuesta1 comp){
+        compuestas.add(comp);
+    }
+
+    public ArrayList<RelacionCompuesta1> obtCompuestas(){
+        return compuestas;
+    }
+
+    public RelacionCompuesta1 obtCompuesta(int id) throws Exception {
+        for(int i=0; i<compuestas.size(); ++i)
+            if(compuestas.get(i).obtId()==id)
+                return compuestas.get(i);
+        throw new Exception("No existe la relación compuesta con id "+id+".");
+    }
+
+    public String consultarDescripcionComp(int id){
+        for(RelacionCompuesta1 r : compuestas)
+            if(r.obtId()==id) return r.descripcion();
+        return "";
+    }
+
+    public ArrayList<Congresista> obtCongresistasComp(int id){
+        for(RelacionCompuesta1 r : compuestas)
+            if(r.obtId()==id) return r.obtConjunto();
+        return new ArrayList<Congresista>();
+    }
+
+    public ArrayList<ArrayList<Congresista>> obtConjuntosComp(){
+        ArrayList<ArrayList<Congresista>> alc = new ArrayList<ArrayList<Congresista>>();
+        for(RelacionCompuesta1 r : compuestas) alc.add(r.obtConjunto());
+        return alc;
+    }
+
+    public void eliminarCompuesta(int id){
+        for(int i=0; i<compuestas.size(); ++i){
+            if(compuestas.get(i).obtId()==id){
+                compuestas.remove(i);
+                return;
+            }
+        }
+    }
+
+    public void deshacerCompuesta(int id) throws Exception {
+        for(int i=0; i<compuestas.size(); ++i){
+            if(compuestas.get(i).obtId()==id){
+                RelacionCompuesta1 r = compuestas.get(i);
+                if(r.esNot()) compuestas.add(r.obtHijo());
+                else if (r.esAnd() || r.esOr()){
+                    compuestas.add(r.obtHijoIzq());
+                    compuestas.add(r.obtHijoDer());
+                }
+                compuestas.remove(i);
+                return;
+            }
+        }
+    }
+
+    public void deshacerCompuestaConj(int id) throws Exception {
+        for(int i=0; i<compuestas.size(); ++i){
+            if(compuestas.get(i).obtId()==id){
+                compuestas.remove(i);
+                return;
+            }
+            if(!compuestas.get(i).esConjunto() && compuestas.get(i).contieneConjunto(id)){
+                RelacionCompuesta1 r = compuestas.get(i);
+                if(r.esNot()) compuestas.add(r.obtHijo());
+                else if (r.esAnd() || r.esOr()){
+                    compuestas.add(r.obtHijoIzq());
+                    compuestas.add(r.obtHijoDer());
+                }
+                compuestas.remove(i);
+                --i;
+            }
+        }
+    }
+
+    public void deshacerTodasCompuestas() throws Exception {
+        for(int i=0; i<compuestas.size(); ++i){
+            if(!compuestas.get(i).esConjunto()){
+                RelacionCompuesta1 r = compuestas.get(i);
+                if(r.esNot()) compuestas.add(r.obtHijo());
+                else if (r.esAnd() || r.esOr()){
+                    compuestas.add(r.obtHijoIzq());
+                    compuestas.add(r.obtHijoDer());
+                }
+                compuestas.remove(i);
+                --i;
+            }
+        }
+    }
+
 }
