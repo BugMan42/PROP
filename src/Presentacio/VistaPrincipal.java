@@ -190,12 +190,19 @@ public class    VistaPrincipal extends JFrame {
                 revalidate();
                 repaint();
 
-                try {
-                    cp.getCPA().crearGrafo();
-                    cp.getCPA().actualizarPanel(false);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                SwingWorker<Void, Void> s = new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() throws Exception {
+                        try {
+                            cp.getCPA().crearGrafo();
+                            cp.getCPA().actualizarPanel();
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+                        return null;
+                    }
+                };
+                s.execute();
 
 
             }
@@ -286,12 +293,21 @@ public class    VistaPrincipal extends JFrame {
                 revalidate();
                 repaint();
 
-                try {
-                    cp.getCPA().crearGrafo();
-                    cp.getCPA().actualizarPanel(false);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                SwingWorker<Void, Void> s = new SwingWorker<Void, Void>() {
+                        @Override
+                        protected Void doInBackground() throws Exception {
+                            try {
+                                cp.getCPA().crearGrafo();
+                            cp.getCPA().actualizarPanel();
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            }
+                            return null;
+                        }
+                };
+                s.execute();
+
+
 
             }
         });

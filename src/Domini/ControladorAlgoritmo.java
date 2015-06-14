@@ -102,6 +102,7 @@ public class ControladorAlgoritmo {
         if (i > 0 && i < in.obtGrafo().V())
         {
             i_vertex = i;
+            real_i = in.obtGrafo().consultarVertices().get(i_vertex);
             i_arista = 0;
         }
     }
@@ -130,6 +131,32 @@ public class ControladorAlgoritmo {
 
     }
 
+    public void mod_i_arista (int i)
+    {
+        int lim = -1;
+        try {
+            lim = in.obtGrafo().nodosSalida(real_i).size();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (i > 0 && i < lim)
+        {
+            i_arista = i;
+        }
+    }
+
+    public int num_aristas_salida(int x)
+    {
+        int r_i = in.obtGrafo().consultarVertices().get(x);
+        int r = -1;
+        try {
+            r = in.obtGrafo().nodosSalida(r_i).size();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+
     public int num_comunidades()
     {
         return out.comunidad().size();
@@ -149,12 +176,25 @@ public class ControladorAlgoritmo {
         return r;
     }
 
+    public int num_mensajes()
+    {
+        return out.mostrarHistorial().size();
+    }
+
     public String next_message()
     {
         String r;
         if (i_message < out.mostrarHistorial().size()) r = out.mostrarHistorial().get(i_message);
         else r = "-";
         i_message++;
+        return r;
+    }
+
+    public String message_at(int i)
+    {
+        String r;
+        if (i> 0 && i < out.mostrarHistorial().size()) r = out.mostrarHistorial().get(i);
+        else r = "-";
         return r;
     }
 
@@ -243,6 +283,11 @@ public class ControladorAlgoritmo {
     public void guardar_salida(String ruta)
     {
 
+    }
+
+    public void limpiar_salida()
+    {
+        out = new Salida();
     }
 
 }

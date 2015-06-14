@@ -2,6 +2,7 @@ package Presentacio;
 
 
 import Domini.ControladorAlgoritmo;
+import Domini.Salida;
 
 public class CPAlgoritmo {
 
@@ -35,6 +36,10 @@ public class CPAlgoritmo {
     }
 
 
+    public int num_aristas() {
+        return 100;//CA.num_aristas();
+    }
+
     public int num_vertices()
     {
         return CA.num_vertex_entrada();
@@ -45,7 +50,7 @@ public class CPAlgoritmo {
         return CA.next_vertex();
     }
 
-    public void mod_vertex_it(int i)
+    public void mod_i_vertex (int i)
     {
         CA.mod_i_vertex(i);
     }
@@ -53,6 +58,16 @@ public class CPAlgoritmo {
     public String next_arista()
     {
         return CA.next_arista();
+    }
+
+    public void mod_i_arista (int i)
+    {
+        CA.mod_i_arista(i);
+    }
+
+    public int num_aristas_salida(int x)
+    {
+        return CA.num_aristas_salida(x);
     }
 
     public int num_comunidades()
@@ -78,6 +93,9 @@ public class CPAlgoritmo {
     {
         return CA.next_message();
     }
+    public String message_at(int i) {
+        return CA.message_at(i);
+    }
 
     public void crearGrafo() throws Exception {
         CA.crearGrafo();
@@ -102,6 +120,11 @@ public class CPAlgoritmo {
         return r;
     }
 
+    public int num_mensajes()
+    {
+        return CA.num_mensajes();
+    }
+
     public String obtCongresista(String x)
     {
         return CPR.obtCongresista(x);
@@ -112,7 +135,12 @@ public class CPAlgoritmo {
         PA.nuevo();
     }
 
-    public void actualizarPanel(boolean b){
-        PA.actualizar(b);
+    public void actualizarPanel(){
+        PA.actualizar();
+    }
+
+    public void limpiar_salida()
+    {
+        CA.limpiar_salida();
     }
 }

@@ -353,6 +353,7 @@ public class Grafo {
     public int V() {
         return aristas.size()-vacios.size();
     }
+
     public int f(String clave) throws Exception {
         try {
             return vertices.obtener(clave);

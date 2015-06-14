@@ -105,14 +105,20 @@ public class Girvan_Newman extends Algoritmo{
 
     private void ejecutar_algoritmo() throws Exception {
         //El parámetro de finalización de Girvan-Newman es el número máximo de comunidades
+
         int limit = (int) obtIn().obtParam1();
         if (limit == 0) limit = 1;
+
         while(alg_cc < limit)
         {
             ejecutar_iteración(alg_graph);
             //System.out.println(alg_cc/limit);
             iter++;
         }
+        System.out.println(obtOut().mostrarHistorial().get(0));
+        obtOut().mostrarHistorial().add(0, "Inicio");
+        System.out.println(obtOut().mostrarHistorial().get(0));
+        obtOut().agregarMensaje("Fin");
     }
 
 
@@ -420,7 +426,7 @@ public class Girvan_Newman extends Algoritmo{
         if (cc2 > cc)
         {
             int d_cc = cc2 - cc;
-            if (d_cc == 1 && alg_cc != 0) obtOut().agregarMensaje("NuevaComunidad.");
+            if (d_cc == 1 && alg_cc != 0) obtOut().agregarMensaje("NuevaComunidad");
         }
 
         alg_cc = cc2;
