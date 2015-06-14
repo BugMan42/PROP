@@ -2,12 +2,12 @@ package Domini;
 
 import java.util.ArrayList;
 
-public class RCNot extends RelacionCompuesta1 {
+public class RCNot extends RelacionCompuesta {
 
-    private RelacionCompuesta1 rc;
+    private RelacionCompuesta rc;
     private ControladorCongreso cc;
 
-    public RCNot(RelacionCompuesta1 rel, ControladorCongreso c) throws Exception {
+    public RCNot(RelacionCompuesta rel, ControladorCongreso c) throws Exception {
         rc = rel;
         cc = c;
     }
@@ -22,7 +22,7 @@ public class RCNot extends RelacionCompuesta1 {
         return res;
     }
 
-    public RelacionCompuesta1 obtHijo(){
+    public RelacionCompuesta obtHijo(){
         return rc;
     }
 

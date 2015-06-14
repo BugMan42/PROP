@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class RCOr extends RelacionCompuesta1 {
+public class RCOr extends RelacionCompuesta {
 
-    private RelacionCompuesta1 hi,hd;
+    private RelacionCompuesta hi,hd;
 
-    public RCOr(RelacionCompuesta1 i, RelacionCompuesta1 d) throws Exception {
+    public RCOr(RelacionCompuesta i, RelacionCompuesta d) throws Exception {
         hi = i;
         hd = d;
     }
@@ -33,11 +33,11 @@ public class RCOr extends RelacionCompuesta1 {
         return res;
     }
 
-    public RelacionCompuesta1 obtHijoIzq(){
+    public RelacionCompuesta obtHijoIzq(){
         return hi;
     }
 
-    public RelacionCompuesta1 obtHijoDer(){
+    public RelacionCompuesta obtHijoDer(){
         return hd;
     }
 
