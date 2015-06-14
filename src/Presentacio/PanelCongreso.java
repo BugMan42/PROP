@@ -830,10 +830,10 @@ public class PanelCongreso extends PanelLista {
             }
             else {
                 //print("entrem aqui");
-                Search(buscar, which);
+                actualSearch = actualSearch.substring(0,actualSearch.length()-1);
+                Search(actualSearch, which);
                 labelStatus.setVisible(true);
                 labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
-                actualSearch = actualSearch.substring(0,actualSearch.length()-1);
                 if (actualSearch.equals("")) {
                     labelStatus.setVisible(false);
                     labelStatus.setText("");
@@ -864,11 +864,15 @@ public class PanelCongreso extends PanelLista {
             actualSearch = textSearch.getText();
             textSearch.setSelectionStart(actualSearch.length());
             searchPopMenu.setVisible(false);
+            Search(actualSearch, which);
+            labelStatus.setVisible(true);
+            labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
+
             //textSearch.setCaretPosition(actualSearch.length());
         }
         else {
             actualSearch+=evt.getKeyChar();
-            Search(buscar, which);
+            Search(actualSearch, which);
             labelStatus.setVisible(true);
             labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
             setAutocompletar(buscar,which);
