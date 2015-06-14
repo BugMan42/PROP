@@ -193,7 +193,7 @@ public class ControladorAlgoritmo {
     public String message_at(int i)
     {
         String r;
-        if (i> 0 && i < out.mostrarHistorial().size()) r = out.mostrarHistorial().get(i);
+        if (i >= 0 && i < out.mostrarHistorial().size()) r = out.mostrarHistorial().get(i);
         else r = "-";
         return r;
     }
@@ -287,7 +287,7 @@ public class ControladorAlgoritmo {
 
     public void limpiar_salida()
     {
-        out = new Salida();
+        out.eliminarSalida();
     }
 
 }

@@ -182,16 +182,20 @@ public class PanelAlgoritmo extends Panel{
         tp2.setEnabled(false);
         tp2.setEditable(false);
         //tp2.setMaximumSize(panel_dim);
+        lb2 = new JLabel();
+        lb2.setForeground(Color.green);
+        lb2.setBackground(Color.black);
+        lb2.setOpaque(true);
         JScrollPane sp2 = new JScrollPane(tp2);
         JRadioButton rb2 = new JRadioButton("Louvain");
         final JButton mostrar2 = new JButton("Mostrar grafo");
-        JButton up2 = new JButton(new ImageIcon(getClass().getResource("/images/up.png")));
+        final JButton up2 = new JButton(new ImageIcon(getClass().getResource("/images/up.png")));
         up2.setEnabled(false);
-        JButton down2 = new JButton(new ImageIcon(getClass().getResource("/images/down.png")));
+        final JButton down2 = new JButton(new ImageIcon(getClass().getResource("/images/down.png")));
         down2.setEnabled(false);
-        JButton top2 = new JButton(new ImageIcon(getClass().getResource("/images/top.png")));
+        final JButton top2 = new JButton(new ImageIcon(getClass().getResource("/images/top.png")));
         top2.setEnabled(false);
-        JButton bottom2 = new JButton(new ImageIcon(getClass().getResource("/images/bottom.png")));
+        final JButton bottom2 = new JButton(new ImageIcon(getClass().getResource("/images/bottom.png")));
         bottom2.setEnabled(false);
         mostrar2.setEnabled(false);
         pb2 = new JProgressBar(0, 100);
@@ -208,16 +212,20 @@ public class PanelAlgoritmo extends Panel{
         tp3.setEnabled(false);
         tp3.setEditable(false);
         //tp3.setMaximumSize(panel_dim);
+        lb3 = new JLabel();
+        lb3.setForeground(Color.green);
+        lb3.setBackground(Color.black);
+        lb3.setOpaque(true);
         JScrollPane sp3 = new JScrollPane(tp3);
         JRadioButton rb3 = new JRadioButton("Clique Percolation");
         final JButton mostrar3 = new JButton("Mostrar grafo");
-        JButton up3 = new JButton(new ImageIcon(getClass().getResource("/images/up.png")));
+        final JButton up3 = new JButton(new ImageIcon(getClass().getResource("/images/up.png")));
         up3.setEnabled(false);
-        JButton down3 = new JButton(new ImageIcon(getClass().getResource("/images/down.png")));
+        final JButton down3 = new JButton(new ImageIcon(getClass().getResource("/images/down.png")));
         down3.setEnabled(false);
-        JButton top3 = new JButton(new ImageIcon(getClass().getResource("/images/top.png")));
+        final JButton top3 = new JButton(new ImageIcon(getClass().getResource("/images/top.png")));
         top3.setEnabled(false);
-        JButton bottom3 = new JButton(new ImageIcon(getClass().getResource("/images/bottom.png")));
+        final JButton bottom3 = new JButton(new ImageIcon(getClass().getResource("/images/bottom.png")));
         bottom3.setEnabled(false);
         mostrar3.setEnabled(false);
         pb3 = new JProgressBar(0, 100);
@@ -404,6 +412,134 @@ public class PanelAlgoritmo extends Panel{
             }
         });
 
+        up2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                --im2;
+                String h = cpa.message_at(im2);
+                lb2.setText(h);
+                if (im2 == 0)
+                {
+                    up2.setEnabled(false);
+                    top2.setEnabled(false);
+                }
+
+                if (im2 == cpa.num_mensajes()-2)
+                {
+                    down2.setEnabled(true);
+                    bottom2.setEnabled(true);
+                }
+            }
+        });
+
+        down2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ++im2;
+                String h = cpa.message_at(im2);
+                lb2.setText(h);
+                if (im2 == cpa.num_mensajes() - 1) {
+                    down2.setEnabled(false);
+                    bottom2.setEnabled(false);
+                }
+
+                if (im2 == 1)
+                {
+                    up2.setEnabled(true);
+                    top2.setEnabled(true);
+                }
+            }
+        });
+
+        top2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                im2 = 0;
+                String h = cpa.message_at(im2);
+                lb2.setText(h);
+                up2.setEnabled(false);
+                top2.setEnabled(false);
+                bottom2.setEnabled(true);
+                down2.setEnabled(true);
+            }
+        });
+
+        bottom2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                im2 = cpa.num_mensajes()-1;
+                String h = cpa.message_at(im2);
+                lb2.setText(h);
+                down2.setEnabled(false);
+                bottom2.setEnabled(false);
+            }
+        });
+
+        up3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                --im3;
+                String h = cpa.message_at(im3);
+                lb3.setText(h);
+                if (im3 == 0)
+                {
+                    up3.setEnabled(false);
+                    top3.setEnabled(false);
+                }
+
+                if (im3 == cpa.num_mensajes()-2)
+                {
+                    down3.setEnabled(true);
+                    bottom3.setEnabled(true);
+                }
+            }
+        });
+
+        down3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ++im3;
+                String h = cpa.message_at(im3);
+                lb3.setText(h);
+                if (im3 == cpa.num_mensajes() - 1) {
+                    down3.setEnabled(false);
+                    bottom3.setEnabled(false);
+                }
+
+                if (im3 == 1)
+                {
+                    up3.setEnabled(true);
+                    top3.setEnabled(true);
+                }
+            }
+        });
+
+        top3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                im3 = 0;
+                String h = cpa.message_at(im3);
+                lb3.setText(h);
+                up3.setEnabled(false);
+                top3.setEnabled(false);
+                bottom3.setEnabled(true);
+                down3.setEnabled(true);
+            }
+        });
+
+        bottom3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                im3 = cpa.num_mensajes()-1;
+                String h = cpa.message_at(im3);
+                lb3.setText(h);
+                down3.setEnabled(false);
+                bottom3.setEnabled(false);
+                up3.setEnabled(true);
+                top3.setEnabled(true);
+            }
+        });
+
         //<editor-fold desc="Acción Ratón">
         view.addMouseListener(new MouseInputAdapter() {
             @Override
@@ -555,8 +691,6 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                cpa.limpiar_salida();
-
                 setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 cpa.modParam1(pref.getText());
                 cpa.modParam2(pref2.getText());
@@ -645,17 +779,17 @@ public class PanelAlgoritmo extends Panel{
                         mostrar2.setEnabled(false);
                         Document doc = new DefaultStyledDocument();
                         try {
-                            String r = cpa.next_mensaje();
-                            while (!r.equals("-")) {
-                                //System.out.println(r);
-                                doc.insertString(doc.getLength(), r+"\n", null);
-                                r = cpa.next_mensaje();
-
-                            }
+                            String r = cpa.message_at(cpa.num_mensajes() - 1);
+                            //System.out.println(r);
+                            doc.insertString(doc.getLength(), r+"\n", null);
+                            lb2.setText(r);
                         } catch (BadLocationException e1) {
                             e1.printStackTrace();
                         }
                         tp2.setDocument(doc);
+                        im2 = cpa.num_mensajes()-1;
+                        up2.setEnabled(true);
+                        top2.setEnabled(true);
                         setProgress(100);
                         return null;
                     }
@@ -693,17 +827,17 @@ public class PanelAlgoritmo extends Panel{
                         mostrar3.setEnabled(false);
                         Document doc = new DefaultStyledDocument();
                         try {
-                            String r = cpa.next_mensaje();
-                            while (!r.equals("-")) {
-                                //System.out.println(r);
-                                doc.insertString(doc.getLength(), r+"\n", null);
-                                r = cpa.next_mensaje();
-
-                            }
+                            String r = cpa.message_at(cpa.num_mensajes() - 1);
+                            //System.out.println(r);
+                            doc.insertString(doc.getLength(), r+"\n", null);
+                            lb3.setText(r);
                         } catch (BadLocationException e1) {
                             e1.printStackTrace();
                         }
                         tp3.setDocument(doc);
+                        im3 = cpa.num_mensajes()-1;
+                        up3.setEnabled(true);
+                        top3.setEnabled(true);
                         setProgress(100);
                         return null;
                     }
@@ -749,6 +883,7 @@ public class PanelAlgoritmo extends Panel{
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb2)
+                                                        .addComponent(lb2)
                                                         .addComponent(sp2, 100, 150, (int) (width / 4))
                                                         .addComponent(pb2, 100, 150, (int) (width / 4))
                                                         .addGroup(gr.createSequentialGroup()
@@ -761,6 +896,7 @@ public class PanelAlgoritmo extends Panel{
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb3)
+                                                        .addComponent(lb3)
                                                         .addComponent(sp3, 100, 150, (int) (width / 4))
                                                         .addComponent(pb3, 100, 150, (int) (width / 4))
                                                         .addGroup(gr.createSequentialGroup()
@@ -797,11 +933,13 @@ public class PanelAlgoritmo extends Panel{
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb2)
+                                                        .addComponent(lb2)
                                                         .addComponent(sp2, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
                                                         .addComponent(pb2)
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb3)
+                                                        .addComponent(lb3)
                                                         .addComponent(sp3, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
                                                         .addComponent(pb3)
                                         )
@@ -934,6 +1072,7 @@ public class PanelAlgoritmo extends Panel{
                     //System.out.println(cc[l]);
                     String co = g.getNode(aCc).getAttribute("comm");
                     int nodo_com = Integer.parseInt(co);
+
                     g.getNode(aCc).addAttribute("comm", Integer.toString(nodo_com + 1));
 
                     Double corel = 1.0 / (nodo_com + 1);
