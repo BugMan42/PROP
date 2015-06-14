@@ -1,33 +1,60 @@
 package Domini;
 
+import java.util.ArrayList;
+
 public abstract class RelacionCompuesta extends Relacion {
-    private Relacion A;
-    //RelacionB estara solo en relacion compuesta and y or
+    private static int next_id = 0;
 
-    public RelacionCompuesta(Relacion a) {
-        super();
-        A = a;
+    private int id;
+
+    public RelacionCompuesta(){
+        id = next_id++;
     }
-
-    public void modRelacionA(Relacion a) {
-        A = a;
-    }
-    public abstract void modRelacionB(Relacion b) throws Exception;
-
-    public Relacion obtRelacionA() {
-        return A;
-    }
-    public abstract Relacion obtRelacionB() throws Exception;
-
-    public abstract boolean esOr();
-    public abstract boolean esNot();
 
     public boolean esSimple() {
         return false;
     }
 
-    public String toString() {
-        return A.toString();
+    public boolean esConjunto() {
+        return false;
     }
+
+    public boolean esAnd() {
+        return false;
+    }
+
+    public boolean esOr() {
+        return false;
+    }
+
+    public boolean esNot() {
+        return false;
+    }
+
+    public abstract ArrayList<Congresista> obtConjunto();
+
+    public RelacionCompuesta obtHijo() throws Exception {
+        throw new Exception("La relación compuesta no es una Not.");
+    }
+
+    public RelacionCompuesta obtHijoIzq() throws Exception {
+        throw new Exception("La relación compuesta no es And o Or.");
+    }
+
+    public RelacionCompuesta obtHijoDer() throws Exception {
+        throw new Exception("La relación compuesta no es And o Or.");
+    }
+
+    public boolean contieneConjunto(int id) throws Exception {
+        throw new Exception("La relación compuesta es un conjunto.");
+    }
+
+    public int obtId(){
+        return id;
+    }
+
+    public abstract String descripcion();
+
+    public abstract String toString();
 
 }

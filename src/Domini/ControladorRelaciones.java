@@ -463,11 +463,11 @@ public class ControladorRelaciones {
             lc.add(con);
         }
         if(ev.tipo().equals("ActoOficial") || ev.tipo().equals("ActoNoOficial")) {
-            RelacionCompuesta1 rc = new RCConjuntoSinVoto(lc, (Acto) ev);
+            RelacionCompuesta rc = new RCConjuntoSinVoto(lc, (Acto) ev);
             rs.agregarConjunto((RCConjunto) rc);
         }
         else {
-            RelacionCompuesta1 rc = new RCConjuntoSinVoto(lc, (Reunion) ev);
+            RelacionCompuesta rc = new RCConjuntoSinVoto(lc, (Reunion) ev);
             rs.agregarConjunto((RCConjunto) rc);
         }
     }
@@ -488,20 +488,20 @@ public class ControladorRelaciones {
         else if (voto.equals("Nulo")) v = new Nulo();
         else if (voto.equals("Positivo")) v = new Positivo();
         else throw new Exception(E3);
-        RelacionCompuesta1 rc = new RCConjuntoConVoto(lc, (Votacion) ev, v);
+        RelacionCompuesta rc = new RCConjuntoConVoto(lc, (Votacion) ev, v);
         rs.agregarConjunto((RCConjunto) rc);
     }
 
     public String consultarConjuntos(){
         String res = "";
-        ArrayList<RelacionCompuesta1> lrc = rs.obtConjuntos();
-        for(RelacionCompuesta1 rc : lrc) res += rc+"\n";
+        ArrayList<RelacionCompuesta> lrc = rs.obtConjuntos();
+        for(RelacionCompuesta rc : lrc) res += rc+"\n";
         return res;
     }
 
     public void agregarCompuestaAnd(int i, int d) throws Exception {
-        RelacionCompuesta1 hi = rs.obtCompuesta(i);
-        RelacionCompuesta1 hd = rs.obtCompuesta(d);
+        RelacionCompuesta hi = rs.obtCompuesta(i);
+        RelacionCompuesta hd = rs.obtCompuesta(d);
         RCAnd and = new RCAnd(hi,hd);
         rs.agregarCompuesta(and);
         rs.eliminarCompuesta(i);
@@ -509,8 +509,8 @@ public class ControladorRelaciones {
     }
 
     public void agregarCompuestaOr(int i, int d) throws Exception {
-        RelacionCompuesta1 hi = rs.obtCompuesta(i);
-        RelacionCompuesta1 hd = rs.obtCompuesta(d);
+        RelacionCompuesta hi = rs.obtCompuesta(i);
+        RelacionCompuesta hd = rs.obtCompuesta(d);
         RCOr or = new RCOr(hi,hd);
         rs.agregarCompuesta(or);
         rs.eliminarCompuesta(i);
@@ -518,7 +518,7 @@ public class ControladorRelaciones {
     }
 
     public void agregarCompuestaNot(int id) throws Exception {
-        RelacionCompuesta1 rc = rs.obtCompuesta(id);
+        RelacionCompuesta rc = rs.obtCompuesta(id);
         RCNot not = new RCNot(rc, c);
         rs.agregarCompuesta(not);
         rs.eliminarCompuesta(id);
@@ -534,8 +534,8 @@ public class ControladorRelaciones {
 
     public String consultarCompuestas(){
         String res = "";
-        ArrayList<RelacionCompuesta1> lrc = rs.obtCompuestas();
-        for(RelacionCompuesta1 rc : lrc) res += rc+"\n";
+        ArrayList<RelacionCompuesta> lrc = rs.obtCompuestas();
+        for(RelacionCompuesta rc : lrc) res += rc+"\n";
         return res;
     }
 

@@ -142,15 +142,15 @@ public class Relaciones {
     private TST<NodeE> eventos;
     //private RelacionesCompuestas RC;
 
-    private ArrayList<RelacionCompuesta1> conjuntos;
-    private ArrayList<RelacionCompuesta1> compuestas;
+    private ArrayList<RelacionCompuesta> conjuntos;
+    private ArrayList<RelacionCompuesta> compuestas;
 
     public Relaciones() {
         congresistas = new TST<NodeC>();
         eventos = new TST<NodeE>();
         //RC = new RelacionesCompuestas();
-        conjuntos = new ArrayList<RelacionCompuesta1>();
-        compuestas = new ArrayList<RelacionCompuesta1>();
+        conjuntos = new ArrayList<RelacionCompuesta>();
+        compuestas = new ArrayList<RelacionCompuesta>();
     }
 
     public boolean esVacio(){
@@ -270,7 +270,7 @@ public class Relaciones {
         compuestas.add(conj);
     }
 
-    public ArrayList<RelacionCompuesta1> obtConjuntos(){
+    public ArrayList<RelacionCompuesta> obtConjuntos(){
         return conjuntos;
     }
 
@@ -288,15 +288,15 @@ public class Relaciones {
         return compuestas.size();
     }
 
-    public void agregarCompuesta(RelacionCompuesta1 comp){
+    public void agregarCompuesta(RelacionCompuesta comp){
         compuestas.add(comp);
     }
 
-    public ArrayList<RelacionCompuesta1> obtCompuestas(){
+    public ArrayList<RelacionCompuesta> obtCompuestas(){
         return compuestas;
     }
 
-    public RelacionCompuesta1 obtCompuesta(int id) throws Exception {
+    public RelacionCompuesta obtCompuesta(int id) throws Exception {
         for(int i=0; i<compuestas.size(); ++i)
             if(compuestas.get(i).obtId()==id)
                 return compuestas.get(i);
@@ -304,20 +304,20 @@ public class Relaciones {
     }
 
     public String consultarDescripcionComp(int id){
-        for(RelacionCompuesta1 r : compuestas)
+        for(RelacionCompuesta r : compuestas)
             if(r.obtId()==id) return r.descripcion();
         return "";
     }
 
     public ArrayList<Congresista> obtCongresistasComp(int id){
-        for(RelacionCompuesta1 r : compuestas)
+        for(RelacionCompuesta r : compuestas)
             if(r.obtId()==id) return r.obtConjunto();
         return new ArrayList<Congresista>();
     }
 
     public ArrayList<ArrayList<Congresista>> obtConjuntosComp(){
         ArrayList<ArrayList<Congresista>> alc = new ArrayList<ArrayList<Congresista>>();
-        for(RelacionCompuesta1 r : compuestas) alc.add(r.obtConjunto());
+        for(RelacionCompuesta r : compuestas) alc.add(r.obtConjunto());
         return alc;
     }
 
@@ -333,7 +333,7 @@ public class Relaciones {
     public void deshacerCompuesta(int id) throws Exception {
         for(int i=0; i<compuestas.size(); ++i){
             if(compuestas.get(i).obtId()==id){
-                RelacionCompuesta1 r = compuestas.get(i);
+                RelacionCompuesta r = compuestas.get(i);
                 if(r.esNot()) compuestas.add(r.obtHijo());
                 else if (r.esAnd() || r.esOr()){
                     compuestas.add(r.obtHijoIzq());
@@ -352,7 +352,7 @@ public class Relaciones {
                 return;
             }
             if(!compuestas.get(i).esConjunto() && compuestas.get(i).contieneConjunto(id)){
-                RelacionCompuesta1 r = compuestas.get(i);
+                RelacionCompuesta r = compuestas.get(i);
                 if(r.esNot()) compuestas.add(r.obtHijo());
                 else if (r.esAnd() || r.esOr()){
                     compuestas.add(r.obtHijoIzq());
@@ -367,7 +367,7 @@ public class Relaciones {
     public void deshacerTodasCompuestas() throws Exception {
         for(int i=0; i<compuestas.size(); ++i){
             if(!compuestas.get(i).esConjunto()){
-                RelacionCompuesta1 r = compuestas.get(i);
+                RelacionCompuesta r = compuestas.get(i);
                 if(r.esNot()) compuestas.add(r.obtHijo());
                 else if (r.esAnd() || r.esOr()){
                     compuestas.add(r.obtHijoIzq());

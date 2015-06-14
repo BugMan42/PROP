@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by jose on 13/06/15.
  */
-public abstract class RCConjunto extends RelacionCompuesta1 {
+public abstract class RCConjunto extends RelacionCompuesta {
     private static final String E1 = "El conjunto debe contener como mínimo un congresista.";
 
     private Evento ev;
