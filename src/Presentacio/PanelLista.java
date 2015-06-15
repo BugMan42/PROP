@@ -18,7 +18,7 @@ public abstract class PanelLista extends Panel {
     protected JButton buttonSearch;
     protected JLabel labelStatus;
     protected javax.swing.JCheckBox jCheckBox1;
-    protected javax.swing.JCheckBox jCheckBox2;
+    protected javax.swing.JCheckBox checkAuto;
 
     public PanelLista(VistaPrincipal v) {
 
@@ -64,7 +64,7 @@ public abstract class PanelLista extends Panel {
         buttonSearch = new JButton();
         labelStatus = new JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        checkAuto = new javax.swing.JCheckBox();
 
         jCheckBox1.setText("Invertir Ordenación");
         jCheckBox1.setFont(new Font("Ubuntu", 0, 17));
@@ -74,15 +74,15 @@ public abstract class PanelLista extends Panel {
             }
         });
 
-        jCheckBox2.setText("Permitir Autocompletar");
-        jCheckBox2.setFont(new Font("Ubuntu", 0, 17));
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        checkAuto.setText("Permitir Autocompletar");
+        checkAuto.setFont(new Font("Ubuntu", 0, 17));
+        checkAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-               // jCheckBox2ActionPerformed(evt);
+               // checkAutoActionPerformed(evt);
             }
         });
         jCheckBox1.setVisible(false);
-        jCheckBox2.setVisible(false);
+        checkAuto.setVisible(false);
 
         jlist.setFont(new Font("Ubuntu", 0, 17));
         jScrollPane1.setViewportView(jlist);
@@ -170,7 +170,7 @@ public abstract class PanelLista extends Panel {
                                 .addComponent(buttonSearch, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))                        .addComponent(jScrollPane1)
                         .addComponent(labelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftLayout.createSequentialGroup()
-                                .addComponent(jCheckBox2)
+                                .addComponent(checkAuto)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jCheckBox1))
         );
@@ -193,7 +193,7 @@ public abstract class PanelLista extends Panel {
                                 .addGap(4,4,4)
                                 .addGroup(leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jCheckBox1)
-                                        .addComponent(jCheckBox2)))
+                                        .addComponent(checkAuto)))
 
         );
 

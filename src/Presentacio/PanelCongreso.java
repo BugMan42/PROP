@@ -145,6 +145,7 @@ public class PanelCongreso extends PanelLista {
                 }
             }
         });
+        checkAuto.setVisible(true);
 
         setDefaultText();
 
@@ -851,7 +852,10 @@ public class PanelCongreso extends PanelLista {
                 }
                 else {
                     textSearch.setText(actualSearch);
-                    setAutocompletar(actualSearch, which);
+                    if (checkAuto.isSelected()) {
+                        setAutocompletar(actualSearch, which);
+                    }
+                    else searchPopMenu.setVisible(false);
                 }
             }
         }
@@ -893,7 +897,10 @@ public class PanelCongreso extends PanelLista {
             Search(actualSearch, which);
             labelStatus.setVisible(true);
             labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
-            setAutocompletar(buscar,which);
+            if (checkAuto.isSelected()) {
+                setAutocompletar(actualSearch, which);
+            }
+            else searchPopMenu.setVisible(false);
         }
     }
     private void up() {
