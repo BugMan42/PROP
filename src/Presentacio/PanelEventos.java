@@ -5,21 +5,23 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.Calendar;
 import java.util.List;
 
 public class PanelEventos extends PanelLista {
     CPEventos cpe;
 
-    private String[] defecto = {"Introduzca un nombre", "Introduzca una importancia"};
+    private String[] defecto = {"Introduzca un nombre", "Introduzca una importancia", "Buscar"};
 
     private JFileChooser guardar;
     private JFileChooser cargar;
 
     private AbstractListModel<String> bloque;
+
+    private String busquedaActual;
+    private int auto;
+    JPopupMenu autoCompletar;
 
     private JLabel lbnombre;
     private JTextField ctnombre;
@@ -93,7 +95,9 @@ public class PanelEventos extends PanelLista {
 
 
     private void crearComponentesVista() {
-
+        busquedaActual = "";
+        auto = 0;
+        autoCompletar = new JPopupMenu();
         lbnombre = new JLabel("Nombre:");
         ctnombre = new JTextField(defecto[0]);
         lbfecha = new JLabel("Fecha:");
@@ -195,7 +199,19 @@ public class PanelEventos extends PanelLista {
                 }
             }
         });
+        ctnombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                busquedaDin(e, 0, ctnombre);
+            }
+        });
 
+        any.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                //busquedaDin();
+            }
+        });
         /*ctfecha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 limpiarTexto(ctfecha, 1);
@@ -223,6 +239,13 @@ public class PanelEventos extends PanelLista {
                 }
             }
         });
+
+        ctimportancia.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                busquedaDin(e, 1, ctimportancia);
+            }
+        });
     }
 
     private void limpiarTexto(JTextField ct, int i) {
@@ -239,7 +262,7 @@ public class PanelEventos extends PanelLista {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (lista.getSelectedIndex() != -1) {
-                    if (!lista.getSelectedValue().equals("No hay eventos creados")) {
+                    if (!e.getValueIsAdjusting() && !lista.getSelectedValue().equals("No hay eventos creados") && !lista.getSelectedValue().equals("No hay coincidencias")) {
                         String s = (String) lista.getSelectedValue();
                         String formu[] = s.split("\\s");
                         rellenarFormulario(formu);
@@ -449,8 +472,7 @@ public class PanelEventos extends PanelLista {
             any.setForeground(Color.red);
             clave = true;
         }
-        //if (!clave)
-            mostrarmensaje(s);
+        if (!clave) mostrarmensaje(s);
     }
 
 
@@ -699,9 +721,10 @@ public class PanelEventos extends PanelLista {
         int op = boxSort.getSelectedIndex();
         cpe.ModOrden(op);
         labelStatus.setVisible(false);
+        //boxSearch.setSelectedIndex(op);
         //labelStatus.setText("Num. eventos encontrados: 0");
         actualizarLista();
-        //boxSearch.setSelectedIndex(op);
+
     }
 
     //TODO MODIFICAR
@@ -748,6 +771,10 @@ public class PanelEventos extends PanelLista {
 
     protected void boxSearchActionPerformed(ActionEvent e) {
         int op = boxSearch.getSelectedIndex();
+        if (op == 1) {
+            labelStatus.setVisible(true);
+            labelStatus.setText("Se busca en formato yyyy/mm/dd");
+        }
         cpe.ModOrden(op);
         //boxSort.setSelectedIndex(op);
         busqueda();
@@ -755,8 +782,8 @@ public class PanelEventos extends PanelLista {
 
     private void busqueda() {
         String busqueda = textSearch.getText();
-        if (busqueda.equals("")) {
-            labelStatus.setVisible(false);
+        if (busqueda.equals("") || busqueda.equals("Buscar")) {
+            if (obtBoxSearch().getSelectedIndex() != 1) labelStatus.setVisible(false);
             //labelStatus.setText("Num. eventos encontrados: 0");
             actualizarLista();
         }
@@ -764,16 +791,15 @@ public class PanelEventos extends PanelLista {
             int op = obtBoxSearch().getSelectedIndex();
             switch (op) {
                 case 0:
-                    if (cpe.obtOrden()!= 0) {
-                        cpe.ModOrden(0);
-                        cpe.obtCCE().buscarBN(busqueda);
-                    }
+                    cpe.ModOrden(0);
+                    cpe.obtCCE().buscarBN(busqueda);
                     break;
                 case 1:
                     cpe.ModOrden(1);
                     cpe.obtCCE().buscarBF(busqueda);
                     break;
                 case 2:
+
                     cpe.ModOrden(2);
                     cpe.obtCCE().buscarBI(busqueda);
                     break;
@@ -786,9 +812,9 @@ public class PanelEventos extends PanelLista {
         }
     }
 
-    private void busquedaDin(KeyEvent evt) {
-        String busqueda = textSearch.getText();
-        if (busqueda.equals("")) {
+    private void busquedaDin(KeyEvent evt, int i, JTextField ct) {
+        String busqueda = ct.getText();
+        if (busqueda.equals("") || busqueda.equals(defecto[i])) {
             labelStatus.setVisible(false);
             //labelStatus.setText("Num. eventos encontrados: 0");
             actualizarLista();
@@ -803,22 +829,19 @@ public class PanelEventos extends PanelLista {
                 int op = obtBoxSearch().getSelectedIndex();
                 switch (op) {
                     case 0:
-                        if (cpe.obtOrden() != 0) {
-                            cpe.ModOrden(0);
-                            cpe.obtCCE().buscarBN(busqueda);
-                        }
+                        cpe.ModOrden(0);
+                        cpe.obtCCE().buscarBN(busqueda);
                         break;
                     case 1:
-                        if (cpe.obtOrden() != 1) {
-                            cpe.ModOrden(1);
-                            cpe.obtCCE().buscarBF(busqueda);
-                        }
+                        cpe.ModOrden(1);
+                        cpe.obtCCE().buscarBF(busqueda);
                         break;
                     case 2:
-                        if (cpe.obtOrden() != 2) {
+                        if (esNumero(busqueda)) {
                             cpe.ModOrden(2);
                             cpe.obtCCE().buscarBI(busqueda);
                         }
+                        else mostrarmensaje("Importancia tiene que ser un numero");
                         break;
                 }
                 labelStatus.setVisible(true);
@@ -838,8 +861,11 @@ public class PanelEventos extends PanelLista {
                     cpe.obtCCE().buscarBF(busqueda);
                     break;
                 case 2:
-                    cpe.ModOrden(2);
-                    cpe.obtCCE().buscarBI(busqueda);
+                    if (esNumero(busqueda)) {
+                        cpe.ModOrden(2);
+                        cpe.obtCCE().buscarBI(busqueda);
+                    }
+                    else mostrarmensaje("Importancia tiene que ser un numero");
                     break;
                 default:
                     break;
@@ -851,7 +877,7 @@ public class PanelEventos extends PanelLista {
     }
 
     protected void textSearchTyped(KeyEvent evt) {
-        busquedaDin(evt);
+        busquedaDin(evt, 2, textSearch);
     }
 
     public void actualizarListaB() {

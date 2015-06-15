@@ -4,19 +4,19 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-/**
- * Created by usuario on 03/05/2015.
- */
+
 public class DriverSalida {
     final static String menu = "Bienvenido al driver de salida";
     final static String opcion1 = "1 Salida()";
-    final static String opcion2 = "2 agregarMensaje(String s)";
-    final static String opcion3 = "3 mostrarMensaje()";
-    final static String opcion4 = "4 mostrarHistorial()";
-    final static String opcion5 = "5 agregarComunidad(Set<Integer> s)";
-    final static String opcion6 = "6 comunidad()";
-    final static String opcion7 = "7 comunidad_at(int i)";
-    final static String msg = "Introduzca un numero del 1 al 7. 8 para salir";
+    final static String opcion2 = "2 eliminarSalida()";
+    final static String opcion3 = "3 agregarMensaje(String s)";
+    final static String opcion4 = "4 mostrarMensaje()";
+    final static String opcion5 = "5 mostrarHistorial()";
+    final static String opcion6 = "6 agregarComunidad(Set<Integer> s)";
+    final static String opcion7 = "7 comunidad()";
+    final static String opcion8 = "8 comunidad_at(int i)";
+    final static String opcion9 = "9 numComunidades()";
+    final static String msg = "Introduzca un numero del 1 al 9. 10 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
     final static String dem = "Demasiados Argumentos";
     final static String ins = "Argumentos Insuficientes";
@@ -50,22 +50,27 @@ public class DriverSalida {
                 sa = new Salida();
                 break;
             case 2:
+                if (aux.length > 1) throw new Exception(dem);
+                if (sa != null) sa.eliminarSalida();
+                else throw new Exception(noExiste);
+                break;
+            case 3:
                 if (aux.length < 2) throw new Exception(ins);
                 if (aux.length > 2) throw new Exception(dem);
                 if (sa != null) sa.agregarMensaje(aux[1]);
                 else throw new Exception(noExiste);
                 break;
-            case 3:
+            case 4:
                 if (aux.length > 1) throw new Exception(dem);
                 if (sa != null) System.out.println(sa.mostrarMensaje());
                 else throw new Exception(noExiste);
                 break;
-            case 4:
+            case 5:
                 if (aux.length > 1) throw new Exception(dem);
                 if (sa != null) System.out.println(sa.mostrarHistorial());
                 else throw new Exception(noExiste);
                 break;
-            case 5:
+            case 6:
                 if (aux.length > 1) throw new Exception(dem);
                 if (sa != null) {
                     Set<Integer> conj = new HashSet<Integer>();
@@ -73,18 +78,23 @@ public class DriverSalida {
                 }
                 else throw new Exception(noExiste);
                 break;
-            case 6:
+            case 7:
                 if (aux.length > 1) throw new Exception(dem);
                 if (sa != null) System.out.println(sa.comunidad());
                 else throw new Exception(noExiste);
                 break;
-            case 7:
+            case 8:
                 if (aux.length < 2) throw new Exception(ins);
                 if (aux.length > 2) throw new Exception(dem);
                 if (sa != null) System.out.println(sa.comunidad_at(Integer.parseInt(aux[1])));
                 else throw new Exception(noExiste);
                 break;
-            case 8:
+            case 9:
+                if (aux.length > 1) throw new Exception(dem);
+                if (sa != null) System.out.println(sa.numComunidades());
+                else throw new Exception(noExiste);
+                break;
+            case 10:
                 System.out.println(fin);
                 System.exit(0);
                 break;
@@ -103,6 +113,8 @@ public class DriverSalida {
         System.out.println(opcion5);
         System.out.println(opcion6);
         System.out.println(opcion7);
+        System.out.println(opcion8);
+        System.out.println(opcion9);
         System.out.println(msg);
     }
 }

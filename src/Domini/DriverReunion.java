@@ -2,15 +2,14 @@ package Domini;
 
 import java.util.Scanner;
 
-/**
- * Created by usuario on 03/05/2015.
- */
 public class DriverReunion {
     final static String menu = "Bienvenido/a al driver de reunion";
     final static String opcion1 = "1 Reunion(String name, String date, int importance)";
     final static String opcion2 = "2 toString()";
-    final static String opcion3 = "3 tipo()";
-    final static String msg = "Introduzca un numero del 1 al 3. 4 para salir";
+    final static String opcion3 = "3 toStringF()";
+    final static String opcion4 = "4 toStringI()";
+    final static String opcion5 = "5 tipo()";
+    final static String msg = "Introduzca un numero del 1 al 5. 6 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
     private static Reunion1 r = null;
 
@@ -47,10 +46,20 @@ public class DriverReunion {
                 break;
             case 3:
                 if (aux.length > 1) throw new DemasiadosArgumentos();
-                if (r != null) System.out.println(r.tipo());
+                if (r != null) System.out.println(r.toStringF());
                 else throw new Exception("El acto no ha sido creado");
                 break;
             case 4:
+                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (r != null) System.out.println(r.toStringI());
+                else throw new Exception("El acto no ha sido creado");
+                break;
+            case 5:
+                if (aux.length > 1) throw new DemasiadosArgumentos();
+                if (r != null) System.out.println(r.tipo());
+                else throw new Exception("El acto no ha sido creado");
+                break;
+            case 6:
                 System.out.println(fin);
                 System.exit(0);
                 break;
@@ -64,6 +73,8 @@ public class DriverReunion {
         System.out.println(opcion1);
         System.out.println(opcion2);
         System.out.println(opcion3);
+        System.out.println(opcion4);
+        System.out.println(opcion5);
         System.out.println(msg);
     }
 }

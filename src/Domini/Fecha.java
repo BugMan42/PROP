@@ -25,14 +25,6 @@ public class Fecha {
         return true;
     }
 
-    public static boolean valido(String data) throws Exception {
-        if (data.equals("")) return false;
-        String[] aux = data.split("/");
-        int dia = Integer.parseInt(aux[0]);
-        int mes = Integer.parseInt(aux[1]);
-        int any = Integer.parseInt(aux[2]);
-        return aux.length == 3 && Correcto(dia, mes, any);
-    }
 
     public Fecha(Random r) {
         //Uso numeros random del [1,27] para el dia.

@@ -6,10 +6,10 @@ public class DriverCjtEvento {
     final static String menu = "Bienvenido/a al driver de conjunto de eventos";
     final static String opcion1 = "1 CjtEvento()";
     final static String opcion2 = "2 EliminarCjtEvento()";
-    final static String opcion3 = "3 EliminarEvento(String nombre, String fecha)";
+    final static String opcion3 = "3 EliminarEvento(String nombre, Fecha fecha, int imp)";
     final static String opcion4 = "4 AgregarEvento(Evento e). Sin argumentos";
-    final static String opcion5 = "5 ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo)";
-    final static String opcion6 = "6 ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva)";
+    final static String opcion5 = "5 ModificarNombreEvento(String nomViejo, Fecha fecha, String nomNuevo, int imp)";
+    final static String opcion6 = "6 ModificarFechaEvento(String nombre, Fecha fechaVieja, Fecha fechaNueva, int imp)";
     final static String opcion7 = "7 ModificarImpEvento(String nombre, String fecha, int importance)";
     final static String opcion8 = "8 AgregarEventoRandom(int n)";
     final static String opcion9 = "9 ConsultarTodosEventos()";

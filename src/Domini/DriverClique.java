@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
 
-/**
- * Created by usuario on 28/04/2015.
- */
 public class DriverClique {
     final static String menu = "Bienvenido/a al driver de clique";
-    final static String opcion1 = "1 Clique(Entrada in, Salida out). Usando GrafoPrueba1 y k = 3 si no se cambia.";
+    final static String opcion1 = "1 Clique(Entrada in, Salida out). Usando GrafoPrueba1 y k = 3 si no se cambia. Sin argumentos";
     final static String opcion2 = "2 Elegir k";
-    final static String opcion3 = "3 ejecutar_algoritmo()";
-    final static String opcion4 = "4 CrearGrafoPrueba(). Sin argumentos";
-    final static String opcion5 = "5 SeleccionarGrafoPrueba(int i). 1 <= i <= 8";
-    final static String opcion6 = "6 Mostrar comunidades";
+    final static String opcion3 = "3 CrearGrafoPrueba(). Sin argumentos";
+    final static String opcion4 = "4 SeleccionarGrafoPrueba(int i). 1 <= i <= 8";
+    final static String opcion5 = "5 Mostrar comunidades. Sin argumentos";
+    final static String opcion6 = "6 Borrar Grafo. Sin argumentos";
     final static String msg = "Introduzca un numero del 1 al 6. 7 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
     final static String noExiste = "Clique no existe";
@@ -51,9 +48,12 @@ public class DriverClique {
             case 1:
                 if (aux.length > 1) throw new Exception(dem);
                 if (g == null) crearGrafo(1);
-                en = new Entrada(g, k, 7);
+                en = new Entrada(g, k, 0);
                 sa = new Salida();
+                long ini = System.nanoTime();
                 c = new Clique(en, sa);
+                System.out.println("Tiempo de algoritmo");
+                System.out.println((System.nanoTime() - ini)/1000000.0);
                 break;
             case 2:
                 if (aux.length < 2) throw new Exception(ins);
@@ -62,22 +62,22 @@ public class DriverClique {
                 break;
             case 3:
                 if (aux.length > 1) throw new Exception(dem);
-                if (c != null) {}//c = .ejecutar_algoritmo();
-                else throw new Exception(noExiste);
-                break;
-            case 4:
-                if (aux.length > 1) throw new Exception(dem);
                 crearGrafoPersonalizado(entrada);
                 break;
-            case 5:
+            case 4:
                 if (aux.length < 2) throw new Exception(ins);
                 if (aux.length > 2) throw new Exception(dem);
                 crearGrafo(Integer.parseInt(aux[1]));
                 break;
-            case 6:
+            case 5:
                 if (aux.length > 1) throw new Exception(dem);
                 if (c != null) mostrarCom();
                 else throw new Exception(noExiste);
+                break;
+            case 6:
+                if (aux.length > 1) throw new Exception(dem);
+                g = null;
+                System.gc();
                 break;
             case 7:
                 System.out.println(fin);
@@ -103,16 +103,20 @@ public class DriverClique {
     }
 
     private static void crearGrafoPersonalizado(Scanner entrada) throws Exception{
-        System.out.println("Introduzca los vertices que desee utilizar separados por linea");
+        System.out.println("Introduzca los vertices que desee utilizar separados por espacio");
         String s = entrada.nextLine();
         String aux[] = s.split("\\s");
         if (s.length() == 0) throw new Exception(ins);
+        if (g == null) g = new Grafo();
         for (int i = 0; i < aux.length; ++i) g.agregarVertice(aux[i]);
-        System.out.println("Introduzca nodo origen, nodo destino y peso separados por espacios. Ex: u v 1");
+        System.out.println("Introduzca nodo origen, nodo destino y peso separados por espacios. Ex: u v 1.");
         s = entrada.nextLine();
         aux = s.split("\\s");
         if (aux.length%3 != 0) throw new Exception(ins);
-        for (int i = 0; i < aux.length; i+=3) g.agregarArista(aux[i], aux[i+1], Integer.parseInt(aux[i+2]));
+        for (int i = 0; i < aux.length; i+=3) {
+            g.agregarArista(aux[i], aux[i+1], Integer.parseInt(aux[i+2]));
+            g.agregarArista(aux[i+1], aux[i], Integer.parseInt(aux[i+2]));
+        }
     }
 
     private static void crearGrafo(int i) throws Exception {
@@ -191,7 +195,7 @@ public class DriverClique {
         g.agregarArista("1", "3", 1);
         g.agregarArista("1", "4", 1);
         g.agregarArista("2", "3", 1);
-        g.agregarArista("3", "4", 1);
+        g.agregarArista("2", "4", 1);
 
         g.agregarArista("1", "0", 1);
         g.agregarArista("2", "0", 1);
@@ -200,7 +204,7 @@ public class DriverClique {
         g.agregarArista("3", "1", 1);
         g.agregarArista("4", "1", 1);
         g.agregarArista("3", "2", 1);
-        g.agregarArista("4", "3", 1);
+        g.agregarArista("4", "2", 1);
 
         /*System.out.println(g.degreeSalida(0));
         System.out.println(g.degreeSalida(1));

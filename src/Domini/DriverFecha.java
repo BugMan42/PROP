@@ -9,13 +9,12 @@ import java.util.Scanner;
 public class DriverFecha {
     final static String menu = "Bienvenido al driver de fecha";
     final static String opcion1 = "1 Fecha(String data)";
-    final static String opcion2 = "2 valido(String data)";
-    final static String opcion3 = "3 ConsultarFecha()";
-    final static String opcion4 = "4 ToString()";
-    final static String opcion5 = "5 equals(Fecha f)";
-    final static String opcion6 = "6 alReves()";
-    final static String opcion7 = "7 Fecha(Random r). Sin parametros";
-    final static String msg = "Introduzca un numero del 1 al 7. 8 para salir";
+    final static String opcion2 = "2 ConsultarFecha()";
+    final static String opcion3 = "3 toString()";
+    final static String opcion4 = "4 equals(Fecha f)";
+    final static String opcion5 = "5 alReves()";
+    final static String opcion6 = "6 Fecha(Random r). Sin parametros";
+    final static String msg = "Introduzca un numero del 1 al 6. 7 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
     final static String dem = "Demasiados Argumentos";
     final static String ins = "Argumentos Insuficientes";
@@ -50,37 +49,31 @@ public class DriverFecha {
                 f = new Fecha(aux[1]);
                 break;
             case 2:
-                if (aux.length < 2) throw new Exception(ins);
-                if (aux.length > 2) throw new Exception(dem);
-                if (Fecha.valido(aux[1])) System.out.println("La fecha es valida");
-                else System.out.println("La fecha no es valida");
-                break;
-            case 3:
                 if (aux.length > 1) throw new Exception(dem);
                 if (f != null) System.out.println(f.ConsultarFecha());
                 else throw new Exception(noExiste);
                 break;
-            case 4:
+            case 3:
                 if (aux.length > 1) throw new Exception(dem);
                 if (f != null) System.out.println(f.toString());
                 else throw new Exception(noExiste);
                 break;
-            case 5:
+            case 4:
                 if (aux.length < 2) throw new Exception(ins);
                 if (aux.length > 2) throw new Exception(dem);
-                Fecha f1 = new Fecha("1/1/2000");
+                Fecha f1 = new Fecha(aux[1]);
                 if (f != null) {
-                    if (f.equals(f1)) System.out.println("La fecha es igual a la fecha 1/1/2000");
-                    else System.out.println("La fecha es igual a la fecha 1/1/2000");
+                    if (f.equals(f1)) System.out.println("La fecha " + f.ConsultarFecha() + " es igual a la fecha " + f1.ConsultarFecha());
+                    else System.out.println("La fecha " + f.ConsultarFecha() + " no es igual a la fecha " + f1.ConsultarFecha());
                 }
                 else throw new Exception(noExiste);
                 break;
-            case 6:
+            case 5:
                 if (aux.length > 1) throw new Exception(dem);
                 if (f != null) System.out.println(f.alReves());
                 else throw new Exception(noExiste);
                 break;
-            case 7:
+            case 6:
                 if (aux.length > 1) throw new Exception(dem);
                 Random r = new Random();
                 f = new Fecha(r);
@@ -102,7 +95,6 @@ public class DriverFecha {
         System.out.println(opcion4);
         System.out.println(opcion5);
         System.out.println(opcion6);
-        System.out.println(opcion7);
         System.out.println(msg);
     }
 }

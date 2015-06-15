@@ -2,23 +2,25 @@ package Domini;
 
 import java.util.Scanner;
 
-/**
- * Created by usuario on 04/04/2015.
- */
 public class DriverEvento {
     final static String menu = "Bienvenido al driver de evento";
-    final static String opcion1 = "1 Evento(String name, String date, int importance)";
+    final static String opcion1 = "1 Evento(String name, Fecha date, int importance)";
     final static String opcion2 = "2 ModNombre(String name)";
-    final static String opcion3 = "3 ModFecha (String date)";
+    final static String opcion3 = "3 ModFecha (Fecha date)";
     final static String opcion4 = "4 ModImportancia(int importance)";
     final static String opcion5 = "5 obt_nombre()";
     final static String opcion6 = "6 obt_fecha()";
     final static String opcion7 = "7 obtFecha()";
     final static String opcion8 = "8 ID()";
-    final static String opcion9 = "9 toString()";
-    final static String opcion10 = "10 obt_importancia()";
-    final static String opcion11 = "11 tipo()";
-    final static String msg = "Introduzca un numero del 1 al 11. 12 para salir";
+    final static String opcion9 = "9 IDN()";
+    final static String opcion10 = "10 IDFecha()";
+    final static String opcion11 = "11 IDImp()";
+    final static String opcion12 = "12 toString()";
+    final static String opcion13 = "13 toStringF()";
+    final static String opcion14 = "14 toStringI()";
+    final static String opcion15 = "15 obt_importancia()";
+    final static String opcion16 = "16 tipo()";
+    final static String msg = "Introduzca un numero del 1 al 16. 17 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
     final static String dem = "Demasiados Argumentos";
     final static String ins = "Argumentos Insuficientes";
@@ -83,7 +85,6 @@ public class DriverEvento {
                 if (aux.length > 1) throw new Exception(dem);
                 if (e != null) System.out.println(e.obtFecha());
                 else throw new Exception(noExiste);
-
                 break;
             case 8:
                 if (aux.length > 1) throw new Exception(dem);
@@ -92,22 +93,45 @@ public class DriverEvento {
                 break;
             case 9:
                 if (aux.length > 1) throw new Exception(dem);
-                if (e != null) System.out.println(e.toString());
+                if (e != null) System.out.println(e.IDN());
                 else throw new Exception(noExiste);
                 break;
             case 10:
                 if (aux.length > 1) throw new Exception(dem);
-                if (e != null) System.out.println(Integer.toString(e.obt_importancia()));
+                if (e != null) System.out.println(e.IDFecha());
                 else throw new Exception(noExiste);
-
                 break;
             case 11:
                 if (aux.length > 1) throw new Exception(dem);
-                if (e != null) System.out.println(e.tipo());
+                if (e != null) System.out.println(e.IDImp());
                 else throw new Exception(noExiste);
-
                 break;
             case 12:
+                if (aux.length > 1) throw new Exception(dem);
+                if (e != null) System.out.println(e.toString());
+                else throw new Exception(noExiste);
+                break;
+            case 13:
+                if (aux.length > 1) throw new Exception(dem);
+                if (e != null) System.out.println(e.toStringF());
+                else throw new Exception(noExiste);
+                break;
+            case 14:
+                if (aux.length > 1) throw new Exception(dem);
+                if (e != null) System.out.println(e.toStringI());
+                else throw new Exception(noExiste);
+                break;
+            case 15:
+                if (aux.length > 1) throw new Exception(dem);
+                if (e != null) System.out.println(Integer.toString(e.obt_importancia()));
+                else throw new Exception(noExiste);
+                break;
+            case 16:
+                if (aux.length > 1) throw new Exception(dem);
+                if (e != null) System.out.println(e.tipo());
+                else throw new Exception(noExiste);
+                break;
+            case 17:
                 System.out.println(fin);
                 System.exit(0);
                 break;
@@ -118,7 +142,6 @@ public class DriverEvento {
     }
 
     private static void ImprimirMenu() {
-        System.out.println(menu);
         System.out.println(opcion1);
         System.out.println(opcion2);
         System.out.println(opcion3);
@@ -130,6 +153,11 @@ public class DriverEvento {
         System.out.println(opcion9);
         System.out.println(opcion10);
         System.out.println(opcion11);
+        System.out.println(opcion12);
+        System.out.println(opcion13);
+        System.out.println(opcion14);
+        System.out.println(opcion15);
+        System.out.println(opcion16);
         System.out.println(msg);
     }
 }
