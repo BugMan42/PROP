@@ -59,7 +59,7 @@ public class Ejecutor {
             for (int i = 1; i < r.length; i++)
             {
                 Node n = g.getNode(r[i]);
-                n.addAttribute("ui.style", "stroke-width: 1px; shape: circle; ");
+                n.addAttribute("ui.style", "stroke-width: 1px; shape: pie-chart; ");
             }
         }
         /*else if (r[0].equals("AñadirArista"))
@@ -130,7 +130,7 @@ public class Ejecutor {
             for (int i = 1; i < r.length; i++)
             {
                 Node n = g.getNode(r[i]);
-                n.addAttribute("ui.style", "stroke-width: 1px; shape: circle; ");
+                n.addAttribute("ui.style", "stroke-width: 1px; shape: pie-chart; ");
             }
         }
     }

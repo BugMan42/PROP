@@ -815,6 +815,7 @@ public class PanelAlgoritmo extends Panel{
                         mostrar1.setEnabled(false);
                         String r = cpa.message_at(0);
                         //System.out.println(r);
+                        lm1.clear();
                         lm1.add(0, r);
                         im1 = 0;
                         down1.setEnabled(true);
@@ -857,6 +858,7 @@ public class PanelAlgoritmo extends Panel{
                         mostrar2.setEnabled(false);
                         String r = cpa.message_at(0);
                         //System.out.println(r);
+                        lm2.clear();
                         lm2.add(0, r);
                         im2 = 0;
                         down2.setEnabled(true);
@@ -899,6 +901,7 @@ public class PanelAlgoritmo extends Panel{
 
                         String r = cpa.message_at(0);
                         //System.out.println(r);
+                        lm3.clear();
                         lm3.add(0, r);
                         //tp3.setDocument(doc);
                         im3 = 0;
