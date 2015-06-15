@@ -1,5 +1,7 @@
 package Domini;
 
+import scala.Array;
+
 import java.util.*;
 
 
@@ -658,7 +660,7 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         print(vertices.consultarClaves()+"");
     }
 
-    private static  class Nodo implements Node {
+    private static  class Nodo extends Node {
         private String id;
 
         public Nodo(String id2) {
@@ -677,7 +679,7 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
     }
 
     public static void main(String[] args) throws Exception {
-        GrafoNodoArista<Nodo,Edge> grafo = new GrafoNodoArista<Nodo, Edge>();
+        /*GrafoNodoArista<Nodo,Edge> grafo = new GrafoNodoArista<Nodo, Edge>();
         Nodo a = new Nodo("a");
         Nodo b = new Nodo("b");
         Nodo c = new Nodo("c");
@@ -695,13 +697,14 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         grafo.agregarVertice(b);
         grafo.agregarVertice(c);
         grafo.agregarVertice(d);
+        ArrayList<Nodo> aux = grafo.consultarVertices();
         //grafo.printDebug();
         grafo.agregarArista(ad);
         grafo.agregarArista(ab);
         //grafo.agregarArista(ab);
        // grafo.agregarArista(ab);
         grafo.agregarArista(ac);
-        print("Peso a b: "+grafo.pesoAristasVertice(a,b));
+        print("Peso a b: "+grafo.pesoAristasVertice(aux.get(0),aux.get(1)));
         /*grafo.printDebug();
         grafo.eliminarArista(ab);
         grafo.eliminarArista(ab);
@@ -709,9 +712,9 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         grafo.printDebug();
         GrafoNodoArista<Nodo,Edge> copia = new GrafoNodoArista<Nodo, Edge>(grafo);
 
-        print("V: "+grafo.V());
+        print("V: "+grafo.V());*/
 
-        /*GrafoNodoArista<Congresista,Edge> a = new GrafoNodoArista<Congresista,Edge>();
+        GrafoNodoArista<Congresista,Edge> a = new GrafoNodoArista<Congresista,Edge>();
         Congresista C1 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
         Congresista C2 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "San Francisco", "CA", "Berkeley");
         Congresista C3 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
@@ -723,8 +726,14 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         a.agregarVertice(C2);
         a.agregarVertice(C3);
         a.agregarVertice(C4);
+        ArrayList<Congresista> aux = a.consultarVertices();
+        Edge<Congresista> e1 = new Edge<Congresista>(C1,C2,2.0);
+        Edge<Congresista> e2 = new Edge<Congresista>(C2,C1,2.0);
+        a.agregarArista(e1);
+        a.agregarArista(e2);
+        print(a.pesoAristasVertice(aux.get(0),aux.get(1))+"");
         //print();
-        a.printNodos();*/
+        a.printNodos();
     }
 
 }

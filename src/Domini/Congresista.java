@@ -2,7 +2,7 @@ package Domini;
 
 import java.util.Comparator;
 
-public class Congresista implements Node {
+public class Congresista extends Node {
 
     public class EdadNoValida extends Exception {
         public EdadNoValida(int edad) {
