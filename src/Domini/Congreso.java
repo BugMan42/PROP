@@ -3,16 +3,6 @@ package Domini;
 import java.util.*;
 
 public class Congreso {
-    private class ExisteC extends Exception {
-        public ExisteC(String str) {
-            super("Ya existe el Congresista: "+str);
-        }
-    }
-    private class NoExisteC extends Exception {
-        public NoExisteC(String str) {
-            super("No existe el Congresista: "+str);
-        }
-    }
     //static
     private static String[] nombre = {"ARIF", "KONRAD", "EDSGER","GORDON","KEVIN","RICHARD","MAX","LINUS","ALLEN","JONVON", "SOPHIE","ALAN","DAVID","ARIF","ZAMAN","TIM","SEGEY","LARRY","MARK","BILL"};
     private static String[] apellido = {"DIJKSTRA", "NEUMANN", "ZUSE","AWAGNER","MOORE","BELL","HAMMING","COHEN","NEWMAN","KNUTH","ALLEN","TORVALDS","WARWICK","NEUMANN","STALLMAN","TURING","ZAMAN","GOODGER","GATES","ZUCKERBERG"};
