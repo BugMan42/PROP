@@ -146,6 +146,7 @@ public class PanelCongreso extends PanelLista {
             }
         });
         checkAuto.setVisible(true);
+        checkAuto.setSelected(true);
 
         setDefaultText();
 
