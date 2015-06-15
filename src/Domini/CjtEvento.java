@@ -258,14 +258,6 @@ public class CjtEvento {
         return cjt.consultarObjetos();
     }
 
-    public List<Evento> ConsultarTodosEventosFecha() {
-        return cjtFecha.consultarObjetos();
-    }
-
-    public List<Evento> ConsultarTodosEventosImp() {
-        return cjtImp.consultarObjetos();
-    }
-
     public Evento ConsultarEvento(String nombre, Fecha fecha) throws Exception {
         //Siempre convierto el nombre a mayusculas para evitar errores de no encontrar el elemento
         String name = nombre.toUpperCase();

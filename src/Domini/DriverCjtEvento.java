@@ -10,13 +10,19 @@ public class DriverCjtEvento {
     final static String opcion4 = "4 AgregarEvento(Evento e). Sin argumentos";
     final static String opcion5 = "5 ModificarNombreEvento(String nomViejo, Fecha fecha, String nomNuevo, int imp)";
     final static String opcion6 = "6 ModificarFechaEvento(String nombre, Fecha fechaVieja, Fecha fechaNueva, int imp)";
-    final static String opcion7 = "7 ModificarImpEvento(String nombre, String fecha, int importance)";
-    final static String opcion8 = "8 AgregarEventoRandom(int n)";
-    final static String opcion9 = "9 ConsultarTodosEventos()";
-    final static String opcion10 = "10 ConsultarEvento(String nombre, String fecha)";
-    final static String opcion11 = "11 ExisteEvento(String nombre, String fecha)";
-    final static String opcion12 = "12 size()";
-    final static String msg = "Introduzca un numero del 1 al 12. 13 para salir";
+    final static String opcion7 = "7 ModificarImpEvento(String nombre, Fecha fecha, int OldImp, int NewImp)";
+    final static String opcion8 = "8 obtEventos(int bloq, int tam)";
+    final static String opcion9 = "9 obtEventosF(int bloq, int tam)";
+    final static String opcion10 = "10 obtEventosI(int bloq, int tam)";
+    final static String opcion11 = "11 AgregarEventoRandom(int n)";
+    final static String opcion12 = "12 ConsultarTodosEventos()";
+    final static String opcion13 = "13 ConsultarEvento(String nombre, Fecha fecha)";
+    final static String opcion14 = "14 ExisteEvento(String nombre, String fecha)";
+    final static String opcion15 = "15 size()";
+    final static String opcion16 = "16 busquedaNombre(String prefijo)";
+    final static String opcion17 = "17 busquedaFecha(String prefijo)";
+    final static String opcion18 = "18 busquedaImp(String prefijo)";
+    final static String msg = "Introduzca un numero del 1 al 18. 19 para salir";
     final static String fin = "Gracias por usar este driver. THE END";
     final static String dem = "Demasiados Argumentos";
     final static String ins = "Argumentos Insuficientes";
@@ -26,6 +32,7 @@ public class DriverCjtEvento {
     private static Evento e;
 
     public static void main(String[] args) throws Exception {
+        System.out.println(menu);
         ImprimirMenu();
         Scanner entrada = new Scanner(System.in);
         do {
@@ -55,10 +62,10 @@ public class DriverCjtEvento {
                 else throw new Exception(noexiste);
                 break;
             case 3:
-                if (aux.length < 3) throw new Exception(ins);
-                if (aux.length > 3) throw new Exception(dem);
-                //if (cjt != null) cjt.EliminarEvento(aux[1], new Fecha(aux[2]));
-                //else throw new Exception(noexiste);
+                if (aux.length < 4) throw new Exception(ins);
+                if (aux.length > 4) throw new Exception(dem);
+                if (cjt != null) cjt.EliminarEvento(aux[1], new Fecha(aux[2]), Integer.parseInt(aux[3]));
+                else throw new Exception(noexiste);
                 break;
             case 4:
                 if (aux.length > 1) throw new Exception(dem);
@@ -67,41 +74,59 @@ public class DriverCjtEvento {
                 else throw new Exception(noexiste);
                 break;
             case 5:
-                if (aux.length < 4) throw new Exception(ins);
-                if (aux.length > 4) throw new Exception(dem);
-                //if (cjt != null) cjt.ModificarNombreEvento(aux[1], new Fecha(aux[2]), aux[3]);
-                //else throw new Exception(noexiste);
+                if (aux.length < 5) throw new Exception(ins);
+                if (aux.length > 5) throw new Exception(dem);
+                if (cjt != null) cjt.ModificarNombreEvento(aux[1], new Fecha(aux[2]), aux[3], Integer.parseInt(aux[4]));
+                else throw new Exception(noexiste);
                 break;
             case 6:
-                if (aux.length < 4) throw new Exception(ins);
-                if (aux.length > 4) throw new Exception(dem);
-                //if (cjt != null)cjt.ModificarFechaEvento(aux[1], new Fecha(aux[2]), new Fecha(aux[3]));
-                //else throw new Exception(noexiste);
+                if (aux.length < 5) throw new Exception(ins);
+                if (aux.length > 5) throw new Exception(dem);
+                if (cjt != null)cjt.ModificarFechaEvento(aux[1], new Fecha(aux[2]), new Fecha(aux[3]), Integer.parseInt(aux[4]));
+                else throw new Exception(noexiste);
                 break;
             case 7:
-                if (aux.length < 4) throw new Exception(ins);
-                if (aux.length > 4) throw new Exception(dem);
-                //if (cjt != null)cjt.ModificarImpEvento(aux[1], new Fecha(aux[2]), Integer.parseInt(aux[3]));
-                //else throw new Exception(noexiste);
+                if (aux.length < 5) throw new Exception(ins);
+                if (aux.length > 5) throw new Exception(dem);
+                if (cjt != null)cjt.ModificarImpEvento(aux[1], new Fecha(aux[2]), Integer.parseInt(aux[3]), Integer.parseInt(aux[4]));
+                else throw new Exception(noexiste);
                 break;
             case 8:
-                if (aux.length < 2) throw new Exception(ins);
-                if (aux.length > 2) throw new Exception(dem);
-                if (cjt != null) cjt.AgregarEventoRandom(Integer.parseInt(aux[1]));
+                if (aux.length < 3) throw new Exception(ins);
+                if (aux.length > 3) throw new Exception(dem);
+                if (cjt != null) System.out.println(cjt.obtEventos(Integer.parseInt(aux[1]), Integer.parseInt(aux[2])));
                 else throw new Exception(noexiste);
                 break;
             case 9:
-                if (aux.length > 2) throw new Exception(dem);
-                if (cjt != null) System.out.println(cjt.ConsultarTodosEventos());
+                if (aux.length < 3) throw new Exception(ins);
+                if (aux.length > 3) throw new Exception(dem);
+                if (cjt != null) System.out.println(cjt.obtEventosF(Integer.parseInt(aux[1]), Integer.parseInt(aux[2])));
                 else throw new Exception(noexiste);
                 break;
             case 10:
                 if (aux.length < 3) throw new Exception(ins);
                 if (aux.length > 3) throw new Exception(dem);
-                if (cjt != null) System.out.println(cjt.ConsultarEvento(aux[1], new Fecha(aux[2])).toString());
+                if (cjt != null) System.out.println(cjt.obtEventosI(Integer.parseInt(aux[1]), Integer.parseInt(aux[2])));
                 else throw new Exception(noexiste);
                 break;
             case 11:
+                if (aux.length < 2) throw new Exception(ins);
+                if (aux.length > 2) throw new Exception(dem);
+                if (cjt != null) cjt.AgregarEventoRandom(Integer.parseInt(aux[1]));
+                else throw new Exception(noexiste);
+                break;
+            case 12:
+                if (aux.length > 1) throw new Exception(dem);
+                if (cjt != null) System.out.println(cjt.ConsultarTodosEventos());
+                else throw new Exception(noexiste);
+                break;
+            case 13:
+                if (aux.length < 3) throw new Exception(ins);
+                if (aux.length > 3) throw new Exception(dem);
+                if (cjt != null) System.out.println(cjt.ConsultarEvento(aux[1], new Fecha(aux[2])).toString());
+                else throw new Exception(noexiste);
+                break;
+            case 14:
                 if (aux.length < 3) throw new Exception(ins);
                 if (aux.length > 3) throw new Exception(dem);
                 if (cjt != null) {
@@ -110,12 +135,30 @@ public class DriverCjtEvento {
                 }
                 else throw new Exception(noexiste);
                 break;
-            case 12:
+            case 15:
                 if (aux.length > 1) throw new Exception(dem);
                 if (cjt != null) System.out.println(cjt.size());
                 else throw new Exception(noexiste);
                 break;
-            case 13:
+            case 16:
+                if (aux.length < 2) throw new Exception(ins);
+                if (aux.length > 2) throw new Exception(dem);
+                if (cjt != null) System.out.println(cjt.busquedaNombre(aux[1]));
+                else throw new Exception(noexiste);
+                break;
+            case 17:
+                if (aux.length < 2) throw new Exception(ins);
+                if (aux.length > 2) throw new Exception(dem);
+                if (cjt != null) System.out.println(cjt.busquedaFecha(aux[1]));
+                else throw new Exception(noexiste);
+                break;
+            case 18:
+                if (aux.length < 2) throw new Exception(ins);
+                if (aux.length > 2) throw new Exception(dem);
+                if (cjt != null) System.out.println(cjt.busquedaImp(aux[1]));
+                else throw new Exception(noexiste);
+                break;
+            case 19:
                 System.out.println(fin);
                 System.exit(0);
                 break;
@@ -126,7 +169,6 @@ public class DriverCjtEvento {
     }
 
     private static void ImprimirMenu() {
-        System.out.println(menu);
         System.out.println(opcion1);
         System.out.println(opcion2);
         System.out.println(opcion3);
@@ -139,6 +181,12 @@ public class DriverCjtEvento {
         System.out.println(opcion10);
         System.out.println(opcion11);
         System.out.println(opcion12);
+        System.out.println(opcion13);
+        System.out.println(opcion14);
+        System.out.println(opcion15);
+        System.out.println(opcion16);
+        System.out.println(opcion17);
+        System.out.println(opcion18);
         System.out.println(msg);
     }
 }
