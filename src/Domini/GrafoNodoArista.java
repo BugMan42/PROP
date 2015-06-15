@@ -274,7 +274,7 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
                     return salida.get(i).total();
                 }
             }
-            throw new Exception("No existe ninguna arista con este destino "+fin);
+            throw new Exception("No existe ninguna arista con este destino "+aristas.get(fin).map.v.obtID());
         }
         double totalPesoEntrada () {
             double a = 0.0;
