@@ -7,6 +7,12 @@ public class DriverTST {
 
     private static TST<Integer> tst;
 
+    public static class ArgumentosInsuficientes extends Exception {
+        public ArgumentosInsuficientes() {
+            super("Argumentos Insuficientes");
+        }
+    }
+
     private static void print(String str) {
         System.out.println(str);
     }
@@ -26,7 +32,9 @@ public class DriverTST {
         print("10 Boolean esVacio()");
         print("11 vaciar()");
         print("12 int size()");
-        print("13 Salir");
+        print("13 prefijo(String prefix):");
+        print("14 clavesPrefijoConStop(String prefix, char stop, int threshold):");
+        print("15 Salir");
         print("Escribe la opcion");
     }
     private static String LeerLinea(Scanner Input) {
@@ -103,6 +111,14 @@ public class DriverTST {
                 print("S: "+tst.size());
                 break;
             case 13:
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
+                print(tst.prefijo(aux[1]).toString());
+                break;
+            case 14:
+                if (aux.length < 4) throw new ArgumentosInsuficientes();
+                print(tst.clavesPrefijoConStop(aux[1],aux[2].charAt(0),Integer.parseInt(aux[3])).toString());
+                break;
+            case 15:
                 System.exit(0);
             default:
                 print("Fuera de rango");

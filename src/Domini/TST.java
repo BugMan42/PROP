@@ -10,7 +10,6 @@ import java.util.List;
 public class TST<X>  {
 
     //Clase
-
     //Atributos clase
     protected static char fin = '#'; // marca
     protected TSTNodoChar root;
