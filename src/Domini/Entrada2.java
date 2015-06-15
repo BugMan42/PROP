@@ -1,7 +1,5 @@
 package Domini;
 
-import org.graphstream.graph.*;
-
 /**
  * Created on 15/04/15.
  */
