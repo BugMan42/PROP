@@ -687,8 +687,8 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         grafo.agregarVertice(c);
         grafo.agregarVertice(d);
         //grafo.printDebug();
-        //grafo.agregarArista(ad);
-        //grafo.agregarArista(ab);
+        grafo.agregarArista(ad);
+        grafo.agregarArista(ab);
         //grafo.agregarArista(ab);
        // grafo.agregarArista(ab);
         grafo.agregarArista(ac);

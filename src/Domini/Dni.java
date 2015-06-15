@@ -71,7 +71,7 @@ public class Dni  {
         return dni;
     }
     public boolean equals(Dni D) {
-        return D.dni.equals(dni);
+        return (D.dni).equals(dni);
     }
     private void print(String str) {
         System.out.println(str);

@@ -166,7 +166,7 @@ public class Congresista implements Node {
         return n > 10 && n < 100;
     }
     public boolean equals(Congresista a) {
-        return a.Dni.toString().equals(Dni.toString());
+        return (a.Dni).equals(Dni);
     }
     public Congresista clone() {
         return new Congresista(this);
