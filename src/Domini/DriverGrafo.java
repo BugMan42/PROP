@@ -3,6 +3,12 @@ package Domini;
 import java.util.*;
 
 public class DriverGrafo {
+    public static class ArgumentosInsuficientes extends Exception {
+        public ArgumentosInsuficientes() {
+            super("Argumentos Insuficientes");
+        }
+    }
+
     private static Grafo g;
 
     private static void print(String str) {

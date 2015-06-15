@@ -4,6 +4,12 @@ package Domini;
 import java.util.Scanner;
 
 public class DriverRelaciones {
+    public static class ArgumentosInsuficientes extends Exception {
+        public ArgumentosInsuficientes() {
+            super("Argumentos Insuficientes");
+        }
+    }
+
     private static Relaciones  R;
 
     private static void print(String str) {

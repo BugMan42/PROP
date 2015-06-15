@@ -3,6 +3,12 @@ package Domini;
 import java.util.Scanner;
 
 public class DriverReunion {
+    public static class ArgumentosInsuficientes extends Exception {
+        public ArgumentosInsuficientes() {
+            super("Argumentos Insuficientes");
+        }
+    }
+
     final static String menu = "Bienvenido/a al driver de reunion";
     final static String opcion1 = "1 Reunion(String name, String date, int importance)";
     final static String opcion2 = "2 toString()";

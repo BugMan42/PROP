@@ -4,6 +4,11 @@ package Domini;
 import java.util.Scanner;
 
 public class DriverRelacionSimpleConVoto {
+    public static class ArgumentosInsuficientes extends Exception {
+        public ArgumentosInsuficientes() {
+            super("Argumentos Insuficientes");
+        }
+    }
 
     private static RelacionSimpleConVoto R;
 
