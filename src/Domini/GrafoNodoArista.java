@@ -266,6 +266,14 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
             }
             throw new Exception("No existe ninguna arista con este destino "+v.obtID());
         }
+        double pesoAristasVertice(int fin) throws Exception {
+            for(int i = 0; i < salida.size(); ++i) {
+                if(salida.get(i).obtMapFin() == fin) {
+                    return salida.get(i).total();
+                }
+            }
+            throw new Exception("No existe ninguna arista con este destino "+fin);
+        }
         double totalPesoEntrada () {
             double a = 0.0;
             for(int i = 0; i < entrada.size(); ++i) {
@@ -581,7 +589,8 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
     }
     public double pesoAristasVertice(V origen1, V fin1) throws Exception {
         int origen = f(origen1);
-        return aristas.get(origen).pesoAristasVertice(fin1);
+        int fin = f(fin1);
+        return aristas.get(origen).pesoAristasVertice(fin);
     }
 
 
