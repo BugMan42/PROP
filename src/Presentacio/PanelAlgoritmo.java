@@ -148,6 +148,7 @@ public class PanelAlgoritmo extends Panel{
         lst1.setForeground(Color.green);
         lst1.setEnabled(false);
         lst1.setOpaque(true);
+        lst1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lst1.setSelectedIndex(-1);
 
         //JScrollPane sp1 = new JScrollPane(tp1);
@@ -346,6 +347,7 @@ public class PanelAlgoritmo extends Panel{
                 lm1.add(0, i);
                 lm1.add(1, h);
                 lm1.add(2, g);
+                lst1.setSelectedIndex(1);
                 ej.ejecuta(g,h,i);
                 if (im1 == 0)
                 {
@@ -372,6 +374,7 @@ public class PanelAlgoritmo extends Panel{
                 lm1.add(0, g);
                 lm1.add(1, h);
                 lm1.add(2, i);
+                lst1.setSelectedIndex(1);
                 ej.ejecuta(g, h, i);
                 if (im1 == cpa.num_mensajes() - 1) {
                     down1.setEnabled(false);
@@ -394,9 +397,10 @@ public class PanelAlgoritmo extends Panel{
                 String g = "Fin";
                 String i = "-";
                 lm1.clear();
-                lm1.add(0,i);
-                lm1.add(1,h);
-                lm1.add(2,cpa.message_at(im1+1));
+                lm1.add(0, i);
+                lm1.add(1, h);
+                lm1.add(2, cpa.message_at(im1 + 1));
+                lst1.setSelectedIndex(1);
                 ej.ejecuta(g, h, i);
                 up1.setEnabled(false);
                 top1.setEnabled(false);
@@ -413,9 +417,10 @@ public class PanelAlgoritmo extends Panel{
                 String g = "Inicio";
                 String i = "-";
                 lm1.clear();
-                lm1.add(0, cpa.message_at(im1-1));
+                lm1.add(0, cpa.message_at(im1 - 1));
                 lm1.add(1, h);
                 lm1.add(2, i);
+                lst1.setSelectedIndex(1);
                 ej.ejecuta(g, h, i);
                 down1.setEnabled(false);
                 bottom1.setEnabled(false);
@@ -431,6 +436,12 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im2);
                 String g = cpa.message_at(im2+1);
                 String i = cpa.message_at(im2-1);
+
+                lm2.clear();
+                lm2.add(0,i);
+                lm2.add(1,h);
+                lm2.add(2,g);
+                lst2.setSelectedIndex(1);
 
                 ej.ejecuta(g,h,i);
                 if (im2 == 0)
@@ -456,8 +467,10 @@ public class PanelAlgoritmo extends Panel{
                 String i = cpa.message_at(im2+1);
                 lm2.clear();
                 lm2.add(0, g);
-                lm2.add(1,h);
-                lm2.add(2,i);
+                lm2.add(1, h);
+                lm2.add(2, i);
+                lst2.setSelectedIndex(1);
+
                 ej.ejecuta(g, h, i);
                 if (im2 == cpa.num_mensajes() - 1) {
                     down2.setEnabled(false);
@@ -479,7 +492,11 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im2);
                 String g = "Fin";
                 String i = "-";
-                //lb2.setText(h);
+                lm2.clear();
+                lm2.add(0,i);
+                lm2.add(1,h);
+                lm2.add(2, cpa.message_at(im2+1));
+                lst2.setSelectedIndex(1);
                 ej.ejecuta(g,h,i);
                 up2.setEnabled(false);
                 top2.setEnabled(false);
@@ -495,7 +512,11 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im2);
                 String g = "Inicio";
                 String i = "-";
-                //lb2.setText(h);
+                lm2.clear();
+                lm2.add(0, i);
+                lm2.add(1, h);
+                lm2.add(2, cpa.message_at(im2+1));
+                lst2.setSelectedIndex(1);
                 ej.ejecuta(g,h,i);
                 down2.setEnabled(false);
                 bottom2.setEnabled(false);
@@ -509,7 +530,13 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im3);
                 String g = cpa.message_at(im3+1);
                 String i = cpa.message_at(im3-1);
-                //lb3.setText(h);
+
+                lm3.clear();
+                lm3.add(0, i);
+                lm3.add(1, h);
+                lm3.add(2, g);
+                lst3.setSelectedIndex(1);
+
                 if (im3 == 0)
                 {
                     up3.setEnabled(false);
@@ -531,7 +558,13 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im3);
                 String g = cpa.message_at(im3-1);
                 String i = cpa.message_at(im3+1);
-                //lb3.setText(h);
+
+                lm3.clear();
+                lm3.add(0, g);
+                lm3.add(1, h);
+                lm3.add(2, i);
+                lst3.setSelectedIndex(1);
+
                 ej.ejecuta(g,h,i);
                 if (im3 == cpa.num_mensajes() - 1) {
                     down3.setEnabled(false);
@@ -553,7 +586,13 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im3);
                 String g = "Fin";
                 String i = "-";
-                //lb3.setText(h);
+
+                lm3.clear();
+                lm3.add(0, i);
+                lm3.add(1, h);
+                lm3.add(2, cpa.message_at(im3+1));
+                lst3.setSelectedIndex(1);
+
                 ej.ejecuta(g,h,i);
                 up3.setEnabled(false);
                 top3.setEnabled(false);
@@ -569,7 +608,13 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im3);
                 String g = cpa.message_at(0);
                 String i = "-";
-                //lb3.setText(h);
+
+                lm3.clear();
+                lm3.add(0, cpa.message_at(im3-1));
+                lm3.add(1, h);
+                lm3.add(2, i);
+                lst3.setSelectedIndex(1);
+
                 ej.ejecuta(g,h,i);
                 down3.setEnabled(false);
                 bottom3.setEnabled(false);

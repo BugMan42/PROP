@@ -31,7 +31,7 @@ public class Ejecutor {
         {
             String s = r[1];
             Node n = g.getNode(s);
-            n.changeAttribute("ui.style", "stroke-width: 1px; stroke-color: #999; ");
+            n.changeAttribute("ui.style", "stroke-mode: plain; stroke-width: 1px; stroke-color: #999; ");
 
         }
         else if (r[0].equals("EliminarArista"))
@@ -65,7 +65,7 @@ public class Ejecutor {
         {
             String s = r[1];
             Node n = g.getNode(s);
-            n.addAttribute("ui.style", "stroke-width: 4px; stroke-color: gold; ");
+            n.addAttribute("ui.style", "stroke-mode: dots; stroke-width: 4px; stroke-color: black; ");
         }
         else if (r[0].equals("EliminarArista"))
         {
