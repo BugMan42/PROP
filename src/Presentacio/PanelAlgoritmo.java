@@ -348,7 +348,7 @@ public class PanelAlgoritmo extends Panel{
                 lm1.add(1, h);
                 lm1.add(2, g);
                 lst1.setSelectedIndex(1);
-                ej.ejecuta(g,h,i);
+                ej.ejecuta1(g,h);
                 if (im1 == 0)
                 {
                     up1.setEnabled(false);
@@ -375,7 +375,7 @@ public class PanelAlgoritmo extends Panel{
                 lm1.add(1, h);
                 lm1.add(2, i);
                 lst1.setSelectedIndex(1);
-                ej.ejecuta(g, h, i);
+                ej.ejecuta2(g, h);
                 if (im1 == cpa.num_mensajes() - 1) {
                     down1.setEnabled(false);
                     bottom1.setEnabled(false);
@@ -401,7 +401,7 @@ public class PanelAlgoritmo extends Panel{
                 lm1.add(1, h);
                 lm1.add(2, cpa.message_at(im1 + 1));
                 lst1.setSelectedIndex(1);
-                ej.ejecuta(g, h, i);
+                ej.ejecuta1(g, h);
                 up1.setEnabled(false);
                 top1.setEnabled(false);
                 bottom1.setEnabled(true);
@@ -421,7 +421,7 @@ public class PanelAlgoritmo extends Panel{
                 lm1.add(1, h);
                 lm1.add(2, i);
                 lst1.setSelectedIndex(1);
-                ej.ejecuta(g, h, i);
+                ej.ejecuta2(g, h);
                 down1.setEnabled(false);
                 bottom1.setEnabled(false);
                 up1.setEnabled(true);
@@ -443,7 +443,7 @@ public class PanelAlgoritmo extends Panel{
                 lm2.add(2,g);
                 lst2.setSelectedIndex(1);
 
-                ej.ejecuta(g,h,i);
+                ej.ejecuta1(g,h);
                 if (im2 == 0)
                 {
                     up2.setEnabled(false);
@@ -471,7 +471,7 @@ public class PanelAlgoritmo extends Panel{
                 lm2.add(2, i);
                 lst2.setSelectedIndex(1);
 
-                ej.ejecuta(g, h, i);
+                ej.ejecuta2(g, h);
                 if (im2 == cpa.num_mensajes() - 1) {
                     down2.setEnabled(false);
                     bottom2.setEnabled(false);
@@ -497,7 +497,7 @@ public class PanelAlgoritmo extends Panel{
                 lm2.add(1,h);
                 lm2.add(2, cpa.message_at(im2+1));
                 lst2.setSelectedIndex(1);
-                ej.ejecuta(g,h,i);
+                ej.ejecuta1(g,h);
                 up2.setEnabled(false);
                 top2.setEnabled(false);
                 bottom2.setEnabled(true);
@@ -517,7 +517,7 @@ public class PanelAlgoritmo extends Panel{
                 lm2.add(1, h);
                 lm2.add(2, cpa.message_at(im2+1));
                 lst2.setSelectedIndex(1);
-                ej.ejecuta(g,h,i);
+                ej.ejecuta2(g,h);
 
                 down2.setEnabled(false);
                 bottom2.setEnabled(false);
@@ -540,7 +540,7 @@ public class PanelAlgoritmo extends Panel{
                 lm3.add(2, g);
                 lst3.setSelectedIndex(1);
 
-                ej.ejecuta(g, h, i);
+                ej.ejecuta1(g, h);
 
                 if (im3 == 0)
                 {
@@ -570,7 +570,7 @@ public class PanelAlgoritmo extends Panel{
                 lm3.add(2, i);
                 lst3.setSelectedIndex(1);
 
-                ej.ejecuta(g,h,i);
+                ej.ejecuta2(g,h);
 
                 if (im3 == cpa.num_mensajes() - 1) {
                     down3.setEnabled(false);
@@ -599,7 +599,7 @@ public class PanelAlgoritmo extends Panel{
                 lm3.add(2, cpa.message_at(im3+1));
                 lst3.setSelectedIndex(1);
 
-                ej.ejecuta(g,h,i);
+                ej.ejecuta1(g,h);
 
                 up3.setEnabled(false);
                 top3.setEnabled(false);
@@ -622,7 +622,7 @@ public class PanelAlgoritmo extends Panel{
                 lm3.add(2, i);
                 lst3.setSelectedIndex(1);
 
-                ej.ejecuta(g,h,i);
+                ej.ejecuta2(g,h);
 
                 down3.setEnabled(false);
                 bottom3.setEnabled(false);
@@ -813,12 +813,12 @@ public class PanelAlgoritmo extends Panel{
                         cargarGrafo();
                         setProgress(50);
                         mostrar1.setEnabled(false);
-                        String r = cpa.message_at(cpa.num_mensajes()-1);
+                        String r = cpa.message_at(0);
                         //System.out.println(r);
                         lm1.add(0, r);
-                        im1 = cpa.num_mensajes()-1;
-                        up1.setEnabled(true);
-                        top1.setEnabled(true);
+                        im1 = 0;
+                        down1.setEnabled(true);
+                        bottom1.setEnabled(true);
                         setProgress(100);
                         return null;
                     }
@@ -855,12 +855,12 @@ public class PanelAlgoritmo extends Panel{
                         cargarGrafo();
                         setProgress(50);
                         mostrar2.setEnabled(false);
-                        String r = cpa.message_at(cpa.num_mensajes() - 1);
+                        String r = cpa.message_at(0);
                         //System.out.println(r);
                         lm2.add(0, r);
-                        im2 = cpa.num_mensajes()-1;
-                        up2.setEnabled(true);
-                        top2.setEnabled(true);
+                        im2 = 0;
+                        down2.setEnabled(true);
+                        bottom2.setEnabled(true);
                         setProgress(100);
                         return null;
                     }
@@ -897,13 +897,13 @@ public class PanelAlgoritmo extends Panel{
                         setProgress(50);
                         mostrar3.setEnabled(false);
 
-                        String r = cpa.message_at(cpa.num_mensajes() - 1);
+                        String r = cpa.message_at(0);
                         //System.out.println(r);
                         lm3.add(0, r);
                         //tp3.setDocument(doc);
-                        im3 = cpa.num_mensajes()-1;
-                        up3.setEnabled(true);
-                        top3.setEnabled(true);
+                        im3 = 0;
+                        down3.setEnabled(true);
+                        bottom3.setEnabled(true);
                         setProgress(100);
                         return null;
                     }
