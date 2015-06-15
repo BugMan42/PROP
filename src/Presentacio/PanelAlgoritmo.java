@@ -43,13 +43,13 @@ public class PanelAlgoritmo extends Panel{
     private JProgressBar pb2;
     private JProgressBar pb3;
 
-    private JLabel lb1;
-    private JLabel lb2;
-    private JLabel lb3;
+    private DefaultListModel lm1;
+    private DefaultListModel lm2;
+    private DefaultListModel lm3;
 
-    private JTextPane tp1;
-    private JTextPane tp2;
-    private JTextPane tp3;
+    private JList<String> lst1;
+    private JList<String> lst2;
+    private JList<String> lst3;
 
     private JLabel name_data;
     private JLabel dni_data;
@@ -142,21 +142,16 @@ public class PanelAlgoritmo extends Panel{
         //<editor-fold desc="Columna 1 (GN)">
 
 
-        tp1 = new JTextPane();
-        tp1.setForeground(Color.green);
-        tp1.putClientProperty("Nimbus.Overrides", defaults);
-        tp1.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
-        tp1.setBackground(Color.black);
-        tp1.setEnabled(false);
-        tp1.setEditable(false);
-        //tp1.setMaximumSize(panel_dim);
+        lm1 = new DefaultListModel();
+        lst1 = new JList<String>(lm1);
+        lst1.setBackground(Color.black);
+        lst1.setForeground(Color.green);
+        lst1.setEnabled(false);
+        lst1.setOpaque(true);
+        lst1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lst1.setSelectedIndex(-1);
 
-        lb1 = new JLabel();
-        lb1.setForeground(Color.green);
-        lb1.setBackground(Color.black);
-        lb1.setOpaque(true);
-
-        JScrollPane sp1 = new JScrollPane(tp1);
+        //JScrollPane sp1 = new JScrollPane(tp1);
         JRadioButton rb1 = new JRadioButton("Girvan-Newman");
         final JButton mostrar1 = new JButton("Mostrar grafo");
         final JButton up1 = new JButton(new ImageIcon(getClass().getResource("/images/up.png")));
@@ -175,19 +170,15 @@ public class PanelAlgoritmo extends Panel{
         //</editor-fold>
 
         //<editor-fold desc="Columna 2 (Lv)">
-        tp2 = new JTextPane();
-        tp2.setForeground(new Color(255, 102, 0));
-        tp2.putClientProperty("Nimbus.Overrides", defaults);
-        tp2.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
-        tp2.setBackground(new Color(0,0,102));
-        tp2.setEnabled(false);
-        tp2.setEditable(false);
-        //tp2.setMaximumSize(panel_dim);
-        lb2 = new JLabel();
-        lb2.setForeground(new Color(255, 102, 0));
-        lb2.setBackground(new Color(0,0,102));
-        lb2.setOpaque(true);
-        JScrollPane sp2 = new JScrollPane(tp2);
+
+        lm2 = new DefaultListModel();
+        lst2 = new JList<String>(lm2);
+        lst2.setBackground(new Color(0,0,102));
+        lst2.setForeground(new Color(255, 102, 0));
+        lst2.setOpaque(true);
+        lst2.setEnabled(false);
+        lst2.setSelectedIndex(-1);
+
         JRadioButton rb2 = new JRadioButton("Louvain");
         final JButton mostrar2 = new JButton("Mostrar grafo");
         final JButton up2 = new JButton(new ImageIcon(getClass().getResource("/images/up.png")));
@@ -205,19 +196,13 @@ public class PanelAlgoritmo extends Panel{
         //</editor-fold>
 
         //<editor-fold desc="Columna 3 (CP)">
-        tp3 = new JTextPane();
-        tp3.setForeground(new Color(255, 255, 0));
-        tp3.putClientProperty("Nimbus.Overrides", defaults);
-        tp3.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
-        tp3.setBackground(new Color(127, 0, 255));
-        tp3.setEnabled(false);
-        tp3.setEditable(false);
-        //tp3.setMaximumSize(panel_dim);
-        lb3 = new JLabel();
-        lb3.setForeground(new Color(255, 255, 0));
-        lb3.setBackground(new Color(127, 0, 255));
-        lb3.setOpaque(true);
-        JScrollPane sp3 = new JScrollPane(tp3);
+        lm3 = new DefaultListModel();
+        lst3 = new JList<String>(lm3);
+        lst3.setBackground(new Color(127, 0, 255));
+        lst3.setForeground(new Color(255, 255, 0));
+        lst3.setOpaque(true);
+        lst3.setEnabled(false);
+
         JRadioButton rb3 = new JRadioButton("Clique Percolation");
         final JButton mostrar3 = new JButton("Mostrar grafo");
         final JButton up3 = new JButton(new ImageIcon(getClass().getResource("/images/up.png")));
@@ -358,7 +343,11 @@ public class PanelAlgoritmo extends Panel{
                 String g = cpa.message_at(im1+1);
                 String i = cpa.message_at(im1-1);
 
-                lb1.setText(h);
+                lm1.clear();
+                lm1.add(0, i);
+                lm1.add(1, h);
+                lm1.add(2, g);
+                lst1.setSelectedIndex(1);
                 ej.ejecuta(g,h,i);
                 if (im1 == 0)
                 {
@@ -381,7 +370,11 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im1);
                 String g = cpa.message_at(im1-1);
                 String i = cpa.message_at(im1+1);
-                lb1.setText(h);
+                lm1.clear();
+                lm1.add(0, g);
+                lm1.add(1, h);
+                lm1.add(2, i);
+                lst1.setSelectedIndex(1);
                 ej.ejecuta(g, h, i);
                 if (im1 == cpa.num_mensajes() - 1) {
                     down1.setEnabled(false);
@@ -403,7 +396,11 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im1);
                 String g = "Fin";
                 String i = "-";
-                lb1.setText(h);
+                lm1.clear();
+                lm1.add(0, i);
+                lm1.add(1, h);
+                lm1.add(2, cpa.message_at(im1 + 1));
+                lst1.setSelectedIndex(1);
                 ej.ejecuta(g, h, i);
                 up1.setEnabled(false);
                 top1.setEnabled(false);
@@ -419,7 +416,11 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im1);
                 String g = "Inicio";
                 String i = "-";
-                lb1.setText(h);
+                lm1.clear();
+                lm1.add(0, cpa.message_at(im1 - 1));
+                lm1.add(1, h);
+                lm1.add(2, i);
+                lst1.setSelectedIndex(1);
                 ej.ejecuta(g, h, i);
                 down1.setEnabled(false);
                 bottom1.setEnabled(false);
@@ -435,7 +436,13 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im2);
                 String g = cpa.message_at(im2+1);
                 String i = cpa.message_at(im2-1);
-                lb2.setText(h);
+
+                lm2.clear();
+                lm2.add(0,i);
+                lm2.add(1,h);
+                lm2.add(2,g);
+                lst2.setSelectedIndex(1);
+
                 ej.ejecuta(g,h,i);
                 if (im2 == 0)
                 {
@@ -458,8 +465,13 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im2);
                 String g = cpa.message_at(im2-1);
                 String i = cpa.message_at(im2+1);
-                lb2.setText(h);
-                ej.ejecuta(g,h,i);
+                lm2.clear();
+                lm2.add(0, g);
+                lm2.add(1, h);
+                lm2.add(2, i);
+                lst2.setSelectedIndex(1);
+
+                ej.ejecuta(g, h, i);
                 if (im2 == cpa.num_mensajes() - 1) {
                     down2.setEnabled(false);
                     bottom2.setEnabled(false);
@@ -480,7 +492,11 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im2);
                 String g = "Fin";
                 String i = "-";
-                lb2.setText(h);
+                lm2.clear();
+                lm2.add(0,i);
+                lm2.add(1,h);
+                lm2.add(2, cpa.message_at(im2+1));
+                lst2.setSelectedIndex(1);
                 ej.ejecuta(g,h,i);
                 up2.setEnabled(false);
                 top2.setEnabled(false);
@@ -496,7 +512,11 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im2);
                 String g = "Inicio";
                 String i = "-";
-                lb2.setText(h);
+                lm2.clear();
+                lm2.add(0, i);
+                lm2.add(1, h);
+                lm2.add(2, cpa.message_at(im2+1));
+                lst2.setSelectedIndex(1);
                 ej.ejecuta(g,h,i);
                 down2.setEnabled(false);
                 bottom2.setEnabled(false);
@@ -510,7 +530,13 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im3);
                 String g = cpa.message_at(im3+1);
                 String i = cpa.message_at(im3-1);
-                lb3.setText(h);
+
+                lm3.clear();
+                lm3.add(0, i);
+                lm3.add(1, h);
+                lm3.add(2, g);
+                lst3.setSelectedIndex(1);
+
                 if (im3 == 0)
                 {
                     up3.setEnabled(false);
@@ -532,7 +558,13 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im3);
                 String g = cpa.message_at(im3-1);
                 String i = cpa.message_at(im3+1);
-                lb3.setText(h);
+
+                lm3.clear();
+                lm3.add(0, g);
+                lm3.add(1, h);
+                lm3.add(2, i);
+                lst3.setSelectedIndex(1);
+
                 ej.ejecuta(g,h,i);
                 if (im3 == cpa.num_mensajes() - 1) {
                     down3.setEnabled(false);
@@ -554,7 +586,13 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im3);
                 String g = "Fin";
                 String i = "-";
-                lb3.setText(h);
+
+                lm3.clear();
+                lm3.add(0, i);
+                lm3.add(1, h);
+                lm3.add(2, cpa.message_at(im3+1));
+                lst3.setSelectedIndex(1);
+
                 ej.ejecuta(g,h,i);
                 up3.setEnabled(false);
                 top3.setEnabled(false);
@@ -570,7 +608,13 @@ public class PanelAlgoritmo extends Panel{
                 String h = cpa.message_at(im3);
                 String g = cpa.message_at(0);
                 String i = "-";
-                lb3.setText(h);
+
+                lm3.clear();
+                lm3.add(0, cpa.message_at(im3-1));
+                lm3.add(1, h);
+                lm3.add(2, i);
+                lst3.setSelectedIndex(1);
+
                 ej.ejecuta(g,h,i);
                 down3.setEnabled(false);
                 bottom3.setEnabled(false);
@@ -652,11 +696,9 @@ public class PanelAlgoritmo extends Panel{
                 pref2.setEnabled(false);
                 pref2.setVisible(false);
                 l_pref2.setVisible(false);
-                tp1.setEnabled(true);
-                tp2.setEnabled(false);
-                tp3.setEnabled(false);
-                tp2.setText("");
-                tp3.setText("");
+                lst1.setEnabled(true);
+                lst2.setEnabled(false);
+                lst3.setEnabled(false);
 
                 pb1.setValue(0);
                 pb2.setValue(0);
@@ -679,11 +721,9 @@ public class PanelAlgoritmo extends Panel{
                 pref2.setEnabled(false);
                 pref2.setVisible(false);
                 l_pref2.setVisible(false);
-                tp1.setEnabled(false);
-                tp2.setEnabled(true);
-                tp3.setEnabled(false);
-                tp1.setText("");
-                tp3.setText("");
+                lst1.setEnabled(false);
+                lst2.setEnabled(true);
+                lst3.setEnabled(false);
 
                 pb1.setValue(0);
                 pb2.setValue(0);
@@ -707,11 +747,9 @@ public class PanelAlgoritmo extends Panel{
                 pref2.setVisible(true);
                 l_pref2.setText("Threshold");
                 l_pref2.setVisible(true);
-                tp1.setEnabled(false);
-                tp2.setEnabled(false);
-                tp3.setEnabled(true);
-                tp1.setText("");
-                tp2.setText("");
+                lst1.setEnabled(false);
+                lst2.setEnabled(false);
+                lst3.setEnabled(true);
 
                 pb1.setValue(0);
                 pb2.setValue(0);
@@ -767,16 +805,9 @@ public class PanelAlgoritmo extends Panel{
                         cargarGrafo();
                         setProgress(50);
                         mostrar1.setEnabled(false);
-                        Document doc = new DefaultStyledDocument();
-                        try {
-                            String r = cpa.message_at(cpa.num_mensajes()-1);
-                            //System.out.println(r);
-                            doc.insertString(doc.getLength(), r+"\n", null);
-                            lb1.setText(r);
-                        } catch (BadLocationException e1) {
-                            e1.printStackTrace();
-                        }
-                        tp1.setDocument(doc);
+                        String r = cpa.message_at(cpa.num_mensajes()-1);
+                        //System.out.println(r);
+                        lm1.add(0, r);
                         im1 = cpa.num_mensajes()-1;
                         up1.setEnabled(true);
                         top1.setEnabled(true);
@@ -816,16 +847,9 @@ public class PanelAlgoritmo extends Panel{
                         cargarGrafo();
                         setProgress(50);
                         mostrar2.setEnabled(false);
-                        Document doc = new DefaultStyledDocument();
-                        try {
-                            String r = cpa.message_at(cpa.num_mensajes() - 1);
-                            //System.out.println(r);
-                            doc.insertString(doc.getLength(), r+"\n", null);
-                            lb2.setText(r);
-                        } catch (BadLocationException e1) {
-                            e1.printStackTrace();
-                        }
-                        tp2.setDocument(doc);
+                        String r = cpa.message_at(cpa.num_mensajes() - 1);
+                        //System.out.println(r);
+                        lm2.add(0, r);
                         im2 = cpa.num_mensajes()-1;
                         up2.setEnabled(true);
                         top2.setEnabled(true);
@@ -864,16 +888,11 @@ public class PanelAlgoritmo extends Panel{
                         cargarGrafo();
                         setProgress(50);
                         mostrar3.setEnabled(false);
-                        Document doc = new DefaultStyledDocument();
-                        try {
-                            String r = cpa.message_at(cpa.num_mensajes() - 1);
-                            //System.out.println(r);
-                            doc.insertString(doc.getLength(), r+"\n", null);
-                            lb3.setText(r);
-                        } catch (BadLocationException e1) {
-                            e1.printStackTrace();
-                        }
-                        tp3.setDocument(doc);
+
+                        String r = cpa.message_at(cpa.num_mensajes() - 1);
+                        //System.out.println(r);
+                        lm3.add(0, r);
+                        //tp3.setDocument(doc);
                         im3 = cpa.num_mensajes()-1;
                         up3.setEnabled(true);
                         top3.setEnabled(true);
@@ -909,8 +928,8 @@ public class PanelAlgoritmo extends Panel{
                         .addGroup(gr.createSequentialGroup()
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb1)
-                                                        .addComponent(lb1)
-                                                        .addComponent(sp1, 100, 150, (int) (width / 4))
+                                                                //.addComponent(lb1, 100, 150, (int) (width / 4))
+                                                        .addComponent(lst1, 100, 150, (int) (width / 4))
                                                         .addComponent(pb1, 100, 150, (int) (width / 4))
                                                         .addGroup(gr.createSequentialGroup()
                                                                         .addComponent(mostrar1)
@@ -922,8 +941,8 @@ public class PanelAlgoritmo extends Panel{
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb2)
-                                                        .addComponent(lb2)
-                                                        .addComponent(sp2, 100, 150, (int) (width / 4))
+                                                                //.addComponent(lb2)
+                                                        .addComponent(lst2, 100, 150, (int) (width / 4))
                                                         .addComponent(pb2, 100, 150, (int) (width / 4))
                                                         .addGroup(gr.createSequentialGroup()
                                                                         .addComponent(mostrar2)
@@ -935,8 +954,8 @@ public class PanelAlgoritmo extends Panel{
                                         )
                                         .addGroup(gr.createParallelGroup()
                                                         .addComponent(rb3)
-                                                        .addComponent(lb3)
-                                                        .addComponent(sp3, 100, 150, (int) (width / 4))
+                                                                //.addComponent(lb3)
+                                                        .addComponent(lst3, 100, 150, (int) (width / 4))
                                                         .addComponent(pb3, 100, 150, (int) (width / 4))
                                                         .addGroup(gr.createSequentialGroup()
                                                                         .addComponent(mostrar3)
@@ -966,20 +985,17 @@ public class PanelAlgoritmo extends Panel{
                         .addGroup(gr.createParallelGroup()
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb1)
-                                                        .addComponent(lb1)
-                                                        .addComponent(sp1, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
+                                                        .addComponent(lst1, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
                                                         .addComponent(pb1)
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb2)
-                                                        .addComponent(lb2)
-                                                        .addComponent(sp2, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
+                                                        .addComponent(lst2, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
                                                         .addComponent(pb2)
                                         )
                                         .addGroup(gr.createSequentialGroup()
                                                         .addComponent(rb3)
-                                                        .addComponent(lb3)
-                                                        .addComponent(sp3, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
+                                                        .addComponent(lst3, (int) (height / 6), (int) (height / 5.5), (int) (height / 3))
                                                         .addComponent(pb3)
                                         )
                                         .addGroup(gr.createSequentialGroup()
@@ -1097,6 +1113,7 @@ public class PanelAlgoritmo extends Panel{
         char chargen = 'A';
         for (int k = 0; k < nc; k++)
         {
+            String colour = obtColorRandom();
             String c = cpa.next_community();
             //System.out.println("comunidad: "+k);
             String[] cc = c.split(",\\s");
@@ -1133,7 +1150,7 @@ public class PanelAlgoritmo extends Panel{
                         } else {
                             ncopie[i] = Integer.toString(k);
                             if (k < colors.length) fc += colors[k];
-                            else fc += obtColorRandom();
+                            else fc += colour; // añade el color creado para esta comunidad
 
                         }
                     }
@@ -1169,9 +1186,9 @@ public class PanelAlgoritmo extends Panel{
     public void nuevo()
     {
         g.clear();
-        tp1.setText("");
-        tp2.setText("");
-        tp3.setText("");
+        lm1.clear();
+        lm2.clear();
+        lm3.clear();
 
         pb1.setValue(0);
         pb2.setValue(0);

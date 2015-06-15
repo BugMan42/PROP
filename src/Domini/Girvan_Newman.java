@@ -115,8 +115,6 @@ public class Girvan_Newman extends Algoritmo{
             //System.out.println(alg_cc/limit);
             iter++;
         }
-        obtOut().mostrarHistorial().add(0, "Inicio");
-        obtOut().agregarMensaje("Fin");
     }
 
 
