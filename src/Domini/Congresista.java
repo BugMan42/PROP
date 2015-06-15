@@ -172,10 +172,6 @@ public class Congresista implements Node {
         return new Congresista(this);
     }
 
-
-
-
-
     /** COMPARATOR */
     public static Comparator<Congresista> DNI = new Comparator<Congresista>() {
         @Override

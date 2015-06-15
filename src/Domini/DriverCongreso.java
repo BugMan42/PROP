@@ -18,28 +18,43 @@ public class DriverCongreso {
         print("0 Congreso()");
         print("1 agregarCongresista(Dni dni, String nombre, String apellido," +
                 " int edad, String ciudad, String estado, String partido)");
-        print("2 eliminarCongresista(Dni dni)");
-        print("3 eliminarCongreso()");
-        print("4 modDniCongresista(Dni dni, Dni dniNuevo)");
-        print("5 modNombreCongresista(Dni dni,String nombre)");
-        print("6 modApellidoCongresista(Dni dni,String apellido)");
-        print("7 modEdadCongresista(Dni dni,int edad)");
-        print("8 modCiudadCongresista(Dni dni,String ciudad)");
-        print("9 modEstadoCongresista(Dni dni,String estado)");
-        print("10 modPartidoCongresista(Dni dni,String partido)");
-        print("11 modCongresista(Dni dni,Dni dniNuevo ," +
+        print("2 agregarCongresistaRandom()");
+        print("3 eliminarCongresista(Dni dni)");
+        print("4 eliminarCongreso()");
+        print("5 modCongresista(Dni dni,Dni dniNuevo ," +
                 " String nombre, String apellido,int edad," +
                 " String ciudad, String estado, String partido) ");
-        print("12 contieneCongresista(Dni dni):boolean");
-        print("13 esVacio():boolean");
-        print("14 size():int");
-        print("15 consultarCongresista(Dni dni):Congresista ");
-        print("16 copiaConsultarCongresista(Dni dni)");
-        print("17 obtenerListaID():ArrayList<String>");
-        print("18 obtenerCongreso():List<Congresista>");
+        print("6 obtCongresoDni(int bloq, int tam): Arraylist<Congresista> ");
+        print("7 obtCongresoNombre(int bloq, int tam): Arraylist<Congresista> ");
+        print("8 obtCongresoApellido(int bloq, int tam): Arraylist<Congresista> ");
+        print("9 obtCongresoEdad(int bloq, int tam): Arraylist<Congresista> ");
+        print("10 obtCongresoCiudad(int bloq, int tam): Arraylist<Congresista> ");
+        print("11 obtCongresoEstado(int bloq, int tam): Arraylist<Congresista> ");
+        print("12 obtCongresoPartido(int bloq, int tam): Arraylist<Congresista> ");
+
+        print("13 consultarCongresista(Dni dni):Congresista ");
+        print("14 copiaConsultarCongresista(Dni dni)");
+        print("15 size():int");
+        print("16 esVacio():boolean");
+        print("17 obtenerCongreso():List<Congresista>");
+        print("18 contieneCongresista(Dni dni):boolean");
         print("19 toString():String ");
-        print("20 Salir");
-        print("21 agregarCongresistaRandom()");
+        print("20 obtenerListaID():ArrayList<String>");
+        print("21 searchPrefixDni(String prefix): List<Congresista> ");
+        print("22 searchPrefixNombre(String prefix): List<Congresista> ");
+        print("23 searchPrefixApellido(String prefix): List<Congresista> ");
+        print("24 searchPrefixEdad(String prefix): List<Congresista> ");
+        print("25 searchPrefixCiudad(String prefix): List<Congresista> ");
+        print("26 searchPrefixEstado(String prefix): List<Congresista> ");
+        print("27 searchPrefixPartido(String prefix): List<Congresista> ");
+        print("28 searchPrefixNameDni(String prefix, char stop, int fin):List<String>");
+        print("29 searchPrefixNameNombre(String prefix, char stop, int fin):List<String>");
+        print("30 searchPrefixNameApellido(String prefix, char stop, int fin):List<String>");
+        print("31 searchPrefixNameEdad(String prefix, char stop, int fin):List<String>");
+        print("32 searchPrefixNameCiudad(String prefix, char stop, int fin):List<String>");
+        print("33 searchPrefixNameEstado(String prefix, char stop, int fin):List<String>");
+        print("34 searchPrefixNamePartido(String prefix, char stop, int fin):List<String>");
+        print("35 Salir");
         print("Escribe la opcion");
     }
 
@@ -79,10 +94,6 @@ public class DriverCongreso {
                 Congresista con = new Congresista(new Dni(aux[1]), aux[2], aux[3], Integer.parseInt(aux[4]),
                         aux[5], aux[6], aux[7]);
                 C.agregarCongresista(con);
-                break;
-            case 2:
-                if (aux.length < 2) throw new ArgumentosInsuficientes();
-                C.eliminarCongresista(new Dni(aux[1]));
                 break;
             case 3:
                 C.eliminarCongreso();

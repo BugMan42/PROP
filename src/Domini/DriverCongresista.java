@@ -10,6 +10,11 @@ public class DriverCongresista {
             super("CongresistaNoInicializado");
         }
     }
+    public static class ArgumentosInsuficientes extends Exception {
+        public ArgumentosInsuficientes() {
+            super("Argumentos Insuficientes");
+        }
+    }
 
     private static Congresista C;
 
@@ -44,18 +49,26 @@ public class DriverCongresista {
         print("5 modCiudad(String ciudad)");
         print("6 modEstado(String estado) ");
         print("7 modPartido(String partido)");
-        print("8 mod(Dni dni,String nombre, String apellido,|n" +
+        print("8 mod(Dni dni,String nombre, String apellido,\n" +
                 " int edad, String ciudad, String estado, String partido)");
-        print("9 obtDni():Dni");
-        print("10 obtNombre():String");
-        print("11 obtApellido():String");
-        print("12 obtEdad():int");
-        print("13 obtCiudad():String");
-        print("14 obtEstado():String");
-        print("15 obtPartido():String");
-        print("16 ID():String");
-        print("17 toString:String");
-        print("18 Salir");
+        print("9 mod(String nombre, String apellido,\n" +
+                " int edad, String ciudad, String estado, String partido)");
+        print("10 obtDni():Dni");
+        print("11 obtNombre():String");
+        print("12 obtApellido():String");
+        print("13 obtEdad():int");
+        print("14 obtCiudad():String");
+        print("15 obtEstado():String");
+        print("16 obtPartido():String");
+        print("17 ID():String");
+        print("18 toString:String");
+        print("19 toStringByName:String");
+        print("20 toStringBySurname:String");
+        print("21 toStringByAge:String");
+        print("22 toStringByCity:String");
+        print("23 toStringByState:String");
+        print("24 toStringByParty:String");
+        print("25 Salir");
         print("Escribe la opcion");
     }
     private static String LeerLinea(Scanner Input) {
@@ -132,60 +145,103 @@ public class DriverCongresista {
                 else throw new CongresistaNoInicializado();
                 break;
             case 9:
+                if (aux.length < 8) throw new ArgumentosInsuficientes();
                 if (C != null) {
-                    print(C.obtDni()+"");
+                    C.mod(aux[1], aux[2], Integer.parseInt(aux[3]), aux[4], aux[5], aux[6]);
                 }
                 else throw new CongresistaNoInicializado();
                 break;
             case 10:
                 if (C != null) {
-                    print(C.obtNombre());
+                    print(C.obtDni() + "");
                 }
                 else throw new CongresistaNoInicializado();
                 break;
             case 11:
                 if (C != null) {
-                    print(C.obtApellido());
+                    print(C.obtNombre());
                 }
                 else throw new CongresistaNoInicializado();
                 break;
             case 12:
                 if (C != null) {
-                    print(C.obtEdad()+"");
+                    print(C.obtApellido());
                 }
                 else throw new CongresistaNoInicializado();
                 break;
             case 13:
                 if (C != null) {
-                    print(C.obtCiudad());
+                    print(C.obtEdad()+"");
                 }
                 else throw new CongresistaNoInicializado();
                 break;
             case 14:
                 if (C != null) {
-                    print(C.obtEstado());
+                    print(C.obtCiudad());
                 }
                 else throw new CongresistaNoInicializado();
                 break;
             case 15:
                 if (C != null) {
-                    print(C.obtPartido());
+                    print(C.obtEstado());
                 }
                 else throw new CongresistaNoInicializado();
                 break;
             case 16:
                 if (C != null) {
-                    print(C.obtID());
+                    print(C.obtPartido());
                 }
                 else throw new CongresistaNoInicializado();
                 break;
             case 17:
                 if (C != null) {
-                    print(C.toString());
+                    print(C.obtID());
                 }
                 else throw new CongresistaNoInicializado();
                 break;
             case 18:
+                if (C != null) {
+                    print(C.toString());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 19:
+                if (C != null) {
+                    print(C.toStringByName());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 20:
+                if (C != null) {
+                    print(C.toStringBySurname());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 21:
+                if (C != null) {
+                    print(C.toStringByAge());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 22:
+                if (C != null) {
+                    print(C.toStringByCity());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 23:
+                if (C != null) {
+                    print(C.toStringByState());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 24:
+                if (C != null) {
+                    print(C.toStringByParty());
+                }
+                else throw new CongresistaNoInicializado();
+                break;
+            case 25:
                 System.exit(0);
                 break;
             default:
