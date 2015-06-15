@@ -3,10 +3,11 @@ package Domini;
 import java.util.*;
 
 /**
+ *
  * Created by Jose on 02/04/15.
  */
 
-public class LouvainPruebaNuevoGrafo extends Algoritmo {
+public class LouvainPruebaNuevoGrafo extends Algoritmo2 {
 
     private GrafoNodoArista g;
     private int num_n; // Num. nodos grafo.
@@ -21,7 +22,7 @@ public class LouvainPruebaNuevoGrafo extends Algoritmo {
     private double[] ins, tot; // Suma de pesos interiores y total de las comunidades.
     private ArrayList<ArrayList<Congresista>> nodos_com; // Nodos que contiene cada comunidad.
 
-    public LouvainPruebaNuevoGrafo(Entrada i, Salida o) throws Exception {
+    public LouvainPruebaNuevoGrafo(Entrada2 i, Salida2 o) throws Exception {
         super(i, o);
 
         //g = new GrafoNodoArista(i.obtGrafo());

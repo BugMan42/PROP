@@ -518,8 +518,11 @@ public class PanelAlgoritmo extends Panel{
                 lm2.add(2, cpa.message_at(im2+1));
                 lst2.setSelectedIndex(1);
                 ej.ejecuta(g,h,i);
+
                 down2.setEnabled(false);
                 bottom2.setEnabled(false);
+                up2.setEnabled(true);
+                top2.setEnabled(true);
             }
         });
 
@@ -536,6 +539,8 @@ public class PanelAlgoritmo extends Panel{
                 lm3.add(1, h);
                 lm3.add(2, g);
                 lst3.setSelectedIndex(1);
+
+                ej.ejecuta(g, h, i);
 
                 if (im3 == 0)
                 {
@@ -566,6 +571,7 @@ public class PanelAlgoritmo extends Panel{
                 lst3.setSelectedIndex(1);
 
                 ej.ejecuta(g,h,i);
+
                 if (im3 == cpa.num_mensajes() - 1) {
                     down3.setEnabled(false);
                     bottom3.setEnabled(false);
@@ -594,6 +600,7 @@ public class PanelAlgoritmo extends Panel{
                 lst3.setSelectedIndex(1);
 
                 ej.ejecuta(g,h,i);
+
                 up3.setEnabled(false);
                 top3.setEnabled(false);
                 bottom3.setEnabled(true);
@@ -616,6 +623,7 @@ public class PanelAlgoritmo extends Panel{
                 lst3.setSelectedIndex(1);
 
                 ej.ejecuta(g,h,i);
+
                 down3.setEnabled(false);
                 bottom3.setEnabled(false);
                 up3.setEnabled(true);
