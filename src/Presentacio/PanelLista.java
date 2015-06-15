@@ -97,14 +97,15 @@ public abstract class PanelLista extends Panel {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 textSearch.setForeground(Color.BLACK);
                 clearLabelSearch(textSearch);
+                textSearch.setSelectionStart(0);
             }
 
             public void focusLost(java.awt.event.FocusEvent evt) {
                 if (textSearch.getText().equals("") || textSearch.getText().charAt(0) == ' ') {
                     textSearch.setForeground(Color.GRAY);
                     textSearch.setText("Buscar");
-                    textSearchFocusLost();
                 }
+                else textSearchFocusLost();
             }
         });
 

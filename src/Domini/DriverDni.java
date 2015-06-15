@@ -9,6 +9,11 @@ public class DriverDni {
             super("DniNoInicializado");
         }
     }
+    public static class ArgumentosInsuficientes extends Exception {
+        public ArgumentosInsuficientes() {
+            super("Argumentos Insuficientes");
+        }
+    }
     private static Dni DNI;
 
     private static void print(String str) {
@@ -20,9 +25,11 @@ public class DriverDni {
         print("0 Dni(String d)");
         print("1 modDni(String d)");
         print("2 valido(String d):boolean");
-        print("3 equals(Dni D):boolean");
+        print("3 equals(Dni d):boolean");
         print("4 toString():String");
-        print("5 Salir");
+        print("5 Dni()");
+        print("6 modDni(char l)");
+        print("7 Salir");
         print("Escribe la opcion");
     }
     private static String LeerLinea(Scanner Input) {
@@ -36,7 +43,6 @@ public class DriverDni {
         Scanner userInput = new Scanner(System.in);
         if (imprimir) PresentaMenu();
         do {
-            //PresentaMenu();
             try {
                 ProcesarLinea(LeerLinea(userInput),imprimir);
             } catch (Exception a) {
@@ -73,10 +79,19 @@ public class DriverDni {
                 break;
             case 4:
                 if (DNI != null) {
-                    print("S:"+DNI.toString());
+                    print("S: "+DNI.toString());
                 } else throw new DNINoInicializado();
                 break;
             case 5:
+                DNI = new Dni();
+                break;
+            case 6:
+                if (aux.length < 2) throw new ArgumentosInsuficientes();
+                if (DNI != null) {
+                    DNI.cambiarLetra(aux[1].charAt(0));
+                } else throw new DNINoInicializado();
+                break;
+            case 7:
                 System.exit(0);
                 break;
             default:

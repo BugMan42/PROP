@@ -1105,9 +1105,9 @@ public class PanelCongreso extends PanelLista {
     }
 
     protected void textSearchFocusLost() {
-        print("entro el focus lost");
+        //print("entro el focus lost");
         searchPopMenu.setVisible(false);
-        print("print actual search"+actualSearch);
+        //print("print actual search"+actualSearch);
         if (!textSearch.getText().equals(defaultTextLabelSearch)) {
             textSearch.setText(actualSearch);
         }

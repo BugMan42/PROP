@@ -77,13 +77,11 @@ public class Congreso {
         tstEstado.borrar(con.obtIDState());
         tstPartido.borrar(con.obtIDParty());
     }
-    /** TODO testear */
     public void agregarCongresista(Congresista c) throws Exception {
         tst.insertar(c.obtID(), c);
         agregarEnTsts(c);
         reiniciarCaches();
     }
-    /** **/
     public void agregarCongresistaRandom()  {
         Random rand = new Random();
         Dni r = new Dni();
@@ -92,7 +90,7 @@ public class Congreso {
             try {
                 r.cambiarLetra((char) ('A'+ i));
             } catch (Exception a) {
-
+                //internal error
             }
             ++i;
             if (i == 26) r = new Dni();
@@ -108,15 +106,9 @@ public class Congreso {
             agregarEnTsts(c);
             reiniciarCaches();
         } catch (Exception a) {
-            //Do nothing
+            //Do nothing Impossible case..
         }
     }
-    public void eliminarCongresista(Dni dni) throws Exception {
-        tst.borrar(dni.toString());
-        reiniciarCaches();
-       // borrarEnTsts(c);
-    }
-    /**TODO testear */
     public void eliminarCongresista(Congresista c) throws Exception {
         tst.borrar(c.obtDni().toString());
         borrarEnTsts(c);
@@ -145,7 +137,6 @@ public class Congreso {
             reiniciarCaches();
         }
     }
-    //TODO testear
     public void modCongresista(Congresista origina, Congresista nuevo) throws Exception {
         Congresista original = new Congresista(origina);
         if (!original.obtID().equals(nuevo.obtID())) {
@@ -279,7 +270,6 @@ public class Congreso {
         return tst.obtener(dni.toString());
     }
     public Congresista copiaConsultarCongresista(Dni dni) throws Exception {
-        //Congresista aux = new Congresista(tst.obtener(dni.toString()));
         return new Congresista(tst.obtener(dni.toString()));
     }
     public int size() {
@@ -298,13 +288,9 @@ public class Congreso {
         String aux = tst.toString();
         return aux;
     }
-    private void print(String str) {
-        System.out.println(str);
-    }
     public ArrayList<String> obtenerListaID() {
         return tst.consultarClaves();
     }
-
 
     public List<Congresista> obtenerListaNombre() {
         return tstNombre.consultarObjetos();
@@ -324,9 +310,7 @@ public class Congreso {
     public List<Congresista> obtenerListaPartido() {
         return tstPartido.consultarObjetos();
     }
-    public TST<Congresista> obtenerTSTNombre() {
-        return tstNombre;
-    }
+
     public List<Congresista> searchPrefixDni(String prefix) {
         List<Congresista> aux = tst.prefijo(prefix);
         if (aux == null) return new ArrayList<Congresista>();
@@ -362,6 +346,7 @@ public class Congreso {
         if (aux == null) return new ArrayList<Congresista>();
         return aux;
     }
+
     public List<String> searchPrefixNameDni(String prefix, char stop, int fin) {
         return tst.clavesPrefijoConStop(prefix,stop,fin);
     }
@@ -383,16 +368,4 @@ public class Congreso {
     public List<String> searchPrefixNamePartido(String prefix, char stop, int fin) {
         return tstPartido.clavesPrefijoConStop(prefix,stop,fin);
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

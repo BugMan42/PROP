@@ -30,24 +30,12 @@ public class Dni  {
     }
     public Dni() {
        dni =  generarRandom2();
-       // else dni += String.valueOf(rand.nextInt(10));
-    }
-    private String generarRandom() {
-        String dni2 = new String();
-        Random rand = new Random();
-        for (int i = 0; i < 9; ++i) {
-            if (i == 8) dni += (char) ('A'+ rand.nextInt(26));
-            else dni += String.valueOf(rand.nextInt(10));
-        }
-        return dni2;
     }
     private String generarRandom2() {
         String dni2 = new String();
         if (rand == null) {
             rand = new Random();
-            //System.out.println("noooo.");
         }
-        //Random rand = new Random();
         dni2+=String.valueOf(rand.nextInt(89999999)+10000000);
         dni2 += (char) ('A'+ rand.nextInt(26));
         return dni2;
@@ -74,7 +62,7 @@ public class Dni  {
     // recorrido secuencial
     public static boolean valido(String d) {
         if (d.length() != 9) return false;
-        for (int i = 0; i <8; ++i) {
+        for (int i = 0; i < 8; ++i) {
             if (!Character.isDigit((d.charAt(i)))) return false;
         }
         return Character.isLetter(d.charAt(8));
@@ -85,7 +73,7 @@ public class Dni  {
     public boolean equals(Dni D) {
         return D.dni.equals(dni);
     }
-    public void print(String str) {
+    private void print(String str) {
         System.out.println(str);
     }
 }
