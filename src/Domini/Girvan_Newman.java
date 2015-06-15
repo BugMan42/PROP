@@ -287,10 +287,11 @@ public class Girvan_Newman extends Algoritmo{
         for (int x = 0; x < eixos.size(); x++) {
             int a1 = eixos.get(x).orig;
             int a2 = eixos.get(x).dest;
-            obtOut().agregarMensaje("EliminarArista " + data_graph.fPrima(a1) + " " + data_graph.fPrima(a2));
+
             if(alg_graph.existeArista(a1, a2) && alg_graph.existeArista(a2, a1)) {
                 alg_graph.eliminarAristas(a1, a2);
                 alg_graph.eliminarAristas(a2, a1);
+                obtOut().agregarMensaje("EliminarArista "+a1+" "+a2+" ("+data_graph.fPrima(a1)+"~"+data_graph.fPrima(a2)+")");
             }
         }
 
