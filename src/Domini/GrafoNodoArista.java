@@ -698,6 +698,17 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         g.agregarVertice(c4);
         g.agregarVertice(c5);
         g.agregarVertice(c6);
+        /*g.agregarArista(new Edge(c1, c4, 1));
+        g.agregarArista(new Edge(c1, c2, 1));
+        g.agregarArista(new Edge(c1, c6, 1));
+        g.agregarArista(new Edge(c1, c3, 1));
+        g.agregarArista(new Edge(c1, c5, 1));
+        /*ArrayList<Congresista> aux = g.consultarVertices();
+        List<Congresista> aux2 = g.nodosSalida(aux.get(0));
+        print(g.degreeSalida(aux.get(0))+"");
+        for (Congresista a: aux2) {
+            print(a.obtID());
+        }*/
         g.agregarArista(new Edge(c1, c2, 1));
         g.agregarArista(new Edge(c2,c1,1));
         g.agregarArista(new Edge(c2,c3,1));
@@ -714,10 +725,13 @@ public class GrafoNodoArista<V extends Node, E extends Edge> {
         g.agregarArista(new Edge(c4,c6,1));
         ArrayList<Congresista> aux = g.consultarVertices();
         for (Congresista a: aux) {
+            print("Tratamos nodo: "+a.obtID()+" su degreee: "+g.degreeSalida(a));
             List<Congresista> aux2 = g.nodosSalida(a);
             for (Congresista b:aux2) {
-                print(g.pesoAristasVertice(a,b)+"");
+                print(a.obtID()+" "+b.obtID());
+                print(g.pesoAristasVertice(a, b)+"");
             }
+            print("");
         }
 
         /*GrafoNodoArista<Nodo,Edge> grafo = new GrafoNodoArista<Nodo, Edge>();

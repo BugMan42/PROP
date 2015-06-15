@@ -17,6 +17,8 @@ public abstract class PanelLista extends Panel {
     protected JComboBox boxSearch;
     protected JButton buttonSearch;
     protected JLabel labelStatus;
+    protected javax.swing.JCheckBox jCheckBox1;
+    protected javax.swing.JCheckBox jCheckBox2;
 
     public PanelLista(VistaPrincipal v) {
 
@@ -33,27 +35,21 @@ public abstract class PanelLista extends Panel {
     public JSplitPane obtSp() {
         return sp;
     }
-
     public JList obtJlist() {
         return jlist;
     }
-
     public JScrollPane obtjScrollPane1() {
         return jScrollPane1;
     }
-
     public JComboBox obtBoxSort() {
         return boxSort;
     }
-
     public JTextField obtTextSearch() {
         return textSearch;
     }
-
     public JComboBox obtBoxSearch() {
         return boxSearch;
     }
-
     public JButton obtButtonSearch() {
         return buttonSearch;
     }
@@ -67,6 +63,26 @@ public abstract class PanelLista extends Panel {
         boxSearch = new JComboBox();
         buttonSearch = new JButton();
         labelStatus = new JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+
+        jCheckBox1.setText("Invertir Ordenación");
+        jCheckBox1.setFont(new Font("Ubuntu", 0, 17));
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox2.setText("Permitir Autocompletar");
+        jCheckBox2.setFont(new Font("Ubuntu", 0, 17));
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               // jCheckBox2ActionPerformed(evt);
+            }
+        });
+        jCheckBox1.setVisible(false);
+        jCheckBox2.setVisible(false);
 
         jlist.setFont(new Font("Ubuntu", 0, 17));
         jScrollPane1.setViewportView(jlist);
@@ -104,8 +120,7 @@ public abstract class PanelLista extends Panel {
                 if (textSearch.getText().equals("") || textSearch.getText().charAt(0) == ' ') {
                     textSearch.setForeground(Color.GRAY);
                     textSearch.setText("Buscar");
-                }
-                else textSearchFocusLost();
+                } else textSearchFocusLost();
             }
         });
 
@@ -137,13 +152,53 @@ public abstract class PanelLista extends Panel {
 
 
         JPanel panel = new JPanel();
-        panel.setMinimumSize(new Dimension(410,300));
+        panel.setMinimumSize(new Dimension(410, 300));
         GroupLayout leftLayout = new GroupLayout(panel);
         panel.setLayout(leftLayout);
         leftLayout.setAutoCreateGaps(true);
         leftLayout.setAutoCreateContainerGaps(true);
 
         leftLayout.setHorizontalGroup(
+                leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(leftLayout.createSequentialGroup()
+                                .addComponent(boxSort, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(35, 35, 60)
+                                .addComponent(textSearch, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(boxSearch, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonSearch, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))                        .addComponent(jScrollPane1)
+                        .addComponent(labelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftLayout.createSequentialGroup()
+                                .addComponent(jCheckBox2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jCheckBox1))
+        );
+        leftLayout.setVerticalGroup(
+                leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftLayout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addGroup(leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(boxSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(textSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(boxSort, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(4, 4, 4)
+                                .addComponent(labelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(4,4,4)
+                                .addGroup(leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jCheckBox1)
+                                        .addComponent(jCheckBox2)))
+
+        );
+
+        //pack();
+       /* leftLayout.setHorizontalGroup(
                 leftLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(leftLayout.createSequentialGroup()
                                 .addComponent(boxSort, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -169,7 +224,7 @@ public abstract class PanelLista extends Panel {
                                 .addComponent(labelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)
                                 .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
-        );
+        );*/
 
 
         sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
