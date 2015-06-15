@@ -826,6 +826,7 @@ public class PanelCongreso extends PanelLista {
     }
     ///////////////////////HACER//////////////////////////////////
     protected void textSearchTyped(KeyEvent evt) {
+        searchPopMenu.setFocusable(false);
         String buscar = textSearch.getText();
         int which = boxSearch.getSelectedIndex();
         if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
@@ -837,7 +838,6 @@ public class PanelCongreso extends PanelLista {
                 actualSearch = "";
             }
             else {
-                //print("entrem aqui");
                 actualSearch = actualSearch.substring(0,actualSearch.length()-1);
                 Search(actualSearch, which);
                 labelStatus.setVisible(true);
@@ -864,9 +864,19 @@ public class PanelCongreso extends PanelLista {
         else if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
             searchPopMenu.setVisible(false);
             actualSearch = textSearch.getText();
+            Search(actualSearch, which);
+            labelStatus.setVisible(true);
+            labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
         }
         else if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
             searchPopMenu.setVisible(false);
+            actualSearch = textSearch.getText();
+            Search(actualSearch, which);
+            labelStatus.setVisible(true);
+            labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
+        }
+        else if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+           // print("nuv");
         }
         else if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             actualSearch = textSearch.getText();
@@ -902,7 +912,7 @@ public class PanelCongreso extends PanelLista {
     private void down() {
         if (searchPopMenu.isVisible()) {
             int n = searchPopMenu.getSubElements().length;
-            if (n != 0 && selectedAuto != 2) {
+            if (n != 0 && selectedAuto != n-1) {
                 ((JMenuItem) searchPopMenu.getComponent(selectedAuto)).setArmed(false);
                 selectedAuto++;
                 ((JMenuItem) searchPopMenu.getComponent(selectedAuto)).setArmed(true);
