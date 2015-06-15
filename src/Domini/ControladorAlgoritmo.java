@@ -59,6 +59,9 @@ public class ControladorAlgoritmo {
         if (s == 1) alg = new Girvan_Newman(in, out);
         else if (s == 2) alg = new LouvainPrueba(in, out);
         else if (s == 3) alg = new Clique(in, out);
+
+        out.mostrarHistorial().add(0, "Inicio");
+        out.agregarMensaje("Fin");
     }
 
 
