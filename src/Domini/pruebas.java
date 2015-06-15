@@ -68,13 +68,13 @@ public class pruebas {
 
     }
     private static void testNuevTst() {
-        Congreso congreso = new Congreso();
+        /*Congreso congreso = new Congreso();
         for (int i = 0; i < 60000; ++i) congreso.agregarCongresistaRandom();
-        TST<Congresista> tst = congreso.obtenerTSTNombre();
+        //TST<Congresista> tst = congreso.obtenerTSTNombre();
         //print(congreso.obtenerListaNombre() + "");
-        List<String> b = tst.clavesPrefijoConStop("C",'-',20);
+        //List<String> b = tst.clavesPrefijoConStop("C",'-',20);
         if (b != null) print(b+"");
-        else print("null2");
+        else print("null2");*/
     }
 
     public static void main(String[] args) throws Exception {
