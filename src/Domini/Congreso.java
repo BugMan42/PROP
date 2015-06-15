@@ -1,7 +1,5 @@
 package Domini;
 
-import sun.rmi.runtime.Log;
-
 import java.util.*;
 
 public class Congreso {

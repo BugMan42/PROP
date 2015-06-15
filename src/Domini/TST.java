@@ -269,7 +269,7 @@ public class TST<X>  {
     }
 
 //#######################################################################################
-/**#############################__FALTA EFICIENCIA__#####################################*/
+/**#############################__MODIFICAR_COMP__#####################################*/
 //#######################################################################################
     //Solo modificamos si la clave nueva es diferente a la vieja
     //Modificación comp --> Modificamos el key pero mantenemos el objeto
@@ -288,32 +288,9 @@ public class TST<X>  {
     //Modificación Compuesta falta hacer que si la clave vieja y
     //la clave nueva tienen un prefijo minimo no hace falta borrar
     //la clave y insertar, pudiendo reaprovecharel recorrido
-    /** FALTA HACER EFICIENTE*/
-    private void modificar1(TSTNodo t, String oldKey, X x, String newKey,int d) throws Exception {
-        if (oldKey.charAt(0) != newKey.charAt(0)) {
-            if (x == null) {
-                x = obtener(oldKey);
-            }
-            if (!existe(oldKey)) throw new KeyNotExistsTST(oldKey);
-            if (existe(newKey)) throw new KeyAlreadyExistsTST(newKey);
-            print("size:"+ N);
-            borrar(oldKey);
-            print("size:"+ N);
-            insertar(newKey,x);
-            print("size:"+ N);
-        }
-        else {
-            if (x == null) {
-                x = obtener(oldKey);
-            }
-            if (!existe(oldKey)) throw new KeyNotExistsTST(oldKey);
-            if (existe(newKey)) throw new KeyAlreadyExistsTST(newKey);
-            borrar(oldKey);
-            insertar(newKey,x);
-        }
-    }
-    // a ---> for old key
-    // b ---> for new key
+
+    // oldK ---> for old key
+    // newK ---> for new key
     public void modComp(String oldK, String newK) throws Exception {
         root = (TSTNodoChar) modificar(root, null, oldK, newK, 0);
     }
@@ -328,13 +305,6 @@ public class TST<X>  {
         if (d < newKey.length()) c2 = newKey.charAt(d);
         else c2 = fin;
 
-        //print("c1 " + c1 + " c2 " + c2);
-        /*if (c1 == fin) {
-            TSTNodoFinal aux2 = (TSTNodoFinal) t.middle;
-            t = insertar(t, newKey, aux2.valor, d); // si esta petara
-            t = t.right;
-            //return t.right;
-        }*/
         if (c1 == c2) { // yeah
             TSTNodoChar aux = (TSTNodoChar) t;
             if (c1 < aux.valor) t.left = modificar(t.left, x, oldKey, newKey,d);
@@ -380,23 +350,6 @@ public class TST<X>  {
         System.out.println(str);
     }
 
-    public static void main(String[] args) throws Exception {
-        TST<Integer> tst = new TST<Integer>();
-        tst.insertar("abcd", 12);
-        tst.insertar("abc",12);
-        tst.insertar("b",12);
-        tst.insertar("ab",12);
-        print("a: "+tst.obtener("ab"));
-        //tst.insertar("ab",13);
-        //print(tst.consultarClaves()+"");
-        //tst.modificar("ab", "a",14);
-        //tst.insertar("ab",12);
-        //TSTIterator a = new TSTIterator(tst);
-        print(tst.consultarClaves() + "");
-        //print("a: "+tst.obtener("a"));
-
-    }
-
 //###################################################################
 /**###########################CONSULTAR#############################*/
 //###################################################################
@@ -405,11 +358,6 @@ public class TST<X>  {
         imprimir(root, "", v);
         return v+"";
     }
-    /*public String ConsultarClavesString() {
-        ArrayList<String> v = new ArrayList<String>();
-        imprimir(root, "",v);
-        return "TST_CLAVES: "+v;
-    }*/
     public ArrayList<String> consultarClaves() {
         ArrayList<String> v = new ArrayList<String>();
         imprimir(root, "", v);
@@ -461,7 +409,6 @@ public class TST<X>  {
         }
     }
 
-    //Utilizamos una lista  para
     public List<X> consultarObjetos() {
         List<X> v = new ArrayList<X>();
         imprimir2(root, "", v);
