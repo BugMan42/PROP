@@ -25,6 +25,7 @@ public class ControladorRelaciones {
     private ControladorCjtEvento e;
     private Relaciones rs;
     private Grafo g;
+    private GrafoNodoArista nuevog;
     private ArrayList<String> cache;
 
     public ControladorRelaciones(ControladorCongreso cc, ControladorCjtEvento ce){
@@ -395,6 +396,52 @@ public class ControladorRelaciones {
         for(int i : g.consultarVertices())
             for(int j : g.nodosSalida(i))
                 if(i!=j) golf.agregarArista(i,j,g.pesoAristasVertices(i,j));
+        return golf;
+    }
+
+    public void NuevoCrearGrafoRelaciones() throws Exception {
+        nuevog = new GrafoNodoArista();
+        List<Congresista> lc = c.obtenerCongreso();
+        for(Congresista con : lc) nuevog.agregarVertice(con);
+        // Rel. simples
+        ArrayList<RelacionSimple> r = obtTodasLasRelaciones();
+        for(RelacionSimple re : r){
+            Congresista origen = re.obtCongresista();
+            if(re.obtEvento().tipo().equals("Votacion")) {
+                ArrayList<RelacionSimple> rv = obtRelaciones(re.obtEvento().obt_nombre(),re.obtEvento().obt_fecha());
+                for (RelacionSimple rvi : rv) {
+                    Congresista fin = rvi.obtCongresista();
+                    if (!origen.equals(fin)) {
+                        Voto v_origen = re.obtVoto();
+                        Voto v_fin = rvi.obtVoto();
+                        if (v_origen.obt_tipo().equals(v_fin.obt_tipo()))
+                            nuevog.agregarArista(new Edge<Congresista>(origen,fin,re.obtEvento().obt_importancia()));
+                    }
+                }
+            }
+            else {
+                ArrayList<Congresista> ce = obtCongresistas(re.obtEvento().obt_nombre(), re.obtEvento().obt_fecha());
+                for (Congresista cone : ce)
+                    if (!origen.equals(cone.obtID()))
+                        nuevog.agregarArista(new Edge<Congresista>(origen,cone,re.obtEvento().obt_importancia()));
+            }
+        }
+        // Rel. compuestas
+        ArrayList<ArrayList<Congresista>> alc = rs.obtConjuntosComp();
+        for(ArrayList<Congresista> al : alc){
+            for(Congresista con : al)
+                for(Congresista con2 : al)
+                    if(!con.equals(con2))
+                        new Edge<Congresista>(con,con2,3);
+        }
+    }
+
+    public GrafoNodoArista NuevoCrearGrafoAlgoritmo() throws Exception {
+        GrafoNodoArista golf = new GrafoNodoArista();
+        for(Object s : nuevog.consultarVertices()) golf.agregarVertice((Congresista) s);
+        for(Object i : nuevog.consultarVertices())
+            for(Object j : nuevog.nodosSalida((Congresista) i)) //if(!i.equals(j))
+                golf.agregarArista(new Edge((Congresista)i,(Congresista)j,nuevog.pesoAristasVertice((Congresista)i,(Congresista)j)));
         return golf;
     }
 

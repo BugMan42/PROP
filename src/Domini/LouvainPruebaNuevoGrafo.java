@@ -6,33 +6,36 @@ import java.util.*;
  * Created by Jose on 02/04/15.
  */
 
-public class LouvainPrueba extends Algoritmo {
+public class LouvainPruebaNuevoGrafo extends Algoritmo {
 
-    private Grafo g;
+    private GrafoNodoArista g;
     private int num_n; // Num. nodos grafo.
     private double lim_Q; // Incremento mínimo de modularidad.
 
+    private ArrayList<Congresista> nodos;
+    private Map<Congresista,Integer> c2i;
     private int pasada;
     private int[] n2c; // Comunidad de cada nodo.
     private double m2; // Peso de todas las aristas del grafo.
     private double[] k; // Suma de los pesos de las aristas adyacentes a cada nodo.
     private double[] ins, tot; // Suma de pesos interiores y total de las comunidades.
-    private ArrayList<ArrayList<Integer>> nodos_com; // Nodos que contiene cada comunidad.
+    private ArrayList<ArrayList<Congresista>> nodos_com; // Nodos que contiene cada comunidad.
 
-    public LouvainPrueba(Entrada i, Salida o) throws Exception {
+    public LouvainPruebaNuevoGrafo(Entrada i, Salida o) throws Exception {
         super(i, o);
 
-        g = new Grafo(i.obtGrafo());
+        //g = new GrafoNodoArista(i.obtGrafo());
         lim_Q = i.obtParam1();
-        ejecutar_algoritmo();
+        //ejecutar_algoritmo();
     }
-
+/*
     public void ejecutar_algoritmo() throws Exception {
-        long tini = System.nanoTime();
+        // Consultar nodos grafo
+        nodos = g.consultarVertices();
 
         // Guardar peso total del grafo.
         m2 = .0;
-        for(int i=0; i<g.V(); ++i) m2 += g.totalPesoSalida(i);
+        for(Congresista c : nodos) m2 += g.obtenerPesoSalida(c);
 
         obtOut().mostrarHistorial().clear();
 
@@ -45,7 +48,7 @@ public class LouvainPrueba extends Algoritmo {
             actualizar_salida();
         }
         while (mejora);
-
+        
     }
 
     private boolean primera_fase() throws Exception {
@@ -53,16 +56,21 @@ public class LouvainPrueba extends Algoritmo {
         boolean mejora = false;
         int nodos_movidos;
 
+        // Guardar posición de cada congresista.
+        c2i = new HashMap<Congresista,Integer>();
+        int i = 0;
+        for(Congresista c : nodos) c2i.put(c,i++);
+
         // Inicializar comunidades.
         n2c = new int[num_n];
-        for(int i=0; i<num_n; ++i) n2c[i] = i;
+        for(i=0; i<num_n; ++i) n2c[i] = i;
 
         // Calcular pesos aristas comunidades.
         calcular_pesos_comunidades();
 
         // k[i] = Suma de pesos de las aristas adyacentes a i.
         k = new double[num_n];
-        for (int i=0; i<num_n; ++i) k[i] = g.totalPesoSalida(i);
+        for (Congresista c : nodos) k[c2i.get(c)] = g.obtenerPesoSalida(c);
 
         // Calcular modularidad grafo.
         double old_Q = modularidad();
@@ -71,8 +79,8 @@ public class LouvainPrueba extends Algoritmo {
         // Preparar orden aleatorio.
         Random r = new Random();
         int[] rand = new int[num_n];
-        for (int i = 0; i < num_n; ++i) rand[i] = i;
-        for (int i = 0; i < num_n; ++i) {
+        for (i = 0; i < num_n; ++i) rand[i] = i;
+        for (i = 0; i < num_n; ++i) {
             int x = r.nextInt(num_n);
             int aux = rand[x];
             rand[x] = rand[i];
@@ -86,8 +94,9 @@ public class LouvainPrueba extends Algoritmo {
 
             // Mover nodos a la mejor comunidad.
             // Elegir nodo (mejor en orden aleatorio).
-            for (int i=0; i<num_n; ++i){
+            for (i=0; i<num_n; ++i){
                 int nodo = rand[i];
+                Congresista n = nodos.get(nodo);
                 int com_nodo = n2c[nodo];
 
                 obtOut().agregarMensaje("Visita "+nodo);
@@ -95,7 +104,7 @@ public class LouvainPrueba extends Algoritmo {
                 // Consultar comunidades adyacentes al nodo.
                 // Calcular pesos adyacencias del nodo a comunidades.
                 double[] p_nc = new double[num_n];
-                ArrayList<Integer> coms = comunidades_ady(nodo, p_nc);
+                ArrayList<Integer> coms = comunidades_ady(nodo,n,p_nc);
 
                 // Quitar nodo de su comunidad.
                 quitar_nodo_comunidad(nodo, com_nodo, p_nc[com_nodo]);
@@ -151,32 +160,35 @@ public class LouvainPrueba extends Algoritmo {
         }
 
         // Construir matriz con los nodos de cada comunidad.
-        nodos_com = new ArrayList<ArrayList<Integer>>();
-        for(int i=0; i<num_nuevas_com; ++i) nodos_com.add(new ArrayList<Integer>());
-        for(int i=0; i<num_n; ++i) nodos_com.get(renumerar[n2c[i]]).add(i);
+        nodos_com = new ArrayList<ArrayList<Congresista>>();
+        for(int i=0; i<num_nuevas_com; ++i) nodos_com.add(new ArrayList<Congresista>());
+        for(int i=0; i<num_n; ++i) nodos_com.get(renumerar[n2c[i]]).add(nodos.get(i));
 
         // Construir grafo.
-        Grafo g2 = new Grafo();
+        GrafoNodoArista g2 = new GrafoNodoArista();
         for(int i=0; i<num_nuevas_com; ++i){
-            g2.agregarVertice(String.valueOf(i));
-            obtOut().agregarMensaje("AñadirVertice "+i);
+            Dni dni = new Dni("00000000A");
+            Congresista c = new Congresista(dni,"a","a",22,"b","b","b");
+            g2.agregarVertice(c);
+            obtOut().agregarMensaje("AñadirVertice "+g2.f(c));
         }
 
+        ArrayList<Congresista> nc = g2.consultarVertices();
         for(int i=0; i<num_nuevas_com; ++i){
             // Calcular aristas comunidad i.
             Map<Integer,Double> aristas = new HashMap<Integer, Double>();
-            for(int n : nodos_com.get(i)){
-                List<Integer> nodos_ady = g.nodosSalida(n);
-                for(int n_ady : nodos_ady){
-                    int com = renumerar[n2c[n_ady]];
+            for(Congresista n : nodos_com.get(i)){
+                List<Congresista> nodos_ady = g.nodosSalida(n);
+                for(Congresista n_ady : nodos_ady){
+                    int com = renumerar[n2c[c2i.get(n_ady)]];
                     if(!aristas.containsKey(com)) aristas.put(com,0.0);
-                    double p = aristas.get(com) + g.pesoAristasVertices(n, n_ady);
+                    double p = aristas.get(com) + g.pesoAristasVertice(n, n_ady);
                     aristas.put(com,p);
                 }
             }
             // Añadir aristas comunidad i.
             for(Map.Entry<Integer,Double> p : aristas.entrySet()) {
-                g2.agregarArista(String.valueOf(i), String.valueOf(p.getKey()), p.getValue());
+                g2.agregarArista(new Edge(nc.get(i),nc.get(p.getKey()), p.getValue()));
                 obtOut().agregarMensaje("AñadirArista "+i+" "+p.getKey()+" "+p.getValue());
             }
         }
@@ -186,11 +198,15 @@ public class LouvainPrueba extends Algoritmo {
 
     private void actualizar_salida(){
         if (pasada > 1) {
-            ArrayList<Set<Integer>> nueva_com = new ArrayList<Set<Integer>>();
-            for(ArrayList<Integer> nodos : nodos_com){
-                Set<Integer> com = new HashSet<Integer>();
-                for(Integer n : nodos)
-                    for(Integer x : obtOut().comunidad().get(n))
+            ArrayList<Congresista> nc = g.consultarVertices();
+            Map<Congresista,Integer> c2i_aux = new HashMap<Congresista, Integer>();
+            int i = 0;
+            for(Congresista c : nc) c2i_aux.put(c,i++);
+            ArrayList<Set<Congresista>> nueva_com = new ArrayList<Set<Congresista>>();
+            for(ArrayList<Congresista> ns : nodos_com){
+                Set<Congresista> com = new HashSet<Congresista>();
+                for(Congresista n : ns)
+                    for(Congresista x : obtOut().comunidad().get(c2i_aux.get(n)))
                         com.add(x);
                 nueva_com.add(com);
             }
@@ -199,31 +215,36 @@ public class LouvainPrueba extends Algoritmo {
         }
         else {
             obtOut().comunidad().clear();
-            for(ArrayList<Integer> nodos : nodos_com){
-                Set<Integer> com = new HashSet<Integer>();
-                for(Integer n : nodos) com.add(n);
+            for(ArrayList<Congresista> ns : nodos_com){
+                Set<Congresista> com = new HashSet<Congresista>();
+                for(Congresista n : ns) com.add(n);
                 obtOut().comunidad().add(com);
             }
         }
     }
+    */
 
     // Modularidad, versión anterior.
-    /*private double modularidad() throws Exception {
+    /*
+    private double modularidad() throws Exception {
         double sum = .0;
-        for (int i=0; i<num_n; ++i){
-            List<Integer> n_ady = g.nodosSalida(i);
-            for (int j=0; j<num_n; ++j){ // Para cada nodo i,j.
-                if (n2c[i] == n2c[j]){ // Si son de la misma comunidad.
+        for (Congresista i : nodos){
+            int ind_i = c2i.get(i);
+            List<Congresista> n_ady = g.nodosSalida(i);
+            for (Congresista j : nodos){ // Para cada nodo i,j.
+                int ind_j = c2i.get(j);
+                if (n2c[ind_i] == n2c[ind_j]){ // Si son de la misma comunidad.
                     double Aij = .0;
                     if(n_ady.contains(j)) // Si existe arista entre i y j.
-                        Aij = g.pesoAristasVertices(i,j);
-                    sum += Aij - ((k[i]*k[j])/m2);
+                        Aij = g.pesoAristasVertice(i, j);
+                    sum += Aij - ((k[ind_i]*k[ind_j])/m2);
                 }
             }
         }
         return sum/m2;
     }*/
 
+    /*
     private double modularidad(){
         double q = .0;
         for (int i=0; i<num_n; ++i){
@@ -240,15 +261,18 @@ public class LouvainPrueba extends Algoritmo {
         return gmod;
     }
 
-    private ArrayList<Integer> comunidades_ady(int nodo, double[] p_nc) throws Exception {
-        List<Integer> nodos = g.nodosSalida(nodo);
-        Collections.sort(nodos);
+    private ArrayList<Integer> comunidades_ady(int nodo, Congresista n, double[] p_nc) throws Exception {
+        List<Congresista> n_ady = g.nodosSalida(n);
+        List<Integer> ind_ady = new ArrayList<Integer>();
+        for(Congresista c : n_ady) ind_ady.add(c2i.get(c));
+        Collections.sort(ind_ady);
         ArrayList<Integer> coms = new ArrayList<Integer>();
         coms.add(n2c[nodo]);
-        for(Integer x : nodos){
+        for(Integer x : ind_ady){
             if (!coms.contains(n2c[x])) coms.add(n2c[x]);
-            if(x==nodo) p_nc[n2c[x]] += g.pesoAristasVertices(nodo,x)/2;
-            else p_nc[n2c[x]] += g.pesoAristasVertices(nodo, x);
+            Congresista c = (Congresista) g.obtVertice(x);
+            if(x==nodo) p_nc[n2c[x]] += g.pesoAristasVertice(n, c)/2;
+            else p_nc[n2c[x]] += g.pesoAristasVertice(n, c);
         }
         return coms;
     }
@@ -260,12 +284,14 @@ public class LouvainPrueba extends Algoritmo {
             ins[i] = .0;
             tot[i] = .0;
         }
-        for(int i=0; i<num_n; ++i){
-            List<Integer> n = g.nodosSalida(i);
-            for(int j : n){
-                double p = g.pesoAristasVertices(i,j);
-                tot[n2c[j]] += p;
-                if(n2c[i] == n2c[j]) ins[n2c[i]] += p;
+        for(Congresista i : nodos){
+            int com_i = n2c[c2i.get(i)];
+            List<Congresista> n = g.nodosSalida(i);
+            for(Congresista j : n){
+                double p = g.pesoAristasVertice(i,j);
+                int com_j = n2c[c2i.get(j)];
+                tot[com_j] += p;
+                if(com_i == com_j) ins[com_i] += p;
             }
         }
     }
@@ -284,11 +310,13 @@ public class LouvainPrueba extends Algoritmo {
 
     private double suma_peso_nodos_adyacentes_com(int nodo, int com) throws Exception {
         double p = 0.0;
-        List<Integer> n = g.nodosSalida(nodo);
-        for(int i : n)
-            if (n2c[i] == com)
-                p += g.pesoAristasVertices(nodo,i);
+        Congresista c = nodos.get(nodo);
+        List<Congresista> n = g.nodosSalida(c);
+        for(Congresista i : n)
+            if (n2c[c2i.get(i)] == com)
+                p += g.pesoAristasVertice(c,i);
         return p;
     }
+    */
 }
 
