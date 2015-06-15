@@ -17,14 +17,19 @@ public class Ejecutor {
     }
 
 
-    public void ejecuta(String a, String b, String c)
+    public void ejecuta1(String a, String b)
     {
-        anterior(a);
+        anterior1(a);
         actual(b);
-        posterior(c);
     }
 
-    private void anterior(String a)
+    public void ejecuta2(String a, String b)
+    {
+        anterior2(a);
+        actual(b);
+    }
+
+    private void anterior1(String a)
     {
         String r[] = a.split("\\s");
         if (r[0].equals("Visita"))
@@ -44,7 +49,19 @@ public class Ejecutor {
             e.changeAttribute("ui.style", "fill-color: #777; size: 1px; ");
 
         }
-
+        else if (r[0].equals("AñadirVertice"))
+        {
+            /*String d = "A"+r[1];
+            g.removeNode(d);*/
+        }
+        else if (r[0].equals("Clique"))
+        {
+            for (int i = 1; i < r.length; i++)
+            {
+                Node n = g.getNode(r[i]);
+                n.addAttribute("ui.style", "stroke-width: 1px; shape: circle; ");
+            }
+        }
         /*else if (r[0].equals("AñadirArista"))
         {
             String a1 = r[1];
@@ -75,6 +92,18 @@ public class Ejecutor {
             if (e == null) e = g.getEdge(a2+"~"+a1);
             e.addAttribute("ui.style", "fill-color: red; size: 3px;");
         }
+        else if (r[0].equals("AñadirVertice"))
+        {
+
+        }
+        else if (r[0].equals("Clique"))
+        {
+            for (int i = 1; i < r.length; i++)
+            {
+                Node n = g.getNode(r[i]);
+                n.addAttribute("ui.style", "stroke-width: 3px; shape: diamond; ");
+            }
+        }
         /*else if (r[0].equals("AñadirArista"))
         {
             String a1 = r[1];
@@ -86,9 +115,24 @@ public class Ejecutor {
         }*/
     }
 
-    private void posterior (String c)
+    private void anterior2 (String c)
     {
+        String r[] = c.split("\\s");
+        if (r[0].equals("Visita"))
+        {
+            String s = r[1];
+            Node n = g.getNode(s);
+            n.changeAttribute("ui.style", "stroke-mode: plain; stroke-width: 1px; stroke-color: #999; ");
 
+        }
+        else if (r[0].equals("Clique"))
+        {
+            for (int i = 1; i < r.length; i++)
+            {
+                Node n = g.getNode(r[i]);
+                n.addAttribute("ui.style", "stroke-width: 1px; shape: circle; ");
+            }
+        }
     }
 
 }
