@@ -455,9 +455,9 @@ public class PanelAlgoritmo extends Panel{
                 String g = cpa.message_at(im2-1);
                 String i = cpa.message_at(im2+1);
                 lm2.clear();
-                lm2.setElementAt(g,0);
-                lm2.setElementAt(h,1);
-                lm2.setElementAt(i,2);
+                lm2.add(0, g);
+                lm2.add(1,h);
+                lm2.add(2,i);
                 ej.ejecuta(g, h, i);
                 if (im2 == cpa.num_mensajes() - 1) {
                     down2.setEnabled(false);
