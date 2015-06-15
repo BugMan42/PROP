@@ -423,7 +423,7 @@ public class Girvan_Newman extends Algoritmo{
         if (cc2 > cc)
         {
             int d_cc = cc2 - cc;
-            if (d_cc == 1 && alg_cc != 0) obtOut().agregarMensaje("NuevaComunidad");
+            if (d_cc == 1 && alg_cc != 0) obtOut().agregarMensaje("NuevaComunidad "+obtOut().comunidad_at(cc2-1));
         }
 
         alg_cc = cc2;
