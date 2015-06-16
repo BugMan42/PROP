@@ -85,7 +85,11 @@ public class CPEventos {
     }
 
     public void nuevo() {
-        if (CCE.size() > 0) CCE.EliminarCjtEvento(CR.obtCR());
+        if (CCE.size() > 0) try {
+            CCE.EliminarCjtEvento(CR.obtCR());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         actualizar();
         refrescar();
         refrescarB();
@@ -210,7 +214,11 @@ public class CPEventos {
     }
 
     public void CCEEliminarCjtEvento() {
-        CCE.EliminarCjtEvento(CR.obtCR());
+        try {
+            CCE.EliminarCjtEvento(CR.obtCR());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void CCEModificarNombreEvento(String nomViejo, String fecha, String nomNuevo, int imp) throws Exception{

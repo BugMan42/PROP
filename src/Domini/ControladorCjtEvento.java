@@ -78,7 +78,7 @@ public class ControladorCjtEvento {
         ce.EliminarEvento(nombre, new Fecha(fecha), imp);
     }
 
-    public void EliminarCjtEvento(ControladorRelaciones cr) {
+    public void EliminarCjtEvento(ControladorRelaciones cr) throws Exception {
         ce.EliminarCjtEvento();
         cr.eliminarRelaciones();
     }

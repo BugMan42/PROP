@@ -206,7 +206,7 @@ public class ControladorRelaciones {
         rs.eliminarRelaciones(ev);
     }
 
-    public void eliminarRelaciones() {
+    public void eliminarRelaciones() throws Exception {
         rs.eliminarRelaciones();
     }
 

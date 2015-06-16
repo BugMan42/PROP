@@ -95,13 +95,21 @@ public class CPCongreso {
     }
 
     public void eliminarCongreso() {
-        CC.eliminarCongreso(CPR.obtCR());
+        try {
+            CC.eliminarCongreso(CPR.obtCR());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         reiniciarCache();
         reiniciarBusqueda();
     }
     public void nuevo(){
         if (CC.size()>0) {
-            CC.eliminarCongreso(CPR.obtCR());
+            try {
+                CC.eliminarCongreso(CPR.obtCR());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             reiniciarCache();
             reiniciarBusqueda();
         }

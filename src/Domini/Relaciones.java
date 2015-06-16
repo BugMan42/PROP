@@ -211,6 +211,8 @@ public class Relaciones {
     public void eliminarRelaciones(){
         congresistas.vaciar();
         eventos.vaciar();
+        conjuntos = new ArrayList<RelacionCompuesta>();
+        compuestas = new ArrayList<RelacionCompuesta>();
     }
     public ArrayList<Evento> obtEventos(Congresista c) throws Exception {
         return congresistas.obtener(c.obtID()).obtenerEventos();
@@ -273,6 +275,7 @@ public class Relaciones {
     public ArrayList<RelacionCompuesta> obtConjuntos(){
         return conjuntos;
     }
+
 
     public void eliminarConjunto(int id) throws Exception {
         for(int i=0; i<conjuntos.size(); ++i){

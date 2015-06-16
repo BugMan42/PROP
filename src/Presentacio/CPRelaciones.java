@@ -456,7 +456,11 @@ public class CPRelaciones {
     }
 
     public void eliminarRelaciones(){
-        CR.eliminarRelaciones();
+        try {
+            CR.eliminarRelaciones();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void guardar(String ruta){
