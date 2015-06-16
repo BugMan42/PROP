@@ -24,9 +24,9 @@ public class PanelEventos extends PanelLista {
 
     private AbstractListModel<String> bloque;
 
-    private String busquedaActual;
+   /* private String busquedaActual;
     private int auto;
-    JPopupMenu autoCompletar;
+    JPopupMenu autoCompletar;*/
 
     private JLabel lbnombre;
     private JTextField ctnombre;
@@ -98,14 +98,13 @@ public class PanelEventos extends PanelLista {
         guardar.addChoosableFileFilter(new FileNameExtensionFilter(".out", "out"));
     }
 
-
     private void crearComponentesVista() {
         checkAuto.setVisible(true);
         checkAuto.setSelected(true);
         checkInv.setVisible(true);
-        busquedaActual = "";
+        /*busquedaActual = "";
         auto = 0;
-        autoCompletar = new JPopupMenu();
+        autoCompletar = new JPopupMenu();*/
         lbnombre = new JLabel("Nombre:");
         ctnombre = new JTextField(defecto[0]);
         lbfecha = new JLabel("Fecha:");
@@ -178,12 +177,12 @@ public class PanelEventos extends PanelLista {
         bloque = new AbstractListModel<String>() {
             @Override
             public int getSize() {
-                if (cpe.obtCCE().size() == 0) return 1;
-                else return cpe.obtCCE().size();
+                if (cpe.CCEsize() == 0) return 1;
+                else return cpe.CCEsize();
             }
             @Override
             public String getElementAt(int index) {
-                if (cpe.obtCCE().size() == 0) return "No hay eventos creados";
+                if (cpe.CCEsize() == 0) return "No hay eventos creados";
                 return cpe.obtEvento(index);
             }
         };
@@ -210,7 +209,9 @@ public class PanelEventos extends PanelLista {
         ctnombre.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                busquedaDin(e, 0, ctnombre.getText(), 0);
+                if (lista.getSelectedIndex() == -1) {
+                    busquedaDin(e, 0, ctnombre.getText(), 0);
+                }
             }
         });
 
@@ -282,7 +283,9 @@ public class PanelEventos extends PanelLista {
         ctimportancia.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                busquedaDin(e, 1, ctimportancia.getText(), 2);
+                if (lista.getSelectedIndex() == -1) {
+                    busquedaDin(e, 1, ctimportancia.getText(), 2);
+                }
             }
         });
     }
@@ -373,15 +376,13 @@ public class PanelEventos extends PanelLista {
             public void keyReleased(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                     try {
-                        cpe.obtCCE().AgregarEventoRandom((Integer) contador.getValue());
+                        cpe.CCEAgregarEventoRandom((Integer) contador.getValue());
                         lbinfo.setText(" ");
                         if (checkInv.isSelected()) actualizarListaInv();
                         else actualizarLista();
-
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
-
                 }
             }
         }));
@@ -432,19 +433,19 @@ public class PanelEventos extends PanelLista {
                     System.out.println("revisa tu codigo");
                     break;
                 case 1:
-                    cpe.obtCCE().AgregarVotacion(nombre, fecha, importancia);
+                    cpe.CCEAgregarVotacion(nombre, fecha, importancia);
                     break;
                 case 2:
-                    cpe.obtCCE().AgregarReunionProfesional(nombre, fecha, importancia);
+                    cpe.CCEAgregarReunionProfesional(nombre, fecha, importancia);
                     break;
                 case 3:
-                    cpe.obtCCE().AgregarReunionPersonal(nombre, fecha, importancia);
+                    cpe.CCEAgregarReunionPersonal(nombre, fecha, importancia);
                     break;
                 case 4:
-                    cpe.obtCCE().AgregarActoOficial(nombre, fecha, importancia);
+                    cpe.CCEAgregarActoOficial(nombre, fecha, importancia);
                     break;
                 case 5:
-                    cpe.obtCCE().AgregarActoNoOficial(nombre, fecha, importancia);
+                    cpe.CCEAgregarActoNoOficial(nombre, fecha, importancia);
                     break;
                 default:
                     System.out.println("Imposible");
@@ -544,7 +545,7 @@ public class PanelEventos extends PanelLista {
                 List<String> elementos = lista.getSelectedValuesList();
                 for (String s : elementos) {
                     String aux[] = parametrosOrden(s);
-                    cpe.obtCCE().EliminarEvento(aux[1], aux[2], Integer.parseInt(aux[3]), cpe.obtCPR().obtCR());
+                    cpe.CCEEliminarEvento(aux[1], aux[2], Integer.parseInt(aux[3]));
                 }
                 lbinfo.setText(" ");
                 if (checkInv.isSelected()) actualizarListaInv();
@@ -593,9 +594,9 @@ public class PanelEventos extends PanelLista {
                 String fecha = dia.getValue() + "/" + mes.getValue() + "/" + any.getValue();
                 String importancia = ctimportancia.getText();
                 if (!validarImp(importancia)) return;
-                cpe.obtCCE().ModificarNombreEvento(aux[1], aux[2], nombre, Integer.parseInt(aux[3]), cpe.obtCPR().obtCR());
-                cpe.obtCCE().ModificarFechaEvento(nombre, aux[2], fecha, Integer.parseInt(aux[3]), cpe.obtCPR().obtCR());
-                cpe.obtCCE().ModificarImpEvento(nombre, fecha, Integer.parseInt(aux[3]), Integer.parseInt(importancia));
+                cpe.CCEModificarNombreEvento(aux[1], aux[2], nombre, Integer.parseInt(aux[3]));
+                cpe.CCEModificarFechaEvento(nombre, aux[2], fecha, Integer.parseInt(aux[3]));
+                cpe.CCEModificarImpEvento(nombre, fecha, Integer.parseInt(aux[3]), Integer.parseInt(importancia));
                 limpiarcampos();
             } catch (Exception ex) {
                 ponerRojo(ex.getMessage());
@@ -605,7 +606,7 @@ public class PanelEventos extends PanelLista {
 
     private void btagregarRandomAccion(ActionEvent e) throws Exception {
         //long ini = System.currentTimeMillis();
-        cpe.obtCCE().AgregarEventoRandom((Integer) contador.getValue());
+        cpe.CCEAgregarEventoRandom((Integer) contador.getValue());
         lbinfo.setText(" ");
         if (checkInv.isSelected()) actualizarListaInv();
         else actualizarLista();
@@ -614,19 +615,19 @@ public class PanelEventos extends PanelLista {
 
     private void bteliminarTodoAccion(ActionEvent e) {
         limpiarcampos();
-        if (cpe.obtCCE().size() > 0) {
-            cpe.obtCCE().EliminarCjtEvento(cpe.obtCPR().obtCR());
+        if (cpe.CCEsize() > 0) {
+            cpe.CCEEliminarCjtEvento();
             if (checkInv.isSelected()) actualizarListaInv();
             else actualizarLista();
         } else mostrarmensaje("No se puede eliminar porque no hay eventos");
     }
 
     private void btguardarTodoAccion(ActionEvent e) {
-        if (cpe.obtCCE().size() > 0) {
+        if (cpe.CCEsize() > 0) {
             int valor = guardar.showSaveDialog(this);
             if (valor == JFileChooser.APPROVE_OPTION) {
                 try {
-                    cpe.obtCCE().guardar(guardar.getSelectedFile().getAbsolutePath() + guardar.getFileFilter().getDescription());
+                    cpe.CCEguardar(guardar.getSelectedFile().getAbsolutePath() + guardar.getFileFilter().getDescription());
                 } catch (Exception ex) {
                     mostrarmensaje(ex.getMessage());
                 }
@@ -638,8 +639,9 @@ public class PanelEventos extends PanelLista {
         int returnVal = cargar.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             try {
-                cpe.obtCCE().cargar(cargar.getSelectedFile().getAbsolutePath(), cpe.obtCPR().obtCR());
-            } catch (Exception a) {
+                cpe.CCEcargar(cargar.getSelectedFile().getAbsolutePath());
+            }
+            catch (Exception a) {
                 mostrarmensaje(a.getMessage());
             }
         }
@@ -786,6 +788,7 @@ public class PanelEventos extends PanelLista {
         //labelStatus.setText("Num. eventos encontrados: 0");
         if (checkInv.isSelected()) actualizarListaInv();
         else actualizarLista();
+
     }
 
     //TODO MODIFICAR
@@ -859,13 +862,13 @@ public class PanelEventos extends PanelLista {
         bloque = new AbstractListModel<String>() {
             @Override
             public int getSize() {
-                if (cpe.obtCCE().size() == 0) return 1;
-                else return cpe.obtCCE().size();
+                if (cpe.CCEsize() == 0) return 1;
+                else return cpe.CCEsize();
             }
             @Override
             public String getElementAt(int index) {
-                if (cpe.obtCCE().size() == 0) return "No hay eventos creados";
-                return cpe.obtEvento(cpe.obtCCE().size() - index - 1);
+                if (cpe.CCEsize() == 0) return "No hay eventos creados";
+                return cpe.obtEvento(cpe.CCEsize() - index - 1);
             }
         };
         lista.setModel(bloque);
@@ -881,22 +884,21 @@ public class PanelEventos extends PanelLista {
             switch (op) {
                 case 0:
                     cpe.ModOrden(0);
-                    cpe.obtCCE().buscarBN(busqueda);
+                    cpe.CCEbuscarBN(busqueda);
                     break;
                 case 1:
                     cpe.ModOrden(1);
-                    cpe.obtCCE().buscarBF(busqueda);
+                    cpe.CCEbuscarBF(busqueda);
                     break;
                 case 2:
-
                     cpe.ModOrden(2);
-                    cpe.obtCCE().buscarBI(busqueda);
+                    cpe.CCEbuscarBI(busqueda);
                     break;
                 default:
                     break;
             }
             labelStatus.setVisible(true);
-            labelStatus.setText("Num. eventos encontrados: " + Integer.toString(cpe.obtCCE().sizeB()));
+            labelStatus.setText("Num. eventos encontrados: " + Integer.toString(cpe.sizeCCEB()));
             actualizarListaB();
         }
     }
@@ -904,8 +906,6 @@ public class PanelEventos extends PanelLista {
     private void busquedaDin(KeyEvent evt, int i, String busqueda, int op) {
         if (busqueda.equals("") || busqueda.equals(defecto[i])) {
             labelStatus.setVisible(false);
-            autoCompletar.setVisible(false);
-            busqueda = "";
             //labelStatus.setText("Num. eventos encontrados: 0");
             actualizarLista();
         }
@@ -914,6 +914,8 @@ public class PanelEventos extends PanelLista {
                 labelStatus.setVisible(false);
                 //labelStatus.setText("Num. eventos encontrados: 0");
                 actualizarLista();
+                labelStatus.setVisible(false);
+                labelStatus.setText("");
             }
             else {
                 switch (op) {
@@ -943,17 +945,17 @@ public class PanelEventos extends PanelLista {
             switch (op) {
                 case 0:
                     cpe.ModOrden(0);
-                    cpe.obtCCE().buscarBN(busqueda);
+                    cpe.CCEbuscarBN(busqueda);
                     break;
                 case 1:
                     cpe.ModOrden(1);
-                    cpe.obtCCE().buscarBF(busqueda);
+                    cpe.CCEbuscarBF(busqueda);
                     break;
                 case 2:
                     if (esNumero(busqueda)) {
                         //System.out.println("Aqui llego");
                         cpe.ModOrden(2);
-                        cpe.obtCCE().buscarBI(busqueda);
+                        cpe.CCEbuscarBI(busqueda);
                     }
                     else mostrarmensaje("Importancia tiene que ser un numero");
                     break;
@@ -961,50 +963,31 @@ public class PanelEventos extends PanelLista {
                     break;
             }
             labelStatus.setVisible(true);
-            labelStatus.setText("Num. eventos encontrados: " + Integer.toString(cpe.obtCCE().sizeB()));
+            labelStatus.setText("Num. eventos encontrados: " + Integer.toString(cpe.sizeCCEB()));
             actualizarListaB();
         }
     }
 
     protected void textSearchTyped(KeyEvent evt) {
-        autoCompletar.setFocusable(false);
         busquedaDin(evt, 2, textSearch.getText(), boxSearch.getSelectedIndex());
     }
 
     public void actualizarListaB() {
-        lista.setPrototypeCellValue(" ");
+        lista.setPrototypeCellValue("No se que poner");
         cpe.refrescarB();
         bloque = new AbstractListModel<String>() {
             @Override
             public int getSize() {
-                if (cpe.obtCCE().sizeB() == 0) return 1;
-                else return cpe.obtCCE().sizeB();
+                if (cpe.sizeCCEB() == 0) return 1;
+                else return cpe.sizeCCEB();
             }
             @Override
             public String getElementAt(int index) {
-                if (cpe.obtCCE().sizeB() == 0) return "No hay coincidencias";
+                if (cpe.sizeCCEB() == 0) return "No hay coincidencias";
                 return cpe.obtEventoB(index);
             }
         };
         lista.setModel(bloque);
-        /*String info[] = {"No hay coincidencias"};
-        if (cpe.obtCCE().sizeB() == 0 || prefijo.equals("")) lista.setListData(info);
-        else {
-            switch (i) {
-                case 0:
-                cpe.ModOrdenB(0);
-                lista.setListData(cpe.obtBloqueB(prefijo));
-                    break;
-                case 1:
-                    cpe.ModOrdenB(1);
-                    lista.setListData(cpe.obtBloqueB(prefijo));
-                    break;
-                case 2:
-                    cpe.ModOrdenB(0);
-                    lista.setListData(cpe.obtBloqueB(prefijo));
-                    break;
-            }
-        }*/
     }
     /** TE PUEDE HACER FALTA*/
     protected void textSearchFocusLost() {
