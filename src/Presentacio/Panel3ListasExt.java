@@ -2,6 +2,8 @@ package Presentacio;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -43,6 +45,7 @@ public abstract class Panel3ListasExt extends Panel {
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
         nr = new JSpinner();
+
 
         bañadir.setText("Añadir");
         beliminar.setText("Eliminar");

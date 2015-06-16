@@ -77,6 +77,11 @@ public class Ejecutor {
             }
             if (i_com > 0) --i_com;
         }
+        else if (r[0].equals("MoverNodoComunidad"))
+        {
+            String col = g.getNode(r[1]).getAttribute("color");
+            g.getNode(r[1]).addAttribute("ui.style", "fill-color: "+col+";");
+        }
         /*else if (r[0].equals("AñadirArista"))
         {
             String a1 = r[1];
@@ -140,15 +145,12 @@ public class Ejecutor {
         {
             i_com = 0;
         }
-        /*else if (r[0].equals("AñadirArista"))
+        else if (r[0].equals("MoverNodoComunidad"))
         {
-            String a1 = r[1];
-            String a2 = r[2];
-            if (a1.equals(a2)) g.addEdge(a1+"~"+a2, a1, a2);
-            Edge e = g.getEdge(a1+"~"+a2);
-            if (e == null) e = g.getEdge(a2+"~"+a1);
-            e.addAttribute("ui.style", "shape: blob; fill-color: black; size: 3px;");
-        }*/
+            String col = g.getNode(r[2]).getAttribute("color");
+            g.getNode(r[1]).addAttribute("ui.style", "fill-color: "+col+";");
+        }
+
     }
 
     private void anterior2 (String c)
