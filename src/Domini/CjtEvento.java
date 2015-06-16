@@ -294,6 +294,7 @@ public class CjtEvento {
 
     public ArrayList<String> busquedaImp(String prefijo) {
         String imp = arreglarImpString(prefijo);
+        //System.out.println(imp);
         List<Evento> aux = cjtImp.prefijo(imp);
         if (aux == null) return new ArrayList<String>();
         ArrayList<String> resultado = new ArrayList<String>();

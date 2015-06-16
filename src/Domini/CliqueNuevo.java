@@ -120,42 +120,42 @@ public class CliqueNuevo extends Algoritmo2 {
             Congresista i = (Congresista) it.next();
             obtOut().agregarMensaje("Visita " + i.obtID());
             int m = g.degreeSalida(i);
-            System.out.println("Grado de: " + i.obtID() + ": " + Integer.toString(m));
+            //System.out.println("Grado de: " + i.obtID() + ": " + Integer.toString(m));
             if (m + 1 >= k) {
                 List<Congresista> candidatos = new ArrayList<Congresista>(g.nodosSalida(i)).subList(index_sublista(i), m);
-                System.out.println("Candidatos");
-                for (int j = 0; j < candidatos.size(); ++j)
-                    System.out.println("Soy el candidato numero " + candidatos.get(j).obtID());
+                //System.out.println("Candidatos");
+                //for (int j = 0; j < candidatos.size(); ++j) System.out.println("Soy el candidato numero " + candidatos.get(j).obtID());
                 for (Iterator it2 = candidatos.iterator(); it2.hasNext(); ) {
                     Congresista v = (Congresista) it2.next();
-                    System.out.println("Mirando nodo num: " + v.obtID());
+                    //System.out.println("Mirando nodo num: " + v.obtID());
                     it2.remove();
                     /*ArrayList<Integer> l = new ArrayList<Integer>(candidatos);
                     l.retainAll(g.nodosSalida(v));*/
                     List<Congresista> l = fusion(candidatos, g.nodosSalida(v), null);
-                    System.out.println("Lista recursividad");
-                    System.out.println(l);
+                    //System.out.println("Lista recursividad");
+                    //System.out.println(l);
                     /*System.out.println("Lista Fusion");
                     /System.out.println(listaF);*/
-                    int contador = 0;
+                    //int contador = 0;
                     for (Iterator it3 = l.iterator(); it3.hasNext(); ) {
-                        ++contador;
-                        System.out.println("Pasada numero " + Integer.toString(contador));
+                        //++contador;
+                        //System.out.println("Pasada numero " + Integer.toString(contador));
                         k_clique kc = new k_clique();
                         kc.agregar(i);
-                        System.out.println("Agrego a kc el nodo num " + i.obtID());
+                        //System.out.println("Agrego a kc el nodo num " + i.obtID());
                         kc.agregar(v);
-                        System.out.println("Agrego a kc el nodo num " + v.obtID());
+                        //System.out.println("Agrego a kc el nodo num " + v.obtID());
                         cliqueOneNode(kc, k - 2, l);
                         //for (int w = 0; w < l.size(); ++w) System.out.println("Soy el  numero " + Integer.toString(candidatos.get(w)) + " de l");
-                        System.out.println("kc");
-                        System.out.println(kc.lista());
+                        //System.out.println("kc");
+                        //System.out.println(kc.lista());
                         it3.next();
                         it3.remove();
                         //for (int w = 0; w < l.size(); ++w) System.out.println("Soy el  numero " + Integer.toString(candidatos.get(w)) + " de l despues");
                         if (kc.size() > 0) {
                             try {
                                 kc.sumaPeso(g.pesoAristasVertice(i, v));
+
                                 for (Iterator it4 = kc.lista().iterator(); it4.hasNext(); ) {
                                     Congresista x = (Congresista) it4.next();
                                     if (!x.equals(i) && !x.equals(v)) {
@@ -163,7 +163,9 @@ public class CliqueNuevo extends Algoritmo2 {
                                         kc.sumaPeso(g.pesoAristasVertice(v, x));
                                     }
                                 }
-                            } catch (Exception ex) {
+                                //System.out.println("Peso de la clique " + kc.obtPeso());
+                            }
+                            catch (Exception ex) {
 
                             }
                             //obtOut().agregarMensaje("La clique tiene peso: " + kc.obtPeso());
@@ -211,13 +213,13 @@ public class CliqueNuevo extends Algoritmo2 {
     }
 
     private void cliqueOneNode(k_clique kc, int k, List<Congresista> lista) throws Exception {
-        System.out.println("Mi k es " + Integer.toString(k) + " la lista tiene este numero de elementos " + Integer.toString(lista.size()));
+        //System.out.println("Mi k es " + Integer.toString(k) + " la lista tiene este numero de elementos " + Integer.toString(lista.size()));
         if (lista.isEmpty() || lista.size() < k) {
             kc.eliminar();
             return;
         }
         if (k == 1) {
-            System.out.println("Agrego a kc el nodo num " + lista.get(0).obtID());
+            //System.out.println("Agrego a kc el nodo num " + lista.get(0).obtID());
             kc.agregar(lista.get(0));
             return;
         }
@@ -226,9 +228,9 @@ public class CliqueNuevo extends Algoritmo2 {
             Congresista v = lista.get(1);
             if (g.existeAlgunaArista(u, v)) {
                 kc.agregar(u);
-                System.out.println("Agrego a kc el nodo num " + u.obtID());
+                //System.out.println("Agrego a kc el nodo num " + u.obtID());
                 kc.agregar(v);
-                System.out.println("Agrego a kc el nodo num " + v.obtID());
+                //System.out.println("Agrego a kc el nodo num " + v.obtID());
                 try {
                     kc.sumaPeso(g.pesoAristasVertice(u, v));
                 } catch (Exception ex) {
@@ -236,7 +238,7 @@ public class CliqueNuevo extends Algoritmo2 {
             } else kc.eliminar();
         } else {
             Congresista u = lista.get(0);
-            System.out.println("Primer nodo " + u.obtID());
+            //System.out.println("Primer nodo " + u.obtID());
             Congresista v = lista.get(1);
             /*System.out.println("Segundo nodo " + Integer.toString(u));
             List<Integer> candidatos = listarecursividad(u, v, kc);
@@ -259,7 +261,8 @@ public class CliqueNuevo extends Algoritmo2 {
                                 kc.sumaPeso(g.pesoAristasVertice(v, x));
                             }
                         }
-                    } catch (Exception ex) {
+                    }
+                    catch (Exception ex) {
                     }
                 }
             }
@@ -273,22 +276,26 @@ public class CliqueNuevo extends Algoritmo2 {
 
     private void asignarCliqueCom(k_clique kc, comunidades c) throws Exception {
         int n = c.size();
+        //System.out.println("Numero de cliques hechas " + n);
         //siempre existira una clique sino no estuviera aqui
         //en caso de que hayan mas
+
         if (n > 0) {
             boolean agregado = false;
-            for (int i = 0; i < n && !agregado; ++i) {
+            for (int i = 0; !agregado && i < n; ++i) {
                 k_clique kc1 = c.obt_clique(i);
-                //obtOut().agregarMensaje("Mirando clique num: " + Integer.toString(j) + " para relacionarlo con " + Integer.toString(i));
+                //obtOut().agregarMensaje("Mirando clique num: " + Integer.toString(i) + " para relacionarlo con la nueva");
                 int inter = numFusion(kc.lista(), kc1.lista());
                 //ArrayList<Integer> aux = new ArrayList<Integer>(kc.lista());
                 //aux.retainAll(kc1.lista());
-                //System.out.println("inter: " + Integer.toString(inter) + " aux:" + Integer.toString(aux.size()));
+                //System.out.println("inter: " + Integer.toString(inter));
                 //obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " tiene con clique num: " + Integer.toString(i) + " exactamente estos nodos en comun " + Integer.toString(aux.size()));
                 if (inter == k - 1) {
                     agregado = true;
                     kc.modNum(kc1.obtNum());
+                    //System.out.println("Antes de agregar la nueva clique tengo " + obtOut().comunidad_at(kc.obtNum()));
                     obtOut().comunidad_at(kc.obtNum()).addAll(kc.lista());
+                    //System.out.println("Despues de agregar la nueva clique tengo " + obtOut().comunidad_at(kc.obtNum()));
                     String s = "Comunidad " + Integer.toString(kc.obtNum());
                     ArrayList<Congresista> w = new ArrayList<Congresista>(obtOut().comunidad_at(kc.obtNum()));
                     agregarVertices(s, w);
@@ -297,22 +304,26 @@ public class CliqueNuevo extends Algoritmo2 {
             if (!agregado) {
                 kc.modNum(c.obtUltimo());
                 c.incUltimo();
-                Set<Congresista> s = new HashSet<Congresista>();
+                Set<Congresista> s = new LinkedHashSet<Congresista>();
                 s.addAll(kc.lista());
                 String str = "Comunidad " + Integer.toString(kc.obtNum());
                 agregarVertices(str, kc.lista());
+                //System.out.println("Despues de agregar la nueva clique tengo " + kc.lista());
                 obtOut().agregarComunidad(s);
+                //System.out.println("Despues de agregar la nueva clique tengo " + obtOut().comunidad_at(kc.obtNum()));
             }
         }
         //En caso de que sea la primera
         else {
             kc.modNum(c.obtUltimo());
             c.incUltimo();
-            Set<Congresista> s = new HashSet<Congresista>();
-            s.addAll(kc.lista());
+            Set<Congresista> s = new LinkedHashSet<Congresista>();
+            s.addAll(kc.lista());//System.out.println("Aqui peto!");
             String str = "Comunidad " + Integer.toString(kc.obtNum());
             agregarVertices(str, kc.lista());
+            //System.out.println("Antes de agregar la nueva clique tengo " + s);
             obtOut().agregarComunidad(s);
+            //System.out.println("Despues de agregar la nueva clique tengo " + obtOut().comunidad_at(kc.obtNum()));
         }
     }
 

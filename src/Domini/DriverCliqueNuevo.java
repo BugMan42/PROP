@@ -1,7 +1,12 @@
 package Domini;
 
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Set;
+
 public class DriverCliqueNuevo {
-    /*final static String menu = "Bienvenido/a al driver de clique";
+    final static String menu = "Bienvenido/a al driver de clique";
     final static String opcion1 = "1 Clique(Entrada in, Salida out). Usando GrafoPrueba1 y k = 3 si no se cambia. Sin argumentos";
     final static String opcion2 = "2 Elegir k";
     final static String opcion3 = "3 CrearGrafoPrueba(). Sin argumentos";
@@ -17,7 +22,7 @@ public class DriverCliqueNuevo {
     private static Entrada2 en;
     private static Salida2 sa;
     private static int k;
-    private static GrafoNodoArista g = null;
+    private static GrafoNodoArista<Congresista, Edge> g = null;
 
     public static void main(String[] args) throws Exception {
         k = 3;
@@ -99,24 +104,33 @@ public class DriverCliqueNuevo {
     }
 
     private static void crearGrafoPersonalizado(Scanner entrada) throws Exception{
-        System.out.println("Introduzca los vertices que desee utilizar separados por espacio");
+        System.out.println("Introduzca el numero de vertices que desee utilizar");
         String s = entrada.nextLine();
         String aux[] = s.split("\\s");
-        if (s.length() == 0) throw new Exception(ins);
+        if (s.length() < 1) throw new Exception(ins);
+        if (s.length() > 1) throw new Exception(dem);
         if (g == null) g = new GrafoNodoArista();
-        for (int i = 0; i < aux.length; ++i) g.agregarVertice(aux[i]);
-        System.out.println("Introduzca nodo origen, nodo destino y peso separados por espacios. Ex: u v 1.");
+        ArrayList<Congresista> lista = new ArrayList<Congresista>();
+        for (int i = 0; i < Integer.parseInt(aux[0]); ++i) {
+            Congresista con = new Congresista(new Dni(), "golf", "golf", 18, "golf", "golf", "golf");
+            lista.add(con);
+            g.agregarVertice(con);
+        }
+        System.out.println(g.consultarVertices());
+        System.out.println("Introduzca dos indices del 0 al " + Integer.toString(g.consultarVertices().size())+ " y un peso");
         s = entrada.nextLine();
         aux = s.split("\\s");
         if (aux.length%3 != 0) throw new Exception(ins);
         for (int i = 0; i < aux.length; i+=3) {
-            g.agregarArista(aux[i], aux[i+1], Integer.parseInt(aux[i+2]));
-            g.agregarArista(aux[i+1], aux[i], Integer.parseInt(aux[i+2]));
+            Edge e  = new Edge(lista.get(Integer.parseInt(aux[i])), lista.get(Integer.parseInt(aux[i + 1])), Double.parseDouble(aux[i + 2]));
+            g.agregarArista(e);
+            e = new Edge(lista.get(Integer.parseInt(aux[i + 1])), lista.get(Integer.parseInt(aux[i])), Double.parseDouble(aux[i + 2]));
+            g.agregarArista(e);
         }
     }
 
-    private static void crearGrafo(int i) throws Exception {
-        g = new Grafo();
+   private static void crearGrafo(int i) throws Exception {
+        g = new GrafoNodoArista();
         switch (i) {
             case 1:
                 grafo1();
@@ -130,7 +144,7 @@ public class DriverCliqueNuevo {
             case 4:
                 grafo4();
                 break;
-            case 5:
+            /*case 5:
                 grafo5();
                 break;
             case 6:
@@ -138,7 +152,7 @@ public class DriverCliqueNuevo {
                 break;
             case 7:
                 grafo7();
-                break;
+                break;*/
             case 8:
                 grafo8();
                 break;
@@ -148,7 +162,67 @@ public class DriverCliqueNuevo {
     }
 
     private static void grafo1() throws Exception {
-        g.agregarVertice("0");
+        Congresista C0 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
+        Congresista C1 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "San Francisco", "CA", "Berkeley");
+        Congresista C2 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
+        Congresista C3 = new Congresista(new Dni("00000000D"), "Max", "Newman", 87, "Chealsea", "LO", "Democrata");
+        Congresista C4 = new Congresista(new Dni("00000000E"), "Allen", "Newll", 65, "San Francisco", "SF", "Pirata");
+        Congresista C5 = new Congresista(new Dni("00000000F"), "Jon-Von", "Neumann", 53, "Budapest", "AU", "Pirata");
+        Congresista C6 = new Congresista(new Dni("00000000G"), "Alan", "Turing", 41, "London", "LO", "Liberal");
+        g.agregarVertice(C0);
+        g.agregarVertice(C1);
+        g.agregarVertice(C2);
+        g.agregarVertice(C3);
+        g.agregarVertice(C4);
+        g.agregarVertice(C5);
+        g.agregarVertice(C6);
+
+        Edge<Congresista> e1 = new Edge<Congresista>(C0,C1,1.0);
+        Edge<Congresista> e2 = new Edge<Congresista>(C1,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C0,C2,1.0);
+        e2 = new Edge<Congresista>(C2,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C1,C2,1.0);
+        e2 = new Edge<Congresista>(C2,C1,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C1,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C1,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C2,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C2,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C3,C4,1.0);
+        e2 = new Edge<Congresista>(C4,C3,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C3,C5,1.0);
+        e2 = new Edge<Congresista>(C5,C3,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C4,C5,1.0);
+        e2 = new Edge<Congresista>(C5,C4,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C5,C6,1.0);
+        e2 = new Edge<Congresista>(C6,C5,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        /*g.agregarVertice("0");
         g.agregarVertice("1");
         g.agregarVertice("2");
         g.agregarVertice("3");
@@ -174,11 +248,62 @@ public class DriverCliqueNuevo {
         g.agregarArista("4", "3", 1);
         g.agregarArista("5", "3", 1);
         g.agregarArista("5", "4", 1);
-        g.agregarArista("6", "5", 1);
+        g.agregarArista("6", "5", 1);*/
     }
 
     private static void grafo2() throws Exception {
-        g.agregarVertice("0");
+        Congresista C0 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
+        Congresista C1 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "San Francisco", "CA", "Berkeley");
+        Congresista C2 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
+        Congresista C3 = new Congresista(new Dni("00000000D"), "Max", "Newman", 87, "Chealsea", "LO", "Democrata");
+        Congresista C4 = new Congresista(new Dni("00000000E"), "Allen", "Newll", 65, "San Francisco", "SF", "Pirata");
+
+        g.agregarVertice(C0);
+        g.agregarVertice(C1);
+        g.agregarVertice(C2);
+        g.agregarVertice(C3);
+        g.agregarVertice(C4);
+
+        Edge<Congresista> e1 = new Edge<Congresista>(C0,C1,1.0);
+        Edge<Congresista> e2 = new Edge<Congresista>(C1,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C0,C2,1.0);
+        e2 = new Edge<Congresista>(C2,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C0,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C1,C2,1.0);
+        e2 = new Edge<Congresista>(C2,C1,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C1,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C1,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C1,C4,1.0);
+        e2 = new Edge<Congresista>(C4,C1,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C2,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C2,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C2,C4,1.0);
+        e2 = new Edge<Congresista>(C4,C2,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+        /*g.agregarVertice("0");
         g.agregarVertice("1");
         g.agregarVertice("2");
         g.agregarVertice("3");
@@ -200,12 +325,51 @@ public class DriverCliqueNuevo {
         g.agregarArista("3", "1", 1);
         g.agregarArista("4", "1", 1);
         g.agregarArista("3", "2", 1);
-        g.agregarArista("4", "2", 1);
-
+        g.agregarArista("4", "2", 1);*/
     }
 
     private static void grafo3() throws Exception {
-        g.agregarVertice("0");
+        Congresista C0 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
+        Congresista C1 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "San Francisco", "CA", "Berkeley");
+        Congresista C2 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
+        Congresista C3 = new Congresista(new Dni("00000000D"), "Max", "Newman", 87, "Chealsea", "LO", "Democrata");
+
+        g.agregarVertice(C0);
+        g.agregarVertice(C1);
+        g.agregarVertice(C2);
+        g.agregarVertice(C3);
+
+        Edge<Congresista> e1 = new Edge<Congresista>(C0,C1,1.0);
+        Edge<Congresista> e2 = new Edge<Congresista>(C1,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C0,C2,1.0);
+        e2 = new Edge<Congresista>(C2,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C0,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C1,C2,1.0);
+        e2 = new Edge<Congresista>(C2,C1,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C1,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C1,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C2,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C2,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        /*g.agregarVertice("0");
         g.agregarVertice("1");
         g.agregarVertice("2");
         g.agregarVertice("3");
@@ -222,11 +386,73 @@ public class DriverCliqueNuevo {
         g.agregarArista("3", "0", 1);
         g.agregarArista("2", "1", 1);
         g.agregarArista("3", "1", 1);
-        g.agregarArista("3", "2", 1);
+        g.agregarArista("3", "2", 1);*/
     }
 
     private static void grafo4() throws Exception {
-        g.agregarVertice("0");
+        Congresista C0 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
+        Congresista C1 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "San Francisco", "CA", "Berkeley");
+        Congresista C2 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
+        Congresista C3 = new Congresista(new Dni("00000000D"), "Max", "Newman", 87, "Chealsea", "LO", "Democrata");
+        Congresista C4 = new Congresista(new Dni("00000000E"), "Allen", "Newll", 65, "San Francisco", "SF", "Pirata");
+
+        g.agregarVertice(C0);
+        g.agregarVertice(C1);
+        g.agregarVertice(C2);
+        g.agregarVertice(C3);
+        g.agregarVertice(C4);
+
+        Edge<Congresista> e1 = new Edge<Congresista>(C0,C1,1.0);
+        Edge<Congresista> e2 = new Edge<Congresista>(C1,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C0,C2,1.0);
+        e2 = new Edge<Congresista>(C2,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C0,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C0,C4,1.0);
+        e2 = new Edge<Congresista>(C4,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C1,C2,1.0);
+        e2 = new Edge<Congresista>(C2,C1,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C1,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C1,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C1,C4,1.0);
+        e2 = new Edge<Congresista>(C4,C1,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C2,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C2,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C2,C4,1.0);
+        e2 = new Edge<Congresista>(C4,C2,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C3,C4,1.0);
+        e2 = new Edge<Congresista>(C4,C3,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        /*g.agregarVertice("0");
         g.agregarVertice("1");
         g.agregarVertice("2");
         g.agregarVertice("3");
@@ -252,10 +478,10 @@ public class DriverCliqueNuevo {
         g.agregarArista("4", "1", 1);
         g.agregarArista("3", "2", 1);
         g.agregarArista("4", "2", 1);
-        g.agregarArista("4", "3", 1);
+        g.agregarArista("4", "3", 1);*/
     }
 
-    private static void grafo5() throws Exception {
+    /*private static void grafo5() throws Exception {
         g.agregarVertice("0");
         g.agregarVertice("1");
         g.agregarVertice("2");
@@ -378,10 +604,62 @@ public class DriverCliqueNuevo {
         g.agregarArista("10", "9", 1);
         g.agregarArista("11", "10", 1);
         g.agregarArista("12", "11", 1);
-    }
+    }*/
 
     private static void grafo8() throws Exception {
-        g.agregarVertice("0");
+        Congresista C0 = new Congresista(new Dni("00000000A"), "Edsger", "Dijkstra", 72, "Rotterdam", "NT", "Pirata");
+        Congresista C1 = new Congresista(new Dni("00000000B"), "Gordon", "Moore", 86, "San Francisco", "CA", "Berkeley");
+        Congresista C2 = new Congresista(new Dni("00000000C"), "Richard", "Hamming", 82, "Monterey", "CA", "Pirata");
+        Congresista C3 = new Congresista(new Dni("00000000D"), "Max", "Newman", 87, "Chealsea", "LO", "Democrata");
+        Congresista C4 = new Congresista(new Dni("00000000E"), "Allen", "Newll", 65, "San Francisco", "SF", "Pirata");
+
+        g.agregarVertice(C0);
+        g.agregarVertice(C1);
+        g.agregarVertice(C2);
+        g.agregarVertice(C3);
+        g.agregarVertice(C4);
+
+        Edge<Congresista> e1 = new Edge<Congresista>(C0,C1,1.0);
+        Edge<Congresista> e2 = new Edge<Congresista>(C1,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C0,C2,1.0);
+        e2 = new Edge<Congresista>(C2,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C0,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C0,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C1,C2,1.0);
+        e2 = new Edge<Congresista>(C2,C1,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C1,C4,1.0);
+        e2 = new Edge<Congresista>(C4,C1,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C2,C3,1.0);
+        e2 = new Edge<Congresista>(C3,C2,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C2,C4,1.0);
+        e2 = new Edge<Congresista>(C4,C2,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        e1 = new Edge<Congresista>(C3,C4,1.0);
+        e2 = new Edge<Congresista>(C4,C3,1.0);
+        g.agregarArista(e1);
+        g.agregarArista(e2);
+
+        /*g.agregarVertice("0");
         g.agregarVertice("1");
         g.agregarVertice("2");
         g.agregarVertice("3");
@@ -403,7 +681,7 @@ public class DriverCliqueNuevo {
         g.agregarArista("4", "1", 1);
         g.agregarArista("3", "2", 1);
         g.agregarArista("4", "2", 1);
-        g.agregarArista("4", "3", 1);
+        g.agregarArista("4", "3", 1);*/
     }
 
     private static void ImprimirMenu() {
@@ -414,6 +692,6 @@ public class DriverCliqueNuevo {
         System.out.println(opcion5);
         System.out.println(opcion6);
         System.out.println(msg);
-    }*/
+    }
 }
 

@@ -96,8 +96,6 @@ public class CPEventos {
         }
     }
 
-
-
     public String obtEvento(int indice) {
         int bloque = indice/tamanioBloque;
         if (bloque == indiceA) {

@@ -102,6 +102,7 @@ public class PanelCongreso extends PanelLista {
         textCity.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lSurname.setFont(new java.awt.Font("Ubuntu", 0, 18));
     }
+
     private void iniComp() {
         searchPopMenu = new JPopupMenu();
         lName = new JLabel();
@@ -132,6 +133,7 @@ public class PanelCongreso extends PanelLista {
         SpinnerNum = new JSpinner();
         listCongreso = obtJlist();
     }
+
     private void initGUI() {
         cargarFilechoser();
 
@@ -907,7 +909,6 @@ public class PanelCongreso extends PanelLista {
             Search(actualSearch, which);
             labelStatus.setVisible(true);
             labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
-
             //textSearch.setCaretPosition(actualSearch.length());
         }
         else {
