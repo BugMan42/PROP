@@ -65,7 +65,7 @@ public class Ejecutor {
             for (int i = 1; i < r.length; i++)
             {
                 Node n = g.getNode(r[i]);
-                n.addAttribute("ui.style", "stroke-width: 1px; shape: pie-chart; ");
+                n.addAttribute("ui.style", "stroke-width: 1px; stroke-mode: plain; ");
             }
         }
         else if (r[0].equals("Comunidad"))
@@ -81,6 +81,10 @@ public class Ejecutor {
         {
             String col = g.getNode(r[1]).getAttribute("color");
             g.getNode(r[1]).addAttribute("ui.style", "fill-color: "+col+";");
+        }
+        else if (r[0].equals("CComunidad"))
+        {
+
         }
         /*else if (r[0].equals("AñadirArista"))
         {
@@ -126,7 +130,7 @@ public class Ejecutor {
             for (int i = 1; i < r.length; i++)
             {
                 Node n = g.getNode(r[i]);
-                n.addAttribute("ui.style", "stroke-width: 3px; shape: diamond; ");
+                n.addAttribute("ui.style", "stroke-width: 3px; stroke-mode: dots; ");
             }
         }
         else if (r[0].equals("Comunidad"))
@@ -149,6 +153,10 @@ public class Ejecutor {
         {
             String col = g.getNode(r[2]).getAttribute("color");
             g.getNode(r[1]).addAttribute("ui.style", "fill-color: "+col+";");
+        }
+        else if (r[0].equals("CComunidad"))
+        {
+
         }
 
     }
