@@ -862,6 +862,7 @@ public class PanelCongreso extends PanelLista {
     protected void checkInvActionPerformed(ActionEvent evt) {
         updateUniversal();
     }
+
     private void updateUniversal() {
         if (buscando) {
             if (checkInv.isSelected()) {
@@ -879,7 +880,6 @@ public class PanelCongreso extends PanelLista {
         }
     }
 
-    ///////////////////////HACER//////////////////////////////////
     protected void textSearchTyped(KeyEvent evt) {
         searchPopMenu.setFocusable(false);
         String buscar = textSearch.getText();

@@ -37,7 +37,9 @@ public class CPEventos {
         }
     }
 
-    public int obtOrden() {return orden;}
+    public int obtOrden() {
+        return orden;
+    }
 
 
     public PanelEventos obtPanel() {
@@ -70,14 +72,20 @@ public class CPEventos {
         }
     }
 
-    public ControladorCjtEvento obtCCE() {return CCE;}
+    public ControladorCjtEvento obtCCE() {
+        return CCE;
+    }
 
-    public void modCR(CPRelaciones cpr) {CR = cpr;}
+    public void modCR(CPRelaciones cpr) {
+        CR = cpr;
+    }
 
-    public CPRelaciones obtCPR() {return CR;}
+    public CPRelaciones obtCPR() {
+        return CR;
+    }
 
-    public void nuevo(){
-        if (CCE.size()>0) CCE.EliminarCjtEvento(CR.obtCR());
+    public void nuevo() {
+        if (CCE.size() > 0) CCE.EliminarCjtEvento(CR.obtCR());
         actualizar();
         refrescar();
         refrescarB();
@@ -97,42 +105,37 @@ public class CPEventos {
     }
 
     public String obtEvento(int indice) {
-        int bloque = indice/tamanioBloque;
+        int bloque = indice / tamanioBloque;
         if (bloque == indiceA) {
             ultimo = 0;
-            return bloqueA[(indice%tamanioBloque)];
-        }
-        else if (bloque == indiceB) {
+            return bloqueA[(indice % tamanioBloque)];
+        } else if (bloque == indiceB) {
             ultimo = 1;
-            return bloqueB[(indice%tamanioBloque)];
-        }
-        else {
+            return bloqueB[(indice % tamanioBloque)];
+        } else {
             if (ultimo == 0) {
                 ultimo = 1;
                 indiceB = bloque;
                 bloqueB = obtBloque(bloque);
-                return bloqueB[(indice%tamanioBloque)];
-            }
-            else {
+                return bloqueB[(indice % tamanioBloque)];
+            } else {
                 ultimo = 0;
                 indiceA = bloque;
                 bloqueA = obtBloque(bloque);
-                return bloqueA[(indice%tamanioBloque)];
+                return bloqueA[(indice % tamanioBloque)];
             }
         }
     }
 
     public String obtEventoB(int indice) {
-        int bloque = indice/tamanioBloque;
+        int bloque = indice / tamanioBloque;
         if (bloque == indiceC) {
             ultB = 0;
-            return bloqueC[(indice%tamanioBloque)];
-        }
-        else if (bloque == indiceD) {
+            return bloqueC[(indice % tamanioBloque)];
+        } else if (bloque == indiceD) {
             ultimo = 1;
-            return bloqueD[(indice%tamanioBloque)];
-        }
-        else {
+            return bloqueD[(indice % tamanioBloque)];
+        } else {
             if (ultB == 0) {
                 ultB = 1;
                 indiceD = bloque;
@@ -147,8 +150,6 @@ public class CPEventos {
         }
     }
 
-
-
     public void actualizar(){
         if(PE!=null){
             PE.limpiarcampos();
@@ -156,4 +157,75 @@ public class CPEventos {
         }
     }
 
+    public int sizeCCEB() {
+        return CCE.sizeB();
+    }
+
+    public void CCEbuscarBI(String busqueda) {
+        CCE.buscarBI(busqueda);
+    }
+
+    public void CCEbuscarBF(String busqueda) {
+        CCE.buscarBF(busqueda);
+    }
+
+    public void CCEbuscarBN(String busqueda) {
+        CCE.buscarBN(busqueda);
+    }
+
+    public int CCEsize() {
+        return CCE.size();
+    }
+
+    public void CCEAgregarEventoRandom(int n) throws Exception{
+        CCE.AgregarEventoRandom(n);
+    }
+
+    public void CCEcargar(String ruta) throws Exception{
+        CCE.cargar(ruta, CR.obtCR());
+    }
+
+    public void CCEAgregarVotacion(String nombre, String fecha, int importancia) throws Exception{
+        CCE.AgregarVotacion(nombre, fecha, importancia);
+    }
+
+    public void CCEAgregarReunionProfesional(String nombre, String fecha, int importancia) throws Exception{
+        CCE.AgregarReunionProfesional(nombre,fecha,importancia);
+    }
+
+    public void CCEAgregarReunionPersonal(String nombre, String fecha, int importancia) throws Exception{
+        CCE.AgregarReunionPersonal(nombre, fecha, importancia);
+    }
+
+    public void CCEAgregarActoOficial(String nombre, String fecha, int importancia) throws Exception {
+        CCE.AgregarActoOficial(nombre,fecha,importancia);
+    }
+
+    public void CCEAgregarActoNoOficial(String nombre, String fecha, int importancia) throws Exception {
+        CCE.AgregarActoNoOficial(nombre, fecha, importancia);
+    }
+
+    public void CCEguardar(String ruta) throws Exception{
+        CCE.guardar(ruta);
+    }
+
+    public void CCEEliminarCjtEvento() {
+        CCE.EliminarCjtEvento(CR.obtCR());
+    }
+
+    public void CCEModificarNombreEvento(String nomViejo, String fecha, String nomNuevo, int imp) throws Exception{
+        CCE.ModificarNombreEvento(nomViejo, fecha, nomNuevo, imp, CR.obtCR());
+    }
+
+    public void CCEModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva, int imp) throws Exception {
+        CCE.ModificarFechaEvento(nombre,fechaVieja, fechaNueva, imp, CR.obtCR());
+    }
+
+    public void CCEModificarImpEvento(String nombre, String fecha, int imp, int imp_nueva) throws Exception {
+        CCE.ModificarImpEvento(nombre, fecha, imp, imp_nueva);
+    }
+
+    public void CCEEliminarEvento(String nombre, String fecha, int imp) throws Exception{
+        CCE.EliminarEvento(nombre, fecha, imp, CR.obtCR());
+    }
 }
