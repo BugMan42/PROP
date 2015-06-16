@@ -92,7 +92,7 @@ public class Clique extends Algoritmo {
     private void ejecutor(comunidades c) throws Exception {
         for (Iterator it = g.consultarVertices().iterator(); it.hasNext(); ) {
             int i = (Integer) it.next();
-            obtOut().agregarMensaje("Visita " + Integer.toString(i));
+            obtOut().agregarMensaje3("Visita " + Integer.toString(i));
             int m = g.degreeSalida(i);
             //System.out.println("Grado de: " + Integer.toString(i) + ": " + Integer.toString(m));
             if (m + 1 >= k) {
@@ -242,7 +242,7 @@ public class Clique extends Algoritmo {
 
     private void agregarVertices(String s, ArrayList<Integer> kc) {
         for (int j = 0; j < kc.size(); ++j)  s = s + " " + Integer.toString(kc.get(j));
-        obtOut().agregarMensaje(s);
+        obtOut().agregarMensaje3(s);
     }
 
     private void asignarCliqueCom(k_clique kc, comunidades c) throws Exception{
@@ -262,9 +262,9 @@ public class Clique extends Algoritmo {
                 if (inter == k - 1) {
                     agregado = true;
                     kc.modNum(kc1.obtNum());
-                    obtOut().comunidad_at(kc.obtNum()).addAll(kc.lista());
+                    obtOut().comunidad3_at(kc.obtNum()).addAll(kc.lista());
                     String s = "CComunidad " + Integer.toString(kc.obtNum());
-                    ArrayList<Integer> w = new ArrayList<Integer>(obtOut().comunidad_at(kc.obtNum()));
+                    ArrayList<Integer> w = new ArrayList<Integer>(obtOut().comunidad3_at(kc.obtNum()));
                     agregarVertices(s, w);
                 }
             }
@@ -275,7 +275,7 @@ public class Clique extends Algoritmo {
                 s.addAll(kc.lista());
                 String str = "CComunidad " + Integer.toString(kc.obtNum());
                 agregarVertices(str, kc.lista());
-                obtOut().agregarComunidad(s);
+                obtOut().agregarComunidad3(s);
             }
         }
         //En caso de que sea la primera
@@ -286,7 +286,7 @@ public class Clique extends Algoritmo {
             s.addAll(kc.lista());
             String str = "CComunidad " + Integer.toString(kc.obtNum());
             agregarVertices(str, kc.lista());
-            obtOut().agregarComunidad(s);
+            obtOut().agregarComunidad3(s);
         }
     }
 
@@ -459,15 +459,15 @@ public class Clique extends Algoritmo {
 
     private void agregarMensajes(comunidades c) {
         for (int i = 0; i < c.size(); ++i) {
-            obtOut().agregarMensaje("Clique" + Integer.toString(i) + ": ");
+            obtOut().agregarMensaje3("Clique" + Integer.toString(i) + ": ");
             k_clique kc = c.obt_clique(i);
-            for (int j = 0; j < kc.size(); ++j) obtOut().agregarMensaje("vertice " + Integer.toString(kc.obt_vertice(j)));
+            for (int j = 0; j < kc.size(); ++j) obtOut().agregarMensaje3("vertice " + Integer.toString(kc.obt_vertice(j)));
         }
     }
 
 
     private void buscarCom(comunidades c, k_clique kc, int i, boolean[][] probado, int n) throws Exception {
-        obtOut().agregarMensaje("La clique num: " + Integer.toString(i) + " no tiene comunidad aun");
+        obtOut().agregarMensaje3("La clique num: " + Integer.toString(i) + " no tiene comunidad aun");
         boolean agregado = false;
         for (int j = 0; j < n; ++j) {
             if (i != j && !probado[i][j]) {
@@ -479,7 +479,7 @@ public class Clique extends Algoritmo {
                 aux.retainAll(kc1.lista());
                 //obtOut().agregarMensaje("El clique num: " + Integer.toString(j) + " tiene con clique num: " + Integer.toString(i) + " exactamente estos nodos en comun " + Integer.toString(aux.size()));
                 if (aux.size() == k - 1) {
-                    obtOut().agregarMensaje("La clique num: " + Integer.toString(j) + " esta en la misma comunidad que " + Integer.toString(i));
+                    obtOut().agregarMensaje3("La clique num: " + Integer.toString(j) + " esta en la misma comunidad que " + Integer.toString(i));
                     if (i < j) {
                         if (kc.obtNum() == -1) {
                             kc.modNum(c.obtUltimo());
@@ -495,7 +495,7 @@ public class Clique extends Algoritmo {
                         kc.modNum(kc1.obtNum());
                     }
                     Set<Integer> conj;
-                    if (obtOut().numComunidades() <= kc.obtNum()) {
+                    if (obtOut().numComunidades3() <= kc.obtNum()) {
                         conj = new HashSet<Integer>();
                         if (i < j) {
                             if (!agregado) {
@@ -511,19 +511,19 @@ public class Clique extends Algoritmo {
                                 conj.addAll(kc.lista());
                             }
                         }
-                        obtOut().agregarMensaje("La clique num: " + Integer.toString(j) + " y " + Integer.toString(i) + " estan en la comunidad " + Integer.toString(kc.obtNum()));
-                        obtOut().agregarComunidad(conj);
+                        obtOut().agregarMensaje3("La clique num: " + Integer.toString(j) + " y " + Integer.toString(i) + " estan en la comunidad " + Integer.toString(kc.obtNum()));
+                        obtOut().agregarComunidad3(conj);
                     }
                     else {
-                        conj = obtOut().comunidad_at(kc.obtNum());
+                        conj = obtOut().comunidad3_at(kc.obtNum());
                         //Como se pasa por referencia actualizo la comunidad
                         if (i < j) {
-                            obtOut().agregarMensaje("La clique num: " + Integer.toString(j) + " esta en la comunidad " + Integer.toString(kc.obtNum()));
+                            obtOut().agregarMensaje3("La clique num: " + Integer.toString(j) + " esta en la comunidad " + Integer.toString(kc.obtNum()));
                             conj.addAll(kc1.lista());
 
                         }
                         else {
-                            obtOut().agregarMensaje("La clique num: " + Integer.toString(i) + " esta en la comunidad " + Integer.toString(kc.obtNum()));
+                            obtOut().agregarMensaje3("La clique num: " + Integer.toString(i) + " esta en la comunidad " + Integer.toString(kc.obtNum()));
                             conj.addAll(kc.lista());
                         }
                         agregado = true;
@@ -536,8 +536,8 @@ public class Clique extends Algoritmo {
             c.incUltimo();
             Set<Integer> s = new HashSet<Integer>();
             s.addAll(kc.lista());
-            obtOut().agregarMensaje("La clique num: " + Integer.toString(i) + " esta en la comunidad " + Integer.toString(kc.obtNum()));
-            obtOut().agregarComunidad(s);
+            obtOut().agregarMensaje3("La clique num: " + Integer.toString(i) + " esta en la comunidad " + Integer.toString(kc.obtNum()));
+            obtOut().agregarComunidad3(s);
         }
     }
 }

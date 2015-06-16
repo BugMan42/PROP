@@ -335,14 +335,18 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 --im1;
-                String h = cpa.message_at(im1);
-                String g = cpa.message_at(im1+1);
-                String i = cpa.message_at(im1-1);
+                String f = cpa.message_at1(im1+2);
+                String g = cpa.message_at1(im1+1);
+                String h = cpa.message_at1(im1);
+                String i = cpa.message_at1(im1-1);
+                String j = cpa.message_at1(im1-2);
 
                 lm1.clear();
-                lm1.add(0, i);
-                lm1.add(1, h);
-                lm1.add(2, g);
+                lm1.add(0, j);
+                lm1.add(1, i);
+                lm1.add(2, h);
+                lm1.add(3, g);
+                lm1.add(4, f);
                 lst1.setSelectedIndex(1);
                 ej.ejecuta1(g, h);
                 if (im1 == 0)
@@ -351,7 +355,7 @@ public class PanelAlgoritmo extends Panel{
                     top1.setEnabled(false);
                 }
 
-                if (im1 == cpa.num_mensajes()-2)
+                if (im1 == cpa.num_mensajes1()-2)
                 {
                     down1.setEnabled(true);
                     bottom1.setEnabled(true);
@@ -363,16 +367,16 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ++im1;
-                String h = cpa.message_at(im1);
-                String g = cpa.message_at(im1-1);
-                String i = cpa.message_at(im1+1);
+                String h = cpa.message_at1(im1);
+                String g = cpa.message_at1(im1-1);
+                String i = cpa.message_at1(im1+1);
                 lm1.clear();
                 lm1.add(0, g);
                 lm1.add(1, h);
                 lm1.add(2, i);
                 lst1.setSelectedIndex(1);
                 ej.ejecuta2(g, h);
-                if (im1 == cpa.num_mensajes() - 1) {
+                if (im1 == cpa.num_mensajes1() - 1) {
                     down1.setEnabled(false);
                     bottom1.setEnabled(false);
                 }
@@ -390,16 +394,16 @@ public class PanelAlgoritmo extends Panel{
             public void actionPerformed(ActionEvent e) {
                 for (int k = im1; k > 0; k--)
                 {
-                    ej.ejecuta1(cpa.message_at(k),cpa.message_at(k-1));
+                    ej.ejecuta1(cpa.message_at1(k),cpa.message_at1(k-1));
                 }
                 im1 = 0;
-                String h = cpa.message_at(im1);
+                String h = cpa.message_at1(im1);
                 String g = "Fin";
                 String i = "-";
                 lm1.clear();
                 lm1.add(0, i);
                 lm1.add(1, h);
-                lm1.add(2, cpa.message_at(im1 + 1));
+                lm1.add(2, cpa.message_at1(im1 + 1));
                 lst1.setSelectedIndex(1);
                 ej.ejecuta1(g, h);
                 up1.setEnabled(false);
@@ -412,16 +416,16 @@ public class PanelAlgoritmo extends Panel{
         bottom1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (int k = im1; k < cpa.num_mensajes()-1; k++)
+                for (int k = im1; k < cpa.num_mensajes1()-1; k++)
                 {
-                    ej.ejecuta1(cpa.message_at(k),cpa.message_at(k+1));
+                    ej.ejecuta1(cpa.message_at1(k),cpa.message_at1(k+1));
                 }
-                im1 = cpa.num_mensajes()-1;
-                String h = cpa.message_at(im1);
+                im1 = cpa.num_mensajes1()-1;
+                String h = cpa.message_at1(im1);
                 String g = "Inicio";
                 String i = "-";
                 lm1.clear();
-                lm1.add(0, cpa.message_at(im1 - 1));
+                lm1.add(0, cpa.message_at1(im1 - 1));
                 lm1.add(1, h);
                 lm1.add(2, i);
                 lst1.setSelectedIndex(1);
@@ -437,9 +441,9 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 --im2;
-                String h = cpa.message_at(im2);
-                String g = cpa.message_at(im2+1);
-                String i = cpa.message_at(im2-1);
+                String h = cpa.message_at2(im2);
+                String g = cpa.message_at2(im2+1);
+                String i = cpa.message_at2(im2-1);
 
                 lm2.clear();
                 lm2.add(0,i);
@@ -454,7 +458,7 @@ public class PanelAlgoritmo extends Panel{
                     top2.setEnabled(false);
                 }
 
-                if (im2 == cpa.num_mensajes()-2)
+                if (im2 == cpa.num_mensajes2()-2)
                 {
                     down2.setEnabled(true);
                     bottom2.setEnabled(true);
@@ -466,9 +470,9 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ++im2;
-                String h = cpa.message_at(im2);
-                String g = cpa.message_at(im2-1);
-                String i = cpa.message_at(im2+1);
+                String h = cpa.message_at2(im2);
+                String g = cpa.message_at2(im2-1);
+                String i = cpa.message_at2(im2+1);
                 lm2.clear();
                 lm2.add(0, g);
                 lm2.add(1, h);
@@ -476,7 +480,7 @@ public class PanelAlgoritmo extends Panel{
                 lst2.setSelectedIndex(1);
 
                 ej.ejecuta2(g, h);
-                if (im2 == cpa.num_mensajes() - 1) {
+                if (im2 == cpa.num_mensajes2() - 1) {
                     down2.setEnabled(false);
                     bottom2.setEnabled(false);
                 }
@@ -494,15 +498,15 @@ public class PanelAlgoritmo extends Panel{
             public void actionPerformed(ActionEvent e) {
                 for (int k = im2; k > 0; k--)
                 {
-                    ej.ejecuta1(cpa.message_at(k),cpa.message_at(k-1));
+                    ej.ejecuta1(cpa.message_at2(k),cpa.message_at2(k-1));
                 }
                 im2 = 0;
-                String h = cpa.message_at(im2);
+                String h = cpa.message_at2(im2);
                 String i = "-";
                 lm2.clear();
                 lm2.add(0,i);
                 lm2.add(1,h);
-                lm2.add(2, cpa.message_at(im2+1));
+                lm2.add(2, cpa.message_at2(im2+1));
                 lst2.setSelectedIndex(1);
                 //ej.ejecuta1(g, h);
                 up2.setEnabled(false);
@@ -515,18 +519,18 @@ public class PanelAlgoritmo extends Panel{
         bottom2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (int k = im2; k < cpa.num_mensajes()-1; k++)
+                for (int k = im2; k < cpa.num_mensajes2()-1; k++)
                 {
-                    ej.ejecuta1(cpa.message_at(k),cpa.message_at(k+1));
+                    ej.ejecuta1(cpa.message_at2(k),cpa.message_at2(k+1));
                 }
-                im2 = cpa.num_mensajes()-1;
-                String h = cpa.message_at(im2);
+                im2 = cpa.num_mensajes2()-1;
+                String h = cpa.message_at2(im2);
                 String g = "Inicio";
                 String i = "-";
                 lm2.clear();
                 lm2.add(0, i);
                 lm2.add(1, h);
-                lm2.add(2, cpa.message_at(im2+1));
+                lm2.add(2, cpa.message_at2(im2+1));
                 lst2.setSelectedIndex(1);
                 ej.ejecuta2(g, h);
 
@@ -541,9 +545,9 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 --im3;
-                String h = cpa.message_at(im3);
-                String g = cpa.message_at(im3+1);
-                String i = cpa.message_at(im3-1);
+                String h = cpa.message_at3(im3);
+                String g = cpa.message_at3(im3+1);
+                String i = cpa.message_at3(im3-1);
 
                 lm3.clear();
                 lm3.add(0, i);
@@ -559,7 +563,7 @@ public class PanelAlgoritmo extends Panel{
                     top3.setEnabled(false);
                 }
 
-                if (im3 == cpa.num_mensajes()-2)
+                if (im3 == cpa.num_mensajes3()-2)
                 {
                     down3.setEnabled(true);
                     bottom3.setEnabled(true);
@@ -571,9 +575,9 @@ public class PanelAlgoritmo extends Panel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ++im3;
-                String h = cpa.message_at(im3);
-                String g = cpa.message_at(im3-1);
-                String i = cpa.message_at(im3+1);
+                String h = cpa.message_at3(im3);
+                String g = cpa.message_at3(im3-1);
+                String i = cpa.message_at3(im3+1);
 
                 lm3.clear();
                 lm3.add(0, g);
@@ -583,7 +587,7 @@ public class PanelAlgoritmo extends Panel{
 
                 ej.ejecuta2(g, h);
 
-                if (im3 == cpa.num_mensajes() - 1) {
+                if (im3 == cpa.num_mensajes3() - 1) {
                     down3.setEnabled(false);
                     bottom3.setEnabled(false);
                 }
@@ -601,17 +605,17 @@ public class PanelAlgoritmo extends Panel{
             public void actionPerformed(ActionEvent e) {
                 for (int k = im3; k > 0; k--)
                 {
-                    ej.ejecuta1(cpa.message_at(k),cpa.message_at(k-1));
+                    ej.ejecuta1(cpa.message_at3(k),cpa.message_at3(k-1));
                 }
                 im3 = 0;
-                String h = cpa.message_at(im3);
+                String h = cpa.message_at3(im3);
                 String g = "Fin";
                 String i = "-";
 
                 lm3.clear();
                 lm3.add(0, i);
                 lm3.add(1, h);
-                lm3.add(2, cpa.message_at(im3+1));
+                lm3.add(2, cpa.message_at3(im3+1));
                 lst3.setSelectedIndex(1);
 
                 ej.ejecuta1(g, h);
@@ -626,17 +630,17 @@ public class PanelAlgoritmo extends Panel{
         bottom3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (int k = im3; k < cpa.num_mensajes()-1; k++)
+                for (int k = im3; k < cpa.num_mensajes3()-1; k++)
                 {
-                    ej.ejecuta1(cpa.message_at(k),cpa.message_at(k+1));
+                    ej.ejecuta1(cpa.message_at3(k),cpa.message_at3(k+1));
                 }
-                im3 = cpa.num_mensajes()-1;
-                String h = cpa.message_at(im3);
-                String g = cpa.message_at(0);
+                im3 = cpa.num_mensajes3()-1;
+                String h = cpa.message_at3(im3);
+                String g = cpa.message_at3(0);
                 String i = "-";
 
                 lm3.clear();
-                lm3.add(0, cpa.message_at(im3-1));
+                lm3.add(0, cpa.message_at3(im3-1));
                 lm3.add(1, h);
                 lm3.add(2, i);
                 lst3.setSelectedIndex(1);
@@ -727,6 +731,18 @@ public class PanelAlgoritmo extends Panel{
                 lst2.setEnabled(false);
                 lst3.setEnabled(false);
 
+                mostrar1.setEnabled(true);
+
+                up3.setEnabled(false);
+                down3.setEnabled(false);
+                top3.setEnabled(false);
+                bottom3.setEnabled(false);
+
+                up2.setEnabled(false);
+                down2.setEnabled(false);
+                top2.setEnabled(false);
+                bottom2.setEnabled(false);
+
                 pb1.setValue(0);
                 pb2.setValue(0);
                 pb3.setValue(0);
@@ -752,6 +768,18 @@ public class PanelAlgoritmo extends Panel{
                 lst2.setEnabled(true);
                 lst3.setEnabled(false);
 
+                mostrar2.setEnabled(true);
+
+                up1.setEnabled(false);
+                down1.setEnabled(false);
+                top1.setEnabled(false);
+                bottom1.setEnabled(false);
+
+                up3.setEnabled(false);
+                down3.setEnabled(false);
+                top3.setEnabled(false);
+                bottom3.setEnabled(false);
+
                 pb1.setValue(0);
                 pb2.setValue(0);
                 pb3.setValue(0);
@@ -774,6 +802,9 @@ public class PanelAlgoritmo extends Panel{
                 pref2.setVisible(true);
                 l_pref2.setText("Threshold");
                 l_pref2.setVisible(true);
+
+                mostrar3.setEnabled(true);
+
                 lst1.setEnabled(false);
                 lst2.setEnabled(false);
                 lst3.setEnabled(true);
@@ -832,12 +863,12 @@ public class PanelAlgoritmo extends Panel{
                         asignarGN();
                         setProgress(50);
                         mostrar1.setEnabled(false);
-                        String r = cpa.message_at(0);
+                        String r = cpa.message_at1(0);
                         //System.out.println(r);
                         lm1.clear();
                         lm1.add(0, "-");
                         lm1.add(1, r);
-                        lm1.add(2, cpa.message_at(1));
+                        lm1.add(2, cpa.message_at1(1));
                         im1 = 0;
                         down1.setEnabled(true);
                         bottom1.setEnabled(true);
@@ -877,12 +908,12 @@ public class PanelAlgoritmo extends Panel{
                         asignarLV();
                         setProgress(50);
                         mostrar2.setEnabled(false);
-                        String r = cpa.message_at(0);
+                        String r = cpa.message_at2(0);
                         //System.out.println(r);
                         lm2.clear();
                         lm2.add(0, "-");
                         lm2.add(1, r);
-                        lm2.add(2, cpa.message_at(1));
+                        lm2.add(2, cpa.message_at2(1));
                         im2 = 0;
                         down2.setEnabled(true);
                         bottom2.setEnabled(true);
@@ -922,12 +953,12 @@ public class PanelAlgoritmo extends Panel{
                         setProgress(50);
                         mostrar3.setEnabled(false);
 
-                        String r = cpa.message_at(0);
+                        String r = cpa.message_at3(0);
                         //System.out.println(r);
                         lm3.clear();
                         lm3.add(0, "-");
                         lm3.add(1, r);
-                        lm3.add(2, cpa.message_at(1));
+                        lm3.add(2, cpa.message_at3(1));
                         //tp3.setDocument(doc);
                         im3 = 0;
                         down3.setEnabled(true);
@@ -1127,7 +1158,7 @@ public class PanelAlgoritmo extends Panel{
 
     }
 
-    private void cargarGrafo()
+    /*private void cargarGrafo()
     {
         final int nv = cpa.num_vertices();
 
@@ -1143,7 +1174,7 @@ public class PanelAlgoritmo extends Panel{
 
 
 
-        int nc = cpa.num_comunidades();
+        //int nc = cpa.num_comunidades();
         char chargen = 'A';
         for (int k = 0; k < nc; k++)
         {
@@ -1199,16 +1230,16 @@ public class PanelAlgoritmo extends Panel{
             }
         }
 
-    }
+    }*/
 
     private void asignarGN()
     {
         cpa.reset_pointers();
-        int nc = cpa.num_comunidades();
+        int nc = cpa.num_comunidades1();
         for (int k = 0; k < nc; k++)
         {
            // String colour = obtColorRandom();
-            String c = cpa.next_community();
+            String c = cpa.next_community1();
             //System.out.println("comunidad: "+k);
             String[] cc = c.split(",\\s");
             if (!cc[0].equals("-"))
@@ -1233,12 +1264,12 @@ public class PanelAlgoritmo extends Panel{
     private void asignarLV()
     {
         cpa.reset_pointers();
-        int nc = cpa.num_comunidades();
+        int nc = cpa.num_comunidades2();
         int i = 0;
         for (int k = 0; k < nc; k++)
         {
 
-            String c = cpa.next_community();
+            String c = cpa.next_community2();
             //System.out.println("comunidad: "+k);
             String[] cc = c.split(",\\s");
             if (!cc[0].equals("-"))

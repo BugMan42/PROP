@@ -289,8 +289,8 @@ public class Girvan_Newman extends Algoritmo{
             if(alg_graph.existeArista(a1, a2) && alg_graph.existeArista(a2, a1)) {
                 alg_graph.eliminarAristas(a1, a2);
                 alg_graph.eliminarAristas(a2, a1);
-                obtOut().agregarMensaje("MarcarArista "+a1+" "+a2+" ("+data_graph.fPrima(a1)+"~"+data_graph.fPrima(a2)+")");
-                obtOut().agregarMensaje("EliminarArista "+a1+" "+a2+" ("+data_graph.fPrima(a1)+"~"+data_graph.fPrima(a2)+")");
+                obtOut().agregarMensaje1("MarcarArista "+a1+" "+a2+" ("+data_graph.fPrima(a1)+"~"+data_graph.fPrima(a2)+")");
+                obtOut().agregarMensaje1("EliminarArista "+a1+" "+a2+" ("+data_graph.fPrima(a1)+"~"+data_graph.fPrima(a2)+")");
                 //System.out.println("EliminarArista "+a1+" "+a2+" ("+data_graph.fPrima(a1)+"~"+data_graph.fPrima(a2)+")");
             }
         }
@@ -306,7 +306,7 @@ public class Girvan_Newman extends Algoritmo{
             n.down_total = 0;
         }
 
-        obtOut().comunidad().clear();
+        obtOut().comunidad1().clear();
         Set<Integer> comm = null;
         //Segundo pase del algoritmo de Girvan-Newman
         for (int iii = 0; iii < N; ++iii)
@@ -339,7 +339,7 @@ public class Girvan_Newman extends Algoritmo{
                 uno.component = cc2;
                 comm = new HashSet<Integer>();
                 comm.add(iii);
-                obtOut().agregarComunidad(comm);
+                obtOut().agregarComunidad1(comm);
             }
 
             //Mientras la cola no esté vacía..
@@ -425,16 +425,16 @@ public class Girvan_Newman extends Algoritmo{
         //System.out.println("cc2: "+cc2+", cc: "+cc+", alg_cc: "+alg_cc);
         if (alg_cc == 0 || cc2 > cc) {
             for (int x = 0; x < cc2; x++) {
-                String asdf = obtOut().comunidad().get(x).toString();
+                String asdf = obtOut().comunidad1().get(x).toString();
                 String st = asdf.substring(1, asdf.length() - 1);
                 String[] str = st.split(",\\s");
                 String r = "Comunidad";
                 for (int i = 0; i < str.length; i++) {
                     r = r + " " + str[i];
                 }
-                obtOut().agregarMensaje(r);
+                obtOut().agregarMensaje1(r);
             }
-            obtOut().agregarMensaje("Reset");
+            obtOut().agregarMensaje1("Reset");
         }
         alg_cc = cc2;
 

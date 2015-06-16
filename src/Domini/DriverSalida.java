@@ -57,7 +57,7 @@ public class DriverSalida {
             case 3:
                 if (aux.length < 2) throw new Exception(ins);
                 if (aux.length > 2) throw new Exception(dem);
-                if (sa != null) sa.agregarMensaje(aux[1]);
+                if (sa != null) sa.agregarMensaje1(aux[1]);
                 else throw new Exception(noExiste);
                 break;
             case 4:
@@ -67,31 +67,31 @@ public class DriverSalida {
                 break;
             case 5:
                 if (aux.length > 1) throw new Exception(dem);
-                if (sa != null) System.out.println(sa.mostrarHistorial());
+                if (sa != null) System.out.println(sa.mostrarHistorial1());
                 else throw new Exception(noExiste);
                 break;
             case 6:
                 if (aux.length > 1) throw new Exception(dem);
                 if (sa != null) {
                     Set<Integer> conj = new HashSet<Integer>();
-                    sa.agregarComunidad(conj);
+                    sa.agregarComunidad1(conj);
                 }
                 else throw new Exception(noExiste);
                 break;
             case 7:
                 if (aux.length > 1) throw new Exception(dem);
-                if (sa != null) System.out.println(sa.comunidad());
+                if (sa != null) System.out.println(sa.comunidad1());
                 else throw new Exception(noExiste);
                 break;
             case 8:
                 if (aux.length < 2) throw new Exception(ins);
                 if (aux.length > 2) throw new Exception(dem);
-                if (sa != null) System.out.println(sa.comunidad_at(Integer.parseInt(aux[1])));
+                if (sa != null) System.out.println(sa.comunidad1_at(Integer.parseInt(aux[1])));
                 else throw new Exception(noExiste);
                 break;
             case 9:
                 if (aux.length > 1) throw new Exception(dem);
-                if (sa != null) System.out.println(sa.numComunidades());
+                if (sa != null) System.out.println(sa.numComunidades1());
                 else throw new Exception(noExiste);
                 break;
             case 10:
