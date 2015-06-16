@@ -4,6 +4,8 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
+import java.util.Random;
+
 /**
  * Created by falc on 14/06/15.
  */
@@ -65,7 +67,7 @@ public class Ejecutor {
             for (int i = 1; i < r.length; i++)
             {
                 Node n = g.getNode(r[i]);
-                n.addAttribute("ui.style", "stroke-width: 1px; stroke-mode: plain; ");
+                n.addAttribute("ui.style", "stroke-width: 1px; stroke-mode: plain; stroke-color: #999;");
             }
         }
         else if (r[0].equals("Comunidad"))
@@ -130,17 +132,20 @@ public class Ejecutor {
             for (int i = 1; i < r.length; i++)
             {
                 Node n = g.getNode(r[i]);
-                n.addAttribute("ui.style", "stroke-width: 3px; stroke-mode: dots; ");
+                n.addAttribute("ui.style", "stroke-width: 3px; stroke-mode: dots; stroke-color: black;");
             }
         }
         else if (r[0].equals("Comunidad"))
         {
             String c = null;
+            String rc = obtColorRandom();
             for (int u = 1; u < r.length; u++)
             {
+
                 Node v = g.getNode(r[u]);
                 //c = v.getAttribute("color");
-                v.addAttribute("ui.style", "fill-color: "+colors[i_com]+";");
+                if (i_com < colors.length) v.addAttribute("ui.style", "fill-color: "+colors[i_com]+";");
+                else v.addAttribute("ui.style", "fill-color: "+rc+";");
             }
             ++i_com;
             //System.out.println("Color: "+c);
@@ -156,7 +161,53 @@ public class Ejecutor {
         }
         else if (r[0].equals("CComunidad"))
         {
+            int cit = Integer.parseInt(r[1]);
 
+            String col = obtColorRandom();
+
+            for (int z = 2; z < r.length; z++) {
+                //System.out.println(cc[l]);
+                String co = g.getNode(r[z]).getAttribute("comm");
+                int nodo_com = Integer.parseInt(co);
+                Node Z = g.getNode(r[z]);
+
+                Z.addAttribute("comm", Integer.toString(nodo_com + 1));
+
+                Double corel = 1.0 / (nodo_com + 1);
+
+                Object[] copie = new Object[nodo_com + 1];
+
+                Object[] ncopie = new Object[nodo_com + 1];
+                Object[] scopie;
+                if (g.getNode(r[z]).hasArray("nco")) scopie = Z.getAttribute("nco");
+                else {
+                    scopie = new String[1];
+                    scopie[0] = Z.getAttribute("nco");
+                }
+
+                String fc = "fill-color: ";
+                for (int i = 0; i <= nodo_com; i++) {
+                    copie[i] = Double.toString(corel);
+                    if (i < nodo_com) {
+                        ncopie[i] = scopie[i];
+                        int prop = Integer.parseInt((String) scopie[i]);
+                        if (prop < colors.length) fc += colors[prop] + ", ";
+                        else fc += obtColorRandom() + ", ";
+                    } else {
+                        ncopie[i] = Integer.toString(cit);
+                        if (cit < colors.length) fc += colors[cit];
+                        else fc += col; // añade el color creado para esta comunidad
+
+                    }
+                }
+                fc += ";";
+
+                //System.out.println(fc);
+                Z.addAttribute("ui.pie-values", copie);
+                Z.addAttribute("ui.style", fc);
+                Z.addAttribute("nco", ncopie);
+
+            }
         }
 
     }
@@ -176,9 +227,25 @@ public class Ejecutor {
             for (int i = 1; i < r.length; i++)
             {
                 Node n = g.getNode(r[i]);
-                n.addAttribute("ui.style", "stroke-width: 1px; shape: pie-chart; ");
+                n.addAttribute("ui.style", "stroke-width: 1px; stroke-mode: plain; stroke-color: #999;");
             }
         }
+    }
+
+    private String obtColorRandom()
+    {
+        String values = "0123456789ABCDEF";
+        String[] letras = values.split("");
+        String color = "#";
+        Random gen = new Random();
+        for (int i = 0; i < 6; ++i)
+        {
+            int rand = gen.nextInt(16)+1;
+            //System.out.println(rand+" "+letras[rand]);
+
+            color += letras[rand];
+        }
+        return color;
     }
 
 }
