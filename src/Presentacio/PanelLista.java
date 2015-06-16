@@ -17,7 +17,7 @@ public abstract class PanelLista extends Panel {
     protected JComboBox boxSearch;
     protected JButton buttonSearch;
     protected JLabel labelStatus;
-    protected javax.swing.JCheckBox jCheckBox1;
+    protected javax.swing.JCheckBox checkInv;
     protected javax.swing.JCheckBox checkAuto;
 
     public PanelLista(VistaPrincipal v) {
@@ -63,14 +63,14 @@ public abstract class PanelLista extends Panel {
         boxSearch = new JComboBox();
         buttonSearch = new JButton();
         labelStatus = new JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        checkInv = new javax.swing.JCheckBox();
         checkAuto = new javax.swing.JCheckBox();
 
-        jCheckBox1.setText("Invertir Ordenación");
-        jCheckBox1.setFont(new Font("Ubuntu", 0, 17));
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        checkInv.setText("Invertir Ordenación");
+        checkInv.setFont(new Font("Ubuntu", 0, 17));
+        checkInv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //jCheckBox1ActionPerformed(evt);
+                checkInvActionPerformed(evt);
             }
         });
 
@@ -78,10 +78,10 @@ public abstract class PanelLista extends Panel {
         checkAuto.setFont(new Font("Ubuntu", 0, 17));
         checkAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-               // checkAutoActionPerformed(evt);
+                // checkAutoActionPerformed(evt);
             }
         });
-        jCheckBox1.setVisible(false);
+        checkInv.setVisible(false);
         checkAuto.setVisible(false);
 
         jlist.setFont(new Font("Ubuntu", 0, 17));
@@ -172,7 +172,7 @@ public abstract class PanelLista extends Panel {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftLayout.createSequentialGroup()
                                 .addComponent(checkAuto)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jCheckBox1))
+                                .addComponent(checkInv))
         );
         leftLayout.setVerticalGroup(
                 leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,9 +190,9 @@ public abstract class PanelLista extends Panel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGap(4,4,4)
+                                .addGap(4, 4, 4)
                                 .addGroup(leftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jCheckBox1)
+                                        .addComponent(checkInv)
                                         .addComponent(checkAuto)))
 
         );
@@ -268,4 +268,6 @@ public abstract class PanelLista extends Panel {
     protected abstract void textSearchTyped(KeyEvent evt) ;
 
     protected abstract void boxSearchActionPerformed(ActionEvent e);
+
+    protected abstract void checkInvActionPerformed(ActionEvent evt);
 }

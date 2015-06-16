@@ -780,6 +780,11 @@ public class PanelEventos extends PanelLista {
         busqueda();
     }
 
+    @Override
+    protected void checkInvActionPerformed(ActionEvent evt) {
+
+    }
+
     private void busqueda() {
         String busqueda = textSearch.getText();
         if (busqueda.equals("") || busqueda.equals("Buscar")) {

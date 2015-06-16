@@ -147,6 +147,8 @@ public class PanelCongreso extends PanelLista {
         });
         checkAuto.setVisible(true);
         checkAuto.setSelected(true);
+        checkInv.setVisible(true);
+        checkInv.setSelected(false);
 
         setDefaultText();
 
@@ -823,9 +825,24 @@ public class PanelCongreso extends PanelLista {
             Search(actualSearch, which);
             labelStatus.setVisible(true);
             labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
-            setAutocompletar(actualSearch, which);
+            if (checkAuto.isSelected()) {
+                setAutocompletar(actualSearch, which);
+            }
+            else searchPopMenu.setVisible(false);
         }
     }
+
+    @Override
+    protected void checkInvActionPerformed(ActionEvent evt) {
+        if (checkInv.isSelected()) {
+            //print("hay que invertir");
+            updateJListInv(boxSort.getSelectedIndex());
+        }
+        else {
+            updateJList(boxSort.getSelectedIndex());
+        }
+    }
+
     ///////////////////////HACER//////////////////////////////////
     protected void textSearchTyped(KeyEvent evt) {
         searchPopMenu.setFocusable(false);
@@ -1041,7 +1058,7 @@ public class PanelCongreso extends PanelLista {
             change = true;
         }
         if (change) {
-            setError("Campo "+ errores+" No Valido");
+            setError("Campo " + errores + " No Valido");
             return false;
         }
         return true;
@@ -1057,6 +1074,24 @@ public class PanelCongreso extends PanelLista {
             public String getElementAt(int index) {
                 if (CPC.size() == 0) return "No hay Congresistas";
                 return CPC.obtCongresistaCache(index);
+            }
+        };
+        listCongreso.setPrototypeCellValue("If ----------- ");
+        listCongreso.setModel(bigData);
+    }
+    private void updateJListInv(int orden) {
+        CPC.modOrder(orden);
+        // print(CPC.obtCongresista(0));
+        bigData = new AbstractListModel<String>() {
+            public int getSize() {
+                if (CPC.size() == 0) return 1;
+                else return CPC.size();
+            }
+            public String getElementAt(int index) {
+                if (CPC.size() == 0) return "No hay Congresistas";
+                else {
+                    return CPC.obtCongresistaCache(CPC.size()-1-index);
+                }
             }
         };
         listCongreso.setPrototypeCellValue("If ----------- ");
