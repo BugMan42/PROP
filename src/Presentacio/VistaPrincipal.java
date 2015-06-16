@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.font.TextAttribute;
 
 
-public class    VistaPrincipal extends JFrame {
+public class  VistaPrincipal extends JFrame {
 
     //Referència al controlador de presentació que crea la vista
     ControladorPresentacion cp;
@@ -19,7 +19,7 @@ public class    VistaPrincipal extends JFrame {
     public VistaPrincipal(ControladorPresentacion c)
     {
         cp = c;
-        setMinimumSize(new Dimension(1070, 620));
+        setMinimumSize(new Dimension(1070, 680));
         initUI();
 
     }

@@ -619,12 +619,14 @@ public class PanelEventos extends PanelLista {
         }
     }
 
-    private void btagregarRandomAccion(ActionEvent e) throws Exception {
+    private void btagregarRandomAccion(ActionEvent e) {
         //long ini = System.currentTimeMillis();
-        cpe.CCEAgregarEventoRandom((Integer) contador.getValue());
-        lbinfo.setText(" ");
-        if (checkInv.isSelected()) actualizarListaInv();
-        else actualizarLista();
+        try {
+            cpe.CCEAgregarEventoRandom((Integer) contador.getValue());lbinfo.setText(" ");
+            if (checkInv.isSelected()) actualizarListaInv();
+            else actualizarLista();
+        }
+        catch (Exception ex){mostrarmensaje(ex.getMessage());}
         //System.out.println((System.currentTimeMillis() - ini) / 1000);
     }
 
@@ -914,8 +916,27 @@ public class PanelEventos extends PanelLista {
             }
             labelStatus.setVisible(true);
             labelStatus.setText("Num. eventos encontrados: " + Integer.toString(cpe.sizeCCEB()));
-            actualizarListaB();
+            if (checkInv.isSelected()) actualizarListaBInv();
+            else actualizarListaB();
         }
+    }
+
+    private void actualizarListaBInv() {
+        lista.setPrototypeCellValue("No se que poner");
+        cpe.refrescarB();
+        bloque = new AbstractListModel<String>() {
+            @Override
+            public int getSize() {
+                if (cpe.sizeCCEB() == 0) return 1;
+                else return cpe.sizeCCEB();
+            }
+            @Override
+            public String getElementAt(int index) {
+                if (cpe.sizeCCEB() == 0) return "No hay coincidencias";
+                return cpe.obtEventoB(cpe.sizeCCEB() - index -1);
+            }
+        };
+        lista.setModel(bloque);
     }
 
     private void busquedaDin(KeyEvent evt, int i, String busqueda, int op) {
@@ -953,7 +974,8 @@ public class PanelEventos extends PanelLista {
                 }
                 labelStatus.setVisible(true);
                 labelStatus.setText("Num. eventos encontrados: " + Integer.toString(cpe.obtCCE().sizeB()));
-                actualizarListaB();
+                if (checkInv.isSelected()) actualizarListaBInv();
+                else actualizarListaB();
             }
         }
         else {
@@ -979,7 +1001,8 @@ public class PanelEventos extends PanelLista {
             }
             labelStatus.setVisible(true);
             labelStatus.setText("Num. eventos encontrados: " + Integer.toString(cpe.sizeCCEB()));
-            actualizarListaB();
+            if (checkInv.isSelected()) actualizarListaBInv();
+            else actualizarListaB();
         }
     }
 
