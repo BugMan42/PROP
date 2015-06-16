@@ -15,12 +15,10 @@ public class ControladorCjtEvento {
 
     private CjtEvento ce;
     private ArrayList<String> busqueda;
-    //private int orden;
 
     public ControladorCjtEvento() {
         ce = new CjtEvento();
         resetearCache();
-        //orden = 0;
     }
 
     private void resetearCache() {
@@ -75,17 +73,9 @@ public class ControladorCjtEvento {
         return ce.ExisteEvento(nombre, new Fecha(fecha));
     }
 
-    /*public void EliminarEvento(String nombre, String fecha, ControladorRelaciones cr) throws Exception{
-        if(cr.tieneRelaciones(nombre, fecha)) cr.eliminarRelaciones(nombre, fecha);
-        ce.EliminarEvento(nombre, new Fecha(fecha));
-    }*/
-
-
     public void EliminarEvento(String nombre, String fecha, int imp, ControladorRelaciones cr) throws Exception{
         if(cr.tieneRelaciones(nombre, fecha)) cr.eliminarRelaciones(nombre, fecha);
         ce.EliminarEvento(nombre, new Fecha(fecha), imp);
-        //if (ExisteEvento(nombre, fecha)) System.out.println("Aun sigo existiendo revisa");
-        //else System.out.println("Ya no existo revisa error en otra parte");
     }
 
     public void EliminarCjtEvento(ControladorRelaciones cr) {
@@ -93,21 +83,8 @@ public class ControladorCjtEvento {
         cr.eliminarRelaciones();
     }
 
-    /*public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo, ControladorRelaciones cr) throws Exception{
-        if(cr.tieneRelaciones(nomViejo, fecha)) {
-            //System.out.println("LLego hasta el controlador");
-            String id = ConsultarEvento(nomViejo,fecha).ID();
-            ce.ModificarNombreEvento(nomViejo, new Fecha(fecha), nomNuevo);
-            String new_id = ConsultarEvento(nomNuevo, fecha).ID();
-            cr.modEvento(id,new_id);
-        }
-        else ce.ModificarNombreEvento(nomViejo, new Fecha(fecha), nomNuevo);
-    }*/
-
-
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo, int imp, ControladorRelaciones cr) throws Exception{
         if(cr.tieneRelaciones(nomViejo, fecha)) {
-            //System.out.println("LLego hasta el controlador");
             String id = ConsultarEvento(nomViejo,fecha).ID();
             ce.ModificarNombreEvento(nomViejo, new Fecha(fecha), nomNuevo, imp);
             String new_id = ConsultarEvento(nomNuevo, fecha).ID();
@@ -115,17 +92,6 @@ public class ControladorCjtEvento {
         }
         else ce.ModificarNombreEvento(nomViejo, new Fecha(fecha), nomNuevo, imp);
     }
-
-    /*public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva, ControladorRelaciones cr) throws Exception {
-        if(cr.tieneRelaciones(nombre, fechaVieja)){
-            String id = ConsultarEvento(nombre,fechaVieja).ID();
-            ce.ModificarFechaEvento(nombre, new Fecha(fechaVieja), new Fecha(fechaNueva));
-            String new_id = ConsultarEvento(nombre,fechaNueva).ID();
-            cr.modEvento(id, new_id);
-        }
-        else ce.ModificarFechaEvento(nombre, new Fecha(fechaVieja), new Fecha(fechaNueva));
-    }*/
-
 
     public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva, int imp, ControladorRelaciones cr) throws Exception {
         if(cr.tieneRelaciones(nombre, fechaVieja)){
@@ -136,12 +102,6 @@ public class ControladorCjtEvento {
         }
         else ce.ModificarFechaEvento(nombre, new Fecha(fechaVieja), new Fecha(fechaNueva), imp);
     }
-
-/*
-    public void ModificarImpEvento(String nombre, String fecha, int importance) throws Exception {
-        ce.ModificarImpEvento(nombre, new Fecha(fecha), importance);
-    }*/
-
 
     public void ModificarImpEvento(String nombre, String fecha, int imp, int imp_nueva) throws Exception {
         ce.ModificarImpEvento(nombre, new Fecha(fecha), imp, imp_nueva);
@@ -191,13 +151,6 @@ public class ControladorCjtEvento {
         cp.cerrarFichero();
     }
 
-    public String obtEventosPR(){
-        List<Evento> le = ce.ConsultarTodosEventos();
-        String res = "";
-        for(Evento e : le) res += e.tipo()+" "+e.obt_nombre()+" "+e.obt_fecha()+"\n";
-        return res;
-    }
-
     public String obtBloquePR(int bloque, int tam_bloque){
         List<Evento> ev = ce.obtEventos(bloque, tam_bloque);
         String res = "";
@@ -239,25 +192,6 @@ public class ControladorCjtEvento {
         return res;
     }
 
-    public String obtBloqueBF(int bloque, int tamanio) {
-        int inicio = bloque*tamanio;
-        int fin = inicio + tamanio;
-        if (fin > busqueda.size()) fin = busqueda.size();
-        String res = "";
-        for (int i = inicio; i < fin; ++i) res += busqueda.get(i) + "\n";
-        return res;
-    }
-
-    public String obtBloqueBI(int bloque, int tamanio) {
-        // busqueda = ce.busquedaImp(prefijo);
-        if (busqueda.size() == 0) return "";
-        else {
-            String res = "";
-            for (String s : busqueda) res += s + "\n";
-            return res;
-        }
-    }
-
     public void buscarBN(String prefijo) {
         resetearCache();
         busqueda = ce.busquedaNombre(prefijo);
@@ -271,13 +205,6 @@ public class ControladorCjtEvento {
     public void buscarBI(String prefijo) {
         resetearCache();
         busqueda = ce.busquedaImp(prefijo);
-    }
-
-    public List<String> ConsultarTodosEventosP() {
-        List<Evento> aux = ce.ConsultarTodosEventos();
-        List<String> resultado = new ArrayList<String>();
-        for (Evento e : aux) resultado.add(e.toString());
-        return resultado;
     }
 
 }
