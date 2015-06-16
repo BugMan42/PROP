@@ -183,13 +183,13 @@ public class Clique extends Algoritmo {
     }
 
     private void cliqueOneNode(k_clique kc, int k, List<Integer> lista) throws Exception {
-        System.out.println("Mi k es " + Integer.toString(k) + " la lista tiene este numero de elementos " + Integer.toString(lista.size()));
+        //System.out.println("Mi k es " + Integer.toString(k) + " la lista tiene este numero de elementos " + Integer.toString(lista.size()));
         if (lista.isEmpty() || lista.size() < k) {
             kc.eliminar();
             return;
         }
         if (k == 1) {
-            System.out.println("Agrego a kc el nodo num " + Integer.toString(lista.get(0)));
+            //System.out.println("Agrego a kc el nodo num " + Integer.toString(lista.get(0)));
             kc.agregar(lista.get(0));
             return;
         }
@@ -198,9 +198,9 @@ public class Clique extends Algoritmo {
             int v = lista.get(1);
             if (g.existeArista(u, v)) {
                 kc.agregar(u);
-                System.out.println("Agrego a kc el nodo num " + Integer.toString(u));
+                //System.out.println("Agrego a kc el nodo num " + Integer.toString(u));
                 kc.agregar(v);
-                System.out.println("Agrego a kc el nodo num " + Integer.toString(v));
+                //System.out.println("Agrego a kc el nodo num " + Integer.toString(v));
                 try {
                     kc.sumaPeso(g.pesoAristasVertices(u, v));
                 }
@@ -210,7 +210,7 @@ public class Clique extends Algoritmo {
         }
         else {
             int u = lista.get(0);
-            System.out.println("Primer nodo " + Integer.toString(u));
+            //System.out.println("Primer nodo " + Integer.toString(u));
             int v = lista.get(1);
             /*System.out.println("Segundo nodo " + Integer.toString(u));
             List<Integer> candidatos = listarecursividad(u, v, kc);
@@ -218,7 +218,7 @@ public class Clique extends Algoritmo {
             //System.out.println(fusion(g.nodosSalida(u), g.nodosSalida(v), u));*/
             List<Integer> candidatos = fusion(g.nodosSalida(u), g.nodosSalida(v), u);
             //System.out.println("listaRecursividad:");
-            System.out.println(candidatos);
+            //System.out.println(candidatos);
             kc.agregar(u);
             kc.agregar(v);
             if (candidatos.size() > 0) {
