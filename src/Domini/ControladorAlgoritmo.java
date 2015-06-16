@@ -1,7 +1,5 @@
 package Domini;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -57,7 +55,7 @@ public class ControladorAlgoritmo {
     {
         out = new Salida();
         if (s == 1) alg = new Girvan_Newman(in, out);
-        else if (s == 2) alg = new LouvainPrueba(in, out);
+        else if (s == 2) alg = new Louvain(in, out);
         else if (s == 3) alg = new Clique(in, out);
 
         out.mostrarHistorial().add(0, "Inicio");

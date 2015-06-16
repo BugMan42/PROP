@@ -28,45 +28,23 @@ public class Louvain extends Algoritmo {
     }
 
     public void ejecutar_algoritmo() throws Exception {
-        long tini = System.nanoTime();
-
         // Guardar peso total del grafo.
         m2 = .0;
         for(int i=0; i<g.V(); ++i) m2 += g.totalPesoSalida(i);
 
         obtOut().mostrarHistorial().clear();
-        obtOut().agregarMensaje(hora_sistema());
-        obtOut().agregarMensaje("MÉTODO DE LOUVAIN.");
-        obtOut().agregarMensaje("Inicio de la ejecución del algoritmo.");
-        obtOut().agregarMensaje("Peso total del grafo: "+String.valueOf(m2));
-        obtOut().agregarMensaje("Mínimo incremento de modularidad fijado: " + String.valueOf(lim_Q) + "\n");
 
         boolean mejora;
         pasada = 0;
         do {
             ++pasada;
-            obtOut().agregarMensaje("PASADA NUM. "+String.valueOf(pasada));
+            obtOut().agregarMensaje("Iteración "+pasada);
             mejora = primera_fase();
             segunda_fase();
             actualizar_salida();
-            obtOut().agregarMensaje("FIN PASADA NUM. " + String.valueOf(pasada)+"\n");
         }
         while (mejora);
 
-
-        obtOut().agregarMensaje(hora_sistema());
-        obtOut().agregarMensaje("Fin de la ejecución del algoritmo.");
-        obtOut().agregarMensaje("Tiempo de ejecución(ms): "+String.valueOf((System.nanoTime()-tini)/1000000.0));
-        obtOut().agregarMensaje("Pasadas realizadas: "+String.valueOf(pasada));
-        String s = "Comunidades encontradas:\n";
-        for(int i = 0; i< obtOut().comunidad().size(); ++i){
-            s += "Comunidad "+String.valueOf(i)+": ";
-            for(int j : obtOut().comunidad().get(i))
-                s += String.valueOf(j)+" ";
-            s += "\n";
-        }
-        obtOut().agregarMensaje(s);
-        
     }
 
     private boolean primera_fase() throws Exception {
@@ -89,9 +67,6 @@ public class Louvain extends Algoritmo {
         double old_Q = modularidad();
         double new_Q = old_Q;
 
-        obtOut().agregarMensaje("INICIO DE LA PRIMERA FASE");
-        obtOut().agregarMensaje("Num. nodos del grafo: "+String.valueOf(num_n));
-
         // Preparar orden aleatorio.
         Random r = new Random();
         int[] rand = new int[num_n];
@@ -104,15 +79,9 @@ public class Louvain extends Algoritmo {
         }
 
 
-        obtOut().agregarMensaje("Inicio del bucle encargado de mover los nodos en cada iteración hacia las comunidades" +
-                " que producen más ganancia de modularidad.\n");
         do {
             old_Q = new_Q;
             nodos_movidos = 0;
-
-            obtOut().agregarMensaje("Inicio iteración.");
-            obtOut().agregarMensaje("Modularidad: "+String.valueOf(old_Q));
-            obtOut().agregarMensaje("Moviendo nodos a la mejor comunidad.\n");
 
             // Mover nodos a la mejor comunidad.
             // Elegir nodo (mejor en orden aleatorio).
@@ -120,71 +89,47 @@ public class Louvain extends Algoritmo {
                 int nodo = rand[i];
                 int com_nodo = n2c[nodo];
 
-                obtOut().agregarMensaje("Nodo "+String.valueOf(nodo)+" (Comunidad "+String.valueOf(com_nodo)+")");
-
                 // Consultar comunidades adyacentes al nodo.
                 // Calcular pesos adyacencias del nodo a comunidades.
                 double[] p_nc = new double[num_n];
                 ArrayList<Integer> coms = comunidades_ady(nodo, p_nc);
 
-                // Comentarios Salida
-                String s = "Comunidades adyacentes al nodo: ";
-                for(Integer x : coms) s += String.valueOf(x)+" ";
-                obtOut().agregarMensaje(s);
-
                 // Quitar nodo de su comunidad.
-                obtOut().agregarMensaje("Quitar nodo "+String.valueOf(nodo)+" de la comunidad "+String.valueOf(com_nodo));
                 quitar_nodo_comunidad(nodo, com_nodo, p_nc[com_nodo]);
 
                 // Para cada comunidad comprobar la ganancia de modularidad al añadir el nodo.
-                obtOut().agregarMensaje("Comprobando ganancias al añadir el nodo a cada comunidad adyacente.");
                 int mejor_com = com_nodo;
                 double mejor_ganancia = 0.0;
                 for(int j : coms){
                     double ganancia = ganancia_modularidad(nodo,j);
-                    obtOut().agregarMensaje("Comunidad "+String.valueOf(j)+" => Ganancia "+String.valueOf(ganancia));
                     if (ganancia > mejor_ganancia){
                         mejor_com = j;
                         mejor_ganancia = ganancia;
                     }
                 }
-                obtOut().agregarMensaje("Fin de la comprobación.");
-                obtOut().agregarMensaje("Mejor ganancia: " + String.valueOf(mejor_ganancia) + " (Comunidad " + String.valueOf(mejor_com) + ")");
 
                 // Añadir el nodo a la comunidad con mayor ganancia.
-                obtOut().agregarMensaje("Añadir nodo "+String.valueOf(nodo)+" a la comunidad "+String.valueOf(mejor_com)+"\n");
                 insertar_nodo_comunidad(nodo, mejor_com, p_nc[mejor_com]);
+
+                if(pasada==1){
+                    obtOut().agregarMensaje("Visita "+nodo);
+                    obtOut().agregarMensaje("MoverNodoComunidad "+nodo+" "+mejor_com);
+                }
 
                 // Si hemos movido el nodo a otra comunidad incrementamos nodos_movidos.
                 if(mejor_com != com_nodo) ++nodos_movidos;
 
             }
-            obtOut().agregarMensaje("Nodos movidos a las mejores comunidades.");
 
             // Si se ha movido algún nodo entonces se ha mejorado la modularidad.
             if(nodos_movidos > 0) mejora = true;
 
             // Recalcular modularidad.
             new_Q = modularidad();
-            obtOut().agregarMensaje("Modularidad anterior: "+String.valueOf(old_Q));
-            obtOut().agregarMensaje("Nueva modularidad: "+String.valueOf(new_Q));
-            obtOut().agregarMensaje("Incremento: "+String.valueOf(new_Q-old_Q));
-            obtOut().agregarMensaje("Incremento mínimo fijado: "+String.valueOf(lim_Q));
-
-            if(new_Q-old_Q>lim_Q) obtOut().agregarMensaje("Incremento > Mínimo incremento");
-            else obtOut().agregarMensaje("Incremento <= Mínimo incremento");
-
-            if(nodos_movidos>0) obtOut().agregarMensaje("Se han movido nodos a otras comunidades en la iteración.");
-            else obtOut().agregarMensaje("No se ha movido ningún nodo a otra comunidad en la iteración.");
-
-            obtOut().agregarMensaje("Fin iteración.\n");
         }
         while (new_Q - old_Q > lim_Q && nodos_movidos > 0);
         // Repetir mientras "modularidad nueva - modularidad antigua > minimo establecido"
         // y se haya movido algún nodo a otra comunidad en la iteración.
-
-        obtOut().agregarMensaje("Fin del bucle.");
-        obtOut().agregarMensaje("FIN DE LA PRIMERA FASE\n");
 
         // Devuelve true si se ha realizado alguna mejora.
         return mejora;
@@ -199,9 +144,6 @@ public class Louvain extends Algoritmo {
         // Las aristas entre nodos de la misma comunidad generan bucles (aristas que relacionan
         // un nodo consigo mismo) para la comunidad en el nuevo grafo.
 
-        obtOut().agregarMensaje("INICIO DE LA SEGUNDA FASE");
-        obtOut().agregarMensaje("Calcular número de comunidades nuevas.");
-
         // Calcular num comunidades nuevas.
         int[] renumerar = new int[num_n];
         for(int i=0; i<num_n; ++i) ++renumerar[n2c[i]];
@@ -210,38 +152,19 @@ public class Louvain extends Algoritmo {
             if(renumerar[i] > 0) renumerar[i] = num_nuevas_com++;
         }
 
-        obtOut().agregarMensaje("Num. comunidades nuevas: "+String.valueOf(num_nuevas_com));
-        String s = "Listado de nodos y comunidad a la que pertenecen.\n";
-        for(int i=0; i<num_n; ++i) s += String.valueOf(i)+" "+String.valueOf(renumerar[n2c[i]])+"\n";
-        obtOut().agregarMensaje(s);
-
-
-        obtOut().agregarMensaje("Construir matriz con los nodos que contiene cada comunidad para " +
-                "la creación del nuevo grafo.");
-
         // Construir matriz con los nodos de cada comunidad.
         nodos_com = new ArrayList<ArrayList<Integer>>();
         for(int i=0; i<num_nuevas_com; ++i) nodos_com.add(new ArrayList<Integer>());
         for(int i=0; i<num_n; ++i) nodos_com.get(renumerar[n2c[i]]).add(i);
 
-        // Comentarios Salida
-        s = "";
-        for(int i=0; i<num_nuevas_com; ++i){
-            s += "Comunidad "+String.valueOf(i)+": ";
-            for (int j : nodos_com.get(i)) s += String.valueOf(j)+" ";
-            s += "\n";
-        }
-        obtOut().agregarMensaje(s);
-
         // Construir grafo.
-        obtOut().agregarMensaje("Construir nuevo grafo.");
         Grafo g2 = new Grafo();
-        for(int i=0; i<num_nuevas_com; ++i) g2.agregarVertice(String.valueOf(i));
-        obtOut().agregarMensaje("Num. nodos del nuevo grafo: "+String.valueOf(g2.V()));
+        for(int i=0; i<num_nuevas_com; ++i) {
+            g2.agregarVertice(String.valueOf(i));
+        }
 
         for(int i=0; i<num_nuevas_com; ++i){
             // Calcular aristas comunidad i.
-            obtOut().agregarMensaje("Creando aristas del nodo "+String.valueOf(i));
             Map<Integer,Double> aristas = new HashMap<Integer, Double>();
             for(int n : nodos_com.get(i)){
                 List<Integer> nodos_ady = g.nodosSalida(n);
@@ -255,22 +178,12 @@ public class Louvain extends Algoritmo {
             // Añadir aristas comunidad i.
             for(Map.Entry<Integer,Double> p : aristas.entrySet())
                 g2.agregarArista(String.valueOf(i), String.valueOf(p.getKey()), p.getValue());
-
-            // Comentarios Salida
-            s = "";
-            for(Map.Entry<Integer,Double> p : aristas.entrySet())
-                s += "hacia nodo "+String.valueOf(p.getKey())+" con peso "+p.getValue()+"\n";
-            obtOut().agregarMensaje(s);
         }
-        obtOut().agregarMensaje("FIN DE LA SEGUNDA FASE\n");
 
         g = g2;
     }
 
     private void actualizar_salida(){
-        obtOut().agregarMensaje("INICIO ACTUALIZACIÓN SALIDA");
-        obtOut().agregarMensaje("Guardar cuáles son los nodos iniciales que pertenecen a cada nueva comunidad.");
-
         if (pasada > 1) {
             ArrayList<Set<Integer>> nueva_com = new ArrayList<Set<Integer>>();
             for(ArrayList<Integer> nodos : nodos_com){
@@ -282,6 +195,11 @@ public class Louvain extends Algoritmo {
             }
             obtOut().comunidad().clear();
             obtOut().comunidad().addAll(nueva_com);
+
+            for(int i=0; i<obtOut().comunidad().size(); ++i)
+                for(int j : obtOut().comunidad().get(i))
+                    obtOut().agregarMensaje("MoverNodoComunidad "+j+" "+i);
+
         }
         else {
             obtOut().comunidad().clear();
@@ -291,17 +209,6 @@ public class Louvain extends Algoritmo {
                 obtOut().comunidad().add(com);
             }
         }
-
-
-        String s = "";
-        for(int i=0; i< obtOut().comunidad().size(); ++i){
-            s += "COMUNIDAD "+String.valueOf(i)+": ";
-            for(Integer x : obtOut().comunidad().get(i))
-                s += String.valueOf(x)+" ";
-            s += "\n";
-        }
-        obtOut().agregarMensaje(s);
-        obtOut().agregarMensaje("FIN ACTUALIZACIÓN SALIDA\n");
     }
 
     // Modularidad, versión anterior.
@@ -330,7 +237,7 @@ public class Louvain extends Algoritmo {
     }
 
     private double ganancia_modularidad(int nodo, int com) throws Exception {
-        double kiin = suma_peso_nodos_adyacentes_com(nodo,com);
+        double kiin = suma_peso_nodos_adyacentes_com(nodo, com);
         //double gmod = ((ins[com]+kiin*2)/m2)-(((tot[com]+k[nodo])/m2)*((tot[com]+k[nodo])/m2));
         //gmod -= (ins[com]/m2 - ((tot[com]/m2)*(tot[com]/m2)) - ((k[nodo]/m2)*(k[nodo]/m2)));
         double gmod = kiin - tot[com]*k[nodo]/m2;
@@ -386,11 +293,6 @@ public class Louvain extends Algoritmo {
             if (n2c[i] == com)
                 p += g.pesoAristasVertices(nodo,i);
         return p;
-    }
-
-    private String hora_sistema(){
-        Date d = new Date();
-        return d.toString();
     }
 }
 
