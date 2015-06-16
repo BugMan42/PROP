@@ -43,7 +43,7 @@ public class Ejecutor {
             n.changeAttribute("ui.style", "stroke-mode: plain; stroke-width: 1px; stroke-color: #999; ");
 
         }
-        else if (r[0].equals("EliminarArista"))
+        else if (r[0].equals("MarcarArista"))
         {
             String a1 = r[1];
             String a2 = r[2];
@@ -53,10 +53,12 @@ public class Ejecutor {
             e.changeAttribute("ui.style", "fill-color: #777; size: 1px; ");
 
         }
-        else if (r[0].equals("AñadirVertice"))
+        else if (r[0].equals("EliminarArista"))
         {
-            /*String d = "A"+r[1];
-            g.removeNode(d);*/
+            String a1 = r[1];
+            String a2 = r[2];
+            g.addEdge(a1+"~"+a2,a1,a2);
+
         }
         else if (r[0].equals("Clique"))
         {
@@ -97,7 +99,7 @@ public class Ejecutor {
             Node n = g.getNode(s);
             n.addAttribute("ui.style", "stroke-mode: dots; stroke-width: 4px; stroke-color: black; ");
         }
-        else if (r[0].equals("EliminarArista"))
+        else if (r[0].equals("MarcarArista"))
         {
             String a1 = r[1];
             String a2 = r[2];
@@ -105,8 +107,13 @@ public class Ejecutor {
             if (e == null) e = g.getEdge(a2+"~"+a1);
             e.addAttribute("ui.style", "fill-color: red; size: 3px;");
         }
-        else if (r[0].equals("AñadirVertice"))
+        else if (r[0].equals("EliminarArista"))
         {
+            String a1 = r[1];
+            String a2 = r[2];
+            Edge e = g.getEdge(a1+"~"+a2);
+            if (e == null) e = g.getEdge(a2+"~"+a1);
+            g.removeEdge(e);
 
         }
         else if (r[0].equals("Clique"))

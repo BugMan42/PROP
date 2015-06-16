@@ -289,8 +289,9 @@ public class Girvan_Newman extends Algoritmo{
             if(alg_graph.existeArista(a1, a2) && alg_graph.existeArista(a2, a1)) {
                 alg_graph.eliminarAristas(a1, a2);
                 alg_graph.eliminarAristas(a2, a1);
+                obtOut().agregarMensaje("MarcarArista "+a1+" "+a2+" ("+data_graph.fPrima(a1)+"~"+data_graph.fPrima(a2)+")");
                 obtOut().agregarMensaje("EliminarArista "+a1+" "+a2+" ("+data_graph.fPrima(a1)+"~"+data_graph.fPrima(a2)+")");
-                System.out.println("EliminarArista "+a1+" "+a2+" ("+data_graph.fPrima(a1)+"~"+data_graph.fPrima(a2)+")");
+                //System.out.println("EliminarArista "+a1+" "+a2+" ("+data_graph.fPrima(a1)+"~"+data_graph.fPrima(a2)+")");
             }
         }
 
@@ -421,7 +422,7 @@ public class Girvan_Newman extends Algoritmo{
         }
 
         //Mensajes de salida
-        System.out.println("cc2: "+cc2+", cc: "+cc+", alg_cc: "+alg_cc);
+        //System.out.println("cc2: "+cc2+", cc: "+cc+", alg_cc: "+alg_cc);
         if (alg_cc == 0 || cc2 > cc) {
             for (int x = 0; x < cc2; x++) {
                 String asdf = obtOut().comunidad().get(x).toString();
