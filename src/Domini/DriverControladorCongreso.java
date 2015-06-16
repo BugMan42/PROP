@@ -36,83 +36,74 @@ public class DriverControladorCongreso {
                         break;
                     case 1:
                         dcc.validar_num_params(params, 1);
-                        dcc.print(String.valueOf(dcc.cc.esVacio()));
+                        dcc.print(String.valueOf(dcc.cc.obtSep()));
                         break;
                     case 2:
+                        dcc.validar_num_params(params, 1);
+                        dcc.print("" + dcc.cc.esVacio());
+                        break;
+                    case 3:
                         dcc.validar_num_params(params,8);
                         dcc.cc.agregarCongresista(params[1], params[2], params[3], Integer.parseInt(params[4]), params[5],
                                 params[6], params[7]);
                         break;
-                    case 3:
+                    case 4:
+                        dcc.validar_num_params(params,2);
+                        dcc.cc.agregarCongresistaRandom(Long.parseLong(params[1]));
+                        break;
+                    case 5:
                         dcc.validar_num_params(params, 1);
                         dcc.print(dcc.cc.obtenerListaID().toString());
                         break;
-                    case 4:
+                    case 6:
                         dcc.validar_num_params(params, 1);
                         dcc.print(dcc.cc.obtenerCongreso().toString());
                         break;
-                    case 5:
+                    case 7:
                         dcc.validar_num_params(params, 2);
                         dcc.print(Boolean.toString(dcc.cc.contieneCongresista(params[1])));
                         break;
-                    case 7:
+                    case 8:
+                        dcc.validar_num_params(params, 8);
+                        dcc.cc.eliminarCongresista(params[1], params[2], params[3], Integer.parseInt(params[4]), params[5],
+                                params[6], params[7], dcc.cr);
+                        break;
+                    case 9:
                         dcc.validar_num_params(params, 1);
                         dcc.cc.eliminarCongreso(dcc.cr);
                         break;
-                    /*
-                    case 8:
-                        dcc.validar_num_params(params,3);
-                        dcc.cc.modNombreCongresista(params[1], params[2]);
-                        break;
-                    case 9:
-                        dcc.validar_num_params(params,3);
-                        dcc.cc.modApellidoCongresista(params[1], params[2]);
-                        break;
                     case 10:
-                        dcc.validar_num_params(params,3);
-                        dcc.cc.modEdadCongresista(params[1], Integer.parseInt(params[2]));
+                        dcc.validar_num_params(params, 15);
+                        dcc.cc.modCongresista(params[1], params[2], params[3], params[4], params[5], params[6], Integer.parseInt(params[7]),
+                                Integer.parseInt(params[8]), params[9], params[10], params[11], params[12], params[13], params[14], dcc.cr);
                         break;
                     case 11:
-                        dcc.validar_num_params(params,3);
-                        dcc.cc.modCiudadCongresista(params[1], params[2]);
+                        dcc.validar_num_params(params, 2);
+                        dcc.print("" + dcc.cc.consultarCongresista(params[1]));
                         break;
                     case 12:
-                        dcc.validar_num_params(params,3);
-                        dcc.cc.modEstadoCongresista(params[1], params[2]);
+                        dcc.validar_num_params(params, 2);
+                        dcc.print(dcc.cc.consultarStringCongresista(params[1]));
                         break;
                     case 13:
-                        dcc.validar_num_params(params,3);
-                        dcc.cc.modPartidoCongresista(params[1], params[2]);
-                        break;
-                    case 14:
-                        dcc.validar_num_params(params,3);
-                        dcc.cc.modDniCongresista(params[1], params[2], dcc.cr);
-                        break;
-                        */
-                    case 15:
-                        dcc.validar_num_params(params,9);
-                        //dcc.cc.modCongresista(params[1], params[2], params[3], params[4], Integer.parseInt(params[5]),
-                                //params[6], params[7], params[8], dcc.cr);
-                        break;
-                    case 16:
-                        dcc.validar_num_params(params,2);
-                        dcc.print(dcc.cc.consultarCongresista(params[1]).toString());
-                        break;
-                    case 17:
-                        dcc.validar_num_params(params,1);
+                        dcc.validar_num_params(params, 1);
                         dcc.print(dcc.cc.toString());
                         break;
-                    case 18:
+                    case 14:
                         dcc.validar_num_params(params, 2);
                         dcc.cc.guardar(params[1]);
                         break;
-                    case 19:
+                    case 15:
                         dcc.validar_num_params(params, 2);
                         dcc.cc.cargar(params[1], dcc.cr);
                         break;
-                    case 21:
-                        dcc.validar_num_params(params, 2);
-                        dcc.cc.agregarCongresistaRandom(Integer.parseInt(params[1]));
+                    case 16:
+                        dcc.validar_num_params(params, 1);
+                        dcc.print(dcc.cc.sizeBusqueda() + "");
+                        break;
+                    case 17:
+                        dcc.validar_num_params(params, 1);
+                        dcc.print(dcc.cc.obtCache().toString());
                         break;
                 }
             }
@@ -121,43 +112,33 @@ public class DriverControladorCongreso {
                 op = -1;
             }
         }
-        while(op != 29);
+        while(op != 18);
     }
 
     private void menu(){
         print("\nDRIVER DE CONTROLADOR CONGRESO");
         print("0 size()");
-        print("1 esVacio()");
-        print("2 agregarCongresista(String dni, String nombre, String apellido, int edad, " +
+        print("1 obtSep()");
+        print("2 esVacio()");
+        print("3 agregarCongresista(String dni, String nombre, String apellido, int edad, " +
                 "String ciudad, String estado, String partido)");
-        print("3 obtenerListaID()");
-        print("4 obtenerCongreso()");
-        print("5 contieneCongresista(String dni)");
-        print("6 eliminarCongresista(String dni)");
-        print("7 eliminarCongreso()");
-        print("8 modNombreCongresista(String dni,String nombre)");
-        print("9 modApellidoCongresista(String dni,String apellido)");
-        print("10 modEdadCongresista(String dni,int edad)");
-        print("11 modCiudadCongresista(String dni,String ciudad)");
-        print("12 modEstadoCongresista(String dni,String estado)");
-        print("13 modPartidoCongresista(String dni,String partido)");
-        print("14 modDniCongresista(String dni, String dni_nuevo)");
-        print("15 modCongresista(String dni, String dni_nuevo, String nombre, String apellido," +
-                " int edad, String ciudad, String estado, String partido)");
-        print("16 consultarCongresista(Dni dni)");
-        print("17 toString()");
-        print("18 guardar(String ruta)");
-        print("19 cargar(String ruta)");
-        print("20 obtenerBloqueCongresista(String dni, int tam_bloque)");
-        print("21 agregarCongresistaRandom(int n)");
-        print("22 sortByDni()");
-        print("23 sortByName()");
-        print("24 sortBySurName()");
-        print("25 sortByAge()");
-        print("26 sortByCity()");
-        print("27 sortByState()");
-        print("28 sortByParty()");
-        print("29 Salir\n");
+        print("4 agregarCongresistaRandom(Long n)");
+        print("5 obtenerListaID()");
+        print("6 obtenerCongreso()");
+        print("7 contieneCongresista(String dni)");
+        print("8 eliminarCongresista(String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido)");
+        print("9 eliminarCongreso()");
+        print("10 modCongresista(String dni, String dni_nuevo, String nombre, String nombre_nuevo, String apellido,\n" +
+                "                               String apellido_nuevo, int edad, int edad_nuevo, String ciudad, String ciudad_nuevo,\n" +
+                "                               String estado, String estado_nuevo, String partido, String partido_nuevo)");
+        print("11 consultarCongresista(Dni dni)");
+        print("12 consultarStringCongresista(Dni dni)");
+        print("13 toString()");
+        print("14 guardar(String ruta)");
+        print("15 cargar(String ruta)");
+        print("16 sizeBusqueda()");
+        print("17 obtCache()");
+        print("18 Salir\n");
     }
 
     private void print(String s){

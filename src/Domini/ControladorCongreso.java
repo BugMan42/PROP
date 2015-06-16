@@ -162,32 +162,6 @@ public class ControladorCongreso {
         cacheBusqueda = c.searchPrefixPartido(aux.toUpperCase());
     }
 
-    public String obtenerBloqueCongresoPR(int i, int tam) {
-        List<Congresista> con = c.obtenerCongreso();
-        int j=i*tam;
-        int lim = i*tam + tam;
-        String res = "";
-        while (j<con.size() && j<lim){
-            Congresista co = con.get(j);
-            res += co.obtID()+" "+co.obtNombre()+" "+co.obtApellido()+" "+String.valueOf(co.obtEdad())+"\n";
-            ++j;
-        }
-        return res;
-    }
-
-
-    public ArrayList<String> obtenerBusqueda() {
-        ArrayList<String> a = new ArrayList<String>(cacheBusqueda.size());
-        //if (referencia == null) referencia = c.obtenerCongreso();
-        for (int i = 0; i < cacheBusqueda.size(); ++i) {
-            a.add(cacheBusqueda.get(i).toString());
-        }
-        return a;
-    }
-    private void print(String str) {
-        System.out.println(str);
-    }
-
     public boolean cacheBusquedaVacia() {
         if (cacheBusqueda == null) return true;
         else return cacheBusqueda.size() == 0;
@@ -247,18 +221,6 @@ public class ControladorCongreso {
         String res = "";
         for (Congresista co: con)
             res += co.toStringByParty() + sep;
-        return res;
-    }
-
-    public String obtBloqueCacheBusqueda(int bloque, int tam_bloque){
-        String res = "";
-        int ini = bloque * tam_bloque;
-        int fin = ini + tam_bloque;
-        if (fin > cacheBusqueda.size()) fin = cacheBusqueda.size();
-        List<Congresista> lc = cacheBusqueda.subList(ini, fin);
-        for (Congresista c : lc) {
-            res += c.toString()+sep;
-        }
         return res;
     }
 
