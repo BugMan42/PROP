@@ -367,7 +367,6 @@ public class PanelCongreso extends PanelLista {
             }
         }));
 
-
         JPanel right = new JPanel();
         right.add(lName);
         right.add(textName);

@@ -515,6 +515,12 @@ public class PanelEventos extends PanelLista {
     }
 
     private void ponerRojo(String s) {
+        Component c11 = dia.getEditor().getComponent(0);
+        Component c21 = mes.getEditor().getComponent(0);
+        Component c31 = any.getEditor().getComponent(0);
+        c11.setForeground(Color.RED);
+        c21.setForeground(Color.RED);
+        c31.setForeground(Color.RED);
         String data[] = s.split("\\s");
         boolean clave = false;
         if (data[0].equals("Nombre")) ctnombre.setForeground(Color.red);
