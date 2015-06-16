@@ -10,10 +10,14 @@ import org.graphstream.graph.Node;
 public class Ejecutor {
 
     private Graph g;
+    private String[] colors;
 
-    public Ejecutor (Graph gr)
+    private int i_com = 0;
+
+    public Ejecutor (Graph gr, String[] c)
     {
         g = gr;
+        colors = c;
     }
 
 
@@ -62,6 +66,15 @@ public class Ejecutor {
                 n.addAttribute("ui.style", "stroke-width: 1px; shape: pie-chart; ");
             }
         }
+        else if (r[0].equals("Comunidad"))
+        {
+            for (int u = 1; u < r.length; u++)
+            {
+                Node v = g.getNode(r[u]);
+                v.addAttribute("ui.style", "fill-color: #CCC;");
+            }
+            if (i_com > 0) --i_com;
+        }
         /*else if (r[0].equals("AñadirArista"))
         {
             String a1 = r[1];
@@ -103,6 +116,22 @@ public class Ejecutor {
                 Node n = g.getNode(r[i]);
                 n.addAttribute("ui.style", "stroke-width: 3px; shape: diamond; ");
             }
+        }
+        else if (r[0].equals("Comunidad"))
+        {
+            String c = null;
+            for (int u = 1; u < r.length; u++)
+            {
+                Node v = g.getNode(r[u]);
+                //c = v.getAttribute("color");
+                v.addAttribute("ui.style", "fill-color: "+colors[i_com]+";");
+            }
+            ++i_com;
+            //System.out.println("Color: "+c);
+        }
+        else if (r[0].equals("Reset"))
+        {
+            i_com = 0;
         }
         /*else if (r[0].equals("AñadirArista"))
         {

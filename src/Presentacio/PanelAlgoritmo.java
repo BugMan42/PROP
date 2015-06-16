@@ -58,7 +58,7 @@ public class PanelAlgoritmo extends Panel{
     private int im1;
     private int im2;
     private int im3;
-    private Ejecutor ej = new Ejecutor(g);
+    private Ejecutor ej = new Ejecutor(g, colors);
 
     private JLabel time_data;
 
@@ -348,7 +348,7 @@ public class PanelAlgoritmo extends Panel{
                 lm1.add(1, h);
                 lm1.add(2, g);
                 lst1.setSelectedIndex(1);
-                ej.ejecuta1(g,h);
+                ej.ejecuta1(g, h);
                 if (im1 == 0)
                 {
                     up1.setEnabled(false);
@@ -443,7 +443,7 @@ public class PanelAlgoritmo extends Panel{
                 lm2.add(2,g);
                 lst2.setSelectedIndex(1);
 
-                ej.ejecuta1(g,h);
+                ej.ejecuta1(g, h);
                 if (im2 == 0)
                 {
                     up2.setEnabled(false);
@@ -497,7 +497,7 @@ public class PanelAlgoritmo extends Panel{
                 lm2.add(1,h);
                 lm2.add(2, cpa.message_at(im2+1));
                 lst2.setSelectedIndex(1);
-                ej.ejecuta1(g,h);
+                ej.ejecuta1(g, h);
                 up2.setEnabled(false);
                 top2.setEnabled(false);
                 bottom2.setEnabled(true);
@@ -517,7 +517,7 @@ public class PanelAlgoritmo extends Panel{
                 lm2.add(1, h);
                 lm2.add(2, cpa.message_at(im2+1));
                 lst2.setSelectedIndex(1);
-                ej.ejecuta2(g,h);
+                ej.ejecuta2(g, h);
 
                 down2.setEnabled(false);
                 bottom2.setEnabled(false);
@@ -570,7 +570,7 @@ public class PanelAlgoritmo extends Panel{
                 lm3.add(2, i);
                 lst3.setSelectedIndex(1);
 
-                ej.ejecuta2(g,h);
+                ej.ejecuta2(g, h);
 
                 if (im3 == cpa.num_mensajes() - 1) {
                     down3.setEnabled(false);
@@ -599,7 +599,7 @@ public class PanelAlgoritmo extends Panel{
                 lm3.add(2, cpa.message_at(im3+1));
                 lst3.setSelectedIndex(1);
 
-                ej.ejecuta1(g,h);
+                ej.ejecuta1(g, h);
 
                 up3.setEnabled(false);
                 top3.setEnabled(false);
@@ -622,7 +622,7 @@ public class PanelAlgoritmo extends Panel{
                 lm3.add(2, i);
                 lst3.setSelectedIndex(1);
 
-                ej.ejecuta2(g,h);
+                ej.ejecuta2(g, h);
 
                 down3.setEnabled(false);
                 bottom3.setEnabled(false);
@@ -810,13 +810,15 @@ public class PanelAlgoritmo extends Panel{
                     @Override
                     protected Void doInBackground() throws Exception {
                         setProgress(0);
-                        cargarGrafo();
+                        asignarColorGN();
                         setProgress(50);
                         mostrar1.setEnabled(false);
                         String r = cpa.message_at(0);
                         //System.out.println(r);
                         lm1.clear();
-                        lm1.add(0, r);
+                        lm1.add(0, "-");
+                        lm1.add(1, r);
+                        lm1.add(2, cpa.message_at(1));
                         im1 = 0;
                         down1.setEnabled(true);
                         bottom1.setEnabled(true);
@@ -859,7 +861,9 @@ public class PanelAlgoritmo extends Panel{
                         String r = cpa.message_at(0);
                         //System.out.println(r);
                         lm2.clear();
-                        lm2.add(0, r);
+                        lm2.add(0, "-");
+                        lm2.add(1, r);
+                        lm2.add(2, cpa.message_at(1));
                         im2 = 0;
                         down2.setEnabled(true);
                         bottom2.setEnabled(true);
@@ -902,7 +906,9 @@ public class PanelAlgoritmo extends Panel{
                         String r = cpa.message_at(0);
                         //System.out.println(r);
                         lm3.clear();
-                        lm3.add(0, r);
+                        lm3.add(0, "-");
+                        lm3.add(1, r);
+                        lm3.add(2, cpa.message_at(1));
                         //tp3.setDocument(doc);
                         im3 = 0;
                         down3.setEnabled(true);
@@ -1118,8 +1124,6 @@ public class PanelAlgoritmo extends Panel{
 
 
 
-
-
         int nc = cpa.num_comunidades();
         char chargen = 'A';
         for (int k = 0; k < nc; k++)
@@ -1176,6 +1180,34 @@ public class PanelAlgoritmo extends Panel{
             }
         }
 
+    }
+
+    private void asignarColorGN()
+    {
+        int nc = cpa.num_comunidades();
+        for (int k = 0; k < nc; k++)
+        {
+           // String colour = obtColorRandom();
+            String c = cpa.next_community();
+            //System.out.println("comunidad: "+k);
+            String[] cc = c.split(",\\s");
+            if (!cc[0].equals("-"))
+            {
+                //System.out.println(cc.length);
+                for (String aCc : cc) {
+                    //System.out.println(cc[l]);
+                    Node ac = g.getNode(aCc);
+
+                    ac.addAttribute("nco", Integer.toString(k));
+
+                    /*if (k < colors.length) ac.addAttribute("color", colors[k]);
+                    else ac.addAttribute("color", colour);*/
+
+                    ac.addAttribute("ui.style", "fill-color: #CCC;");
+
+                }
+            }
+        }
     }
 
     private String obtColorRandom()

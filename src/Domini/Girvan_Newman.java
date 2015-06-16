@@ -19,7 +19,7 @@ public class Girvan_Newman extends Algoritmo{
     //Referencia al grafo que se usa internamente en este algoritmo
     private Grafo alg_graph;
     //Número de comunidades de alg_graph
-    private int alg_cc;
+    private int alg_cc = 0;
 
     private int iter = 0;
 
@@ -290,6 +290,7 @@ public class Girvan_Newman extends Algoritmo{
                 alg_graph.eliminarAristas(a1, a2);
                 alg_graph.eliminarAristas(a2, a1);
                 obtOut().agregarMensaje("EliminarArista "+a1+" "+a2+" ("+data_graph.fPrima(a1)+"~"+data_graph.fPrima(a2)+")");
+                System.out.println("EliminarArista "+a1+" "+a2+" ("+data_graph.fPrima(a1)+"~"+data_graph.fPrima(a2)+")");
             }
         }
 
@@ -330,7 +331,7 @@ public class Girvan_Newman extends Algoritmo{
             uno.distance = 0;
             uno.weight = 1;
 
-            //Si no pertanece el nodo a un componente conexo, sumamos 1 a cc y le asignamos un componente al nodo
+            //Si no pertanece el nodo a un componente conexo, sumamos 1 a cc2 y le asignamos un componente al nodo
             if (uno.component == -1)
             {
                 ++cc2;
@@ -420,12 +421,20 @@ public class Girvan_Newman extends Algoritmo{
         }
 
         //Mensajes de salida
-        if (cc2 > cc)
-        {
-            int d_cc = cc2 - cc;
-            if (d_cc == 1 && alg_cc != 0) obtOut().agregarMensaje("NuevaComunidad "+obtOut().comunidad_at(cc2-1));
+        System.out.println("cc2: "+cc2+", cc: "+cc+", alg_cc: "+alg_cc);
+        if (alg_cc == 0 || cc2 > cc) {
+            for (int x = 0; x < cc2; x++) {
+                String asdf = obtOut().comunidad().get(x).toString();
+                String st = asdf.substring(1, asdf.length() - 1);
+                String[] str = st.split(",\\s");
+                String r = "Comunidad";
+                for (int i = 0; i < str.length; i++) {
+                    r = r + " " + str[i];
+                }
+                obtOut().agregarMensaje(r);
+            }
+            obtOut().agregarMensaje("Reset");
         }
-
         alg_cc = cc2;
 
     }
