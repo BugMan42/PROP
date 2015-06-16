@@ -331,12 +331,7 @@ public class pruebas {
     }
     private static void testINV() throws Exception {
         ControladorCongreso cr = new ControladorCongreso();
-        cr.agregarCongresistaRandom(300);
-        String aux = cr.obtBloqueDniInv(0,100);
-        String[] aux2 = aux.split(cr.obtSep());
-        for (String r:aux2) {
-            print(r);
-        }
+
     }
     private static void testit() throws Exception {
         TST<Integer> tst = new TST<Integer>();

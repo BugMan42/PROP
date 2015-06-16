@@ -133,25 +133,7 @@ public class CPCongreso {
         }
         return CC.obtBloqueDNI(bq, 100);
     }
-    public String obtBQOrdenInv(int bq) {
-        switch (order) {
-            case 0: //DNI
-                return CC.obtBloqueDniInv(bq, tamBloque);
-            case 1: //Nombre
-                return CC.obtBloqueNombreInv(bq, tamBloque);
-            case 2: //Apellido
-                return CC.obtBloqueApellidoInv(bq, tamBloque);
-            case 3: //Edad
-                return CC.obtBloqueEdadInv(bq, tamBloque);
-            case 4: //Ciudad
-                return CC.obtBloqueCiudadInv(bq, tamBloque);
-            case 5: //Estado
-                return CC.obtBloqueEstadoInv(bq, tamBloque);
-            case 6: // Partido
-                return CC.obtBloquePartidoInv(bq, tamBloque);
-        }
-        return CC.obtBloqueDniInv(bq, 100);
-    }
+
 
     public String obtCongresistaCache(int i){
         String res;
