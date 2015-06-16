@@ -16,46 +16,43 @@ public class PanelCongreso extends PanelLista {
     final String[] def={"Introduzca el Nombre", "Introduzca el Apellido", "Introduzca el Dni", "Introduzca la Edad", "Introduzca la Ciudad", "Introduzca el Estado", "Introduzca el Partido"};
 
     //Referència al controlador de presentació que crea la vista
-    CPCongreso CPC;
+    private CPCongreso CPC;
     boolean t;
     private Boolean[] vError;
     int tamSearch;
-    private String textBusq;
     private String actualSearch;
     private int selectedAuto;
     private boolean buscando;
-
-    JPopupMenu searchPopMenu;
-    AbstractListModel<String> bigData;
-    JFileChooser choosersave;
-    JFileChooser chooserload;
-    JButton bAgregarCongresista;
-    JButton bAgregarRandom;
-    JButton bCargarCongreso;
-    JButton bClear;
-    JButton bEliminarCongresista;
-    JButton bEliminarCongreso;
-    JButton bGuardarCongreso;
-    JButton bModificarCongresista;
-    Box.Filler filler1;
-    JSpinner SpinnerNum;
-    JTextField textError;
-    JLabel lError;
-    JLabel lName;
-    JLabel lSurname;
-    JLabel lDni;
-    JLabel lAge;
-    JLabel lCity;
-    JLabel lState;
-    JLabel lParty;
-    JTextField textName;
-    JTextField textSurname;
-    JTextField textDni;
-    JTextField textAge;
-    JTextField textCity;
-    JTextField textState;
-    JTextField textParty;
-    JList listCongreso;
+    private JPopupMenu searchPopMenu;
+    private AbstractListModel<String> bigData;
+    private JFileChooser choosersave;
+    private JFileChooser chooserload;
+    private JButton bAgregarCongresista;
+    private JButton bAgregarRandom;
+    private JButton bCargarCongreso;
+    private JButton bClear;
+    private JButton bEliminarCongresista;
+    private JButton bEliminarCongreso;
+    private JButton bGuardarCongreso;
+    private JButton bModificarCongresista;
+    private Box.Filler filler1;
+    private JSpinner SpinnerNum;
+    private JLabel lError;
+    private JLabel lName;
+    private JLabel lSurname;
+    private JLabel lDni;
+    private JLabel lAge;
+    private JLabel lCity;
+    private JLabel lState;
+    private JLabel lParty;
+    private JTextField textName;
+    private JTextField textSurname;
+    private JTextField textDni;
+    private JTextField textAge;
+    private JTextField textCity;
+    private JTextField textState;
+    private JTextField textParty;
+    private JList listCongreso;
 
 
     public PanelCongreso(CPCongreso c) {
@@ -64,18 +61,17 @@ public class PanelCongreso extends PanelLista {
         for (int i = 0; i < 7; ++i) {
             vError[i] = false;
         }
-        buscando = false;
         CPC = c;
+        buscando = false;
+        tamSearch = 0;
+        selectedAuto = 0;
         iniComp();
         updateJList(0);
         iniFont();
         initGUI();
-        tamSearch = 0;
-        selectedAuto = 0;
 
     }
     private void iniFont() {
-        textBusq = "";
         actualSearch = "";
         lName.setFont(new java.awt.Font("Ubuntu", 0, 18));
         textName.setFont(new java.awt.Font("Ubuntu", 0, 18));
@@ -120,7 +116,6 @@ public class PanelCongreso extends PanelLista {
         textParty = new JTextField();
         filler1 = new Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         bClear = new JButton();
-        textError = new JTextField();
         lError = new JLabel();
         bAgregarCongresista = new JButton();
         bAgregarRandom = new JButton();
@@ -360,12 +355,12 @@ public class PanelCongreso extends PanelLista {
 
         SpinnerNum.setModel(new SpinnerNumberModel(1, 1, 50000000, 1));
             ((JSpinner.DefaultEditor)SpinnerNum.getEditor()).getTextField().addKeyListener((new KeyAdapter() {
-            public void keyReleased(KeyEvent evt) {
-                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                    agregarRandom();
+                public void keyReleased(KeyEvent evt) {
+                    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                        agregarRandom();
+                    }
                 }
-            }
-        }));
+            }));
 
         JPanel right = new JPanel();
         right.add(lName);
@@ -395,16 +390,10 @@ public class PanelCongreso extends PanelLista {
 
         //Obtenemos el SplitPanel de la clase padre y le asignamos el panel a la parte rightecha
         obtSp().setRightComponent(right);
-        //GroupLayout gr = new GroupLayout(right);
-        //right.setLayout(gr);
-        //gr.setAutoCreateGaps(true);
-        //gr.setAutoCreateContainerGaps(true);
-        //TODO
         GroupLayout layout = new GroupLayout(right);
         right.setLayout(layout);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
-        //getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
