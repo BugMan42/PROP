@@ -2,7 +2,6 @@ package Presentacio;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
-import org.graphstream.graph.implementations.Graphs;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.geom.Point3;
 import org.graphstream.ui.swingViewer.ViewPanel;
@@ -13,9 +12,6 @@ import org.graphstream.ui.view.ViewerPipe;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.event.MouseInputAdapter;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
@@ -392,6 +388,10 @@ public class PanelAlgoritmo extends Panel{
         top1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for (int k = im1; k > 0; k--)
+                {
+                    ej.ejecuta1(cpa.message_at(k),cpa.message_at(k-1));
+                }
                 im1 = 0;
                 String h = cpa.message_at(im1);
                 String g = "Fin";
@@ -488,16 +488,19 @@ public class PanelAlgoritmo extends Panel{
         top2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for (int k = im2; k > 0; k--)
+                {
+                    ej.ejecuta1(cpa.message_at(k),cpa.message_at(k-1));
+                }
                 im2 = 0;
                 String h = cpa.message_at(im2);
-                String g = "Fin";
                 String i = "-";
                 lm2.clear();
                 lm2.add(0,i);
                 lm2.add(1,h);
                 lm2.add(2, cpa.message_at(im2+1));
                 lst2.setSelectedIndex(1);
-                ej.ejecuta1(g, h);
+                //ej.ejecuta1(g, h);
                 up2.setEnabled(false);
                 top2.setEnabled(false);
                 bottom2.setEnabled(true);
@@ -810,7 +813,7 @@ public class PanelAlgoritmo extends Panel{
                     @Override
                     protected Void doInBackground() throws Exception {
                         setProgress(0);
-                        asignarColorGN();
+                        asignarGN();
                         setProgress(50);
                         mostrar1.setEnabled(false);
                         String r = cpa.message_at(0);
@@ -855,7 +858,7 @@ public class PanelAlgoritmo extends Panel{
                     @Override
                     protected Void doInBackground() throws Exception {
                         setProgress(0);
-                        cargarGrafo();
+                        asignarLV();
                         setProgress(50);
                         mostrar2.setEnabled(false);
                         String r = cpa.message_at(0);
@@ -1182,7 +1185,7 @@ public class PanelAlgoritmo extends Panel{
 
     }
 
-    private void asignarColorGN()
+    private void asignarGN()
     {
         int nc = cpa.num_comunidades();
         for (int k = 0; k < nc; k++)
@@ -1204,6 +1207,45 @@ public class PanelAlgoritmo extends Panel{
                     else ac.addAttribute("color", colour);*/
 
                     ac.addAttribute("ui.style", "fill-color: #CCC;");
+
+                }
+            }
+        }
+    }
+
+    private void asignarLV()
+    {
+        int nc = cpa.num_comunidades();
+        int i = 0;
+        for (int k = 0; k < nc; k++)
+        {
+
+            String c = cpa.next_community();
+            //System.out.println("comunidad: "+k);
+            String[] cc = c.split(",\\s");
+            if (!cc[0].equals("-"))
+            {
+                //System.out.println(cc.length);
+                for (String aCc : cc) {
+                    //System.out.println(cc[l]);
+                    Node ac = g.getNode(aCc);
+
+                    String colour = obtColorRandom();
+
+                    ac.addAttribute("nco", Integer.toString(k));
+
+                    if (i < colors.length)
+                    {
+                        ac.addAttribute("ui.style", "fill-color: "+colors[i]+";");
+                        ac.addAttribute("color", colors[i]);
+                    }
+                    else
+                    {
+                        ac.addAttribute("ui.style", "fill-color: "+colour+";");
+                        ac.addAttribute("color", colour);
+                    }
+
+                    i++;
 
                 }
             }
