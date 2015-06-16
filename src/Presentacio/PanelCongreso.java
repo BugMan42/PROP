@@ -8,9 +8,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.List;
 
 
@@ -133,6 +131,8 @@ public class PanelCongreso extends PanelLista {
         bGuardarCongreso = new JButton();
         SpinnerNum = new JSpinner();
         listCongreso = obtJlist();
+
+        textSearch.add(searchPopMenu);
     }
     private void initGUI() {
         cargarFilechoser();
@@ -562,6 +562,11 @@ public class PanelCongreso extends PanelLista {
     private void bClearActionPerformed(java.awt.event.ActionEvent evt) {
         setDefaultText();
         jlist.clearSelection();
+        if (checkInv.isSelected()) {
+            updateJListInv(boxSort.getSelectedIndex());
+        } else {
+            updateJList(boxSort.getSelectedIndex());
+        }
     }
     private void bAgregarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
@@ -621,7 +626,6 @@ public class PanelCongreso extends PanelLista {
                 setDefaultText();
                 setMsg("Congresista/s eliminados satisfactoriamente");
                 ListUpdate();
-
             }
             catch (Exception a) {
                 setError(a.getMessage());
@@ -722,7 +726,11 @@ public class PanelCongreso extends PanelLista {
         ListUpdate();
     }
     public void ListUpdate() {
-        updateJList(boxSort.getSelectedIndex());
+        if (checkInv.isSelected()) {
+            updateJListInv(boxSort.getSelectedIndex());
+        } else {
+            updateJList(boxSort.getSelectedIndex());
+        }
     }
     public void setDefaultText() {
         defColorText(Color.GRAY);
@@ -852,6 +860,9 @@ public class PanelCongreso extends PanelLista {
 
     @Override
     protected void checkInvActionPerformed(ActionEvent evt) {
+        updateUniversal();
+    }
+    private void updateUniversal() {
         if (buscando) {
             if (checkInv.isSelected()) {
                 ListUpdateBusquedaInv();
@@ -997,35 +1008,36 @@ public class PanelCongreso extends PanelLista {
     }
     private void Search(String buscar,int w) {
         if (!buscar.isEmpty()) {
+            buscando = true;
             CPC.reiniciarBusqueda();
             switch (w) {
                 case 0:
                     CPC.searchByDni(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
                 case 1:
                     CPC.searchByName(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
                 case 2:
                     CPC.searchBySurName(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
                 case 3:
                     CPC.searchByAge(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
                 case 4:
                     CPC.searchByCity(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
                 case 5:
                     CPC.searchByState(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
                 case 6:
                     CPC.searchByParty(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
             }
         }
