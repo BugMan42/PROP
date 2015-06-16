@@ -10,10 +10,14 @@ import org.graphstream.graph.Node;
 public class Ejecutor {
 
     private Graph g;
+    private String[] colors;
 
-    public Ejecutor (Graph gr)
+    private int i_com = 0;
+
+    public Ejecutor (Graph gr, String[] c)
     {
         g = gr;
+        colors = c;
     }
 
 
@@ -39,7 +43,7 @@ public class Ejecutor {
             n.changeAttribute("ui.style", "stroke-mode: plain; stroke-width: 1px; stroke-color: #999; ");
 
         }
-        else if (r[0].equals("EliminarArista"))
+        else if (r[0].equals("MarcarArista"))
         {
             String a1 = r[1];
             String a2 = r[2];
@@ -49,10 +53,12 @@ public class Ejecutor {
             e.changeAttribute("ui.style", "fill-color: #777; size: 1px; ");
 
         }
-        else if (r[0].equals("AñadirVertice"))
+        else if (r[0].equals("EliminarArista"))
         {
-            /*String d = "A"+r[1];
-            g.removeNode(d);*/
+            String a1 = r[1];
+            String a2 = r[2];
+            g.addEdge(a1+"~"+a2,a1,a2);
+
         }
         else if (r[0].equals("Clique"))
         {
@@ -61,6 +67,15 @@ public class Ejecutor {
                 Node n = g.getNode(r[i]);
                 n.addAttribute("ui.style", "stroke-width: 1px; shape: pie-chart; ");
             }
+        }
+        else if (r[0].equals("Comunidad"))
+        {
+            for (int u = 1; u < r.length; u++)
+            {
+                Node v = g.getNode(r[u]);
+                v.addAttribute("ui.style", "fill-color: #CCC;");
+            }
+            if (i_com > 0) --i_com;
         }
         /*else if (r[0].equals("AñadirArista"))
         {
@@ -84,7 +99,7 @@ public class Ejecutor {
             Node n = g.getNode(s);
             n.addAttribute("ui.style", "stroke-mode: dots; stroke-width: 4px; stroke-color: black; ");
         }
-        else if (r[0].equals("EliminarArista"))
+        else if (r[0].equals("MarcarArista"))
         {
             String a1 = r[1];
             String a2 = r[2];
@@ -92,8 +107,13 @@ public class Ejecutor {
             if (e == null) e = g.getEdge(a2+"~"+a1);
             e.addAttribute("ui.style", "fill-color: red; size: 3px;");
         }
-        else if (r[0].equals("AñadirVertice"))
+        else if (r[0].equals("EliminarArista"))
         {
+            String a1 = r[1];
+            String a2 = r[2];
+            Edge e = g.getEdge(a1+"~"+a2);
+            if (e == null) e = g.getEdge(a2+"~"+a1);
+            g.removeEdge(e);
 
         }
         else if (r[0].equals("Clique"))
@@ -103,6 +123,22 @@ public class Ejecutor {
                 Node n = g.getNode(r[i]);
                 n.addAttribute("ui.style", "stroke-width: 3px; shape: diamond; ");
             }
+        }
+        else if (r[0].equals("Comunidad"))
+        {
+            String c = null;
+            for (int u = 1; u < r.length; u++)
+            {
+                Node v = g.getNode(r[u]);
+                //c = v.getAttribute("color");
+                v.addAttribute("ui.style", "fill-color: "+colors[i_com]+";");
+            }
+            ++i_com;
+            //System.out.println("Color: "+c);
+        }
+        else if (r[0].equals("Reset"))
+        {
+            i_com = 0;
         }
         /*else if (r[0].equals("AñadirArista"))
         {

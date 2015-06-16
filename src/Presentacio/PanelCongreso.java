@@ -8,9 +8,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.List;
 
 
@@ -25,6 +23,7 @@ public class PanelCongreso extends PanelLista {
     private String textBusq;
     private String actualSearch;
     private int selectedAuto;
+    private boolean buscando;
 
     JPopupMenu searchPopMenu;
     AbstractListModel<String> bigData;
@@ -65,6 +64,7 @@ public class PanelCongreso extends PanelLista {
         for (int i = 0; i < 7; ++i) {
             vError[i] = false;
         }
+        buscando = false;
         CPC = c;
         iniComp();
         updateJList(0);
@@ -102,7 +102,6 @@ public class PanelCongreso extends PanelLista {
         textCity.setFont(new java.awt.Font("Ubuntu", 0, 18));
         lSurname.setFont(new java.awt.Font("Ubuntu", 0, 18));
     }
-
     private void iniComp() {
         searchPopMenu = new JPopupMenu();
         lName = new JLabel();
@@ -132,8 +131,9 @@ public class PanelCongreso extends PanelLista {
         bGuardarCongreso = new JButton();
         SpinnerNum = new JSpinner();
         listCongreso = obtJlist();
-    }
 
+        textSearch.add(searchPopMenu);
+    }
     private void initGUI() {
         cargarFilechoser();
 
@@ -562,6 +562,11 @@ public class PanelCongreso extends PanelLista {
     private void bClearActionPerformed(java.awt.event.ActionEvent evt) {
         setDefaultText();
         jlist.clearSelection();
+        if (checkInv.isSelected()) {
+            updateJListInv(boxSort.getSelectedIndex());
+        } else {
+            updateJList(boxSort.getSelectedIndex());
+        }
     }
     private void bAgregarCongresistaActionPerformed(java.awt.event.ActionEvent evt) {
         emptyLError();
@@ -621,7 +626,6 @@ public class PanelCongreso extends PanelLista {
                 setDefaultText();
                 setMsg("Congresista/s eliminados satisfactoriamente");
                 ListUpdate();
-
             }
             catch (Exception a) {
                 setError(a.getMessage());
@@ -722,7 +726,11 @@ public class PanelCongreso extends PanelLista {
         ListUpdate();
     }
     public void ListUpdate() {
-        updateJList(boxSort.getSelectedIndex());
+        if (checkInv.isSelected()) {
+            updateJListInv(boxSort.getSelectedIndex());
+        } else {
+            updateJList(boxSort.getSelectedIndex());
+        }
     }
     public void setDefaultText() {
         defColorText(Color.GRAY);
@@ -797,6 +805,7 @@ public class PanelCongreso extends PanelLista {
         }*/
     }
     private void ListUpdateBusqueda() {
+        buscando = true;
         ListModel bigData2 = new AbstractListModel<String>() {
             public int getSize() {
                 if (CPC.sizeBusqueda() == 0) return 1;
@@ -805,6 +814,21 @@ public class PanelCongreso extends PanelLista {
             public String getElementAt(int index) {
                 if (CPC.sizeBusqueda() == 0) return "Búsqueda sin resultados";
                 return CPC.obtCongresistaBusqueda(index);
+            }
+        };
+        listCongreso.setPrototypeCellValue("If ----------- ");
+        listCongreso.setModel(bigData2);
+    }
+    private void ListUpdateBusquedaInv() {
+        buscando = true;
+        ListModel bigData2 = new AbstractListModel<String>() {
+            public int getSize() {
+                if (CPC.sizeBusqueda() == 0) return 1;
+                else return CPC.sizeBusqueda();
+            }
+            public String getElementAt(int index) {
+                if (CPC.sizeBusqueda() == 0) return "Búsqueda sin resultados";
+                return CPC.obtCongresistaBusqueda(CPC.sizeBusqueda()-1-index);
             }
         };
         listCongreso.setPrototypeCellValue("If ----------- ");
@@ -836,12 +860,22 @@ public class PanelCongreso extends PanelLista {
 
     @Override
     protected void checkInvActionPerformed(ActionEvent evt) {
-        if (checkInv.isSelected()) {
-            //print("hay que invertir");
-            updateJListInv(boxSort.getSelectedIndex());
+        updateUniversal();
+    }
+    private void updateUniversal() {
+        if (buscando) {
+            if (checkInv.isSelected()) {
+                ListUpdateBusquedaInv();
+            } else {
+                ListUpdateBusqueda();
+            }
         }
         else {
-            updateJList(boxSort.getSelectedIndex());
+            if (checkInv.isSelected()) {
+                updateJListInv(boxSort.getSelectedIndex());
+            } else {
+                updateJList(boxSort.getSelectedIndex());
+            }
         }
     }
 
@@ -909,6 +943,7 @@ public class PanelCongreso extends PanelLista {
             Search(actualSearch, which);
             labelStatus.setVisible(true);
             labelStatus.setText("Congresistas encontrados: " + CPC.sizeBusqueda());
+
             //textSearch.setCaretPosition(actualSearch.length());
         }
         else {
@@ -974,35 +1009,36 @@ public class PanelCongreso extends PanelLista {
     }
     private void Search(String buscar,int w) {
         if (!buscar.isEmpty()) {
+            buscando = true;
             CPC.reiniciarBusqueda();
             switch (w) {
                 case 0:
                     CPC.searchByDni(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
                 case 1:
                     CPC.searchByName(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
                 case 2:
                     CPC.searchBySurName(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
                 case 3:
                     CPC.searchByAge(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
                 case 4:
                     CPC.searchByCity(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
                 case 5:
                     CPC.searchByState(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
                 case 6:
                     CPC.searchByParty(buscar);
-                    ListUpdateBusqueda();
+                    updateUniversal();
                     break;
             }
         }
@@ -1065,8 +1101,8 @@ public class PanelCongreso extends PanelLista {
         return true;
     }
     private void updateJList(int orden) {
+        buscando = false;
         CPC.modOrder(orden);
-       // print(CPC.obtCongresista(0));
         bigData = new AbstractListModel<String>() {
             public int getSize() {
                 if (CPC.size() == 0) return 1;
@@ -1081,8 +1117,8 @@ public class PanelCongreso extends PanelLista {
         listCongreso.setModel(bigData);
     }
     private void updateJListInv(int orden) {
+        buscando = false;
         CPC.modOrder(orden);
-        // print(CPC.obtCongresista(0));
         bigData = new AbstractListModel<String>() {
             public int getSize() {
                 if (CPC.size() == 0) return 1;
