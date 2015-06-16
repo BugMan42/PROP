@@ -340,6 +340,7 @@ public class PanelEventos extends PanelLista {
             }
         });
 
+
         btmodificar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -367,6 +368,23 @@ public class PanelEventos extends PanelLista {
                 btcargarTodoAccion(e);
             }
         });
+
+        ((JSpinner.DefaultEditor) contador.getEditor()).getTextField().addKeyListener((new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    try {
+                        cpe.obtCCE().AgregarEventoRandom((Integer) contador.getValue());
+                        lbinfo.setText(" ");
+                        if (checkInv.isSelected()) actualizarListaInv();
+                        else actualizarLista();
+
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+
+                }
+            }
+        }));
     }
 
     private void rellenarFormulario(String info[]) {

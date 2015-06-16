@@ -5,6 +5,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 /**
@@ -43,6 +45,15 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
         pl3.titulo.setText("Relaciones");
         guardar = new JFileChooser();
         cargar = new JFileChooser();
+
+        ((JSpinner.DefaultEditor) nr.getEditor()).getTextField().addKeyListener((new KeyAdapter() {
+            public void keyReleased(KeyEvent evt) {
+                if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    cpr.agregarRelacionRandom((Integer)nr.getValue());
+                    actualizaListaRelaciones();
+                }
+            }
+        }));
 
         guardar = new JFileChooser();
         UIManager.put("FileChooser.lookInLabelText", "Guardar en:");
@@ -167,7 +178,6 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
     private void bAñadirRandomActionPerformed(ActionEvent evt) {
         cpr.agregarRelacionRandom((Integer)nr.getValue());
         actualizaListaRelaciones();
-
     }
 
     private void bEliminarTodasActionPerformed(ActionEvent evt) {
