@@ -359,7 +359,7 @@ public class PanelCongreso extends PanelLista {
 
 
         SpinnerNum.setModel(new SpinnerNumberModel(1, 1, 50000000, 1));
-        ((JSpinner.DefaultEditor)SpinnerNum.getEditor()).getTextField().addKeyListener((new KeyAdapter() {
+            ((JSpinner.DefaultEditor)SpinnerNum.getEditor()).getTextField().addKeyListener((new KeyAdapter() {
             public void keyReleased(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                     agregarRandom();
