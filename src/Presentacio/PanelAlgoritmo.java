@@ -918,7 +918,7 @@ public class PanelAlgoritmo extends Panel{
                     @Override
                     protected Void doInBackground() throws Exception {
                         setProgress(0);
-                        cargarGrafo();
+                        asignarCP();
                         setProgress(50);
                         mostrar3.setEnabled(false);
 
@@ -1282,10 +1282,10 @@ public class PanelAlgoritmo extends Panel{
             n.changeAttribute("comm", Integer.toString(0));
             n.changeAttribute("ui.pie-values", Double.toString(1.0));
             n.removeAttribute("nco");
+            n.addAttribute("ui.style", "fill-color: #CCC;");
         }
 
-
-
+/*
         int nc = cpa.num_comunidades();
         char chargen = 'A';
         for (int k = 0; k < nc; k++)
@@ -1340,8 +1340,7 @@ public class PanelAlgoritmo extends Panel{
 
                 }
             }
-        }
-
+        }*/
     }
 
 
