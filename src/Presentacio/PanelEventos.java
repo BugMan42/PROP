@@ -515,29 +515,38 @@ public class PanelEventos extends PanelLista {
     }
 
     private void ponerRojo(String s) {
-        Component c11 = dia.getEditor().getComponent(0);
-        Component c21 = mes.getEditor().getComponent(0);
-        Component c31 = any.getEditor().getComponent(0);
-        c11.setForeground(Color.RED);
-        c21.setForeground(Color.RED);
-        c31.setForeground(Color.RED);
         String data[] = s.split("\\s");
         boolean clave = false;
         if (data[0].equals("Nombre")) ctnombre.setForeground(Color.red);
         else if (data[0].equals("Fecha")) {
-            dia.setForeground(Color.red);
-            mes.setForeground(Color.red);
-            any.setForeground(Color.red);
+            Component c11 = dia.getEditor().getComponent(0);
+            Component c21 = mes.getEditor().getComponent(0);
+            Component c31 = any.getEditor().getComponent(0);
+            c11.setForeground(Color.RED);
+            c21.setForeground(Color.RED);
+            c31.setForeground(Color.RED);
+        }
+        else if (data[0].equals("Dia")) {
+            Component c11 = dia.getEditor().getComponent(0);
+            c11.setForeground(Color.RED);
         }
         else if(data[0].equals("Mes")) {
-            mes.setForeground(Color.red);
+            Component c21 = mes.getEditor().getComponent(0);
+            c21.setForeground(Color.RED);
+        }
+        else if (data[0].equals("Año")) {
+            Component c31 = any.getEditor().getComponent(0);
+            c31.setForeground(Color.RED);
         }
         else if (data[0].equals("Importancia")) ctimportancia.setForeground(Color.red);
         else if (data[0].equals("Clave")) {
             ctnombre.setForeground(Color.red);
-            dia.setForeground(Color.red);
-            mes.setForeground(Color.red);
-            any.setForeground(Color.red);
+            Component c11 = dia.getEditor().getComponent(0);
+            Component c21 = mes.getEditor().getComponent(0);
+            Component c31 = any.getEditor().getComponent(0);
+            c11.setForeground(Color.RED);
+            c21.setForeground(Color.RED);
+            c31.setForeground(Color.RED);
             clave = true;
         }
         if (!clave) mostrarmensaje(s);

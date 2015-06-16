@@ -1,8 +1,5 @@
 package Domini;
 
-/**
- * Created by usuario on 04/05/2015.
- */
 public class Oficial extends Acto {
     public Oficial(String nombre, Fecha data, int importance) throws Exception{
         super(nombre, data, importance);
