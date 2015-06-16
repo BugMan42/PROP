@@ -412,6 +412,10 @@ public class PanelAlgoritmo extends Panel{
         bottom1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for (int k = im1; k < cpa.num_mensajes()-1; k++)
+                {
+                    ej.ejecuta1(cpa.message_at(k),cpa.message_at(k+1));
+                }
                 im1 = cpa.num_mensajes()-1;
                 String h = cpa.message_at(im1);
                 String g = "Inicio";
@@ -511,6 +515,10 @@ public class PanelAlgoritmo extends Panel{
         bottom2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for (int k = im2; k < cpa.num_mensajes()-1; k++)
+                {
+                    ej.ejecuta1(cpa.message_at(k),cpa.message_at(k+1));
+                }
                 im2 = cpa.num_mensajes()-1;
                 String h = cpa.message_at(im2);
                 String g = "Inicio";
@@ -591,6 +599,10 @@ public class PanelAlgoritmo extends Panel{
         top3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for (int k = im3; k > 0; k--)
+                {
+                    ej.ejecuta1(cpa.message_at(k),cpa.message_at(k-1));
+                }
                 im3 = 0;
                 String h = cpa.message_at(im3);
                 String g = "Fin";
@@ -614,6 +626,10 @@ public class PanelAlgoritmo extends Panel{
         bottom3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for (int k = im3; k < cpa.num_mensajes()-1; k++)
+                {
+                    ej.ejecuta1(cpa.message_at(k),cpa.message_at(k+1));
+                }
                 im3 = cpa.num_mensajes()-1;
                 String h = cpa.message_at(im3);
                 String g = cpa.message_at(0);
@@ -1187,6 +1203,7 @@ public class PanelAlgoritmo extends Panel{
 
     private void asignarGN()
     {
+        cpa.reset_pointers();
         int nc = cpa.num_comunidades();
         for (int k = 0; k < nc; k++)
         {
@@ -1215,6 +1232,7 @@ public class PanelAlgoritmo extends Panel{
 
     private void asignarLV()
     {
+        cpa.reset_pointers();
         int nc = cpa.num_comunidades();
         int i = 0;
         for (int k = 0; k < nc; k++)
@@ -1251,6 +1269,81 @@ public class PanelAlgoritmo extends Panel{
             }
         }
     }
+
+    private void asignarCP()
+    {
+        final int nv = cpa.num_vertices();
+
+        cpa.reset_pointers();
+        for (int j = 0; j < nv; j++) {
+            String q = cpa.next_vertex();
+            //System.out.println("Creando aristas → "+j+"; "+q);
+            Node n = g.getNode(j);
+            n.changeAttribute("comm", Integer.toString(0));
+            n.changeAttribute("ui.pie-values", Double.toString(1.0));
+            n.removeAttribute("nco");
+        }
+
+
+
+        int nc = cpa.num_comunidades();
+        char chargen = 'A';
+        for (int k = 0; k < nc; k++)
+        {
+            String colour = obtColorRandom();
+            String c = cpa.next_community();
+            //System.out.println("comunidad: "+k);
+            String[] cc = c.split(",\\s");
+            if (!cc[0].equals("-"))
+            {
+                //System.out.println(cc.length);
+                for (String aCc : cc) {
+                    //System.out.println(cc[l]);
+                    String co = g.getNode(aCc).getAttribute("comm");
+                    int nodo_com = Integer.parseInt(co);
+
+                    g.getNode(aCc).addAttribute("comm", Integer.toString(nodo_com + 1));
+
+                    Double corel = 1.0 / (nodo_com + 1);
+
+                    Object[] copie = new Object[nodo_com + 1];
+
+                    Object[] ncopie = new Object[nodo_com + 1];
+                    Object[] scopie;
+                    if (g.getNode(aCc).hasArray("nco")) scopie = g.getNode(aCc).getAttribute("nco");
+                    else {
+                        scopie = new String[1];
+                        scopie[0] = g.getNode(aCc).getAttribute("nco");
+                    }
+
+                    String fc = "fill-color: ";
+                    for (int i = 0; i <= nodo_com; i++) {
+                        copie[i] = Double.toString(corel);
+                        if (i < nodo_com) {
+                            ncopie[i] = scopie[i];
+                            int prop = Integer.parseInt((String) scopie[i]);
+                            if (prop < colors.length) fc += colors[prop] + ", ";
+                            else fc += obtColorRandom() + ", ";
+                        } else {
+                            ncopie[i] = Integer.toString(k);
+                            if (k < colors.length) fc += colors[k];
+                            else fc += colour; // añade el color creado para esta comunidad
+
+                        }
+                    }
+                    fc += ";";
+
+                    //System.out.println(fc);
+                    g.getNode(aCc).addAttribute("ui.pie-values", copie);
+                    g.getNode(aCc).addAttribute("ui.style", fc);
+                    g.getNode(aCc).addAttribute("nco", ncopie);
+
+                }
+            }
+        }
+
+    }
+
 
     private String obtColorRandom()
     {

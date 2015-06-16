@@ -263,7 +263,7 @@ public class Clique extends Algoritmo {
                     agregado = true;
                     kc.modNum(kc1.obtNum());
                     obtOut().comunidad_at(kc.obtNum()).addAll(kc.lista());
-                    String s = "Comunidad " + Integer.toString(kc.obtNum());
+                    String s = "CComunidad " + Integer.toString(kc.obtNum());
                     ArrayList<Integer> w = new ArrayList<Integer>(obtOut().comunidad_at(kc.obtNum()));
                     agregarVertices(s, w);
                 }
@@ -273,7 +273,7 @@ public class Clique extends Algoritmo {
                 c.incUltimo();
                 Set<Integer>   s = new HashSet<Integer>();
                 s.addAll(kc.lista());
-                String str = "Comunidad " + Integer.toString(kc.obtNum());
+                String str = "CComunidad " + Integer.toString(kc.obtNum());
                 agregarVertices(str, kc.lista());
                 obtOut().agregarComunidad(s);
             }
@@ -284,7 +284,7 @@ public class Clique extends Algoritmo {
             c.incUltimo();
             Set<Integer> s = new HashSet<Integer>();
             s.addAll(kc.lista());
-            String str = "Comunidad " + Integer.toString(kc.obtNum());
+            String str = "CComunidad " + Integer.toString(kc.obtNum());
             agregarVertices(str, kc.lista());
             obtOut().agregarComunidad(s);
         }
