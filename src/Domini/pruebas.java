@@ -80,7 +80,8 @@ public class pruebas {
     public static void main(String[] args) throws Exception {
 
         try {
-            testNuevTst();
+            testINV();
+            //testNuevTst();
             //testsCaches();
             //testCong();
             //testsCaches();
@@ -323,6 +324,15 @@ public class pruebas {
         ControladorCongreso cr = new ControladorCongreso();
         cr.agregarCongresistaRandom(500);
         String aux = cr.obtBloque(0);
+        String[] aux2 = aux.split(cr.obtSep());
+        for (String r:aux2) {
+            print(r);
+        }
+    }
+    private static void testINV() throws Exception {
+        ControladorCongreso cr = new ControladorCongreso();
+        cr.agregarCongresistaRandom(300);
+        String aux = cr.obtBloqueDniInv(0,100);
         String[] aux2 = aux.split(cr.obtSep());
         for (String r:aux2) {
             print(r);

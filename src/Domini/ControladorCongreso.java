@@ -250,6 +250,63 @@ public class ControladorCongreso {
         return res;
     }
 
+    public String obtBloqueDniInv(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoDni(bloque, tam_bloque);
+        String res = "";
+        for (int i = con.size()-1; i >= 0; --i) {
+            res+=con.get(i).toString()+sep;
+        }
+        return res;
+    }
+    public String obtBloqueNombreInv(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoDni(bloque, tam_bloque);
+        String res = "";
+        for (int i = con.size()-1; i >= 0; --i) {
+            res+=con.get(i).toStringByName()+sep;
+        }
+        return res;
+    }
+    public String obtBloqueApellidoInv(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoDni(bloque, tam_bloque);
+        String res = "";
+        for (int i = con.size()-1; i >= 0; --i) {
+            res+=con.get(i).toStringBySurname()+sep;
+        }
+        return res;
+    }
+    public String obtBloqueEdadInv(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoDni(bloque, tam_bloque);
+        String res = "";
+        for (int i = con.size()-1; i >= 0; --i) {
+            res+=con.get(i).toStringByAge()+sep;
+        }
+        return res;
+    }
+    public String obtBloqueCiudadInv(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoDni(bloque, tam_bloque);
+        String res = "";
+        for (int i = con.size()-1; i >= 0; --i) {
+            res+=con.get(i).toStringByCity()+sep;
+        }
+        return res;
+    }
+    public String obtBloqueEstadoInv(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoDni(bloque, tam_bloque);
+        String res = "";
+        for (int i = con.size()-1; i >= 0; --i) {
+            res+=con.get(i).toStringByState()+sep;
+        }
+        return res;
+    }
+    public String obtBloquePartidoInv(int bloque, int tam_bloque){
+        List<Congresista> con = c.obtCongresoDni(bloque, tam_bloque);
+        String res = "";
+        for (int i = con.size()-1; i >= 0; --i) {
+            res+=con.get(i).toStringByParty()+sep;
+        }
+        return res;
+    }
+
     public String obtBloqueCacheBusqueda(int bloque, int tam_bloque){
         String res = "";
         int ini = bloque * tam_bloque;
@@ -342,6 +399,7 @@ public class ControladorCongreso {
         }
         return res;
     }
+
     public String obtAutocompletarDni(String text, int tam) {
         String res = "";
         List<String> aux = c.searchPrefixNameDni(text,'-',3);
