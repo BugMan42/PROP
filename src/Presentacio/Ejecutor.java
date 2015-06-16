@@ -86,19 +86,48 @@ public class Ejecutor {
         }
         else if (r[0].equals("CComunidad"))
         {
+            int cit = Integer.parseInt(r[1]);
 
+            String col = obtColorRandom();
+
+
+            for (int z = 2; z < r.length; z++) {
+                //System.out.println(cc[l]);
+                String co = g.getNode(r[z]).getAttribute("comm");
+                int nodo_com = Integer.parseInt(co);
+                Node Z = g.getNode(r[z]);
+                Z.addAttribute("comm", Integer.toString(nodo_com - 1));
+
+
+                Double corel = 1.0 / (nodo_com - 1);
+
+                Object[] copie = new Object[nodo_com - 1];
+
+                Object[] ncopie = new Object[nodo_com - 1];
+                Object[] scopie;
+                if (g.getNode(r[z]).hasArray("nco")) scopie = Z.getAttribute("nco");
+                else {
+                    scopie = new String[1];
+                    scopie[0] = Z.getAttribute("nco");
+                }
+
+                String fc = "fill-color: ";
+                for (int i = 0; i < nodo_com-1; i++) {
+                    copie[i] = Double.toString(corel);
+                    ncopie[i] = scopie[i];
+                    int prop = Integer.parseInt((String) scopie[i]);
+                    if (prop < colors.length) fc += colors[prop] + ", ";
+                    else fc += obtColorRandom() + ", ";
+                }
+                fc += obtColorRandom()+";";
+
+                //System.out.println(fc);
+                Z.addAttribute("ui.pie-values", copie);
+                Z.addAttribute("ui.style", fc);
+                Z.addAttribute("nco", ncopie);
+
+            }
         }
-        /*else if (r[0].equals("AñadirArista"))
-        {
-            String a1 = r[1];
-            String a2 = r[2];
-
-            Edge e = g.getEdge(a1+"~"+a2);
-            if (e == null) e = g.getEdge(a2+"~"+a1);
-
-            e.changeAttribute("ui.style", "shape: line; fill-color: #777; size: 1px; ");
-            if (a1.equals(a2)) g.removeEdge(a1, a2);
-        }*/
     }
 
     private void actual(String b)
