@@ -18,11 +18,11 @@ public class DriverGirvanNewman {
         in = new Entrada(golf, 2, 0);
         out = new Salida();
         gn = new Girvan_Newman(in, out);
-        ArrayList<String> hist = out.mostrarHistorial();
+        ArrayList<String> hist = out.mostrarHistorial1();
         for (String aHist : hist) {
             System.out.println(aHist);
         }
-        System.out.println(out.comunidad());
+        System.out.println(out.comunidad1());
 
 
     }

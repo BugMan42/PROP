@@ -107,10 +107,10 @@ public class DriverControladorAlgoritmo {
     private static void consultarSalida()
     {
         System.out.println("HISTORIAL");
-        System.out.println(c_alg.obtSalida().mostrarHistorial());
+        System.out.println(c_alg.obtSalida().mostrarHistorial1());
         System.out.println("\n");
         System.out.println("COMUNIDADES");
-        System.out.println(c_alg.obtSalida().comunidad());
+        System.out.println(c_alg.obtSalida().comunidad1());
     }
 
 }

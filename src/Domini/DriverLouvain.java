@@ -43,7 +43,7 @@ public class DriverLouvain {
                     case 3:
                         if (params.length != 1) throw new Exception(E1);
                         Louvain l = new Louvain(in,out);
-                        for (String a : out.mostrarHistorial()) dl.print(a);
+                        for (String a : out.mostrarHistorial3()) dl.print(a);
                         break;
                 }
             } catch (Exception e) {

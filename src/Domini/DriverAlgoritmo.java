@@ -82,7 +82,7 @@ public class DriverAlgoritmo {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(out.mostrarHistorial());
+        System.out.println(out.mostrarHistorial3());
     }
 
     public static void louvain()
@@ -92,7 +92,7 @@ public class DriverAlgoritmo {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(out.mostrarHistorial());
+        System.out.println(out.mostrarHistorial2());
     }
 
     public static void girvan_newman()

@@ -70,14 +70,32 @@ public class CPAlgoritmo {
         return CA.num_aristas_salida(x);
     }
 
-    public int num_comunidades()
+    public int num_comunidades1()
     {
-        return CA.num_comunidades();
+        return CA.num_comunidades1();
     }
 
-    public String next_community()
+    public int num_comunidades2()
     {
-        return CA.next_community();
+        return CA.num_comunidades2();
+    }
+
+    public int num_comunidades3()
+    {
+        return CA.num_comunidades3();
+    }
+
+    public String next_community1()
+    {
+        return CA.next_community1();
+    }
+    public String next_community2()
+    {
+        return CA.next_community2();
+    }
+    public String next_community3()
+    {
+        return CA.next_community3();
     }
 
     public void modParam1(String x)
@@ -89,12 +107,27 @@ public class CPAlgoritmo {
         CA.modParam2Entrada(x);
     }
 
-    public String next_mensaje()
+    public String next_mensaje1()
     {
-        return CA.next_message();
+        return CA.next_message1();
     }
-    public String message_at(int i) {
-        return CA.message_at(i);
+    public String next_mensaje2()
+    {
+        return CA.next_message2();
+    }
+    public String next_mensaje3()
+    {
+        return CA.next_message3();
+    }
+
+    public String message_at1(int i) {
+        return CA.message_at1(i);
+    }
+    public String message_at2(int i) {
+        return CA.message_at2(i);
+    }
+    public String message_at3(int i) {
+        return CA.message_at3(i);
     }
 
     public void crearGrafo() throws Exception {
@@ -120,9 +153,17 @@ public class CPAlgoritmo {
         return r;
     }
 
-    public int num_mensajes()
+    public int num_mensajes1()
     {
-        return CA.num_mensajes();
+        return CA.num_mensajes1();
+    }
+    public int num_mensajes2()
+    {
+        return CA.num_mensajes2();
+    }
+    public int num_mensajes3()
+    {
+        return CA.num_mensajes3();
     }
 
     public String obtCongresista(String x)

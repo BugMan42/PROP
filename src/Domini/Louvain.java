@@ -32,13 +32,13 @@ public class Louvain extends Algoritmo {
         m2 = .0;
         for(int i=0; i<g.V(); ++i) m2 += g.totalPesoSalida(i);
 
-        obtOut().mostrarHistorial().clear();
+        obtOut().mostrarHistorial2().clear();
 
         boolean mejora;
         pasada = 0;
         do {
             ++pasada;
-            obtOut().agregarMensaje("Iteración "+pasada);
+            obtOut().agregarMensaje2("Iteración "+pasada);
             mejora = primera_fase();
             segunda_fase();
             actualizar_salida();
@@ -112,8 +112,8 @@ public class Louvain extends Algoritmo {
                 insertar_nodo_comunidad(nodo, mejor_com, p_nc[mejor_com]);
 
                 if(pasada==1){
-                    obtOut().agregarMensaje("Visita "+nodo);
-                    obtOut().agregarMensaje("MoverNodoComunidad "+nodo+" "+mejor_com);
+                    obtOut().agregarMensaje2("Visita "+nodo);
+                    obtOut().agregarMensaje2("MoverNodoComunidad "+nodo+" "+mejor_com);
                 }
 
                 // Si hemos movido el nodo a otra comunidad incrementamos nodos_movidos.
@@ -189,24 +189,24 @@ public class Louvain extends Algoritmo {
             for(ArrayList<Integer> nodos : nodos_com){
                 Set<Integer> com = new HashSet<Integer>();
                 for(Integer n : nodos)
-                    for(Integer x : obtOut().comunidad().get(n))
+                    for(Integer x : obtOut().comunidad2().get(n))
                         com.add(x);
                 nueva_com.add(com);
             }
-            obtOut().comunidad().clear();
-            obtOut().comunidad().addAll(nueva_com);
+            obtOut().comunidad2().clear();
+            obtOut().comunidad2().addAll(nueva_com);
 
-            for(int i=0; i<obtOut().comunidad().size(); ++i)
-                for(int j : obtOut().comunidad().get(i))
-                    obtOut().agregarMensaje("MoverNodoComunidad "+j+" "+i);
+            for(int i=0; i<obtOut().comunidad2().size(); ++i)
+                for(int j : obtOut().comunidad2().get(i))
+                    obtOut().agregarMensaje2("MoverNodoComunidad "+j+" "+i);
 
         }
         else {
-            obtOut().comunidad().clear();
+            obtOut().comunidad2().clear();
             for(ArrayList<Integer> nodos : nodos_com){
                 Set<Integer> com = new HashSet<Integer>();
                 for(Integer n : nodos) com.add(n);
-                obtOut().comunidad().add(com);
+                obtOut().comunidad2().add(com);
             }
         }
     }

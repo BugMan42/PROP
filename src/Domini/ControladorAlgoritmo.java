@@ -54,12 +54,26 @@ public class ControladorAlgoritmo {
     public void seleccionAlgoritmo(int s) throws Exception
     {
         out = new Salida();
-        if (s == 1) alg = new Girvan_Newman(in, out);
-        else if (s == 2) alg = new Louvain(in, out);
-        else if (s == 3) alg = new Clique(in, out);
+        if (s == 1)
+        {
+            alg = new Girvan_Newman(in, out);
+            out.mostrarHistorial1().add(0, "Inicio");
+            out.agregarMensaje1("Fin");
 
-        out.mostrarHistorial().add(0, "Inicio");
-        out.agregarMensaje("Fin");
+        }
+        else if (s == 2)
+        {
+            alg = new Louvain(in, out);
+            out.mostrarHistorial2().add(0, "Inicio");
+            out.agregarMensaje2("Fin");
+        }
+        else if (s == 3)
+        {
+            alg = new Clique(in, out);
+            out.mostrarHistorial3().add(0, "Inicio");
+            out.agregarMensaje3("Fin");
+        }
+
     }
 
 
@@ -158,17 +172,25 @@ public class ControladorAlgoritmo {
         return r;
     }
 
-    public int num_comunidades()
+    public int num_comunidades1()
     {
-        return out.comunidad().size();
+        return out.comunidad1().size();
+    }
+    public int num_comunidades2()
+    {
+        return out.comunidad2().size();
+    }
+    public int num_comunidades3()
+    {
+        return out.comunidad3().size();
     }
 
-    public String next_community()
+    public String next_community1()
     {
         String r;
 
         try {
-            r = out.comunidad_at(i_comm).toString();
+            r = out.comunidad1_at(i_comm).toString();
             r = r.substring(1,r.length()-1);
             ++i_comm;
         } catch (Exception e) {
@@ -177,24 +199,94 @@ public class ControladorAlgoritmo {
         return r;
     }
 
-    public int num_mensajes()
-    {
-        return out.mostrarHistorial().size();
-    }
-
-    public String next_message()
+    public String next_community2()
     {
         String r;
-        if (i_message < out.mostrarHistorial().size()) r = out.mostrarHistorial().get(i_message);
+
+        try {
+            r = out.comunidad2_at(i_comm).toString();
+            r = r.substring(1,r.length()-1);
+            ++i_comm;
+        } catch (Exception e) {
+            r = "-";
+        }
+        return r;
+    }
+
+    public String next_community3()
+    {
+        String r;
+
+        try {
+            r = out.comunidad3_at(i_comm).toString();
+            r = r.substring(1,r.length()-1);
+            ++i_comm;
+        } catch (Exception e) {
+            r = "-";
+        }
+        return r;
+    }
+
+    public int num_mensajes1()
+    {
+        return out.mostrarHistorial1().size();
+    }
+    public int num_mensajes2()
+    {
+        return out.mostrarHistorial2().size();
+    }
+    public int num_mensajes3()
+    {
+        return out.mostrarHistorial3().size();
+    }
+
+    public String next_message1()
+    {
+        String r;
+        if (i_message < out.mostrarHistorial1().size()) r = out.mostrarHistorial1().get(i_message);
         else r = "-";
         i_message++;
         return r;
     }
 
-    public String message_at(int i)
+    public String next_message2()
     {
         String r;
-        if (i >= 0 && i < out.mostrarHistorial().size()) r = out.mostrarHistorial().get(i);
+        if (i_message < out.mostrarHistorial2().size()) r = out.mostrarHistorial2().get(i_message);
+        else r = "-";
+        i_message++;
+        return r;
+    }
+
+    public String next_message3()
+    {
+        String r;
+        if (i_message < out.mostrarHistorial3().size()) r = out.mostrarHistorial3().get(i_message);
+        else r = "-";
+        i_message++;
+        return r;
+    }
+
+    public String message_at1(int i)
+    {
+        String r;
+        if (i >= 0 && i < out.mostrarHistorial1().size()) r = out.mostrarHistorial1().get(i);
+        else r = "-";
+        return r;
+    }
+
+    public String message_at2(int i)
+    {
+        String r;
+        if (i >= 0 && i < out.mostrarHistorial2().size()) r = out.mostrarHistorial2().get(i);
+        else r = "-";
+        return r;
+    }
+
+    public String message_at3(int i)
+    {
+        String r;
+        if (i >= 0 && i < out.mostrarHistorial3().size()) r = out.mostrarHistorial3().get(i);
         else r = "-";
         return r;
     }

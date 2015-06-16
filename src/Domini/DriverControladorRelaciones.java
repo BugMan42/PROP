@@ -330,9 +330,9 @@ public class DriverControladorRelaciones {
         Louvain l = new Louvain(in, out);
         l.ejecutar_algoritmo();
         //print(out.mostrarHistorial().toString());
-        print(out.comunidad().toString());
+        print(out.comunidad1().toString());
         ArrayList<Set<String>> dnicom = new ArrayList<Set<String>>();
-        for(Set<Integer> si : out.comunidad()){
+        for(Set<Integer> si : out.comunidad1()){
             Set<String> sdni = new HashSet<String>();
             for(Integer x : si) sdni.add(g.fPrima(x));
             dnicom.add(sdni);

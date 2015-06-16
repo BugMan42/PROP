@@ -90,11 +90,11 @@ public class DriverClique {
     }
 
     private static void mostrarCom() {
-        ArrayList<String> hist = sa.mostrarHistorial();
+        ArrayList<String> hist = sa.mostrarHistorial3();
         for (String aHist : hist) {
             System.out.println(aHist);
         }
-        for (Set<Integer> i : sa.comunidad()) {
+        for (Set<Integer> i : sa.comunidad3()) {
             System.out.println("Comunidad");
             for (Integer j : i) {
                 System.out.println(Integer.toString(j));
