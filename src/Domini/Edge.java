@@ -36,4 +36,7 @@ public class Edge<N extends Node> {
     public boolean equals(Edge aux) {
         return origen == aux.origen && destino == aux.destino && peso == aux.peso;
     }
+    public String toString() {
+        return origen.toString()+" "+destino.toString()+" "+peso;
+    }
 }

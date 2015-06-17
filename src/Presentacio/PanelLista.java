@@ -8,7 +8,7 @@ import java.awt.event.*;
 public abstract class PanelLista extends Panel {
 
     //Referència al controlador de presentació que crea la vista
-    final String defaultTextLabelSearch = "Buscar";
+    protected final String defaultTextLabelSearch = "Buscar";
     protected JSplitPane sp;
     protected JList jlist;
     protected JScrollPane jScrollPane1;
@@ -200,10 +200,10 @@ public abstract class PanelLista extends Panel {
 
         sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         sp.setLeftComponent(panel);
-        //sp.setBorder(BorderFactory.createLineBorder(Color.black));
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(
+                
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(sp, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
         );
@@ -211,8 +211,6 @@ public abstract class PanelLista extends Panel {
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(sp, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
-
-        //pack();
     }
 
     protected  abstract void textSearchFocusLost();
