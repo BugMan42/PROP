@@ -153,15 +153,15 @@ public class Relaciones {
         compuestas = new ArrayList<RelacionCompuesta>();
     }
 
-    public boolean esVacio(){
+    public boolean esVacioSimples(){
         return congresistas.esVacio();
     }
 
-    public int size() throws Exception {
+    public int sizeSimples() throws Exception {
         return obtTodasLasRelaciones().size();
     }
 
-    public void agregarRelacion(RelacionSimple r) throws Exception {
+    public void agregarRelacionSimple(RelacionSimple r) throws Exception {
         NodeC aux = new NodeC(r);
         if (!congresistas.existe(r.obtCongresista().obtID())) {
             congresistas.insertar(r.obtCongresista().obtID(),aux);
@@ -179,20 +179,20 @@ public class Relaciones {
             aux2.agregarRelacion(r);
         }
     }
-    public boolean existeRelacion(RelacionSimple r) throws Exception {
+    public boolean existeRelacionSimple(RelacionSimple r) throws Exception {
         if (congresistas.existe(r.obtCongresista().obtID()))
             return congresistas.obtener(r.obtCongresista().obtID()).existeRelacion(r);
         return false;
     }
-    public boolean tieneRelaciones(Congresista c) throws Exception {
+    public boolean tieneRelacionesSimples(Congresista c) throws Exception {
         ArrayList<String> sc = congresistas.consultarClaves();
         return sc.contains(c.obtID());
     }
-    public boolean tieneRelaciones(Evento e) throws Exception {
+    public boolean tieneRelacionesSimples(Evento e) throws Exception {
         ArrayList<String> se = eventos.consultarClaves();
         return se.contains(e.ID());
     }
-    public void eliminarRelacion(RelacionSimple r) throws Exception {
+    public void eliminarRelacionSimple(RelacionSimple r) throws Exception {
         NodeC aux = congresistas.obtener(r.obtCongresista().obtID());
         aux.eliminarRelacion(r);
         if (aux.esVacio()) congresistas.borrar(r.obtCongresista().obtID());
@@ -200,19 +200,51 @@ public class Relaciones {
         aux2.eliminarRelacion(r);
         if (aux2.esVacio()) eventos.borrar(r.obtEvento().ID());
     }
-    public void eliminarRelaciones(Congresista c) throws Exception {
+    public void eliminarRelacionesSimples(Congresista c) throws Exception {
         ArrayList<RelacionSimple> r = new ArrayList<RelacionSimple>(obtRelaciones(c));
-        for(RelacionSimple rs : r) eliminarRelacion(rs);
+        for(RelacionSimple rs : r) eliminarRelacionSimple(rs);
     }
-    public void eliminarRelaciones(Evento e) throws Exception {
+    public void eliminarRelacionesSimples(Evento e) throws Exception {
         ArrayList<RelacionSimple> r = new ArrayList<RelacionSimple>(obtRelaciones(e));
-        for(RelacionSimple rs : r) eliminarRelacion(rs);
+        for(RelacionSimple rs : r) eliminarRelacionSimple(rs);
     }
     public void eliminarRelaciones(){
         congresistas.vaciar();
         eventos.vaciar();
-        conjuntos = new ArrayList<RelacionCompuesta>();
-        compuestas = new ArrayList<RelacionCompuesta>();
+        conjuntos.clear();
+        compuestas.clear();
+    }
+    public void eliminarRelacionesSimples(){
+        congresistas.vaciar();
+        eventos.vaciar();
+    }
+    public void eliminarRelacionesCompuestas(){
+        conjuntos.clear();
+        compuestas.clear();
+    }
+    public void eliminarCongresistaCompuestas(Congresista c) throws Exception {
+        for(int i=0; i<conjuntos.size(); ++i) {
+            RelacionCompuesta rc = conjuntos.get(i);
+            ArrayList<Congresista> a = rc.obtConjunto();
+            if (a.contains(c)){
+                a.remove(c);
+                if (a.isEmpty()){
+                    deshacerCompuestaConj(rc.obtId());
+                    conjuntos.remove(i);
+                    --i;
+                }
+            }
+        }
+    }
+    public void eliminarEventoCompuestas(Evento e) throws Exception {
+        for(int i=0; i<conjuntos.size(); ++i) {
+            RelacionCompuesta rc = conjuntos.get(i);
+            if (rc.obtEvento().equals(e)){
+                deshacerCompuestaConj(rc.obtId());
+                conjuntos.remove(i);
+                --i;
+            }
+        }
     }
     public ArrayList<Evento> obtEventos(Congresista c) throws Exception {
         return congresistas.obtener(c.obtID()).obtenerEventos();

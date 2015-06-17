@@ -182,7 +182,7 @@ public class PanelRelacionesGeneral extends Panel3ListasExt {
 
     private void bEliminarTodasActionPerformed(ActionEvent evt) {
         if (!cpr.esVacioRelaciones()) {
-            cpr.eliminarRelaciones();
+            cpr.eliminarRelacionesSimples();
             actualizaListaRelaciones();
         }
     }

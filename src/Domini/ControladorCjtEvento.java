@@ -74,7 +74,8 @@ public class ControladorCjtEvento {
     }
 
     public void EliminarEvento(String nombre, String fecha, int imp, ControladorRelaciones cr) throws Exception{
-        if(cr.tieneRelaciones(nombre, fecha)) cr.eliminarRelaciones(nombre, fecha);
+        if(cr.tieneRelacionesSimples(nombre, fecha)) cr.eliminarRelacionesSimples(nombre, fecha);
+        cr.eliminarEventoCompuestas(nombre, fecha);
         ce.EliminarEvento(nombre, new Fecha(fecha), imp);
     }
 
@@ -84,7 +85,7 @@ public class ControladorCjtEvento {
     }
 
     public void ModificarNombreEvento(String nomViejo, String fecha, String nomNuevo, int imp, ControladorRelaciones cr) throws Exception{
-        if(cr.tieneRelaciones(nomViejo, fecha)) {
+        if(cr.tieneRelacionesSimples(nomViejo, fecha)) {
             String id = ConsultarEvento(nomViejo,fecha).ID();
             ce.ModificarNombreEvento(nomViejo, new Fecha(fecha), nomNuevo, imp);
             String new_id = ConsultarEvento(nomNuevo, fecha).ID();
@@ -94,7 +95,7 @@ public class ControladorCjtEvento {
     }
 
     public void ModificarFechaEvento(String nombre, String fechaVieja, String fechaNueva, int imp, ControladorRelaciones cr) throws Exception {
-        if(cr.tieneRelaciones(nombre, fechaVieja)){
+        if(cr.tieneRelacionesSimples(nombre, fechaVieja)){
             String id = ConsultarEvento(nombre,fechaVieja).ID();
             ce.ModificarFechaEvento(nombre, new Fecha(fechaVieja), new Fecha(fechaNueva), imp);
             String new_id = ConsultarEvento(nombre,fechaNueva).ID();

@@ -49,6 +49,10 @@ public abstract class RelacionCompuesta extends Relacion {
         throw new Exception("La relación compuesta es un conjunto.");
     }
 
+    public Evento obtEvento() throws Exception {
+        throw new Exception("La relación compuesta no es un conjunto.");
+    }
+
     public int obtId(){
         return id;
     }

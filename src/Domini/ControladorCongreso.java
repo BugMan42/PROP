@@ -57,7 +57,8 @@ public class ControladorCongreso {
     }
 
     public void eliminarCongresista(String dni, String nombre, String apellido, int edad, String ciudad, String estado, String partido, ControladorRelaciones cr) throws Exception {
-        if(cr.tieneRelaciones(dni)) cr.eliminarRelaciones(dni);
+        if(cr.tieneRelacionesSimples(dni)) cr.eliminarRelacionesSimples(dni);
+        cr.eliminarCongresistaCompuestas(dni);
         Congresista a = new Congresista(new Dni(dni),nombre,apellido,edad,ciudad,estado,partido);
         c.eliminarCongresista(a);
     }
@@ -70,7 +71,7 @@ public class ControladorCongreso {
     public void modCongresista(String dni, String dni_nuevo, String nombre, String nombre_nuevo, String apellido,
                                String apellido_nuevo, int edad, int edad_nuevo, String ciudad, String ciudad_nuevo,
                                String estado, String estado_nuevo, String partido, String partido_nuevo, ControladorRelaciones cr) throws  Exception{
-        if(cr.tieneRelaciones(dni)) cr.modCongresista(dni,dni_nuevo);
+        if(cr.tieneRelacionesSimples(dni)) cr.modCongresista(dni,dni_nuevo);
         Dni d = new Dni(dni);
         Dni d_nuevo = new Dni(dni_nuevo);
         Congresista con = new Congresista(d, nombre, apellido, edad, ciudad, estado, partido);

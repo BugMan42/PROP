@@ -35,12 +35,12 @@ public class ControladorRelaciones {
         cache = new ArrayList<String>();
     }
 
-    public boolean esVacio(){
-        return rs.esVacio();
+    public boolean esVacioSimples(){
+        return rs.esVacioSimples();
     }
 
-    public int size() throws Exception {
-        return rs.size();
+    public int sizeSimples() throws Exception {
+        return rs.sizeSimples();
     }
 
     public int sizeCache(){
@@ -60,7 +60,7 @@ public class ControladorRelaciones {
             Reunion aux = (Reunion) ev;
             r = new RelacionSimpleSinVoto(con,aux);
         }
-        rs.agregarRelacion(r);
+        rs.agregarRelacionSimple(r);
     }
 
     public void agregarVoto(String dni, String nombre, String fecha, String voto) throws Exception {
@@ -76,12 +76,12 @@ public class ControladorRelaciones {
         else if (voto.equals("Positivo")) v = new Positivo();
         else throw new Exception(E3);
         RelacionSimple r = new RelacionSimpleConVoto(con,aux,v);
-        rs.agregarRelacion(r);
+        rs.agregarRelacionSimple(r);
     }
 
     public void agregarRelacionRandom(int n) throws Exception {
         long maxr = (long)c.size()*(long)e.size();
-        int nr = rs.size();
+        int nr = rs.sizeSimples();
         //System.out.println("maxr="+maxr+" nr="+nr);
         if(nr < maxr){
             List<Congresista> lc = c.obtenerCongreso();
@@ -138,7 +138,7 @@ public class ControladorRelaciones {
             Reunion aux = (Reunion) ev;
             r = new RelacionSimpleSinVoto(con,aux);
         }
-        return rs.existeRelacion(r);
+        return rs.existeRelacionSimple(r);
     }
 
     public boolean existeVoto(String dni, String nombre, String fecha, String voto) throws Exception {
@@ -154,17 +154,17 @@ public class ControladorRelaciones {
         else if (voto.equals("Positivo")) v = new Positivo();
         else throw new Exception(E3);
         RelacionSimple r = new RelacionSimpleConVoto(con,aux,v);
-        return rs.existeRelacion(r);
+        return rs.existeRelacionSimple(r);
     }
 
-    public boolean tieneRelaciones(String dni) throws Exception{
+    public boolean tieneRelacionesSimples(String dni) throws Exception{
         Congresista con = c.consultarCongresista(dni);
-        return rs.tieneRelaciones(con);
+        return rs.tieneRelacionesSimples(con);
     }
 
-    public boolean tieneRelaciones(String nombre, String fecha) throws Exception{
+    public boolean tieneRelacionesSimples(String nombre, String fecha) throws Exception{
         Evento ev = e.ConsultarEvento(nombre, fecha);
-        return rs.tieneRelaciones(ev);
+        return rs.tieneRelacionesSimples(ev);
     }
 
     public void eliminarRelacion(String dni, String nombre, String fecha) throws Exception {
@@ -179,7 +179,7 @@ public class ControladorRelaciones {
             Reunion aux = (Reunion) ev;
             r = new RelacionSimpleSinVoto(con,aux);
         }
-        rs.eliminarRelacion(r);
+        rs.eliminarRelacionSimple(r);
     }
 
     public void eliminarVoto(String dni, String nombre, String fecha, String voto) throws Exception {
@@ -193,21 +193,29 @@ public class ControladorRelaciones {
         else if (voto.equals("Positivo")) v = new Positivo();
         else throw new Exception(E3);
         RelacionSimple r = new RelacionSimpleConVoto(con,vot,v);
-        rs.eliminarRelacion(r);
+        rs.eliminarRelacionSimple(r);
     }
 
-    public void eliminarRelaciones(String dni) throws Exception {
+    public void eliminarRelacionesSimples(String dni) throws Exception {
         Congresista con = c.consultarCongresista(dni);
-        rs.eliminarRelaciones(con);
+        rs.eliminarRelacionesSimples(con);
     }
 
-    public void eliminarRelaciones(String nombre, String fecha) throws Exception {
+    public void eliminarRelacionesSimples(String nombre, String fecha) throws Exception {
         Evento ev = e.ConsultarEvento(nombre, fecha);
-        rs.eliminarRelaciones(ev);
+        rs.eliminarRelacionesSimples(ev);
     }
 
     public void eliminarRelaciones() throws Exception {
         rs.eliminarRelaciones();
+    }
+
+    public void eliminarRelacionesSimples() throws Exception {
+        rs.eliminarRelacionesSimples();
+    }
+
+    public void eliminarRelacionesCompuestas() throws Exception {
+        rs.eliminarRelacionesCompuestas();
     }
 
     ArrayList<Evento> obtEventos(String dni) throws Exception {
@@ -281,7 +289,7 @@ public class ControladorRelaciones {
             }
             cp.escribir("\n");
         }
-        if (!rs.esVacio()){
+        if (!rs.esVacioSimples()){
             ArrayList<RelacionSimple> rel = rs.obtTodasLasRelaciones();
             Iterator<RelacionSimple> it = rel.iterator();
             while (it.hasNext()){
@@ -448,7 +456,7 @@ public class ControladorRelaciones {
     public String obtBloquePR(int bloque, int tam_bloque) throws Exception {
         int ini = bloque * tam_bloque;
         int fin = ini + tam_bloque;
-        if (fin > size()) fin = size();
+        if (fin > sizeSimples()) fin = sizeSimples();
         List<RelacionSimple> lr = rs.obtTodasLasRelaciones().subList(ini,fin);
         String res = "";
         for (RelacionSimple rs : lr) res += rs.toString()+"\n";
@@ -457,7 +465,7 @@ public class ControladorRelaciones {
 
     public void cargarCache(String dni) throws Exception {
         ArrayList<String> res = new ArrayList<String>();
-        if (tieneRelaciones(dni)) {
+        if (tieneRelacionesSimples(dni)) {
             ArrayList<RelacionSimple> lr = obtRelaciones(dni);
             for (RelacionSimple rs : lr) {
                 Evento e = rs.obtEvento();
@@ -471,7 +479,7 @@ public class ControladorRelaciones {
 
     public void cargarCache(String nombre, String fecha) throws Exception {
         ArrayList<String> res = new ArrayList<String>();
-        if (tieneRelaciones(nombre, fecha)) {
+        if (tieneRelacionesSimples(nombre, fecha)) {
             ArrayList<RelacionSimple> lr = obtRelaciones(nombre, fecha);
             for (RelacionSimple rs : lr) {
                 Congresista c = rs.obtCongresista();
@@ -599,6 +607,16 @@ public class ControladorRelaciones {
 
     public void eliminarConjunto(int id) throws Exception {
         rs.eliminarConjunto(id);
+    }
+
+    public void eliminarCongresistaCompuestas(String dni) throws Exception {
+        Congresista con = c.consultarCongresista(dni);
+        rs.eliminarCongresistaCompuestas(con);
+    }
+
+    public void eliminarEventoCompuestas(String nombre, String fecha) throws Exception {
+        Evento ev = e.ConsultarEvento(nombre,fecha);
+        rs.eliminarEventoCompuestas(ev);
     }
 
 }

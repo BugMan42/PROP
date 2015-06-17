@@ -141,7 +141,7 @@ public class CPRelaciones {
     }
 
     public boolean esVacioRelaciones(){
-        return CR.esVacio();
+        return CR.esVacioSimples();
     }
 
     public int sizeCongreso(){
@@ -154,7 +154,7 @@ public class CPRelaciones {
 
     public int sizeRelaciones() {
         try {
-            return CR.size();
+            return CR.sizeSimples();
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
@@ -455,9 +455,9 @@ public class CPRelaciones {
         }
     }
 
-    public void eliminarRelaciones(){
+    public void eliminarRelacionesSimples(){
         try {
-            CR.eliminarRelaciones();
+            CR.eliminarRelacionesSimples();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -73,10 +73,10 @@ public class DriverRelaciones {
                 R = new Relaciones();
                 break;
             case 1:
-                R.agregarRelacion(R1);
+                R.agregarRelacionSimple(R1);
                 break;
             case 2:
-                R.eliminarRelacion(R1);
+                R.eliminarRelacionSimple(R1);
                 break;
             case 3:
                 R.eliminarRelaciones();

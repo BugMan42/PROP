@@ -122,11 +122,11 @@ public class DriverControladorRelaciones {
                         break;
                     case 21:
                         if(params.length!=1) throw new Exception(E1);
-                        dr.print(dr.cr.esVacio() + "");
+                        dr.print(dr.cr.esVacioSimples() + "");
                         break;
                     case 22:
                         if(params.length!=1) throw new Exception(E1);
-                        dr.print(dr.cr.size()+"");
+                        dr.print(dr.cr.sizeSimples()+"");
                         break;
                     case 23:
                         if(params.length!=1) throw new Exception(E1);
@@ -154,11 +154,11 @@ public class DriverControladorRelaciones {
                         break;
                     case 29:
                         if(params.length!=2) throw new Exception(E1);
-                        dr.print(String.valueOf(dr.cr.tieneRelaciones(params[1])));
+                        dr.print(String.valueOf(dr.cr.tieneRelacionesSimples(params[1])));
                         break;
                     case 30:
                         if(params.length!=3) throw new Exception(E1);
-                        dr.print(String.valueOf(dr.cr.tieneRelaciones(params[1], params[2])));
+                        dr.print(String.valueOf(dr.cr.tieneRelacionesSimples(params[1], params[2])));
                         break;
                     case 31:
                         if(params.length!=4) throw new Exception(E1);
@@ -170,11 +170,11 @@ public class DriverControladorRelaciones {
                         break;
                     case 33:
                         if(params.length!=2) throw new Exception(E1);
-                        dr.cr.eliminarRelaciones(params[1]);
+                        dr.cr.eliminarRelacionesSimples(params[1]);
                         break;
                     case 34:
                         if(params.length!=3) throw new Exception(E1);
-                        dr.cr.eliminarRelaciones(params[1], params[2]);
+                        dr.cr.eliminarRelacionesSimples(params[1], params[2]);
                         break;
                     case 35:
                         if(params.length!=1) throw new Exception(E1);
